@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+venv/
+env/
+.venv/
+.env
+
+# Data (large files - regenerate with scripts in src/data, don't commit)
+data/raw/*
+data/splits/*
+!data/raw/.gitkeep
+!data/splits/.gitkeep
+
+# Cloned baseline repos (each has its own git history/license - don't nest them)
+src/data/baselines/*
+!src/data/baselines/README.md
+!src/data/baselines/__init__.py
+
+# Model checkpoints and large results
+*.pt
+*.pth
+*.ckpt
+results/*.png
+results/*.csv
+!results/.gitkeep
+
+# OS/editor junk
+.DS_Store
+.vscode/
+.idea/
+*.swp

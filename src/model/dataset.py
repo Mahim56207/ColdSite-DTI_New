@@ -1,0 +1,133 @@
+"""
+Track B (124AD0015) — Dataset / DataLoader over Track A's split files.
+
+This is the "fill in the DataLoader / dataset class" TODO left in train.py.
+Reads the CSVs in data/splits/. Column names are auto-detected from a few common
+spellings so this does not break the first time a file arrives with `Drug`
+instead of `compound_iso_smiles`.
+"""
+import random
+
+import pandas as pd
+import torch
+from torch.nn.utils.rnn import pad_sequence
+from torch.utils.data import DataLoader, Dataset
+
+from src.model.drug_encoder import PAD_IDX, build_smiles_vocab, encode_smiles
+from src.model.protein_encoder import build_protein_vocab, encode_protein
+
+SMILES_COLUMNS = ["compound_iso_smiles", "smiles", "drug", "drug_smiles", "ligand"]
+PROTEIN_COLUMNS = ["target_sequence", "protein", "target", "sequence", "aa_sequence"]
+LABEL_COLUMNS = ["affinity", "label", "y", "value", "interaction"]
+
+
+def find_column(df: pd.DataFrame, candidates: list, role: str) -> str:
+    lowered = {c.lower().strip(): c for c in df.columns}
+    for candidate in candidates:
+        if candidate in lowered:
+            return lowered[candidate]
+    raise KeyError(f"No {role} column found. Looked for {candidates}, "
+                   f"file has {list(df.columns)}")
+
+
+class DTIDataset(Dataset):
+    """One split of one dataset, e.g. data/splits/davis/cold_target/train.csv"""
+
+    def __init__(self, smiles, proteins, labels, drug_vocab, protein_vocab,
+                 max_smiles_len=100, max_protein_len=1000):
+        if not (len(smiles) == len(proteins) == len(labels)):
+            raise ValueError("smiles, proteins and labels must be the same length")
+        self.smiles, self.proteins, self.labels = smiles, proteins, labels
+        self.drug_vocab, self.protein_vocab = drug_vocab, protein_vocab
+        self.max_smiles_len, self.max_protein_len = max_smiles_len, max_protein_len
+
+    @classmethod
+    def from_csv(cls, path, drug_vocab, protein_vocab, **kwargs):
+        df = pd.read_csv(path)
+        s = find_column(df, SMILES_COLUMNS, "SMILES")
+        p = find_column(df, PROTEIN_COLUMNS, "protein sequence")
+        y = find_column(df, LABEL_COLUMNS, "label")
+        df = df.dropna(subset=[s, p, y])
+        return cls(df[s].astype(str).tolist(),
+                   df[p].astype(str).str.upper().tolist(),
+                   df[y].astype(float).tolist(),
+                   drug_vocab, protein_vocab, **kwargs)
+
+    def __len__(self):
+        return len(self.labels)
+
+    def __getitem__(self, idx):
+        drug = torch.tensor(encode_smiles(self.smiles[idx], self.drug_vocab,
+                                          self.max_smiles_len), dtype=torch.long)
+        protein = torch.tensor(encode_protein(self.proteins[idx], self.protein_vocab,
+                                              self.max_protein_len), dtype=torch.long)
+        return drug, protein, torch.tensor(self.labels[idx], dtype=torch.float)
+
+
+def collate_batch(batch):
+    """Pad each batch to its own longest drug and longest protein.
+
+    Padding to a global maximum instead would waste most of the compute: DAVIS
+    proteins run from roughly 200 to 2500 residues.
+    """
+    drugs, proteins, labels = zip(*batch)
+    return (pad_sequence(drugs, batch_first=True, padding_value=PAD_IDX),
+            pad_sequence(proteins, batch_first=True, padding_value=PAD_IDX),
+            torch.stack(labels))
+
+
+def make_loader(dataset, batch_size=64, shuffle=False, workers=0):
+    return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle,
+                      collate_fn=collate_batch, num_workers=workers)
+
+
+def load_split(split_dir, max_protein_len=1000, batch_size=64):
+    """Build train/valid/test loaders for one split directory.
+
+    Returns (train_loader, valid_loader, test_loader, drug_vocab, protein_vocab).
+    """
+    train_df = pd.read_csv(f"{split_dir}/train.csv")
+    # Vocab is built from TRAIN ONLY. Building it from all three splits would leak
+    # information about unseen drugs -- precisely what the cold splits measure.
+    drug_vocab = build_smiles_vocab(
+        train_df[find_column(train_df, SMILES_COLUMNS, "SMILES")].astype(str).tolist()
+    )
+    protein_vocab = build_protein_vocab()
+
+    common = dict(drug_vocab=drug_vocab, protein_vocab=protein_vocab,
+                  max_protein_len=max_protein_len)
+    train = DTIDataset.from_csv(f"{split_dir}/train.csv", **common)
+    valid = DTIDataset.from_csv(f"{split_dir}/valid.csv", **common)
+    test = DTIDataset.from_csv(f"{split_dir}/test.csv", **common)
+
+    return (make_loader(train, batch_size, shuffle=True),
+            make_loader(valid, batch_size),
+            make_loader(test, batch_size),
+            drug_vocab, protein_vocab)
+
+
+def random_dataset(n=256, binary=True, seed=0):
+    """Random SMILES-shaped and protein-shaped strings, random labels.
+
+    The labels carry no signal by design. This exists to prove the loop runs, not
+    to prove the model learns; expect AUROC near 0.5 and CI near 0.5.
+    """
+    rng = random.Random(seed)
+    smiles_chars = "CNOSPFIcln()[]=#+-123456"
+    amino_acids = "ACDEFGHIKLMNPQRSTVWY"
+    smiles = ["".join(rng.choices(smiles_chars, k=rng.randint(10, 90)))
+              for _ in range(n)]
+    proteins = ["".join(rng.choices(amino_acids, k=rng.randint(60, 400)))
+                for _ in range(n)]
+    labels = [float(rng.randint(0, 1)) if binary else rng.uniform(5.0, 11.0)
+              for _ in range(n)]
+    return DTIDataset(smiles, proteins, labels,
+                      build_smiles_vocab(smiles), build_protein_vocab())
+
+
+if __name__ == "__main__":
+    ds = random_dataset(32)
+    drugs, proteins, labels = next(iter(make_loader(ds, batch_size=8)))
+    print("Drug batch:", drugs.shape)        # (8, <= 90)
+    print("Protein batch:", proteins.shape)  # (8, <= 400)
+    print("Labels:", labels.shape)           # (8,)

@@ -2,7 +2,9 @@
   "metadata": {
     "description": "Mapping of UniProt IDs to known Binding/Active site residue locations.",
     "source": "UniProt REST API",
-    "davis_gene_to_uniprot_mapping": {}
+    "davis_gene_to_uniprot_mapping": {},
+    "total_targets_searched": 239,
+    "total_targets_with_sites": 220
   },
   "binding_sites": {
     "P35916": [
@@ -8153,38 +8155,6 @@
         },
         "end": {
           "value": 167,
-          "modifier": "EXACT"
-        }
-      }
-    ],
-    "P43403": [
-      {
-        "start": {
-          "value": 461,
-          "modifier": "EXACT"
-        },
-        "end": {
-          "value": 461,
-          "modifier": "EXACT"
-        }
-      },
-      {
-        "start": {
-          "value": 345,
-          "modifier": "EXACT"
-        },
-        "end": {
-          "value": 352,
-          "modifier": "EXACT"
-        }
-      },
-      {
-        "start": {
-          "value": 369,
-          "modifier": "EXACT"
-        },
-        "end": {
-          "value": 369,
           "modifier": "EXACT"
         }
       }

@@ -62,7 +62,7 @@ def test(data_generator, model):
 
         loss = loss_fct(logits.view(-1), label.view(-1))
 
-        loss_accumulate += loss
+        loss_accumulate += loss.item()
         count += 1
 
         logits = logits.detach().cpu().numpy()
@@ -171,7 +171,7 @@ def main():
             n = torch.squeeze(m(score))
 
             loss = loss_fct(n.view(-1), label.view(-1))
-            loss_history.append(loss)
+            loss_history.append(loss.item())
 
             opt.zero_grad()
             loss.backward()

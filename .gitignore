@@ -33,3 +33,6 @@ results/*.csv
 .vscode/
 .idea/
 *.swp
+
+baselines/**/data/
+baselines/**/dataset/

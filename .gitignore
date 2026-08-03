@@ -18,6 +18,7 @@ data/splits/*
 src/data/baselines/*
 !src/data/baselines/README.md
 !src/data/baselines/__init__.py
+notebooks/data/
 
 # Model checkpoints and large results
 *.pt
@@ -32,3 +33,6 @@ results/*.csv
 .vscode/
 .idea/
 *.swp
+
+baselines/**/data/
+baselines/**/dataset/

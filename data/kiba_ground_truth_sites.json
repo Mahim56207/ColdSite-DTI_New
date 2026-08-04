@@ -1,0 +1,6025 @@
+{
+    "O00141": [
+        {
+            "start": 222,
+            "end": 222,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 104,
+            "end": 112,
+            "description": ""
+        },
+        {
+            "start": 127,
+            "end": 127,
+            "description": ""
+        }
+    ],
+    "O14920": [
+        {
+            "start": 145,
+            "end": 145,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 21,
+            "end": 29,
+            "description": ""
+        },
+        {
+            "start": 44,
+            "end": 44,
+            "description": ""
+        }
+    ],
+    "O15111": [
+        {
+            "start": 144,
+            "end": 144,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 21,
+            "end": 29,
+            "description": ""
+        },
+        {
+            "start": 44,
+            "end": 44,
+            "description": ""
+        }
+    ],
+    "P00533": [
+        {
+            "start": 837,
+            "end": 837,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 718,
+            "end": 726,
+            "description": ""
+        },
+        {
+            "start": 745,
+            "end": 745,
+            "description": ""
+        },
+        {
+            "start": 790,
+            "end": 791,
+            "description": ""
+        },
+        {
+            "start": 855,
+            "end": 855,
+            "description": ""
+        },
+        {
+            "start": 1016,
+            "end": 1016,
+            "description": "Important for interaction with PIK3C2B"
+        }
+    ],
+    "P04626": [
+        {
+            "start": 845,
+            "end": 845,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 726,
+            "end": 734,
+            "description": ""
+        },
+        {
+            "start": 753,
+            "end": 753,
+            "description": ""
+        }
+    ],
+    "P06239": [
+        {
+            "start": 364,
+            "end": 364,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 251,
+            "end": 259,
+            "description": ""
+        },
+        {
+            "start": 273,
+            "end": 273,
+            "description": ""
+        }
+    ],
+    "P07333": [
+        {
+            "start": 778,
+            "end": 778,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 588,
+            "end": 596,
+            "description": ""
+        },
+        {
+            "start": 616,
+            "end": 616,
+            "description": ""
+        }
+    ],
+    "P15056": [
+        {
+            "start": 576,
+            "end": 576,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 235,
+            "end": 235,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 251,
+            "end": 251,
+            "description": ""
+        },
+        {
+            "start": 261,
+            "end": 261,
+            "description": ""
+        },
+        {
+            "start": 264,
+            "end": 264,
+            "description": ""
+        },
+        {
+            "start": 269,
+            "end": 269,
+            "description": ""
+        },
+        {
+            "start": 272,
+            "end": 272,
+            "description": ""
+        },
+        {
+            "start": 280,
+            "end": 280,
+            "description": ""
+        },
+        {
+            "start": 463,
+            "end": 471,
+            "description": ""
+        },
+        {
+            "start": 483,
+            "end": 483,
+            "description": ""
+        },
+        {
+            "start": 380,
+            "end": 381,
+            "description": "Breakpoint for translocation to form KIAA1549-BRAF fusion protein"
+        },
+        {
+            "start": 438,
+            "end": 439,
+            "description": "Breakpoint for translocation to form KIAA1549-BRAF fusion protein"
+        }
+    ],
+    "P24941": [
+        {
+            "start": 127,
+            "end": 127,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 10,
+            "end": 10,
+            "description": ""
+        },
+        {
+            "start": 11,
+            "end": 11,
+            "description": ""
+        },
+        {
+            "start": 12,
+            "end": 12,
+            "description": ""
+        },
+        {
+            "start": 13,
+            "end": 13,
+            "description": ""
+        },
+        {
+            "start": 14,
+            "end": 14,
+            "description": ""
+        },
+        {
+            "start": 14,
+            "end": 14,
+            "description": ""
+        },
+        {
+            "start": 15,
+            "end": 15,
+            "description": ""
+        },
+        {
+            "start": 16,
+            "end": 16,
+            "description": ""
+        },
+        {
+            "start": 17,
+            "end": 17,
+            "description": ""
+        },
+        {
+            "start": 18,
+            "end": 18,
+            "description": ""
+        },
+        {
+            "start": 33,
+            "end": 33,
+            "description": ""
+        },
+        {
+            "start": 33,
+            "end": 33,
+            "description": ""
+        },
+        {
+            "start": 81,
+            "end": 83,
+            "description": ""
+        },
+        {
+            "start": 81,
+            "end": 81,
+            "description": ""
+        },
+        {
+            "start": 83,
+            "end": 83,
+            "description": ""
+        },
+        {
+            "start": 86,
+            "end": 86,
+            "description": ""
+        },
+        {
+            "start": 127,
+            "end": 127,
+            "description": ""
+        },
+        {
+            "start": 129,
+            "end": 132,
+            "description": ""
+        },
+        {
+            "start": 132,
+            "end": 132,
+            "description": ""
+        },
+        {
+            "start": 145,
+            "end": 145,
+            "description": ""
+        },
+        {
+            "start": 145,
+            "end": 145,
+            "description": ""
+        },
+        {
+            "start": 9,
+            "end": 9,
+            "description": "CDK7 binding"
+        },
+        {
+            "start": 88,
+            "end": 89,
+            "description": "CDK7 binding"
+        },
+        {
+            "start": 166,
+            "end": 166,
+            "description": "CDK7 binding"
+        }
+    ],
+    "P28482": [
+        {
+            "start": 149,
+            "end": 149,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 31,
+            "end": 39,
+            "description": ""
+        },
+        {
+            "start": 54,
+            "end": 54,
+            "description": ""
+        }
+    ],
+    "P45983": [
+        {
+            "start": 151,
+            "end": 151,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 32,
+            "end": 40,
+            "description": ""
+        },
+        {
+            "start": 55,
+            "end": 55,
+            "description": ""
+        }
+    ],
+    "P45984": [
+        {
+            "start": 151,
+            "end": 151,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 32,
+            "end": 40,
+            "description": ""
+        },
+        {
+            "start": 55,
+            "end": 55,
+            "description": ""
+        }
+    ],
+    "P49841": [
+        {
+            "start": 181,
+            "end": 181,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 62,
+            "end": 70,
+            "description": ""
+        },
+        {
+            "start": 85,
+            "end": 85,
+            "description": ""
+        }
+    ],
+    "P53350": [
+        {
+            "start": 176,
+            "end": 176,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 59,
+            "end": 67,
+            "description": ""
+        },
+        {
+            "start": 82,
+            "end": 82,
+            "description": ""
+        },
+        {
+            "start": 131,
+            "end": 131,
+            "description": ""
+        },
+        {
+            "start": 178,
+            "end": 181,
+            "description": ""
+        },
+        {
+            "start": 194,
+            "end": 194,
+            "description": ""
+        }
+    ],
+    "P53779": [
+        {
+            "start": 189,
+            "end": 189,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 70,
+            "end": 78,
+            "description": ""
+        },
+        {
+            "start": 93,
+            "end": 93,
+            "description": ""
+        }
+    ],
+    "Q13464": [
+        {
+            "start": 198,
+            "end": 198,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 82,
+            "end": 90,
+            "description": ""
+        },
+        {
+            "start": 105,
+            "end": 105,
+            "description": ""
+        },
+        {
+            "start": 1113,
+            "end": 1114,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "Q16539": [
+        {
+            "start": 168,
+            "end": 168,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 30,
+            "end": 38,
+            "description": ""
+        },
+        {
+            "start": 53,
+            "end": 53,
+            "description": ""
+        }
+    ],
+    "Q16584": [
+        {
+            "start": 241,
+            "end": 241,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 123,
+            "end": 131,
+            "description": ""
+        },
+        {
+            "start": 144,
+            "end": 144,
+            "description": ""
+        }
+    ],
+    "O00311": [
+        {
+            "start": 177,
+            "end": 177,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 64,
+            "end": 72,
+            "description": ""
+        },
+        {
+            "start": 90,
+            "end": 90,
+            "description": ""
+        }
+    ],
+    "O14757": [
+        {
+            "start": 130,
+            "end": 130,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 15,
+            "end": 23,
+            "description": ""
+        },
+        {
+            "start": 38,
+            "end": 38,
+            "description": ""
+        }
+    ],
+    "O14965": [
+        {
+            "start": 256,
+            "end": 256,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 143,
+            "end": 143,
+            "description": ""
+        },
+        {
+            "start": 162,
+            "end": 162,
+            "description": ""
+        },
+        {
+            "start": 211,
+            "end": 213,
+            "description": ""
+        },
+        {
+            "start": 260,
+            "end": 261,
+            "description": ""
+        },
+        {
+            "start": 274,
+            "end": 274,
+            "description": ""
+        }
+    ],
+    "O15075": [
+        {
+            "start": 511,
+            "end": 511,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 396,
+            "end": 404,
+            "description": ""
+        },
+        {
+            "start": 419,
+            "end": 419,
+            "description": ""
+        }
+    ],
+    "O15264": [
+        {
+            "start": 150,
+            "end": 150,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 31,
+            "end": 39,
+            "description": ""
+        },
+        {
+            "start": 54,
+            "end": 54,
+            "description": ""
+        }
+    ],
+    "O15530": [
+        {
+            "start": 205,
+            "end": 205,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 92,
+            "end": 94,
+            "description": ""
+        },
+        {
+            "start": 111,
+            "end": 111,
+            "description": ""
+        },
+        {
+            "start": 160,
+            "end": 162,
+            "description": ""
+        },
+        {
+            "start": 166,
+            "end": 166,
+            "description": ""
+        },
+        {
+            "start": 209,
+            "end": 209,
+            "description": ""
+        },
+        {
+            "start": 223,
+            "end": 223,
+            "description": ""
+        }
+    ],
+    "O43293": [
+        {
+            "start": 139,
+            "end": 139,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 19,
+            "end": 27,
+            "description": ""
+        },
+        {
+            "start": 42,
+            "end": 42,
+            "description": ""
+        },
+        {
+            "start": 94,
+            "end": 94,
+            "description": ""
+        },
+        {
+            "start": 96,
+            "end": 96,
+            "description": ""
+        }
+    ],
+    "O60674": [
+        {
+            "start": 976,
+            "end": 976,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 855,
+            "end": 863,
+            "description": ""
+        },
+        {
+            "start": 882,
+            "end": 882,
+            "description": ""
+        },
+        {
+            "start": 352,
+            "end": 353,
+            "description": "Breakpoint for translocation to form PCM1-JAK2 fusion protein"
+        },
+        {
+            "start": 442,
+            "end": 443,
+            "description": "Breakpoint for translocation to form PCM1-JAK2 fusion protein"
+        },
+        {
+            "start": 450,
+            "end": 451,
+            "description": "Breakpoint for translocation to form PCM1-JAK2 fusion protein"
+        },
+        {
+            "start": 504,
+            "end": 505,
+            "description": "Breakpoint for translocation to form PCM1-JAK2 fusion protein"
+        },
+        {
+            "start": 710,
+            "end": 711,
+            "description": "Breakpoint for translocation to form PCM1-JAK2 fusion protein"
+        }
+    ],
+    "O75116": [
+        {
+            "start": 214,
+            "end": 214,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 98,
+            "end": 106,
+            "description": ""
+        },
+        {
+            "start": 121,
+            "end": 121,
+            "description": ""
+        },
+        {
+            "start": 1131,
+            "end": 1132,
+            "description": "Cleavage; by granzyme B"
+        }
+    ],
+    "O75582": [
+        {
+            "start": 177,
+            "end": 177,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 544,
+            "end": 544,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 55,
+            "end": 63,
+            "description": ""
+        },
+        {
+            "start": 81,
+            "end": 81,
+            "description": ""
+        },
+        {
+            "start": 432,
+            "end": 440,
+            "description": ""
+        },
+        {
+            "start": 455,
+            "end": 455,
+            "description": ""
+        }
+    ],
+    "O94806": [
+        {
+            "start": 699,
+            "end": 699,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 582,
+            "end": 590,
+            "description": ""
+        },
+        {
+            "start": 605,
+            "end": 605,
+            "description": ""
+        }
+    ],
+    "O95819": [
+        {
+            "start": 153,
+            "end": 153,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 31,
+            "end": 39,
+            "description": ""
+        },
+        {
+            "start": 54,
+            "end": 54,
+            "description": ""
+        }
+    ],
+    "O96013": [
+        {
+            "start": 440,
+            "end": 440,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 327,
+            "end": 335,
+            "description": ""
+        },
+        {
+            "start": 350,
+            "end": 350,
+            "description": ""
+        },
+        {
+            "start": 396,
+            "end": 398,
+            "description": ""
+        },
+        {
+            "start": 458,
+            "end": 460,
+            "description": ""
+        }
+    ],
+    "O96017": [
+        {
+            "start": 347,
+            "end": 347,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 227,
+            "end": 234,
+            "description": ""
+        },
+        {
+            "start": 249,
+            "end": 249,
+            "description": ""
+        },
+        {
+            "start": 302,
+            "end": 308,
+            "description": ""
+        },
+        {
+            "start": 351,
+            "end": 352,
+            "description": ""
+        },
+        {
+            "start": 368,
+            "end": 368,
+            "description": ""
+        }
+    ],
+    "P04629": [
+        {
+            "start": 650,
+            "end": 650,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 516,
+            "end": 524,
+            "description": ""
+        },
+        {
+            "start": 544,
+            "end": 544,
+            "description": ""
+        },
+        {
+            "start": 398,
+            "end": 399,
+            "description": "Breakpoint for translocation to form TRK and TRK-T3"
+        },
+        {
+            "start": 486,
+            "end": 486,
+            "description": "Breakpoint for translocation to form TRK-T1"
+        },
+        {
+            "start": 496,
+            "end": 496,
+            "description": "Interaction with SHC1"
+        },
+        {
+            "start": 791,
+            "end": 791,
+            "description": "Interaction with PLCG1"
+        }
+    ],
+    "P05129": [
+        {
+            "start": 480,
+            "end": 480,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 186,
+            "end": 186,
+            "description": ""
+        },
+        {
+            "start": 187,
+            "end": 187,
+            "description": ""
+        },
+        {
+            "start": 187,
+            "end": 187,
+            "description": ""
+        },
+        {
+            "start": 193,
+            "end": 193,
+            "description": ""
+        },
+        {
+            "start": 246,
+            "end": 246,
+            "description": ""
+        },
+        {
+            "start": 246,
+            "end": 246,
+            "description": ""
+        },
+        {
+            "start": 247,
+            "end": 247,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 251,
+            "end": 251,
+            "description": ""
+        },
+        {
+            "start": 252,
+            "end": 252,
+            "description": ""
+        },
+        {
+            "start": 254,
+            "end": 254,
+            "description": ""
+        },
+        {
+            "start": 254,
+            "end": 254,
+            "description": ""
+        },
+        {
+            "start": 357,
+            "end": 365,
+            "description": ""
+        },
+        {
+            "start": 380,
+            "end": 380,
+            "description": ""
+        }
+    ],
+    "P06213": [
+        {
+            "start": 1159,
+            "end": 1159,
+            "description": "Proton donor/acceptor"
+        },
+        {
+            "start": 1033,
+            "end": 1033,
+            "description": ""
+        },
+        {
+            "start": 1057,
+            "end": 1057,
+            "description": ""
+        },
+        {
+            "start": 1104,
+            "end": 1110,
+            "description": ""
+        },
+        {
+            "start": 1163,
+            "end": 1164,
+            "description": ""
+        },
+        {
+            "start": 1177,
+            "end": 1177,
+            "description": ""
+        },
+        {
+            "start": 66,
+            "end": 66,
+            "description": "Insulin-binding"
+        }
+    ],
+    "P06241": [
+        {
+            "start": 390,
+            "end": 390,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 277,
+            "end": 285,
+            "description": ""
+        },
+        {
+            "start": 299,
+            "end": 299,
+            "description": ""
+        }
+    ],
+    "P06493": [
+        {
+            "start": 128,
+            "end": 128,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 10,
+            "end": 18,
+            "description": ""
+        },
+        {
+            "start": 33,
+            "end": 33,
+            "description": ""
+        }
+    ],
+    "P07332": [
+        {
+            "start": 683,
+            "end": 683,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 567,
+            "end": 575,
+            "description": ""
+        },
+        {
+            "start": 590,
+            "end": 590,
+            "description": ""
+        }
+    ],
+    "P07948": [
+        {
+            "start": 367,
+            "end": 367,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 253,
+            "end": 261,
+            "description": ""
+        },
+        {
+            "start": 275,
+            "end": 275,
+            "description": ""
+        }
+    ],
+    "P07949": [
+        {
+            "start": 874,
+            "end": 874,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 178,
+            "end": 178,
+            "description": ""
+        },
+        {
+            "start": 179,
+            "end": 179,
+            "description": ""
+        },
+        {
+            "start": 230,
+            "end": 230,
+            "description": ""
+        },
+        {
+            "start": 232,
+            "end": 232,
+            "description": ""
+        },
+        {
+            "start": 232,
+            "end": 232,
+            "description": ""
+        },
+        {
+            "start": 264,
+            "end": 264,
+            "description": ""
+        },
+        {
+            "start": 265,
+            "end": 265,
+            "description": ""
+        },
+        {
+            "start": 266,
+            "end": 266,
+            "description": ""
+        },
+        {
+            "start": 267,
+            "end": 267,
+            "description": ""
+        },
+        {
+            "start": 267,
+            "end": 267,
+            "description": ""
+        },
+        {
+            "start": 268,
+            "end": 268,
+            "description": ""
+        },
+        {
+            "start": 300,
+            "end": 300,
+            "description": ""
+        },
+        {
+            "start": 302,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 302,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 378,
+            "end": 378,
+            "description": ""
+        },
+        {
+            "start": 564,
+            "end": 564,
+            "description": ""
+        },
+        {
+            "start": 565,
+            "end": 565,
+            "description": ""
+        },
+        {
+            "start": 567,
+            "end": 567,
+            "description": ""
+        },
+        {
+            "start": 569,
+            "end": 569,
+            "description": ""
+        },
+        {
+            "start": 574,
+            "end": 574,
+            "description": ""
+        },
+        {
+            "start": 584,
+            "end": 584,
+            "description": ""
+        },
+        {
+            "start": 730,
+            "end": 738,
+            "description": ""
+        },
+        {
+            "start": 758,
+            "end": 758,
+            "description": ""
+        },
+        {
+            "start": 805,
+            "end": 807,
+            "description": ""
+        },
+        {
+            "start": 587,
+            "end": 588,
+            "description": "Breakpoint for translocation to form the TRIM27/RET oncogene"
+        },
+        {
+            "start": 707,
+            "end": 708,
+            "description": "Cleavage; by caspase-3"
+        },
+        {
+            "start": 712,
+            "end": 713,
+            "description": "Breakpoint for translocation to form PCM1-RET; RET-CCDC6; RET-GOLGA5; RET-TRIM24 and RET-TRIM33 oncogenes"
+        },
+        {
+            "start": 1017,
+            "end": 1018,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "P08069": [
+        {
+            "start": 1135,
+            "end": 1135,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1005,
+            "end": 1013,
+            "description": ""
+        },
+        {
+            "start": 1033,
+            "end": 1033,
+            "description": ""
+        }
+    ],
+    "P08922": [
+        {
+            "start": 2079,
+            "end": 2079,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1951,
+            "end": 1959,
+            "description": ""
+        },
+        {
+            "start": 1980,
+            "end": 1980,
+            "description": ""
+        },
+        {
+            "start": 1852,
+            "end": 1853,
+            "description": "Breakpoint for translocation to form SLC34A2-ROS1 and CD74-ROS1 fusion proteins"
+        },
+        {
+            "start": 1880,
+            "end": 1881,
+            "description": "Breakpoint for translocation to form GOPC-ROS1 fusion protein"
+        }
+    ],
+    "P10721": [
+        {
+            "start": 792,
+            "end": 792,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 568,
+            "end": 568,
+            "description": ""
+        },
+        {
+            "start": 596,
+            "end": 603,
+            "description": ""
+        },
+        {
+            "start": 623,
+            "end": 623,
+            "description": ""
+        },
+        {
+            "start": 671,
+            "end": 677,
+            "description": ""
+        },
+        {
+            "start": 796,
+            "end": 796,
+            "description": ""
+        },
+        {
+            "start": 797,
+            "end": 797,
+            "description": ""
+        },
+        {
+            "start": 810,
+            "end": 810,
+            "description": ""
+        },
+        {
+            "start": 936,
+            "end": 936,
+            "description": "Important for interaction with phosphotyrosine-binding proteins"
+        }
+    ],
+    "P11309": [
+        {
+            "start": 167,
+            "end": 167,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 44,
+            "end": 52,
+            "description": ""
+        },
+        {
+            "start": 67,
+            "end": 67,
+            "description": ""
+        },
+        {
+            "start": 121,
+            "end": 121,
+            "description": ""
+        },
+        {
+            "start": 128,
+            "end": 128,
+            "description": ""
+        }
+    ],
+    "P11362": [
+        {
+            "start": 623,
+            "end": 623,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 484,
+            "end": 490,
+            "description": ""
+        },
+        {
+            "start": 514,
+            "end": 514,
+            "description": ""
+        },
+        {
+            "start": 562,
+            "end": 564,
+            "description": ""
+        },
+        {
+            "start": 568,
+            "end": 568,
+            "description": ""
+        },
+        {
+            "start": 627,
+            "end": 627,
+            "description": ""
+        },
+        {
+            "start": 641,
+            "end": 641,
+            "description": ""
+        },
+        {
+            "start": 428,
+            "end": 429,
+            "description": "Breakpoint for translocation to form CEP43-FGFR1 or FGFR1-CEP43 fusion proteins"
+        },
+        {
+            "start": 428,
+            "end": 429,
+            "description": "Breakpoint for translocation to form CNTRL-FGFR1 OR FGFR1-CNTRL fusion proteins"
+        },
+        {
+            "start": 428,
+            "end": 429,
+            "description": "Breakpoint for translocation to form FGFR1OP2-FGFR1"
+        },
+        {
+            "start": 766,
+            "end": 766,
+            "description": "Mediates interaction with PLCG1 and SHB"
+        }
+    ],
+    "P12931": [
+        {
+            "start": 389,
+            "end": 389,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 276,
+            "end": 284,
+            "description": ""
+        },
+        {
+            "start": 298,
+            "end": 298,
+            "description": ""
+        }
+    ],
+    "P15735": [
+        {
+            "start": 153,
+            "end": 153,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 30,
+            "end": 38,
+            "description": ""
+        },
+        {
+            "start": 53,
+            "end": 53,
+            "description": ""
+        }
+    ],
+    "P16591": [
+        {
+            "start": 684,
+            "end": 684,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 569,
+            "end": 577,
+            "description": ""
+        },
+        {
+            "start": 591,
+            "end": 591,
+            "description": ""
+        }
+    ],
+    "P17612": [
+        {
+            "start": 167,
+            "end": 167,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 50,
+            "end": 58,
+            "description": ""
+        },
+        {
+            "start": 73,
+            "end": 73,
+            "description": ""
+        },
+        {
+            "start": 122,
+            "end": 128,
+            "description": ""
+        },
+        {
+            "start": 169,
+            "end": 172,
+            "description": ""
+        }
+    ],
+    "P23443": [
+        {
+            "start": 218,
+            "end": 218,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 97,
+            "end": 105,
+            "description": ""
+        },
+        {
+            "start": 123,
+            "end": 123,
+            "description": ""
+        }
+    ],
+    "P24723": [
+        {
+            "start": 479,
+            "end": 479,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 361,
+            "end": 369,
+            "description": ""
+        },
+        {
+            "start": 384,
+            "end": 384,
+            "description": ""
+        }
+    ],
+    "P27448": [
+        {
+            "start": 178,
+            "end": 178,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 62,
+            "end": 70,
+            "description": ""
+        },
+        {
+            "start": 85,
+            "end": 85,
+            "description": ""
+        }
+    ],
+    "P29317": [
+        {
+            "start": 739,
+            "end": 739,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 619,
+            "end": 627,
+            "description": ""
+        },
+        {
+            "start": 646,
+            "end": 646,
+            "description": ""
+        }
+    ],
+    "P29597": [
+        {
+            "start": 1023,
+            "end": 1023,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 903,
+            "end": 911,
+            "description": ""
+        },
+        {
+            "start": 930,
+            "end": 930,
+            "description": ""
+        }
+    ],
+    "P31751": [
+        {
+            "start": 275,
+            "end": 275,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 158,
+            "end": 166,
+            "description": ""
+        },
+        {
+            "start": 181,
+            "end": 181,
+            "description": ""
+        },
+        {
+            "start": 280,
+            "end": 280,
+            "description": ""
+        },
+        {
+            "start": 293,
+            "end": 293,
+            "description": ""
+        }
+    ],
+    "P35916": [
+        {
+            "start": 1037,
+            "end": 1037,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 851,
+            "end": 859,
+            "description": ""
+        },
+        {
+            "start": 879,
+            "end": 879,
+            "description": ""
+        }
+    ],
+    "P35968": [
+        {
+            "start": 1028,
+            "end": 1028,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 840,
+            "end": 848,
+            "description": ""
+        },
+        {
+            "start": 868,
+            "end": 868,
+            "description": ""
+        },
+        {
+            "start": 1175,
+            "end": 1175,
+            "description": "Interaction with SHB"
+        }
+    ],
+    "P41743": [
+        {
+            "start": 378,
+            "end": 378,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 260,
+            "end": 268,
+            "description": ""
+        },
+        {
+            "start": 283,
+            "end": 283,
+            "description": ""
+        }
+    ],
+    "P42679": [
+        {
+            "start": 352,
+            "end": 352,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 241,
+            "end": 249,
+            "description": ""
+        },
+        {
+            "start": 262,
+            "end": 262,
+            "description": ""
+        }
+    ],
+    "P42685": [
+        {
+            "start": 354,
+            "end": 354,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 240,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 262,
+            "end": 262,
+            "description": ""
+        }
+    ],
+    "P43405": [
+        {
+            "start": 494,
+            "end": 494,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 377,
+            "end": 385,
+            "description": ""
+        },
+        {
+            "start": 402,
+            "end": 402,
+            "description": ""
+        }
+    ],
+    "P48729": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 23,
+            "end": 31,
+            "description": ""
+        },
+        {
+            "start": 46,
+            "end": 46,
+            "description": ""
+        }
+    ],
+    "P48730": [
+        {
+            "start": 128,
+            "end": 128,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 15,
+            "end": 23,
+            "description": ""
+        },
+        {
+            "start": 38,
+            "end": 38,
+            "description": ""
+        }
+    ],
+    "P49137": [
+        {
+            "start": 186,
+            "end": 186,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 70,
+            "end": 78,
+            "description": ""
+        },
+        {
+            "start": 93,
+            "end": 93,
+            "description": ""
+        },
+        {
+            "start": 139,
+            "end": 141,
+            "description": ""
+        }
+    ],
+    "P49760": [
+        {
+            "start": 290,
+            "end": 290,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 169,
+            "end": 177,
+            "description": ""
+        },
+        {
+            "start": 193,
+            "end": 193,
+            "description": ""
+        }
+    ],
+    "P49840": [
+        {
+            "start": 244,
+            "end": 244,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 125,
+            "end": 133,
+            "description": ""
+        },
+        {
+            "start": 148,
+            "end": 148,
+            "description": ""
+        }
+    ],
+    "P51451": [
+        {
+            "start": 360,
+            "end": 360,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 247,
+            "end": 255,
+            "description": ""
+        },
+        {
+            "start": 269,
+            "end": 269,
+            "description": ""
+        }
+    ],
+    "P51617": [
+        {
+            "start": 340,
+            "end": 340,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 218,
+            "end": 226,
+            "description": ""
+        },
+        {
+            "start": 239,
+            "end": 239,
+            "description": ""
+        },
+        {
+            "start": 342,
+            "end": 345,
+            "description": ""
+        },
+        {
+            "start": 358,
+            "end": 358,
+            "description": ""
+        }
+    ],
+    "P51812": [
+        {
+            "start": 193,
+            "end": 193,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 539,
+            "end": 539,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 74,
+            "end": 82,
+            "description": ""
+        },
+        {
+            "start": 100,
+            "end": 100,
+            "description": ""
+        },
+        {
+            "start": 428,
+            "end": 436,
+            "description": ""
+        },
+        {
+            "start": 451,
+            "end": 451,
+            "description": ""
+        }
+    ],
+    "P51817": [
+        {
+            "start": 172,
+            "end": 172,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 55,
+            "end": 63,
+            "description": ""
+        },
+        {
+            "start": 78,
+            "end": 78,
+            "description": ""
+        }
+    ],
+    "P51955": [
+        {
+            "start": 141,
+            "end": 141,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 14,
+            "end": 22,
+            "description": ""
+        },
+        {
+            "start": 37,
+            "end": 37,
+            "description": ""
+        }
+    ],
+    "P51957": [
+        {
+            "start": 131,
+            "end": 131,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 12,
+            "end": 20,
+            "description": ""
+        },
+        {
+            "start": 35,
+            "end": 35,
+            "description": ""
+        }
+    ],
+    "P52333": [
+        {
+            "start": 949,
+            "end": 949,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 828,
+            "end": 836,
+            "description": ""
+        },
+        {
+            "start": 855,
+            "end": 855,
+            "description": ""
+        }
+    ],
+    "P53778": [
+        {
+            "start": 153,
+            "end": 153,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 33,
+            "end": 41,
+            "description": ""
+        },
+        {
+            "start": 56,
+            "end": 56,
+            "description": ""
+        }
+    ],
+    "P68400": [
+        {
+            "start": 156,
+            "end": 156,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 45,
+            "end": 53,
+            "description": ""
+        },
+        {
+            "start": 68,
+            "end": 68,
+            "description": ""
+        }
+    ],
+    "P78368": [
+        {
+            "start": 165,
+            "end": 165,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 52,
+            "end": 60,
+            "description": ""
+        },
+        {
+            "start": 75,
+            "end": 75,
+            "description": ""
+        }
+    ],
+    "Q00535": [
+        {
+            "start": 126,
+            "end": 126,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 10,
+            "end": 18,
+            "description": ""
+        },
+        {
+            "start": 33,
+            "end": 33,
+            "description": ""
+        }
+    ],
+    "Q05397": [
+        {
+            "start": 546,
+            "end": 546,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 428,
+            "end": 434,
+            "description": ""
+        },
+        {
+            "start": 454,
+            "end": 454,
+            "description": ""
+        },
+        {
+            "start": 500,
+            "end": 502,
+            "description": ""
+        }
+    ],
+    "Q05513": [
+        {
+            "start": 376,
+            "end": 376,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 258,
+            "end": 266,
+            "description": ""
+        },
+        {
+            "start": 281,
+            "end": 281,
+            "description": ""
+        }
+    ],
+    "Q05655": [
+        {
+            "start": 473,
+            "end": 473,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 355,
+            "end": 363,
+            "description": ""
+        },
+        {
+            "start": 378,
+            "end": 378,
+            "description": ""
+        },
+        {
+            "start": 48,
+            "end": 48,
+            "description": "Interaction with phosphotyrosine-containing peptide"
+        },
+        {
+            "start": 62,
+            "end": 62,
+            "description": "Interaction with phosphotyrosine-containing peptide"
+        },
+        {
+            "start": 67,
+            "end": 67,
+            "description": "Interaction with phosphotyrosine-containing peptide"
+        },
+        {
+            "start": 123,
+            "end": 123,
+            "description": "Interaction with phosphotyrosine-containing peptide"
+        },
+        {
+            "start": 329,
+            "end": 330,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "Q06418": [
+        {
+            "start": 655,
+            "end": 655,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 524,
+            "end": 532,
+            "description": ""
+        },
+        {
+            "start": 550,
+            "end": 550,
+            "description": ""
+        }
+    ],
+    "Q08881": [
+        {
+            "start": 482,
+            "end": 482,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 121,
+            "end": 121,
+            "description": ""
+        },
+        {
+            "start": 132,
+            "end": 132,
+            "description": ""
+        },
+        {
+            "start": 133,
+            "end": 133,
+            "description": ""
+        },
+        {
+            "start": 143,
+            "end": 143,
+            "description": ""
+        },
+        {
+            "start": 369,
+            "end": 377,
+            "description": ""
+        },
+        {
+            "start": 391,
+            "end": 391,
+            "description": ""
+        }
+    ],
+    "Q12851": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 22,
+            "end": 30,
+            "description": ""
+        },
+        {
+            "start": 45,
+            "end": 45,
+            "description": ""
+        }
+    ],
+    "Q13131": [
+        {
+            "start": 150,
+            "end": 150,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 33,
+            "end": 41,
+            "description": ""
+        },
+        {
+            "start": 56,
+            "end": 56,
+            "description": ""
+        }
+    ],
+    "Q13153": [
+        {
+            "start": 389,
+            "end": 389,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 276,
+            "end": 284,
+            "description": ""
+        },
+        {
+            "start": 299,
+            "end": 299,
+            "description": ""
+        },
+        {
+            "start": 345,
+            "end": 347,
+            "description": ""
+        }
+    ],
+    "Q13188": [
+        {
+            "start": 146,
+            "end": 146,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 33,
+            "end": 41,
+            "description": ""
+        },
+        {
+            "start": 56,
+            "end": 56,
+            "description": ""
+        },
+        {
+            "start": 151,
+            "end": 151,
+            "description": ""
+        },
+        {
+            "start": 164,
+            "end": 164,
+            "description": ""
+        },
+        {
+            "start": 322,
+            "end": 323,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "Q13237": [
+        {
+            "start": 576,
+            "end": 576,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 232,
+            "end": 235,
+            "description": ""
+        },
+        {
+            "start": 232,
+            "end": 235,
+            "description": ""
+        },
+        {
+            "start": 242,
+            "end": 243,
+            "description": ""
+        },
+        {
+            "start": 242,
+            "end": 243,
+            "description": ""
+        },
+        {
+            "start": 347,
+            "end": 347,
+            "description": ""
+        },
+        {
+            "start": 356,
+            "end": 359,
+            "description": ""
+        },
+        {
+            "start": 366,
+            "end": 367,
+            "description": ""
+        },
+        {
+            "start": 412,
+            "end": 412,
+            "description": ""
+        },
+        {
+            "start": 415,
+            "end": 415,
+            "description": ""
+        },
+        {
+            "start": 459,
+            "end": 467,
+            "description": ""
+        },
+        {
+            "start": 482,
+            "end": 482,
+            "description": ""
+        }
+    ],
+    "Q13554": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 20,
+            "end": 28,
+            "description": ""
+        },
+        {
+            "start": 43,
+            "end": 43,
+            "description": ""
+        }
+    ],
+    "Q13555": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 20,
+            "end": 28,
+            "description": ""
+        },
+        {
+            "start": 43,
+            "end": 43,
+            "description": ""
+        }
+    ],
+    "Q13557": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 20,
+            "end": 28,
+            "description": ""
+        },
+        {
+            "start": 43,
+            "end": 43,
+            "description": ""
+        }
+    ],
+    "Q13627": [
+        {
+            "start": 287,
+            "end": 287,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 165,
+            "end": 173,
+            "description": ""
+        },
+        {
+            "start": 188,
+            "end": 188,
+            "description": ""
+        },
+        {
+            "start": 238,
+            "end": 241,
+            "description": ""
+        }
+    ],
+    "Q13976": [
+        {
+            "start": 484,
+            "end": 484,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 167,
+            "end": 170,
+            "description": ""
+        },
+        {
+            "start": 167,
+            "end": 170,
+            "description": ""
+        },
+        {
+            "start": 177,
+            "end": 178,
+            "description": ""
+        },
+        {
+            "start": 177,
+            "end": 178,
+            "description": ""
+        },
+        {
+            "start": 282,
+            "end": 282,
+            "description": ""
+        },
+        {
+            "start": 291,
+            "end": 294,
+            "description": ""
+        },
+        {
+            "start": 291,
+            "end": 294,
+            "description": ""
+        },
+        {
+            "start": 301,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 301,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 336,
+            "end": 336,
+            "description": ""
+        },
+        {
+            "start": 336,
+            "end": 336,
+            "description": ""
+        },
+        {
+            "start": 366,
+            "end": 374,
+            "description": ""
+        },
+        {
+            "start": 390,
+            "end": 390,
+            "description": ""
+        }
+    ],
+    "Q14012": [
+        {
+            "start": 141,
+            "end": 141,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 26,
+            "end": 34,
+            "description": ""
+        },
+        {
+            "start": 49,
+            "end": 49,
+            "description": ""
+        }
+    ],
+    "Q14680": [
+        {
+            "start": 132,
+            "end": 132,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 17,
+            "end": 25,
+            "description": ""
+        },
+        {
+            "start": 40,
+            "end": 40,
+            "description": ""
+        }
+    ],
+    "Q15303": [
+        {
+            "start": 843,
+            "end": 843,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 724,
+            "end": 732,
+            "description": ""
+        },
+        {
+            "start": 751,
+            "end": 751,
+            "description": ""
+        },
+        {
+            "start": 797,
+            "end": 799,
+            "description": ""
+        },
+        {
+            "start": 843,
+            "end": 848,
+            "description": ""
+        }
+    ],
+    "Q16288": [
+        {
+            "start": 679,
+            "end": 679,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 544,
+            "end": 552,
+            "description": ""
+        },
+        {
+            "start": 572,
+            "end": 572,
+            "description": ""
+        },
+        {
+            "start": 516,
+            "end": 516,
+            "description": "Interaction with SHC1"
+        },
+        {
+            "start": 834,
+            "end": 834,
+            "description": "Interaction with PLC-gamma-1"
+        }
+    ],
+    "Q16513": [
+        {
+            "start": 782,
+            "end": 782,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 663,
+            "end": 671,
+            "description": ""
+        },
+        {
+            "start": 686,
+            "end": 686,
+            "description": ""
+        },
+        {
+            "start": 117,
+            "end": 118,
+            "description": "Cleavage; by caspase-3"
+        },
+        {
+            "start": 700,
+            "end": 701,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "Q16620": [
+        {
+            "start": 676,
+            "end": 676,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 544,
+            "end": 552,
+            "description": ""
+        },
+        {
+            "start": 572,
+            "end": 572,
+            "description": ""
+        },
+        {
+            "start": 516,
+            "end": 516,
+            "description": "Interaction with SHC1"
+        },
+        {
+            "start": 706,
+            "end": 706,
+            "description": "Interaction with SH2D1A"
+        },
+        {
+            "start": 817,
+            "end": 817,
+            "description": "Interaction with PLCG1"
+        }
+    ],
+    "Q16644": [
+        {
+            "start": 166,
+            "end": 166,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 50,
+            "end": 58,
+            "description": ""
+        },
+        {
+            "start": 73,
+            "end": 73,
+            "description": ""
+        }
+    ],
+    "Q5VT25": [
+        {
+            "start": 201,
+            "end": 201,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 83,
+            "end": 91,
+            "description": ""
+        },
+        {
+            "start": 106,
+            "end": 106,
+            "description": ""
+        },
+        {
+            "start": 478,
+            "end": 479,
+            "description": "Cleavage; by CASP3 in vitro"
+        },
+        {
+            "start": 984,
+            "end": 985,
+            "description": "Cleavage; by CASP3 in vitro"
+        }
+    ],
+    "Q7KZI7": [
+        {
+            "start": 175,
+            "end": 175,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 59,
+            "end": 67,
+            "description": ""
+        },
+        {
+            "start": 82,
+            "end": 82,
+            "description": ""
+        }
+    ],
+    "Q7L7X3": [
+        {
+            "start": 151,
+            "end": 151,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 34,
+            "end": 42,
+            "description": ""
+        },
+        {
+            "start": 57,
+            "end": 57,
+            "description": ""
+        }
+    ],
+    "Q86V86": [
+        {
+            "start": 170,
+            "end": 170,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 46,
+            "end": 54,
+            "description": ""
+        },
+        {
+            "start": 69,
+            "end": 69,
+            "description": ""
+        }
+    ],
+    "Q8IW41": [
+        {
+            "start": 148,
+            "end": 148,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 28,
+            "end": 36,
+            "description": ""
+        },
+        {
+            "start": 51,
+            "end": 51,
+            "description": ""
+        }
+    ],
+    "Q8N4C8": [
+        {
+            "start": 153,
+            "end": 153,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 31,
+            "end": 39,
+            "description": ""
+        },
+        {
+            "start": 54,
+            "end": 54,
+            "description": ""
+        }
+    ],
+    "Q8NE63": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 17,
+            "end": 25,
+            "description": ""
+        },
+        {
+            "start": 40,
+            "end": 40,
+            "description": ""
+        }
+    ],
+    "Q8TDC3": [
+        {
+            "start": 156,
+            "end": 156,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 40,
+            "end": 48,
+            "description": ""
+        },
+        {
+            "start": 63,
+            "end": 63,
+            "description": ""
+        }
+    ],
+    "Q96GD4": [
+        {
+            "start": 200,
+            "end": 200,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 83,
+            "end": 91,
+            "description": ""
+        },
+        {
+            "start": 106,
+            "end": 106,
+            "description": ""
+        }
+    ],
+    "Q96KB5": [
+        {
+            "start": 167,
+            "end": 167,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 38,
+            "end": 46,
+            "description": ""
+        },
+        {
+            "start": 64,
+            "end": 64,
+            "description": ""
+        }
+    ],
+    "Q96PF2": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 18,
+            "end": 26,
+            "description": ""
+        },
+        {
+            "start": 41,
+            "end": 41,
+            "description": ""
+        }
+    ],
+    "Q96SB4": [
+        {
+            "start": 213,
+            "end": 213,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 86,
+            "end": 94,
+            "description": ""
+        },
+        {
+            "start": 109,
+            "end": 109,
+            "description": ""
+        },
+        {
+            "start": 166,
+            "end": 168,
+            "description": ""
+        }
+    ],
+    "Q9BXA7": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 18,
+            "end": 26,
+            "description": ""
+        },
+        {
+            "start": 41,
+            "end": 41,
+            "description": ""
+        }
+    ],
+    "Q9BZL6": [
+        {
+            "start": 674,
+            "end": 674,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 557,
+            "end": 565,
+            "description": ""
+        },
+        {
+            "start": 580,
+            "end": 580,
+            "description": ""
+        }
+    ],
+    "Q9H2G2": [
+        {
+            "start": 155,
+            "end": 155,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 40,
+            "end": 48,
+            "description": ""
+        },
+        {
+            "start": 63,
+            "end": 63,
+            "description": ""
+        },
+        {
+            "start": 438,
+            "end": 439,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "Q9H2X6": [
+        {
+            "start": 324,
+            "end": 324,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 205,
+            "end": 213,
+            "description": ""
+        },
+        {
+            "start": 228,
+            "end": 228,
+            "description": ""
+        },
+        {
+            "start": 923,
+            "end": 924,
+            "description": "Cleavage; by CASP6"
+        },
+        {
+            "start": 984,
+            "end": 985,
+            "description": "Cleavage; by CASP6"
+        }
+    ],
+    "Q9H3Y6": [
+        {
+            "start": 350,
+            "end": 350,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 236,
+            "end": 244,
+            "description": ""
+        },
+        {
+            "start": 258,
+            "end": 258,
+            "description": ""
+        }
+    ],
+    "Q9H4B4": [
+        {
+            "start": 185,
+            "end": 185,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 68,
+            "end": 76,
+            "description": ""
+        },
+        {
+            "start": 91,
+            "end": 91,
+            "description": ""
+        }
+    ],
+    "Q9HAZ1": [
+        {
+            "start": 286,
+            "end": 286,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 165,
+            "end": 173,
+            "description": ""
+        },
+        {
+            "start": 189,
+            "end": 189,
+            "description": ""
+        }
+    ],
+    "Q9HBY8": [
+        {
+            "start": 159,
+            "end": 159,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 41,
+            "end": 49,
+            "description": ""
+        },
+        {
+            "start": 64,
+            "end": 64,
+            "description": ""
+        }
+    ],
+    "Q9HCP0": [
+        {
+            "start": 164,
+            "end": 164,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 50,
+            "end": 58,
+            "description": ""
+        },
+        {
+            "start": 73,
+            "end": 73,
+            "description": ""
+        }
+    ],
+    "Q9NR20": [
+        {
+            "start": 230,
+            "end": 230,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 110,
+            "end": 118,
+            "description": ""
+        },
+        {
+            "start": 133,
+            "end": 133,
+            "description": ""
+        },
+        {
+            "start": 183,
+            "end": 186,
+            "description": ""
+        }
+    ],
+    "Q9NWZ3": [
+        {
+            "start": 311,
+            "end": 311,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 192,
+            "end": 200,
+            "description": ""
+        },
+        {
+            "start": 213,
+            "end": 213,
+            "description": ""
+        },
+        {
+            "start": 313,
+            "end": 316,
+            "description": ""
+        },
+        {
+            "start": 329,
+            "end": 329,
+            "description": ""
+        }
+    ],
+    "Q9NYL2": [
+        {
+            "start": 133,
+            "end": 133,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 22,
+            "end": 30,
+            "description": ""
+        },
+        {
+            "start": 45,
+            "end": 45,
+            "description": ""
+        }
+    ],
+    "Q9P1W9": [
+        {
+            "start": 163,
+            "end": 163,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 38,
+            "end": 46,
+            "description": ""
+        },
+        {
+            "start": 61,
+            "end": 61,
+            "description": ""
+        }
+    ],
+    "Q9UEE5": [
+        {
+            "start": 186,
+            "end": 186,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 67,
+            "end": 75,
+            "description": ""
+        },
+        {
+            "start": 90,
+            "end": 90,
+            "description": ""
+        }
+    ],
+    "Q9UM73": [
+        {
+            "start": 1249,
+            "end": 1249,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1124,
+            "end": 1124,
+            "description": ""
+        },
+        {
+            "start": 1150,
+            "end": 1150,
+            "description": ""
+        },
+        {
+            "start": 1197,
+            "end": 1199,
+            "description": ""
+        },
+        {
+            "start": 1270,
+            "end": 1270,
+            "description": ""
+        },
+        {
+            "start": 1057,
+            "end": 1058,
+            "description": "Breakpoint for translocation to form the EML4-ALK fusion protein (variant 1)"
+        },
+        {
+            "start": 1058,
+            "end": 1059,
+            "description": "Breakpoint for translocation to form the EML4-ALK fusion protein (variant 2)"
+        }
+    ],
+    "Q9Y243": [
+        {
+            "start": 271,
+            "end": 271,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 154,
+            "end": 162,
+            "description": ""
+        },
+        {
+            "start": 177,
+            "end": 177,
+            "description": ""
+        }
+    ],
+    "Q9Y4K4": [
+        {
+            "start": 140,
+            "end": 140,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 26,
+            "end": 34,
+            "description": ""
+        },
+        {
+            "start": 49,
+            "end": 49,
+            "description": ""
+        }
+    ],
+    "Q9Y6M4": [
+        {
+            "start": 162,
+            "end": 162,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 49,
+            "end": 57,
+            "description": ""
+        },
+        {
+            "start": 72,
+            "end": 72,
+            "description": ""
+        }
+    ],
+    "P31749": [
+        {
+            "start": 274,
+            "end": 274,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 14,
+            "end": 19,
+            "description": ""
+        },
+        {
+            "start": 23,
+            "end": 25,
+            "description": ""
+        },
+        {
+            "start": 53,
+            "end": 53,
+            "description": ""
+        },
+        {
+            "start": 86,
+            "end": 86,
+            "description": ""
+        },
+        {
+            "start": 156,
+            "end": 164,
+            "description": ""
+        },
+        {
+            "start": 179,
+            "end": 179,
+            "description": ""
+        },
+        {
+            "start": 462,
+            "end": 462,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "P42336": [
+        {
+            "start": 776,
+            "end": 776,
+            "description": "Implicated in the recognition of ATP as well as PIP2. Also crucial for autophosphorylation of the p85alpha subunit"
+        }
+    ],
+    "Q99683": [
+        {
+            "start": 803,
+            "end": 803,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 686,
+            "end": 694,
+            "description": ""
+        },
+        {
+            "start": 709,
+            "end": 709,
+            "description": ""
+        }
+    ],
+    "P00519": [
+        {
+            "start": 363,
+            "end": 363,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 248,
+            "end": 256,
+            "description": ""
+        },
+        {
+            "start": 271,
+            "end": 271,
+            "description": ""
+        },
+        {
+            "start": 316,
+            "end": 322,
+            "description": ""
+        },
+        {
+            "start": 26,
+            "end": 27,
+            "description": "Breakpoint for translocation to form BCR-ABL and NUP214-ABL1 fusion proteins"
+        }
+    ],
+    "P04049": [
+        {
+            "start": 468,
+            "end": 468,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 139,
+            "end": 139,
+            "description": ""
+        },
+        {
+            "start": 152,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 155,
+            "end": 155,
+            "description": ""
+        },
+        {
+            "start": 165,
+            "end": 165,
+            "description": ""
+        },
+        {
+            "start": 168,
+            "end": 168,
+            "description": ""
+        },
+        {
+            "start": 173,
+            "end": 173,
+            "description": ""
+        },
+        {
+            "start": 176,
+            "end": 176,
+            "description": ""
+        },
+        {
+            "start": 184,
+            "end": 184,
+            "description": ""
+        },
+        {
+            "start": 355,
+            "end": 363,
+            "description": ""
+        },
+        {
+            "start": 375,
+            "end": 375,
+            "description": ""
+        }
+    ],
+    "P05771": [
+        {
+            "start": 466,
+            "end": 466,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 186,
+            "end": 186,
+            "description": ""
+        },
+        {
+            "start": 187,
+            "end": 187,
+            "description": ""
+        },
+        {
+            "start": 187,
+            "end": 187,
+            "description": ""
+        },
+        {
+            "start": 193,
+            "end": 193,
+            "description": ""
+        },
+        {
+            "start": 246,
+            "end": 246,
+            "description": ""
+        },
+        {
+            "start": 246,
+            "end": 246,
+            "description": ""
+        },
+        {
+            "start": 247,
+            "end": 247,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 251,
+            "end": 251,
+            "description": ""
+        },
+        {
+            "start": 252,
+            "end": 252,
+            "description": ""
+        },
+        {
+            "start": 254,
+            "end": 254,
+            "description": ""
+        },
+        {
+            "start": 254,
+            "end": 254,
+            "description": ""
+        },
+        {
+            "start": 348,
+            "end": 356,
+            "description": ""
+        },
+        {
+            "start": 371,
+            "end": 371,
+            "description": ""
+        }
+    ],
+    "P07947": [
+        {
+            "start": 396,
+            "end": 396,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 283,
+            "end": 291,
+            "description": ""
+        },
+        {
+            "start": 305,
+            "end": 305,
+            "description": ""
+        }
+    ],
+    "P08631": [
+        {
+            "start": 381,
+            "end": 381,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 268,
+            "end": 276,
+            "description": ""
+        },
+        {
+            "start": 290,
+            "end": 290,
+            "description": ""
+        }
+    ],
+    "P16234": [
+        {
+            "start": 818,
+            "end": 818,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 599,
+            "end": 607,
+            "description": ""
+        },
+        {
+            "start": 627,
+            "end": 627,
+            "description": ""
+        },
+        {
+            "start": 578,
+            "end": 579,
+            "description": "Breakpoint for interstitial deletion to form the FIP1L1-PDGFRA fusion protein"
+        }
+    ],
+    "P22455": [
+        {
+            "start": 612,
+            "end": 612,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 473,
+            "end": 481,
+            "description": ""
+        },
+        {
+            "start": 503,
+            "end": 503,
+            "description": ""
+        }
+    ],
+    "P27361": [
+        {
+            "start": 166,
+            "end": 166,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 48,
+            "end": 56,
+            "description": ""
+        },
+        {
+            "start": 71,
+            "end": 71,
+            "description": ""
+        }
+    ],
+    "P29323": [
+        {
+            "start": 746,
+            "end": 746,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 627,
+            "end": 635,
+            "description": ""
+        },
+        {
+            "start": 653,
+            "end": 653,
+            "description": ""
+        },
+        {
+            "start": 535,
+            "end": 536,
+            "description": "Cleavage; by a metalloproteinase"
+        },
+        {
+            "start": 561,
+            "end": 562,
+            "description": "Cleavage; by gamma-secretase/PS1"
+        }
+    ],
+    "P36888": [
+        {
+            "start": 811,
+            "end": 811,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 616,
+            "end": 624,
+            "description": ""
+        },
+        {
+            "start": 644,
+            "end": 644,
+            "description": ""
+        }
+    ],
+    "P41240": [
+        {
+            "start": 314,
+            "end": 314,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 201,
+            "end": 209,
+            "description": ""
+        },
+        {
+            "start": 222,
+            "end": 222,
+            "description": ""
+        }
+    ],
+    "P41279": [
+        {
+            "start": 253,
+            "end": 253,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 144,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 167,
+            "end": 167,
+            "description": ""
+        }
+    ],
+    "P43403": [
+        {
+            "start": 461,
+            "end": 461,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 345,
+            "end": 352,
+            "description": ""
+        },
+        {
+            "start": 369,
+            "end": 369,
+            "description": ""
+        }
+    ],
+    "P51813": [
+        {
+            "start": 536,
+            "end": 536,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 121,
+            "end": 121,
+            "description": ""
+        },
+        {
+            "start": 132,
+            "end": 132,
+            "description": ""
+        },
+        {
+            "start": 133,
+            "end": 133,
+            "description": ""
+        },
+        {
+            "start": 143,
+            "end": 143,
+            "description": ""
+        },
+        {
+            "start": 423,
+            "end": 431,
+            "description": ""
+        },
+        {
+            "start": 445,
+            "end": 445,
+            "description": ""
+        }
+    ],
+    "P52564": [
+        {
+            "start": 179,
+            "end": 179,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 59,
+            "end": 67,
+            "description": ""
+        },
+        {
+            "start": 82,
+            "end": 82,
+            "description": ""
+        },
+        {
+            "start": 14,
+            "end": 15,
+            "description": "Cleavage; by anthrax lethal factor"
+        }
+    ],
+    "Q02750": [
+        {
+            "start": 190,
+            "end": 190,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 74,
+            "end": 82,
+            "description": ""
+        },
+        {
+            "start": 97,
+            "end": 97,
+            "description": ""
+        },
+        {
+            "start": 97,
+            "end": 97,
+            "description": ""
+        },
+        {
+            "start": 143,
+            "end": 146,
+            "description": ""
+        },
+        {
+            "start": 144,
+            "end": 146,
+            "description": ""
+        },
+        {
+            "start": 150,
+            "end": 153,
+            "description": ""
+        },
+        {
+            "start": 192,
+            "end": 195,
+            "description": ""
+        },
+        {
+            "start": 194,
+            "end": 194,
+            "description": ""
+        },
+        {
+            "start": 208,
+            "end": 211,
+            "description": ""
+        },
+        {
+            "start": 208,
+            "end": 208,
+            "description": ""
+        },
+        {
+            "start": 8,
+            "end": 9,
+            "description": "Cleavage; by anthrax lethal factor"
+        }
+    ],
+    "Q02763": [
+        {
+            "start": 964,
+            "end": 964,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 830,
+            "end": 838,
+            "description": ""
+        },
+        {
+            "start": 855,
+            "end": 855,
+            "description": ""
+        }
+    ],
+    "Q04759": [
+        {
+            "start": 504,
+            "end": 504,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 386,
+            "end": 394,
+            "description": ""
+        },
+        {
+            "start": 409,
+            "end": 409,
+            "description": ""
+        }
+    ],
+    "Q04912": [
+        {
+            "start": 1208,
+            "end": 1208,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1088,
+            "end": 1096,
+            "description": ""
+        },
+        {
+            "start": 1114,
+            "end": 1114,
+            "description": ""
+        },
+        {
+            "start": 1161,
+            "end": 1164,
+            "description": ""
+        },
+        {
+            "start": 1212,
+            "end": 1212,
+            "description": ""
+        }
+    ],
+    "Q06187": [
+        {
+            "start": 521,
+            "end": 521,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 26,
+            "end": 26,
+            "description": ""
+        },
+        {
+            "start": 28,
+            "end": 28,
+            "description": ""
+        },
+        {
+            "start": 39,
+            "end": 39,
+            "description": ""
+        },
+        {
+            "start": 53,
+            "end": 53,
+            "description": ""
+        },
+        {
+            "start": 143,
+            "end": 143,
+            "description": ""
+        },
+        {
+            "start": 154,
+            "end": 154,
+            "description": ""
+        },
+        {
+            "start": 155,
+            "end": 155,
+            "description": ""
+        },
+        {
+            "start": 165,
+            "end": 165,
+            "description": ""
+        },
+        {
+            "start": 408,
+            "end": 416,
+            "description": ""
+        },
+        {
+            "start": 430,
+            "end": 430,
+            "description": ""
+        },
+        {
+            "start": 474,
+            "end": 477,
+            "description": ""
+        },
+        {
+            "start": 474,
+            "end": 477,
+            "description": ""
+        },
+        {
+            "start": 542,
+            "end": 542,
+            "description": ""
+        }
+    ],
+    "Q15418": [
+        {
+            "start": 187,
+            "end": 187,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 535,
+            "end": 535,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 68,
+            "end": 76,
+            "description": ""
+        },
+        {
+            "start": 94,
+            "end": 94,
+            "description": ""
+        },
+        {
+            "start": 424,
+            "end": 432,
+            "description": ""
+        },
+        {
+            "start": 447,
+            "end": 447,
+            "description": ""
+        }
+    ],
+    "Q15759": [
+        {
+            "start": 150,
+            "end": 150,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 30,
+            "end": 38,
+            "description": ""
+        },
+        {
+            "start": 53,
+            "end": 53,
+            "description": ""
+        },
+        {
+            "start": 71,
+            "end": 71,
+            "description": ""
+        }
+    ],
+    "Q16566": [
+        {
+            "start": 164,
+            "end": 164,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 52,
+            "end": 60,
+            "description": ""
+        },
+        {
+            "start": 75,
+            "end": 75,
+            "description": ""
+        }
+    ],
+    "Q8IU85": [
+        {
+            "start": 144,
+            "end": 144,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 29,
+            "end": 37,
+            "description": ""
+        },
+        {
+            "start": 52,
+            "end": 52,
+            "description": ""
+        }
+    ],
+    "Q9UHD2": [
+        {
+            "start": 135,
+            "end": 135,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 15,
+            "end": 23,
+            "description": ""
+        },
+        {
+            "start": 38,
+            "end": 38,
+            "description": ""
+        }
+    ],
+    "P17252": [
+        {
+            "start": 463,
+            "end": 463,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 186,
+            "end": 186,
+            "description": ""
+        },
+        {
+            "start": 187,
+            "end": 187,
+            "description": ""
+        },
+        {
+            "start": 187,
+            "end": 187,
+            "description": ""
+        },
+        {
+            "start": 193,
+            "end": 193,
+            "description": ""
+        },
+        {
+            "start": 195,
+            "end": 195,
+            "description": ""
+        },
+        {
+            "start": 245,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 246,
+            "end": 246,
+            "description": ""
+        },
+        {
+            "start": 246,
+            "end": 246,
+            "description": ""
+        },
+        {
+            "start": 247,
+            "end": 247,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 248,
+            "end": 248,
+            "description": ""
+        },
+        {
+            "start": 252,
+            "end": 252,
+            "description": ""
+        },
+        {
+            "start": 254,
+            "end": 254,
+            "description": ""
+        },
+        {
+            "start": 254,
+            "end": 254,
+            "description": ""
+        },
+        {
+            "start": 345,
+            "end": 353,
+            "description": ""
+        },
+        {
+            "start": 368,
+            "end": 368,
+            "description": ""
+        }
+    ],
+    "Q9UBS0": [
+        {
+            "start": 194,
+            "end": 194,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 73,
+            "end": 81,
+            "description": ""
+        },
+        {
+            "start": 99,
+            "end": 99,
+            "description": ""
+        }
+    ],
+    "O60285": [
+        {
+            "start": 178,
+            "end": 178,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 61,
+            "end": 69,
+            "description": ""
+        },
+        {
+            "start": 84,
+            "end": 84,
+            "description": ""
+        }
+    ],
+    "O75676": [
+        {
+            "start": 161,
+            "end": 161,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 530,
+            "end": 530,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 39,
+            "end": 47,
+            "description": ""
+        },
+        {
+            "start": 65,
+            "end": 65,
+            "description": ""
+        },
+        {
+            "start": 417,
+            "end": 425,
+            "description": ""
+        },
+        {
+            "start": 440,
+            "end": 440,
+            "description": ""
+        }
+    ],
+    "P08581": [
+        {
+            "start": 1204,
+            "end": 1204,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1084,
+            "end": 1092,
+            "description": ""
+        },
+        {
+            "start": 1110,
+            "end": 1110,
+            "description": ""
+        },
+        {
+            "start": 307,
+            "end": 308,
+            "description": "Cleavage"
+        },
+        {
+            "start": 1003,
+            "end": 1003,
+            "description": "Required for ligand-induced CBL-mediated ubiquitination"
+        },
+        {
+            "start": 1009,
+            "end": 1010,
+            "description": "Breakpoint for translocation to form TPR-MET oncogene"
+        }
+    ],
+    "P09619": [
+        {
+            "start": 826,
+            "end": 826,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 606,
+            "end": 614,
+            "description": ""
+        },
+        {
+            "start": 634,
+            "end": 634,
+            "description": ""
+        },
+        {
+            "start": 527,
+            "end": 528,
+            "description": "Breakpoint for insertion to form PDE4DIP-PDGFRB fusion protein"
+        },
+        {
+            "start": 527,
+            "end": 528,
+            "description": "Breakpoint for translocation to form TRIP11-PDGFRB"
+        },
+        {
+            "start": 558,
+            "end": 559,
+            "description": "Breakpoint for translocation to form the CEP85L-PDGFRB fusion protein"
+        }
+    ],
+    "P09769": [
+        {
+            "start": 382,
+            "end": 382,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 269,
+            "end": 277,
+            "description": ""
+        },
+        {
+            "start": 291,
+            "end": 291,
+            "description": ""
+        }
+    ],
+    "P17948": [
+        {
+            "start": 1022,
+            "end": 1022,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 833,
+            "end": 841,
+            "description": ""
+        },
+        {
+            "start": 861,
+            "end": 861,
+            "description": ""
+        },
+        {
+            "start": 767,
+            "end": 768,
+            "description": "Cleavage; by PSEN1"
+        }
+    ],
+    "P21802": [
+        {
+            "start": 626,
+            "end": 626,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 487,
+            "end": 495,
+            "description": ""
+        },
+        {
+            "start": 517,
+            "end": 517,
+            "description": ""
+        },
+        {
+            "start": 565,
+            "end": 567,
+            "description": ""
+        },
+        {
+            "start": 571,
+            "end": 571,
+            "description": ""
+        }
+    ],
+    "P22607": [
+        {
+            "start": 617,
+            "end": 617,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 478,
+            "end": 486,
+            "description": ""
+        },
+        {
+            "start": 508,
+            "end": 508,
+            "description": ""
+        }
+    ],
+    "P30530": [
+        {
+            "start": 672,
+            "end": 672,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 542,
+            "end": 550,
+            "description": ""
+        },
+        {
+            "start": 567,
+            "end": 567,
+            "description": ""
+        }
+    ],
+    "P34947": [
+        {
+            "start": 311,
+            "end": 311,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 192,
+            "end": 200,
+            "description": ""
+        },
+        {
+            "start": 215,
+            "end": 215,
+            "description": ""
+        }
+    ],
+    "P42684": [
+        {
+            "start": 409,
+            "end": 409,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 294,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 317,
+            "end": 317,
+            "description": ""
+        },
+        {
+            "start": 362,
+            "end": 368,
+            "description": ""
+        }
+    ],
+    "P50750": [
+        {
+            "start": 149,
+            "end": 149,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 25,
+            "end": 33,
+            "description": ""
+        },
+        {
+            "start": 48,
+            "end": 48,
+            "description": ""
+        },
+        {
+            "start": 104,
+            "end": 106,
+            "description": ""
+        },
+        {
+            "start": 167,
+            "end": 167,
+            "description": ""
+        }
+    ],
+    "P54760": [
+        {
+            "start": 740,
+            "end": 740,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 621,
+            "end": 629,
+            "description": ""
+        },
+        {
+            "start": 647,
+            "end": 647,
+            "description": ""
+        }
+    ],
+    "P80192": [
+        {
+            "start": 268,
+            "end": 268,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 150,
+            "end": 158,
+            "description": ""
+        },
+        {
+            "start": 171,
+            "end": 171,
+            "description": ""
+        }
+    ],
+    "Q13177": [
+        {
+            "start": 367,
+            "end": 367,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 255,
+            "end": 263,
+            "description": ""
+        },
+        {
+            "start": 278,
+            "end": 278,
+            "description": ""
+        },
+        {
+            "start": 212,
+            "end": 213,
+            "description": "Cleavage; by caspase-3 or caspase-3-like proteases"
+        }
+    ],
+    "Q13882": [
+        {
+            "start": 312,
+            "end": 312,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 197,
+            "end": 205,
+            "description": ""
+        },
+        {
+            "start": 219,
+            "end": 219,
+            "description": ""
+        }
+    ],
+    "Q14289": [
+        {
+            "start": 549,
+            "end": 549,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 431,
+            "end": 439,
+            "description": ""
+        },
+        {
+            "start": 457,
+            "end": 457,
+            "description": ""
+        },
+        {
+            "start": 503,
+            "end": 509,
+            "description": ""
+        }
+    ],
+    "Q15078": [
+        {
+            "start": 98,
+            "end": 99,
+            "description": "Cleavage; by calpain"
+        }
+    ],
+    "Q15118": [
+        {
+            "start": 279,
+            "end": 286,
+            "description": ""
+        },
+        {
+            "start": 318,
+            "end": 318,
+            "description": ""
+        },
+        {
+            "start": 337,
+            "end": 338,
+            "description": ""
+        },
+        {
+            "start": 354,
+            "end": 359,
+            "description": ""
+        }
+    ],
+    "Q15139": [
+        {
+            "start": 706,
+            "end": 706,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 589,
+            "end": 597,
+            "description": ""
+        },
+        {
+            "start": 612,
+            "end": 612,
+            "description": ""
+        }
+    ],
+    "Q96RG2": [
+        {
+            "start": 1128,
+            "end": 1128,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1005,
+            "end": 1013,
+            "description": ""
+        },
+        {
+            "start": 1028,
+            "end": 1028,
+            "description": ""
+        },
+        {
+            "start": 1082,
+            "end": 1089,
+            "description": ""
+        },
+        {
+            "start": 1146,
+            "end": 1146,
+            "description": ""
+        }
+    ],
+    "Q9UBE8": [
+        {
+            "start": 264,
+            "end": 264,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 144,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 167,
+            "end": 167,
+            "description": ""
+        }
+    ],
+    "Q12866": [
+        {
+            "start": 723,
+            "end": 723,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 593,
+            "end": 601,
+            "description": ""
+        },
+        {
+            "start": 615,
+            "end": 615,
+            "description": ""
+        }
+    ],
+    "Q14164": [
+        {
+            "start": 135,
+            "end": 135,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 15,
+            "end": 23,
+            "description": ""
+        },
+        {
+            "start": 38,
+            "end": 38,
+            "description": ""
+        }
+    ],
+    "P19784": [
+        {
+            "start": 157,
+            "end": 157,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 46,
+            "end": 54,
+            "description": ""
+        },
+        {
+            "start": 69,
+            "end": 69,
+            "description": ""
+        }
+    ],
+    "P67870": [
+        {
+            "start": 109,
+            "end": 109,
+            "description": ""
+        },
+        {
+            "start": 114,
+            "end": 114,
+            "description": ""
+        },
+        {
+            "start": 137,
+            "end": 137,
+            "description": ""
+        },
+        {
+            "start": 140,
+            "end": 140,
+            "description": ""
+        }
+    ],
+    "P22612": [
+        {
+            "start": 167,
+            "end": 167,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 50,
+            "end": 58,
+            "description": ""
+        },
+        {
+            "start": 73,
+            "end": 73,
+            "description": ""
+        }
+    ],
+    "P22694": [
+        {
+            "start": 167,
+            "end": 167,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 50,
+            "end": 58,
+            "description": ""
+        },
+        {
+            "start": 73,
+            "end": 73,
+            "description": ""
+        }
+    ],
+    "P54619": [
+        {
+            "start": 70,
+            "end": 70,
+            "description": ""
+        },
+        {
+            "start": 70,
+            "end": 70,
+            "description": ""
+        },
+        {
+            "start": 70,
+            "end": 70,
+            "description": ""
+        },
+        {
+            "start": 70,
+            "end": 70,
+            "description": ""
+        },
+        {
+            "start": 85,
+            "end": 90,
+            "description": ""
+        },
+        {
+            "start": 85,
+            "end": 90,
+            "description": ""
+        },
+        {
+            "start": 85,
+            "end": 90,
+            "description": ""
+        },
+        {
+            "start": 130,
+            "end": 130,
+            "description": ""
+        },
+        {
+            "start": 130,
+            "end": 130,
+            "description": ""
+        },
+        {
+            "start": 130,
+            "end": 130,
+            "description": ""
+        },
+        {
+            "start": 151,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 151,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 151,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 151,
+            "end": 151,
+            "description": ""
+        },
+        {
+            "start": 152,
+            "end": 152,
+            "description": ""
+        },
+        {
+            "start": 170,
+            "end": 170,
+            "description": ""
+        },
+        {
+            "start": 170,
+            "end": 170,
+            "description": ""
+        },
+        {
+            "start": 170,
+            "end": 170,
+            "description": ""
+        },
+        {
+            "start": 200,
+            "end": 200,
+            "description": ""
+        },
+        {
+            "start": 205,
+            "end": 205,
+            "description": ""
+        },
+        {
+            "start": 226,
+            "end": 227,
+            "description": ""
+        },
+        {
+            "start": 242,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 242,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 242,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 269,
+            "end": 269,
+            "description": ""
+        },
+        {
+            "start": 269,
+            "end": 269,
+            "description": ""
+        },
+        {
+            "start": 269,
+            "end": 269,
+            "description": ""
+        },
+        {
+            "start": 277,
+            "end": 277,
+            "description": ""
+        },
+        {
+            "start": 277,
+            "end": 277,
+            "description": ""
+        },
+        {
+            "start": 277,
+            "end": 277,
+            "description": ""
+        },
+        {
+            "start": 298,
+            "end": 299,
+            "description": ""
+        },
+        {
+            "start": 298,
+            "end": 299,
+            "description": ""
+        },
+        {
+            "start": 298,
+            "end": 299,
+            "description": ""
+        },
+        {
+            "start": 298,
+            "end": 298,
+            "description": ""
+        },
+        {
+            "start": 314,
+            "end": 317,
+            "description": ""
+        }
+    ],
+    "P54646": [
+        {
+            "start": 139,
+            "end": 139,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 22,
+            "end": 30,
+            "description": ""
+        },
+        {
+            "start": 45,
+            "end": 45,
+            "description": ""
+        }
+    ],
+    "Q9UGI9": [
+        {
+            "start": 225,
+            "end": 225,
+            "description": ""
+        },
+        {
+            "start": 225,
+            "end": 225,
+            "description": ""
+        },
+        {
+            "start": 225,
+            "end": 225,
+            "description": ""
+        },
+        {
+            "start": 225,
+            "end": 225,
+            "description": ""
+        },
+        {
+            "start": 240,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 240,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 240,
+            "end": 245,
+            "description": ""
+        },
+        {
+            "start": 285,
+            "end": 285,
+            "description": ""
+        },
+        {
+            "start": 285,
+            "end": 285,
+            "description": ""
+        },
+        {
+            "start": 285,
+            "end": 285,
+            "description": ""
+        },
+        {
+            "start": 306,
+            "end": 307,
+            "description": ""
+        },
+        {
+            "start": 306,
+            "end": 307,
+            "description": ""
+        },
+        {
+            "start": 306,
+            "end": 307,
+            "description": ""
+        },
+        {
+            "start": 306,
+            "end": 306,
+            "description": ""
+        },
+        {
+            "start": 307,
+            "end": 307,
+            "description": ""
+        },
+        {
+            "start": 325,
+            "end": 325,
+            "description": ""
+        },
+        {
+            "start": 325,
+            "end": 325,
+            "description": ""
+        },
+        {
+            "start": 325,
+            "end": 325,
+            "description": ""
+        },
+        {
+            "start": 355,
+            "end": 355,
+            "description": ""
+        },
+        {
+            "start": 360,
+            "end": 360,
+            "description": ""
+        },
+        {
+            "start": 381,
+            "end": 382,
+            "description": ""
+        },
+        {
+            "start": 397,
+            "end": 400,
+            "description": ""
+        },
+        {
+            "start": 397,
+            "end": 400,
+            "description": ""
+        },
+        {
+            "start": 397,
+            "end": 400,
+            "description": ""
+        },
+        {
+            "start": 424,
+            "end": 424,
+            "description": ""
+        },
+        {
+            "start": 424,
+            "end": 424,
+            "description": ""
+        },
+        {
+            "start": 424,
+            "end": 424,
+            "description": ""
+        },
+        {
+            "start": 432,
+            "end": 432,
+            "description": ""
+        },
+        {
+            "start": 432,
+            "end": 432,
+            "description": ""
+        },
+        {
+            "start": 432,
+            "end": 432,
+            "description": ""
+        },
+        {
+            "start": 453,
+            "end": 454,
+            "description": ""
+        },
+        {
+            "start": 453,
+            "end": 454,
+            "description": ""
+        },
+        {
+            "start": 453,
+            "end": 454,
+            "description": ""
+        },
+        {
+            "start": 453,
+            "end": 453,
+            "description": ""
+        },
+        {
+            "start": 469,
+            "end": 472,
+            "description": ""
+        }
+    ],
+    "Q9UGJ0": [
+        {
+            "start": 302,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 302,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 302,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 302,
+            "end": 302,
+            "description": ""
+        },
+        {
+            "start": 317,
+            "end": 322,
+            "description": ""
+        },
+        {
+            "start": 317,
+            "end": 322,
+            "description": ""
+        },
+        {
+            "start": 317,
+            "end": 322,
+            "description": ""
+        },
+        {
+            "start": 362,
+            "end": 362,
+            "description": ""
+        },
+        {
+            "start": 362,
+            "end": 362,
+            "description": ""
+        },
+        {
+            "start": 362,
+            "end": 362,
+            "description": ""
+        },
+        {
+            "start": 383,
+            "end": 384,
+            "description": ""
+        },
+        {
+            "start": 383,
+            "end": 384,
+            "description": ""
+        },
+        {
+            "start": 383,
+            "end": 384,
+            "description": ""
+        },
+        {
+            "start": 383,
+            "end": 383,
+            "description": ""
+        },
+        {
+            "start": 384,
+            "end": 384,
+            "description": ""
+        },
+        {
+            "start": 402,
+            "end": 402,
+            "description": ""
+        },
+        {
+            "start": 402,
+            "end": 402,
+            "description": ""
+        },
+        {
+            "start": 402,
+            "end": 402,
+            "description": ""
+        },
+        {
+            "start": 432,
+            "end": 432,
+            "description": ""
+        },
+        {
+            "start": 437,
+            "end": 437,
+            "description": ""
+        },
+        {
+            "start": 458,
+            "end": 459,
+            "description": ""
+        },
+        {
+            "start": 474,
+            "end": 477,
+            "description": ""
+        },
+        {
+            "start": 474,
+            "end": 477,
+            "description": ""
+        },
+        {
+            "start": 474,
+            "end": 477,
+            "description": ""
+        },
+        {
+            "start": 501,
+            "end": 501,
+            "description": ""
+        },
+        {
+            "start": 501,
+            "end": 501,
+            "description": ""
+        },
+        {
+            "start": 501,
+            "end": 501,
+            "description": ""
+        },
+        {
+            "start": 530,
+            "end": 531,
+            "description": ""
+        },
+        {
+            "start": 530,
+            "end": 531,
+            "description": ""
+        },
+        {
+            "start": 530,
+            "end": 531,
+            "description": ""
+        },
+        {
+            "start": 530,
+            "end": 530,
+            "description": ""
+        },
+        {
+            "start": 546,
+            "end": 549,
+            "description": ""
+        }
+    ],
+    "O00418": [
+        {
+            "start": 296,
+            "end": 302,
+            "description": ""
+        }
+    ],
+    "O00444": [
+        {
+            "start": 136,
+            "end": 136,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 18,
+            "end": 26,
+            "description": ""
+        },
+        {
+            "start": 41,
+            "end": 41,
+            "description": ""
+        }
+    ],
+    "O43781": [
+        {
+            "start": 335,
+            "end": 335,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 215,
+            "end": 223,
+            "description": ""
+        },
+        {
+            "start": 238,
+            "end": 238,
+            "description": ""
+        },
+        {
+            "start": 288,
+            "end": 291,
+            "description": ""
+        }
+    ],
+    "P53667": [
+        {
+            "start": 460,
+            "end": 460,
+            "description": ""
+        },
+        {
+            "start": 345,
+            "end": 353,
+            "description": ""
+        },
+        {
+            "start": 368,
+            "end": 368,
+            "description": ""
+        }
+    ],
+    "Q07912": [
+        {
+            "start": 252,
+            "end": 252,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 132,
+            "end": 140,
+            "description": ""
+        },
+        {
+            "start": 158,
+            "end": 158,
+            "description": ""
+        }
+    ],
+    "Q9HBH9": [
+        {
+            "start": 205,
+            "end": 205,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 90,
+            "end": 98,
+            "description": ""
+        },
+        {
+            "start": 113,
+            "end": 113,
+            "description": ""
+        },
+        {
+            "start": 160,
+            "end": 162,
+            "description": ""
+        },
+        {
+            "start": 209,
+            "end": 209,
+            "description": ""
+        },
+        {
+            "start": 299,
+            "end": 299,
+            "description": ""
+        },
+        {
+            "start": 311,
+            "end": 311,
+            "description": ""
+        },
+        {
+            "start": 314,
+            "end": 314,
+            "description": ""
+        }
+    ],
+    "Q9BWU1": [
+        {
+            "start": 151,
+            "end": 151,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 27,
+            "end": 35,
+            "description": ""
+        },
+        {
+            "start": 52,
+            "end": 52,
+            "description": ""
+        }
+    ],
+    "P11802": [
+        {
+            "start": 140,
+            "end": 140,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 12,
+            "end": 20,
+            "description": ""
+        },
+        {
+            "start": 35,
+            "end": 35,
+            "description": ""
+        }
+    ],
+    "Q00534": [
+        {
+            "start": 145,
+            "end": 145,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 19,
+            "end": 27,
+            "description": ""
+        },
+        {
+            "start": 43,
+            "end": 43,
+            "description": ""
+        }
+    ],
+    "Q02156": [
+        {
+            "start": 532,
+            "end": 532,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 414,
+            "end": 422,
+            "description": ""
+        },
+        {
+            "start": 437,
+            "end": 437,
+            "description": ""
+        }
+    ],
+    "P48736": [
+        {
+            "start": 829,
+            "end": 838,
+            "description": ""
+        },
+        {
+            "start": 864,
+            "end": 872,
+            "description": ""
+        },
+        {
+            "start": 961,
+            "end": 969,
+            "description": ""
+        }
+    ],
+    "P78527": [
+        {
+            "start": 2020,
+            "end": 2021,
+            "description": "Cleavage; by caspase-3"
+        }
+    ],
+    "P29376": [
+        {
+            "start": 643,
+            "end": 643,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 516,
+            "end": 524,
+            "description": ""
+        },
+        {
+            "start": 544,
+            "end": 544,
+            "description": ""
+        }
+    ],
+    "P36507": [
+        {
+            "start": 194,
+            "end": 194,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 78,
+            "end": 86,
+            "description": ""
+        },
+        {
+            "start": 101,
+            "end": 101,
+            "description": ""
+        },
+        {
+            "start": 10,
+            "end": 11,
+            "description": "Cleavage; by anthrax lethal factor"
+        }
+    ],
+    "P49336": [
+        {
+            "start": 151,
+            "end": 151,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 27,
+            "end": 35,
+            "description": ""
+        },
+        {
+            "start": 52,
+            "end": 52,
+            "description": ""
+        }
+    ],
+    "Q04771": [
+        {
+            "start": 336,
+            "end": 336,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 214,
+            "end": 222,
+            "description": ""
+        },
+        {
+            "start": 235,
+            "end": 235,
+            "description": ""
+        }
+    ],
+    "Q5S007": [
+        {
+            "start": 1994,
+            "end": 1994,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 1341,
+            "end": 1348,
+            "description": ""
+        },
+        {
+            "start": 1885,
+            "end": 1885,
+            "description": ""
+        },
+        {
+            "start": 1887,
+            "end": 1887,
+            "description": ""
+        },
+        {
+            "start": 1888,
+            "end": 1888,
+            "description": ""
+        },
+        {
+            "start": 1891,
+            "end": 1891,
+            "description": ""
+        },
+        {
+            "start": 1893,
+            "end": 1893,
+            "description": ""
+        },
+        {
+            "start": 1904,
+            "end": 1904,
+            "description": ""
+        },
+        {
+            "start": 1906,
+            "end": 1906,
+            "description": ""
+        },
+        {
+            "start": 1947,
+            "end": 1947,
+            "description": ""
+        },
+        {
+            "start": 1948,
+            "end": 1948,
+            "description": ""
+        },
+        {
+            "start": 1950,
+            "end": 1950,
+            "description": ""
+        },
+        {
+            "start": 1954,
+            "end": 1954,
+            "description": ""
+        },
+        {
+            "start": 1957,
+            "end": 1957,
+            "description": ""
+        },
+        {
+            "start": 1998,
+            "end": 1998,
+            "description": ""
+        },
+        {
+            "start": 2001,
+            "end": 2001,
+            "description": ""
+        },
+        {
+            "start": 2016,
+            "end": 2016,
+            "description": ""
+        },
+        {
+            "start": 2017,
+            "end": 2017,
+            "description": ""
+        },
+        {
+            "start": 2098,
+            "end": 2121,
+            "description": ""
+        },
+        {
+            "start": 2295,
+            "end": 2298,
+            "description": ""
+        }
+    ],
+    "Q9UQM7": [
+        {
+            "start": 135,
+            "end": 135,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 19,
+            "end": 27,
+            "description": ""
+        },
+        {
+            "start": 42,
+            "end": 42,
+            "description": ""
+        }
+    ],
+    "Q9Y463": [
+        {
+            "start": 239,
+            "end": 239,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 117,
+            "end": 125,
+            "description": ""
+        },
+        {
+            "start": 140,
+            "end": 140,
+            "description": ""
+        },
+        {
+            "start": 190,
+            "end": 193,
+            "description": ""
+        }
+    ],
+    "P50613": [
+        {
+            "start": 137,
+            "end": 137,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 18,
+            "end": 18,
+            "description": ""
+        },
+        {
+            "start": 19,
+            "end": 19,
+            "description": ""
+        },
+        {
+            "start": 20,
+            "end": 20,
+            "description": ""
+        },
+        {
+            "start": 21,
+            "end": 21,
+            "description": ""
+        },
+        {
+            "start": 22,
+            "end": 22,
+            "description": ""
+        },
+        {
+            "start": 22,
+            "end": 22,
+            "description": ""
+        },
+        {
+            "start": 23,
+            "end": 23,
+            "description": ""
+        },
+        {
+            "start": 24,
+            "end": 24,
+            "description": ""
+        },
+        {
+            "start": 25,
+            "end": 25,
+            "description": ""
+        },
+        {
+            "start": 26,
+            "end": 26,
+            "description": ""
+        },
+        {
+            "start": 41,
+            "end": 41,
+            "description": ""
+        },
+        {
+            "start": 41,
+            "end": 41,
+            "description": ""
+        },
+        {
+            "start": 47,
+            "end": 47,
+            "description": ""
+        },
+        {
+            "start": 48,
+            "end": 48,
+            "description": ""
+        },
+        {
+            "start": 92,
+            "end": 92,
+            "description": ""
+        },
+        {
+            "start": 94,
+            "end": 94,
+            "description": ""
+        },
+        {
+            "start": 142,
+            "end": 142,
+            "description": ""
+        },
+        {
+            "start": 155,
+            "end": 155,
+            "description": ""
+        }
+    ],
+    "Q9P289": [
+        {
+            "start": 144,
+            "end": 144,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 30,
+            "end": 38,
+            "description": ""
+        },
+        {
+            "start": 53,
+            "end": 53,
+            "description": ""
+        }
+    ],
+    "Q02779": [
+        {
+            "start": 222,
+            "end": 222,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 104,
+            "end": 112,
+            "description": ""
+        },
+        {
+            "start": 125,
+            "end": 125,
+            "description": ""
+        }
+    ],
+    "Q96L34": [
+        {
+            "start": 181,
+            "end": 181,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 65,
+            "end": 73,
+            "description": ""
+        },
+        {
+            "start": 88,
+            "end": 88,
+            "description": ""
+        }
+    ],
+    "Q96RR4": [
+        {
+            "start": 312,
+            "end": 312,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 171,
+            "end": 179,
+            "description": ""
+        },
+        {
+            "start": 194,
+            "end": 194,
+            "description": ""
+        }
+    ],
+    "Q9H0K1": [
+        {
+            "start": 142,
+            "end": 142,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 26,
+            "end": 34,
+            "description": ""
+        },
+        {
+            "start": 49,
+            "end": 49,
+            "description": ""
+        }
+    ],
+    "Q9HC98": [
+        {
+            "start": 172,
+            "end": 172,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 51,
+            "end": 59,
+            "description": ""
+        },
+        {
+            "start": 74,
+            "end": 74,
+            "description": ""
+        },
+        {
+            "start": 108,
+            "end": 108,
+            "description": "Autoinhibitory"
+        }
+    ],
+    "P30291": [
+        {
+            "start": 426,
+            "end": 426,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 305,
+            "end": 313,
+            "description": ""
+        },
+        {
+            "start": 328,
+            "end": 328,
+            "description": ""
+        },
+        {
+            "start": 342,
+            "end": 342,
+            "description": ""
+        },
+        {
+            "start": 431,
+            "end": 431,
+            "description": ""
+        },
+        {
+            "start": 463,
+            "end": 463,
+            "description": ""
+        },
+        {
+            "start": 465,
+            "end": 465,
+            "description": ""
+        }
+    ],
+    "P49674": [
+        {
+            "start": 128,
+            "end": 128,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 15,
+            "end": 23,
+            "description": ""
+        },
+        {
+            "start": 38,
+            "end": 38,
+            "description": ""
+        }
+    ],
+    "P23458": [
+        {
+            "start": 1003,
+            "end": 1003,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 881,
+            "end": 889,
+            "description": ""
+        },
+        {
+            "start": 908,
+            "end": 908,
+            "description": ""
+        }
+    ],
+    "P42345": [
+        {
+            "start": 1662,
+            "end": 1662,
+            "description": ""
+        },
+        {
+            "start": 1702,
+            "end": 1702,
+            "description": ""
+        },
+        {
+            "start": 1749,
+            "end": 1749,
+            "description": ""
+        },
+        {
+            "start": 2165,
+            "end": 2165,
+            "description": ""
+        },
+        {
+            "start": 2167,
+            "end": 2167,
+            "description": ""
+        },
+        {
+            "start": 2185,
+            "end": 2185,
+            "description": ""
+        },
+        {
+            "start": 2187,
+            "end": 2187,
+            "description": ""
+        },
+        {
+            "start": 2190,
+            "end": 2190,
+            "description": ""
+        },
+        {
+            "start": 2225,
+            "end": 2225,
+            "description": ""
+        },
+        {
+            "start": 2238,
+            "end": 2238,
+            "description": ""
+        },
+        {
+            "start": 2239,
+            "end": 2239,
+            "description": ""
+        },
+        {
+            "start": 2240,
+            "end": 2240,
+            "description": ""
+        },
+        {
+            "start": 2245,
+            "end": 2245,
+            "description": ""
+        },
+        {
+            "start": 2343,
+            "end": 2343,
+            "description": ""
+        },
+        {
+            "start": 2345,
+            "end": 2345,
+            "description": ""
+        },
+        {
+            "start": 2356,
+            "end": 2356,
+            "description": ""
+        },
+        {
+            "start": 2357,
+            "end": 2357,
+            "description": ""
+        }
+    ],
+    "Q9BUB5": [
+        {
+            "start": 211,
+            "end": 211,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 55,
+            "end": 63,
+            "description": ""
+        },
+        {
+            "start": 78,
+            "end": 78,
+            "description": ""
+        }
+    ],
+    "P49759": [
+        {
+            "start": 288,
+            "end": 288,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 167,
+            "end": 175,
+            "description": ""
+        },
+        {
+            "start": 191,
+            "end": 191,
+            "description": ""
+        }
+    ],
+    "Q16512": [
+        {
+            "start": 740,
+            "end": 740,
+            "description": "Proton acceptor"
+        },
+        {
+            "start": 621,
+            "end": 629,
+            "description": ""
+        },
+        {
+            "start": 644,
+            "end": 644,
+            "description": ""
+        },
+        {
+            "start": 108,
+            "end": 109,
+            "description": "Cleavage; by caspase-3"
+        },
+        {
+            "start": 454,
+            "end": 455,
+            "description": "Cleavage; by caspase-3"
+        },
+        {
+            "start": 558,
+            "end": 559,
+            "description": "Cleavage; by caspase-3"
+        }
+    ]
+}

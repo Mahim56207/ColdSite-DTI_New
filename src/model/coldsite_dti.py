@@ -10,7 +10,7 @@ import torch
 import torch.nn as nn
 
 from src.model.drug_encoder import DrugEncoder, sequence_mask
-from src.model.protein_encoder import ProteinEncoder
+from src.model.protein_encoder import ProteinEncoder, real_lengths
 
 
 class ColdSiteDTI(nn.Module):
@@ -82,7 +82,12 @@ class ColdSiteDTI(nn.Module):
         """
         self.eval()
         _pred, attn = self.forward(drug_input, protein_input)
-        lengths = (protein_input != 0).sum(dim=1).tolist()
+        # real_lengths(), not (protein_input != 0).sum(): the two disagree the
+        # moment a sequence contains an interior pad id, and the count version
+        # returns a SHORTER array than the residues it covers. Every ground-truth
+        # index past that point would then line up against the wrong residue --
+        # a silent misalignment in exactly the number this paper reports.
+        lengths = real_lengths(protein_input).tolist()
         attn = attn.squeeze(1).cpu()
         return [attn[i, :lengths[i]].tolist() for i in range(len(lengths))]
 

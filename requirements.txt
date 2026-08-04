@@ -15,3 +15,7 @@ seaborn
 
 # Notebooks (everyone)
 jupyter
+
+# Testing
+pytest
+tabulate          # pandas .to_markdown() for the split summary

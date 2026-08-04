@@ -46,6 +46,32 @@ pip install -r requirements.txt
 
 Then open your own guide in `docs/` and start with Part 1 — every track can begin immediately without waiting on the others.
 
+Run the test suite:
+
+```bash
+python -m pytest tests/ -q          # 160 tests
+python -m src.data.ground_truth     # ground-truth coverage report
+```
+
+## Reading the binding-site ground truth
+
+Never parse the ground-truth JSON directly. UniProt annotations are 1-indexed
+inclusive ranges; `precision_at_k` expects 0-indexed positions, and mixing them
+returns a wrong number rather than an error. Always go through the adapter:
+
+```python
+from src.data.ground_truth import load_site_sets
+sites = load_site_sets("data/davis_ground_truth_sites.json", max_len=1000)
+```
+
+See [`data/GROUND_TRUTH_README.md`](data/GROUND_TRUTH_README.md).
+
 ## Status
 
-🟡 Project setup — August 2026. See `docs/00_MASTER_PLAN.md` §6 for the full timeline (target: full draft by mid-November 2026).
+🟡 **Part 1 in progress** — August 2026. Solo code for all three tracks is
+complete and tested; five items remain, all blocked on data downloads or
+compute rather than code. Current state, what changed, and the exact remaining
+commands: **[`STATUS.md`](STATUS.md)**.
+
+See `docs/00_MASTER_PLAN.md` §6 for the full timeline (target: full draft by
+mid-November 2026).

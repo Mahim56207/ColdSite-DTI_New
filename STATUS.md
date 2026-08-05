@@ -1,4 +1,8 @@
-# Part 1 status
+# Project status
+
+> **Framing changed.** The project is now an audit of published DTI
+> interpretability claims, not a single-model paper. Read
+> `docs/00_MASTER_PLAN_V2.md`, then your `docs/PART2_GUIDE_<roll>.md`.
 
 Last updated: 2026-08-04. Regenerate the numbers with `python -m pytest tests/ -q`
 and `python -m src.data.ground_truth`.
@@ -41,7 +45,7 @@ than on code. They are listed at the bottom with the exact command to run.
 |---|---|---|
 | C1 | `precision@k` module | ✅ rewritten with input guards |
 | C2 | Multiple k values | ✅ + achievable-ceiling reporting |
-| C3 | Tested on several cases incl. edge cases | ✅ **171 tests**, was 0 |
+| C3 | Tested on several cases incl. edge cases | ✅ **255 tests**, was 0 |
 | C4 | Permutation significance test | ✅ + split-level test |
 | C5 | Headline figure mock-up | ✅ `src/evaluation/plots.py` |
 | C6 | Antiviral reference sheet | ✅ `antiviral_targets_reference.md` |
@@ -158,7 +162,7 @@ artefact and should fail once the artefact is fixed.
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q          # 171 tests, ~5s
+python -m pytest tests/ -q          # 255 tests, ~10s
 python -m src.data.ground_truth     # ground-truth coverage report
 ```
 
@@ -181,3 +185,48 @@ Two behaviours are deliberate. It **refuses to draw the figure** without
 accuracy values, because fidelity plotted alone is half the paper's claim. And
 `--dummy` output is tagged `DUMMY_PLACEHOLDER` in every filename so a synthetic
 run cannot later be mistaken for a result.
+
+
+---
+
+# Audit reframe — what was added
+
+New modules, all tested, all runnable today:
+
+| module | purpose |
+|---|---|
+| `src/evaluation/faithfulness.py` | comprehensiveness, sufficiency, AOPC — **with random-masking controls**. Promoted from optional stretch goal to core. |
+| `src/evaluation/model_registry.py` | the adapter contract every audited model must satisfy, plus `validate_adapter` and a uniform-attention control |
+| `src/evaluation/aggregate.py` | seed aggregation (mean ± std, flags <3 seeds), Holm-Bonferroni across the grid, the audit table |
+| `src/evaluation/target_family.py` | kinase / non-kinase stratification — the confound control |
+
+## The confound, measured
+
+`python -m src.evaluation.target_family` on the committed data:
+
+| | DAVIS | KIBA |
+|---|---|---|
+| targets | 409 | 224 |
+| kinase | 230 | 0 |
+| **non-kinase** | **0** | **0** |
+| control usable | **no** | **no** |
+
+KIBA is zero because it uses UniProt accessions, not gene symbols, and cannot be
+classified without a mapping. **The control arm does not currently exist.** This
+is the highest-priority gap in the project.
+
+## Remaining work, by owner
+
+| # | Item | Owner | Blocking |
+|---|---|---|---|
+| 1 | Antiviral rebuild — 5 targets, ≥20 non-kinase | A | the entire control arm |
+| 2 | Ground-truth re-fetch with feature types | A | metric validity |
+| 3 | KIBA accession → gene mapping | A | control on KIBA |
+| 4 | 33 unmapped DAVIS targets | A | coverage |
+| 5 | 24 training runs (2 × 4 × 3 seeds) | B | every real number |
+| 6 | Truncation + cold-pair volume decisions | B | Methods |
+| 7 | Baseline adapters (3 models) | A + B | the audit framing |
+| 8 | Differentiation doc rewrite | C | Related Work |
+| 9 | Audit grid + Holm correction | C | Results |
+
+Items 1–3 unblock 5, which unblocks 9.

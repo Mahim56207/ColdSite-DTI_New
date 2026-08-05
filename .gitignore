@@ -20,12 +20,15 @@ src/data/baselines/*
 !src/data/baselines/__init__.py
 notebooks/data/
 
-# Model checkpoints and large results
+# Model checkpoints and generated results.
+# Everything under results/ is regenerated, never committed. This is broader
+# than listing extensions on purpose: the training loop and the ladder both
+# write .json into results/, and a DUMMY_PLACEHOLDER file committed by accident
+# is a placeholder number sitting in the repo looking like a finding.
 *.pt
 *.pth
 *.ckpt
-results/*.png
-results/*.csv
+results/*
 !results/.gitkeep
 
 # OS/editor junk

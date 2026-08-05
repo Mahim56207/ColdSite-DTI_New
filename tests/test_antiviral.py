@@ -172,9 +172,9 @@ def test_allow_partial_lets_a_deliberate_partial_run_through():
 
 def test_committed_antiviral_file_is_still_incomplete():
     """Guard on the real artefact. Delete this test once the file is rebuilt."""
-    import os
-    path = "data/processed/antiviral_clean.csv"
-    if not os.path.exists(path):
+    from pathlib import Path
+    path = Path(__file__).resolve().parent.parent / "data/processed/antiviral_clean.csv"
+    if not path.exists():
         pytest.skip("antiviral file not present")
     df = pd.read_csv(path)
     if "antiviral_target" not in df.columns:

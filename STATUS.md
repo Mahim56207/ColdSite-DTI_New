@@ -41,7 +41,7 @@ than on code. They are listed at the bottom with the exact command to run.
 |---|---|---|
 | C1 | `precision@k` module | ✅ rewritten with input guards |
 | C2 | Multiple k values | ✅ + achievable-ceiling reporting |
-| C3 | Tested on several cases incl. edge cases | ✅ **160 tests**, was 0 |
+| C3 | Tested on several cases incl. edge cases | ✅ **171 tests**, was 0 |
 | C4 | Permutation significance test | ✅ + split-level test |
 | C5 | Headline figure mock-up | ✅ `src/evaluation/plots.py` |
 | C6 | Antiviral reference sheet | ✅ `antiviral_targets_reference.md` |
@@ -109,6 +109,14 @@ luck. The paper needs one test on the mean, per split.
   0.30, so raw precision is not comparable across proteins
 - `summarise_splits` — surfaces that cold-pair trains on ~54% of the pairs the
   other levels get, a confound that would otherwise be read as pure difficulty
+- `src/evaluation/run_ladder.py` — the full ladder: loads checkpoints, collects
+  explanations, computes fidelity + significance at every level, and writes the
+  JSON, the markdown table and the headline figure. Runs today with `--dummy`,
+  runs unchanged on real checkpoints in October. Guide C Step 3 asks for exactly
+  this: build the plumbing before the numbers arrive, not under time pressure.
+- `.github/workflows/tests.yml` — CI runs the suite, verifies the ground truth
+  still converts, and smoke-tests the ladder on every push
+- `conftest.py` + `pytest.ini` — the suite runs identically from any directory
 
 ### Consolidated / removed
 
@@ -150,6 +158,26 @@ artefact and should fail once the artefact is fixed.
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q          # 160 tests, ~4s
+python -m pytest tests/ -q          # 171 tests, ~5s
 python -m src.data.ground_truth     # ground-truth coverage report
 ```
+
+## Producing the headline figure
+
+Once items 1, 2 and 4 above are done, the ladder is one command:
+
+```bash
+python -m src.evaluation.run_ladder \
+    --dataset davis \
+    --ground-truth data/davis_ground_truth_sites.json \
+    --checkpoint-dir results \
+    --accuracy-json results/accuracy_by_level.json
+```
+
+It writes `results/ladder_davis.json`, `results/ladder_davis.md` (the table for
+the paper) and `results/headline_davis.png`.
+
+Two behaviours are deliberate. It **refuses to draw the figure** without
+accuracy values, because fidelity plotted alone is half the paper's claim. And
+`--dummy` output is tagged `DUMMY_PLACEHOLDER` in every filename so a synthetic
+run cannot later be mistaken for a result.

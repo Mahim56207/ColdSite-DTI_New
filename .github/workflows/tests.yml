@@ -1,0 +1,37 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Run test suite
+        run: python -m pytest
+
+      # Guards the Track A -> Track C hand-off. If the ground-truth files are
+      # regenerated in a shape the adapter cannot read, this fails here rather
+      # than in October when someone is trying to produce the headline figure.
+      - name: Verify ground truth still converts
+        run: python -m src.data.ground_truth
+
+      # Proves the full ladder plumbing runs end to end without any real data,
+      # so a broken pipeline is caught on the commit that broke it.
+      - name: Smoke-test the experiment ladder
+        run: python -m src.evaluation.run_ladder --dummy --out-dir /tmp/ladder

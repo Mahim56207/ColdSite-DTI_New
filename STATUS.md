@@ -45,7 +45,7 @@ than on code. They are listed at the bottom with the exact command to run.
 |---|---|---|
 | C1 | `precision@k` module | ✅ rewritten with input guards |
 | C2 | Multiple k values | ✅ + achievable-ceiling reporting |
-| C3 | Tested on several cases incl. edge cases | ✅ **255 tests**, was 0 |
+| C3 | Tested on several cases incl. edge cases | ✅ **271 tests**, was 0 |
 | C4 | Permutation significance test | ✅ + split-level test |
 | C5 | Headline figure mock-up | ✅ `src/evaluation/plots.py` |
 | C6 | Antiviral reference sheet | ✅ `antiviral_targets_reference.md` |
@@ -162,7 +162,7 @@ artefact and should fail once the artefact is fixed.
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q          # 255 tests, ~10s
+python -m pytest tests/ -q          # 271 tests, ~9s
 python -m src.data.ground_truth     # ground-truth coverage report
 ```
 
@@ -199,6 +199,9 @@ New modules, all tested, all runnable today:
 | `src/evaluation/model_registry.py` | the adapter contract every audited model must satisfy, plus `validate_adapter` and a uniform-attention control |
 | `src/evaluation/aggregate.py` | seed aggregation (mean ± std, flags <3 seeds), Holm-Bonferroni across the grid, the audit table |
 | `src/evaluation/target_family.py` | kinase / non-kinase stratification — the confound control |
+| `src/evaluation/run_audit.py` | the audit grid: models × splits × datasets × seeds, with Holm correction applied once over the whole family |
+| `src/evaluation/baseline_adapters.py` | registered stubs for DeepDTA / HyperAttentionDTI / MolTrans that raise with instructions until filled in |
+| `src/evaluation/plots.py` | rewritten: multi-model curves with seed error bars, control floor, stratified panels, faithfulness-vs-control bars |
 
 ## The confound, measured
 

@@ -143,11 +143,23 @@ def write_results(results: dict, out_dir: str, tag: str, k: int = 10,
                 for l in LEVELS if l in results and k in results[l]["by_k"]]
     if len(fidelity) == 4 and accuracy is not None:
         from src.evaluation.plots import plot_degradation_curve
-        accuracy_values = [accuracy.get(l, float("nan")) for l in LEVELS]
+
+        # plots.py now takes the audit grid shape rather than two flat lists, so
+        # this single-model run is wrapped as a one-model grid. Same figure,
+        # same code path the full audit uses -- no second plotting route to
+        # drift out of sync.
+        model_name = tag
+        grid = {model_name: {
+            level: {"precision_at_k": {
+                "mean": results[level]["by_k"][k]["precision_at_k"],
+                "std": float("nan"), "n_seeds": 1, "sufficient_seeds": False}}
+            for level in LEVELS if level in results and k in results[level]["by_k"]
+        }}
         figure_path = os.path.join(out_dir, f"headline_{tag}.png")
-        plot_degradation_curve(fidelity, accuracy_values,
-                               title=f"Explanation fidelity vs accuracy — {tag}",
-                               save_path=figure_path)
+        plot_degradation_curve(
+            grid, {model_name: {l: accuracy.get(l, float("nan")) for l in LEVELS}},
+            title=f"Explanation fidelity vs accuracy — {tag}",
+            save_path=figure_path)
     elif len(fidelity) == 4:
         print("\nAccuracy values not supplied, so the headline figure was not "
               "drawn. Pass --accuracy-json with one AUROC/CI per level; the "

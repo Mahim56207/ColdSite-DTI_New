@@ -139,11 +139,32 @@ def summarise_splits(splits: dict, dataset_name: str) -> pd.DataFrame:
             })
     summary = pd.DataFrame(rows)
 
+    # TWO different ratios, and conflating them is the mistake this function
+    # exists to prevent. Cold-pair is smaller in two distinct ways:
+    #
+    #   pct_of_all_pairs_used  train+valid+test as a share of the largest
+    #                          split's total -- depressed because cold-pair
+    #                          DISCARDS every row with exactly one cold entity
+    #                          (~54% for DAVIS)
+    #   train_pct_of_largest   TRAIN rows as a share of the largest split's
+    #                          train rows -- the training-volume confound
+    #                          itself (~71% for DAVIS)
+    #
+    # The old single column was named `pct_of_largest_split` but computed the
+    # first, and it was repeatedly quoted as if it were the second. That
+    # overstates the training confound by roughly a factor of two.
     totals = summary.groupby("split")["pairs"].sum()
-    full = totals.max()
-    summary["pct_of_largest_split"] = summary["split"].map(
-        lambda s: round(100 * totals[s] / full, 1)
+    summary["pct_of_all_pairs_used"] = summary["split"].map(
+        lambda s: round(100 * totals[s] / totals.max(), 1)
     )
+
+    train_rows = summary[summary["part"] == "train"].set_index("split")["pairs"]
+    summary["train_pct_of_largest"] = summary["split"].map(
+        lambda s: round(100 * train_rows[s] / train_rows.max(), 1)
+    )
+
+    # kept so existing readers do not break; it is the "used" ratio, as before
+    summary["pct_of_largest_split"] = summary["pct_of_all_pairs_used"]
     return summary
 
 

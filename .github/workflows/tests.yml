@@ -35,3 +35,9 @@ jobs:
       # so a broken pipeline is caught on the commit that broke it.
       - name: Smoke-test the experiment ladder
         run: python -m src.evaluation.run_ladder --dummy --out-dir /tmp/ladder
+
+      # The faithfulness runner and the accuracy hand-off to Track C. Same
+      # reasoning as the ladder: the plumbing is exercised on every commit so a
+      # break surfaces now rather than in October on real checkpoints.
+      - name: Smoke-test the faithfulness runner
+        run: python -m src.evaluation.run_faithfulness --dummy --out-dir /tmp/faithfulness

@@ -148,11 +148,13 @@ the DeepDTA data files are not in the repo).
 | 1 | Rebuild the antiviral subset | A | download `BindingDB_All.tsv`, then `python -m src.data.extract_antiviral --source data/raw/BindingDB_All.tsv` | ~1h, mostly download |
 | 2 | Re-fetch ground truth with feature types | A | `python -m src.data.fetch_binding_sites --dataset davis` (and `kiba`) | ~30 min |
 | 3 | Resolve the 33 unmapped DAVIS targets | A | manual gene→UniProt lookup; check `*_provenance.json` for `not_found` | ~2h |
-| 4 | Train ColdSite-DTI on 4 splits × 2 datasets | B | `python -m src.model.train --split-dir data/splits/davis/cold_target --dataset davis --split cold_target` | 8 runs, HPC |
+| 4 | Train ColdSite-DTI: 2 datasets × 4 splits × 3 seeds | B | `python -m src.model.run_grid --preflight`, then `python -m src.model.run_grid` | **24 runs**, HPC |
 | 5 | Fill the remaining 23 baseline cells | A | per `src/data/baselines/README.md` | the long pole |
 
-Do them in that order. 1 and 2 unblock 4, and 4 unblocks the first real
-precision@k number.
+Do them in that order. Item 4 is blocked on the **split files**, not on 1–3:
+`data/splits/` is empty and the DeepDTA files `build_splits.py` reads are not
+in the repo. Items 1 and 2 gate the *metric* rather than the training, and 4
+unblocks the first real precision@k number either way.
 
 After 1 and 2, delete `test_committed_antiviral_file_is_still_incomplete` in
 `tests/test_antiviral.py` — it is a deliberate guard on the current broken
@@ -162,29 +164,59 @@ artefact and should fail once the artefact is fixed.
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q          # 271 tests, ~9s
+python -m pytest tests/ -q          # 387 tests, ~6s
 python -m src.data.ground_truth     # ground-truth coverage report
 ```
 
 ## Producing the headline figure
 
-Once items 1, 2 and 4 above are done, the ladder is one command:
+Once items 1, 2 and 4 above are done, the ladder is one command per seed. Run
+`run_faithfulness` first — it produces the `--accuracy-json` file the ladder
+needs (next section).
 
 ```bash
 python -m src.evaluation.run_ladder \
-    --dataset davis \
+    --dataset davis --seed 1 \
     --ground-truth data/davis_ground_truth_sites.json \
     --checkpoint-dir results \
-    --accuracy-json results/accuracy_by_level.json
+    --accuracy-json results/accuracy_davis_seed1.json
 ```
 
-It writes `results/ladder_davis.json`, `results/ladder_davis.md` (the table for
-the paper) and `results/headline_davis.png`.
+It writes `results/ladder_davis_seed1.json`, `results/ladder_davis_seed1.md`
+(the table for the paper) and `results/headline_davis_seed1.png`.
 
-Two behaviours are deliberate. It **refuses to draw the figure** without
-accuracy values, because fidelity plotted alone is half the paper's claim. And
-`--dummy` output is tagged `DUMMY_PLACEHOLDER` in every filename so a synthetic
-run cannot later be mistaken for a result.
+`--seed` selects which training run to read, and it appears in the output names
+too: three ladder runs writing one `ladder_davis.json` would overwrite each
+other exactly as unseeded checkpoints did. Checkpoint and result filenames are
+built by `src/model/checkpoint_naming.py` at both ends — the writer
+(`src.model.train`) and the reader (`run_ladder`) import the same function, so
+the two cannot drift apart:
+
+    results/coldsite_dti_{dataset}_{split}_{task}_seed{N}.pt
+    results/{dataset}_{split}_{task}_seed{N}_results.json
+
+Two behaviours of `run_ladder` are deliberate. It **refuses to draw the figure**
+without accuracy values, because fidelity plotted alone is half the paper's
+claim. And `--dummy` output is tagged `DUMMY_PLACEHOLDER` in every filename so a
+synthetic run cannot later be mistaken for a result.
+
+## Faithfulness and the accuracy hand-off
+
+```bash
+python -m src.evaluation.run_faithfulness --dummy          # no data needed
+
+python -m src.evaluation.run_faithfulness \
+    --dataset davis --seed 1 --checkpoint-dir results
+```
+
+It writes `results/faithfulness_davis_seed1.json`,
+`results/faithfulness_davis_seed1.md` and
+`results/faithfulness_davis_seed1.png` — comprehensiveness against its
+random-masking control per level, with the **delta** as the only column that is
+a result — plus `results/accuracy_davis_seed1.json`, the flat
+`{level: accuracy}` file `run_ladder --accuracy-json` reads. Accuracy is read
+out of the trainer's own `*_results.json` rather than recomputed, so the
+figure's accuracy axis cannot disagree with the runs it reports.
 
 
 ---
@@ -226,10 +258,50 @@ is the highest-priority gap in the project.
 | 2 | Ground-truth re-fetch with feature types | A | metric validity |
 | 3 | KIBA accession → gene mapping | A | control on KIBA |
 | 4 | 33 unmapped DAVIS targets | A | coverage |
-| 5 | 24 training runs (2 × 4 × 3 seeds) | B | every real number |
-| 6 | Truncation + cold-pair volume decisions | B | Methods |
+| 5 | **Split files for both datasets** | A | items 6, 7 below — the whole grid |
+| 6 | 24 training runs (2 × 4 × 3 seeds) | B | every real number |
 | 7 | Baseline adapters (3 models) | A + B | the audit framing |
 | 8 | Differentiation doc rewrite | C | Related Work |
 | 9 | Audit grid + Holm correction | C | Results |
 
-Items 1–3 unblock 5, which unblocks 9.
+Items 1–3 unblock 6, which unblocks 9. **Item 5 is the hard blocker for Track
+B**: `data/splits/` is empty and the DeepDTA source files under
+`src/data/baselines/deepdta/data/` that `build_splits.py` reads are not present.
+
+---
+
+# Track B (124AD0015) Part 2 — state
+
+| Item | Status |
+|---|---|
+| Seed-aware checkpoint naming, shared writer/reader | ✅ `src/model/checkpoint_naming.py` |
+| Faithfulness runner + random-masking control + delta | ✅ `src/evaluation/run_faithfulness.py` |
+| Accuracy hand-off to Track C | ✅ `accuracy_{dataset}_seed{N}.json` |
+| Truncation decision (`exclude`, max_len 1000) | ✅ decided, evidenced, written up |
+| Cold-pair volume decision (report, don't subsample) | ✅ decided; `--train-subsample` ready for the control |
+| 24-cell grid runner with preflight + one-cell validation | ✅ `src/model/run_grid.py` |
+| Attention extraction for HyperAttentionDTI / MolTrans | ✅ `src/evaluation/attention_projection.py` |
+| `validate_adapter` passing for ColdSite-DTI | ✅ padded and unpadded |
+| Methods / Model Architecture draft | ✅ `paper/methods_track_b.md` |
+| **24 training runs** | ⛔ blocked on item 5 |
+| **Faithfulness on real checkpoints** | ⛔ blocked on the grid |
+| **Volume-matched sensitivity run** | ⛔ blocked on the grid |
+
+Everything above the line runs today and is covered by the test suite. The
+three blocked items are blocked on data, not on code:
+
+```bash
+python -m src.model.run_grid --preflight   # says exactly what is missing
+```
+
+## Grid semantics, settled
+
+**2 datasets × 4 splits × 3 TRAINING seeds = 24 runs**, not 72. The three seeds
+vary weight initialisation and batch order on one fixed split per cell. The
+repository is consistent on this: the Part 2 guide's loop varies only `--seed`
+against a seed-independent `--split-dir`; `build_all_splits()` takes no seed
+argument and writes one split per cell; `run_audit.build_grid` has a single seed
+axis; and both the guide and this file state the count as 24.
+
+One consequence belongs in the paper: seed error bars measure **initialisation
+variance, not split-selection variance**.

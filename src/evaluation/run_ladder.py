@@ -29,6 +29,8 @@ import numpy as np
 import torch
 
 from src.data.ground_truth import load_site_sets
+from src.model.checkpoint_naming import checkpoint_path as build_checkpoint_path
+from src.model.checkpoint_naming import discover_checkpoints
 from src.evaluation.precision_at_k import batch_precision_at_k
 from src.evaluation.significance_test import permutation_test_batch
 
@@ -221,6 +223,12 @@ def main():
     parser.add_argument("--ground-truth", help="path to *_ground_truth_sites.json")
     parser.add_argument("--split-root", default="data/splits")
     parser.add_argument("--checkpoint-dir", default="results")
+    parser.add_argument("--seed", type=int, default=1,
+                        help="training seed of the checkpoints to read; must "
+                             "match a seed Track B actually trained")
+    parser.add_argument("--task", default="regression",
+                        choices=["regression", "binary"],
+                        help="must match the task the checkpoints were trained on")
     parser.add_argument("--accuracy-json",
                         help="{level: accuracy} produced by the training runs")
     parser.add_argument("--out-dir", default="results")
@@ -247,10 +255,17 @@ def main():
 
     for level in LEVELS:
         split_dir = os.path.join(args.split_root, args.dataset, level)
-        checkpoint = os.path.join(
-            args.checkpoint_dir, f"coldsite_dti_{args.dataset}_{level}_regression.pt")
+        # Built by the same module the trainer writes with, so the two ends
+        # cannot drift apart. See src/model/checkpoint_naming.py.
+        checkpoint = build_checkpoint_path(
+            args.checkpoint_dir, args.dataset, level, args.task, args.seed)
         if not (os.path.isdir(split_dir) and os.path.exists(checkpoint)):
             print(f"[skip] {level}: missing {split_dir} or {checkpoint}")
+            available = [c["seed"] for c in discover_checkpoints(
+                args.checkpoint_dir, dataset=args.dataset, split=level,
+                task=args.task)]
+            if available:
+                print(f"        (seeds present for this cell: {available})")
             continue
 
         import pandas as pd
@@ -274,7 +289,11 @@ def main():
             "  python -m src.model.train --split-dir data/splits/davis/random "
             "--dataset davis --split random"
         )
-    write_results(results, args.out_dir, args.dataset, k=args.k, accuracy=accuracy)
+    # Seed in the output tag as well as the input path: a ladder run per seed
+    # writing to one `ladder_davis.json` reintroduces at the reading end
+    # exactly the overwrite the checkpoint naming just fixed.
+    write_results(results, args.out_dir, f"{args.dataset}_seed{args.seed}",
+                  k=args.k, accuracy=accuracy)
 
 
 if __name__ == "__main__":

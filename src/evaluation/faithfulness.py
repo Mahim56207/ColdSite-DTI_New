@@ -55,6 +55,20 @@ def _as_batch(tensor: torch.Tensor) -> torch.Tensor:
 
 @torch.no_grad()
 def _predict(model, drug: torch.Tensor, protein: torch.Tensor) -> float:
+    """One scalar prediction, from either a raw model or a registry adapter.
+
+    ColdSite-DTI's `forward` returns `(pred, attention)`, which is what this
+    module was written against. The audited baselines do not share that
+    signature -- they arrive wrapped in an `ExplainableDTIModel` adapter whose
+    contract is `predict(drug, protein) -> float`. Without this branch,
+    faithfulness could only ever be measured on our own model, which is the one
+    model whose result matters least under the audit framing.
+
+    Duck-typed rather than imported, to keep model_registry out of this
+    module's import graph.
+    """
+    if hasattr(model, "predict"):
+        return float(model.predict(_as_batch(drug), _as_batch(protein)))
     model.eval()
     pred, _attn = model(_as_batch(drug), _as_batch(protein))
     return float(pred.squeeze().item())

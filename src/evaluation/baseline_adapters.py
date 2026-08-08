@@ -72,24 +72,42 @@ class DeepDTAAdapter(_Unimplemented):
 
 @register("hyperattentiondti")
 class HyperAttentionDTIAdapter(_Unimplemented):
-    """HyperAttentionDTI — attention over drug-protein position pairs.
+    """HyperAttentionDTI — attention over CONVOLUTION positions, not residues.
 
-    The attention is 2D (drug positions x protein positions). precision@k needs
-    ONE weight per residue, so it has to be reduced along the drug axis. Use
-    max over drug positions rather than mean: the claim being audited is that
-    attention localises a binding pocket, and averaging over every drug atom
-    smears a sharp pocket signal into a flat one, which would understate the
-    model rather than test it. Record the choice in Methods either way.
+    Corrected against the vendored implementation (124AD0015, Part 2). An
+    earlier version of this docstring said the attention is 2D over drug x
+    protein positions and should be reduced with max over the drug axis. That
+    is not what `baselines/HpyerAttentionDTI/model.py` computes:
+
+        Atten_matrix   (B, 85, 979, 160)   drug pos x protein pos x channel
+        Protein_atte   (B, 160, 979)       AFTER torch.mean(Atten_matrix, 1)
+
+    The drug axis is averaged away inside `forward`, so the axis left to reduce
+    is 160 channels. Taking a max over drug positions would mean recomputing
+    from `Atten_matrix` — ~13M floats per sample. That is a real choice, not an
+    oversight; see attention_projection.PROJECTION_DECISIONS.
+
+    The 979 is the second trap: a [4, 8, 12] kernel stack turns 1000 residues
+    into 979 positions, each a 22-residue window. Returning those 979 values as
+    if they were residues misaligns every ground-truth index.
+
+    `src/evaluation/attention_projection.py` has both steps, tested against the
+    vendored model.
     """
 
     provides_attention = True
     citation = "Zhao et al., Bioinformatics 2022"
     repo_url = "https://github.com/kexinhuang12345/HyperAttentionDTI"
     what_to_do = (
-        "implement predict() and explain(). explain() must reduce the 2D "
-        "attention map to one weight per protein residue (max over the drug "
-        "axis) and return exactly len(real residues) values -- not the padded "
-        "length."
+        "implement predict() and explain(). For explain(), the extraction and "
+        "the residue projection already exist:\n"
+        "    from src.evaluation.attention_projection import (\n"
+        "        hyperattentiondti_protein_attention, project_conv_attention)\n"
+        "    conv = hyperattentiondti_protein_attention(model, drug, protein)\n"
+        "    weights = project_conv_attention(conv[0], real_length)\n"
+        "so what is left on this side is loading the checkpoint, tokenising "
+        "with CHARPROTSET, and passing the REAL residue count (not 1000, and "
+        "not 979)."
     )
 
 
@@ -102,16 +120,33 @@ class MolTransAdapter(_Unimplemented):
     be projected back onto residue indices using the ESPF decomposition before
     precision@k means anything. Skipping that projection produces a
     well-formed array indexed by the wrong thing.
+
+    Two findings from the vendored code (124AD0015, Part 2):
+
+    * `SelfAttention.forward` computes `attention_probs` and returns only
+      `context_layer`, so the weights are unreachable without a hook. Use
+      `attention_projection.capture_moltrans_attention` rather than editing
+      the vendored file — prediction behaviour then stays byte-identical to
+      upstream. Extract in eval mode: dropout is applied to `attention_probs`.
+    * `max_protein_seq = 545` counts TOKENS, not residues, and a token spans
+      several amino acids. `moltrans_covered_residues(tokens)` is the real
+      length; 545 is never it.
     """
 
     provides_attention = True
     citation = "Huang et al., Bioinformatics 2021"
     repo_url = "https://github.com/kexinhuang12345/MolTrans"
     what_to_do = (
-        "implement predict() and explain(). explain() must map ESPF "
-        "substructure attention back to residue positions -- each token covers "
-        "a span of residues, so distribute its weight across that span "
-        "(uniformly is fine; document the choice)."
+        "implement predict() and explain(). The token->residue projection "
+        "already exists:\n"
+        "    from src.evaluation.attention_projection import (\n"
+        "        project_token_attention, moltrans_covered_residues)\n"
+        "    weights = project_token_attention(token_weights, tokens)\n"
+        "so what is left on this side is loading the checkpoint, running the "
+        "ESPF tokeniser (baselines/MolTrans/stream.py, needs subword_nmt, "
+        "which is NOT in requirements.txt), and deciding which attention to "
+        "expose -- see attention_projection.PROJECTION_DECISIONS["
+        "'moltrans.attention_source']."
     )
 
 

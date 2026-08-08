@@ -64,8 +64,24 @@ used and how it was resolved.
 - `truncation="keep"` — retain them; the protein stays in the average and its
   ceiling reflects the unreachable sites.
 
-Current impact at `max_len=1000`: **283 positions / 15 targets** dropped in
-DAVIS, **165 positions / 10 targets** in KIBA.
+Current impact at `max_len=1000`:
+
+| | DAVIS | KIBA |
+|---|---|---|
+| annotated positions past the cut | 283 | 165 |
+| targets losing at least one position | **24** | **14** |
+| targets losing everything (dropped) | **15** | **8** |
+
+> **Figures corrected 2026-08-09 (124AD0015).** This line previously read
+> "283 positions / 15 targets" and "165 positions / 10 targets", which conflated
+> *targets affected* with *targets dropped*, and — for KIBA — counted 2 targets
+> that are unusable because of description filtering rather than the window.
+> `coverage_report()` could not express the distinction: `targets_dropped_entirely`
+> counts every unusable target whatever the cause, and it is policy-dependent
+> (10 under `exclude`, 2 under `keep`). A patch adding
+> `targets_affected_by_truncation` and `targets_dropped_by_truncation` — both
+> policy-independent — is with 124AD0008; once applied,
+> `python -m src.data.ground_truth` prints this table's numbers directly.
 
 Note the asymmetry: this does not change raw precision@k, because there is no
 attention out past the cut. It changes which proteins are averaged over, and

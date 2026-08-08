@@ -42,6 +42,7 @@ from src.model.checkpoint_naming import (
     results_path,
     run_tag,
 )
+from src.model.train import accuracy_metric_for
 
 DATASETS = ("davis", "kiba")
 SPLITS = ("random", "cold_drug", "cold_target", "cold_pair")
@@ -49,9 +50,11 @@ SEEDS = (1, 2, 3)
 TASK = "regression"
 EPOCHS = 100
 
-# Read out of the trainer's test_metrics to fill the status table's accuracy
-# column. Matches run_faithfulness.DEFAULT_ACCURACY_METRIC for regression.
-ACCURACY_METRIC = "ci"
+# The status table's accuracy column follows --task, it is not a constant. A
+# hardcoded "ci" made every cell of a --task binary grid fail verification with
+# "no 'ci' in test_metrics" -- which reads like a training failure rather than a
+# metric-name mismatch. Imported from train.py so it cannot drift from the keys
+# compute_metrics actually emits.
 
 SPLIT_FILES = ("train.csv", "valid.csv", "test.csv")
 
@@ -160,7 +163,7 @@ def train_command(cell, split_root="data/splits", results_dir="results",
 
 
 def verify_cell(cell, results_dir="results", task=TASK,
-                accuracy_metric=ACCURACY_METRIC) -> dict:
+                accuracy_metric=None) -> dict:
     """Everything the guide asks be confirmed before the grid is trusted.
 
     Checks the artefacts, not the training curve: whether a model learned well
@@ -169,6 +172,7 @@ def verify_cell(cell, results_dir="results", task=TASK,
     evaluation can find, is.
     """
     problems = []
+    accuracy_metric = accuracy_metric or accuracy_metric_for(task)
     tag = run_tag(cell["dataset"], cell["split"], task, cell["seed"])
     checkpoint = build_checkpoint_path(
         results_dir, cell["dataset"], cell["split"], task, cell["seed"])
@@ -268,7 +272,8 @@ def status_table(results: list) -> str:
 
     done = sum(1 for e in results if e["status"] == "ok")
     lines += ["", f"{done} of {len(results)} cells complete "
-                  f"(accuracy = concordance index on the test split)."]
+                  f"(accuracy = the task's headline metric on the test split; "
+                  f"concordance index for regression, AUROC for binary)."]
     failures = [e for e in results if e["status"] not in ("ok", "skipped", "dry-run")]
     if failures:
         lines += ["", "## Failures", ""]
@@ -354,7 +359,7 @@ def main():
                 f"The remaining {len(remaining)} cells were NOT launched. "
                 f"A shape error found on run 23 costs a week.")
         print(f"\nValidation cell OK "
-              f"({ACCURACY_METRIC}={outcome['accuracy']:.4f}). "
+              f"({accuracy_metric_for(args.task)}={outcome['accuracy']:.4f}). "
               f"Launching the remaining {len(remaining)}.")
 
     for cell in remaining:

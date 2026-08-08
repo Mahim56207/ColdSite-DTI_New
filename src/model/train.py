@@ -50,6 +50,31 @@ def concordance_index(y_true, y_pred) -> float:
                   + 0.5 * ((diff == 0) & comparable).sum()) / total)
 
 
+# Which key of compute_metrics() below is "accuracy" for the headline figure.
+# Defined here because compute_metrics is what decides the keys exist at all;
+# every consumer imports this rather than hardcoding a name. Two independent
+# copies of it is how the grid's status table and Track C's hand-off end up
+# reporting different quantities, both labelled "accuracy".
+#
+# CI and AUROC are both bounded [0, 1] and higher-is-better, so they share an
+# axis sensibly with precision@k. MSE would invert the reading of the figure.
+DEFAULT_ACCURACY_METRIC = {"regression": "ci", "binary": "auroc"}
+
+
+def accuracy_metric_for(task: str) -> str:
+    """The accuracy field for a task. Raises rather than guessing.
+
+    A wrong guess here does not crash -- it makes every cell fail verification
+    with "no 'ci' in test_metrics", which reads like a training failure rather
+    than a metric-name mismatch.
+    """
+    if task not in DEFAULT_ACCURACY_METRIC:
+        raise ValueError(
+            f"no accuracy metric defined for task {task!r}; "
+            f"known tasks: {sorted(DEFAULT_ACCURACY_METRIC)}")
+    return DEFAULT_ACCURACY_METRIC[task]
+
+
 def compute_metrics(y_true, y_pred, task: str) -> dict:
     y_true, y_pred = np.asarray(y_true, float), np.asarray(y_pred, float)
     if task == "binary":

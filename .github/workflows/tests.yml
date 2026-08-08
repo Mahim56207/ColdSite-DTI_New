@@ -41,3 +41,14 @@ jobs:
       # break surfaces now rather than in October on real checkpoints.
       - name: Smoke-test the faithfulness runner
         run: python -m src.evaluation.run_faithfulness --dummy --out-dir /tmp/faithfulness
+
+      # The audit orchestrator -- the multi-model version of the ladder.
+      - name: Smoke-test the audit grid
+        run: python -m src.evaluation.run_audit --dummy --out-dir /tmp/audit
+
+      # The training grid's preflight. Exercises the CLI path that decides
+      # whether a week of HPC time is safe to spend, and reports the missing
+      # split files while they are still missing. Exits 0 either way, so this
+      # guards the code rather than the data.
+      - name: Smoke-test the training-grid preflight
+        run: python -m src.model.run_grid --preflight

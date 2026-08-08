@@ -10,8 +10,8 @@ import json
 import pytest
 
 from src.model.checkpoint_naming import checkpoint_name, results_path, run_tag
+from src.model.train import accuracy_metric_for
 from src.model.run_grid import (
-    ACCURACY_METRIC,
     DATASETS,
     EPOCHS,
     SEEDS,
@@ -181,7 +181,7 @@ def test_a_run_with_no_accuracy_metric_is_caught(tmp_path):
     _finish_cell(tmp_path, cell, metrics={"mse": 0.3})
     report = verify_cell(cell, str(tmp_path))
     assert not report["valid"]
-    assert any(ACCURACY_METRIC in p for p in report["problems"])
+    assert any(accuracy_metric_for("regression") in p for p in report["problems"])
 
 
 @pytest.mark.slow
@@ -214,3 +214,46 @@ def test_status_table_surfaces_failures_rather_than_burying_them():
     table = status_table(results)
     assert "## Failures" in table and "trainer exited 1" in table
     assert "0 of 1 cells complete" in table
+
+
+# --------------------------------------------------------------------------
+# the accuracy metric follows --task, it is not a constant
+# --------------------------------------------------------------------------
+
+@pytest.mark.slow
+def test_a_binary_grid_verifies_against_auroc_not_ci(tmp_path):
+    """Regression. The metric was hardcoded to "ci" while --task binary is an
+    offered choice, so every cell of a binary grid failed verification with
+    "no 'ci' in test_metrics" -- which reads like a training failure rather
+    than a metric-name mismatch."""
+    import json
+
+    import torch
+
+    cell = {"dataset": "davis", "split": "random", "seed": 1}
+    tag = run_tag("davis", "random", "binary", 1)
+    torch.save({"model_state": {"w": torch.zeros(2)}, "epoch": 1},
+               tmp_path / checkpoint_name("davis", "random", "binary", 1))
+    with open(results_path(str(tmp_path), tag), "w") as f:
+        json.dump({"tag": tag, "dataset": "davis", "split": "random",
+                   "task": "binary", "seed": 1,
+                   "test_metrics": {"auroc": 0.83, "auprc": 0.7,
+                                    "accuracy": 0.8}}, f)
+
+    report = verify_cell(cell, str(tmp_path), task="binary")
+    assert report["valid"], report["problems"]
+    assert report["accuracy"] == 0.83
+
+
+def test_the_metric_mapping_has_one_definition():
+    """Two copies of it is how the grid's status table and Track C's hand-off
+    end up reporting different quantities, both labelled "accuracy"."""
+    from src.evaluation import run_faithfulness
+    from src.model import train
+
+    assert run_faithfulness.DEFAULT_ACCURACY_METRIC is train.DEFAULT_ACCURACY_METRIC
+
+
+def test_an_unknown_task_raises_rather_than_guessing():
+    with pytest.raises(ValueError, match="no accuracy metric"):
+        accuracy_metric_for("ranking")

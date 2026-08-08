@@ -51,11 +51,10 @@ LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
 LEVEL_LABELS = {"random": "Warm", "cold_drug": "Cold-Drug",
                 "cold_target": "Cold-Target", "cold_pair": "Cold-Pair"}
 
-# Which field of the trainer's test_metrics becomes "accuracy" on the headline
-# figure. CI and AUROC are both bounded [0, 1] and both read "higher is better",
-# which is what lets them share an axis with precision@k. MSE would invert the
-# reading of the figure.
-DEFAULT_ACCURACY_METRIC = {"regression": "ci", "binary": "auroc"}
+# Re-exported, not redefined: the canonical mapping lives beside
+# train.compute_metrics, which is what decides these keys exist. Kept importable
+# from here because that is where consumers already look for it.
+from src.model.train import DEFAULT_ACCURACY_METRIC, accuracy_metric_for  # noqa: E402
 
 
 # --------------------------------------------------------------------------
@@ -126,7 +125,7 @@ def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
     `missing_levels`, never defaulted to zero -- a zero would draw as a real
     point on the figure.
     """
-    metric = metric or DEFAULT_ACCURACY_METRIC.get(task, "ci")
+    metric = metric or accuracy_metric_for(task)
     accuracy, missing, found_metrics = {}, [], {}
 
     for level in levels:

@@ -111,8 +111,13 @@ luck. The paper needs one test on the mean, per split.
   and keeps the measurement type instead of pooling IC50/Ki/Kd/EC50
 - `achievable_ceiling` / `normalised_precision_at_k` — six sites at k=20 caps at
   0.30, so raw precision is not comparable across proteins
-- `summarise_splits` — surfaces that cold-pair trains on ~54% of the pairs the
-  other levels get, a confound that would otherwise be read as pure difficulty
+- `summarise_splits` — surfaces the cold-pair volume confound, which would
+  otherwise be read as pure difficulty. **Two different numbers, do not mix
+  them up:** cold-pair *trains* on roughly **71%** of the pairs the other levels
+  get, and *uses* roughly **54%** of all measured pairs once the rows it
+  discards (one cold entity, not two) are counted. The `pct_of_largest_split`
+  column reports the second. Quoting 54% as the training ratio overstates the
+  confound by about a factor of two.
 - `src/evaluation/run_ladder.py` — the full ladder: loads checkpoints, collects
   explanations, computes fidelity + significance at every level, and writes the
   JSON, the markdown table and the headline figure. Runs today with `--dummy`,

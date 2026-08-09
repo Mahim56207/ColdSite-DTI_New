@@ -91,16 +91,29 @@ Both are Methods decisions the code deliberately leaves open. Both change the
 headline number. Pick, write down the reasoning, tell the team.
 
 **Truncation.** The model reads at most 1000 residues. At that setting 283
-DAVIS and 165 KIBA annotated positions fall outside the window, dropping 15 and
-10 targets entirely. `truncation="exclude"` drops them; `"keep"` retains them
-and lowers the ceiling. See `data/GROUND_TRUTH_README.md`.
+DAVIS and 165 KIBA annotated positions fall outside the window. That affects
+**24 DAVIS and 14 KIBA targets**, of which **15 and 8** lose every annotation
+and are dropped entirely. `truncation="exclude"` drops them; `"keep"` retains
+them and lowers the ceiling. See `data/GROUND_TRUTH_README.md`.
 
 **Cold-pair training volume.** Cold-pair discards every row whose drug is held
-out but whose target is not — it trains on roughly **54%** of the pairs the
-other levels get. If that is not stated, the level-4 drop reads as pure
-difficulty when part of it is simply less training data. Either report the
-counts prominently, or subsample the other three splits to match. Your call,
-but it must be a call.
+out but whose target is not. Two different ratios follow, and they must not be
+mixed up: it **trains** on roughly **71%** of the pairs the other levels get,
+and **uses** roughly **54%** of all measured pairs once the discarded rows are
+counted. The training-volume confound is the first number. If that is not
+stated, the level-4 drop reads as pure difficulty when part of it is simply
+less training data. Either report the counts prominently, or subsample the
+other three splits to match. Your call, but it must be a call.
+
+> **Figures corrected 2026-08-09 (124AD0015).** This section previously read
+> "dropping 15 and 10 targets entirely" and "roughly 54% of the pairs".
+> Regenerate the truncation figures with `python -m src.data.ground_truth`
+> (after the patch adding `targets_affected_by_truncation` /
+> `targets_dropped_by_truncation` lands) and the volume figures from
+> `results/split_summary.md`. KIBA's earlier "10" came from a counter that also
+> included 2 targets lost to description filtering rather than to the window;
+> the earlier "54%" was the pairs-*used* fraction quoted as the training ratio,
+> which overstates the confound by roughly a factor of two.
 
 ## Priority 4 — Register your model, help with the others (~2 days)
 

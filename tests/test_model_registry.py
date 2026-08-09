@@ -169,3 +169,71 @@ def test_validator_reports_exceptions_rather_than_propagating(pair):
 
     report = validate_adapter(_Broken(), *pair)
     assert not report["valid"] and len(report["problems"]) == 2
+
+
+# --------------------------------------------------------------------------
+# length measurement -- the pattern STATUS.md records as a fixed bug in
+# explain(), which had survived in two other places
+# --------------------------------------------------------------------------
+
+def test_every_explainer_agrees_on_length_for_an_interior_pad():
+    """Counting non-pad tokens and measuring to the last non-pad position
+    disagree the moment a sequence has an interior pad, and the count is
+    SHORTER than the residues it covers. UniformBaseline is the audit's control
+    floor; a floor line one residue short is scored against shifted ground
+    truth and nothing raises.
+    """
+    import torch
+
+    from src.model.coldsite_dti import ColdSiteDTI
+    from src.model.protein_encoder import real_lengths
+
+    protein = torch.zeros(1, 30, dtype=torch.long)
+    protein[0, :20] = torch.randint(2, 28, (20,))
+    protein[0, 7] = 0                       # interior pad
+    drug = torch.randint(2, 70, (1, 20))
+
+    expected = int(real_lengths(protein)[0])
+    assert expected == 20, "fixture no longer exercises the interior-pad case"
+    assert int((protein[0] != 0).sum()) == 19, "count and span must differ here"
+
+    torch.manual_seed(0)
+    model = ColdSiteDTI(70, 28).eval()
+    assert len(model.explain(drug, protein)[0]) == expected
+    assert get_model("uniform_control").explain(drug, protein).size == expected
+
+
+def test_uniform_control_passes_its_own_contract_on_an_interior_pad():
+    import torch
+
+    from src.model.protein_encoder import real_lengths
+
+    protein = torch.zeros(1, 30, dtype=torch.long)
+    protein[0, :20] = torch.randint(2, 28, (20,))
+    protein[0, 7] = 0
+    drug = torch.randint(2, 70, (1, 20))
+
+    report = validate_adapter(get_model("uniform_control"), drug, protein,
+                              expected_length=int(real_lengths(protein)[0]))
+    assert report["valid"], report["problems"]
+
+
+def test_random_control_samples_from_the_span_not_the_count():
+    """random_control must draw its positions from exactly the residues the
+    explanation was scored over, or the control it provides is measured on a
+    different set of positions than the observed value."""
+    import torch
+
+    from src.evaluation.faithfulness import random_control
+    from src.model.coldsite_dti import ColdSiteDTI
+
+    protein = torch.zeros(1, 20, dtype=torch.long)
+    protein[0, :12] = torch.randint(2, 28, (12,))
+    protein[0, 5] = 0                       # span 12, count 11
+    drug = torch.randint(2, 70, (1, 10))
+
+    torch.manual_seed(0)
+    model = ColdSiteDTI(70, 28).eval()
+    # k=12 is feasible against the span and infeasible against the count, so a
+    # NaN here means the count is still being used.
+    assert not np.isnan(random_control(model, drug, protein, k=12, n_trials=2))

@@ -43,7 +43,15 @@ class DTIDataset(Dataset):
 
     @classmethod
     def from_csv(cls, path, drug_vocab, protein_vocab, **kwargs):
-        df = pd.read_csv(path)
+        return cls.from_frame(pd.read_csv(path), drug_vocab, protein_vocab, **kwargs)
+
+    @classmethod
+    def from_frame(cls, df, drug_vocab, protein_vocab, **kwargs):
+        """Same as from_csv, for a frame already in memory.
+
+        load_split needs this: it may subsample the training rows before
+        building the vocabulary, so it cannot re-read the file afterwards.
+        """
         s = find_column(df, SMILES_COLUMNS, "SMILES")
         p = find_column(df, PROTEIN_COLUMNS, "protein sequence")
         y = find_column(df, LABEL_COLUMNS, "label")
@@ -81,14 +89,30 @@ def make_loader(dataset, batch_size=64, shuffle=False, workers=0):
                       collate_fn=collate_batch, num_workers=workers)
 
 
-def load_split(split_dir, max_protein_len=1000, batch_size=64):
+def load_split(split_dir, max_protein_len=1000, batch_size=64,
+               train_subsample=None, subsample_seed=0):
     """Build train/valid/test loaders for one split directory.
 
     Returns (train_loader, valid_loader, test_loader, drug_vocab, protein_vocab).
+
+    `train_subsample` keeps only that many training rows, chosen at random
+    against `subsample_seed`. It exists for one experiment: the cold-pair split
+    trains on roughly 71% of the pairs the other three levels get, because it
+    discards every row with exactly one cold entity. Without a volume-matched
+    control, the accuracy drop at cold-pair reads as pure difficulty when part
+    of it is simply less training data. Valid and test are never subsampled --
+    the control has to be evaluated on the same test set as the run it is
+    being compared against, or it answers a different question.
     """
     train_df = pd.read_csv(f"{split_dir}/train.csv")
+    if train_subsample is not None and train_subsample < len(train_df):
+        train_df = train_df.sample(n=int(train_subsample),
+                                   random_state=subsample_seed)
     # Vocab is built from TRAIN ONLY. Building it from all three splits would leak
     # information about unseen drugs -- precisely what the cold splits measure.
+    # Built AFTER subsampling on purpose: a smaller training set genuinely sees
+    # fewer SMILES tokens, and that shrinkage is part of the effect being
+    # measured, not an artefact to correct for.
     drug_vocab = build_smiles_vocab(
         train_df[find_column(train_df, SMILES_COLUMNS, "SMILES")].astype(str).tolist()
     )
@@ -96,7 +120,7 @@ def load_split(split_dir, max_protein_len=1000, batch_size=64):
 
     common = dict(drug_vocab=drug_vocab, protein_vocab=protein_vocab,
                   max_protein_len=max_protein_len)
-    train = DTIDataset.from_csv(f"{split_dir}/train.csv", **common)
+    train = DTIDataset.from_frame(train_df, **common)
     valid = DTIDataset.from_csv(f"{split_dir}/valid.csv", **common)
     test = DTIDataset.from_csv(f"{split_dir}/test.csv", **common)
 

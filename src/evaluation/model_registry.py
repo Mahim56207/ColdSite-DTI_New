@@ -144,7 +144,15 @@ class UniformBaseline(ExplainableDTIModel):
         return self.wrapped.predict(drug, protein) if self.wrapped else 0.0
 
     def explain(self, drug, protein) -> np.ndarray:
-        length = int((_batchify(protein)[0] != 0).sum().item())
+        # real_lengths(), not (protein != 0).sum(): counting non-pad tokens and
+        # measuring to the last non-pad position disagree on any sequence with
+        # an interior pad, and the count is SHORTER than the residues it covers.
+        # This is the control the whole audit is compared against -- a floor
+        # line one residue short is scored against shifted ground truth, and
+        # nothing raises. Same reasoning as ColdSiteDTI.explain().
+        from src.model.protein_encoder import real_lengths
+
+        length = int(real_lengths(_batchify(protein))[0].item())
         return np.ones(max(length, 1), dtype=float) / max(length, 1)
 
 

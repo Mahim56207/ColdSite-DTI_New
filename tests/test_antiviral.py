@@ -171,7 +171,12 @@ def test_allow_partial_lets_a_deliberate_partial_run_through():
 
 
 def test_committed_antiviral_file_is_still_incomplete():
-    """Guard on the real artefact. Delete this test once the file is rebuilt."""
+    """Guard on the real artefact. Delete this test once the file is rebuilt.
+
+    This test is DESIGNED to fail the moment Track A's antiviral rebuild
+    succeeds. That is not a regression -- it is the guard doing its job. See
+    the assertion message for what to do.
+    """
     from pathlib import Path
     path = Path(__file__).resolve().parent.parent / "data/processed/antiviral_clean.csv"
     if not path.exists():
@@ -179,5 +184,17 @@ def test_committed_antiviral_file_is_still_incomplete():
     df = pd.read_csv(path)
     if "antiviral_target" not in df.columns:
         assert df["Target_ID"].nunique() < 5, (
-            "file now has 5+ targets -- rebuild verified, update this test"
+            "GOOD NEWS, NOT A BUG: data/processed/antiviral_clean.csv now has "
+            "5+ distinct targets, so Track A's antiviral rebuild has "
+            "succeeded.\n"
+            "This test is a deliberate guard on the old broken artefact (614 "
+            "rows, all HIV-1 protease) and is supposed to fail at exactly this "
+            "point.\n"
+            "ACTION: delete this test. Then confirm the control arm with\n"
+            "  python -c \"import pandas as pd; "
+            "from src.evaluation.target_family import confound_report; "
+            "print(confound_report(pd.read_csv("
+            "'data/processed/antiviral_clean.csv')['Target_ID'].tolist()))\"\n"
+            "and check control_is_usable is True "
+            "(docs/PART2_GUIDE_124AD0008.md Priority 1)."
         )

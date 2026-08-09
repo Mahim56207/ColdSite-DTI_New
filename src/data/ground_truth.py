@@ -142,6 +142,13 @@ class SiteSet:
     n_dropped_feature_type: int = 0
     n_dropped_description: int = 0
     n_dropped_truncation: int = 0
+    # Positions past max_len, counted regardless of policy. n_dropped_truncation
+    # only increments under EXCLUDE, because only then are they removed; this
+    # records that truncation BIT at all, which is what Methods has to report.
+    n_out_of_window: int = 0
+    # True when the window is the sole reason this target has nothing usable.
+    # Decided here rather than in coverage_report, which does not know max_len.
+    dropped_by_truncation: bool = False
     is_variant: bool = False
     resolved_from: str = ""
 
@@ -220,6 +227,7 @@ def build_site_set(
         if max_len is not None:
             out_of_window = {p for p in positions if p >= max_len}
             if out_of_window:
+                result.n_out_of_window += len(out_of_window)
                 if truncation == TruncationPolicy.ERROR:
                     raise ValueError(
                         f"{target_id}: site at 1-indexed residue "
@@ -229,6 +237,13 @@ def build_site_set(
                     result.n_dropped_truncation += len(out_of_window)
                     positions -= out_of_window
         result.positions |= positions
+
+    # Would this target have had a usable site inside the window? Computed the
+    # same way under either policy, so the reported figure does not silently
+    # change when the policy does.
+    if max_len is not None and result.n_out_of_window > 0:
+        result.dropped_by_truncation = not any(
+            p < max_len for p in result.positions)
 
     return result
 
@@ -286,6 +301,16 @@ def coverage_report(site_sets: dict) -> dict:
         "dropped_feature_type": sum(s.n_dropped_feature_type for s in site_sets.values()),
         "dropped_description": sum(s.n_dropped_description for s in site_sets.values()),
         "dropped_truncation": sum(s.n_dropped_truncation for s in site_sets.values()),
+        # Per-TARGET truncation impact, which the report previously could not
+        # express. `targets_dropped_entirely` counts every unusable target
+        # whatever the cause, so quoting it as the truncation figure overstates
+        # it: 2 of KIBA's 10 lose their sites to filtering, not to the window.
+        "positions_out_of_window": sum(
+            s.n_out_of_window for s in site_sets.values()),
+        "targets_affected_by_truncation": sum(
+            1 for s in site_sets.values() if s.n_out_of_window > 0),
+        "targets_dropped_by_truncation": sum(
+            1 for s in site_sets.values() if s.dropped_by_truncation),
     }
 
 

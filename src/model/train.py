@@ -20,6 +20,12 @@ import torch
 import torch.nn as nn
 from sklearn.metrics import average_precision_score, roc_auc_score
 
+from src.model.checkpoint_naming import (
+    checkpoint_path as build_checkpoint_path,
+    history_path,
+    results_path,
+    run_tag,
+)
 from src.model.coldsite_dti import ColdSiteDTI
 from src.model.dataset import load_split, make_loader, random_dataset
 
@@ -42,6 +48,31 @@ def concordance_index(y_true, y_pred) -> float:
     diff = y_pred[:, None] - y_pred[None, :]
     return float((((diff > 0) & comparable).sum()
                   + 0.5 * ((diff == 0) & comparable).sum()) / total)
+
+
+# Which key of compute_metrics() below is "accuracy" for the headline figure.
+# Defined here because compute_metrics is what decides the keys exist at all;
+# every consumer imports this rather than hardcoding a name. Two independent
+# copies of it is how the grid's status table and Track C's hand-off end up
+# reporting different quantities, both labelled "accuracy".
+#
+# CI and AUROC are both bounded [0, 1] and higher-is-better, so they share an
+# axis sensibly with precision@k. MSE would invert the reading of the figure.
+DEFAULT_ACCURACY_METRIC = {"regression": "ci", "binary": "auroc"}
+
+
+def accuracy_metric_for(task: str) -> str:
+    """The accuracy field for a task. Raises rather than guessing.
+
+    A wrong guess here does not crash -- it makes every cell fail verification
+    with "no 'ci' in test_metrics", which reads like a training failure rather
+    than a metric-name mismatch.
+    """
+    if task not in DEFAULT_ACCURACY_METRIC:
+        raise ValueError(
+            f"no accuracy metric defined for task {task!r}; "
+            f"known tasks: {sorted(DEFAULT_ACCURACY_METRIC)}")
+    return DEFAULT_ACCURACY_METRIC[task]
 
 
 def compute_metrics(y_true, y_pred, task: str) -> dict:
@@ -118,9 +149,12 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
                  checkpoint_path="results/coldsite_dti_best.pt", patience=15):
     """Train one model on one split.
 
-    checkpoint_path should always name the dataset and split. The most expensive
-    mistake available in this project is reporting a cold-target number that was
-    actually produced by a model trained on cold-drug.
+    checkpoint_path should always name the dataset, the split and the seed --
+    build it with src.model.checkpoint_naming.checkpoint_path rather than by
+    hand. The most expensive mistake available in this project is reporting a
+    cold-target number that was actually produced by a model trained on
+    cold-drug; the second most expensive is reporting a three-seed mean
+    produced by three runs that overwrote each other.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Training on: {device}")
@@ -158,7 +192,7 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
             print(f"No improvement for {patience} epochs, stopping early")
             break
 
-    with open(checkpoint_path.replace(".pt", "_history.json"), "w") as f:
+    with open(history_path(checkpoint_path), "w") as f:
         json.dump(history, f, indent=2)
     return model
 
@@ -175,7 +209,14 @@ if __name__ == "__main__":
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--max-protein-len", type=int, default=1000)
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=42,
+                        help="training seed; appears in every output filename")
+    parser.add_argument("--results-dir", default="results")
+    parser.add_argument("--train-subsample", type=int,
+                        help="keep only this many training rows. For the "
+                             "cold-pair volume-matched control ONLY; write it "
+                             "to a separate --results-dir so it cannot be "
+                             "confused with the run it controls for.")
     parser.add_argument("--dummy", action="store_true",
                         help="run on random data, no real splits needed")
     args = parser.parse_args()
@@ -196,10 +237,18 @@ if __name__ == "__main__":
         if not args.split_dir:
             parser.error("--split-dir is required unless --dummy is set")
         train_loader, val_loader, test_loader, drug_vocab, protein_vocab = load_split(
-            args.split_dir, args.max_protein_len, args.batch_size)
+            args.split_dir, args.max_protein_len, args.batch_size,
+            train_subsample=args.train_subsample, subsample_seed=args.seed)
+        if args.train_subsample:
+            print(f"VOLUME-MATCHED CONTROL: training on "
+                  f"{len(train_loader.dataset)} rows "
+                  f"(--train-subsample {args.train_subsample})")
 
-    tag = f"{args.dataset}_{args.split}_{args.task}"
-    checkpoint_path = f"results/coldsite_dti_{tag}.pt"
+    # The seed is part of the tag. Without it the three runs the master plan
+    # requires per cell all write to one path, and the loss is silent.
+    tag = run_tag(args.dataset, args.split, args.task, args.seed)
+    checkpoint_path = build_checkpoint_path(
+        args.results_dir, args.dataset, args.split, args.task, args.seed)
 
     model = run_training(
         drug_vocab_size=len(drug_vocab) + 2,        # +2 for PAD and UNK
@@ -217,8 +266,16 @@ if __name__ == "__main__":
     _test_loss, test_metrics = evaluate(model.to(device), test_loader, loss_fn,
                                         device, args.task)
 
-    with open(f"results/{tag}_results.json", "w") as f:
-        json.dump({"tag": tag, "best_epoch": state["epoch"],
+    metrics_path = results_path(args.results_dir, tag)
+    with open(metrics_path, "w") as f:
+        # dataset/split/seed are recorded as fields as well as encoded in the
+        # tag, so Track C never has to re-parse a filename to know what a
+        # number came from.
+        json.dump({"tag": tag, "dataset": args.dataset, "split": args.split,
+                   "task": args.task, "seed": args.seed,
+                   "checkpoint": checkpoint_path, "best_epoch": state["epoch"],
+                   "train_subsample": args.train_subsample,
+                   "n_train_rows": len(train_loader.dataset),
                    "test_metrics": test_metrics}, f, indent=2)
     print("\nTest metrics:", json.dumps(test_metrics, indent=2))
-    print(f"Saved -> results/{tag}_results.json")
+    print(f"Saved -> {metrics_path}")

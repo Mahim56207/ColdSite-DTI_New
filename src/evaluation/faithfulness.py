@@ -55,6 +55,20 @@ def _as_batch(tensor: torch.Tensor) -> torch.Tensor:
 
 @torch.no_grad()
 def _predict(model, drug: torch.Tensor, protein: torch.Tensor) -> float:
+    """One scalar prediction, from either a raw model or a registry adapter.
+
+    ColdSite-DTI's `forward` returns `(pred, attention)`, which is what this
+    module was written against. The audited baselines do not share that
+    signature -- they arrive wrapped in an `ExplainableDTIModel` adapter whose
+    contract is `predict(drug, protein) -> float`. Without this branch,
+    faithfulness could only ever be measured on our own model, which is the one
+    model whose result matters least under the audit framing.
+
+    Duck-typed rather than imported, to keep model_registry out of this
+    module's import graph.
+    """
+    if hasattr(model, "predict"):
+        return float(model.predict(_as_batch(drug), _as_batch(protein)))
     model.eval()
     pred, _attn = model(_as_batch(drug), _as_batch(protein))
     return float(pred.squeeze().item())
@@ -120,8 +134,14 @@ def random_control(model, drug, protein, k: int = 10, mode: str = "comprehensive
     residues perturbs it more than masking arbitrary ones.
     """
     rng = np.random.default_rng() if rng is None else rng
-    flat = protein if protein.dim() == 1 else protein[0]
-    length = int((flat != 0).sum().item())
+    # real_lengths(), not (protein != 0).sum(): the count is shorter than the
+    # span it covers on any sequence with an interior pad, which would draw the
+    # random positions from a narrower prefix than the explanation was scored
+    # over. This control is what makes comprehensiveness_delta mean anything,
+    # so it has to sample from exactly the residues the model saw.
+    from src.model.protein_encoder import real_lengths
+
+    length = int(real_lengths(_as_batch(protein))[0].item())
     if length < k:
         return float("nan")
 

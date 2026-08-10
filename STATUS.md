@@ -37,8 +37,8 @@ to run. Track A's step-by-step is `docs/RUNBOOK_124AD0008.md`.
 | A6 | Antiviral subset | ✅ **10,548 pairs, 3 targets** (HIV-1 protease, HIV-1 RT, influenza NA). SARS-CoV-2 unavailable — see below |
 | A7 | Binding-site ground truth | ✅ **re-fetched** — DAVIS 442 targets / 406 usable, KIBA 229 / 212, `type` on every feature, contamination gone |
 | A8 | Ground-truth README | ✅ `data/GROUND_TRUTH_README.md` |
-| A9 | Three baselines runnable | ⏳ all three vendored, only MolTrans run |
-| A10 | Results table, 3×4×2 | ❌ **1 of 24 cells** — now the main remaining Track A item |
+| A9 | Three baseline adapters, passing `validate_adapter` | ✅ **all three PASS** — `python -m src.evaluation.check_adapters` |
+| A10 | Results table, 3×4×2×3 seeds | ❌ **1 of 24 cells** — the only Track A item left |
 | A11 | KIBA accession → gene map | ✅ `data/kiba_uniprot_to_gene.json`, 229/229 with a gene symbol |
 | A12 | Unmapped DAVIS targets | ✅ resolved or documented — 19 unresolvable (real UniProt annotation gaps), 3 fixed by hand |
 | A13 | **Non-kinase control panel** | ✅ **60 distinct human targets, 21,145 pairs, `control_is_usable: True`** |

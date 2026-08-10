@@ -18,6 +18,16 @@ Two things changed versus those versions, and both affect the paper's numbers:
    guess from free-text descriptions, which has known false negatives. Storing
    the type makes src/data/ground_truth.py filter exactly.
 
+3. The provenance file now records the UniProt gene symbol and protein name for
+   every target. This is what makes the kinase-confound control possible on
+   KIBA: KIBA identifies its targets by accession ('O00141'), and
+   src/evaluation/target_family.py classifies by gene symbol, so every KIBA
+   target reads UNKNOWN and the control arm cannot run there at all. The names
+   are already inside the entry JSON this fetcher downloads, so capturing them
+   here means the accession -> gene map falls out of this one pass instead of
+   costing a second trip over ~229 more accessions. Build the map afterwards
+   with `python -m src.data.build_gene_map --dataset kiba`.
+
 Usage
 -----
     python -m src.data.fetch_binding_sites --dataset davis
@@ -35,10 +45,81 @@ import urllib.parse
 import urllib.request
 
 from src.data.ground_truth import BINDING_FEATURE_TYPES, normalise_target_id
+from src.data.target_aliases import resolve_alias
 
 UNIPROT_ENTRY = "https://rest.uniprot.org/uniprotkb/{}.json"
-UNIPROT_SEARCH = "https://rest.uniprot.org/uniprotkb/search?query={}&size=1"
+
+# size=10, not size=1. A gene-name search is a *substring-ish* match, so asking
+# for one result and trusting it is how 'IKBKE' returned "Putative
+# uncharacterized protein IKBKE-AS1" (an antisense transcript) and 'PRKCH'
+# returned "PRKCH upstream open reading frame 2" -- both reviewed, both filed
+# under a matching gene name, neither one the kinase. Neither failed. They
+# produced an entry with a plausible accession and zero binding sites, and the
+# target quietly dropped out of every precision@k average.
+UNIPROT_SEARCH = "https://rest.uniprot.org/uniprotkb/search?query={}&size=10"
+
 HUMAN_TAXON = 9606
+
+# `organism_id` matches one exact taxon. `taxonomy_id` matches the subtree, and
+# that difference decides whether non-human targets resolve at all: the reviewed
+# entries for P. falciparum CDPK1 and M. tuberculosis PknB are filed under
+# strain taxa (3D7, H37Rv), not under the species id, so an organism_id query
+# for the species finds nothing.
+UNIPROT_TAXON_FIELD = "taxonomy_id"
+
+# Protein names that mark a record as an artefact of the locus rather than the
+# gene product itself. Used only to break ties, never to reject outright -- a
+# real protein occasionally carries "putative" in its name.
+def _entry_sequence_length(entry: dict) -> int:
+    return int(((entry or {}).get("sequence") or {}).get("length") or 0)
+
+
+def _entry_gene_names(entry: dict) -> set:
+    """Every symbol this entry answers to, lowercased."""
+    names = set()
+    for gene in (entry or {}).get("genes") or []:
+        value = (gene.get("geneName") or {}).get("value")
+        if value:
+            names.add(value.lower())
+        for synonym in gene.get("synonyms") or []:
+            if synonym.get("value"):
+                names.add(synonym["value"].lower())
+    return names
+
+
+def choose_entry(results: list, symbol: str) -> tuple:
+    """Pick the entry that is actually the protein `symbol` names.
+
+    Two signals, in order:
+
+    1. **Exact gene-symbol match.** Drops IKBKE-AS1 when IKBKE was asked for,
+       because the antisense transcript's symbol is a different string.
+
+    2. **Longest sequence.** Breaks the case exact matching cannot: an upstream
+       open reading frame inside the PRKCH locus is genuinely filed under gene
+       PRKCH, so no symbol comparison separates it from the kinase. It is ~50
+       residues against the kinase's ~680, and for a drug-binding ground truth
+       the large gene product is the one meant every time.
+
+    Returns (entry, how) where `how` records which rule decided, so provenance
+    can show it and a human can audit the ones that fell through to the weaker
+    rule.
+    """
+    if not results:
+        return None, "none"
+
+    wanted = symbol.strip().lower()
+    exact = [e for e in results if wanted in _entry_gene_names(e)]
+
+    if exact:
+        best = max(exact, key=_entry_sequence_length)
+        how = "exact" if len(exact) == 1 else f"exact_longest_of_{len(exact)}"
+        return best, how
+
+    # No symbol matched. Still return something, but say so loudly in the route
+    # name -- this is the case most likely to be wrong.
+    best = max(results, key=_entry_sequence_length)
+    return best, f"inexact_of_{len(results)}"
 
 
 def _get_json(url: str, timeout: int = 20):
@@ -57,6 +138,29 @@ def resolve_entry(target_id: str) -> tuple:
     resolution route is recorded per target so the paper can report how many
     entries came in that way.
     """
+    # An alias short-circuits the normaliser entirely. DAVIS shorthand like
+    # 'AMPK-alpha1' or 'PKNB(Mtuberculosis)' is not a damaged gene symbol that
+    # normalisation can repair -- it is a different naming scheme, and for the
+    # organism-bracketed ones the normaliser actively makes things worse by
+    # discarding the only clue that the protein is not human.
+    alias = resolve_alias(target_id)
+    if alias:
+        symbol, taxon = alias
+        query = urllib.parse.quote(
+            f"(gene:{symbol}) AND ({UNIPROT_TAXON_FIELD}:{taxon}) AND (reviewed:true)"
+        )
+        try:
+            results = _get_json(UNIPROT_SEARCH.format(query)).get("results", [])
+        except Exception:
+            return None, symbol, f"alias_failed({symbol})"
+        entry, how = choose_entry(results, symbol)
+        if entry is None:
+            # Deliberately not falling through to a broader search. A missing
+            # alias target is a naming question for a human, not something to
+            # resolve by loosening the query until something matches.
+            return None, symbol, f"alias_not_found({symbol})"
+        return entry, entry.get("primaryAccession", symbol), f"alias({symbol}|{how})"
+
     base = normalise_target_id(target_id)
 
     try:
@@ -68,16 +172,16 @@ def resolve_entry(target_id: str) -> tuple:
         return None, base, "failed"
 
     query = urllib.parse.quote(
-        f"(gene:{base}) AND (organism_id:{HUMAN_TAXON}) AND (reviewed:true)"
+        f"(gene:{base}) AND ({UNIPROT_TAXON_FIELD}:{HUMAN_TAXON}) AND (reviewed:true)"
     )
     try:
         results = _get_json(UNIPROT_SEARCH.format(query)).get("results", [])
     except Exception:
         return None, base, "failed"
-    if not results:
+    entry, how = choose_entry(results, base)
+    if entry is None:
         return None, base, "not_found"
-    entry = results[0]
-    return entry, entry.get("primaryAccession", base), "gene_search"
+    return entry, entry.get("primaryAccession", base), f"gene_search({how})"
 
 
 def extract_features(entry: dict) -> list:
@@ -101,6 +205,39 @@ def extract_features(entry: dict) -> list:
     return features
 
 
+def extract_names(entry: dict) -> tuple:
+    """UniProt entry -> (gene symbol, recommended protein name).
+
+    Both are best-effort. An entry with no `genes` block is normal for some
+    non-human and unreviewed records, and an empty string is a truthful answer
+    there -- better than inventing a symbol, because a wrong gene symbol would
+    silently mis-stratify a target into the wrong family, and the family split
+    is the paper's control arm.
+    """
+    if not entry:
+        return "", ""
+
+    gene = ""
+    genes = entry.get("genes") or []
+    if genes:
+        gene = (genes[0].get("geneName") or {}).get("value", "") or ""
+        if not gene:
+            synonyms = genes[0].get("synonyms") or []
+            if synonyms:
+                gene = synonyms[0].get("value", "") or ""
+
+    protein = ""
+    description = entry.get("proteinDescription") or {}
+    recommended = description.get("recommendedName") or {}
+    protein = (recommended.get("fullName") or {}).get("value", "") or ""
+    if not protein:
+        submitted = description.get("submissionNames") or []
+        if submitted:
+            protein = (submitted[0].get("fullName") or {}).get("value", "") or ""
+
+    return gene, protein
+
+
 def fetch_for_targets(target_ids, delay: float = 0.2, verbose: bool = True) -> dict:
     """Fetch every target, caching by resolved accession.
 
@@ -115,12 +252,14 @@ def fetch_for_targets(target_ids, delay: float = 0.2, verbose: bool = True) -> d
     for i, target_id in enumerate(target_ids, start=1):
         base = normalise_target_id(target_id)
         if base in cache:
-            features, accession, route = cache[base]
-            route = f"{route}(cached)"
+            features, accession, route, gene, protein, length = cache[base]
+            route = f"{route}[cached]"
         else:
             entry, accession, route = resolve_entry(target_id)
             features = extract_features(entry) if entry else []
-            cache[base] = (features, accession, route)
+            gene, protein = extract_names(entry)
+            length = _entry_sequence_length(entry)
+            cache[base] = (features, accession, route, gene, protein, length)
             time.sleep(delay)
 
         ground_truth[target_id] = features
@@ -130,6 +269,14 @@ def fetch_for_targets(target_ids, delay: float = 0.2, verbose: bool = True) -> d
             "resolution": route,
             "is_variant": base != str(target_id).strip(),
             "n_features": len(features),
+            "gene_name": gene,
+            "protein_name": protein,
+            # Recorded so the length cross-check in resolve_unmapped --audit can
+            # compare it against the sequence DAVIS itself ships for this
+            # target. A UniProt entry a fraction of the dataset's own sequence
+            # length is the signature of having resolved to a fragment or an
+            # ORF artefact rather than the kinase.
+            "sequence_length": length,
         }
         if verbose:
             status = "ok" if features else "NO SITES"

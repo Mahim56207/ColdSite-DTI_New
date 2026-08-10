@@ -1,0 +1,2957 @@
+{
+  "P14416": [
+    {
+      "start": 114,
+      "end": 114,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 115,
+      "end": 115,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 118,
+      "end": 118,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 193,
+      "end": 193,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 197,
+      "end": 197,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 389,
+      "end": 389,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 390,
+      "end": 390,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 393,
+      "end": 393,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    }
+  ],
+  "Q13547": [
+    {
+      "start": 141,
+      "end": 141,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 27,
+      "end": 27,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 31,
+      "end": 31,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 176,
+      "end": 176,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 178,
+      "end": 178,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 264,
+      "end": 264,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 270,
+      "end": 270,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    }
+  ],
+  "P56817": [
+    {
+      "start": 93,
+      "end": 93,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 289,
+      "end": 289,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    }
+  ],
+  "P00918": [
+    {
+      "start": 64,
+      "end": 64,
+      "type": "Active site",
+      "description": "Proton donor/acceptor",
+      "ligand": ""
+    },
+    {
+      "start": 94,
+      "end": 94,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 96,
+      "end": 96,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 119,
+      "end": 119,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 198,
+      "end": 199,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    }
+  ],
+  "P00915": [
+    {
+      "start": 65,
+      "end": 65,
+      "type": "Active site",
+      "description": "Proton donor/acceptor",
+      "ligand": ""
+    },
+    {
+      "start": 65,
+      "end": 65,
+      "type": "Binding site",
+      "description": "in variant Michigan-1",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 68,
+      "end": 68,
+      "type": "Binding site",
+      "description": "in variant Michigan-1",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 95,
+      "end": 95,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 97,
+      "end": 97,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 120,
+      "end": 120,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 200,
+      "end": 201,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 200,
+      "end": 200,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 201,
+      "end": 201,
+      "type": "Binding site",
+      "description": "in variant Michigan-1",
+      "ligand": "Zn(2+)"
+    }
+  ],
+  "O43614": [
+    {
+      "start": 324,
+      "end": 324,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "suvorexant"
+    }
+  ],
+  "P08684": [
+    {
+      "start": 442,
+      "end": 442,
+      "type": "Binding site",
+      "description": "axial binding residue",
+      "ligand": "heme"
+    }
+  ],
+  "P28223": [
+    {
+      "start": 155,
+      "end": 155,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 343,
+      "end": 343,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    }
+  ],
+  "P03952": [
+    {
+      "start": 434,
+      "end": 434,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 483,
+      "end": 483,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 578,
+      "end": 578,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "O43613": [
+    {
+      "start": 318,
+      "end": 318,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "suvorexant"
+    }
+  ],
+  "P00734": [
+    {
+      "start": 406,
+      "end": 406,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 462,
+      "end": 462,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 568,
+      "end": 568,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "P03372": [
+    {
+      "start": 353,
+      "end": 353,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "17beta-estradiol"
+    },
+    {
+      "start": 394,
+      "end": 394,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "17beta-estradiol"
+    },
+    {
+      "start": 524,
+      "end": 524,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "17beta-estradiol"
+    }
+  ],
+  "P22303": [
+    {
+      "start": 234,
+      "end": 234,
+      "type": "Active site",
+      "description": "Acyl-ester intermediate",
+      "ligand": ""
+    },
+    {
+      "start": 365,
+      "end": 365,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 478,
+      "end": 478,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 117,
+      "end": 117,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "galanthamine"
+    },
+    {
+      "start": 117,
+      "end": 117,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huperzine A"
+    },
+    {
+      "start": 153,
+      "end": 153,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huprine W"
+    },
+    {
+      "start": 164,
+      "end": 164,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huperzine A"
+    },
+    {
+      "start": 233,
+      "end": 234,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "galanthamine"
+    },
+    {
+      "start": 234,
+      "end": 234,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huprine W"
+    },
+    {
+      "start": 368,
+      "end": 368,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "galanthamine"
+    },
+    {
+      "start": 368,
+      "end": 368,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huperzine A"
+    },
+    {
+      "start": 470,
+      "end": 470,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huprine W"
+    },
+    {
+      "start": 478,
+      "end": 478,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "huprine W"
+    }
+  ],
+  "P08908": [
+    {
+      "start": 116,
+      "end": 116,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 120,
+      "end": 120,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 314,
+      "end": 314,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    },
+    {
+      "start": 345,
+      "end": 345,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    },
+    {
+      "start": 346,
+      "end": 346,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    },
+    {
+      "start": 352,
+      "end": 352,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    },
+    {
+      "start": 403,
+      "end": 403,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    },
+    {
+      "start": 404,
+      "end": 404,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    },
+    {
+      "start": 405,
+      "end": 405,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 4-phosphate"
+    }
+  ],
+  "P35462": [
+    {
+      "start": 110,
+      "end": 110,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "eticlopride"
+    },
+    {
+      "start": 345,
+      "end": 345,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "eticlopride"
+    },
+    {
+      "start": 349,
+      "end": 349,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "eticlopride"
+    }
+  ],
+  "Q00987": [
+    {
+      "start": 305,
+      "end": 305,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 308,
+      "end": 308,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 319,
+      "end": 319,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 322,
+      "end": 322,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    }
+  ],
+  "Q16790": [
+    {
+      "start": 200,
+      "end": 200,
+      "type": "Active site",
+      "description": "Proton donor/acceptor",
+      "ligand": ""
+    },
+    {
+      "start": 226,
+      "end": 226,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 228,
+      "end": 228,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 251,
+      "end": 251,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 332,
+      "end": 333,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    }
+  ],
+  "P00742": [
+    {
+      "start": 276,
+      "end": 276,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 322,
+      "end": 322,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 419,
+      "end": 419,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "P37231": [
+    {
+      "start": 314,
+      "end": 317,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "rosiglitazone"
+    },
+    {
+      "start": 351,
+      "end": 351,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "rosiglitazone"
+    },
+    {
+      "start": 477,
+      "end": 477,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "rosiglitazone"
+    },
+    {
+      "start": 501,
+      "end": 501,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "rosiglitazone"
+    }
+  ],
+  "P35354": [
+    {
+      "start": 193,
+      "end": 193,
+      "type": "Active site",
+      "description": "Proton acceptor",
+      "ligand": ""
+    },
+    {
+      "start": 371,
+      "end": 371,
+      "type": "Active site",
+      "description": "For cyclooxygenase activity",
+      "ligand": ""
+    },
+    {
+      "start": 106,
+      "end": 106,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 341,
+      "end": 341,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 374,
+      "end": 374,
+      "type": "Binding site",
+      "description": "axial binding residue",
+      "ligand": "heme b"
+    }
+  ],
+  "P00746": [
+    {
+      "start": 66,
+      "end": 66,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 114,
+      "end": 114,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 208,
+      "end": 208,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "P31645": [
+    {
+      "start": 94,
+      "end": 94,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 96,
+      "end": 96,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 97,
+      "end": 97,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 98,
+      "end": 98,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 98,
+      "end": 98,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 101,
+      "end": 101,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 336,
+      "end": 336,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 368,
+      "end": 368,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 434,
+      "end": 434,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 437,
+      "end": 437,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 438,
+      "end": 438,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 439,
+      "end": 439,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 494,
+      "end": 494,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 495,
+      "end": 495,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 556,
+      "end": 556,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 559,
+      "end": 559,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    }
+  ],
+  "P21453": [
+    {
+      "start": 120,
+      "end": 121,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "sphing-4-enine 1-phosphate"
+    },
+    {
+      "start": 265,
+      "end": 269,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "sphing-4-enine 1-phosphate"
+    }
+  ],
+  "P10635": [
+    {
+      "start": 301,
+      "end": 301,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 443,
+      "end": 443,
+      "type": "Binding site",
+      "description": "axial binding residue",
+      "ligand": "heme"
+    }
+  ],
+  "P03951": [
+    {
+      "start": 431,
+      "end": 431,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 480,
+      "end": 480,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 575,
+      "end": 575,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 547,
+      "end": 550,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "heparin"
+    }
+  ],
+  "Q06124": [
+    {
+      "start": 459,
+      "end": 459,
+      "type": "Active site",
+      "description": "Phosphocysteine intermediate",
+      "ligand": ""
+    },
+    {
+      "start": 425,
+      "end": 425,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 459,
+      "end": 465,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 506,
+      "end": 506,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    }
+  ],
+  "P18031": [
+    {
+      "start": 215,
+      "end": 215,
+      "type": "Active site",
+      "description": "Phosphocysteine intermediate",
+      "ligand": ""
+    },
+    {
+      "start": 181,
+      "end": 181,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 215,
+      "end": 221,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 262,
+      "end": 262,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    }
+  ],
+  "P28335": [
+    {
+      "start": 139,
+      "end": 139,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "ergotamine"
+    },
+    {
+      "start": 209,
+      "end": 209,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "ergotamine"
+    }
+  ],
+  "P14902": [
+    {
+      "start": 346,
+      "end": 346,
+      "type": "Binding site",
+      "description": "proximal binding residue",
+      "ligand": "heme b"
+    }
+  ],
+  "O43570": [
+    {
+      "start": 94,
+      "end": 94,
+      "type": "Active site",
+      "description": "Proton donor/acceptor",
+      "ligand": ""
+    },
+    {
+      "start": 119,
+      "end": 119,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 121,
+      "end": 121,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 145,
+      "end": 145,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 226,
+      "end": 227,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    }
+  ],
+  "P27487": [
+    {
+      "start": 630,
+      "end": 630,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 708,
+      "end": 708,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 740,
+      "end": 740,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "P10275": [
+    {
+      "start": 706,
+      "end": 706,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "17beta-hydroxy-5alpha-androstan-3-one"
+    },
+    {
+      "start": 753,
+      "end": 753,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "17beta-hydroxy-5alpha-androstan-3-one"
+    },
+    {
+      "start": 878,
+      "end": 878,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "17beta-hydroxy-5alpha-androstan-3-one"
+    }
+  ],
+  "P50406": [
+    {
+      "start": 106,
+      "end": 106,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    },
+    {
+      "start": 288,
+      "end": 288,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    }
+  ],
+  "P11712": [
+    {
+      "start": 435,
+      "end": 435,
+      "type": "Binding site",
+      "description": "axial binding residue",
+      "ligand": "heme"
+    }
+  ],
+  "P08253": [
+    {
+      "start": 404,
+      "end": 404,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 102,
+      "end": 102,
+      "type": "Binding site",
+      "description": "in inhibited form",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 134,
+      "end": 134,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 168,
+      "end": 168,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 178,
+      "end": 178,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 180,
+      "end": 180,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 185,
+      "end": 185,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 186,
+      "end": 186,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 193,
+      "end": 193,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 200,
+      "end": 200,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 202,
+      "end": 202,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 204,
+      "end": 204,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 206,
+      "end": 206,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 208,
+      "end": 208,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 209,
+      "end": 209,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 211,
+      "end": 211,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 211,
+      "end": 211,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 403,
+      "end": 403,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 407,
+      "end": 407,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 413,
+      "end": 413,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 476,
+      "end": 476,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 521,
+      "end": 521,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 569,
+      "end": 569,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 618,
+      "end": 618,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    }
+  ],
+  "Q13822": [
+    {
+      "start": 210,
+      "end": 210,
+      "type": "Active site",
+      "description": "Nucleophile",
+      "ligand": ""
+    },
+    {
+      "start": 172,
+      "end": 172,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 210,
+      "end": 210,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-(9Z-octadecenoyl)-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 210,
+      "end": 210,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-hexadecanoyl-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 210,
+      "end": 210,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-tetradecanoyl-sn-glycerol 3-phosphate"
+    },
+    {
+      "start": 210,
+      "end": 210,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 231,
+      "end": 231,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-(9Z-octadecenoyl)-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 231,
+      "end": 231,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-hexadecanoyl-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 231,
+      "end": 231,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-tetradecanoyl-sn-glycerol 3-phosphate"
+    },
+    {
+      "start": 312,
+      "end": 312,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-(9Z-octadecenoyl)-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 312,
+      "end": 312,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-hexadecanoyl-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 312,
+      "end": 312,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-tetradecanoyl-sn-glycerol 3-phosphate"
+    },
+    {
+      "start": 312,
+      "end": 312,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 316,
+      "end": 316,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 359,
+      "end": 359,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 360,
+      "end": 360,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 475,
+      "end": 475,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-(9Z-octadecenoyl)-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 475,
+      "end": 475,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-hexadecanoyl-sn-glycero-3-phosphate"
+    },
+    {
+      "start": 475,
+      "end": 475,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1-tetradecanoyl-sn-glycerol 3-phosphate"
+    },
+    {
+      "start": 475,
+      "end": 475,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 740,
+      "end": 740,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 742,
+      "end": 742,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 744,
+      "end": 744,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 746,
+      "end": 746,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 748,
+      "end": 748,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    }
+  ],
+  "P32245": [
+    {
+      "start": 100,
+      "end": 100,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 122,
+      "end": 122,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 126,
+      "end": 126,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    }
+  ],
+  "P06276": [
+    {
+      "start": 226,
+      "end": 226,
+      "type": "Active site",
+      "description": "Acyl-ester intermediate",
+      "ligand": ""
+    },
+    {
+      "start": 353,
+      "end": 353,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 466,
+      "end": 466,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 110,
+      "end": 110,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "tacrine"
+    },
+    {
+      "start": 144,
+      "end": 145,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 466,
+      "end": 466,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "tacrine"
+    }
+  ],
+  "Q9BY41": [
+    {
+      "start": 143,
+      "end": 143,
+      "type": "Active site",
+      "description": "Proton acceptor",
+      "ligand": ""
+    },
+    {
+      "start": 101,
+      "end": 101,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 151,
+      "end": 151,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 178,
+      "end": 178,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "a divalent metal cation"
+    },
+    {
+      "start": 180,
+      "end": 180,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "a divalent metal cation"
+    },
+    {
+      "start": 267,
+      "end": 267,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "a divalent metal cation"
+    },
+    {
+      "start": 306,
+      "end": 306,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    }
+  ],
+  "Q99685": [
+    {
+      "start": 122,
+      "end": 122,
+      "type": "Active site",
+      "description": "Nucleophile",
+      "ligand": ""
+    },
+    {
+      "start": 239,
+      "end": 239,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 269,
+      "end": 269,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "O15379": [
+    {
+      "start": 135,
+      "end": 135,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 17,
+      "end": 17,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 21,
+      "end": 21,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 25,
+      "end": 25,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 170,
+      "end": 170,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 172,
+      "end": 172,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 259,
+      "end": 259,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 265,
+      "end": 265,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    }
+  ],
+  "Q01959": [
+    {
+      "start": 75,
+      "end": 75,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 77,
+      "end": 77,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 78,
+      "end": 78,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 79,
+      "end": 79,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 79,
+      "end": 79,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 79,
+      "end": 79,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 82,
+      "end": 82,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 149,
+      "end": 149,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 153,
+      "end": 153,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 317,
+      "end": 317,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chloride"
+    },
+    {
+      "start": 320,
+      "end": 320,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 321,
+      "end": 321,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chloride"
+    },
+    {
+      "start": 321,
+      "end": 321,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 353,
+      "end": 353,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 357,
+      "end": 357,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chloride"
+    },
+    {
+      "start": 418,
+      "end": 418,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 421,
+      "end": 421,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 422,
+      "end": 422,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 422,
+      "end": 422,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 423,
+      "end": 423,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    }
+  ],
+  "Q07869": [
+    {
+      "start": 280,
+      "end": 280,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "indeglitazar"
+    },
+    {
+      "start": 314,
+      "end": 314,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "indeglitazar"
+    },
+    {
+      "start": 464,
+      "end": 464,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "indeglitazar"
+    }
+  ],
+  "P23975": [
+    {
+      "start": 71,
+      "end": 71,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 73,
+      "end": 73,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 74,
+      "end": 74,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 75,
+      "end": 75,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 75,
+      "end": 75,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 78,
+      "end": 78,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 87,
+      "end": 87,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 88,
+      "end": 88,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 145,
+      "end": 145,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 145,
+      "end": 145,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 149,
+      "end": 149,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 317,
+      "end": 317,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 317,
+      "end": 317,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 318,
+      "end": 318,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 350,
+      "end": 350,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 382,
+      "end": 382,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(R)-noradrenaline"
+    },
+    {
+      "start": 382,
+      "end": 382,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "dopamine"
+    },
+    {
+      "start": 418,
+      "end": 418,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 419,
+      "end": 419,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    }
+  ],
+  "P34969": [
+    {
+      "start": 162,
+      "end": 162,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "serotonin"
+    }
+  ],
+  "Q92769": [
+    {
+      "start": 142,
+      "end": 142,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 28,
+      "end": 28,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 32,
+      "end": 32,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    },
+    {
+      "start": 175,
+      "end": 175,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 177,
+      "end": 177,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 177,
+      "end": 177,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 179,
+      "end": 179,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 179,
+      "end": 179,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 188,
+      "end": 188,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 191,
+      "end": 191,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 194,
+      "end": 194,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 198,
+      "end": 198,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 199,
+      "end": 199,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 223,
+      "end": 223,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 265,
+      "end": 265,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 271,
+      "end": 271,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "1D-myo-inositol 1,4,5,6-tetrakisphosphate"
+    }
+  ],
+  "Q96RI1": [
+    {
+      "start": 345,
+      "end": 345,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chenodeoxycholate"
+    },
+    {
+      "start": 375,
+      "end": 375,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chenodeoxycholate"
+    },
+    {
+      "start": 383,
+      "end": 383,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chenodeoxycholate"
+    },
+    {
+      "start": 461,
+      "end": 461,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "chenodeoxycholate"
+    }
+  ],
+  "P00797": [
+    {
+      "start": 104,
+      "end": 104,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 292,
+      "end": 292,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    }
+  ],
+  "P07339": [
+    {
+      "start": 97,
+      "end": 97,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 295,
+      "end": 295,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    }
+  ],
+  "P03956": [
+    {
+      "start": 219,
+      "end": 219,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 92,
+      "end": 92,
+      "type": "Binding site",
+      "description": "in inhibited form",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 124,
+      "end": 124,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 158,
+      "end": 158,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 168,
+      "end": 168,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 170,
+      "end": 170,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 175,
+      "end": 175,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 176,
+      "end": 176,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 178,
+      "end": 178,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 180,
+      "end": 180,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 183,
+      "end": 183,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 190,
+      "end": 190,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 192,
+      "end": 192,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 194,
+      "end": 194,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 196,
+      "end": 196,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 198,
+      "end": 198,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 199,
+      "end": 199,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 201,
+      "end": 201,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 218,
+      "end": 218,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 222,
+      "end": 222,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 228,
+      "end": 228,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 285,
+      "end": 285,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 329,
+      "end": 329,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 378,
+      "end": 378,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 427,
+      "end": 427,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    }
+  ],
+  "P21917": [
+    {
+      "start": 80,
+      "end": 80,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 115,
+      "end": 115,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(2R,3R)-nemonapride"
+    },
+    {
+      "start": 122,
+      "end": 122,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Na(+)"
+    },
+    {
+      "start": 196,
+      "end": 196,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "(2R,3R)-nemonapride"
+    }
+  ],
+  "P05177": [
+    {
+      "start": 226,
+      "end": 226,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "substrate"
+    },
+    {
+      "start": 458,
+      "end": 458,
+      "type": "Binding site",
+      "description": "axial binding residue",
+      "ligand": "heme"
+    }
+  ],
+  "Q01064": [
+    {
+      "start": 223,
+      "end": 223,
+      "type": "Active site",
+      "description": "Proton donor",
+      "ligand": ""
+    },
+    {
+      "start": 227,
+      "end": 227,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 263,
+      "end": 263,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 264,
+      "end": 264,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Mg(2+)"
+    },
+    {
+      "start": 264,
+      "end": 264,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 370,
+      "end": 370,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    }
+  ],
+  "P08246": [
+    {
+      "start": 70,
+      "end": 70,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 117,
+      "end": 117,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    },
+    {
+      "start": 202,
+      "end": 202,
+      "type": "Active site",
+      "description": "Charge relay system",
+      "ligand": ""
+    }
+  ],
+  "Q14416": [
+    {
+      "start": 57,
+      "end": 57,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    },
+    {
+      "start": 61,
+      "end": 61,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    },
+    {
+      "start": 145,
+      "end": 145,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    },
+    {
+      "start": 166,
+      "end": 166,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    },
+    {
+      "start": 168,
+      "end": 168,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    },
+    {
+      "start": 295,
+      "end": 295,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    },
+    {
+      "start": 377,
+      "end": 377,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "L-glutamate"
+    }
+  ],
+  "P09917": [
+    {
+      "start": 17,
+      "end": 17,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 18,
+      "end": 18,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 19,
+      "end": 19,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 44,
+      "end": 44,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 45,
+      "end": 45,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 47,
+      "end": 47,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 79,
+      "end": 79,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 80,
+      "end": 80,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 368,
+      "end": 368,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Fe cation"
+    },
+    {
+      "start": 373,
+      "end": 373,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Fe cation"
+    },
+    {
+      "start": 551,
+      "end": 551,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Fe cation"
+    },
+    {
+      "start": 555,
+      "end": 555,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Fe cation"
+    },
+    {
+      "start": 674,
+      "end": 674,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Fe cation"
+    }
+  ],
+  "P14780": [
+    {
+      "start": 402,
+      "end": 402,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 99,
+      "end": 99,
+      "type": "Binding site",
+      "description": "in inhibited form",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 131,
+      "end": 131,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 165,
+      "end": 165,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 175,
+      "end": 175,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 177,
+      "end": 177,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 182,
+      "end": 182,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 183,
+      "end": 183,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 185,
+      "end": 185,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 187,
+      "end": 187,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 190,
+      "end": 190,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 197,
+      "end": 197,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 199,
+      "end": 199,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 201,
+      "end": 201,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 203,
+      "end": 203,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 205,
+      "end": 205,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 206,
+      "end": 206,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 208,
+      "end": 208,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 208,
+      "end": 208,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 401,
+      "end": 401,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 405,
+      "end": 405,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 411,
+      "end": 411,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    }
+  ],
+  "P45452": [
+    {
+      "start": 223,
+      "end": 223,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 96,
+      "end": 96,
+      "type": "Binding site",
+      "description": "in inhibited form",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 128,
+      "end": 128,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 162,
+      "end": 162,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 172,
+      "end": 172,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 174,
+      "end": 174,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 179,
+      "end": 179,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 180,
+      "end": 180,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 182,
+      "end": 182,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 184,
+      "end": 184,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 187,
+      "end": 187,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 194,
+      "end": 194,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 196,
+      "end": 196,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 198,
+      "end": 198,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 200,
+      "end": 200,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 202,
+      "end": 202,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 203,
+      "end": 203,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 205,
+      "end": 205,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 205,
+      "end": 205,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 222,
+      "end": 222,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 226,
+      "end": 226,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 232,
+      "end": 232,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 240,
+      "end": 240,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 291,
+      "end": 291,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 293,
+      "end": 293,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 335,
+      "end": 335,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 337,
+      "end": 337,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 383,
+      "end": 383,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 385,
+      "end": 385,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 432,
+      "end": 432,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    },
+    {
+      "start": 434,
+      "end": 434,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Ca(2+)"
+    }
+  ],
+  "P98170": [
+    {
+      "start": 300,
+      "end": 300,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 303,
+      "end": 303,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 320,
+      "end": 320,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    },
+    {
+      "start": 327,
+      "end": 327,
+      "type": "Binding site",
+      "description": "",
+      "ligand": "Zn(2+)"
+    }
+  ],
+  "Q9Y5Z0": [
+    {
+      "start": 110,
+      "end": 110,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    },
+    {
+      "start": 303,
+      "end": 303,
+      "type": "Active site",
+      "description": "",
+      "ligand": ""
+    }
+  ]
+}

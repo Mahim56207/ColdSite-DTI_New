@@ -1,0 +1,134 @@
+{
+  "MAK": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry Q96L96 (ALPK3) is correct. Alpha-kinases have an atypical fold and no annotated binding site."
+  },
+  "MST1": {
+    "note": "DAVIS 'MST1' means the STK4 kinase. UniProt files MST1 as macrophage-stimulating 1 (hepatocyte growth factor-like), a different protein with no binding-site annotation.",
+    "reason_it_failed": "WRONG PROTEIN -- resolved to P26927, macrophage-stimulating 1 (hepatocyte growth factor-like), which is not a kinase",
+    "uniprot_accession": "Q13043",
+    "unresolvable": ""
+  },
+  "PFPK5(Pfalciparum)": {
+    "note": "PfPK5 is an alternative protein name; the gene symbol is CRK2. Pinned to the 3D7 reference strain (P61075); Q07785 is the K1 strain with an identical 288-residue sequence.",
+    "reason_it_failed": "alias_not_found(PFPK5)",
+    "uniprot_accession": "P61075",
+    "unresolvable": ""
+  },
+  "PIK3C2B": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry O00750 (PIK3C2B) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3C2G": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry O75747 (PIK3C2G) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(C420R)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(E542K)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(E545A)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(E545K)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(H1047L)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(H1047Y)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(I800L)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(M1043I)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CA(Q546K)": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42336 (PIK3CA) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CB": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry P42338 (PIK3CB) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK3CD": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry O00329 (PIK3CD) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIK4CB": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry Q9UBF8 (PI4KB) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIP5K1A": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry Q99755 (PIP5K1A) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIP5K1C": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry O60331 (PIP5K1C) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PIP5K2C": {
+    "note": "verified: correct protein, annotation genuinely absent",
+    "reason_it_failed": "no_sites",
+    "uniprot_accession": "",
+    "unresolvable": "UniProt entry Q8TBX8 (PIP4K2C) is correct but carries no Binding site / Active site / Nucleotide binding annotation. Lipid-kinase ATP pockets are largely unannotated in UniProt. Real coverage gap, not a mapping error."
+  },
+  "PRP4": {
+    "note": "HGNC symbol is PRP4K; PRPF4B is only a synonym, so the gene search for PRPF4B returned nothing.",
+    "reason_it_failed": "alias_not_found(PRPF4B)",
+    "uniprot_accession": "Q13523",
+    "unresolvable": ""
+  }
+}

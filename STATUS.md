@@ -4,12 +4,24 @@
 > interpretability claims, not a single-model paper. Read
 > `docs/00_MASTER_PLAN_V2.md`, then your `docs/PART2_GUIDE_<roll>.md`.
 
-Last updated: 2026-08-04. Regenerate the numbers with `python -m pytest tests/ -q`
+Last updated: 2026-08-09. Regenerate the numbers with `python -m pytest tests/ -q`
 and `python -m src.data.ground_truth`.
 
 This file tracks Part 1 against the checklists in each guide. **Part 1 is not
-complete.** Five items remain, all of them blocked on data or compute rather
-than on code. They are listed at the bottom with the exact command to run.
+complete.** The remaining items are listed at the bottom with the exact command
+to run. Track A's step-by-step is `docs/RUNBOOK_124AD0008.md`.
+
+> **2026-08-09 — the splits exist. Track B is unblocked.**
+> `python -m src.data.build_splits` has been run for real against the canonical
+> DeepDTA-direct loader. All 8 split directories are built (2 datasets × 4
+> levels, three-way, leakage checks clean). `data/splits/` is gitignored, so
+> regenerate locally: put the DeepDTA files at
+> `src/data/baselines/deepdta/data/{davis,kiba}/` then run the command.
+> Counts are in `results/split_summary.md`.
+>
+> Note for 124AD0015: **DAVIS cold-pair validation is 264 rows.** Inherent to
+> requiring both drug and target unseen, not a bug — but early stopping on it
+> will be noisy, so decide how to handle that before the grid runs.
 
 ---
 
@@ -17,16 +29,82 @@ than on code. They are listed at the bottom with the exact command to run.
 
 | | Item | Status |
 |---|---|---|
-| A1 | DAVIS + KIBA load with stats | ✅ `src/data/load_data.py` |
+| A1 | DAVIS + KIBA load with stats | ✅ `src/data/load_data.py` — 30,056/68/442 and 118,254/2,111/229, matching the published benchmark |
 | A2 | Four splits, train/valid/test, both datasets | ✅ `src/data/build_splits.py` |
 | A3 | Leakage check in code | ✅ + 18 tests, incl. injected-leakage cases |
-| A4 | Split files saved | ⏳ code ready, needs the DeepDTA data files |
+| A4 | Split files saved | ✅ **run for real 2026-08-09**, all 8 dirs, leakage clean |
 | A5 | Split summary table | ✅ auto-written to `results/split_summary.md` |
-| A6 | Antiviral subset, 5 targets | ⏳ **1 of 5 in the committed file**; rebuilder ready |
-| A7 | Binding-site ground truth | ⚠️ usable but needs re-fetch (see below) |
+| A6 | Antiviral subset | ✅ **10,548 pairs, 3 targets** (HIV-1 protease, HIV-1 RT, influenza NA). SARS-CoV-2 unavailable — see below |
+| A7 | Binding-site ground truth | ✅ **re-fetched** — DAVIS 442 targets / 406 usable, KIBA 229 / 212, `type` on every feature, contamination gone |
 | A8 | Ground-truth README | ✅ `data/GROUND_TRUTH_README.md` |
 | A9 | Three baselines runnable | ⏳ all three vendored, only MolTrans run |
-| A10 | Results table, 3×4×2 | ❌ **1 of 24 cells** |
+| A10 | Results table, 3×4×2 | ❌ **1 of 24 cells** — now the main remaining Track A item |
+| A11 | KIBA accession → gene map | ✅ `data/kiba_uniprot_to_gene.json`, 229/229 with a gene symbol |
+| A12 | Unmapped DAVIS targets | ✅ resolved or documented — 19 unresolvable (real UniProt annotation gaps), 3 fixed by hand |
+| A13 | **Non-kinase control panel** | ✅ **60 distinct human targets, 21,145 pairs, `control_is_usable: True`** |
+
+### A7 — what "clean" means here
+
+`dropped_feature_type` reads **0**, and that is the correct post-fix state, not a
+failure. The rewritten fetcher never *collects* UniProt's `Site` catch-all, so
+there is nothing left downstream to drop. The number that shows the fix landed
+is **`dropped_description`: 125 → 0** — the description heuristic that the code
+itself called "a stopgap with known false negatives" now has nothing to guess
+at. Every feature carries a `type`; the file holds 1,369 `Binding site` and 427
+`Active site` annotations and nothing else.
+
+### A7 — three silent wrong-protein bugs, found and fixed
+
+None of these crashed. Each produced a real, reviewed UniProt entry for the
+wrong protein, and the target then contributed a wrong or empty site list to
+every average:
+
+| Target | Was | Should be | How it was caught |
+|---|---|---|---|
+| `IKK-epsilon` | Q96MC9, "Putative uncharacterized protein IKBKE-AS1" (antisense transcript) | Q14164, the kinase | gene search took the first of `size=1` |
+| `PRKCH` | C0HM02, "PRKCH upstream open reading frame 2", 52 aa | P24723, the kinase, 683 aa | uORF is filed under the *same* gene symbol — only sequence length separates them |
+| `MST1` | P26927, macrophage-stimulating 1 (hepatocyte growth factor-like) | Q13043 = **STK4** | gene-symbol collision; normal length, exact symbol match, so only the "not described as a kinase in a kinase panel" sweep found it |
+
+The fetcher now requests 10 candidates and picks on exact gene-symbol match then
+longest sequence. All three checks live in
+`python -m src.data.resolve_unmapped --dataset davis --audit`, which currently
+flags one target (`CASK`, correct — UniProt just names it oddly).
+
+Also fixed: `organism_id` → `taxonomy_id`, without which every non-human target
+(`PFCDPK1`, `PKNB`, `PFPK5`) was unresolvable, because their reviewed entries
+sit under *strain* taxa rather than the species id.
+
+### A13 — why the control arm was rebuilt
+
+The v2 plan's control arm is five antiviral proteins. `confound_report` gates
+the control at **≥20 distinct non-kinase targets**, so five could never clear
+it — that was true before any extraction problem. Two further findings:
+
+- **SARS-CoV-2 cannot be extracted from BindingDB 2026-07-31.** All 18,149
+  SARS-CoV-2 rows are filed under "Replicase polyprotein 1ab" carrying the full
+  **7,096-residue** polyprotein. Mpro is residues 3264–3569; exactly 3 rows say
+  so. Nothing separates an Mpro measurement from an RdRp one by target name, and
+  7,096 residues sits almost entirely outside the 1,000-residue window anyway.
+  Mpro and RdRp are now `OPTIONAL_TARGETS` with the reason recorded in code.
+- That leaves three antiviral proteins, which are now a **named case study**
+  rather than the control arm.
+
+`src/data/build_nonkinase_panel.py` builds the real arm: 60 distinct human
+non-kinase targets with UniProt binding-site annotation, inside the model's
+window. **The filter that matters is not "is this a kinase" but "does this bind
+a nucleotide"** — HSP90, DNA gyrase B, helicases, myosins and NADPH-dependent
+oxidoreductases are non-kinases with nucleotide pockets, and admitting them
+would put the confound inside the arm built to exclude it. Checked against
+UniProt's annotated ligand, not the protein name.
+
+**Open question for 124AD0067:** three panel targets have most of their
+annotated sites on cotransport ions — `SLC6A3` (14/20), `SLC6A4` (10/16),
+`DRD4` (2/4). No drug binds a sodium-coordination residue, so those positions
+inflate precision@k the same way the `Site` catch-all did. Deliberately **not**
+filtered: zinc cuts the other way, since carbonic anhydrase and HDAC inhibitors
+chelate the catalytic zinc directly, so zinc *is* the drug site there. The
+ligand is on every feature in `data/nonkinase_ground_truth_sites.json` so it can
+be excluded or reported separately — that call is Track C's.
 
 ## Track B — 124AD0015 (Core model)
 
@@ -36,7 +114,7 @@ than on code. They are listed at the bottom with the exact command to run.
 | B2 | Protein encoder, attention exposed | ✅ tested, zero weight on padding |
 | B3 | Fusion + prediction head | ✅ end-to-end on dummy data |
 | B4 | Training loop with checkpointing | ✅ verified `--dummy` |
-| B5 | Trained on real DAVIS/KIBA, all four splits | ❌ **blocked on A4** |
+| B5 | Trained on real DAVIS/KIBA, all four splits | ⏳ **no longer blocked — A4 is done.** The 24-run grid is now the critical path for the whole project |
 | B6 | SMILES vocab from train split only | ✅ tested |
 
 ## Track C — 124AD0067 (Evaluation, case study, literature)
@@ -144,22 +222,41 @@ tie ordering — and every real number produced afterwards is suspect.
 
 ## What is left, and why
 
-None of these are code problems. All five need data or compute this environment
-did not have (`rest.uniprot.org` and `bindingdb.org` are unreachable here, and
-the DeepDTA data files are not in the repo).
+None of these are code problems. They need data or compute — `rest.uniprot.org`
+and `bindingdb.org` are unreachable from the environment the code was written
+in, so every network step has to run on a team member's own machine.
 
 | # | Item | Owner | Command | Est. |
 |---|---|---|---|---|
-| 1 | Rebuild the antiviral subset | A | download `BindingDB_All.tsv`, then `python -m src.data.extract_antiviral --source data/raw/BindingDB_All.tsv` | ~1h, mostly download |
-| 2 | Re-fetch ground truth with feature types | A | `python -m src.data.fetch_binding_sites --dataset davis` (and `kiba`) | ~30 min |
-| 3 | Resolve the 33 unmapped DAVIS targets | A | manual gene→UniProt lookup; check `*_provenance.json` for `not_found` | ~2h |
-| 4 | Train ColdSite-DTI: 2 datasets × 4 splits × 3 seeds | B | `python -m src.model.run_grid --preflight`, then `python -m src.model.run_grid` | **24 runs**, HPC |
-| 5 | Fill the remaining 23 baseline cells | A | per `src/data/baselines/README.md` | the long pole |
+| 0 | ~~Build the splits~~ | A | `python -m src.data.build_splits` | ✅ **done 2026-08-09** |
+| 1 | ~~Antiviral subset~~ | A | `python -m src.data.extract_antiviral --from-cache` | ✅ **done** (3 targets; SARS-CoV-2 documented unavailable) |
+| 2 | ~~Re-fetch ground truth with feature types~~ | A | `python -m src.data.fetch_binding_sites --dataset davis` / `kiba` | ✅ **done** |
+| 3 | ~~KIBA gene map~~ | A | `python -m src.data.build_gene_map --dataset kiba` | ✅ **done**, 229/229 |
+| 4 | ~~Unmapped DAVIS targets~~ | A | `python -m src.data.resolve_unmapped --dataset davis --apply` | ✅ **done**, 19 documented unresolvable |
+| 5 | ~~Non-kinase control panel~~ | A | `python -m src.data.build_nonkinase_panel --scan/--select/--build` | ✅ **done**, 60 targets |
+| 6 | **Train ColdSite-DTI: 2 datasets × 4 splits × 3 seeds** | **B** | `python -m src.model.run_grid --preflight`, then `python -m src.model.run_grid` | **24 runs, HPC — the critical path** |
+| 7 | Fill the remaining 23 baseline cells | A | per `src/data/baselines/README.md` | the long pole |
+| 8 | Decide how to treat cotransport-ion sites in the panel | C | see A13 above | a judgement call, not code |
 
-Do them in that order. Item 4 is blocked on the **split files**, not on 1–3:
-`data/splits/` is empty and the DeepDTA files `build_splits.py` reads are not
-in the repo. Items 1 and 2 gate the *metric* rather than the training, and 4
-unblocks the first real precision@k number either way.
+**Everything Track A was blocking is now unblocked.** Item 6 is the critical
+path for the entire project: no real precision@k number exists until checkpoints
+do. Item 7 is Track A's remaining work and is the long pole overall.
+
+Item 3 used to be a two-hour UniProt ID-mapping job. It is now one command,
+because `fetch_binding_sites.py` records the gene symbol and protein name for
+every target into `*_provenance.json` — the names were always inside the entries
+it downloads, so the map falls out of item 2 with no second pass over the API,
+and the symbols are guaranteed to come from the same UniProt snapshot as the
+sites they stratify.
+
+Verified download link for item 1 (BindingDB release 2026-07-31, 565 MB zipped,
+~3–4 GB unzipped) — `curl -L` does not work in PowerShell, use this:
+
+```powershell
+$url = "https://www.bindingdb.org/rwd/bind/chemsearch/marvin/SDFdownload.jsp?download_file=/rwd/bind/downloads/BindingDB_All_202608_tsv.zip"
+Invoke-WebRequest -Uri $url -OutFile "data\raw\BindingDB_All_tsv.zip"
+Expand-Archive -Path "data\raw\BindingDB_All_tsv.zip" -DestinationPath "data\raw\" -Force
+```
 
 After 1 and 2, delete `test_committed_antiviral_file_is_still_incomplete` in
 `tests/test_antiviral.py` — it is a deliberate guard on the current broken

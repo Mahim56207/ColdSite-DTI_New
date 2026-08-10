@@ -1,0 +1,602 @@
+{
+  "P14416": {
+    "resolved_from": "P14416",
+    "uniprot_accession": "P14416",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 8,
+    "gene_name": "DRD2",
+    "protein_name": "D(2) dopamine receptor",
+    "sequence_length": 443
+  },
+  "Q13547": {
+    "resolved_from": "Q13547",
+    "uniprot_accession": "Q13547",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "HDAC1",
+    "protein_name": "Histone deacetylase 1",
+    "sequence_length": 482
+  },
+  "P56817": {
+    "resolved_from": "P56817",
+    "uniprot_accession": "P56817",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "BACE1",
+    "protein_name": "Beta-secretase 1",
+    "sequence_length": 501
+  },
+  "P00918": {
+    "resolved_from": "P00918",
+    "uniprot_accession": "P00918",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "CA2",
+    "protein_name": "Carbonic anhydrase 2",
+    "sequence_length": 260
+  },
+  "P00915": {
+    "resolved_from": "P00915",
+    "uniprot_accession": "P00915",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 9,
+    "gene_name": "CA1",
+    "protein_name": "Carbonic anhydrase 1",
+    "sequence_length": 261
+  },
+  "O43614": {
+    "resolved_from": "O43614",
+    "uniprot_accession": "O43614",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "HCRTR2",
+    "protein_name": "Orexin receptor type 2",
+    "sequence_length": 444
+  },
+  "P08684": {
+    "resolved_from": "P08684",
+    "uniprot_accession": "P08684",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "CYP3A4",
+    "protein_name": "Cytochrome P450 3A4",
+    "sequence_length": 503
+  },
+  "P28223": {
+    "resolved_from": "P28223",
+    "uniprot_accession": "P28223",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "HTR2A",
+    "protein_name": "5-hydroxytryptamine receptor 2A",
+    "sequence_length": 471
+  },
+  "P03952": {
+    "resolved_from": "P03952",
+    "uniprot_accession": "P03952",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "KLKB1",
+    "protein_name": "Plasma kallikrein",
+    "sequence_length": 638
+  },
+  "O43613": {
+    "resolved_from": "O43613",
+    "uniprot_accession": "O43613",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "HCRTR1",
+    "protein_name": "Orexin/Hypocretin receptor type 1",
+    "sequence_length": 425
+  },
+  "P00734": {
+    "resolved_from": "P00734",
+    "uniprot_accession": "P00734",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "F2",
+    "protein_name": "Prothrombin",
+    "sequence_length": 622
+  },
+  "P03372": {
+    "resolved_from": "P03372",
+    "uniprot_accession": "P03372",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ESR1",
+    "protein_name": "Estrogen receptor",
+    "sequence_length": 595
+  },
+  "P22303": {
+    "resolved_from": "P22303",
+    "uniprot_accession": "P22303",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 13,
+    "gene_name": "ACHE",
+    "protein_name": "Acetylcholinesterase",
+    "sequence_length": 614
+  },
+  "P08908": {
+    "resolved_from": "P08908",
+    "uniprot_accession": "P08908",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 9,
+    "gene_name": "HTR1A",
+    "protein_name": "5-hydroxytryptamine receptor 1A",
+    "sequence_length": 422
+  },
+  "P35462": {
+    "resolved_from": "P35462",
+    "uniprot_accession": "P35462",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "DRD3",
+    "protein_name": "D(3) dopamine receptor",
+    "sequence_length": 400
+  },
+  "Q00987": {
+    "resolved_from": "Q00987",
+    "uniprot_accession": "Q00987",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "MDM2",
+    "protein_name": "E3 ubiquitin-protein ligase Mdm2",
+    "sequence_length": 491
+  },
+  "Q16790": {
+    "resolved_from": "Q16790",
+    "uniprot_accession": "Q16790",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "CA9",
+    "protein_name": "Carbonic anhydrase 9",
+    "sequence_length": 459
+  },
+  "P00742": {
+    "resolved_from": "P00742",
+    "uniprot_accession": "P00742",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "F10",
+    "protein_name": "Coagulation factor X",
+    "sequence_length": 488
+  },
+  "P37231": {
+    "resolved_from": "P37231",
+    "uniprot_accession": "P37231",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PPARG",
+    "protein_name": "Peroxisome proliferator-activated receptor gamma",
+    "sequence_length": 505
+  },
+  "P35354": {
+    "resolved_from": "P35354",
+    "uniprot_accession": "P35354",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "PTGS2",
+    "protein_name": "Prostaglandin G/H synthase 2",
+    "sequence_length": 604
+  },
+  "P00746": {
+    "resolved_from": "P00746",
+    "uniprot_accession": "P00746",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CFD",
+    "protein_name": "Complement factor D",
+    "sequence_length": 253
+  },
+  "P31645": {
+    "resolved_from": "P31645",
+    "uniprot_accession": "P31645",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 16,
+    "gene_name": "SLC6A4",
+    "protein_name": "Sodium-dependent serotonin transporter",
+    "sequence_length": 630
+  },
+  "P21453": {
+    "resolved_from": "P21453",
+    "uniprot_accession": "P21453",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "S1PR1",
+    "protein_name": "Sphingosine 1-phosphate receptor 1",
+    "sequence_length": 382
+  },
+  "P10635": {
+    "resolved_from": "P10635",
+    "uniprot_accession": "P10635",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "CYP2D6",
+    "protein_name": "Cytochrome P450 2D6",
+    "sequence_length": 497
+  },
+  "P03951": {
+    "resolved_from": "P03951",
+    "uniprot_accession": "P03951",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "F11",
+    "protein_name": "Coagulation factor XI",
+    "sequence_length": 625
+  },
+  "Q06124": {
+    "resolved_from": "Q06124",
+    "uniprot_accession": "Q06124",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PTPN11",
+    "protein_name": "Tyrosine-protein phosphatase non-receptor type 11",
+    "sequence_length": 593
+  },
+  "P18031": {
+    "resolved_from": "P18031",
+    "uniprot_accession": "P18031",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PTPN1",
+    "protein_name": "Tyrosine-protein phosphatase non-receptor type 1",
+    "sequence_length": 435
+  },
+  "P28335": {
+    "resolved_from": "P28335",
+    "uniprot_accession": "P28335",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "HTR2C",
+    "protein_name": "5-hydroxytryptamine receptor 2C",
+    "sequence_length": 458
+  },
+  "P14902": {
+    "resolved_from": "P14902",
+    "uniprot_accession": "P14902",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "IDO1",
+    "protein_name": "Indoleamine 2,3-dioxygenase 1",
+    "sequence_length": 403
+  },
+  "O43570": {
+    "resolved_from": "O43570",
+    "uniprot_accession": "O43570",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "CA12",
+    "protein_name": "Carbonic anhydrase 12",
+    "sequence_length": 354
+  },
+  "P27487": {
+    "resolved_from": "P27487",
+    "uniprot_accession": "P27487",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "DPP4",
+    "protein_name": "Dipeptidyl peptidase 4",
+    "sequence_length": 766
+  },
+  "P10275": {
+    "resolved_from": "P10275",
+    "uniprot_accession": "P10275",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "AR",
+    "protein_name": "Androgen receptor",
+    "sequence_length": 920
+  },
+  "P50406": {
+    "resolved_from": "P50406",
+    "uniprot_accession": "P50406",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "HTR6",
+    "protein_name": "5-hydroxytryptamine receptor 6",
+    "sequence_length": 440
+  },
+  "P11712": {
+    "resolved_from": "P11712",
+    "uniprot_accession": "P11712",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "CYP2C9",
+    "protein_name": "Cytochrome P450 2C9",
+    "sequence_length": 490
+  },
+  "P08253": {
+    "resolved_from": "P08253",
+    "uniprot_accession": "P08253",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 24,
+    "gene_name": "MMP2",
+    "protein_name": "72 kDa type IV collagenase",
+    "sequence_length": 660
+  },
+  "Q13822": {
+    "resolved_from": "Q13822",
+    "uniprot_accession": "Q13822",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 25,
+    "gene_name": "ENPP2",
+    "protein_name": "Autotaxin",
+    "sequence_length": 863
+  },
+  "P32245": {
+    "resolved_from": "P32245",
+    "uniprot_accession": "P32245",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MC4R",
+    "protein_name": "Melanocortin receptor 4",
+    "sequence_length": 332
+  },
+  "P06276": {
+    "resolved_from": "P06276",
+    "uniprot_accession": "P06276",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "BCHE",
+    "protein_name": "Cholinesterase",
+    "sequence_length": 602
+  },
+  "Q9BY41": {
+    "resolved_from": "Q9BY41",
+    "uniprot_accession": "Q9BY41",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "HDAC8",
+    "protein_name": "Histone deacetylase 8",
+    "sequence_length": 377
+  },
+  "Q99685": {
+    "resolved_from": "Q99685",
+    "uniprot_accession": "Q99685",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MGLL",
+    "protein_name": "Monoglyceride lipase",
+    "sequence_length": 303
+  },
+  "O15379": {
+    "resolved_from": "O15379",
+    "uniprot_accession": "O15379",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 8,
+    "gene_name": "HDAC3",
+    "protein_name": "Histone deacetylase 3",
+    "sequence_length": 428
+  },
+  "Q01959": {
+    "resolved_from": "Q01959",
+    "uniprot_accession": "Q01959",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 20,
+    "gene_name": "SLC6A3",
+    "protein_name": "Sodium-dependent dopamine transporter",
+    "sequence_length": 620
+  },
+  "Q07869": {
+    "resolved_from": "Q07869",
+    "uniprot_accession": "Q07869",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PPARA",
+    "protein_name": "Peroxisome proliferator-activated receptor alpha",
+    "sequence_length": 468
+  },
+  "P23975": {
+    "resolved_from": "P23975",
+    "uniprot_accession": "P23975",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 19,
+    "gene_name": "SLC6A2",
+    "protein_name": "Sodium-dependent noradrenaline transporter",
+    "sequence_length": 617
+  },
+  "P34969": {
+    "resolved_from": "P34969",
+    "uniprot_accession": "P34969",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "HTR7",
+    "protein_name": "5-hydroxytryptamine receptor 7",
+    "sequence_length": 479
+  },
+  "Q92769": {
+    "resolved_from": "Q92769",
+    "uniprot_accession": "Q92769",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 16,
+    "gene_name": "HDAC2",
+    "protein_name": "Histone deacetylase 2",
+    "sequence_length": 488
+  },
+  "Q96RI1": {
+    "resolved_from": "Q96RI1",
+    "uniprot_accession": "Q96RI1",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "NR1H4",
+    "protein_name": "Bile acid receptor",
+    "sequence_length": 486
+  },
+  "P00797": {
+    "resolved_from": "P00797",
+    "uniprot_accession": "P00797",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "REN",
+    "protein_name": "Renin",
+    "sequence_length": 406
+  },
+  "P07339": {
+    "resolved_from": "P07339",
+    "uniprot_accession": "P07339",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "CTSD",
+    "protein_name": "Cathepsin D",
+    "sequence_length": 412
+  },
+  "P03956": {
+    "resolved_from": "P03956",
+    "uniprot_accession": "P03956",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 25,
+    "gene_name": "MMP1",
+    "protein_name": "Interstitial collagenase",
+    "sequence_length": 469
+  },
+  "P21917": {
+    "resolved_from": "P21917",
+    "uniprot_accession": "P21917",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "DRD4",
+    "protein_name": "D(4) dopamine receptor",
+    "sequence_length": 419
+  },
+  "P05177": {
+    "resolved_from": "P05177",
+    "uniprot_accession": "P05177",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "CYP1A2",
+    "protein_name": "Cytochrome P450 1A2",
+    "sequence_length": 516
+  },
+  "Q01064": {
+    "resolved_from": "Q01064",
+    "uniprot_accession": "Q01064",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "PDE1B",
+    "protein_name": "Dual specificity calcium/calmodulin-dependent 3',5'-cyclic nucleotide phosphodiesterase 1B",
+    "sequence_length": 536
+  },
+  "P08246": {
+    "resolved_from": "P08246",
+    "uniprot_accession": "P08246",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ELANE",
+    "protein_name": "Neutrophil elastase",
+    "sequence_length": 267
+  },
+  "Q14416": {
+    "resolved_from": "Q14416",
+    "uniprot_accession": "Q14416",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "GRM2",
+    "protein_name": "Metabotropic glutamate receptor 2",
+    "sequence_length": 872
+  },
+  "P09917": {
+    "resolved_from": "P09917",
+    "uniprot_accession": "P09917",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 13,
+    "gene_name": "ALOX5",
+    "protein_name": "Polyunsaturated fatty acid 5-lipoxygenase",
+    "sequence_length": 674
+  },
+  "P14780": {
+    "resolved_from": "P14780",
+    "uniprot_accession": "P14780",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 22,
+    "gene_name": "MMP9",
+    "protein_name": "Matrix metalloproteinase-9",
+    "sequence_length": 707
+  },
+  "P45452": {
+    "resolved_from": "P45452",
+    "uniprot_accession": "P45452",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 31,
+    "gene_name": "MMP13",
+    "protein_name": "Collagenase 3",
+    "sequence_length": 471
+  },
+  "P98170": {
+    "resolved_from": "P98170",
+    "uniprot_accession": "P98170",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "XIAP",
+    "protein_name": "E3 ubiquitin-protein ligase XIAP",
+    "sequence_length": 497
+  },
+  "Q9Y5Z0": {
+    "resolved_from": "Q9Y5Z0",
+    "uniprot_accession": "Q9Y5Z0",
+    "resolution": "nonkinase_panel",
+    "is_variant": false,
+    "n_features": 2,
+    "gene_name": "BACE2",
+    "protein_name": "Beta-secretase 2",
+    "sequence_length": 518
+  }
+}

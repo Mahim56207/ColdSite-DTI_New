@@ -1,0 +1,2292 @@
+{
+  "O00141": {
+    "resolved_from": "O00141",
+    "uniprot_accession": "O00141",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SGK1",
+    "protein_name": "Serine/threonine-protein kinase Sgk1",
+    "sequence_length": 431
+  },
+  "O14920": {
+    "resolved_from": "O14920",
+    "uniprot_accession": "O14920",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "IKBKB",
+    "protein_name": "Inhibitor of nuclear factor kappa-B kinase subunit beta",
+    "sequence_length": 756
+  },
+  "O15111": {
+    "resolved_from": "O15111",
+    "uniprot_accession": "O15111",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CHUK",
+    "protein_name": "Inhibitor of nuclear factor kappa-B kinase subunit alpha",
+    "sequence_length": 745
+  },
+  "P00533": {
+    "resolved_from": "P00533",
+    "uniprot_accession": "P00533",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor",
+    "sequence_length": 1210
+  },
+  "P04626": {
+    "resolved_from": "P04626",
+    "uniprot_accession": "P04626",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ERBB2",
+    "protein_name": "Receptor tyrosine-protein kinase erbB-2",
+    "sequence_length": 1255
+  },
+  "P06239": {
+    "resolved_from": "P06239",
+    "uniprot_accession": "P06239",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "LCK",
+    "protein_name": "Tyrosine-protein kinase Lck",
+    "sequence_length": 509
+  },
+  "P07333": {
+    "resolved_from": "P07333",
+    "uniprot_accession": "P07333",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSF1R",
+    "protein_name": "Macrophage colony-stimulating factor 1 receptor",
+    "sequence_length": 972
+  },
+  "P15056": {
+    "resolved_from": "P15056",
+    "uniprot_accession": "P15056",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 11,
+    "gene_name": "BRAF",
+    "protein_name": "Serine/threonine-protein kinase B-raf",
+    "sequence_length": 766
+  },
+  "P24941": {
+    "resolved_from": "P24941",
+    "uniprot_accession": "P24941",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 22,
+    "gene_name": "CDK2",
+    "protein_name": "Cyclin-dependent kinase 2",
+    "sequence_length": 298
+  },
+  "P28482": {
+    "resolved_from": "P28482",
+    "uniprot_accession": "P28482",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK1",
+    "protein_name": "Mitogen-activated protein kinase 1",
+    "sequence_length": 360
+  },
+  "P45983": {
+    "resolved_from": "P45983",
+    "uniprot_accession": "P45983",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK8",
+    "protein_name": "Mitogen-activated protein kinase 8",
+    "sequence_length": 427
+  },
+  "P45984": {
+    "resolved_from": "P45984",
+    "uniprot_accession": "P45984",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK9",
+    "protein_name": "Mitogen-activated protein kinase 9",
+    "sequence_length": 424
+  },
+  "P49841": {
+    "resolved_from": "P49841",
+    "uniprot_accession": "P49841",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "GSK3B",
+    "protein_name": "Glycogen synthase kinase-3 beta",
+    "sequence_length": 420
+  },
+  "P53350": {
+    "resolved_from": "P53350",
+    "uniprot_accession": "P53350",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "PLK1",
+    "protein_name": "Serine/threonine-protein kinase PLK1",
+    "sequence_length": 603
+  },
+  "P53779": {
+    "resolved_from": "P53779",
+    "uniprot_accession": "P53779",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK10",
+    "protein_name": "Mitogen-activated protein kinase 10",
+    "sequence_length": 464
+  },
+  "Q13464": {
+    "resolved_from": "Q13464",
+    "uniprot_accession": "Q13464",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ROCK1",
+    "protein_name": "Rho-associated protein kinase 1",
+    "sequence_length": 1354
+  },
+  "Q16539": {
+    "resolved_from": "Q16539",
+    "uniprot_accession": "Q16539",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK14",
+    "protein_name": "Mitogen-activated protein kinase 14",
+    "sequence_length": 360
+  },
+  "Q16584": {
+    "resolved_from": "Q16584",
+    "uniprot_accession": "Q16584",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP3K11",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 11",
+    "sequence_length": 847
+  },
+  "O00311": {
+    "resolved_from": "O00311",
+    "uniprot_accession": "O00311",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDC7",
+    "protein_name": "Cell division cycle 7-related protein kinase",
+    "sequence_length": 574
+  },
+  "O14757": {
+    "resolved_from": "O14757",
+    "uniprot_accession": "O14757",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CHEK1",
+    "protein_name": "Serine/threonine-protein kinase Chk1",
+    "sequence_length": 476
+  },
+  "O14965": {
+    "resolved_from": "O14965",
+    "uniprot_accession": "O14965",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "AURKA",
+    "protein_name": "Aurora kinase A",
+    "sequence_length": 403
+  },
+  "O15075": {
+    "resolved_from": "O15075",
+    "uniprot_accession": "O15075",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "DCLK1",
+    "protein_name": "Serine/threonine-protein kinase DCLK1",
+    "sequence_length": 740
+  },
+  "O15264": {
+    "resolved_from": "O15264",
+    "uniprot_accession": "O15264",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK13",
+    "protein_name": "Mitogen-activated protein kinase 13",
+    "sequence_length": 365
+  },
+  "O15530": {
+    "resolved_from": "O15530",
+    "uniprot_accession": "O15530",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "PDPK1",
+    "protein_name": "3-phosphoinositide-dependent protein kinase 1",
+    "sequence_length": 556
+  },
+  "O43293": {
+    "resolved_from": "O43293",
+    "uniprot_accession": "O43293",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "DAPK3",
+    "protein_name": "Death-associated protein kinase 3",
+    "sequence_length": 454
+  },
+  "O60674": {
+    "resolved_from": "O60674",
+    "uniprot_accession": "O60674",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "JAK2",
+    "protein_name": "Tyrosine-protein kinase JAK2",
+    "sequence_length": 1132
+  },
+  "O75116": {
+    "resolved_from": "O75116",
+    "uniprot_accession": "O75116",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ROCK2",
+    "protein_name": "Rho-associated protein kinase 2",
+    "sequence_length": 1388
+  },
+  "O75582": {
+    "resolved_from": "O75582",
+    "uniprot_accession": "O75582",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "RPS6KA5",
+    "protein_name": "Ribosomal protein S6 kinase alpha-5",
+    "sequence_length": 802
+  },
+  "O94806": {
+    "resolved_from": "O94806",
+    "uniprot_accession": "O94806",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKD3",
+    "protein_name": "Serine/threonine-protein kinase D3",
+    "sequence_length": 890
+  },
+  "O95819": {
+    "resolved_from": "O95819",
+    "uniprot_accession": "O95819",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP4K4",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 4",
+    "sequence_length": 1239
+  },
+  "O96013": {
+    "resolved_from": "O96013",
+    "uniprot_accession": "O96013",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "PAK4",
+    "protein_name": "Serine/threonine-protein kinase PAK 4",
+    "sequence_length": 591
+  },
+  "O96017": {
+    "resolved_from": "O96017",
+    "uniprot_accession": "O96017",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "CHEK2",
+    "protein_name": "Serine/threonine-protein kinase Chk2",
+    "sequence_length": 543
+  },
+  "P04629": {
+    "resolved_from": "P04629",
+    "uniprot_accession": "P04629",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NTRK1",
+    "protein_name": "High affinity nerve growth factor receptor",
+    "sequence_length": 796
+  },
+  "P05129": {
+    "resolved_from": "P05129",
+    "uniprot_accession": "P05129",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 17,
+    "gene_name": "PRKCG",
+    "protein_name": "Protein kinase C gamma type",
+    "sequence_length": 697
+  },
+  "P06213": {
+    "resolved_from": "P06213",
+    "uniprot_accession": "P06213",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "INSR",
+    "protein_name": "Insulin receptor",
+    "sequence_length": 1382
+  },
+  "P06241": {
+    "resolved_from": "P06241",
+    "uniprot_accession": "P06241",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FYN",
+    "protein_name": "Tyrosine-protein kinase Fyn",
+    "sequence_length": 537
+  },
+  "P06493": {
+    "resolved_from": "P06493",
+    "uniprot_accession": "P06493",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDK1",
+    "protein_name": "Cyclin-dependent kinase 1",
+    "sequence_length": 297
+  },
+  "P07332": {
+    "resolved_from": "P07332",
+    "uniprot_accession": "P07332",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FES",
+    "protein_name": "Tyrosine-protein kinase Fes/Fps",
+    "sequence_length": 822
+  },
+  "P07948": {
+    "resolved_from": "P07948",
+    "uniprot_accession": "P07948",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "LYN",
+    "protein_name": "Tyrosine-protein kinase Lyn",
+    "sequence_length": 512
+  },
+  "P07949": {
+    "resolved_from": "P07949",
+    "uniprot_accession": "P07949",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 25,
+    "gene_name": "RET",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase receptor Ret",
+    "sequence_length": 1114
+  },
+  "P08069": {
+    "resolved_from": "P08069",
+    "uniprot_accession": "P08069",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "IGF1R",
+    "protein_name": "Insulin-like growth factor 1 receptor",
+    "sequence_length": 1367
+  },
+  "P08922": {
+    "resolved_from": "P08922",
+    "uniprot_accession": "P08922",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ROS1",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase ROS",
+    "sequence_length": 2347
+  },
+  "P10721": {
+    "resolved_from": "P10721",
+    "uniprot_accession": "P10721",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 8,
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit",
+    "sequence_length": 976
+  },
+  "P11309": {
+    "resolved_from": "P11309",
+    "uniprot_accession": "P11309",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "PIM1",
+    "protein_name": "Serine/threonine-protein kinase pim-1",
+    "sequence_length": 313
+  },
+  "P11362": {
+    "resolved_from": "P11362",
+    "uniprot_accession": "P11362",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "FGFR1",
+    "protein_name": "Fibroblast growth factor receptor 1",
+    "sequence_length": 822
+  },
+  "P12931": {
+    "resolved_from": "P12931",
+    "uniprot_accession": "P12931",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SRC",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase Src",
+    "sequence_length": 536
+  },
+  "P15735": {
+    "resolved_from": "P15735",
+    "uniprot_accession": "P15735",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PHKG2",
+    "protein_name": "Phosphorylase b kinase gamma catalytic chain, liver/testis isoform",
+    "sequence_length": 406
+  },
+  "P16591": {
+    "resolved_from": "P16591",
+    "uniprot_accession": "P16591",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FER",
+    "protein_name": "Tyrosine-protein kinase Fer",
+    "sequence_length": 822
+  },
+  "P17612": {
+    "resolved_from": "P17612",
+    "uniprot_accession": "P17612",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "PRKACA",
+    "protein_name": "cAMP-dependent protein kinase catalytic subunit alpha",
+    "sequence_length": 351
+  },
+  "P23443": {
+    "resolved_from": "P23443",
+    "uniprot_accession": "P23443",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "RPS6KB1",
+    "protein_name": "Ribosomal protein S6 kinase beta-1",
+    "sequence_length": 525
+  },
+  "P24723": {
+    "resolved_from": "P24723",
+    "uniprot_accession": "P24723",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKCH",
+    "protein_name": "Protein kinase C eta type",
+    "sequence_length": 683
+  },
+  "P27448": {
+    "resolved_from": "P27448",
+    "uniprot_accession": "P27448",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MARK3",
+    "protein_name": "MAP/microtubule affinity-regulating kinase 3",
+    "sequence_length": 753
+  },
+  "P29317": {
+    "resolved_from": "P29317",
+    "uniprot_accession": "P29317",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "EPHA2",
+    "protein_name": "Ephrin type-A receptor 2",
+    "sequence_length": 976
+  },
+  "P29597": {
+    "resolved_from": "P29597",
+    "uniprot_accession": "P29597",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TYK2",
+    "protein_name": "Non-receptor tyrosine-protein kinase TYK2",
+    "sequence_length": 1187
+  },
+  "P31751": {
+    "resolved_from": "P31751",
+    "uniprot_accession": "P31751",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "AKT2",
+    "protein_name": "RAC-beta serine/threonine-protein kinase",
+    "sequence_length": 481
+  },
+  "P35916": {
+    "resolved_from": "P35916",
+    "uniprot_accession": "P35916",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FLT4",
+    "protein_name": "Vascular endothelial growth factor receptor 3",
+    "sequence_length": 1363
+  },
+  "P35968": {
+    "resolved_from": "P35968",
+    "uniprot_accession": "P35968",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "KDR",
+    "protein_name": "Vascular endothelial growth factor receptor 2",
+    "sequence_length": 1356
+  },
+  "P41743": {
+    "resolved_from": "P41743",
+    "uniprot_accession": "P41743",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKCI",
+    "protein_name": "Protein kinase C iota type",
+    "sequence_length": 596
+  },
+  "P42679": {
+    "resolved_from": "P42679",
+    "uniprot_accession": "P42679",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MATK",
+    "protein_name": "Megakaryocyte-associated tyrosine-protein kinase",
+    "sequence_length": 507
+  },
+  "P42685": {
+    "resolved_from": "P42685",
+    "uniprot_accession": "P42685",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FRK",
+    "protein_name": "Tyrosine-protein kinase FRK",
+    "sequence_length": 505
+  },
+  "P43405": {
+    "resolved_from": "P43405",
+    "uniprot_accession": "P43405",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SYK",
+    "protein_name": "Tyrosine-protein kinase SYK",
+    "sequence_length": 635
+  },
+  "P48729": {
+    "resolved_from": "P48729",
+    "uniprot_accession": "P48729",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK1A1",
+    "protein_name": "Casein kinase I isoform alpha",
+    "sequence_length": 337
+  },
+  "P48730": {
+    "resolved_from": "P48730",
+    "uniprot_accession": "P48730",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK1D",
+    "protein_name": "Casein kinase I isoform delta",
+    "sequence_length": 415
+  },
+  "P49137": {
+    "resolved_from": "P49137",
+    "uniprot_accession": "P49137",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "MAPKAPK2",
+    "protein_name": "MAP kinase-activated protein kinase 2",
+    "sequence_length": 400
+  },
+  "P49760": {
+    "resolved_from": "P49760",
+    "uniprot_accession": "P49760",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CLK2",
+    "protein_name": "Dual specificity protein kinase CLK2",
+    "sequence_length": 499
+  },
+  "P49840": {
+    "resolved_from": "P49840",
+    "uniprot_accession": "P49840",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "GSK3A",
+    "protein_name": "Glycogen synthase kinase-3 alpha",
+    "sequence_length": 483
+  },
+  "P51451": {
+    "resolved_from": "P51451",
+    "uniprot_accession": "P51451",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "BLK",
+    "protein_name": "Tyrosine-protein kinase Blk",
+    "sequence_length": 505
+  },
+  "P51617": {
+    "resolved_from": "P51617",
+    "uniprot_accession": "P51617",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "IRAK1",
+    "protein_name": "Interleukin-1 receptor-associated kinase 1",
+    "sequence_length": 712
+  },
+  "P51812": {
+    "resolved_from": "P51812",
+    "uniprot_accession": "P51812",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "RPS6KA3",
+    "protein_name": "Ribosomal protein S6 kinase alpha-3",
+    "sequence_length": 740
+  },
+  "P51817": {
+    "resolved_from": "P51817",
+    "uniprot_accession": "P51817",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKX",
+    "protein_name": "cAMP-dependent protein kinase catalytic subunit PRKX",
+    "sequence_length": 358
+  },
+  "P51955": {
+    "resolved_from": "P51955",
+    "uniprot_accession": "P51955",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NEK2",
+    "protein_name": "Serine/threonine-protein kinase Nek2",
+    "sequence_length": 445
+  },
+  "P51957": {
+    "resolved_from": "P51957",
+    "uniprot_accession": "P51957",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NEK4",
+    "protein_name": "Serine/threonine-protein kinase Nek4",
+    "sequence_length": 841
+  },
+  "P52333": {
+    "resolved_from": "P52333",
+    "uniprot_accession": "P52333",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "JAK3",
+    "protein_name": "Tyrosine-protein kinase JAK3",
+    "sequence_length": 1124
+  },
+  "P53778": {
+    "resolved_from": "P53778",
+    "uniprot_accession": "P53778",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK12",
+    "protein_name": "Mitogen-activated protein kinase 12",
+    "sequence_length": 367
+  },
+  "P68400": {
+    "resolved_from": "P68400",
+    "uniprot_accession": "P68400",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK2A1",
+    "protein_name": "Casein kinase II subunit alpha",
+    "sequence_length": 391
+  },
+  "P78368": {
+    "resolved_from": "P78368",
+    "uniprot_accession": "P78368",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK1G2",
+    "protein_name": "Casein kinase I isoform gamma-2",
+    "sequence_length": 415
+  },
+  "Q00535": {
+    "resolved_from": "Q00535",
+    "uniprot_accession": "Q00535",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDK5",
+    "protein_name": "Cyclin-dependent kinase 5",
+    "sequence_length": 292
+  },
+  "Q05397": {
+    "resolved_from": "Q05397",
+    "uniprot_accession": "Q05397",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PTK2",
+    "protein_name": "Focal adhesion kinase 1",
+    "sequence_length": 1052
+  },
+  "Q05513": {
+    "resolved_from": "Q05513",
+    "uniprot_accession": "Q05513",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKCZ",
+    "protein_name": "Protein kinase C zeta type",
+    "sequence_length": 592
+  },
+  "Q05655": {
+    "resolved_from": "Q05655",
+    "uniprot_accession": "Q05655",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKCD",
+    "protein_name": "Protein kinase C delta type",
+    "sequence_length": 676
+  },
+  "Q06418": {
+    "resolved_from": "Q06418",
+    "uniprot_accession": "Q06418",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TYRO3",
+    "protein_name": "Tyrosine-protein kinase receptor TYRO3",
+    "sequence_length": 890
+  },
+  "Q08881": {
+    "resolved_from": "Q08881",
+    "uniprot_accession": "Q08881",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "ITK",
+    "protein_name": "Tyrosine-protein kinase ITK/TSK",
+    "sequence_length": 620
+  },
+  "Q12851": {
+    "resolved_from": "Q12851",
+    "uniprot_accession": "Q12851",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP4K2",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 2",
+    "sequence_length": 820
+  },
+  "Q13131": {
+    "resolved_from": "Q13131",
+    "uniprot_accession": "Q13131",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKAA1",
+    "protein_name": "5'-AMP-activated protein kinase catalytic subunit alpha-1",
+    "sequence_length": 559
+  },
+  "Q13153": {
+    "resolved_from": "Q13153",
+    "uniprot_accession": "Q13153",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PAK1",
+    "protein_name": "Serine/threonine-protein kinase PAK 1",
+    "sequence_length": 545
+  },
+  "Q13188": {
+    "resolved_from": "Q13188",
+    "uniprot_accession": "Q13188",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "STK3",
+    "protein_name": "Serine/threonine-protein kinase 3",
+    "sequence_length": 491
+  },
+  "Q13237": {
+    "resolved_from": "Q13237",
+    "uniprot_accession": "Q13237",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 12,
+    "gene_name": "PRKG2",
+    "protein_name": "cGMP-dependent protein kinase 2",
+    "sequence_length": 762
+  },
+  "Q13554": {
+    "resolved_from": "Q13554",
+    "uniprot_accession": "Q13554",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK2B",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit beta",
+    "sequence_length": 666
+  },
+  "Q13555": {
+    "resolved_from": "Q13555",
+    "uniprot_accession": "Q13555",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK2G",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit gamma",
+    "sequence_length": 558
+  },
+  "Q13557": {
+    "resolved_from": "Q13557",
+    "uniprot_accession": "Q13557",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK2D",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit delta",
+    "sequence_length": 499
+  },
+  "Q13627": {
+    "resolved_from": "Q13627",
+    "uniprot_accession": "Q13627",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "DYRK1A",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1A",
+    "sequence_length": 763
+  },
+  "Q13976": {
+    "resolved_from": "Q13976",
+    "uniprot_accession": "Q13976",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 14,
+    "gene_name": "PRKG1",
+    "protein_name": "cGMP-dependent protein kinase 1",
+    "sequence_length": 671
+  },
+  "Q14012": {
+    "resolved_from": "Q14012",
+    "uniprot_accession": "Q14012",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK1",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type 1",
+    "sequence_length": 370
+  },
+  "Q14680": {
+    "resolved_from": "Q14680",
+    "uniprot_accession": "Q14680",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MELK",
+    "protein_name": "Maternal embryonic leucine zipper kinase",
+    "sequence_length": 651
+  },
+  "Q15303": {
+    "resolved_from": "Q15303",
+    "uniprot_accession": "Q15303",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "ERBB4",
+    "protein_name": "Receptor tyrosine-protein kinase erbB-4",
+    "sequence_length": 1308
+  },
+  "Q16288": {
+    "resolved_from": "Q16288",
+    "uniprot_accession": "Q16288",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NTRK3",
+    "protein_name": "NT-3 growth factor receptor",
+    "sequence_length": 839
+  },
+  "Q16513": {
+    "resolved_from": "Q16513",
+    "uniprot_accession": "Q16513",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PKN2",
+    "protein_name": "Serine/threonine-protein kinase N2",
+    "sequence_length": 984
+  },
+  "Q16620": {
+    "resolved_from": "Q16620",
+    "uniprot_accession": "Q16620",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NTRK2",
+    "protein_name": "BDNF/NT-3 growth factors receptor",
+    "sequence_length": 822
+  },
+  "Q16644": {
+    "resolved_from": "Q16644",
+    "uniprot_accession": "Q16644",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPKAPK3",
+    "protein_name": "MAP kinase-activated protein kinase 3",
+    "sequence_length": 382
+  },
+  "Q5VT25": {
+    "resolved_from": "Q5VT25",
+    "uniprot_accession": "Q5VT25",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDC42BPA",
+    "protein_name": "Serine/threonine-protein kinase MRCK alpha",
+    "sequence_length": 1732
+  },
+  "Q7KZI7": {
+    "resolved_from": "Q7KZI7",
+    "uniprot_accession": "Q7KZI7",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MARK2",
+    "protein_name": "Serine/threonine-protein kinase MARK2",
+    "sequence_length": 788
+  },
+  "Q7L7X3": {
+    "resolved_from": "Q7L7X3",
+    "uniprot_accession": "Q7L7X3",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TAOK1",
+    "protein_name": "Serine/threonine-protein kinase TAO1",
+    "sequence_length": 1001
+  },
+  "Q86V86": {
+    "resolved_from": "Q86V86",
+    "uniprot_accession": "Q86V86",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PIM3",
+    "protein_name": "Serine/threonine-protein kinase pim-3",
+    "sequence_length": 326
+  },
+  "Q8IW41": {
+    "resolved_from": "Q8IW41",
+    "uniprot_accession": "Q8IW41",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPKAPK5",
+    "protein_name": "MAP kinase-activated protein kinase 5",
+    "sequence_length": 473
+  },
+  "Q8N4C8": {
+    "resolved_from": "Q8N4C8",
+    "uniprot_accession": "Q8N4C8",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MINK1",
+    "protein_name": "Misshapen-like kinase 1",
+    "sequence_length": 1332
+  },
+  "Q8NE63": {
+    "resolved_from": "Q8NE63",
+    "uniprot_accession": "Q8NE63",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "HIPK4",
+    "protein_name": "Homeodomain-interacting protein kinase 4",
+    "sequence_length": 616
+  },
+  "Q8TDC3": {
+    "resolved_from": "Q8TDC3",
+    "uniprot_accession": "Q8TDC3",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "BRSK1",
+    "protein_name": "Serine/threonine-protein kinase BRSK1",
+    "sequence_length": 778
+  },
+  "Q96GD4": {
+    "resolved_from": "Q96GD4",
+    "uniprot_accession": "Q96GD4",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "AURKB",
+    "protein_name": "Aurora kinase B",
+    "sequence_length": 344
+  },
+  "Q96KB5": {
+    "resolved_from": "Q96KB5",
+    "uniprot_accession": "Q96KB5",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PBK",
+    "protein_name": "Lymphokine-activated killer T-cell-originated protein kinase",
+    "sequence_length": 322
+  },
+  "Q96PF2": {
+    "resolved_from": "Q96PF2",
+    "uniprot_accession": "Q96PF2",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TSSK2",
+    "protein_name": "Testis-specific serine/threonine-protein kinase 2",
+    "sequence_length": 358
+  },
+  "Q96SB4": {
+    "resolved_from": "Q96SB4",
+    "uniprot_accession": "Q96SB4",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "SRPK1",
+    "protein_name": "SRSF protein kinase 1",
+    "sequence_length": 655
+  },
+  "Q9BXA7": {
+    "resolved_from": "Q9BXA7",
+    "uniprot_accession": "Q9BXA7",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TSSK1B",
+    "protein_name": "Testis-specific serine/threonine-protein kinase 1",
+    "sequence_length": 367
+  },
+  "Q9BZL6": {
+    "resolved_from": "Q9BZL6",
+    "uniprot_accession": "Q9BZL6",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKD2",
+    "protein_name": "Serine/threonine-protein kinase D2",
+    "sequence_length": 878
+  },
+  "Q9H2G2": {
+    "resolved_from": "Q9H2G2",
+    "uniprot_accession": "Q9H2G2",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SLK",
+    "protein_name": "STE20-like serine/threonine-protein kinase",
+    "sequence_length": 1235
+  },
+  "Q9H2X6": {
+    "resolved_from": "Q9H2X6",
+    "uniprot_accession": "Q9H2X6",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "HIPK2",
+    "protein_name": "Homeodomain-interacting protein kinase 2",
+    "sequence_length": 1198
+  },
+  "Q9H3Y6": {
+    "resolved_from": "Q9H3Y6",
+    "uniprot_accession": "Q9H3Y6",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SRMS",
+    "protein_name": "Tyrosine-protein kinase Srms",
+    "sequence_length": 488
+  },
+  "Q9H4B4": {
+    "resolved_from": "Q9H4B4",
+    "uniprot_accession": "Q9H4B4",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PLK3",
+    "protein_name": "Serine/threonine-protein kinase PLK3",
+    "sequence_length": 646
+  },
+  "Q9HAZ1": {
+    "resolved_from": "Q9HAZ1",
+    "uniprot_accession": "Q9HAZ1",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CLK4",
+    "protein_name": "Dual specificity protein kinase CLK4",
+    "sequence_length": 481
+  },
+  "Q9HBY8": {
+    "resolved_from": "Q9HBY8",
+    "uniprot_accession": "Q9HBY8",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SGK2",
+    "protein_name": "Serine/threonine-protein kinase Sgk2",
+    "sequence_length": 367
+  },
+  "Q9HCP0": {
+    "resolved_from": "Q9HCP0",
+    "uniprot_accession": "Q9HCP0",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK1G1",
+    "protein_name": "Casein kinase I isoform gamma-1",
+    "sequence_length": 422
+  },
+  "Q9NR20": {
+    "resolved_from": "Q9NR20",
+    "uniprot_accession": "Q9NR20",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "DYRK4",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 4",
+    "sequence_length": 520
+  },
+  "Q9NWZ3": {
+    "resolved_from": "Q9NWZ3",
+    "uniprot_accession": "Q9NWZ3",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "IRAK4",
+    "protein_name": "Interleukin-1 receptor-associated kinase 4",
+    "sequence_length": 460
+  },
+  "Q9NYL2": {
+    "resolved_from": "Q9NYL2",
+    "uniprot_accession": "Q9NYL2",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP3K20",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 20",
+    "sequence_length": 800
+  },
+  "Q9P1W9": {
+    "resolved_from": "Q9P1W9",
+    "uniprot_accession": "Q9P1W9",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PIM2",
+    "protein_name": "Serine/threonine-protein kinase pim-2",
+    "sequence_length": 311
+  },
+  "Q9UEE5": {
+    "resolved_from": "Q9UEE5",
+    "uniprot_accession": "Q9UEE5",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "STK17A",
+    "protein_name": "Serine/threonine-protein kinase 17A",
+    "sequence_length": 414
+  },
+  "Q9UM73": {
+    "resolved_from": "Q9UM73",
+    "uniprot_accession": "Q9UM73",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "ALK",
+    "protein_name": "ALK tyrosine kinase receptor",
+    "sequence_length": 1620
+  },
+  "Q9Y243": {
+    "resolved_from": "Q9Y243",
+    "uniprot_accession": "Q9Y243",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "AKT3",
+    "protein_name": "RAC-gamma serine/threonine-protein kinase",
+    "sequence_length": 479
+  },
+  "Q9Y4K4": {
+    "resolved_from": "Q9Y4K4",
+    "uniprot_accession": "Q9Y4K4",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP4K5",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 5",
+    "sequence_length": 846
+  },
+  "Q9Y6M4": {
+    "resolved_from": "Q9Y6M4",
+    "uniprot_accession": "Q9Y6M4",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK1G3",
+    "protein_name": "Casein kinase I isoform gamma-3",
+    "sequence_length": 447
+  },
+  "P31749": {
+    "resolved_from": "P31749",
+    "uniprot_accession": "P31749",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "AKT1",
+    "protein_name": "RAC-alpha serine/threonine-protein kinase",
+    "sequence_length": 480
+  },
+  "P42336": {
+    "resolved_from": "P42336",
+    "uniprot_accession": "P42336",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform",
+    "sequence_length": 1068
+  },
+  "Q99683": {
+    "resolved_from": "Q99683",
+    "uniprot_accession": "Q99683",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP3K5",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 5",
+    "sequence_length": 1374
+  },
+  "P00519": {
+    "resolved_from": "P00519",
+    "uniprot_accession": "P00519",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1",
+    "sequence_length": 1130
+  },
+  "P04049": {
+    "resolved_from": "P04049",
+    "uniprot_accession": "P04049",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 11,
+    "gene_name": "RAF1",
+    "protein_name": "RAF proto-oncogene serine/threonine-protein kinase",
+    "sequence_length": 648
+  },
+  "P05771": {
+    "resolved_from": "P05771",
+    "uniprot_accession": "P05771",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 17,
+    "gene_name": "PRKCB",
+    "protein_name": "Protein kinase C beta type",
+    "sequence_length": 671
+  },
+  "P07947": {
+    "resolved_from": "P07947",
+    "uniprot_accession": "P07947",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "YES1",
+    "protein_name": "Tyrosine-protein kinase Yes",
+    "sequence_length": 543
+  },
+  "P08631": {
+    "resolved_from": "P08631",
+    "uniprot_accession": "P08631",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "HCK",
+    "protein_name": "Tyrosine-protein kinase HCK",
+    "sequence_length": 526
+  },
+  "P16234": {
+    "resolved_from": "P16234",
+    "uniprot_accession": "P16234",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PDGFRA",
+    "protein_name": "Platelet-derived growth factor receptor alpha",
+    "sequence_length": 1089
+  },
+  "P22455": {
+    "resolved_from": "P22455",
+    "uniprot_accession": "P22455",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FGFR4",
+    "protein_name": "Fibroblast growth factor receptor 4",
+    "sequence_length": 802
+  },
+  "P27361": {
+    "resolved_from": "P27361",
+    "uniprot_accession": "P27361",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAPK3",
+    "protein_name": "Mitogen-activated protein kinase 3",
+    "sequence_length": 379
+  },
+  "P29323": {
+    "resolved_from": "P29323",
+    "uniprot_accession": "P29323",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "EPHB2",
+    "protein_name": "Ephrin type-B receptor 2",
+    "sequence_length": 1055
+  },
+  "P36888": {
+    "resolved_from": "P36888",
+    "uniprot_accession": "P36888",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3",
+    "sequence_length": 993
+  },
+  "P41240": {
+    "resolved_from": "P41240",
+    "uniprot_accession": "P41240",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSK",
+    "protein_name": "Tyrosine-protein kinase CSK",
+    "sequence_length": 450
+  },
+  "P41279": {
+    "resolved_from": "P41279",
+    "uniprot_accession": "P41279",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP3K8",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 8",
+    "sequence_length": 467
+  },
+  "P43403": {
+    "resolved_from": "P43403",
+    "uniprot_accession": "P43403",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ZAP70",
+    "protein_name": "Tyrosine-protein kinase ZAP-70",
+    "sequence_length": 619
+  },
+  "P51813": {
+    "resolved_from": "P51813",
+    "uniprot_accession": "P51813",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "BMX",
+    "protein_name": "Cytoplasmic tyrosine-protein kinase BMX",
+    "sequence_length": 675
+  },
+  "P52564": {
+    "resolved_from": "P52564",
+    "uniprot_accession": "P52564",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP2K6",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 6",
+    "sequence_length": 334
+  },
+  "Q02750": {
+    "resolved_from": "Q02750",
+    "uniprot_accession": "Q02750",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 11,
+    "gene_name": "MAP2K1",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 1",
+    "sequence_length": 393
+  },
+  "Q02763": {
+    "resolved_from": "Q02763",
+    "uniprot_accession": "Q02763",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TEK",
+    "protein_name": "Angiopoietin-1 receptor",
+    "sequence_length": 1124
+  },
+  "Q04759": {
+    "resolved_from": "Q04759",
+    "uniprot_accession": "Q04759",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKCQ",
+    "protein_name": "Protein kinase C theta type",
+    "sequence_length": 706
+  },
+  "Q04912": {
+    "resolved_from": "Q04912",
+    "uniprot_accession": "Q04912",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "MST1R",
+    "protein_name": "Macrophage-stimulating protein receptor",
+    "sequence_length": 1400
+  },
+  "Q06187": {
+    "resolved_from": "Q06187",
+    "uniprot_accession": "Q06187",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 14,
+    "gene_name": "BTK",
+    "protein_name": "Tyrosine-protein kinase BTK",
+    "sequence_length": 659
+  },
+  "Q15418": {
+    "resolved_from": "Q15418",
+    "uniprot_accession": "Q15418",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "RPS6KA1",
+    "protein_name": "Ribosomal protein S6 kinase alpha-1",
+    "sequence_length": 735
+  },
+  "Q15759": {
+    "resolved_from": "Q15759",
+    "uniprot_accession": "Q15759",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "MAPK11",
+    "protein_name": "Mitogen-activated protein kinase 11",
+    "sequence_length": 364
+  },
+  "Q16566": {
+    "resolved_from": "Q16566",
+    "uniprot_accession": "Q16566",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK4",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type IV",
+    "sequence_length": 473
+  },
+  "Q8IU85": {
+    "resolved_from": "Q8IU85",
+    "uniprot_accession": "Q8IU85",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK1D",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type 1D",
+    "sequence_length": 385
+  },
+  "Q9UHD2": {
+    "resolved_from": "Q9UHD2",
+    "uniprot_accession": "Q9UHD2",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TBK1",
+    "protein_name": "Serine/threonine-protein kinase TBK1",
+    "sequence_length": 729
+  },
+  "P17252": {
+    "resolved_from": "P17252",
+    "uniprot_accession": "P17252",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 18,
+    "gene_name": "PRKCA",
+    "protein_name": "Protein kinase C alpha type",
+    "sequence_length": 672
+  },
+  "Q9UBS0": {
+    "resolved_from": "Q9UBS0",
+    "uniprot_accession": "Q9UBS0",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "RPS6KB2",
+    "protein_name": "Ribosomal protein S6 kinase beta-2",
+    "sequence_length": 482
+  },
+  "O60285": {
+    "resolved_from": "O60285",
+    "uniprot_accession": "O60285",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NUAK1",
+    "protein_name": "NUAK family SNF1-like kinase 1",
+    "sequence_length": 661
+  },
+  "O75676": {
+    "resolved_from": "O75676",
+    "uniprot_accession": "O75676",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 6,
+    "gene_name": "RPS6KA4",
+    "protein_name": "Ribosomal protein S6 kinase alpha-4",
+    "sequence_length": 772
+  },
+  "P08581": {
+    "resolved_from": "P08581",
+    "uniprot_accession": "P08581",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MET",
+    "protein_name": "Hepatocyte growth factor receptor",
+    "sequence_length": 1390
+  },
+  "P09619": {
+    "resolved_from": "P09619",
+    "uniprot_accession": "P09619",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PDGFRB",
+    "protein_name": "Platelet-derived growth factor receptor beta",
+    "sequence_length": 1106
+  },
+  "P09769": {
+    "resolved_from": "P09769",
+    "uniprot_accession": "P09769",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FGR",
+    "protein_name": "Tyrosine-protein kinase Fgr",
+    "sequence_length": 529
+  },
+  "P17948": {
+    "resolved_from": "P17948",
+    "uniprot_accession": "P17948",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FLT1",
+    "protein_name": "Vascular endothelial growth factor receptor 1",
+    "sequence_length": 1338
+  },
+  "P21802": {
+    "resolved_from": "P21802",
+    "uniprot_accession": "P21802",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "FGFR2",
+    "protein_name": "Fibroblast growth factor receptor 2",
+    "sequence_length": 821
+  },
+  "P22607": {
+    "resolved_from": "P22607",
+    "uniprot_accession": "P22607",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "FGFR3",
+    "protein_name": "Fibroblast growth factor receptor 3",
+    "sequence_length": 806
+  },
+  "P30530": {
+    "resolved_from": "P30530",
+    "uniprot_accession": "P30530",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "AXL",
+    "protein_name": "Tyrosine-protein kinase receptor UFO",
+    "sequence_length": 894
+  },
+  "P34947": {
+    "resolved_from": "P34947",
+    "uniprot_accession": "P34947",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "GRK5",
+    "protein_name": "G protein-coupled receptor kinase 5",
+    "sequence_length": 590
+  },
+  "P42684": {
+    "resolved_from": "P42684",
+    "uniprot_accession": "P42684",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "ABL2",
+    "protein_name": "Tyrosine-protein kinase ABL2",
+    "sequence_length": 1182
+  },
+  "P50750": {
+    "resolved_from": "P50750",
+    "uniprot_accession": "P50750",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "CDK9",
+    "protein_name": "Cyclin-dependent kinase 9",
+    "sequence_length": 372
+  },
+  "P54760": {
+    "resolved_from": "P54760",
+    "uniprot_accession": "P54760",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "EPHB4",
+    "protein_name": "Ephrin type-B receptor 4",
+    "sequence_length": 987
+  },
+  "P80192": {
+    "resolved_from": "P80192",
+    "uniprot_accession": "P80192",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP3K9",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 9",
+    "sequence_length": 1104
+  },
+  "Q13177": {
+    "resolved_from": "Q13177",
+    "uniprot_accession": "Q13177",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PAK2",
+    "protein_name": "Serine/threonine-protein kinase PAK 2",
+    "sequence_length": 524
+  },
+  "Q13882": {
+    "resolved_from": "Q13882",
+    "uniprot_accession": "Q13882",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PTK6",
+    "protein_name": "Protein-tyrosine kinase 6",
+    "sequence_length": 451
+  },
+  "Q14289": {
+    "resolved_from": "Q14289",
+    "uniprot_accession": "Q14289",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PTK2B",
+    "protein_name": "Protein-tyrosine kinase 2-beta",
+    "sequence_length": 1009
+  },
+  "Q15078": {
+    "resolved_from": "Q15078",
+    "uniprot_accession": "Q15078",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "CDK5R1",
+    "protein_name": "Cyclin-dependent kinase 5 activator 1",
+    "sequence_length": 307
+  },
+  "Q15118": {
+    "resolved_from": "Q15118",
+    "uniprot_accession": "Q15118",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "PDK1",
+    "protein_name": "[Pyruvate dehydrogenase (acetyl-transferring)] kinase isozyme 1, mitochondrial",
+    "sequence_length": 436
+  },
+  "Q15139": {
+    "resolved_from": "Q15139",
+    "uniprot_accession": "Q15139",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKD1",
+    "protein_name": "Serine/threonine-protein kinase D1",
+    "sequence_length": 912
+  },
+  "Q96RG2": {
+    "resolved_from": "Q96RG2",
+    "uniprot_accession": "Q96RG2",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 5,
+    "gene_name": "PASK",
+    "protein_name": "PAS domain-containing serine/threonine-protein kinase",
+    "sequence_length": 1323
+  },
+  "Q9UBE8": {
+    "resolved_from": "Q9UBE8",
+    "uniprot_accession": "Q9UBE8",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NLK",
+    "protein_name": "Serine/threonine-protein kinase NLK",
+    "sequence_length": 527
+  },
+  "Q12866": {
+    "resolved_from": "Q12866",
+    "uniprot_accession": "Q12866",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MERTK",
+    "protein_name": "Tyrosine-protein kinase Mer",
+    "sequence_length": 999
+  },
+  "Q14164": {
+    "resolved_from": "Q14164",
+    "uniprot_accession": "Q14164",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "IKBKE",
+    "protein_name": "Inhibitor of nuclear factor kappa-B kinase subunit epsilon",
+    "sequence_length": 716
+  },
+  "P19784": {
+    "resolved_from": "P19784",
+    "uniprot_accession": "P19784",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK2A2",
+    "protein_name": "Casein kinase II subunit alpha'",
+    "sequence_length": 350
+  },
+  "P67870": {
+    "resolved_from": "P67870",
+    "uniprot_accession": "P67870",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "CSNK2B",
+    "protein_name": "Casein kinase II subunit beta",
+    "sequence_length": 215
+  },
+  "O43741": {
+    "resolved_from": "O43741",
+    "uniprot_accession": "O43741",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PRKAB2",
+    "protein_name": "5'-AMP-activated protein kinase subunit beta-2",
+    "sequence_length": 272
+  },
+  "P22612": {
+    "resolved_from": "P22612",
+    "uniprot_accession": "P22612",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKACG",
+    "protein_name": "cAMP-dependent protein kinase catalytic subunit gamma",
+    "sequence_length": 351
+  },
+  "P22694": {
+    "resolved_from": "P22694",
+    "uniprot_accession": "P22694",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKACB",
+    "protein_name": "cAMP-dependent protein kinase catalytic subunit beta",
+    "sequence_length": 351
+  },
+  "P54619": {
+    "resolved_from": "P54619",
+    "uniprot_accession": "P54619",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 35,
+    "gene_name": "PRKAG1",
+    "protein_name": "5'-AMP-activated protein kinase subunit gamma-1",
+    "sequence_length": 331
+  },
+  "P54646": {
+    "resolved_from": "P54646",
+    "uniprot_accession": "P54646",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKAA2",
+    "protein_name": "5'-AMP-activated protein kinase catalytic subunit alpha-2",
+    "sequence_length": 552
+  },
+  "Q9UGI9": {
+    "resolved_from": "Q9UGI9",
+    "uniprot_accession": "Q9UGI9",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 35,
+    "gene_name": "PRKAG3",
+    "protein_name": "5'-AMP-activated protein kinase subunit gamma-3",
+    "sequence_length": 489
+  },
+  "Q9UGJ0": {
+    "resolved_from": "Q9UGJ0",
+    "uniprot_accession": "Q9UGJ0",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 32,
+    "gene_name": "PRKAG2",
+    "protein_name": "5'-AMP-activated protein kinase subunit gamma-2",
+    "sequence_length": 569
+  },
+  "Q9Y478": {
+    "resolved_from": "Q9Y478",
+    "uniprot_accession": "Q9Y478",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PRKAB1",
+    "protein_name": "5'-AMP-activated protein kinase subunit beta-1",
+    "sequence_length": 270
+  },
+  "O00418": {
+    "resolved_from": "O00418",
+    "uniprot_accession": "O00418",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 1,
+    "gene_name": "EEF2K",
+    "protein_name": "Eukaryotic elongation factor 2 kinase",
+    "sequence_length": 725
+  },
+  "O00444": {
+    "resolved_from": "O00444",
+    "uniprot_accession": "O00444",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PLK4",
+    "protein_name": "Serine/threonine-protein kinase PLK4",
+    "sequence_length": 970
+  },
+  "O43781": {
+    "resolved_from": "O43781",
+    "uniprot_accession": "O43781",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "DYRK3",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 3",
+    "sequence_length": 588
+  },
+  "P53667": {
+    "resolved_from": "P53667",
+    "uniprot_accession": "P53667",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "LIMK1",
+    "protein_name": "LIM domain kinase 1",
+    "sequence_length": 647
+  },
+  "Q07912": {
+    "resolved_from": "Q07912",
+    "uniprot_accession": "Q07912",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "TNK2",
+    "protein_name": "Activated CDC42 kinase 1",
+    "sequence_length": 1038
+  },
+  "Q9HBH9": {
+    "resolved_from": "Q9HBH9",
+    "uniprot_accession": "Q9HBH9",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 8,
+    "gene_name": "MKNK2",
+    "protein_name": "MAP kinase-interacting serine/threonine-protein kinase 2",
+    "sequence_length": 465
+  },
+  "Q9BWU1": {
+    "resolved_from": "Q9BWU1",
+    "uniprot_accession": "Q9BWU1",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDK19",
+    "protein_name": "Cyclin-dependent kinase 19",
+    "sequence_length": 502
+  },
+  "P11802": {
+    "resolved_from": "P11802",
+    "uniprot_accession": "P11802",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDK4",
+    "protein_name": "Cyclin-dependent kinase 4",
+    "sequence_length": 303
+  },
+  "Q00534": {
+    "resolved_from": "Q00534",
+    "uniprot_accession": "Q00534",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDK6",
+    "protein_name": "Cyclin-dependent kinase 6",
+    "sequence_length": 326
+  },
+  "Q02156": {
+    "resolved_from": "Q02156",
+    "uniprot_accession": "Q02156",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PRKCE",
+    "protein_name": "Protein kinase C epsilon type",
+    "sequence_length": 737
+  },
+  "O00329": {
+    "resolved_from": "O00329",
+    "uniprot_accession": "O00329",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PIK3CD",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform",
+    "sequence_length": 1044
+  },
+  "P42338": {
+    "resolved_from": "P42338",
+    "uniprot_accession": "P42338",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PIK3CB",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit beta isoform",
+    "sequence_length": 1070
+  },
+  "P48736": {
+    "resolved_from": "P48736",
+    "uniprot_accession": "P48736",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PIK3CG",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit gamma isoform",
+    "sequence_length": 1102
+  },
+  "P78527": {
+    "resolved_from": "P78527",
+    "uniprot_accession": "P78527",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PRKDC",
+    "protein_name": "DNA-dependent protein kinase catalytic subunit",
+    "sequence_length": 4128
+  },
+  "P29376": {
+    "resolved_from": "P29376",
+    "uniprot_accession": "P29376",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "LTK",
+    "protein_name": "Leukocyte tyrosine kinase receptor",
+    "sequence_length": 864
+  },
+  "P36507": {
+    "resolved_from": "P36507",
+    "uniprot_accession": "P36507",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP2K2",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 2",
+    "sequence_length": 400
+  },
+  "P49336": {
+    "resolved_from": "P49336",
+    "uniprot_accession": "P49336",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CDK8",
+    "protein_name": "Cyclin-dependent kinase 8",
+    "sequence_length": 464
+  },
+  "Q04771": {
+    "resolved_from": "Q04771",
+    "uniprot_accession": "Q04771",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "ACVR1",
+    "protein_name": "Activin receptor type-1",
+    "sequence_length": 509
+  },
+  "Q5S007": {
+    "resolved_from": "Q5S007",
+    "uniprot_accession": "Q5S007",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 20,
+    "gene_name": "LRRK2",
+    "protein_name": "Leucine-rich repeat serine/threonine-protein kinase 2",
+    "sequence_length": 2527
+  },
+  "Q9UQM7": {
+    "resolved_from": "Q9UQM7",
+    "uniprot_accession": "Q9UQM7",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMK2A",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit alpha",
+    "sequence_length": 478
+  },
+  "Q9Y463": {
+    "resolved_from": "Q9Y463",
+    "uniprot_accession": "Q9Y463",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 4,
+    "gene_name": "DYRK1B",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1B",
+    "sequence_length": 629
+  },
+  "P50613": {
+    "resolved_from": "P50613",
+    "uniprot_accession": "P50613",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 19,
+    "gene_name": "CDK7",
+    "protein_name": "Cyclin-dependent kinase 7",
+    "sequence_length": 346
+  },
+  "Q9P289": {
+    "resolved_from": "Q9P289",
+    "uniprot_accession": "Q9P289",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "STK26",
+    "protein_name": "Serine/threonine-protein kinase 26",
+    "sequence_length": 416
+  },
+  "Q02779": {
+    "resolved_from": "Q02779",
+    "uniprot_accession": "Q02779",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MAP3K10",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 10",
+    "sequence_length": 954
+  },
+  "Q96L34": {
+    "resolved_from": "Q96L34",
+    "uniprot_accession": "Q96L34",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MARK4",
+    "protein_name": "MAP/microtubule affinity-regulating kinase 4",
+    "sequence_length": 752
+  },
+  "Q96RR4": {
+    "resolved_from": "Q96RR4",
+    "uniprot_accession": "Q96RR4",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CAMKK2",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase kinase 2",
+    "sequence_length": 588
+  },
+  "Q9H0K1": {
+    "resolved_from": "Q9H0K1",
+    "uniprot_accession": "Q9H0K1",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "SIK2",
+    "protein_name": "Serine/threonine-protein kinase SIK2",
+    "sequence_length": 926
+  },
+  "Q9HC98": {
+    "resolved_from": "Q9HC98",
+    "uniprot_accession": "Q9HC98",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "NEK6",
+    "protein_name": "Serine/threonine-protein kinase Nek6",
+    "sequence_length": 313
+  },
+  "P30291": {
+    "resolved_from": "P30291",
+    "uniprot_accession": "P30291",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 7,
+    "gene_name": "WEE1",
+    "protein_name": "Wee1-like protein kinase",
+    "sequence_length": 646
+  },
+  "P49674": {
+    "resolved_from": "P49674",
+    "uniprot_accession": "P49674",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CSNK1E",
+    "protein_name": "Casein kinase I isoform epsilon",
+    "sequence_length": 416
+  },
+  "P23458": {
+    "resolved_from": "P23458",
+    "uniprot_accession": "P23458",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "JAK1",
+    "protein_name": "Tyrosine-protein kinase JAK1",
+    "sequence_length": 1154
+  },
+  "P42345": {
+    "resolved_from": "P42345",
+    "uniprot_accession": "P42345",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 17,
+    "gene_name": "MTOR",
+    "protein_name": "Serine/threonine-protein kinase mTOR",
+    "sequence_length": 2549
+  },
+  "Q9BUB5": {
+    "resolved_from": "Q9BUB5",
+    "uniprot_accession": "Q9BUB5",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "MKNK1",
+    "protein_name": "MAP kinase-interacting serine/threonine-protein kinase 1",
+    "sequence_length": 465
+  },
+  "P49759": {
+    "resolved_from": "P49759",
+    "uniprot_accession": "P49759",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "CLK1",
+    "protein_name": "Dual specificity protein kinase CLK1",
+    "sequence_length": 484
+  },
+  "Q9UBF8": {
+    "resolved_from": "Q9UBF8",
+    "uniprot_accession": "Q9UBF8",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 0,
+    "gene_name": "PI4KB",
+    "protein_name": "Phosphatidylinositol 4-kinase beta",
+    "sequence_length": 816
+  },
+  "Q16512": {
+    "resolved_from": "Q16512",
+    "uniprot_accession": "Q16512",
+    "resolution": "accession",
+    "is_variant": false,
+    "n_features": 3,
+    "gene_name": "PKN1",
+    "protein_name": "Serine/threonine-protein kinase N1",
+    "sequence_length": 942
+  }
+}

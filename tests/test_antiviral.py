@@ -95,8 +95,123 @@ def test_non_string_target_names_do_not_crash():
     assert classify_target(12345) is None
 
 
-def test_every_required_target_has_a_pattern():
-    assert len(REQUIRED_TARGETS) == 5
+def test_all_five_targets_still_have_a_spec():
+    """The SARS-CoV-2 specs stay in place even though they are not required, so
+    a future BindingDB release that names the domains properly is picked up
+    without anyone having to remember to re-add them."""
+    from src.data.extract_antiviral import ALL_TARGETS
+    assert len(ALL_TARGETS) == 5
+
+
+def test_sars_cov_2_is_optional_and_the_reason_is_recorded():
+    """Not a suppressed failure. BindingDB files SARS-CoV-2 against the 7,096-
+    residue replicase polyprotein, so Mpro and RdRp cannot be told apart by
+    target name -- 3 rows in 18,149 carry a domain range. The reason travels
+    with the code because it has to end up in the Methods section."""
+    from src.data.extract_antiviral import (
+        OPTIONAL_TARGETS,
+        OPTIONAL_TARGET_REASON,
+    )
+    assert set(OPTIONAL_TARGETS) == {"SARS-CoV-2 Mpro", "SARS-CoV-2 RdRp"}
+    assert set(REQUIRED_TARGETS) == {
+        "HIV-1 protease", "HIV-1 reverse transcriptase", "Influenza neuraminidase"}
+    assert "polyprotein" in OPTIONAL_TARGET_REASON
+    assert "assay" in OPTIONAL_TARGET_REASON.lower()
+
+
+# --------------------------------------------------------------------------
+# organism-aware matching
+#
+# Every case below is a real string from a real BindingDB release (2026-07-31),
+# taken from the near-miss diagnostic of a scan that found only 2 of 5 targets.
+# The three missing targets are named bare -- "3C-like protease",
+# "RNA-directed RNA polymerase", "Reverse transcriptase" -- with the organism
+# living in a separate column.
+#
+# The second block is the reason this is not solved by loosening the name
+# patterns. Those are the strings a loose polymerase-or-transcriptase pattern
+# would swallow, and every one of them is a non-kinase protein that would land
+# in the antiviral subset. That subset is the kinase-confound control arm, so
+# contaminating it does not merely add noise -- it produces a control that
+# appears to answer the objection the v2 master plan calls "most likely to sink
+# the paper" while actually answering nothing.
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("name,organism,expected", [
+    ("3C-like protease", "Severe acute respiratory syndrome coronavirus 2", "SARS-CoV-2 Mpro"),
+    ("3C-like proteinase", "2019-nCoV", "SARS-CoV-2 Mpro"),
+    ("nsp5", "SARS-CoV-2", "SARS-CoV-2 Mpro"),
+    ("RNA-directed RNA polymerase", "Severe acute respiratory syndrome coronavirus 2", "SARS-CoV-2 RdRp"),
+    ("nsp12", "SARS-CoV-2", "SARS-CoV-2 RdRp"),
+    ("Protease", "Human immunodeficiency virus 1", "HIV-1 protease"),
+    ("Reverse transcriptase", "Human immunodeficiency virus 1", "HIV-1 reverse transcriptase"),
+    ("Reverse transcriptase/RNaseH", "Human immunodeficiency virus 1", "HIV-1 reverse transcriptase"),
+    ("Neuraminidase", "Influenza A virus", "Influenza neuraminidase"),
+])
+def test_bare_names_classify_once_the_organism_column_is_supplied(name, organism, expected):
+    assert classify_target(name, organism) == expected
+
+
+@pytest.mark.parametrize("name,organism", [
+    # human enzymes a loose 'polymerase' pattern eats -- 8,065 rows for PARP1
+    # alone in the release this was built against
+    ("Poly [ADP-ribose] polymerase 1", "Homo sapiens"),
+    ("Poly [ADP-ribose] polymerase tankyrase-2", "Homo sapiens"),
+    ("DNA polymerase theta", "Homo sapiens"),
+    ("DNA polymerase theta [1-894]", "Homo sapiens"),
+    ("DNA-directed RNA polymerase, mitochondrial", "Homo sapiens"),
+    ("Telomerase reverse transcriptase", "Homo sapiens"),
+    ("Sialidase-1", "Homo sapiens"),
+    # right family, wrong pathogen
+    ("RNA-directed RNA polymerase", "Hepatitis C virus"),
+    ("RNA-directed RNA polymerase L", "Respiratory syncytial virus"),
+    ("Reverse transcriptase protein", "Hepatitis B virus"),
+    ("Reverse transcriptase", "Moloney murine leukemia virus"),
+    ("Sialidase", "Vibrio cholerae"),
+    ("Neuraminidase", "Newcastle disease virus"),
+    ("DNA polymerase catalytic subunit", "Human herpesvirus 1"),
+    # right pathogen family, wrong species -- SARS-CoV-1 and MERS both have a
+    # 3C-like protease, and it is a different protein with a different pocket
+    ("3C-like protease", "SARS coronavirus"),
+    ("3C-like protease", "Middle East respiratory syndrome coronavirus"),
+    ("3C protease", "Human rhinovirus"),
+    ("Protease", "Human immunodeficiency virus 2"),
+    # influenza, but the wrong influenza protein
+    ("Polymerase basic protein 2", "Influenza A virus"),
+    ("Polymerase acidic protein", "Influenza A virus"),
+])
+def test_near_neighbours_are_rejected_even_with_the_organism(name, organism):
+    assert classify_target(name, organism) is None
+
+
+@pytest.mark.parametrize("name", [
+    "HIV WT-C pol protein (wild-type clade C)",
+    "HIV WT-A pol protein (wild-type clade A)",
+])
+def test_pol_polyprotein_is_claimed_by_neither_bucket(name):
+    """gag-pol carries protease, RT and integrase in one chain. Assigning it to
+    either target would be a guess, and a guess in the control arm is the one
+    error this project cannot undo later."""
+    assert classify_target(name, "Human immunodeficiency virus 1") is None
+
+
+def test_a_contradicting_organism_beats_a_permissive_name():
+    """'Neuraminidase' alone is allowed through as influenza, since that is
+    what a bare neuraminidase in BindingDB overwhelmingly is. But the exemption
+    must not survive an organism that says otherwise."""
+    assert classify_target("Neuraminidase") == "Influenza neuraminidase"
+    assert classify_target("Neuraminidase", "Homo sapiens") is None
+    assert classify_target("Neuraminidase", "Clostridium perfringens") is None
+
+
+def test_organism_defaults_to_empty_so_self_describing_names_still_work():
+    assert classify_target("SARS-CoV-2 main protease") == "SARS-CoV-2 Mpro"
+    assert classify_target("HIV-1 reverse transcriptase") == "HIV-1 reverse transcriptase"
+
+
+def test_non_string_organism_does_not_crash():
+    assert classify_target("Protease", None) is None
+    assert classify_target("Protease", float("nan")) is None
 
 
 # --------------------------------------------------------------------------
@@ -154,9 +269,22 @@ def test_verify_coverage_passes_when_all_five_present():
 
 
 def test_verify_coverage_raises_on_the_single_target_file_that_shipped():
-    """This is exactly the state the committed data/processed file is in."""
-    with pytest.raises(RuntimeError, match="4 of 5 required targets"):
+    """This is exactly the state the committed data/processed file was in:
+    614 rows, all HIV-1 protease. Two of the three required targets absent."""
+    with pytest.raises(RuntimeError, match="2 of 3 required targets"):
         verify_coverage(_frame(["HIV-1 protease"] * 614))
+
+
+def test_missing_sars_cov_2_alone_does_not_block_the_write():
+    """The three obtainable targets are enough to write the case-study file.
+    Blocking on a target that provably cannot be extracted from this release
+    would only push someone toward --allow-partial, which is worse."""
+    counts = verify_coverage(_frame(
+        ["HIV-1 protease"] * 5
+        + ["HIV-1 reverse transcriptase"] * 5
+        + ["Influenza neuraminidase"] * 5))
+    assert counts["HIV-1 protease"] == 5
+    assert "SARS-CoV-2 Mpro" not in counts
 
 
 def test_verify_coverage_names_the_missing_targets():

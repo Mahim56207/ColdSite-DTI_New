@@ -16,6 +16,11 @@ seaborn
 # Notebooks (everyone)
 jupyter
 
+# Baselines (Track A). MolTrans tokenises proteins and drugs with ESPF
+# subword units, and baselines/MolTrans/stream.py imports subword_nmt at module
+# level -- without it the MolTrans adapter cannot encode anything at all.
+subword-nmt
+
 # Testing
 pytest
 tabulate          # pandas .to_markdown() for the split summary

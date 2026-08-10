@@ -17,9 +17,30 @@ models pay an accuracy cost. For that, a faithful implementation of the
 published architecture is worth exactly as much as the original weights, and it
 is far more likely to still run in November.
 
-This is a Methods-section fact, not a footnote. Write it as: *"DeepDTA was
+This is a Methods-section fact, not a footnote.
+
+Validated against the paper
+---------------------------
+DAVIS, random split, seed 1, 2026-08-09:
+
+    published (Ozturk et al. 2018)   MSE 0.261   CI 0.878
+    this port                        MSE 0.250   CI 0.871
+
+Close enough to call the reimplementation faithful, and the small gap is
+expected rather than concerning: the published figures are 5-fold cross
+validation on the authors' own folds, while this is one 70/10/20 split from
+`build_splits.py`. A port that reproduced them *exactly* would be more
+suspicious than one that lands beside them.
+
+So the Methods sentence can be the stronger version: *"DeepDTA was
 reimplemented in PyTorch following Öztürk et al. (2018); architecture and
-hyperparameters are as published."*
+hyperparameters are as published, and the reimplementation reproduces the
+reported DAVIS performance (MSE 0.250 vs 0.261, CI 0.871 vs 0.878)."*
+
+This matters beyond bookkeeping. DeepDTA is the audit's accuracy anchor, so
+every claim of the form "the interpretable models pay an accuracy cost" is
+measured against this number. If the anchor were quietly weak, that comparison
+would flatter every other model in the grid.
 
 Fidelity
 --------

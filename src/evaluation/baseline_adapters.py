@@ -290,6 +290,36 @@ class MolTransAdapter(ExplainableDTIModel):
             self.model.load_state_dict(state)
         self.model.to(device).eval()
 
+    def _fit_batch_size(self, batch_size: int) -> None:
+        """Make the vendored reshapes agree with the real batch dimension.
+
+        `BIN_Interaction_Flat.forward` reshapes twice using the *config* batch
+        size rather than the tensor's actual first dimension:
+
+            i_v = i.view(int(self.batch_size / self.gpus), -1, max_d, max_p)
+            f   = f.view(int(self.batch_size / self.gpus), -1)
+
+        With `config['batch_size'] = 16` and a single pair, the element count
+        still divides evenly, so nothing raises -- `view` happily reshapes one
+        sample's interaction map into 16 rows and the decoder returns 16
+        scores. That is what "a Tensor with 16 elements cannot be converted to
+        Scalar" was: not a broken adapter, a model that only computes correct
+        scores when the batch happens to be exactly config['batch_size'].
+
+        Worth knowing beyond this adapter: any run whose final batch is partial
+        hits the same path, silently, with no error.
+
+        Setting the attribute per call is the minimal fix and leaves the
+        vendored file untouched, so the audited model stays byte-identical to
+        what its authors published.
+
+        `self.gpus` is `torch.cuda.device_count()`, which is 0 on a CPU-only
+        machine -- the division would then be by zero. Floored at 1.
+        """
+        gpus = max(int(getattr(self.model, "gpus", 0) or 0), 1)
+        self.model.gpus = gpus
+        self.model.batch_size = int(batch_size) * gpus
+
     @staticmethod
     def encode(smiles: str, sequence: str):
         """ESPF-tokenise with MolTrans's own tables.
@@ -333,10 +363,20 @@ class MolTransAdapter(ExplainableDTIModel):
         dm = _as_batch(drug_mask) if drug_mask is not None else (d != 0).long()
         pm = _as_batch(protein_mask) if protein_mask is not None else (p != 0).long()
 
+        self._fit_batch_size(d.shape[0])
         with torch.no_grad():
             out = self.model(d.to(self.device), p.to(self.device),
                              dm.to(self.device), pm.to(self.device))
-        return float(out.squeeze().item())
+
+        out = out.squeeze()
+        if out.numel() != d.shape[0]:
+            raise RuntimeError(
+                f"MolTrans returned {out.numel()} scores for a batch of "
+                f"{d.shape[0]}. The vendored reshape is still using a "
+                f"mismatched batch size -- check _fit_batch_size against "
+                f"baselines/MolTrans/models.py before trusting any number."
+            )
+        return float(out.reshape(-1)[0].item())
 
     def explain(self, drug, protein, protein_tokens=None,
                 drug_mask=None, protein_mask=None) -> np.ndarray:
@@ -370,6 +410,7 @@ class MolTransAdapter(ExplainableDTIModel):
         store, handle = capture_moltrans_attention(target)
         try:
             self.model.eval()          # dropout is applied to attention_probs
+            self._fit_batch_size(d.shape[0])
             with torch.no_grad():
                 self.model(d.to(self.device), p.to(self.device),
                            dm.to(self.device), pm.to(self.device))

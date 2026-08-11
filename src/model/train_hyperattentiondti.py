@@ -115,12 +115,30 @@ class HyperAttentionDataset(Dataset):
                 torch.tensor(self.y[index]))
 
 
-def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None):
+def attention_memory_gb(batch_size: int) -> float:
+    """Activation memory for ONE of the interaction tensors, in GB.
+
+    `AttentionDTI.forward` materialises (batch, 85, 979, 160) — drug positions
+    x protein positions x channels — and holds roughly four such tensors live
+    (`d_layers`, `p_layers`, their sum after ReLU, and `atten_matrix`), before
+    autograd saves what it needs for the backward pass.
+
+    At the vendored batch size of 32 that is 1.7 GB per tensor, so ~7 GB of
+    activations for a single step. This is the reason the model appears to hang
+    rather than the reason it is slow: on a GPU it OOMs, and on CPU it simply
+    grinds. Neither prints anything.
+    """
+    return batch_size * 85 * 979 * 160 * 4 / 1024 ** 3
+
+
+def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None,
+              log_every: int = 20, label: str = ""):
     training = optimizer is not None
     model.train(training)
     total, n, logits, trues = 0.0, 0, [], []
+    n_batches = len(loader)
 
-    for drug, protein, y in loader:
+    for batch_index, (drug, protein, y) in enumerate(loader, start=1):
         drug, protein, y = drug.to(device), protein.to(device), y.to(device)
         with torch.set_grad_enabled(training):
             out = model(drug, protein)
@@ -137,6 +155,15 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None):
         n += len(y)
         logits.append(out.detach().cpu().numpy())
         trues.append(y.detach().cpu().numpy())
+
+        # Per-batch progress, not per-epoch. One epoch here is ~660 batches of a
+        # 7GB-activation model; printing only at epoch boundaries makes a run
+        # that is merely slow indistinguishable from one that is wedged.
+        if log_every and (batch_index % log_every == 0 or batch_index == n_batches):
+            print(f"\r    {label} batch {batch_index}/{n_batches} "
+                  f"loss {total / max(n, 1):.4f}", end="", flush=True)
+    if log_every:
+        print()
 
     logits = np.concatenate(logits)
     # compute_metrics expects ONE logit and applies a sigmoid. This head emits
@@ -198,6 +225,23 @@ def main():
               f"{positive:.1%} positive  <- {path}")
 
     device = args.device
+    per_tensor = attention_memory_gb(args.batch_size)
+    n_batches = max(len(datasets["train"]) // args.batch_size, 1)
+    print(f"\n  device        {device}"
+          + (f" ({torch.cuda.get_device_name(0)}, "
+             f"{torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB)"
+             if device.startswith("cuda") and torch.cuda.is_available() else ""))
+    print(f"  batch size    {args.batch_size}  ->  {n_batches} batches/epoch")
+    print(f"  interaction tensor  {per_tensor:.2f} GB each, ~{per_tensor * 4:.1f} GB "
+          f"of activations per step")
+    if device == "cpu":
+        print("  WARNING: running on CPU. This model materialises a "
+              "(batch, 85, 979, 160) tensor per step;\n"
+              "           an epoch will take hours. Check torch.cuda.is_available().")
+    elif per_tensor * 4 > 0.7 * torch.cuda.get_device_properties(0).total_memory / 1024**3:
+        print(f"  WARNING: activations may not fit. Try --batch-size "
+              f"{max(args.batch_size // 4, 4)}.")
+
     hp = hyperparameter()
     hp.Learning_rate, hp.Batch_size = args.lr, args.batch_size
     model = AttentionDTI(hp).to(device)
@@ -230,9 +274,11 @@ def main():
     best_loss, best_epoch = float("inf"), -1
     for epoch in range(1, args.epochs + 1):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
-                                     optimizer, scheduler)
+                                     optimizer, scheduler,
+                                     label=f"epoch {epoch} train")
         val_loss, val_true, val_score = run_epoch(model, loaders["valid"],
-                                                  loss_fn, device)
+                                                  loss_fn, device,
+                                                  label=f"epoch {epoch} valid")
         metrics = compute_metrics(val_true, val_score, "binary")
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
@@ -247,7 +293,8 @@ def main():
 
     model.load_state_dict(torch.load(ckpt, map_location=device,
                                      weights_only=False)["model_state"])
-    _loss, test_true, test_score = run_epoch(model, loaders["test"], loss_fn, device)
+    _loss, test_true, test_score = run_epoch(model, loaders["test"], loss_fn,
+                                             device, label="test")
     test_metrics = compute_metrics(test_true, test_score, "binary")
 
     with open(out_path, "w") as handle:

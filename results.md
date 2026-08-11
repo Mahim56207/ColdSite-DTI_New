@@ -19,6 +19,51 @@ Reproduce with `run_deepdta_grid.bat`.
 The DAVIS random cell reproduces the published DeepDTA figures (MSE 0.250 vs
 0.261, CI 0.871 vs 0.878 on seed 1), which is what validates the PyTorch port.
 
+## The four models do not share an accuracy metric — this blocks the audit table
+
+Checked against the vendored code, not assumed:
+
+| model | head | loss | native task | accuracy metric |
+|---|---|---|---|---|
+| DeepDTA | `Dense(1)`, no activation | MSE | regression | CI / MSE |
+| ColdSite-DTI | scalar | MSE | regression | CI / MSE |
+| HyperAttentionDTI | `nn.Linear(512, 2)` | `CrossEntropyLoss` | **binary only** | AUROC / AUPRC |
+| MolTrans | `decoder -> 1` | `BCELoss` | **binary only** | AUROC / AUPRC |
+
+Two of the four audited models cannot do regression at all. So the grid as
+currently specified produces **concordance index for two models and AUROC for
+the other two**, and those are not comparable quantities. A table putting CI
+0.877 next to AUROC 0.62 invites exactly the comparison it cannot support.
+
+This bites one specific claim. The v2 master plan puts DeepDTA in the audit as
+the accuracy anchor so a reviewer can see "whether the interpretable models pay
+an accuracy cost for their explanations". That question needs one axis, and
+right now there isn't one.
+
+**Binary is the only task all four share.** DeepDTA and ColdSite-DTI both
+support it; the thresholds are DeepDTA's own published values and are already
+verified against the real data (DAVIS pKd ≥ 7.0 → 8.3% positive, KIBA ≥ 12.1 →
+21.0%). Changing HyperAttentionDTI or MolTrans to regression is the wrong
+direction: an audit reproduces each subject as published, and swapping a
+model's head for a different one means measuring something its authors never
+released.
+
+So: run the cross-model comparison on **binary**, and keep the regression grid
+as a secondary table for the two models that support it. The regression grid is
+not wasted — it is what validated the DeepDTA port against the published DAVIS
+figures, which binary could not have done.
+
+`run_deepdta_grid_binary.bat` is the DeepDTA half. **124AD0015 needs to know his
+24-run grid should be binary too, or run twice** — his Part 2 guide currently
+says `--task regression`.
+
+What this does *not* affect: precision@k, faithfulness, and the whole
+explanation axis. Attention is attention regardless of the loss the model was
+trained with. The paper's primary contribution is unaffected; it is the
+accuracy anchor that breaks.
+
+---
+
 ## The ladder is not monotonic on DAVIS — this affects the paper's design
 
     davis   random 0.877  ->  cold_drug 0.640  ->  cold_target 0.818  ->  cold_pair 0.603

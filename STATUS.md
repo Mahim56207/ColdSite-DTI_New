@@ -92,6 +92,23 @@ neither noise nor a finding — just a mislabelled x-axis. Three options and the
 reasoning are in `results.md`; the choice is 124AD0067's as Results lead, and it
 should be settled before the figure is drawn.
 
+### A10 — the four models do not share an accuracy metric
+
+HyperAttentionDTI (`Linear(512,2)` + CrossEntropyLoss) and MolTrans (`BCELoss`)
+are **binary-only**. DeepDTA and ColdSite-DTI are regression. So the audit grid
+as specified yields CI for two models and AUROC for the other two, which cannot
+be compared — and "do the interpretable models pay an accuracy cost", the
+reason DeepDTA is in the grid at all, needs a single axis.
+
+Binary is the only task all four share, and the thresholds are already verified
+(DAVIS pKd ≥ 7.0 → 8.3% positive, KIBA ≥ 12.1 → 21.0%). Changing the two binary
+models to regression would mean auditing a head their authors never published.
+
+**Action for 124AD0015: the 24-run grid should be `--task binary`, or run
+twice.** The Part 2 guide currently says `--task regression`. Full reasoning in
+`results.md`. The explanation axis — precision@k, faithfulness — is unaffected;
+attention is attention whatever the loss.
+
 ### A13 — why the control arm was rebuilt
 
 The v2 plan's control arm is five antiviral proteins. `confound_report` gates

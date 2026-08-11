@@ -38,7 +38,7 @@ to run. Track A's step-by-step is `docs/RUNBOOK_124AD0008.md`.
 | A7 | Binding-site ground truth | ✅ **re-fetched** — DAVIS 442 targets / 406 usable, KIBA 229 / 212, `type` on every feature, contamination gone |
 | A8 | Ground-truth README | ✅ `data/GROUND_TRUTH_README.md` |
 | A9 | Three baseline adapters, passing `validate_adapter` | ✅ **all three PASS** — `python -m src.evaluation.check_adapters` |
-| A10 | Results table, 3×4×2×3 seeds | ❌ **1 of 24 cells** — the only Track A item left |
+| A10 | Results table, 3×4×2×3 seeds | ⏳ **8 of 24 cells** — DeepDTA complete (24 runs, 3 seeds each); HyperAttentionDTI and MolTrans remain |
 | A11 | KIBA accession → gene map | ✅ `data/kiba_uniprot_to_gene.json`, 229/229 with a gene symbol |
 | A12 | Unmapped DAVIS targets | ✅ resolved or documented — 19 unresolvable (real UniProt annotation gaps), 3 fixed by hand |
 | A13 | **Non-kinase control panel** | ✅ **60 distinct human targets, 21,145 pairs, `control_is_usable: True`** |
@@ -73,6 +73,24 @@ flags one target (`CASK`, correct — UniProt just names it oddly).
 Also fixed: `organism_id` → `taxonomy_id`, without which every non-human target
 (`PFCDPK1`, `PKNB`, `PFPK5`) was unresolvable, because their reviewed entries
 sit under *strain* taxa rather than the species id.
+
+### A10 — the ladder is not monotonic on DAVIS
+
+DeepDTA is done, and its accuracy ladder says something the plan did not expect:
+
+    davis   random 0.877  ->  cold_drug 0.640  ->  cold_target 0.818  ->  cold_pair 0.603
+    kiba    random 0.854  ->  cold_drug 0.736  ->  cold_target 0.727  ->  cold_pair 0.637
+
+On DAVIS, **cold-drug is far harder than cold-target** (0.640 vs 0.818, against
+a seed spread of 0.02). DAVIS has 68 drugs and 442 targets, so cold-drug trains
+on 49 drugs while cold-target trains on 310. KIBA, with 2,111 drugs, behaves.
+
+The v2 plan treats warm → cold-drug → cold-target → cold-pair as increasing
+severity and the headline figure plots fidelity along that axis. On DAVIS that
+ordering is false, so a fidelity curve drawn along it would show a shape that is
+neither noise nor a finding — just a mislabelled x-axis. Three options and the
+reasoning are in `results.md`; the choice is 124AD0067's as Results lead, and it
+should be settled before the figure is drawn.
 
 ### A13 — why the control arm was rebuilt
 

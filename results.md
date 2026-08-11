@@ -1,5 +1,64 @@
 # Baseline Results
 
+## DeepDTA — complete, 4 splits × 2 datasets × 3 seeds
+
+Regression, concordance index. Mean ± sd over training seeds 1–3.
+Reproduce with `run_deepdta_grid.bat`.
+
+| dataset | split | CI | MSE | Pearson |
+|---|---|---|---|---|
+| davis | random | 0.8769 ± 0.0053 | 0.2408 ± 0.0082 | 0.8277 ± 0.0072 |
+| davis | cold_drug | **0.6396 ± 0.0187** | 0.6798 ± 0.0303 | 0.2986 ± 0.0494 |
+| davis | cold_target | 0.8178 ± 0.0059 | 0.3683 ± 0.0251 | 0.7222 ± 0.0270 |
+| davis | cold_pair | 0.6030 ± 0.0410 | 0.6188 ± 0.0292 | 0.1938 ± 0.0453 |
+| kiba | random | 0.8542 ± 0.0010 | 0.1992 ± 0.0025 | 0.8473 ± 0.0021 |
+| kiba | cold_drug | 0.7361 ± 0.0064 | 0.4635 ± 0.0172 | 0.6301 ± 0.0151 |
+| kiba | cold_target | 0.7272 ± 0.0110 | 0.4046 ± 0.0259 | 0.6520 ± 0.0236 |
+| kiba | cold_pair | 0.6370 ± 0.0084 | 0.6018 ± 0.0387 | 0.4235 ± 0.0247 |
+
+The DAVIS random cell reproduces the published DeepDTA figures (MSE 0.250 vs
+0.261, CI 0.871 vs 0.878 on seed 1), which is what validates the PyTorch port.
+
+## The ladder is not monotonic on DAVIS — this affects the paper's design
+
+    davis   random 0.877  ->  cold_drug 0.640  ->  cold_target 0.818  ->  cold_pair 0.603
+    kiba    random 0.854  ->  cold_drug 0.736  ->  cold_target 0.727  ->  cold_pair 0.637
+
+**On DAVIS, cold-drug is far harder than cold-target — 0.640 against 0.818.**
+The gap is 0.18 CI against a seed spread of 0.02, so it is not noise. KIBA is
+close to monotonic (cold-drug and cold-target are within 0.01 of each other);
+DAVIS is emphatically not.
+
+The cause is in the split summary rather than the model. DAVIS has **68 drugs
+and 442 targets**. Holding out 20% of each leaves cold-drug training on 49
+drugs and cold-target training on 310 targets. A model can generalise to an
+unseen kinase because it has seen hundreds; it cannot generalise to an unseen
+drug from 49 examples. KIBA has 2,111 drugs, and its ladder behaves.
+
+**Why this matters beyond one baseline.** `docs/00_MASTER_PLAN_V2.md` treats
+warm → cold-drug → cold-target → cold-pair as an ordering of increasing
+severity, and the headline figure plots fidelity along that axis. On DAVIS the
+ordering is false, so a fidelity curve drawn along it would show a
+non-monotonic shape that reads as noise or as an interesting finding, when it is
+neither — it is the x-axis being mislabelled.
+
+Three options, and the choice belongs to 124AD0067 as Results lead:
+
+1. Order the axis per dataset by measured accuracy degradation rather than by
+   assumption, and say so.
+2. Replace the categorical axis with something measurable — e.g. the fraction of
+   the drug/target space held out — so both datasets sit on one scale.
+3. Keep the four levels as categories, drop the "increasing severity" framing,
+   and report the non-monotonicity as a finding in its own right.
+
+Option 3 is defensible and cheap: "cold-start severity is not a single ordered
+axis; it depends on which entity space is sparse" is a real, useful claim, and
+it is exactly the kind of thing an audit paper is well placed to say.
+
+This should be settled before the headline figure is drawn, not after.
+
+---
+
 | Model | Dataset | Split | Epochs | AUROC | AUPRC | Test Set Positive Rate |
 |---|---|---|---|---|---|---|
 | MolTrans | DAVIS | Cold Target | 50 | 0.6196 | 0.9888* | 0.0748 |

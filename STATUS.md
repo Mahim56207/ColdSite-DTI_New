@@ -38,7 +38,7 @@ to run. Track A's step-by-step is `docs/RUNBOOK_124AD0008.md`.
 | A7 | Binding-site ground truth | ✅ **re-fetched** — DAVIS 442 targets / 406 usable, KIBA 229 / 212, `type` on every feature, contamination gone |
 | A8 | Ground-truth README | ✅ `data/GROUND_TRUTH_README.md` |
 | A9 | Three baseline adapters, passing `validate_adapter` | ✅ **all three PASS** — `python -m src.evaluation.check_adapters` |
-| A10 | Results table, 3×4×2×3 seeds | ⏳ **8 of 24 cells** — DeepDTA complete (24 runs, 3 seeds each); HyperAttentionDTI and MolTrans remain |
+| A10 | Results table, 3×4×2×3 seeds | ⏳ **8 of 24 cells** — DeepDTA regression complete. Runners ready for DeepDTA-binary and HyperAttentionDTI; MolTrans needs 124AD0015 |
 | A11 | KIBA accession → gene map | ✅ `data/kiba_uniprot_to_gene.json`, 229/229 with a gene symbol |
 | A12 | Unmapped DAVIS targets | ✅ resolved or documented — 19 unresolvable (real UniProt annotation gaps), 3 fixed by hand |
 | A13 | **Non-kinase control panel** | ✅ **60 distinct human targets, 21,145 pairs, `control_is_usable: True`** |

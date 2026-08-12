@@ -15,13 +15,27 @@ different optimiser is measuring a model its authors never released:
     AdamW, lr 5e-5, weight decay 1e-4 on weights and 0 on biases
     CyclicLR, base_lr -> 10x base_lr, step_size_up = train_size // batch_size
     CrossEntropyLoss with an optional class weight
-    batch size 32
+    effective batch 32
 
 Two of those deserve a note. The bias/weight split is why the optimiser is
 built from two parameter groups rather than `model.parameters()`. And CyclicLR
-steps **per batch**, not per epoch — stepping it per epoch instead would leave
-the learning rate crawling through a fraction of one cycle for the whole run,
-which trains, converges to something, and looks fine.
+steps **per optimiser update**, not per epoch — stepping it per epoch instead
+would leave the learning rate crawling through a fraction of one cycle for the
+whole run, which trains, converges to something, and looks fine.
+
+Memory, and why the default is 8x4 rather than 32
+-------------------------------------------------
+`forward` materialises a (batch, 85, 979, 160) tensor — every drug position
+against every protein position against 160 channels — and holds about four of
+them live. At batch 32 that is ~6.3 GB of activations, which a 4 GB laptop GPU
+does not have. It does not fail cleanly either: on Windows the NVIDIA driver
+spills to system RAM over PCIe rather than raising, so the run simply crawls
+with no error and no output.
+
+So the default here is a micro-batch of 8 with 4 accumulation steps: the same
+effective batch of 32, the same gradient, in ~1.6 GB. On a larger card,
+`--batch-size 32 --accum-steps 1` is the literal vendored configuration and
+will be faster.
 
 Binary, necessarily
 -------------------
@@ -43,8 +57,9 @@ Usage
         --split-dir data/splits/davis/cold_target \\
         --dataset davis --split cold_target --seed 1
 
-STATUS: never executed -- written without a working torch install. Run one cell
-and check the numbers before launching the grid.
+STATUS: not yet run to completion. Run one cell and check the AUROC is
+believable (DAVIS cold-target should be ~0.7-0.85, not 0.99) before launching
+the grid.
 """
 from __future__ import annotations
 
@@ -132,11 +147,35 @@ def attention_memory_gb(batch_size: int) -> float:
 
 
 def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None,
-              log_every: int = 20, label: str = ""):
+              log_every: int = 20, label: str = "", accum_steps: int = 1):
+    """One pass. `accum_steps` micro-batches make one optimiser step.
+
+    Gradient accumulation exists here for a specific reason. The vendored
+    recipe trains at batch 32, which needs ~6.3 GB of activations — more than a
+    4 GB laptop GPU has. Simply lowering the batch size would fit, but it would
+    also change the effective batch, and the effective batch is part of the
+    published recipe rather than a hardware detail.
+
+    Accumulating instead keeps the gradient mathematically identical to a batch
+    of `batch_size * accum_steps` while never materialising more than one
+    micro-batch of activations. The audit then reports the model its authors
+    described, on hardware they did not have.
+
+    Two things have to move together with the optimiser rather than with the
+    micro-batch, or the recipe silently changes anyway:
+      * the loss is divided by accum_steps, so the accumulated gradient is a
+        mean over the effective batch and not a sum `accum_steps` times too big
+      * the scheduler steps once per OPTIMISER step. CyclicLR advances per
+        update in the original; stepping it per micro-batch would run through
+        the cycle `accum_steps` times too fast.
+    """
     training = optimizer is not None
     model.train(training)
     total, n, logits, trues = 0.0, 0, [], []
     n_batches = len(loader)
+
+    if training:
+        optimizer.zero_grad()
 
     for batch_index, (drug, protein, y) in enumerate(loader, start=1):
         drug, protein, y = drug.to(device), protein.to(device), y.to(device)
@@ -144,12 +183,13 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None,
             out = model(drug, protein)
             loss = loss_fn(out, y)
         if training:
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            # per BATCH, not per epoch -- see the module docstring
-            if scheduler is not None:
-                scheduler.step()
+            (loss / accum_steps).backward()
+            if batch_index % accum_steps == 0 or batch_index == n_batches:
+                optimizer.step()
+                optimizer.zero_grad()
+                # per OPTIMISER step -- see this function's docstring
+                if scheduler is not None:
+                    scheduler.step()
 
         total += float(loss.item()) * len(y)
         n += len(y)
@@ -182,8 +222,15 @@ def main():
     parser.add_argument("--split", required=True)
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--epochs", type=int, default=100)
-    parser.add_argument("--batch-size", type=int, default=32,
-                        help="vendored default is 32")
+    parser.add_argument("--batch-size", type=int, default=8,
+                        help="MICRO-batch actually held on the GPU. The "
+                             "vendored recipe is 32; the default here is 8 "
+                             "with --accum-steps 4, which is the same "
+                             "effective batch in ~1.6GB instead of ~6.3GB.")
+    parser.add_argument("--accum-steps", type=int, default=4,
+                        help="micro-batches per optimiser step. "
+                             "batch-size x accum-steps is the effective batch "
+                             "and should stay at the vendored 32.")
     parser.add_argument("--lr", type=float, default=5e-5,
                         help="vendored default is 5e-5")
     parser.add_argument("--patience", type=int, default=15)
@@ -226,12 +273,15 @@ def main():
 
     device = args.device
     per_tensor = attention_memory_gb(args.batch_size)
-    n_batches = max(len(datasets["train"]) // args.batch_size, 1)
+    effective_batch = args.batch_size * args.accum_steps
+    n_batches = max(len(datasets["train"]) // effective_batch, 1)
     print(f"\n  device        {device}"
           + (f" ({torch.cuda.get_device_name(0)}, "
              f"{torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB)"
              if device.startswith("cuda") and torch.cuda.is_available() else ""))
-    print(f"  batch size    {args.batch_size}  ->  {n_batches} batches/epoch")
+    print(f"  micro-batch   {args.batch_size} x {args.accum_steps} accum "
+          f"= effective {effective_batch} (vendored: 32)")
+    print(f"  optimiser steps/epoch  {n_batches}")
     print(f"  interaction tensor  {per_tensor:.2f} GB each, ~{per_tensor * 4:.1f} GB "
           f"of activations per step")
     if device == "cpu":
@@ -256,7 +306,9 @@ def main():
     scheduler = torch.optim.lr_scheduler.CyclicLR(
         optimizer, base_lr=hp.Learning_rate, max_lr=hp.Learning_rate * 10,
         cycle_momentum=False,
-        step_size_up=max(len(datasets["train"]) // args.batch_size, 1))
+        # optimiser steps, not micro-batches: with accumulation these differ
+        # by accum_steps and the cycle would otherwise be that much too short
+        step_size_up=n_batches)
 
     weight = None
     if args.class_weight == "balanced":
@@ -275,7 +327,8 @@ def main():
     for epoch in range(1, args.epochs + 1):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
                                      optimizer, scheduler,
-                                     label=f"epoch {epoch} train")
+                                     label=f"epoch {epoch} train",
+                                     accum_steps=args.accum_steps)
         val_loss, val_true, val_score = run_epoch(model, loaders["valid"],
                                                   loss_fn, device,
                                                   label=f"epoch {epoch} valid")
@@ -303,6 +356,9 @@ def main():
                    "task": "binary", "seed": args.seed, "checkpoint": ckpt,
                    "best_epoch": best_epoch,
                    "class_weight": args.class_weight,
+                   "batch_size": args.batch_size,
+                   "accum_steps": args.accum_steps,
+                   "effective_batch": effective_batch,
                    "test_positive_rate": float(datasets["test"].y.mean()),
                    "n_train_rows": len(datasets["train"]),
                    "test_metrics": test_metrics}, handle, indent=2)

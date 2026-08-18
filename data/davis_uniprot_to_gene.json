@@ -1,0 +1,1770 @@
+{
+  "AAK1": {
+    "gene_name": "AAK1",
+    "protein_name": "AP2-associated protein kinase 1"
+  },
+  "ABL1": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(E255K)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(F317I)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(F317I)p": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(F317L)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(F317L)p": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(H396P)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(H396P)p": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(M351T)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(Q252H)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(Q252H)p": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(T315I)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(T315I)p": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1(Y253F)": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL1p": {
+    "gene_name": "ABL1",
+    "protein_name": "Tyrosine-protein kinase ABL1"
+  },
+  "ABL2": {
+    "gene_name": "ABL2",
+    "protein_name": "Tyrosine-protein kinase ABL2"
+  },
+  "ACVR1": {
+    "gene_name": "ACVR1",
+    "protein_name": "Activin receptor type-1"
+  },
+  "ACVR1B": {
+    "gene_name": "ACVR1B",
+    "protein_name": "Activin receptor type-1B"
+  },
+  "ACVR2A": {
+    "gene_name": "ACVR2A",
+    "protein_name": "Activin receptor type-2A"
+  },
+  "ACVR2B": {
+    "gene_name": "ACVR2B",
+    "protein_name": "Activin receptor type-2B"
+  },
+  "ACVRL1": {
+    "gene_name": "ACVRL1",
+    "protein_name": "Activin receptor type-1-like"
+  },
+  "ADCK3": {
+    "gene_name": "COQ8A",
+    "protein_name": "Atypical kinase COQ8A, mitochondrial"
+  },
+  "ADCK4": {
+    "gene_name": "COQ8B",
+    "protein_name": "Atypical kinase COQ8B, mitochondrial"
+  },
+  "AKT1": {
+    "gene_name": "AKT1",
+    "protein_name": "RAC-alpha serine/threonine-protein kinase"
+  },
+  "AKT2": {
+    "gene_name": "AKT2",
+    "protein_name": "RAC-beta serine/threonine-protein kinase"
+  },
+  "AKT3": {
+    "gene_name": "AKT3",
+    "protein_name": "RAC-gamma serine/threonine-protein kinase"
+  },
+  "ALK": {
+    "gene_name": "ALK",
+    "protein_name": "ALK tyrosine kinase receptor"
+  },
+  "AMPK-alpha1": {
+    "gene_name": "PRKAA1",
+    "protein_name": "5'-AMP-activated protein kinase catalytic subunit alpha-1"
+  },
+  "AMPK-alpha2": {
+    "gene_name": "PRKAA2",
+    "protein_name": "5'-AMP-activated protein kinase catalytic subunit alpha-2"
+  },
+  "ANKK1": {
+    "gene_name": "ANKK1",
+    "protein_name": "Ankyrin repeat and protein kinase domain-containing protein 1"
+  },
+  "ARK5": {
+    "gene_name": "NUAK1",
+    "protein_name": "NUAK family SNF1-like kinase 1"
+  },
+  "ASK1": {
+    "gene_name": "MAP3K5",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 5"
+  },
+  "ASK2": {
+    "gene_name": "MAP3K6",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 6"
+  },
+  "AURKA": {
+    "gene_name": "AURKA",
+    "protein_name": "Aurora kinase A"
+  },
+  "AURKB": {
+    "gene_name": "AURKB",
+    "protein_name": "Aurora kinase B"
+  },
+  "AURKC": {
+    "gene_name": "AURKC",
+    "protein_name": "Aurora kinase C"
+  },
+  "AXL": {
+    "gene_name": "AXL",
+    "protein_name": "Tyrosine-protein kinase receptor UFO"
+  },
+  "BIKE": {
+    "gene_name": "BMP2K",
+    "protein_name": "BMP-2-inducible protein kinase"
+  },
+  "BLK": {
+    "gene_name": "BLK",
+    "protein_name": "Tyrosine-protein kinase Blk"
+  },
+  "BMPR1A": {
+    "gene_name": "BMPR1A",
+    "protein_name": "Bone morphogenetic protein receptor type-1A"
+  },
+  "BMPR1B": {
+    "gene_name": "BMPR1B",
+    "protein_name": "Bone morphogenetic protein receptor type-1B"
+  },
+  "BMPR2": {
+    "gene_name": "BMPR2",
+    "protein_name": "Bone morphogenetic protein receptor type-2"
+  },
+  "BMX": {
+    "gene_name": "BMX",
+    "protein_name": "Cytoplasmic tyrosine-protein kinase BMX"
+  },
+  "BRAF": {
+    "gene_name": "BRAF",
+    "protein_name": "Serine/threonine-protein kinase B-raf"
+  },
+  "BRAF(V600E)": {
+    "gene_name": "BRAF",
+    "protein_name": "Serine/threonine-protein kinase B-raf"
+  },
+  "BRK": {
+    "gene_name": "PTK6",
+    "protein_name": "Protein-tyrosine kinase 6"
+  },
+  "BRSK1": {
+    "gene_name": "BRSK1",
+    "protein_name": "Serine/threonine-protein kinase BRSK1"
+  },
+  "BRSK2": {
+    "gene_name": "BRSK2",
+    "protein_name": "Serine/threonine-protein kinase BRSK2"
+  },
+  "BTK": {
+    "gene_name": "BTK",
+    "protein_name": "Tyrosine-protein kinase BTK"
+  },
+  "CAMK1": {
+    "gene_name": "CAMK1",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type 1"
+  },
+  "CAMK1D": {
+    "gene_name": "CAMK1D",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type 1D"
+  },
+  "CAMK1G": {
+    "gene_name": "CAMK1G",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type 1G"
+  },
+  "CAMK2A": {
+    "gene_name": "CAMK2A",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit alpha"
+  },
+  "CAMK2B": {
+    "gene_name": "CAMK2B",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit beta"
+  },
+  "CAMK2D": {
+    "gene_name": "CAMK2D",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit delta"
+  },
+  "CAMK2G": {
+    "gene_name": "CAMK2G",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type II subunit gamma"
+  },
+  "CAMK4": {
+    "gene_name": "CAMK4",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase type IV"
+  },
+  "CAMKK1": {
+    "gene_name": "CAMKK1",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase kinase 1"
+  },
+  "CAMKK2": {
+    "gene_name": "CAMKK2",
+    "protein_name": "Calcium/calmodulin-dependent protein kinase kinase 2"
+  },
+  "CASK": {
+    "gene_name": "CASK",
+    "protein_name": "Peripheral plasma membrane protein CASK"
+  },
+  "CDC2L1": {
+    "gene_name": "CDK11B",
+    "protein_name": "Cyclin-dependent kinase 11B"
+  },
+  "CDC2L2": {
+    "gene_name": "CDK11A",
+    "protein_name": "Cyclin-dependent kinase 11A"
+  },
+  "CDC2L5": {
+    "gene_name": "CDK13",
+    "protein_name": "Cyclin-dependent kinase 13"
+  },
+  "CDK11": {
+    "gene_name": "CDK11B",
+    "protein_name": "Cyclin-dependent kinase 11B"
+  },
+  "CDK2": {
+    "gene_name": "CDK2",
+    "protein_name": "Cyclin-dependent kinase 2"
+  },
+  "CDK3": {
+    "gene_name": "CDK3",
+    "protein_name": "Cyclin-dependent kinase 3"
+  },
+  "CDK4-cyclinD1": {
+    "gene_name": "CDK4",
+    "protein_name": "Cyclin-dependent kinase 4"
+  },
+  "CDK4-cyclinD3": {
+    "gene_name": "CDK4",
+    "protein_name": "Cyclin-dependent kinase 4"
+  },
+  "CDK5": {
+    "gene_name": "CDK5",
+    "protein_name": "Cyclin-dependent kinase 5"
+  },
+  "CDK7": {
+    "gene_name": "CDK7",
+    "protein_name": "Cyclin-dependent kinase 7"
+  },
+  "CDK8": {
+    "gene_name": "CDK8",
+    "protein_name": "Cyclin-dependent kinase 8"
+  },
+  "CDK9": {
+    "gene_name": "CDK9",
+    "protein_name": "Cyclin-dependent kinase 9"
+  },
+  "CDKL1": {
+    "gene_name": "CDKL1",
+    "protein_name": "Cyclin-dependent kinase-like 1"
+  },
+  "CDKL2": {
+    "gene_name": "CDKL2",
+    "protein_name": "Cyclin-dependent kinase-like 2"
+  },
+  "CDKL3": {
+    "gene_name": "CDKL3",
+    "protein_name": "Cyclin-dependent kinase-like 3"
+  },
+  "CDKL5": {
+    "gene_name": "CDKL5",
+    "protein_name": "Cyclin-dependent kinase-like 5"
+  },
+  "CHEK1": {
+    "gene_name": "CHEK1",
+    "protein_name": "Serine/threonine-protein kinase Chk1"
+  },
+  "CHEK2": {
+    "gene_name": "CHEK2",
+    "protein_name": "Serine/threonine-protein kinase Chk2"
+  },
+  "CIT": {
+    "gene_name": "CIT",
+    "protein_name": "Citron Rho-interacting kinase"
+  },
+  "CLK1": {
+    "gene_name": "CLK1",
+    "protein_name": "Dual specificity protein kinase CLK1"
+  },
+  "CLK2": {
+    "gene_name": "CLK2",
+    "protein_name": "Dual specificity protein kinase CLK2"
+  },
+  "CLK3": {
+    "gene_name": "CLK3",
+    "protein_name": "Dual specificity protein kinase CLK3"
+  },
+  "CLK4": {
+    "gene_name": "CLK4",
+    "protein_name": "Dual specificity protein kinase CLK4"
+  },
+  "CSF1R": {
+    "gene_name": "CSF1R",
+    "protein_name": "Macrophage colony-stimulating factor 1 receptor"
+  },
+  "CSK": {
+    "gene_name": "CSK",
+    "protein_name": "Tyrosine-protein kinase CSK"
+  },
+  "CSNK1A1": {
+    "gene_name": "CSNK1A1",
+    "protein_name": "Casein kinase I isoform alpha"
+  },
+  "CSNK1A1L": {
+    "gene_name": "CSNK1A1L",
+    "protein_name": "Casein kinase I isoform alpha-like"
+  },
+  "CSNK1D": {
+    "gene_name": "CSNK1D",
+    "protein_name": "Casein kinase I isoform delta"
+  },
+  "CSNK1E": {
+    "gene_name": "CSNK1E",
+    "protein_name": "Casein kinase I isoform epsilon"
+  },
+  "CSNK1G1": {
+    "gene_name": "CSNK1G1",
+    "protein_name": "Casein kinase I isoform gamma-1"
+  },
+  "CSNK1G2": {
+    "gene_name": "CSNK1G2",
+    "protein_name": "Casein kinase I isoform gamma-2"
+  },
+  "CSNK1G3": {
+    "gene_name": "CSNK1G3",
+    "protein_name": "Casein kinase I isoform gamma-3"
+  },
+  "CSNK2A1": {
+    "gene_name": "CSNK2A1",
+    "protein_name": "Casein kinase II subunit alpha"
+  },
+  "CSNK2A2": {
+    "gene_name": "CSNK2A2",
+    "protein_name": "Casein kinase II subunit alpha'"
+  },
+  "CTK": {
+    "gene_name": "MATK",
+    "protein_name": "Megakaryocyte-associated tyrosine-protein kinase"
+  },
+  "DAPK1": {
+    "gene_name": "DAPK1",
+    "protein_name": "Death-associated protein kinase 1"
+  },
+  "DAPK2": {
+    "gene_name": "DAPK2",
+    "protein_name": "Death-associated protein kinase 2"
+  },
+  "DAPK3": {
+    "gene_name": "DAPK3",
+    "protein_name": "Death-associated protein kinase 3"
+  },
+  "DCAMKL1": {
+    "gene_name": "DCLK1",
+    "protein_name": "Serine/threonine-protein kinase DCLK1"
+  },
+  "DCAMKL2": {
+    "gene_name": "DCLK2",
+    "protein_name": "Serine/threonine-protein kinase DCLK2"
+  },
+  "DCAMKL3": {
+    "gene_name": "DCLK3",
+    "protein_name": "Serine/threonine-protein kinase DCLK3"
+  },
+  "DDR1": {
+    "gene_name": "DDR1",
+    "protein_name": "Epithelial discoidin domain-containing receptor 1"
+  },
+  "DDR2": {
+    "gene_name": "DDR2",
+    "protein_name": "Discoidin domain-containing receptor 2"
+  },
+  "DLK": {
+    "gene_name": "MAP3K12",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 12"
+  },
+  "DMPK": {
+    "gene_name": "DMPK",
+    "protein_name": "Myotonin-protein kinase"
+  },
+  "DMPK2": {
+    "gene_name": "CDC42BPG",
+    "protein_name": "Serine/threonine-protein kinase MRCK gamma"
+  },
+  "DRAK1": {
+    "gene_name": "STK17A",
+    "protein_name": "Serine/threonine-protein kinase 17A"
+  },
+  "DRAK2": {
+    "gene_name": "STK17B",
+    "protein_name": "Serine/threonine-protein kinase 17B"
+  },
+  "DYRK1A": {
+    "gene_name": "DYRK1A",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1A"
+  },
+  "DYRK1B": {
+    "gene_name": "DYRK1B",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1B"
+  },
+  "DYRK2": {
+    "gene_name": "DYRK2",
+    "protein_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 2"
+  },
+  "EGFR": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(E746A750del)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(G719C)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(G719S)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(L747E749del)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(L747S752del)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(L747T751del)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(L858R)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(L858RT790M)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(L861Q)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(S752I759del)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EGFR(T790M)": {
+    "gene_name": "EGFR",
+    "protein_name": "Epidermal growth factor receptor"
+  },
+  "EIF2AK1": {
+    "gene_name": "EIF2AK1",
+    "protein_name": "Eukaryotic translation initiation factor 2-alpha kinase 1"
+  },
+  "EPHA1": {
+    "gene_name": "EPHA1",
+    "protein_name": "Ephrin type-A receptor 1"
+  },
+  "EPHA2": {
+    "gene_name": "EPHA2",
+    "protein_name": "Ephrin type-A receptor 2"
+  },
+  "EPHA3": {
+    "gene_name": "EPHA3",
+    "protein_name": "Ephrin type-A receptor 3"
+  },
+  "EPHA4": {
+    "gene_name": "EPHA4",
+    "protein_name": "Ephrin type-A receptor 4"
+  },
+  "EPHA5": {
+    "gene_name": "EPHA5",
+    "protein_name": "Ephrin type-A receptor 5"
+  },
+  "EPHA6": {
+    "gene_name": "EPHA6",
+    "protein_name": "Ephrin type-A receptor 6"
+  },
+  "EPHA7": {
+    "gene_name": "EPHA7",
+    "protein_name": "Ephrin type-A receptor 7"
+  },
+  "EPHA8": {
+    "gene_name": "EPHA8",
+    "protein_name": "Ephrin type-A receptor 8"
+  },
+  "EPHB1": {
+    "gene_name": "EPHB1",
+    "protein_name": "Ephrin type-B receptor 1"
+  },
+  "EPHB2": {
+    "gene_name": "EPHB2",
+    "protein_name": "Ephrin type-B receptor 2"
+  },
+  "EPHB3": {
+    "gene_name": "EPHB3",
+    "protein_name": "Ephrin type-B receptor 3"
+  },
+  "EPHB4": {
+    "gene_name": "EPHB4",
+    "protein_name": "Ephrin type-B receptor 4"
+  },
+  "EPHB6": {
+    "gene_name": "EPHB6",
+    "protein_name": "Ephrin type-B receptor 6"
+  },
+  "ERBB2": {
+    "gene_name": "ERBB2",
+    "protein_name": "Receptor tyrosine-protein kinase erbB-2"
+  },
+  "ERBB3": {
+    "gene_name": "ERBB3",
+    "protein_name": "Receptor tyrosine-protein kinase erbB-3"
+  },
+  "ERBB4": {
+    "gene_name": "ERBB4",
+    "protein_name": "Receptor tyrosine-protein kinase erbB-4"
+  },
+  "ERK1": {
+    "gene_name": "MAPK3",
+    "protein_name": "Mitogen-activated protein kinase 3"
+  },
+  "ERK2": {
+    "gene_name": "MAPK1",
+    "protein_name": "Mitogen-activated protein kinase 1"
+  },
+  "ERK3": {
+    "gene_name": "MAPK6",
+    "protein_name": "Mitogen-activated protein kinase 6"
+  },
+  "ERK4": {
+    "gene_name": "MAPK4",
+    "protein_name": "Mitogen-activated protein kinase 4"
+  },
+  "ERK5": {
+    "gene_name": "MAPK7",
+    "protein_name": "Mitogen-activated protein kinase 7"
+  },
+  "ERK8": {
+    "gene_name": "MAPK15",
+    "protein_name": "Mitogen-activated protein kinase 15"
+  },
+  "ERN1": {
+    "gene_name": "ERN1",
+    "protein_name": "Serine/threonine-protein kinase/endoribonuclease IRE1"
+  },
+  "FAK": {
+    "gene_name": "PTK2",
+    "protein_name": "Focal adhesion kinase 1"
+  },
+  "FER": {
+    "gene_name": "FER",
+    "protein_name": "Tyrosine-protein kinase Fer"
+  },
+  "FES": {
+    "gene_name": "FES",
+    "protein_name": "Tyrosine-protein kinase Fes/Fps"
+  },
+  "FGFR1": {
+    "gene_name": "FGFR1",
+    "protein_name": "Fibroblast growth factor receptor 1"
+  },
+  "FGFR2": {
+    "gene_name": "FGFR2",
+    "protein_name": "Fibroblast growth factor receptor 2"
+  },
+  "FGFR3": {
+    "gene_name": "FGFR3",
+    "protein_name": "Fibroblast growth factor receptor 3"
+  },
+  "FGFR3(G697C)": {
+    "gene_name": "FGFR3",
+    "protein_name": "Fibroblast growth factor receptor 3"
+  },
+  "FGFR4": {
+    "gene_name": "FGFR4",
+    "protein_name": "Fibroblast growth factor receptor 4"
+  },
+  "FGR": {
+    "gene_name": "FGR",
+    "protein_name": "Tyrosine-protein kinase Fgr"
+  },
+  "FLT1": {
+    "gene_name": "FLT1",
+    "protein_name": "Vascular endothelial growth factor receptor 1"
+  },
+  "FLT3": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT3(D835H)": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT3(D835Y)": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT3(ITD)": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT3(K663Q)": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT3(N841I)": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT3(R834Q)": {
+    "gene_name": "FLT3",
+    "protein_name": "Receptor-type tyrosine-protein kinase FLT3"
+  },
+  "FLT4": {
+    "gene_name": "FLT4",
+    "protein_name": "Vascular endothelial growth factor receptor 3"
+  },
+  "FRK": {
+    "gene_name": "FRK",
+    "protein_name": "Tyrosine-protein kinase FRK"
+  },
+  "FYN": {
+    "gene_name": "FYN",
+    "protein_name": "Tyrosine-protein kinase Fyn"
+  },
+  "GAK": {
+    "gene_name": "GAK",
+    "protein_name": "Cyclin-G-associated kinase"
+  },
+  "GCN2(KinDom2S808G)": {
+    "gene_name": "EIF2AK4",
+    "protein_name": "eIF-2-alpha kinase GCN2"
+  },
+  "GRK1": {
+    "gene_name": "GRK1",
+    "protein_name": "Rhodopsin kinase GRK1"
+  },
+  "GRK4": {
+    "gene_name": "GRK4",
+    "protein_name": "G protein-coupled receptor kinase 4"
+  },
+  "GRK7": {
+    "gene_name": "GRK7",
+    "protein_name": "Rhodopsin kinase GRK7"
+  },
+  "GSK3A": {
+    "gene_name": "GSK3A",
+    "protein_name": "Glycogen synthase kinase-3 alpha"
+  },
+  "GSK3B": {
+    "gene_name": "GSK3B",
+    "protein_name": "Glycogen synthase kinase-3 beta"
+  },
+  "HCK": {
+    "gene_name": "HCK",
+    "protein_name": "Tyrosine-protein kinase HCK"
+  },
+  "HIPK1": {
+    "gene_name": "HIPK1",
+    "protein_name": "Homeodomain-interacting protein kinase 1"
+  },
+  "HIPK2": {
+    "gene_name": "HIPK2",
+    "protein_name": "Homeodomain-interacting protein kinase 2"
+  },
+  "HIPK3": {
+    "gene_name": "HIPK3",
+    "protein_name": "Homeodomain-interacting protein kinase 3"
+  },
+  "HIPK4": {
+    "gene_name": "HIPK4",
+    "protein_name": "Homeodomain-interacting protein kinase 4"
+  },
+  "HPK1": {
+    "gene_name": "MAP4K1",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 1"
+  },
+  "HUNK": {
+    "gene_name": "HUNK",
+    "protein_name": "Hormonally up-regulated neu tumor-associated kinase"
+  },
+  "ICK": {
+    "gene_name": "CILK1",
+    "protein_name": "Serine/threonine-protein kinase ICK"
+  },
+  "IGF1R": {
+    "gene_name": "IGF1R",
+    "protein_name": "Insulin-like growth factor 1 receptor"
+  },
+  "IKK-alpha": {
+    "gene_name": "CHUK",
+    "protein_name": "Inhibitor of nuclear factor kappa-B kinase subunit alpha"
+  },
+  "IKK-beta": {
+    "gene_name": "IKBKB",
+    "protein_name": "Inhibitor of nuclear factor kappa-B kinase subunit beta"
+  },
+  "IKK-epsilon": {
+    "gene_name": "IKBKE",
+    "protein_name": "Inhibitor of nuclear factor kappa-B kinase subunit epsilon"
+  },
+  "INSR": {
+    "gene_name": "INSR",
+    "protein_name": "Insulin receptor"
+  },
+  "INSRR": {
+    "gene_name": "INSRR",
+    "protein_name": "Insulin receptor-related protein"
+  },
+  "IRAK1": {
+    "gene_name": "IRAK1",
+    "protein_name": "Interleukin-1 receptor-associated kinase 1"
+  },
+  "IRAK3": {
+    "gene_name": "IRAK3",
+    "protein_name": "Interleukin-1 receptor-associated kinase 3"
+  },
+  "IRAK4": {
+    "gene_name": "IRAK4",
+    "protein_name": "Interleukin-1 receptor-associated kinase 4"
+  },
+  "ITK": {
+    "gene_name": "ITK",
+    "protein_name": "Tyrosine-protein kinase ITK/TSK"
+  },
+  "JAK1(JH1domain-catalytic)": {
+    "gene_name": "JAK1",
+    "protein_name": "Tyrosine-protein kinase JAK1"
+  },
+  "JAK1(JH2domain-pseudokinase)": {
+    "gene_name": "JAK1",
+    "protein_name": "Tyrosine-protein kinase JAK1"
+  },
+  "JAK2(JH1domain-catalytic)": {
+    "gene_name": "JAK2",
+    "protein_name": "Tyrosine-protein kinase JAK2"
+  },
+  "JAK3(JH1domain-catalytic)": {
+    "gene_name": "JAK3",
+    "protein_name": "Tyrosine-protein kinase JAK3"
+  },
+  "JNK1": {
+    "gene_name": "MAPK8",
+    "protein_name": "Mitogen-activated protein kinase 8"
+  },
+  "JNK2": {
+    "gene_name": "MAPK9",
+    "protein_name": "Mitogen-activated protein kinase 9"
+  },
+  "JNK3": {
+    "gene_name": "MAPK10",
+    "protein_name": "Mitogen-activated protein kinase 10"
+  },
+  "KIT": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(A829P)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(D816H)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(D816V)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(L576P)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(V559D)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(V559D-T670I)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "KIT(V559D-V654A)": {
+    "gene_name": "KIT",
+    "protein_name": "Mast/stem cell growth factor receptor Kit"
+  },
+  "LATS1": {
+    "gene_name": "LATS1",
+    "protein_name": "Serine/threonine-protein kinase LATS1"
+  },
+  "LATS2": {
+    "gene_name": "LATS2",
+    "protein_name": "Serine/threonine-protein kinase LATS2"
+  },
+  "LCK": {
+    "gene_name": "LCK",
+    "protein_name": "Tyrosine-protein kinase Lck"
+  },
+  "LIMK1": {
+    "gene_name": "LIMK1",
+    "protein_name": "LIM domain kinase 1"
+  },
+  "LIMK2": {
+    "gene_name": "LIMK2",
+    "protein_name": "LIM domain kinase 2"
+  },
+  "LKB1": {
+    "gene_name": "STK11",
+    "protein_name": "Serine/threonine-protein kinase STK11"
+  },
+  "LOK": {
+    "gene_name": "STK10",
+    "protein_name": "Serine/threonine-protein kinase 10"
+  },
+  "LRRK2": {
+    "gene_name": "LRRK2",
+    "protein_name": "Leucine-rich repeat serine/threonine-protein kinase 2"
+  },
+  "LRRK2(G2019S)": {
+    "gene_name": "LRRK2",
+    "protein_name": "Leucine-rich repeat serine/threonine-protein kinase 2"
+  },
+  "LTK": {
+    "gene_name": "LTK",
+    "protein_name": "Leukocyte tyrosine kinase receptor"
+  },
+  "LYN": {
+    "gene_name": "LYN",
+    "protein_name": "Tyrosine-protein kinase Lyn"
+  },
+  "LZK": {
+    "gene_name": "MAP3K13",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 13"
+  },
+  "MAK": {
+    "gene_name": "ALPK3",
+    "protein_name": "Alpha-protein kinase 3"
+  },
+  "MAP3K1": {
+    "gene_name": "MAP3K1",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 1"
+  },
+  "MAP3K15": {
+    "gene_name": "MAP3K15",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 15"
+  },
+  "MAP3K2": {
+    "gene_name": "MAP3K2",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 2"
+  },
+  "MAP3K3": {
+    "gene_name": "MAP3K3",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 3"
+  },
+  "MAP3K4": {
+    "gene_name": "MAP3K4",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 4"
+  },
+  "MAP4K2": {
+    "gene_name": "MAP4K2",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 2"
+  },
+  "MAP4K3": {
+    "gene_name": "MAP4K3",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 3"
+  },
+  "MAP4K4": {
+    "gene_name": "MAP4K4",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 4"
+  },
+  "MAP4K5": {
+    "gene_name": "MAP4K5",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase kinase 5"
+  },
+  "MAPKAPK2": {
+    "gene_name": "MAPKAPK2",
+    "protein_name": "MAP kinase-activated protein kinase 2"
+  },
+  "MAPKAPK5": {
+    "gene_name": "MAPKAPK5",
+    "protein_name": "MAP kinase-activated protein kinase 5"
+  },
+  "MARK1": {
+    "gene_name": "MARK1",
+    "protein_name": "Serine/threonine-protein kinase MARK1"
+  },
+  "MARK2": {
+    "gene_name": "MARK2",
+    "protein_name": "Serine/threonine-protein kinase MARK2"
+  },
+  "MARK3": {
+    "gene_name": "MARK3",
+    "protein_name": "MAP/microtubule affinity-regulating kinase 3"
+  },
+  "MARK4": {
+    "gene_name": "MARK4",
+    "protein_name": "MAP/microtubule affinity-regulating kinase 4"
+  },
+  "MAST1": {
+    "gene_name": "MAST1",
+    "protein_name": "Microtubule-associated serine/threonine-protein kinase 1"
+  },
+  "MEK1": {
+    "gene_name": "MAP2K1",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 1"
+  },
+  "MEK2": {
+    "gene_name": "MAP2K2",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 2"
+  },
+  "MEK3": {
+    "gene_name": "MAP2K3",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 3"
+  },
+  "MEK4": {
+    "gene_name": "MAP2K4",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 4"
+  },
+  "MEK5": {
+    "gene_name": "MAP2K5",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 5"
+  },
+  "MEK6": {
+    "gene_name": "MAP2K6",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 6"
+  },
+  "MELK": {
+    "gene_name": "MELK",
+    "protein_name": "Maternal embryonic leucine zipper kinase"
+  },
+  "MERTK": {
+    "gene_name": "MERTK",
+    "protein_name": "Tyrosine-protein kinase Mer"
+  },
+  "MET": {
+    "gene_name": "MET",
+    "protein_name": "Hepatocyte growth factor receptor"
+  },
+  "MET(M1250T)": {
+    "gene_name": "MET",
+    "protein_name": "Hepatocyte growth factor receptor"
+  },
+  "MET(Y1235D)": {
+    "gene_name": "MET",
+    "protein_name": "Hepatocyte growth factor receptor"
+  },
+  "MINK": {
+    "gene_name": "MINK1",
+    "protein_name": "Misshapen-like kinase 1"
+  },
+  "MKK7": {
+    "gene_name": "MAP2K7",
+    "protein_name": "Dual specificity mitogen-activated protein kinase kinase 7"
+  },
+  "MKNK1": {
+    "gene_name": "MKNK1",
+    "protein_name": "MAP kinase-interacting serine/threonine-protein kinase 1"
+  },
+  "MKNK2": {
+    "gene_name": "MKNK2",
+    "protein_name": "MAP kinase-interacting serine/threonine-protein kinase 2"
+  },
+  "MLCK": {
+    "gene_name": "MYLK",
+    "protein_name": "Myosin light chain kinase, smooth muscle"
+  },
+  "MLK1": {
+    "gene_name": "MAP3K9",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 9"
+  },
+  "MLK2": {
+    "gene_name": "MAP3K10",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 10"
+  },
+  "MLK3": {
+    "gene_name": "MAP3K11",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 11"
+  },
+  "MRCKA": {
+    "gene_name": "CDC42BPA",
+    "protein_name": "Serine/threonine-protein kinase MRCK alpha"
+  },
+  "MRCKB": {
+    "gene_name": "CDC42BPB",
+    "protein_name": "Serine/threonine-protein kinase MRCK beta"
+  },
+  "MST1": {
+    "gene_name": "STK4",
+    "protein_name": "Serine/threonine-protein kinase 4"
+  },
+  "MST1R": {
+    "gene_name": "MST1R",
+    "protein_name": "Macrophage-stimulating protein receptor"
+  },
+  "MST2": {
+    "gene_name": "STK3",
+    "protein_name": "Serine/threonine-protein kinase 3"
+  },
+  "MST3": {
+    "gene_name": "STK24",
+    "protein_name": "Serine/threonine-protein kinase 24"
+  },
+  "MST4": {
+    "gene_name": "STK26",
+    "protein_name": "Serine/threonine-protein kinase 26"
+  },
+  "MTOR": {
+    "gene_name": "MTOR",
+    "protein_name": "Serine/threonine-protein kinase mTOR"
+  },
+  "MUSK": {
+    "gene_name": "MUSK",
+    "protein_name": "Muscle, skeletal receptor tyrosine-protein kinase"
+  },
+  "MYLK": {
+    "gene_name": "MYLK",
+    "protein_name": "Myosin light chain kinase, smooth muscle"
+  },
+  "MYLK2": {
+    "gene_name": "MYLK2",
+    "protein_name": "Myosin light chain kinase 2, skeletal/cardiac muscle"
+  },
+  "MYLK4": {
+    "gene_name": "MYLK4",
+    "protein_name": "Myosin light chain kinase family member 4"
+  },
+  "MYO3A": {
+    "gene_name": "MYO3A",
+    "protein_name": "Myosin-IIIa"
+  },
+  "MYO3B": {
+    "gene_name": "MYO3B",
+    "protein_name": "Myosin-IIIb"
+  },
+  "NDR1": {
+    "gene_name": "STK38",
+    "protein_name": "Serine/threonine-protein kinase 38"
+  },
+  "NDR2": {
+    "gene_name": "STK38L",
+    "protein_name": "Serine/threonine-protein kinase 38-like"
+  },
+  "NEK1": {
+    "gene_name": "NEK1",
+    "protein_name": "Serine/threonine-protein kinase Nek1"
+  },
+  "NEK11": {
+    "gene_name": "NEK11",
+    "protein_name": "Serine/threonine-protein kinase Nek11"
+  },
+  "NEK2": {
+    "gene_name": "NEK2",
+    "protein_name": "Serine/threonine-protein kinase Nek2"
+  },
+  "NEK3": {
+    "gene_name": "NEK3",
+    "protein_name": "Serine/threonine-protein kinase Nek3"
+  },
+  "NEK4": {
+    "gene_name": "NEK4",
+    "protein_name": "Serine/threonine-protein kinase Nek4"
+  },
+  "NEK5": {
+    "gene_name": "NEK5",
+    "protein_name": "Serine/threonine-protein kinase Nek5"
+  },
+  "NEK6": {
+    "gene_name": "NEK6",
+    "protein_name": "Serine/threonine-protein kinase Nek6"
+  },
+  "NEK7": {
+    "gene_name": "NEK7",
+    "protein_name": "Serine/threonine-protein kinase Nek7"
+  },
+  "NEK9": {
+    "gene_name": "NEK9",
+    "protein_name": "Serine/threonine-protein kinase Nek9"
+  },
+  "NIM1": {
+    "gene_name": "NIM1K",
+    "protein_name": "Serine/threonine-protein kinase NIM1"
+  },
+  "NLK": {
+    "gene_name": "NLK",
+    "protein_name": "Serine/threonine-protein kinase NLK"
+  },
+  "OSR1": {
+    "gene_name": "OXSR1",
+    "protein_name": "Serine/threonine-protein kinase OSR1"
+  },
+  "PAK1": {
+    "gene_name": "PKN1",
+    "protein_name": "Serine/threonine-protein kinase N1"
+  },
+  "PAK2": {
+    "gene_name": "PAK2",
+    "protein_name": "Serine/threonine-protein kinase PAK 2"
+  },
+  "PAK3": {
+    "gene_name": "PAK3",
+    "protein_name": "Serine/threonine-protein kinase PAK 3"
+  },
+  "PAK4": {
+    "gene_name": "PAK4",
+    "protein_name": "Serine/threonine-protein kinase PAK 4"
+  },
+  "PAK6": {
+    "gene_name": "PAK6",
+    "protein_name": "Serine/threonine-protein kinase PAK 6"
+  },
+  "PAK7": {
+    "gene_name": "PAK5",
+    "protein_name": "Serine/threonine-protein kinase PAK 5"
+  },
+  "PCTK1": {
+    "gene_name": "CDK16",
+    "protein_name": "Cyclin-dependent kinase 16"
+  },
+  "PCTK2": {
+    "gene_name": "CDK17",
+    "protein_name": "Cyclin-dependent kinase 17"
+  },
+  "PCTK3": {
+    "gene_name": "CDK18",
+    "protein_name": "Cyclin-dependent kinase 18"
+  },
+  "PDGFRA": {
+    "gene_name": "PDGFRA",
+    "protein_name": "Platelet-derived growth factor receptor alpha"
+  },
+  "PDGFRB": {
+    "gene_name": "PDGFRB",
+    "protein_name": "Platelet-derived growth factor receptor beta"
+  },
+  "PDPK1": {
+    "gene_name": "PDPK1",
+    "protein_name": "3-phosphoinositide-dependent protein kinase 1"
+  },
+  "PFCDPK1(Pfalciparum)": {
+    "gene_name": "CDPK1",
+    "protein_name": "Calcium-dependent protein kinase 1"
+  },
+  "PFPK5(Pfalciparum)": {
+    "gene_name": "CRK2",
+    "protein_name": "Cyclin-dependent kinase 2 homolog"
+  },
+  "PFTAIRE2": {
+    "gene_name": "CDK15",
+    "protein_name": "Cyclin-dependent kinase 15"
+  },
+  "PFTK1": {
+    "gene_name": "CDK14",
+    "protein_name": "Cyclin-dependent kinase 14"
+  },
+  "PHKG1": {
+    "gene_name": "PHKG1",
+    "protein_name": "Phosphorylase b kinase gamma catalytic chain, skeletal muscle/heart isoform"
+  },
+  "PHKG2": {
+    "gene_name": "PHKG2",
+    "protein_name": "Phosphorylase b kinase gamma catalytic chain, liver/testis isoform"
+  },
+  "PIK3C2B": {
+    "gene_name": "PIK3C2B",
+    "protein_name": "Phosphatidylinositol 4-phosphate 3-kinase C2 domain-containing subunit beta"
+  },
+  "PIK3C2G": {
+    "gene_name": "PIK3C2G",
+    "protein_name": "Phosphatidylinositol 3-kinase C2 domain-containing subunit gamma"
+  },
+  "PIK3CA": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(C420R)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(E542K)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(E545A)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(E545K)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(H1047L)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(H1047Y)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(I800L)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(M1043I)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CA(Q546K)": {
+    "gene_name": "PIK3CA",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform"
+  },
+  "PIK3CB": {
+    "gene_name": "PIK3CB",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit beta isoform"
+  },
+  "PIK3CD": {
+    "gene_name": "PIK3CD",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform"
+  },
+  "PIK3CG": {
+    "gene_name": "PIK3CG",
+    "protein_name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit gamma isoform"
+  },
+  "PIK4CB": {
+    "gene_name": "PI4KB",
+    "protein_name": "Phosphatidylinositol 4-kinase beta"
+  },
+  "PIM1": {
+    "gene_name": "PIM1",
+    "protein_name": "Serine/threonine-protein kinase pim-1"
+  },
+  "PIM2": {
+    "gene_name": "PIM2",
+    "protein_name": "Serine/threonine-protein kinase pim-2"
+  },
+  "PIM3": {
+    "gene_name": "PIM3",
+    "protein_name": "Serine/threonine-protein kinase pim-3"
+  },
+  "PIP5K1A": {
+    "gene_name": "PIP5K1A",
+    "protein_name": "Phosphatidylinositol 4-phosphate 5-kinase type-1 alpha"
+  },
+  "PIP5K1C": {
+    "gene_name": "PIP5K1C",
+    "protein_name": "Phosphatidylinositol 4-phosphate 5-kinase type-1 gamma"
+  },
+  "PIP5K2B": {
+    "gene_name": "PIP4K2B",
+    "protein_name": "Phosphatidylinositol 5-phosphate 4-kinase type-2 beta"
+  },
+  "PIP5K2C": {
+    "gene_name": "PIP4K2C",
+    "protein_name": "Phosphatidylinositol 5-phosphate 4-kinase type-2 gamma"
+  },
+  "PKAC-alpha": {
+    "gene_name": "PRKCA",
+    "protein_name": "Protein kinase C alpha type"
+  },
+  "PKAC-beta": {
+    "gene_name": "PRKACB",
+    "protein_name": "cAMP-dependent protein kinase catalytic subunit beta"
+  },
+  "PKMYT1": {
+    "gene_name": "PKMYT1",
+    "protein_name": "Membrane-associated tyrosine- and threonine-specific cdc2-inhibitory kinase"
+  },
+  "PKN1": {
+    "gene_name": "PKN1",
+    "protein_name": "Serine/threonine-protein kinase N1"
+  },
+  "PKN2": {
+    "gene_name": "PKN2",
+    "protein_name": "Serine/threonine-protein kinase N2"
+  },
+  "PKNB(Mtuberculosis)": {
+    "gene_name": "pknB",
+    "protein_name": "Serine/threonine-protein kinase PknB"
+  },
+  "PLK1": {
+    "gene_name": "PLK1",
+    "protein_name": "Serine/threonine-protein kinase PLK1"
+  },
+  "PLK2": {
+    "gene_name": "PLK2",
+    "protein_name": "Serine/threonine-protein kinase PLK2"
+  },
+  "PLK3": {
+    "gene_name": "PLK3",
+    "protein_name": "Serine/threonine-protein kinase PLK3"
+  },
+  "PLK4": {
+    "gene_name": "PLK4",
+    "protein_name": "Serine/threonine-protein kinase PLK4"
+  },
+  "PRKCD": {
+    "gene_name": "PRKCD",
+    "protein_name": "Protein kinase C delta type"
+  },
+  "PRKCE": {
+    "gene_name": "PRKCE",
+    "protein_name": "Protein kinase C epsilon type"
+  },
+  "PRKCH": {
+    "gene_name": "PRKCH",
+    "protein_name": "Protein kinase C eta type"
+  },
+  "PRKCI": {
+    "gene_name": "PRKCI",
+    "protein_name": "Protein kinase C iota type"
+  },
+  "PRKCQ": {
+    "gene_name": "PRKCQ",
+    "protein_name": "Protein kinase C theta type"
+  },
+  "PRKD1": {
+    "gene_name": "PRKD1",
+    "protein_name": "Serine/threonine-protein kinase D1"
+  },
+  "PRKD2": {
+    "gene_name": "PRKD2",
+    "protein_name": "Serine/threonine-protein kinase D2"
+  },
+  "PRKD3": {
+    "gene_name": "PRKD3",
+    "protein_name": "Serine/threonine-protein kinase D3"
+  },
+  "PRKG1": {
+    "gene_name": "PRKG1",
+    "protein_name": "cGMP-dependent protein kinase 1"
+  },
+  "PRKG2": {
+    "gene_name": "PRKG2",
+    "protein_name": "cGMP-dependent protein kinase 2"
+  },
+  "PRKR": {
+    "gene_name": "EIF2AK2",
+    "protein_name": "Interferon-induced, double-stranded RNA-activated protein kinase"
+  },
+  "PRKX": {
+    "gene_name": "PRKX",
+    "protein_name": "cAMP-dependent protein kinase catalytic subunit PRKX"
+  },
+  "PRP4": {
+    "gene_name": "PRP4K",
+    "protein_name": "Serine/threonine-protein kinase PRP4 homolog"
+  },
+  "PYK2": {
+    "gene_name": "PTK2B",
+    "protein_name": "Protein-tyrosine kinase 2-beta"
+  },
+  "QSK": {
+    "gene_name": "SIK3",
+    "protein_name": "Serine/threonine-protein kinase SIK3"
+  },
+  "RAF1": {
+    "gene_name": "RAF1",
+    "protein_name": "RAF proto-oncogene serine/threonine-protein kinase"
+  },
+  "RET": {
+    "gene_name": "RET",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase receptor Ret"
+  },
+  "RET(M918T)": {
+    "gene_name": "RET",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase receptor Ret"
+  },
+  "RET(V804L)": {
+    "gene_name": "RET",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase receptor Ret"
+  },
+  "RET(V804M)": {
+    "gene_name": "RET",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase receptor Ret"
+  },
+  "RIOK1": {
+    "gene_name": "RIOK1",
+    "protein_name": "Serine/threonine-protein kinase RIO1"
+  },
+  "RIOK2": {
+    "gene_name": "RIOK2",
+    "protein_name": "Serine/threonine-protein kinase RIO2"
+  },
+  "RIOK3": {
+    "gene_name": "RIOK3",
+    "protein_name": "Serine/threonine-protein kinase RIO3"
+  },
+  "RIPK1": {
+    "gene_name": "RIPK1",
+    "protein_name": "Receptor-interacting serine/threonine-protein kinase 1"
+  },
+  "RIPK2": {
+    "gene_name": "RIPK2",
+    "protein_name": "Receptor-interacting serine/threonine-protein kinase 2"
+  },
+  "RIPK4": {
+    "gene_name": "RIPK4",
+    "protein_name": "Receptor-interacting serine/threonine-protein kinase 4"
+  },
+  "RIPK5": {
+    "gene_name": "DSTYK",
+    "protein_name": "Dual serine/threonine and tyrosine protein kinase"
+  },
+  "ROCK1": {
+    "gene_name": "ROCK1",
+    "protein_name": "Rho-associated protein kinase 1"
+  },
+  "ROCK2": {
+    "gene_name": "ROCK2",
+    "protein_name": "Rho-associated protein kinase 2"
+  },
+  "ROS1": {
+    "gene_name": "ROS1",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase ROS"
+  },
+  "RPS6KA4(KinDom.1-N-terminal)": {
+    "gene_name": "RPS6KA4",
+    "protein_name": "Ribosomal protein S6 kinase alpha-4"
+  },
+  "RPS6KA4(KinDom.2-C-terminal)": {
+    "gene_name": "RPS6KA4",
+    "protein_name": "Ribosomal protein S6 kinase alpha-4"
+  },
+  "RPS6KA5(KinDom.1-N-terminal)": {
+    "gene_name": "RPS6KA5",
+    "protein_name": "Ribosomal protein S6 kinase alpha-5"
+  },
+  "RPS6KA5(KinDom.2-C-terminal)": {
+    "gene_name": "RPS6KA5",
+    "protein_name": "Ribosomal protein S6 kinase alpha-5"
+  },
+  "RSK1(KinDom.1-N-terminal)": {
+    "gene_name": "RPS6KA1",
+    "protein_name": "Ribosomal protein S6 kinase alpha-1"
+  },
+  "RSK1(KinDom.2-C-terminal)": {
+    "gene_name": "RPS6KA1",
+    "protein_name": "Ribosomal protein S6 kinase alpha-1"
+  },
+  "RSK2(KinDom.1-N-terminal)": {
+    "gene_name": "RPS6KA3",
+    "protein_name": "Ribosomal protein S6 kinase alpha-3"
+  },
+  "RSK3(KinDom.1-N-terminal)": {
+    "gene_name": "RPS6KA2",
+    "protein_name": "Ribosomal protein S6 kinase alpha-2"
+  },
+  "RSK3(KinDom.2-C-terminal)": {
+    "gene_name": "RPS6KA2",
+    "protein_name": "Ribosomal protein S6 kinase alpha-2"
+  },
+  "RSK4(KinDom.1-N-terminal)": {
+    "gene_name": "RPS6KA6",
+    "protein_name": "Ribosomal protein S6 kinase alpha-6"
+  },
+  "RSK4(KinDom.2-C-terminal)": {
+    "gene_name": "RPS6KA6",
+    "protein_name": "Ribosomal protein S6 kinase alpha-6"
+  },
+  "S6K1": {
+    "gene_name": "RPS6KB1",
+    "protein_name": "Ribosomal protein S6 kinase beta-1"
+  },
+  "SBK1": {
+    "gene_name": "SBK1",
+    "protein_name": "Serine/threonine-protein kinase SBK1"
+  },
+  "SGK3": {
+    "gene_name": "SGK3",
+    "protein_name": "Serine/threonine-protein kinase Sgk3"
+  },
+  "SIK": {
+    "gene_name": "SIK1",
+    "protein_name": "Serine/threonine-protein kinase SIK1"
+  },
+  "SIK2": {
+    "gene_name": "SIK2",
+    "protein_name": "Serine/threonine-protein kinase SIK2"
+  },
+  "SLK": {
+    "gene_name": "SLK",
+    "protein_name": "STE20-like serine/threonine-protein kinase"
+  },
+  "SNARK": {
+    "gene_name": "NUAK2",
+    "protein_name": "NUAK family SNF1-like kinase 2"
+  },
+  "SNRK": {
+    "gene_name": "SNRK",
+    "protein_name": "SNF-related serine/threonine-protein kinase"
+  },
+  "SRC": {
+    "gene_name": "SRC",
+    "protein_name": "Proto-oncogene tyrosine-protein kinase Src"
+  },
+  "SRMS": {
+    "gene_name": "SRMS",
+    "protein_name": "Tyrosine-protein kinase Srms"
+  },
+  "SRPK1": {
+    "gene_name": "SRPK1",
+    "protein_name": "SRSF protein kinase 1"
+  },
+  "SRPK2": {
+    "gene_name": "SRPK2",
+    "protein_name": "SRSF protein kinase 2"
+  },
+  "SRPK3": {
+    "gene_name": "SRPK3",
+    "protein_name": "SRSF protein kinase 3"
+  },
+  "STK16": {
+    "gene_name": "STK16",
+    "protein_name": "Serine/threonine-protein kinase 16"
+  },
+  "STK33": {
+    "gene_name": "STK33",
+    "protein_name": "Serine/threonine-protein kinase 33"
+  },
+  "STK35": {
+    "gene_name": "STK35",
+    "protein_name": "Serine/threonine-protein kinase 35"
+  },
+  "STK36": {
+    "gene_name": "STK36",
+    "protein_name": "Serine/threonine-protein kinase 36"
+  },
+  "STK39": {
+    "gene_name": "STK39",
+    "protein_name": "STE20/SPS1-related proline-alanine-rich protein kinase"
+  },
+  "SYK": {
+    "gene_name": "SYK",
+    "protein_name": "Tyrosine-protein kinase SYK"
+  },
+  "SgK110": {
+    "gene_name": "SBK3",
+    "protein_name": "Uncharacterized serine/threonine-protein kinase SBK3"
+  },
+  "TAK1": {
+    "gene_name": "MAP3K7",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 7"
+  },
+  "TAOK1": {
+    "gene_name": "TAOK1",
+    "protein_name": "Serine/threonine-protein kinase TAO1"
+  },
+  "TAOK2": {
+    "gene_name": "TAOK2",
+    "protein_name": "Serine/threonine-protein kinase TAO2"
+  },
+  "TAOK3": {
+    "gene_name": "TAOK3",
+    "protein_name": "Serine/threonine-protein kinase TAO3"
+  },
+  "TBK1": {
+    "gene_name": "TBK1",
+    "protein_name": "Serine/threonine-protein kinase TBK1"
+  },
+  "TEC": {
+    "gene_name": "TEC",
+    "protein_name": "Tyrosine-protein kinase Tec"
+  },
+  "TESK1": {
+    "gene_name": "TESK1",
+    "protein_name": "Dual specificity testis-specific protein kinase 1"
+  },
+  "TGFBR1": {
+    "gene_name": "TGFBR1",
+    "protein_name": "TGF-beta receptor type-1"
+  },
+  "TGFBR2": {
+    "gene_name": "TGFBR2",
+    "protein_name": "TGF-beta receptor type-2"
+  },
+  "TIE1": {
+    "gene_name": "TIE1",
+    "protein_name": "Tyrosine-protein kinase receptor Tie-1"
+  },
+  "TIE2": {
+    "gene_name": "TEK",
+    "protein_name": "Angiopoietin-1 receptor"
+  },
+  "TLK1": {
+    "gene_name": "TLK1",
+    "protein_name": "Serine/threonine-protein kinase tousled-like 1"
+  },
+  "TLK2": {
+    "gene_name": "TLK2",
+    "protein_name": "Serine/threonine-protein kinase tousled-like 2"
+  },
+  "TNIK": {
+    "gene_name": "TNIK",
+    "protein_name": "TRAF2 and NCK-interacting protein kinase"
+  },
+  "TNK1": {
+    "gene_name": "TNK1",
+    "protein_name": "Non-receptor tyrosine-protein kinase TNK1"
+  },
+  "TNK2": {
+    "gene_name": "TNK2",
+    "protein_name": "Activated CDC42 kinase 1"
+  },
+  "TNNI3K": {
+    "gene_name": "TNNI3K",
+    "protein_name": "Serine/threonine-protein kinase TNNI3K"
+  },
+  "TRKA": {
+    "gene_name": "NTRK1",
+    "protein_name": "High affinity nerve growth factor receptor"
+  },
+  "TRKB": {
+    "gene_name": "NTRK2",
+    "protein_name": "BDNF/NT-3 growth factors receptor"
+  },
+  "TRKC": {
+    "gene_name": "NTRK3",
+    "protein_name": "NT-3 growth factor receptor"
+  },
+  "TRPM6": {
+    "gene_name": "TRPM6",
+    "protein_name": "Transient receptor potential cation channel subfamily M member 6"
+  },
+  "TSSK1B": {
+    "gene_name": "TSSK1B",
+    "protein_name": "Testis-specific serine/threonine-protein kinase 1"
+  },
+  "TTK": {
+    "gene_name": "TTK",
+    "protein_name": "Dual specificity protein kinase TTK"
+  },
+  "TXK": {
+    "gene_name": "TXK",
+    "protein_name": "Tyrosine-protein kinase TXK"
+  },
+  "TYK2(JH1domain-catalytic)": {
+    "gene_name": "TYK2",
+    "protein_name": "Non-receptor tyrosine-protein kinase TYK2"
+  },
+  "TYK2(JH2domain-pseudokinase)": {
+    "gene_name": "TYK2",
+    "protein_name": "Non-receptor tyrosine-protein kinase TYK2"
+  },
+  "TYRO3": {
+    "gene_name": "TYRO3",
+    "protein_name": "Tyrosine-protein kinase receptor TYRO3"
+  },
+  "ULK1": {
+    "gene_name": "ULK1",
+    "protein_name": "Serine/threonine-protein kinase ULK1"
+  },
+  "ULK2": {
+    "gene_name": "ULK2",
+    "protein_name": "Serine/threonine-protein kinase ULK2"
+  },
+  "ULK3": {
+    "gene_name": "ULK3",
+    "protein_name": "Serine/threonine-protein kinase ULK3"
+  },
+  "VEGFR2": {
+    "gene_name": "KDR",
+    "protein_name": "Vascular endothelial growth factor receptor 2"
+  },
+  "VRK2": {
+    "gene_name": "VRK2",
+    "protein_name": "Serine/threonine-protein kinase VRK2"
+  },
+  "WEE1": {
+    "gene_name": "WEE1",
+    "protein_name": "Wee1-like protein kinase"
+  },
+  "WEE2": {
+    "gene_name": "WEE2",
+    "protein_name": "Wee1-like protein kinase 2"
+  },
+  "YANK1": {
+    "gene_name": "STK32A",
+    "protein_name": "Serine/threonine-protein kinase 32A"
+  },
+  "YANK2": {
+    "gene_name": "STK32B",
+    "protein_name": "Serine/threonine-protein kinase 32B"
+  },
+  "YANK3": {
+    "gene_name": "STK32C",
+    "protein_name": "Serine/threonine-protein kinase 32C"
+  },
+  "YES": {
+    "gene_name": "YES1",
+    "protein_name": "Tyrosine-protein kinase Yes"
+  },
+  "YSK1": {
+    "gene_name": "STK25",
+    "protein_name": "Serine/threonine-protein kinase 25"
+  },
+  "YSK4": {
+    "gene_name": "MAP3K19",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 19"
+  },
+  "ZAK": {
+    "gene_name": "MAP3K20",
+    "protein_name": "Mitogen-activated protein kinase kinase kinase 20"
+  },
+  "ZAP70": {
+    "gene_name": "ZAP70",
+    "protein_name": "Tyrosine-protein kinase ZAP-70"
+  },
+  "p38-alpha": {
+    "gene_name": "MAPK14",
+    "protein_name": "Mitogen-activated protein kinase 14"
+  },
+  "p38-beta": {
+    "gene_name": "MAPK11",
+    "protein_name": "Mitogen-activated protein kinase 11"
+  },
+  "p38-delta": {
+    "gene_name": "MAPK13",
+    "protein_name": "Mitogen-activated protein kinase 13"
+  },
+  "p38-gamma": {
+    "gene_name": "MAPK12",
+    "protein_name": "Mitogen-activated protein kinase 12"
+  }
+}

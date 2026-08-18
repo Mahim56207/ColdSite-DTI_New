@@ -4,7 +4,7 @@
 > interpretability claims, not a single-model paper. Read
 > `docs/00_MASTER_PLAN_V2.md`, then your `docs/PART2_GUIDE_<roll>.md`.
 
-Last updated: 2026-08-09. Regenerate the numbers with `python -m pytest tests/ -q`
+Last updated: 2026-08-18. Regenerate the numbers with `python -m pytest tests/ -q`
 and `python -m src.data.ground_truth`.
 
 This file tracks Part 1 against the checklists in each guide. **Part 1 is not
@@ -22,6 +22,76 @@ to run. Track A's step-by-step is `docs/RUNBOOK_124AD0008.md`.
 > Note for 124AD0015: **DAVIS cold-pair validation is 264 rows.** Inherent to
 > requiring both drug and target unseen, not a bug — but early stopping on it
 > will be noisy, so decide how to handle that before the grid runs.
+
+---
+
+## 2026-08-18 — the week's scope, and what the hardware allows
+
+**Scope for this sprint: DAVIS only, binary task, three models.** That is
+3 models × 4 splits × 3 seeds = 36 runs, and it is the whole scientific spine
+of the paper — the ladder, faithfulness, the Holm-corrected audit table, the
+stratified control, the headline figure.
+
+**Deferred, deliberately, and to be written up as limitations:**
+
+- **KIBA.** 118,254 pairs against DAVIS's 30,056. It multiplies the grid's
+  12–30 GPU-hours to 50–120, which does not fit the window.
+- **MolTrans.** No trainer exists for it, it is 62.8M parameters against
+  DeepDTA's 1.9M, and the `config['batch_size']` reshape in its vendored
+  `forward` (`baselines/MolTrans/models.py:96`) will scramble training the
+  same way it scrambled the suspect AUPRC row. The adapter is written and
+  passes the contract; the audit cell is what is missing.
+
+### Measured memory, so nobody discovers a batch size by OOM
+
+Peak activation, forward + backward, 1000-residue protein:
+
+| model | params | batch | peak |
+|---|---|---|---|
+| DeepDTA (our port) | 1.9M | 256 | 0.7 GB |
+| ColdSite-DTI | 0.6M | 16 / 32 / **64 (default)** | 2.3 / 4.4 / **8.7 GB** |
+| HyperAttentionDTI | 2.3M | **8 (default)** / 32 (vendored) | **1.7** / ~5 GB |
+| MolTrans | 62.8M | 16 (vendored) / 32 | 5.6 / 10.9 GB |
+
+Two consequences. **ColdSite-DTI's own default batch of 64 needs 8.7 GB** and
+will not start on a 4 GB card — `src/model/run_grid.py` now takes
+`--batch-size` so the grid can be sized to the card it runs on. And vendored
+MolTrans divides by `torch.cuda.device_count()`, so it raises
+`ZeroDivisionError` on any CPU-only machine, CI runners included.
+
+The grid runs on Linux (Kaggle / Colab / HPC), so the Windows `.bat` runners
+cannot launch it. `run_davis_grid.sh` is the portable equivalent, resumable
+per cell, batch sizes overridable by environment variable.
+
+### Fixed in this pass
+
+- Two tests still asserted the baseline adapters were unimplemented stubs, so
+  the suite was **red on `main`** from the commit that implemented them. They
+  now assert the real contract: every adapter implemented, DeepDTA implemented
+  but deliberately not auditable. **540 passing, 0 failing.**
+- `python -m src.evaluation.target_family --panel` was documented in two places
+  and implemented in none — the flag was ignored and the command re-printed the
+  DAVIS/KIBA report saying `control_is_usable: False`. It now reads the panel's
+  own family assignments: **60 non-kinase targets, 0 unknown,
+  `control_is_usable: True`**. The control arm was never broken, only unwired.
+- `data/davis_uniprot_to_gene.json` is committed. It is built offline from the
+  provenance file (`python -m src.data.build_gene_map --dataset davis`, no
+  network, 442/442 resolved), and it takes DAVIS from 241 kinase / 201 unknown
+  to **429 kinase / 13 unknown / 0 non-kinase** — which is the confound stated
+  exactly: DAVIS cannot supply its own control, so the non-kinase panel is the
+  only one there is.
+- `results/*.md` and `results/*.csv` are no longer gitignored, so the numbers
+  the paper quotes are versioned. Checkpoints, per-run JSON and figures stay
+  ignored, and anything named `DUMMY_PLACEHOLDER` is re-ignored after the
+  exception so a synthetic run still cannot be committed.
+
+### Still missing before any of this produces a number
+
+1. **`run_audit`'s real collector.** `src/evaluation/run_audit.py` still raises
+   `SystemExit` in real mode; only `dummy_collect_fn` exists. Without it there
+   is no path from checkpoints to the audit table.
+2. **The panel evaluation path.** The 60 targets have ground truth and
+   sequences, and nothing loads them for a trained model to explain.
 
 ---
 
@@ -301,7 +371,7 @@ artefact and should fail once the artefact is fixed.
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q          # 387 tests, ~6s
+python -m pytest tests/ -q          # 540 tests, ~13s
 python -m src.data.ground_truth     # ground-truth coverage report
 ```
 

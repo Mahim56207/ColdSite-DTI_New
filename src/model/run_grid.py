@@ -312,12 +312,27 @@ def main():
     parser.add_argument("--results-dir", default="results")
     parser.add_argument("--epochs", type=int, default=EPOCHS)
     parser.add_argument("--task", default=TASK, choices=["regression", "binary"])
+    # Memory, not taste. ColdSite-DTI holds a BiLSTM over 1000 residues: peak
+    # activations measure ~2.3 GB at batch 16, ~4.4 GB at 32 and ~8.7 GB at the
+    # trainer's default of 64. Without a passthrough here the grid could only
+    # ever run on a 16 GB card, and it failed by OOM rather than by saying so.
+    parser.add_argument("--batch-size", type=int,
+                        help="override the trainer's batch size (default 64, "
+                             "which needs ~8.7 GB; use 16 on a 4 GB card)")
+    parser.add_argument("--lr", type=float, help="override the learning rate")
     parser.add_argument("--overwrite", action="store_true",
                         help="retrain cells that already have a checkpoint")
     parser.add_argument("--skip-validation-cell", action="store_true",
                         help="do NOT stop to verify the first cell. Only for a "
                              "grid that has already been validated once.")
     args = parser.parse_args()
+
+    extra = []
+    if args.batch_size is not None:
+        extra += ["--batch-size", str(args.batch_size)]
+    if args.lr is not None:
+        extra += ["--lr", str(args.lr)]
+    extra = tuple(extra)
 
     cells = grid_cells(
         [d.strip() for d in args.datasets.split(",") if d.strip()],
@@ -331,7 +346,8 @@ def main():
         print("\n# Cells\n")
         for cell in cells:
             print("  " + " ".join(train_command(
-                cell, args.split_root, args.results_dir, args.task, args.epochs)))
+                cell, args.split_root, args.results_dir, args.task, args.epochs,
+                extra)))
         return
 
     if args.preflight:
@@ -350,7 +366,7 @@ def main():
         print(f"\nValidating ONE cell end to end before launching the other "
               f"{len(remaining)}.")
         outcome = run_cell(first, args.split_root, args.results_dir, args.task,
-                           args.epochs)
+                           args.epochs, extra)
         results.append(outcome)
         if outcome["status"] != "ok":
             write_status(results, args.results_dir)
@@ -376,7 +392,7 @@ def main():
                                if k in ("accuracy",)}})
             continue
         results.append(run_cell(cell, args.split_root, args.results_dir,
-                                args.task, args.epochs))
+                                args.task, args.epochs, extra))
 
     json_path, table_path = write_status(results, args.results_dir)
     print("\n" + status_table(results))

@@ -265,7 +265,45 @@ def confound_report(target_ids, gene_map: dict = None) -> dict:
     }
 
 
+def _report_panel() -> int:
+    """The non-kinase control arm, reported against its own family assignments.
+
+    Separate from the DAVIS/KIBA report because the panel is a different kind
+    of object: its targets are BindingDB proteins that no DAVIS/KIBA-trained
+    model has ever seen, and their family is decided by the builder from
+    UniProt's annotated ligand rather than guessed from a gene symbol. Reading
+    the panel through `classify_target` would return UNKNOWN for all 60 and
+    report `control_is_usable: False` on an arm that is in fact usable.
+    """
+    sites_path = "data/nonkinase_ground_truth_sites.json"
+    families_path = "data/nonkinase_panel_families.json"
+
+    for path in (sites_path, families_path):
+        if not os.path.exists(path):
+            print(f"\n{path} -- missing. Build the panel first:\n"
+                  f"    python -m src.data.build_nonkinase_panel --build")
+            return 1
+
+    with open(sites_path) as handle:
+        targets = list(json.load(handle))
+    # register: classify_target reads the family map before it tries to guess
+    # from the gene symbol, and an accession like P14416 is unguessable
+    mapping = load_family_map(families_path)
+
+    report = confound_report(targets)
+    print(f"\n{sites_path}")
+    print(f"  family map: {len(mapping)} assignments from {families_path}")
+    for key, value in report.items():
+        print(f"  {key:24s} {value}")
+    return 0
+
+
 if __name__ == "__main__":
+    import sys
+
+    if "--panel" in sys.argv[1:]:
+        raise SystemExit(_report_panel())
+
     DATASETS = {
         "davis": ("data/davis_ground_truth_sites.json",
                   "data/davis_uniprot_to_gene.json"),

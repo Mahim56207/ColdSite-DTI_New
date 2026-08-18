@@ -31,6 +31,17 @@ notebooks/data/
 results/*
 !results/.gitkeep
 
+# Exception: the small summary tables the paper quotes. A number that appears
+# in results.md, STATUS.md or the draft has to be traceable to a versioned
+# file, and split_summary.md was the only record of the split counts.
+# Checkpoints, per-run JSON and figures stay ignored -- these are tables only.
+!results/*.md
+!results/*.csv
+# ...but never a synthetic run. This rule comes last so it wins: a
+# DUMMY_PLACEHOLDER file committed by accident is a placeholder number sitting
+# in the repo looking like a finding.
+results/*DUMMY_PLACEHOLDER*
+
 # OS/editor junk
 .DS_Store
 .vscode/

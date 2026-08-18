@@ -47,19 +47,27 @@ def test_deepdta_is_marked_as_having_no_attention():
     assert MolTransAdapter.provides_attention is True
 
 
-def test_unimplemented_stub_names_the_file_and_the_next_step():
+def test_deepdta_explain_refuses_and_says_why():
+    """The one adapter that must never produce an explanation.
+
+    Manufacturing saliency for DeepDTA would put a different method's output
+    into a table that reads as DeepDTA's. If this ever stops raising, check
+    that the audit runner is still honouring `provides_attention`.
+    """
     with pytest.raises(NotImplementedError) as exc:
-        HyperAttentionDTIAdapter().explain(None, None)
+        DeepDTAAdapter().explain(None, None)
     message = str(exc.value)
-    assert "baseline_adapters.py" in message
-    assert "validate_adapter" in message
-    assert "github.com" in message
+    assert "provides_attention" in message
+    assert "accuracy anchor" in message
 
 
-def test_status_marks_stubs_as_not_auditable():
+def test_status_marks_every_adapter_implemented_but_deepdta_unauditable():
     status = implementation_status()
-    assert status["coldsite_dti"]["auditable_for_explanations"]
-    assert not status["moltrans"]["auditable_for_explanations"]
+    for name in ("coldsite_dti", "hyperattentiondti", "moltrans"):
+        assert status[name]["implemented"]
+        assert status[name]["auditable_for_explanations"], name
+    # implemented, deliberately not auditable -- no attention to audit
+    assert status["deepdta"]["implemented"]
     assert not status["deepdta"]["auditable_for_explanations"]
 
 

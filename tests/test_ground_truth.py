@@ -258,3 +258,93 @@ def test_off_by_one_regression(tmp_path):
     naive = precision_at_k(attention, raw_uniprot_numbers, k=6)
     assert naive == pytest.approx(4 / 6)
     assert naive < via_adapter
+
+
+# --------------------------------------------------------------------------
+# ligand-aware filtering — the cotransport-ion question (STATUS.md A13)
+# --------------------------------------------------------------------------
+
+def test_cotransport_ions_are_kept_by_default():
+    """The decision belongs to Track C. Baking an answer into the default
+    would settle a measurement question silently."""
+    from src.data.ground_truth import build_site_set
+
+    features = [
+        {"start": 10, "end": 10, "type": "Binding site", "ligand": {"name": "Na(+)"}},
+        {"start": 20, "end": 20, "type": "Binding site", "ligand": {"name": "dopamine"}},
+    ]
+    site_set = build_site_set("SLC6A3", features)
+    assert len(site_set) == 2
+    assert site_set.n_dropped_ligand == 0
+
+
+def test_excluding_cotransport_ions_drops_only_those_sites():
+    """No drug binds a sodium-coordination residue, so those positions inflate
+    precision@k the same way the `Site` catch-all did."""
+    from src.data.ground_truth import COTRANSPORT_IONS, build_site_set
+
+    features = [
+        {"start": 10, "end": 10, "type": "Binding site", "ligand": {"name": "Na(+)"}},
+        {"start": 15, "end": 15, "type": "Binding site", "ligand": {"name": "chloride"}},
+        {"start": 20, "end": 20, "type": "Binding site", "ligand": {"name": "dopamine"}},
+    ]
+    site_set = build_site_set("SLC6A3", features, exclude_ligands=COTRANSPORT_IONS)
+    assert site_set.positions == {19}          # dopamine only, 0-indexed
+    assert site_set.n_dropped_ligand == 2
+
+
+def test_zinc_survives_the_cotransport_filter():
+    """Zinc cuts the other way and this is the whole subtlety: carbonic
+    anhydrase and HDAC inhibitors chelate the catalytic zinc directly, so for
+    those proteins zinc IS the drug site. A filter that dropped every metal
+    would discard the correct answer."""
+    from src.data.ground_truth import COTRANSPORT_IONS, build_site_set
+
+    features = [{"start": 94, "end": 94, "type": "Binding site",
+                 "ligand": {"name": "Zn(2+)"}}]
+    site_set = build_site_set("CA2", features, exclude_ligands=COTRANSPORT_IONS)
+    assert site_set.positions == {93}
+    assert site_set.n_dropped_ligand == 0
+
+
+def test_a_feature_with_no_ligand_is_never_dropped_by_the_filter():
+    from src.data.ground_truth import build_site_set
+
+    features = [{"start": 5, "end": 5, "type": "Active site"}]
+    site_set = build_site_set("X", features, exclude_ligands=("na(+)",))
+    assert len(site_set) == 1
+
+
+def test_ligand_breakdown_counts_positions_not_features(tmp_path):
+    """A range covers several residues; the decision is about how much ground
+    truth an ligand accounts for, which is a position count."""
+    import json
+
+    from src.data.ground_truth import ligand_breakdown
+
+    path = tmp_path / "gt.json"
+    path.write_text(json.dumps({
+        "A": [{"start": 1, "end": 5, "type": "Binding site",
+               "ligand": {"name": "Na(+)"}}],
+        "B": [{"start": 1, "end": 1, "type": "Binding site",
+               "ligand": {"name": "ATP"}}],
+    }))
+    breakdown = ligand_breakdown(str(path))
+    assert breakdown["Na(+)"] == 5
+    assert breakdown["ATP"] == 1
+
+
+def test_the_committed_davis_ground_truth_is_untouched_by_the_filter():
+    """Measured: DAVIS holds 5,177 positions with or without the exclusion, so
+    this decision moves the control arm only and never the main ladder."""
+    import os
+
+    from src.data.ground_truth import COTRANSPORT_IONS, load_site_sets
+
+    path = "data/davis_ground_truth_sites.json"
+    if not os.path.exists(path):
+        pytest.skip("DAVIS ground truth not present")
+    plain = load_site_sets(path, max_len=1000)
+    filtered = load_site_sets(path, max_len=1000, exclude_ligands=COTRANSPORT_IONS)
+    assert (sum(len(s) for s in plain.values())
+            == sum(len(s) for s in filtered.values()))

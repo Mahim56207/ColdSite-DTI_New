@@ -51,7 +51,7 @@ import os
 
 import numpy as np
 
-from src.data.ground_truth import load_site_sets
+from src.data.ground_truth import COTRANSPORT_IONS, load_site_sets
 from src.evaluation.collect import MissingCell, collect_cell
 from src.evaluation.precision_at_k import batch_precision_at_k
 from src.evaluation.significance_test import permutation_test_batch
@@ -96,7 +96,8 @@ def run_control(model_name: str, dataset: str, seed: int, task: str = "binary",
                 levels=LEVELS, split_root: str = "data/splits",
                 checkpoint_dir: str = "results", ground_truth: str = None,
                 k: int = 10, n_trials: int = 1000, max_protein_len: int = 1000,
-                pairs_per_target: int = 1, device: str = "cpu") -> dict:
+                pairs_per_target: int = 1, exclude_ligands: tuple = (),
+                device: str = "cpu") -> dict:
     """Both arms of the control, per level, for one model and seed.
 
     The kinase arm is the model's own test split -- the same proteins the
@@ -105,13 +106,20 @@ def run_control(model_name: str, dataset: str, seed: int, task: str = "binary",
     the two numbers is the protein family.
     """
     ground_truth = ground_truth or f"data/{dataset}_ground_truth_sites.json"
-    kinase_sites = load_site_sets(ground_truth, max_len=max_protein_len)
-    panel_sites = load_site_sets(PANEL_SITES, max_len=max_protein_len)
+    kinase_sites = load_site_sets(ground_truth, max_len=max_protein_len,
+                                  exclude_ligands=exclude_ligands)
+    # Measured on the committed panel: excluding COTRANSPORT_IONS removes 29 of
+    # 396 positions across 4 transporters (SLC6A2/3/4, DRD4) and drops no
+    # target below usability. DAVIS is untouched at 5,177 positions either way,
+    # so this decision moves the control arm only, never the main ladder.
+    panel_sites = load_site_sets(PANEL_SITES, max_len=max_protein_len,
+                                 exclude_ligands=exclude_ligands)
 
     gate = panel_is_usable(panel_sites)
     results = {
         "model": model_name, "dataset": dataset, "seed": seed, "task": task,
         "k": k, "panel_gate": gate, "levels": {},
+        "exclude_ligands": list(exclude_ligands),
         "design": ("transfer, not stratification: the non-kinase arm is 60 "
                    "BindingDB proteins outside the training distribution, so "
                    "it is a strictly harder condition than this dataset's own "
@@ -232,6 +240,13 @@ def main():
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--n-trials", type=int, default=1000)
     parser.add_argument("--pairs-per-target", type=int, default=1)
+    parser.add_argument(
+        "--exclude-cotransport-ions", action="store_true",
+        help="drop sites coordinating Na+/Cl-/K+. No drug binds a "
+             "sodium-coordination residue, so those positions inflate "
+             "precision@k -- but zinc cuts the other way (carbonic anhydrase "
+             "and HDAC inhibitors chelate the catalytic zinc), so metals are "
+             "NOT excluded wholesale. Report both ways; state which in Methods")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--dry-run", action="store_true",
                         help="check the panel and its gate, train nothing, "
@@ -260,10 +275,13 @@ def main():
         levels=[level.strip() for level in args.levels.split(",")],
         split_root=args.split_root, checkpoint_dir=args.checkpoint_dir,
         ground_truth=args.ground_truth, k=args.k, n_trials=args.n_trials,
-        pairs_per_target=args.pairs_per_target, device=args.device)
+        pairs_per_target=args.pairs_per_target,
+        exclude_ligands=COTRANSPORT_IONS if args.exclude_cotransport_ions else (),
+        device=args.device)
 
     os.makedirs(args.out_dir, exist_ok=True)
-    tag = f"control_{args.model}_{args.dataset}_seed{args.seed}"
+    tag = (f"control_{args.model}_{args.dataset}_seed{args.seed}"
+           + ("_noions" if args.exclude_cotransport_ions else ""))
     with open(os.path.join(args.out_dir, f"{tag}.json"), "w") as handle:
         json.dump(results, handle, indent=2, default=str)
     text = report(results)

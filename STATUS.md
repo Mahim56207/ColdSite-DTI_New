@@ -85,13 +85,56 @@ per cell, batch sizes overridable by environment variable.
   ignored, and anything named `DUMMY_PLACEHOLDER` is re-ignored after the
   exception so a synthetic run still cannot be committed.
 
-### Still missing before any of this produces a number
+### Built since — everything that does not need a GPU
 
-1. **`run_audit`'s real collector.** `src/evaluation/run_audit.py` still raises
-   `SystemExit` in real mode; only `dummy_collect_fn` exists. Without it there
-   is no path from checkpoints to the audit table.
-2. **The panel evaluation path.** The 60 targets have ground truth and
-   sequences, and nothing loads them for a trained model to explain.
+1. **`run_audit`'s real collector** — `src/evaluation/collect.py`. Real mode
+   used to raise `SystemExit`; the grid now runs against trained checkpoints.
+   Each model is tokenised with its own vendored tables, never a shared one.
+   Verified end to end on a 30-target fixture across 4 levels × 3 seeds.
+2. **The panel evaluation path** — `src/evaluation/run_control.py`. Reported as
+   a **transfer** condition, not a stratification: DAVIS has 0 non-kinase
+   targets to stratify into, so the arm is 60 out-of-distribution BindingDB
+   proteins, which is harder than the dataset's own cold-target level.
+   `--dry-run` checks the gate without a checkpoint.
+3. **One checkpoint per model per cell** — `MODEL_SUFFIX` in
+   `checkpoint_naming.py`. Existing DeepDTA paths are unchanged, pinned by a
+   test. `discover_checkpoints` could previously never find a baseline at all.
+4. **The cotransport-ion decision is a flag**, and its cost is measured: 29 of
+   396 panel positions across SLC6A2/3/4 and DRD4, no target lost, DAVIS
+   untouched. Default excludes nothing; zinc deliberately survives.
+5. **Related Work rewritten** for the audit reframe — honest CS-DTA paragraph,
+   OOD-explainability section, attention-faithfulness dispute.
+
+Found and fixed on the way: **`run_audit` could not see a single baseline.**
+Registration is an import side-effect of `@register`, nothing imported
+`baseline_adapters`, and `--models deepdta` failed with "unknown model" plus
+advice to write an adapter that already existed and already passed
+`validate_adapter`.
+
+### What is left, and all of it needs the GPU
+
+| # | Item | Command | Blocking |
+|---|---|---|---|
+| 1 | Rebuild splits on the machine holding the DeepDTA files | `python -m src.data.build_splits` | everything |
+| 2 | **36 training runs** — DAVIS, binary, 3 models × 4 splits × 3 seeds | `./run_davis_grid.sh` | every real number |
+| 3 | Ladder + faithfulness per seed | `run_faithfulness` then `run_ladder` | the headline figure |
+| 4 | The audit grid | `run_audit --models ... --ground-truth ...` | Results |
+| 5 | The control, both ways | `run_control` ± `--exclude-cotransport-ions` | the confound section |
+
+Every one of those is a command that exists and is tested. Nothing above the
+line is waiting on code.
+
+### Still an open decision, not a code gap
+
+**The ladder is not monotonic on DAVIS** (`results.md`): cold-drug 0.640 is far
+harder than cold-target 0.818, because holding out 20% of 68 drugs leaves 49 to
+train on. Nothing in the code assumes monotonicity — the axis is categorical
+throughout — so this is a writing decision, and **option 3 is the cheap,
+defensible one**: keep the four levels as categories, drop the "increasing
+severity" framing, and report the non-monotonicity as a finding. "Cold-start
+severity is not a single ordered axis; it depends on which entity space is
+sparse" is exactly the kind of claim an audit paper is well placed to make.
+Settle it before the headline figure is drawn.
 
 ---
 

@@ -44,6 +44,11 @@ COLDSITE_BATCH="${COLDSITE_BATCH:-64}"
 HAT_BATCH="${HAT_BATCH:-32}"
 HAT_ACCUM="${HAT_ACCUM:-1}"
 DEEPDTA_BATCH="${DEEPDTA_BATCH:-256}"
+# Checkpoint-selection floor. Applied identically to all three models on
+# purpose: the audit compares them to each other, and a model checkpointed at
+# epoch 2 against one at epoch 16 confounds the explanation axis with training
+# volume. See src/model/early_stopping.py.
+MIN_EPOCHS="${MIN_EPOCHS:-10}"
 
 WHICH="${1:-all}"
 
@@ -55,7 +60,7 @@ run_deepdta() {
         --split-dir "data/splits/davis/$split" \
         --dataset davis --split "$split" \
         --task binary --seed "$seed" \
-        --batch-size "$DEEPDTA_BATCH" \
+        --batch-size "$DEEPDTA_BATCH" --min-epochs "$MIN_EPOCHS" \
         --epochs "$EPOCHS" --skip-if-done
     done
   done
@@ -70,7 +75,7 @@ run_coldsite() {
     --splits "$(echo $SPLITS | tr ' ' ',')" \
     --seeds "$(echo $SEEDS | tr ' ' ',')" \
     --task binary --epochs "$EPOCHS" \
-    --batch-size "$COLDSITE_BATCH"
+    --batch-size "$COLDSITE_BATCH" --min-epochs "$MIN_EPOCHS"
 }
 
 run_hyperattentiondti() {
@@ -83,6 +88,7 @@ run_hyperattentiondti() {
         --dataset davis --split "$split" \
         --seed "$seed" \
         --batch-size "$HAT_BATCH" --accum-steps "$HAT_ACCUM" \
+        --min-epochs "$MIN_EPOCHS" \
         --epochs "$EPOCHS" --skip-if-done
     done
   done

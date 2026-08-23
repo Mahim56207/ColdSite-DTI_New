@@ -39,6 +39,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
+from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import checkpoint_path, results_path, run_tag
 from src.model.deepdta_torch import (
     MAX_PROTEIN_LEN,
@@ -134,6 +135,9 @@ def main():
     parser.add_argument("--batch-size", type=int, default=256)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--patience", type=int, default=10)
+    parser.add_argument(
+        "--min-epochs", type=int, default=DEFAULT_MIN_EPOCHS,
+        help="no checkpoint before this epoch; see src/model/early_stopping.py")
     parser.add_argument("--drug-kernel", type=int, default=4)
     parser.add_argument("--protein-kernel", type=int, default=8)
     parser.add_argument("--checkpoint-dir", default="results")
@@ -181,7 +185,10 @@ def main():
                            args.task, args.seed, model="deepdta")
     os.makedirs(os.path.dirname(ckpt) or ".", exist_ok=True)
 
-    best_loss, best_epoch, history = float("inf"), -1, []
+    history = []
+    selector = CheckpointSelector(patience=args.patience,
+                                  min_epochs=args.min_epochs,
+                                  n_epochs=args.epochs)
     for epoch in range(1, args.epochs + 1):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
                                      optimizer)
@@ -193,12 +200,12 @@ def main():
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
 
-        if val_loss < best_loss:
-            best_loss, best_epoch = val_loss, epoch
+        if selector.consider(epoch, val_loss):
             torch.save({"model_state": model.state_dict(), "epoch": epoch,
                         "args": vars(args)}, ckpt)
-        elif epoch - best_epoch >= args.patience:
-            print(f"  early stop at epoch {epoch} (best {best_epoch})")
+        elif selector.should_stop(epoch):
+            print(f"  early stop at epoch {epoch} "
+                  f"(best {selector.best_epoch})")
             break
 
     model.load_state_dict(torch.load(ckpt, map_location=device,
@@ -209,7 +216,8 @@ def main():
     with open(out_path, "w") as handle:
         json.dump({"tag": tag, "model": "deepdta", "dataset": args.dataset,
                    "split": args.split, "task": args.task, "seed": args.seed,
-                   "checkpoint": ckpt, "best_epoch": best_epoch,
+                   "checkpoint": ckpt, "best_epoch": selector.best_epoch,
+                   "selection": selector.summary(),
                    "n_train_rows": len(loaders["train"].dataset),
                    "test_metrics": test_metrics}, handle, indent=2)
 

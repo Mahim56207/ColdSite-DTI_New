@@ -320,6 +320,12 @@ def main():
                         help="override the trainer's batch size (default 64, "
                              "which needs ~8.7 GB; use 16 on a 4 GB card)")
     parser.add_argument("--lr", type=float, help="override the learning rate")
+    parser.add_argument(
+        "--min-epochs", type=int,
+        help="floor on checkpoint selection. Must match the other models in "
+             "the grid: the audit compares them to each other, so a cell "
+             "checkpointed at epoch 2 against one at epoch 16 confounds the "
+             "explanation axis. See src/model/early_stopping.py")
     parser.add_argument("--overwrite", action="store_true",
                         help="retrain cells that already have a checkpoint")
     parser.add_argument("--skip-validation-cell", action="store_true",
@@ -332,6 +338,8 @@ def main():
         extra += ["--batch-size", str(args.batch_size)]
     if args.lr is not None:
         extra += ["--lr", str(args.lr)]
+    if args.min_epochs is not None:
+        extra += ["--min-epochs", str(args.min_epochs)]
     extra = tuple(extra)
 
     cells = grid_cells(

@@ -74,6 +74,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
+from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import checkpoint_path, results_path, run_tag
 from src.model.train import compute_metrics
 
@@ -234,6 +235,9 @@ def main():
     parser.add_argument("--lr", type=float, default=5e-5,
                         help="vendored default is 5e-5")
     parser.add_argument("--patience", type=int, default=15)
+    parser.add_argument(
+        "--min-epochs", type=int, default=DEFAULT_MIN_EPOCHS,
+        help="no checkpoint before this epoch; see src/model/early_stopping.py")
     parser.add_argument("--class-weight", choices=["none", "balanced"],
                         default="none",
                         help="'balanced' derives it from the training split. "
@@ -321,7 +325,9 @@ def main():
                            "binary", args.seed, model="hyperattentiondti")
     os.makedirs(os.path.dirname(ckpt) or ".", exist_ok=True)
 
-    best_loss, best_epoch = float("inf"), -1
+    selector = CheckpointSelector(patience=args.patience,
+                                  min_epochs=args.min_epochs,
+                                  n_epochs=args.epochs)
     for epoch in range(1, args.epochs + 1):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
                                      optimizer, scheduler,
@@ -334,12 +340,12 @@ def main():
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
 
-        if val_loss < best_loss:
-            best_loss, best_epoch = val_loss, epoch
+        if selector.consider(epoch, val_loss):
             torch.save({"model_state": model.state_dict(), "epoch": epoch,
                         "args": vars(args)}, ckpt)
-        elif epoch - best_epoch >= args.patience:
-            print(f"  early stop at epoch {epoch} (best {best_epoch})")
+        elif selector.should_stop(epoch):
+            print(f"  early stop at epoch {epoch} "
+                  f"(best {selector.best_epoch})")
             break
 
     model.load_state_dict(torch.load(ckpt, map_location=device,
@@ -352,7 +358,8 @@ def main():
         json.dump({"tag": tag, "model": "hyperattentiondti",
                    "dataset": args.dataset, "split": args.split,
                    "task": "binary", "seed": args.seed, "checkpoint": ckpt,
-                   "best_epoch": best_epoch,
+                   "best_epoch": selector.best_epoch,
+                   "selection": selector.summary(),
                    "class_weight": args.class_weight,
                    "batch_size": args.batch_size,
                    "accum_steps": args.accum_steps,

@@ -20,6 +20,7 @@ import torch
 import torch.nn as nn
 from sklearn.metrics import average_precision_score, roc_auc_score
 
+from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import (
     checkpoint_path as build_checkpoint_path,
     history_path,
@@ -146,7 +147,8 @@ def evaluate(model, dataloader, loss_fn, device, task="regression"):
 
 def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
                  n_epochs=30, lr=1e-3, task="regression",
-                 checkpoint_path="results/coldsite_dti_best.pt", patience=15):
+                 checkpoint_path="results/coldsite_dti_best.pt", patience=15,
+                 min_epochs=DEFAULT_MIN_EPOCHS):
     """Train one model on one split.
 
     checkpoint_path should always name the dataset, the split and the seed --
@@ -168,33 +170,37 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
         optimizer, mode="min", factor=0.5, patience=5)
 
     os.makedirs(os.path.dirname(checkpoint_path) or ".", exist_ok=True)
-    best_val_loss, best_epoch, history = float("inf"), -1, []
+    history = []
+    # CheckpointSelector counts epochs from 1; this loop counts from 0.
+    selector = CheckpointSelector(patience=patience, min_epochs=min_epochs,
+                                  n_epochs=n_epochs)
 
     for epoch in range(n_epochs):
+        epoch_1indexed = epoch + 1
         train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
         val_loss, val_metrics = evaluate(model, val_loader, loss_fn, device, task)
         scheduler.step(val_loss)
 
         metric_str = "  ".join(f"{k}={v:.4f}" for k, v in val_metrics.items())
-        print(f"Epoch {epoch+1}/{n_epochs}  train_loss={train_loss:.4f}  "
+        print(f"Epoch {epoch_1indexed}/{n_epochs}  train_loss={train_loss:.4f}  "
               f"val_loss={val_loss:.4f}  {metric_str}")
 
-        if val_loss < best_val_loss:
-            best_val_loss, best_epoch = val_loss, epoch
+        if selector.consider(epoch_1indexed, val_loss):
             torch.save({"model_state": model.state_dict(), "epoch": epoch,
                         "task": task, "val_metrics": val_metrics}, checkpoint_path)
             print(f"  -> saved new best checkpoint to {checkpoint_path}")
 
-        history.append({"epoch": epoch + 1, "train_loss": train_loss,
+        history.append({"epoch": epoch_1indexed, "train_loss": train_loss,
                         "val_loss": val_loss, **val_metrics})
 
-        if epoch - best_epoch >= patience:
-            print(f"No improvement for {patience} epochs, stopping early")
+        if selector.should_stop(epoch_1indexed):
+            print(f"No improvement for {patience} epochs, stopping early "
+                  f"(best epoch {selector.best_epoch})")
             break
 
     with open(history_path(checkpoint_path), "w") as f:
         json.dump(history, f, indent=2)
-    return model
+    return model, selector.summary()
 
 
 if __name__ == "__main__":
@@ -207,6 +213,12 @@ if __name__ == "__main__":
                         default="regression")
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument(
+        "--min-epochs", type=int, default=DEFAULT_MIN_EPOCHS,
+        help="no checkpoint is taken, and early stopping cannot fire, before "
+             "this epoch. Guards against a 264-row validation split saving an "
+             "epoch-2 checkpoint that the explanation axis then reads. "
+             "Pass 1 to reproduce the unfloored behaviour.")
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--max-protein-len", type=int, default=1000)
     parser.add_argument("--seed", type=int, default=42,
@@ -250,12 +262,12 @@ if __name__ == "__main__":
     checkpoint_path = build_checkpoint_path(
         args.results_dir, args.dataset, args.split, args.task, args.seed)
 
-    model = run_training(
+    model, selection = run_training(
         drug_vocab_size=len(drug_vocab) + 2,        # +2 for PAD and UNK
         protein_vocab_size=len(protein_vocab) + 2,
         train_loader=train_loader, val_loader=val_loader,
         n_epochs=args.epochs, lr=args.lr, task=args.task,
-        checkpoint_path=checkpoint_path,
+        checkpoint_path=checkpoint_path, min_epochs=args.min_epochs,
     )
 
     # The final epoch is usually not the best one, so reload before testing.
@@ -274,6 +286,9 @@ if __name__ == "__main__":
         json.dump({"tag": tag, "dataset": args.dataset, "split": args.split,
                    "task": args.task, "seed": args.seed,
                    "checkpoint": checkpoint_path, "best_epoch": state["epoch"],
+                   # which epoch the audited weights are from, and the floor
+                   # that constrained it -- both belong in Methods
+                   "selection": selection,
                    "train_subsample": args.train_subsample,
                    "n_train_rows": len(train_loader.dataset),
                    "test_metrics": test_metrics}, f, indent=2)

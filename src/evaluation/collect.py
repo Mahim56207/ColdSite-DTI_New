@@ -78,16 +78,23 @@ class MissingCell(Exception):
     """This cell cannot be collected yet. Carries the reason for the report."""
 
 
-def _read_test_rows(split_dir: str, pairs_per_target: int):
+def _read_test_rows(split_dir: str, pairs_per_target: int,
+                    rows_csv: str | None = None):
     """One row per (target, drug) pair from the test split, capped per target.
 
     Returns a list of (target_id, smiles, sequence). Rows keep the file's own
     order so a cap of 1 is deterministic rather than whichever pair pandas
     happened to group first.
+
+    `rows_csv` evaluates a model on pairs from somewhere other than its own
+    test split -- the non-kinase control panel above all. The vocabulary still
+    comes from `split_dir`, because it is a property of the *trained model*:
+    rebuilding it from the panel would give the model an embedding table it
+    was never trained with.
     """
     import pandas as pd
 
-    path = os.path.join(split_dir, "test.csv")
+    path = rows_csv or os.path.join(split_dir, "test.csv")
     if not os.path.exists(path):
         raise MissingCell(f"no test split at {path}")
 
@@ -192,6 +199,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
                  max_protein_len: int = 1000,
                  pairs_per_target: int = 1,
                  max_proteins: int | None = None,
+                 rows_csv: str | None = None,
                  device: str = "cpu",
                  verbose: bool = True):
     """One grid cell. Returns (weights, sites, target_ids), or raises MissingCell.
@@ -222,7 +230,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         if not os.path.exists(checkpoint):
             raise MissingCell(f"no checkpoint at {checkpoint}")
 
-    rows = _read_test_rows(split_dir, pairs_per_target)
+    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv)
     adapter, vocabs = _build_adapter(model_name, checkpoint, split_dir, device,
                                      max_protein_len)
 
@@ -258,6 +266,7 @@ def make_collect_fn(dataset: str, ground_truth: str, task: str = "binary",
                     max_protein_len: int = 1000,
                     pairs_per_target: int = 1,
                     max_proteins: int | None = None,
+                    rows_csv: str | None = None,
                     device: str = "cpu",
                     skipped: list | None = None):
     """A `collect_fn` for `run_audit.build_grid`, over real checkpoints.
@@ -277,7 +286,7 @@ def make_collect_fn(dataset: str, ground_truth: str, task: str = "binary",
                 site_sets=site_sets, task=task, split_root=split_root,
                 checkpoint_dir=checkpoint_dir, max_protein_len=max_protein_len,
                 pairs_per_target=pairs_per_target, max_proteins=max_proteins,
-                device=device)
+                rows_csv=rows_csv, device=device)
         except MissingCell as reason:
             if skipped is not None:
                 skipped.append(

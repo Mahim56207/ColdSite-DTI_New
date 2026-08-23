@@ -40,6 +40,28 @@ def test_all_three_baselines_are_registered():
         assert name in available_models()
 
 
+def test_importing_run_audit_alone_registers_the_baselines():
+    """Registration is an import side-effect, and this test file used to be the
+    only thing importing baseline_adapters.
+
+    Without the import inside run_audit, `--models deepdta` failed with
+    "unknown model. Registered: ['coldsite_dti', 'uniform_control']" and told
+    the reader to write an adapter that already exists and already passes
+    validate_adapter. The audit could only ever see our own two models.
+    """
+    import subprocess
+    import sys
+
+    probe = subprocess.run(
+        [sys.executable, "-c",
+         "import src.evaluation.run_audit as a;"
+         "print(sorted(a.available_models()))"],
+        capture_output=True, text=True)
+    assert probe.returncode == 0, probe.stderr
+    for name in ("deepdta", "hyperattentiondti", "moltrans"):
+        assert name in probe.stdout
+
+
 def test_deepdta_is_marked_as_having_no_attention():
     """Correct, not a gap -- it anchors the accuracy axis."""
     assert DeepDTAAdapter.provides_attention is False

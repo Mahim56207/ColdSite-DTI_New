@@ -146,8 +146,7 @@ def main():
     args = parser.parse_args()
 
     tag = run_tag(args.dataset, args.split, args.task, args.seed)
-    out_path = results_path(args.results_dir, tag).replace(
-        "_results.json", "_deepdta_results.json")
+    out_path = results_path(args.results_dir, tag, model="deepdta")
     if args.skip_if_done and os.path.exists(out_path):
         print(f"already done, skipping -> {out_path}")
         return
@@ -174,12 +173,13 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     loss_fn = nn.MSELoss() if args.task == "regression" else nn.BCEWithLogitsLoss()
 
+    # model="deepdta" is what keeps this from colliding with ColdSite-DTI's
+    # checkpoint for the same cell -- same dataset, split, task and seed,
+    # different model. The suffix lives in checkpoint_naming so the reader
+    # resolves the same path without re-deriving it.
     ckpt = checkpoint_path(args.checkpoint_dir, args.dataset, args.split,
-                           args.task, args.seed)
+                           args.task, args.seed, model="deepdta")
     os.makedirs(os.path.dirname(ckpt) or ".", exist_ok=True)
-    # DeepDTA's checkpoints must not collide with ColdSite-DTI's for the same
-    # cell -- same dataset, split, task and seed, different model.
-    ckpt = ckpt.replace(".pt", "_deepdta.pt")
 
     best_loss, best_epoch, history = float("inf"), -1, []
     for epoch in range(1, args.epochs + 1):

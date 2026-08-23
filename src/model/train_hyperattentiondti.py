@@ -247,8 +247,7 @@ def main():
 
     # task is always binary: the head is Linear(512, 2)
     tag = run_tag(args.dataset, args.split, "binary", args.seed)
-    out_path = results_path(args.results_dir, tag).replace(
-        "_results.json", "_hyperattentiondti_results.json")
+    out_path = results_path(args.results_dir, tag, model="hyperattentiondti")
     if args.skip_if_done and os.path.exists(out_path):
         print(f"already done, skipping -> {out_path}")
         return
@@ -319,8 +318,7 @@ def main():
     loss_fn = nn.CrossEntropyLoss(weight=weight)
 
     ckpt = checkpoint_path(args.checkpoint_dir, args.dataset, args.split,
-                           "binary", args.seed).replace(
-        ".pt", "_hyperattentiondti.pt")
+                           "binary", args.seed, model="hyperattentiondti")
     os.makedirs(os.path.dirname(ckpt) or ".", exist_ok=True)
 
     best_loss, best_epoch = float("inf"), -1

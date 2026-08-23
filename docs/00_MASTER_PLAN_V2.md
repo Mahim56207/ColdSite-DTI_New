@@ -143,7 +143,7 @@ to the other two immediately.
 
 ## 6. What is already built
 
-Everything in `src/evaluation/` runs today and is covered by 255 tests:
+Everything in `src/evaluation/` runs today and is covered by the test suite:
 
 | module | what it does |
 |---|---|

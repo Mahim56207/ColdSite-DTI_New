@@ -141,6 +141,9 @@ class SiteSet:
     n_raw_features: int = 0
     n_dropped_feature_type: int = 0
     n_dropped_description: int = 0
+    # Sites excluded because of the ligand they coordinate -- cotransport
+    # sodium and chloride above all. Zero unless exclude_ligands was passed.
+    n_dropped_ligand: int = 0
     n_dropped_truncation: int = 0
     # Positions past max_len, counted regardless of policy. n_dropped_truncation
     # only increments under EXCLUDE, because only then are they removed; this
@@ -165,6 +168,63 @@ class SiteSet:
     def usable(self) -> bool:
         """False if nothing survived -- such proteins must be skipped, not scored 0."""
         return len(self.positions) > 0
+
+
+# --------------------------------------------------------------------------
+# ligand-aware filtering — the cotransport-ion question
+# --------------------------------------------------------------------------
+#
+# Three panel targets carry most of their annotated sites on cotransport ions:
+# SLC6A3 14 of 20 positions (11 Na+, 3 chloride), SLC6A4 10 of 16 (Na+), DRD4
+# 2 of 4 (Na+). No drug binds a sodium-coordination residue, so those positions
+# inflate precision@k exactly the way UniProt's `Site` catch-all did.
+#
+# The obvious fix -- drop every metal or ion -- is wrong, and this is the whole
+# subtlety. **Zinc cuts the other way.** Carbonic anhydrase and HDAC inhibitors
+# chelate the catalytic zinc directly, so for those proteins zinc *is* the drug
+# site, and excluding it would discard the correct answer. The panel holds 76
+# zinc features against 31 sodium.
+#
+# So the default excludes nothing. This is a measurement decision that belongs
+# to Track C (STATUS.md, A13), and the honest way to settle it is to report
+# both numbers rather than to bake one in. COTRANSPORT_IONS is the shortlist
+# the argument above supports; it is a suggestion, not a policy.
+COTRANSPORT_IONS = ("na(+)", "chloride", "k(+)", "cl(-)")
+
+
+def ligand_name(feature: dict):
+    """The ligand a feature is annotated against, or None.
+
+    UniProt records it as a nested object; the fetcher preserves that shape.
+    Older files may carry a bare string, so both are read.
+    """
+    ligand = feature.get("ligand")
+    if isinstance(ligand, dict):
+        return ligand.get("name")
+    return ligand
+
+
+def ligand_matches(name, patterns) -> bool:
+    """Case-insensitive containment against any pattern. `None` never matches."""
+    if name is None:
+        return False
+    lowered = str(name).lower()
+    return any(str(pattern).lower() in lowered for pattern in patterns)
+
+
+def ligand_breakdown(path: str) -> dict:
+    """{ligand name: position count} over a ground-truth file.
+
+    Track C's input for the cotransport-ion decision: it says how much of the
+    ground truth each ligand accounts for, so the choice is made against the
+    size of the effect rather than in the abstract.
+    """
+    counts: dict = {}
+    for _target_id, features in load_ground_truth(path).items():
+        for feature in features:
+            name = ligand_name(feature) or "(none recorded)"
+            counts[name] = counts.get(name, 0) + len(expand_feature(feature))
+    return dict(sorted(counts.items(), key=lambda kv: -kv[1]))
 
 
 def expand_feature(feature: dict) -> set:
@@ -196,6 +256,7 @@ def build_site_set(
     truncation: str = TruncationPolicy.EXCLUDE,
     filter_types: bool = True,
     filter_descriptions: bool = True,
+    exclude_ligands: tuple = (),
 ) -> SiteSet:
     """Turn one target's raw feature list into a 0-indexed SiteSet."""
     if truncation not in TruncationPolicy.ALL:
@@ -221,6 +282,11 @@ def build_site_set(
         if filter_descriptions and ftype is None:
             if NON_BINDING_DESCRIPTION.search(feature.get("description", "") or ""):
                 result.n_dropped_description += 1
+                continue
+
+        if exclude_ligands and ligand_name(feature) is not None:
+            if ligand_matches(ligand_name(feature), exclude_ligands):
+                result.n_dropped_ligand += 1
                 continue
 
         positions = expand_feature(feature)
@@ -261,12 +327,18 @@ def load_site_sets(
     filter_types: bool = True,
     filter_descriptions: bool = True,
     drop_unusable: bool = True,
+    exclude_ligands: tuple = (),
 ) -> dict:
     """Ground-truth JSON path -> {target_id: SiteSet}, ready for precision@k.
 
     `drop_unusable=True` removes proteins with no surviving annotated site.
     Keeping them would score a guaranteed 0.0 and drag the split average down
     for a reason unrelated to how good the explanations are.
+
+    `exclude_ligands` drops sites by the ligand they coordinate — see
+    COTRANSPORT_IONS and the reasoning above it. Empty by default: which
+    ligands count as drug sites is a measurement decision, and baking one in
+    would hide it. Whatever is passed has to be stated in Methods.
     """
     raw = load_ground_truth(path)
     out = {}
@@ -274,6 +346,7 @@ def load_site_sets(
         site_set = build_site_set(
             target_id, features, max_len=max_len, truncation=truncation,
             filter_types=filter_types, filter_descriptions=filter_descriptions,
+            exclude_ligands=exclude_ligands,
         )
         if drop_unusable and not site_set.usable:
             continue
@@ -300,6 +373,7 @@ def coverage_report(site_sets: dict) -> dict:
         "raw_features": sum(s.n_raw_features for s in site_sets.values()),
         "dropped_feature_type": sum(s.n_dropped_feature_type for s in site_sets.values()),
         "dropped_description": sum(s.n_dropped_description for s in site_sets.values()),
+        "dropped_ligand": sum(s.n_dropped_ligand for s in site_sets.values()),
         "dropped_truncation": sum(s.n_dropped_truncation for s in site_sets.values()),
         # Per-TARGET truncation impact, which the report previously could not
         # express. `targets_dropped_entirely` counts every unusable target

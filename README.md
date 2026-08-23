@@ -49,7 +49,7 @@ Then open your own guide in `docs/` and start with Part 1 — every track can be
 Run the test suite:
 
 ```bash
-python -m pytest tests/ -q          # 171 tests
+python -m pytest tests/ -q          # 540 tests
 python -m src.data.ground_truth     # ground-truth coverage report
 ```
 

@@ -74,6 +74,41 @@ CHECKPOINT_SUFFIX = ".pt"
 # the level vanishes from the ladder without comment.
 NAMING_IS_RATIFIED = True
 
+# One cell -- same dataset, split, task and seed -- now holds one checkpoint per
+# audited model, so the model has to be in the name. The suffixes are exactly
+# what the baseline trainers were already spelling out by hand:
+#
+#     ckpt.replace(".pt", "_deepdta.pt")            train_deepdta.py
+#     ckpt.replace(".pt", "_hyperattentiondti.pt")  train_hyperattentiondti.py
+#
+# which is the duplicated-convention bug this module exists to prevent, one
+# level down: the writer applied the suffix and the reader had to know to
+# apply the same one. ColdSite-DTI keeps the empty suffix, so every path that
+# already exists on disk still resolves and no checkpoint is orphaned.
+MODEL_SUFFIX = {
+    "coldsite_dti": "",
+    "deepdta": "_deepdta",
+    "hyperattentiondti": "_hyperattentiondti",
+    "moltrans": "_moltrans",
+}
+DEFAULT_MODEL = "coldsite_dti"
+
+
+def model_suffix(model: str) -> str:
+    """The filename suffix for one audited model. Raises rather than guessing.
+
+    An unknown model returning "" would silently collide with ColdSite-DTI's
+    checkpoint for the same cell, which is the overwrite this module exists to
+    make impossible.
+    """
+    if model not in MODEL_SUFFIX:
+        raise ValueError(
+            f"unknown model {model!r}. Known: {sorted(MODEL_SUFFIX)}.\n"
+            f"Add it to MODEL_SUFFIX in src/model/checkpoint_naming.py — a "
+            f"model without a registered suffix would overwrite "
+            f"{DEFAULT_MODEL}'s checkpoint for the same cell.")
+    return MODEL_SUFFIX[model]
+
 _TAG_RE = re.compile(
     r"^(?P<dataset>[^_]+)_"
     r"(?P<split>.+?)_"
@@ -138,16 +173,18 @@ def parse_run_tag(tag: str) -> dict:
 
 
 def checkpoint_name(dataset: str, split: str, task: str, seed: int,
-                    split_seed: int | None = None) -> str:
+                    split_seed: int | None = None,
+                    model: str = DEFAULT_MODEL) -> str:
     tag = run_tag(dataset, split, task, seed, split_seed)
-    return f"{CHECKPOINT_PREFIX}_{tag}{CHECKPOINT_SUFFIX}"
+    return f"{CHECKPOINT_PREFIX}_{tag}{model_suffix(model)}{CHECKPOINT_SUFFIX}"
 
 
 def checkpoint_path(checkpoint_dir: str, dataset: str, split: str, task: str,
-                    seed: int, split_seed: int | None = None) -> str:
+                    seed: int, split_seed: int | None = None,
+                    model: str = DEFAULT_MODEL) -> str:
     return os.path.join(
         checkpoint_dir,
-        checkpoint_name(dataset, split, task, seed, split_seed))
+        checkpoint_name(dataset, split, task, seed, split_seed, model))
 
 
 def history_path(checkpoint_path_: str) -> str:
@@ -157,28 +194,43 @@ def history_path(checkpoint_path_: str) -> str:
     return checkpoint_path_[: -len(CHECKPOINT_SUFFIX)] + "_history.json"
 
 
-def results_path(results_dir: str, tag: str) -> str:
+def results_path(results_dir: str, tag: str,
+                 model: str = DEFAULT_MODEL) -> str:
     """Where the test-set metrics for one run land.
 
     This is the file Track C consumes as the accuracy axis of the headline
     figure, so its name is part of the hand-off, not an internal detail.
     """
-    return os.path.join(results_dir, f"{tag}_results.json")
+    return os.path.join(results_dir, f"{tag}{model_suffix(model)}_results.json")
 
 
 def discover_checkpoints(checkpoint_dir: str, dataset: str | None = None,
-                         split: str | None = None, task: str | None = None) -> list[dict]:
-    """Every seeded checkpoint on disk, parsed, sorted by seed.
+                         split: str | None = None, task: str | None = None,
+                         model: str = DEFAULT_MODEL) -> list[dict]:
+    """Every seeded checkpoint on disk for one model, parsed, sorted by seed.
 
     Track C needs "which seeds exist for this cell" and should not have to be
     told. Unparseable files -- including unseeded ones from before this
     convention -- are left out rather than guessed at; `aggregate_seeds` will
     then flag the cell as under-powered, which is the correct outcome.
+
+    `model` filters by suffix. It matters in both directions: without it a
+    DeepDTA checkpoint could be read as ColdSite-DTI's, and baseline
+    checkpoints were previously invisible here -- `..._seed1_deepdta` does not
+    match a tag regex anchored on `_seed{n}$`, so they were skipped as
+    unparseable and every baseline cell looked untrained.
     """
-    pattern = os.path.join(checkpoint_dir, f"{CHECKPOINT_PREFIX}_*{CHECKPOINT_SUFFIX}")
+    suffix = model_suffix(model)
+    pattern = os.path.join(
+        checkpoint_dir, f"{CHECKPOINT_PREFIX}_*{suffix}{CHECKPOINT_SUFFIX}")
     found = []
     for path in sorted(glob.glob(pattern)):
         stem = os.path.basename(path)[len(CHECKPOINT_PREFIX) + 1: -len(CHECKPOINT_SUFFIX)]
+        if suffix:
+            stem = stem[: -len(suffix)]
+        elif any(stem.endswith(other) for other in MODEL_SUFFIX.values() if other):
+            # an unsuffixed glob also matches every other model's files
+            continue
         try:
             parsed = parse_run_tag(stem)
         except ValueError:
@@ -191,5 +243,6 @@ def discover_checkpoints(checkpoint_dir: str, dataset: str | None = None,
             continue
         parsed["path"] = path
         parsed["tag"] = stem
+        parsed["model"] = model
         found.append(parsed)
     return sorted(found, key=lambda entry: entry["seed"])

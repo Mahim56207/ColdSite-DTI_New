@@ -53,13 +53,24 @@ def available_models() -> list:
     return sorted(_REGISTRY)
 
 
-def get_model(name: str, **kwargs):
+def model_class(name: str):
+    """The adapter class, uninstantiated.
+
+    Needed to read class-level facts -- `provides_attention` above all -- before
+    deciding whether to build the thing. Instantiating a baseline adapter loads
+    a checkpoint and imports a vendored repo, which is a lot of work to discover
+    that the model has no attention to audit.
+    """
     if name not in _REGISTRY:
         raise KeyError(
             f"unknown model '{name}'. Registered: {available_models()}. "
             f"Add an adapter in src/evaluation/model_registry.py."
         )
-    return _REGISTRY[name](**kwargs)
+    return _REGISTRY[name]
+
+
+def get_model(name: str, **kwargs):
+    return model_class(name)(**kwargs)
 
 
 class ExplainableDTIModel(abc.ABC):

@@ -12,6 +12,7 @@ from src.model.checkpoint_naming import (
     checkpoint_path,
     discover_checkpoints,
     history_path,
+    model_suffix,
     parse_run_tag,
     results_path,
     run_tag,
@@ -137,3 +138,66 @@ def test_the_trainer_and_the_ladder_build_the_same_path():
     from src.model import train
 
     assert train.build_checkpoint_path is run_ladder.build_checkpoint_path
+
+
+# --------------------------------------------------------------------------
+# one cell, one checkpoint per audited model
+# --------------------------------------------------------------------------
+
+def test_model_suffixes_reproduce_the_paths_the_trainers_already_wrote():
+    """Pins backward compatibility. DeepDTA cells are already on disk under
+    the hand-rolled `.replace(".pt", "_deepdta.pt")` spelling; if this drifts,
+    those checkpoints are orphaned and read as untrained."""
+    assert (checkpoint_path("results", "davis", "random", "regression", 1,
+                            model="deepdta")
+            == "results/coldsite_dti_davis_random_regression_seed1_deepdta.pt")
+    assert (results_path("results", run_tag("davis", "random", "regression", 1),
+                         model="deepdta")
+            == "results/davis_random_regression_seed1_deepdta_results.json")
+    assert (checkpoint_path("results", "davis", "cold_target", "binary", 2,
+                            model="hyperattentiondti")
+            == "results/coldsite_dti_davis_cold_target_binary_seed2"
+               "_hyperattentiondti.pt")
+
+
+def test_coldsite_dti_keeps_the_unsuffixed_name():
+    """The default has to stay empty or every existing ColdSite-DTI checkpoint
+    moves."""
+    assert model_suffix("coldsite_dti") == ""
+    assert (checkpoint_path("results", "davis", "random", "binary", 3)
+            == checkpoint_path("results", "davis", "random", "binary", 3,
+                               model="coldsite_dti"))
+
+
+def test_an_unregistered_model_raises_rather_than_colliding():
+    """An unknown model returning "" would overwrite ColdSite-DTI's checkpoint
+    for the same cell -- the exact bug this module exists to prevent."""
+    with pytest.raises(ValueError, match="unknown model"):
+        checkpoint_path("results", "davis", "random", "binary", 1, model="mystery")
+
+
+def test_four_models_in_one_cell_do_not_collide(tmp_path):
+    names = {checkpoint_name("davis", "cold_target", "binary", 1, model=m)
+             for m in ("coldsite_dti", "deepdta", "hyperattentiondti", "moltrans")}
+    assert len(names) == 4
+
+
+def test_discovery_is_per_model(tmp_path):
+    """Both directions matter. A DeepDTA checkpoint must not be discovered as
+    ColdSite-DTI's, and baseline checkpoints must be discoverable at all --
+    `..._seed1_deepdta` does not match a tag regex anchored on `_seed{n}$`, so
+    before the suffix was known here every baseline cell looked untrained."""
+    for seed in (1, 2):
+        for model in ("coldsite_dti", "deepdta"):
+            (tmp_path / checkpoint_name("davis", "cold_target", "binary", seed,
+                                        model=model)).touch()
+
+    coldsite = discover_checkpoints(str(tmp_path), dataset="davis", model="coldsite_dti")
+    deepdta = discover_checkpoints(str(tmp_path), dataset="davis", model="deepdta")
+
+    assert [e["seed"] for e in coldsite] == [1, 2]
+    assert [e["seed"] for e in deepdta] == [1, 2]
+    assert all(not e["path"].endswith("_deepdta.pt") for e in coldsite)
+    assert all(e["path"].endswith("_deepdta.pt") for e in deepdta)
+    assert all(e["model"] == "deepdta" for e in deepdta)
+    assert discover_checkpoints(str(tmp_path), model="moltrans") == []

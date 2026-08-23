@@ -25,7 +25,13 @@ import os
 import numpy as np
 
 from src.evaluation.aggregate import aggregate_seeds, audit_table, degradation, holm_bonferroni
-from src.evaluation.model_registry import available_models, get_model
+
+# Imported for its registration side-effect. @register runs at import time, so
+# without this line `--models deepdta` fails with "unknown model" and an error
+# telling you to write an adapter that exists, is implemented, and already
+# passes validate_adapter. The audit could only ever see its own two models.
+from src.evaluation import baseline_adapters  # noqa: F401
+from src.evaluation.model_registry import available_models, get_model, model_class
 from src.evaluation.precision_at_k import batch_precision_at_k
 from src.evaluation.significance_test import permutation_test_batch
 from src.evaluation.target_family import KINASE, NON_KINASE, confound_report, stratified_indices
@@ -168,7 +174,14 @@ def summarise(results: dict) -> str:
 
     if results["missing_cells"]:
         lines += ["", f"## Missing cells ({len(results['missing_cells'])})", ""]
-        lines += [f"- {c}" for c in results["missing_cells"][:20]]
+        # Reasons where they were recorded: "no checkpoint" and "no usable
+        # ground truth" call for completely different responses, and a bare
+        # list of cell names cannot tell them apart.
+        reasons = {entry.split(":")[0]: entry.split(":", 1)[1].strip()
+                   for entry in results.get("skipped_reasons", [])}
+        for name in results["missing_cells"][:20]:
+            reason = reasons.get(name)
+            lines.append(f"- {name}" + (f" — {reason}" if reason else ""))
 
     return "\n".join(lines)
 
@@ -211,6 +224,18 @@ def main():
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--n-trials", type=int, default=500)
     parser.add_argument("--out-dir", default="results")
+    parser.add_argument("--task", default="binary",
+                        choices=["regression", "binary"],
+                        help="must match the task the checkpoints were trained "
+                             "on -- it is part of their filename")
+    parser.add_argument("--split-root", default="data/splits")
+    parser.add_argument("--checkpoint-dir", default="results")
+    parser.add_argument("--pairs-per-target", type=int, default=1,
+                        help="test pairs collected per protein. precision@k is "
+                             "a per-protein quantity, so >1 makes n a count of "
+                             "pairs rather than proteins")
+    parser.add_argument("--max-protein-len", type=int, default=1000)
+    parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
 
     models = [m.strip() for m in args.models.split(",") if m.strip()]
@@ -228,19 +253,49 @@ def main():
         print(f"WARNING: {len(seeds)} seed(s). Cells will be flagged '!' and "
               f"cannot be quoted as estimates. See aggregate.MIN_SEEDS_FOR_A_CLAIM.")
 
+    skipped = []
     if args.dummy:
         collect = dummy_collect_fn()
         tag = "DUMMY_PLACEHOLDER"
     else:
-        raise SystemExit(
-            "Real mode needs trained checkpoints and split files, which are\n"
-            "not in the repo. Write a collect_fn returning\n"
-            "  (weights, sites, target_ids)\n"
-            "per (model, dataset, level, seed) and pass it to build_grid().\n"
-            "See docs/PART2_GUIDE_124AD0067.md Priority 3.")
+        if not args.ground_truth:
+            parser.error("--ground-truth is required unless --dummy is set")
+        if len(datasets) != 1:
+            parser.error(
+                "real mode takes one --datasets at a time: the ground-truth "
+                "file is per dataset, and DAVIS sites scored against KIBA "
+                "proteins would return a number rather than an error")
+
+        from src.evaluation.collect import make_collect_fn
+
+        # DeepDTA anchors the accuracy axis and has no attention to collect.
+        # Dropped here with a note rather than inside the grid, so the report
+        # does not list its four levels as "missing" as though a checkpoint
+        # were merely absent.
+        auditable = [m for m in models
+                     if getattr(model_class(m), "provides_attention", True)]
+        for name in sorted(set(models) - set(auditable)):
+            print(f"[skip] {name}: provides_attention = False — accuracy anchor "
+                  f"only, nothing to explain")
+        models = auditable
+        if not models:
+            raise SystemExit(
+                "No model in --models can produce explanations. The audit's "
+                "explanation axis needs at least one model with attention.")
+
+        collect = make_collect_fn(
+            dataset=datasets[0], ground_truth=args.ground_truth,
+            task=args.task, split_root=args.split_root,
+            checkpoint_dir=args.checkpoint_dir,
+            max_protein_len=args.max_protein_len,
+            pairs_per_target=args.pairs_per_target,
+            device=args.device, skipped=skipped)
+        tag = f"{datasets[0]}_{args.task}"
 
     results = build_grid(collect, models, datasets, seeds,
                          k=args.k, n_trials=args.n_trials)
+    if skipped:
+        results["skipped_reasons"] = skipped
 
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, f"audit_{tag}.json"), "w") as f:

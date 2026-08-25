@@ -14,7 +14,6 @@ Usage
 import argparse
 import json
 import os
-import sys
 import time
 
 import numpy as np
@@ -120,28 +119,11 @@ def _bar(fraction, width=BAR_WIDTH):
     return "█" * filled + "░" * (width - filled)
 
 
-def train_one_epoch(model, dataloader, optimizer, loss_fn, device,
-                    progress=True, label=""):
-    """One pass over the training set.
-
-    Draws a progress bar, because a KIBA epoch is around nine minutes on a T4
-    and silence for that long is indistinguishable from a hung run.
-
-    How it draws depends on where it is writing. On a terminal it redraws one
-    line with a carriage return, which is the nice live bar. Redirected to a
-    file -- which is how Kaggle runs it -- carriage returns never resolve into
-    separate lines, so `tail` would fetch one enormous line of fragments;
-    there it prints a handful of discrete bars instead.
-    """
+def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
     model.train()
     total_loss = 0.0
-    n_batches = len(dataloader)
-    live = progress and sys.stdout.isatty()
-    # A terminal can redraw constantly; a log file gets five bars per epoch.
-    step = max(1, n_batches // (50 if live else 5)) if progress else 0
-    started = time.perf_counter()
 
-    for batch_index, (drug_batch, protein_batch, label_batch) in enumerate(dataloader, 1):
+    for drug_batch, protein_batch, label_batch in dataloader:
         drug_batch = drug_batch.to(device)
         protein_batch = protein_batch.to(device)
         label_batch = label_batch.to(device)
@@ -157,23 +139,6 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device,
         optimizer.step()
 
         total_loss += loss.item() * drug_batch.size(0)
-
-        if step and (batch_index % step == 0 or batch_index == n_batches):
-            elapsed = time.perf_counter() - started
-            fraction = batch_index / n_batches
-            remaining = elapsed / batch_index * (n_batches - batch_index)
-            line = (f"    {label}[{_bar(fraction)}] {100 * fraction:3.0f}%  "
-                    f"{batch_index}/{n_batches}  "
-                    f"{_format_duration(elapsed)} elapsed, "
-                    f"~{_format_duration(remaining)} left")
-            if live:
-                # Pad to overwrite a previously longer line, then redraw.
-                print(f"\r{line:<100}", end="", flush=True)
-            else:
-                print(line, flush=True)
-
-    if live:
-        print(flush=True)          # leave the finished bar on its own line
 
     return total_loss / len(dataloader.dataset)
 
@@ -236,9 +201,7 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
     for epoch in range(n_epochs):
         epoch_1indexed = epoch + 1
         epoch_started = time.perf_counter()
-        train_loss = train_one_epoch(
-            model, train_loader, optimizer, loss_fn, device,
-            label=f"epoch {epoch_1indexed}/{n_epochs}  ")
+        train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
         val_loss, val_metrics = evaluate(model, val_loader, loss_fn, device, task)
         scheduler.step(val_loss)
 
@@ -253,9 +216,11 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
         worst_case = mean_epoch * (n_epochs - epoch_1indexed)
 
         metric_str = "  ".join(f"{k}={v:.4f}" for k, v in val_metrics.items())
-        print(f"Epoch {epoch_1indexed}/{n_epochs}  train_loss={train_loss:.4f}  "
-              f"val_loss={val_loss:.4f}  {metric_str}  "
-              f"[{_format_duration(took)}, avg {_format_duration(mean_epoch)}, "
+        print(f"Epoch {epoch_1indexed:3d}/{n_epochs} "
+              f"[{_bar(epoch_1indexed / n_epochs)}] "
+              f"train_loss={train_loss:.4f}  val_loss={val_loss:.4f}  "
+              f"{metric_str}  "
+              f"[{_format_duration(took)}/epoch, avg {_format_duration(mean_epoch)}, "
               f"<={_format_duration(worst_case)} left]", flush=True)
 
         if selector.consider(epoch_1indexed, val_loss):

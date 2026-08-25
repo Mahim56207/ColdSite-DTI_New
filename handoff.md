@@ -7,13 +7,13 @@ directly — but confirm with me before any push.
 
 FRAMING — read docs/00_MASTER_PLAN_V2.md and STATUS.md before anything else.
 This is an AUDIT of published DTI interpretability claims, not a single-model
-paper. All code is written and covered by 393 passing tests. What remains is GPU
+paper. All code is written and covered by 395 passing tests. What remains is GPU
 work plus some data gaps on the audit side.
 
 STATE OF THE BLOCKER (item 5 in STATUS.md) — SOLVED LOCALLY.
 The 6 DeepDTA source files (ligands_can.txt, proteins.txt, Y — for davis and
 kiba) are downloaded from hkmztrk/DeepDTA into src/data/baselines/deepdta/data/,
-splits are built, all six cold-split leakage checks pass, 393 tests pass, and
+splits are built, all six cold-split leakage checks pass, 395 tests pass, and
   python -m src.model.run_grid --preflight
 reports ready_to_launch: True.
 
@@ -41,6 +41,18 @@ built splits, do not let them drift:
     70%) but USES ~54% of all measured pairs once discarded rows are counted
     (davis 55%, kiba 54%). Quoting 54% as the training ratio overstates the
     confound by about 2x. pct_of_largest_split reports the second number.
+
+COLAB DISCONNECTS ARE SAFE NOW. run_grid used to decide a cell was finished by
+testing only whether a checkpoint file existed, but train() writes one on the
+first improving epoch (epoch 0 in practice) and the results JSON only after the
+test pass — so a cell killed mid-training was skipped on the next run as
+though it had completed, entering the results table with no accuracy while the
+grid reported success. Fixed in 6bcbcc3: a cell is skipped only if verify_cell
+calls it valid, otherwise it says why it looks interrupted and retrains it. So
+after a drop, just re-run the same command — completed cells are skipped, the
+interrupted one restarts. There is NO within-cell resume (no optimizer or
+scheduler state is saved), so an interrupted cell restarts at epoch 0 by
+design; that is a deliberate trade, not a bug to fix mid-grid.
 
 FIRST REAL TASK: rebuild the data on Colab per above, then launch the 24
 training runs on GPU. After that, faithfulness on real checkpoints and the

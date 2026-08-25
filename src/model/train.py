@@ -14,6 +14,7 @@ Usage
 import argparse
 import json
 import os
+import sys
 import time
 
 import numpy as np
@@ -111,20 +112,33 @@ def _format_duration(seconds):
     return f"{seconds}s"
 
 
+BAR_WIDTH = 24
+
+
+def _bar(fraction, width=BAR_WIDTH):
+    filled = int(round(width * fraction))
+    return "█" * filled + "░" * (width - filled)
+
+
 def train_one_epoch(model, dataloader, optimizer, loss_fn, device,
-                    progress_every=0.1, label=""):
+                    progress=True, label=""):
     """One pass over the training set.
 
-    `progress_every` prints an in-epoch line each time that fraction of the
-    batches is done, so a KIBA epoch -- around nine minutes on a T4 -- reports
-    that it is moving rather than looking hung. Deliberately plain lines rather
-    than a carriage-return progress bar: this output is usually redirected to a
-    log file, where a bar becomes thousands of unreadable fragments.
+    Draws a progress bar, because a KIBA epoch is around nine minutes on a T4
+    and silence for that long is indistinguishable from a hung run.
+
+    How it draws depends on where it is writing. On a terminal it redraws one
+    line with a carriage return, which is the nice live bar. Redirected to a
+    file -- which is how Kaggle runs it -- carriage returns never resolve into
+    separate lines, so `tail` would fetch one enormous line of fragments;
+    there it prints a handful of discrete bars instead.
     """
     model.train()
     total_loss = 0.0
     n_batches = len(dataloader)
-    step = max(1, int(n_batches * progress_every)) if progress_every else 0
+    live = progress and sys.stdout.isatty()
+    # A terminal can redraw constantly; a log file gets five bars per epoch.
+    step = max(1, n_batches // (50 if live else 5)) if progress else 0
     started = time.perf_counter()
 
     for batch_index, (drug_batch, protein_batch, label_batch) in enumerate(dataloader, 1):
@@ -146,11 +160,20 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device,
 
         if step and (batch_index % step == 0 or batch_index == n_batches):
             elapsed = time.perf_counter() - started
+            fraction = batch_index / n_batches
             remaining = elapsed / batch_index * (n_batches - batch_index)
-            print(f"    {label}{100 * batch_index // n_batches:3d}% "
-                  f"({batch_index}/{n_batches} batches)  "
-                  f"{_format_duration(elapsed)} elapsed, "
-                  f"~{_format_duration(remaining)} left", flush=True)
+            line = (f"    {label}[{_bar(fraction)}] {100 * fraction:3.0f}%  "
+                    f"{batch_index}/{n_batches}  "
+                    f"{_format_duration(elapsed)} elapsed, "
+                    f"~{_format_duration(remaining)} left")
+            if live:
+                # Pad to overwrite a previously longer line, then redraw.
+                print(f"\r{line:<100}", end="", flush=True)
+            else:
+                print(line, flush=True)
+
+    if live:
+        print(flush=True)          # leave the finished bar on its own line
 
     return total_loss / len(dataloader.dataset)
 

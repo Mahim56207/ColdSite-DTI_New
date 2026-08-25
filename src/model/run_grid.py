@@ -94,8 +94,9 @@ def preflight(cells, split_root="data/splits", results_dir="results",
         checkpoint = build_checkpoint_path(
             results_dir, cell["dataset"], cell["split"], task, cell["seed"])
         if os.path.exists(checkpoint):
-            warnings.append(f"checkpoint already exists, will be skipped "
-                            f"unless --overwrite: {checkpoint}")
+            warnings.append(f"checkpoint already exists; the cell will be "
+                            f"skipped if it is complete, retrained if it was "
+                            f"interrupted: {checkpoint}")
 
     # the property the whole naming module exists to guarantee
     n_expected = len(cells)
@@ -366,15 +367,27 @@ def main():
         checkpoint = build_checkpoint_path(
             args.results_dir, cell["dataset"], cell["split"], args.task,
             cell["seed"])
+        # A checkpoint on disk does NOT mean the cell finished. train() writes
+        # one on the first improving epoch -- usually epoch 0 -- while the
+        # results JSON is only written after the test pass. An interrupted run
+        # (a dropped Colab session) therefore leaves a checkpoint without a
+        # results JSON. Skipping on the checkpoint alone banks a half-trained
+        # model as a finished cell, with no accuracy, and reports success.
+        # Skip only what verify_cell says is actually complete.
         if os.path.exists(checkpoint) and not args.overwrite:
-            print(f"[skip] {cell['dataset']}/{cell['split']}/seed{cell['seed']} "
-                  f"— checkpoint exists")
-            results.append({"cell": cell, "status": "skipped",
-                            "checkpoint": checkpoint,
-                            **{k: v for k, v in verify_cell(
-                                cell, args.results_dir, args.task).items()
-                               if k in ("accuracy",)}})
-            continue
+            verdict = verify_cell(cell, args.results_dir, args.task)
+            if verdict["valid"]:
+                print(f"[skip] {cell['dataset']}/{cell['split']}/seed{cell['seed']} "
+                      f"— already complete")
+                results.append({"cell": cell, "status": "skipped",
+                                "checkpoint": checkpoint,
+                                "accuracy": verdict["accuracy"]})
+                continue
+            print(f"[retrain] {cell['dataset']}/{cell['split']}/seed{cell['seed']} "
+                  f"— checkpoint exists but the cell is incomplete, so it was "
+                  f"interrupted rather than finished:")
+            for problem in verdict["problems"]:
+                print(f"    - {problem}")
         results.append(run_cell(cell, args.split_root, args.results_dir,
                                 args.task, args.epochs))
 

@@ -19,6 +19,7 @@ from src.model.run_grid import (
     TASK,
     format_preflight,
     grid_cells,
+    main,
     preflight,
     status_table,
     train_command,
@@ -192,6 +193,79 @@ def test_an_unloadable_checkpoint_is_caught(tmp_path):
     report = verify_cell(cell, str(tmp_path))
     assert not report["valid"]
     assert any("will not load" in p for p in report["problems"])
+
+
+# --------------------------------------------------------------------------
+# resuming after an interrupted run
+# --------------------------------------------------------------------------
+
+def _run_grid_over_one_cell(tmp_path, monkeypatch, cell):
+    """Drive main() over a single cell, recording whether it trained.
+
+    Returns the list of cells run_cell was called on, so a test can tell a
+    skipped cell from a retrained one.
+    """
+    import src.model.run_grid as run_grid
+
+    trained = []
+
+    def fake_run_cell(cell, split_root, results_dir, task, epochs):
+        trained.append(cell)
+        _finish_cell(tmp_path / "r", cell)
+        return {"cell": cell, "status": "ok", "accuracy": 0.5,
+                "checkpoint": str(tmp_path / "r" / checkpoint_name(
+                    cell["dataset"], cell["split"], TASK, cell["seed"]))}
+
+    monkeypatch.setattr(run_grid, "run_cell", fake_run_cell)
+    monkeypatch.setattr("sys.argv", [
+        "run_grid",
+        "--datasets", cell["dataset"], "--splits", cell["split"],
+        "--seeds", str(cell["seed"]),
+        "--split-root", str(_make_splits(tmp_path / "s")),
+        "--results-dir", str(tmp_path / "r"),
+        "--skip-validation-cell",
+    ])
+    main()
+    return trained
+
+
+@pytest.mark.slow
+def test_an_interrupted_cell_is_retrained_not_skipped(tmp_path, monkeypatch):
+    """A checkpoint on disk does not mean the cell finished.
+
+    train() saves on the first improving epoch -- usually epoch 0 -- and writes
+    the results JSON only after the test pass. A dropped session therefore
+    leaves a checkpoint with no results JSON. Skipping on the checkpoint alone
+    banked a half-trained model as a finished cell, with no accuracy, and the
+    grid reported success.
+    """
+    import torch
+
+    cell = {"dataset": "davis", "split": "random", "seed": 1}
+    results = tmp_path / "r"
+    results.mkdir()
+    # what an interrupted run leaves behind: a checkpoint, no results JSON
+    torch.save({"model_state": {"w": torch.zeros(2)}, "epoch": 0},
+               results / checkpoint_name("davis", "random", TASK, 1))
+    assert not verify_cell(cell, str(results))["valid"]
+
+    trained = _run_grid_over_one_cell(tmp_path, monkeypatch, cell)
+
+    assert trained == [cell], "an interrupted cell must be retrained, not skipped"
+
+
+@pytest.mark.slow
+def test_a_complete_cell_is_still_skipped(tmp_path, monkeypatch):
+    """The other half of the same decision: finished work is not redone."""
+    cell = {"dataset": "davis", "split": "random", "seed": 1}
+    results = tmp_path / "r"
+    results.mkdir()
+    _finish_cell(results, cell)
+    assert verify_cell(cell, str(results))["valid"]
+
+    trained = _run_grid_over_one_cell(tmp_path, monkeypatch, cell)
+
+    assert trained == [], "a complete cell must not be retrained"
 
 
 # --------------------------------------------------------------------------

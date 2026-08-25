@@ -256,6 +256,49 @@ def test_an_interrupted_cell_is_retrained_not_skipped(tmp_path, monkeypatch):
 
 
 @pytest.mark.slow
+def test_the_validation_cell_is_the_first_unfinished_one(tmp_path, monkeypatch):
+    """Resuming must not retrain a finished cell just because it sorts first.
+
+    The validation cell used to be cells[0] unconditionally. On a resumed
+    session that cell is usually already complete, so every restart spent an
+    hour retraining it -- and overwrote a checkpoint and results JSON whose
+    accuracy was already reported, with cuDNN free to return a slightly
+    different number the second time.
+    """
+    import src.model.run_grid as run_grid
+
+    results = tmp_path / "r"
+    results.mkdir()
+    done = {"dataset": "davis", "split": "random", "seed": 1}
+    todo = {"dataset": "davis", "split": "random", "seed": 2}
+    _finish_cell(results, done)
+    assert verify_cell(done, str(results))["valid"]
+
+    trained = []
+
+    def fake_run_cell(cell, split_root, results_dir, task, epochs, extra=(),
+                      dry_run=False):
+        trained.append(cell)
+        _finish_cell(results, cell)
+        return {"cell": cell, "status": "ok", "accuracy": 0.5,
+                "checkpoint": str(results / checkpoint_name(
+                    cell["dataset"], cell["split"], TASK, cell["seed"]))}
+
+    monkeypatch.setattr(run_grid, "run_cell", fake_run_cell)
+    monkeypatch.setattr("sys.argv", [
+        "run_grid", "--datasets", "davis", "--splits", "random",
+        "--seeds", "1,2",
+        "--split-root", str(_make_splits(tmp_path / "s")),
+        "--results-dir", str(results),
+    ])
+    main()
+
+    assert done not in trained, (
+        "the finished cell was retrained as the validation cell")
+    assert trained == [todo], f"expected only the unfinished cell, got {trained}"
+
+
+@pytest.mark.slow
 def test_a_complete_cell_is_still_skipped(tmp_path, monkeypatch):
     """The other half of the same decision: finished work is not redone."""
     cell = {"dataset": "davis", "split": "random", "seed": 1}

@@ -371,21 +371,37 @@ def main():
     results, remaining = [], list(cells)
 
     if not args.skip_validation_cell:
-        first = remaining.pop(0)
-        print(f"\nValidating ONE cell end to end before launching the other "
-              f"{len(remaining)}.")
-        outcome = run_cell(first, args.split_root, args.results_dir, args.task,
-                           args.epochs, extra)
-        results.append(outcome)
-        if outcome["status"] != "ok":
-            write_status(results, args.results_dir)
-            raise SystemExit(
-                f"\nValidation cell failed: {outcome.get('problems')}\n"
-                f"The remaining {len(remaining)} cells were NOT launched. "
-                f"A shape error found on run 23 costs a week.")
-        print(f"\nValidation cell OK "
-              f"({accuracy_metric_for(args.task)}={outcome['accuracy']:.4f}). "
-              f"Launching the remaining {len(remaining)}.")
+        # Validate the first cell that is not already finished, rather than
+        # cells[0] blindly. On a resumed session cells[0] is usually complete,
+        # and retraining it costs an hour of GPU per restart -- on a runtime
+        # that disconnects often, more time than the grid gains. It also
+        # overwrites a checkpoint and results JSON whose accuracy is already
+        # reported, and cuDNN is not bit-deterministic, so the number would
+        # move between runs for no reason anyone could explain.
+        index = next(
+            (i for i, cell in enumerate(remaining)
+             if args.overwrite
+             or not verify_cell(cell, args.results_dir, args.task)["valid"]),
+            None)
+        if index is None:
+            print("\nEvery cell is already complete — nothing to validate.")
+        else:
+            first = remaining.pop(index)
+            print(f"\nValidating ONE cell end to end "
+                  f"({first['dataset']}/{first['split']}/seed{first['seed']}) "
+                  f"before launching the other {len(remaining)}.")
+            outcome = run_cell(first, args.split_root, args.results_dir,
+                               args.task, args.epochs, extra)
+            results.append(outcome)
+            if outcome["status"] != "ok":
+                write_status(results, args.results_dir)
+                raise SystemExit(
+                    f"\nValidation cell failed: {outcome.get('problems')}\n"
+                    f"The remaining {len(remaining)} cells were NOT launched. "
+                    f"A shape error found on run 23 costs a week.")
+            print(f"\nValidation cell OK "
+                  f"({accuracy_metric_for(args.task)}={outcome['accuracy']:.4f}). "
+                  f"Launching the remaining {len(remaining)}.")
 
     for cell in remaining:
         checkpoint = build_checkpoint_path(

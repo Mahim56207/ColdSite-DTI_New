@@ -14,6 +14,7 @@ Usage
 import argparse
 import json
 import os
+import time
 
 import numpy as np
 import torch
@@ -100,10 +101,33 @@ def compute_metrics(y_true, y_pred, task: str) -> dict:
 # train / eval
 # --------------------------------------------------------------------------
 
-def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
+def _format_duration(seconds):
+    """h/m/s, whichever fits. Epochs run from tens of seconds to tens of minutes."""
+    seconds = int(seconds)
+    if seconds >= 3600:
+        return f"{seconds // 3600}h{(seconds % 3600) // 60:02d}m"
+    if seconds >= 60:
+        return f"{seconds // 60}m{seconds % 60:02d}s"
+    return f"{seconds}s"
+
+
+def train_one_epoch(model, dataloader, optimizer, loss_fn, device,
+                    progress_every=0.1, label=""):
+    """One pass over the training set.
+
+    `progress_every` prints an in-epoch line each time that fraction of the
+    batches is done, so a KIBA epoch -- around nine minutes on a T4 -- reports
+    that it is moving rather than looking hung. Deliberately plain lines rather
+    than a carriage-return progress bar: this output is usually redirected to a
+    log file, where a bar becomes thousands of unreadable fragments.
+    """
     model.train()
     total_loss = 0.0
-    for drug_batch, protein_batch, label_batch in dataloader:
+    n_batches = len(dataloader)
+    step = max(1, int(n_batches * progress_every)) if progress_every else 0
+    started = time.perf_counter()
+
+    for batch_index, (drug_batch, protein_batch, label_batch) in enumerate(dataloader, 1):
         drug_batch = drug_batch.to(device)
         protein_batch = protein_batch.to(device)
         label_batch = label_batch.to(device)
@@ -119,6 +143,15 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
         optimizer.step()
 
         total_loss += loss.item() * drug_batch.size(0)
+
+        if step and (batch_index % step == 0 or batch_index == n_batches):
+            elapsed = time.perf_counter() - started
+            remaining = elapsed / batch_index * (n_batches - batch_index)
+            print(f"    {label}{100 * batch_index // n_batches:3d}% "
+                  f"({batch_index}/{n_batches} batches)  "
+                  f"{_format_duration(elapsed)} elapsed, "
+                  f"~{_format_duration(remaining)} left", flush=True)
+
     return total_loss / len(dataloader.dataset)
 
 
@@ -175,15 +208,32 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
     selector = CheckpointSelector(patience=patience, min_epochs=min_epochs,
                                   n_epochs=n_epochs)
 
+    epoch_durations = []
+
     for epoch in range(n_epochs):
         epoch_1indexed = epoch + 1
-        train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
+        epoch_started = time.perf_counter()
+        train_loss = train_one_epoch(
+            model, train_loader, optimizer, loss_fn, device,
+            label=f"epoch {epoch_1indexed}/{n_epochs}  ")
         val_loss, val_metrics = evaluate(model, val_loader, loss_fn, device, task)
         scheduler.step(val_loss)
 
+        took = time.perf_counter() - epoch_started
+        epoch_durations.append(took)
+        # Averaged rather than taken from the last epoch: the first is slower
+        # (cuDNN autotuning, warm caches) and would skew a running estimate.
+        mean_epoch = sum(epoch_durations) / len(epoch_durations)
+        # An upper bound, not a promise. Early stopping usually ends a cell well
+        # before n_epochs -- 33 and 69 on the two DAVIS cells measured so far --
+        # so this says how long the cell can still take, not how long it will.
+        worst_case = mean_epoch * (n_epochs - epoch_1indexed)
+
         metric_str = "  ".join(f"{k}={v:.4f}" for k, v in val_metrics.items())
         print(f"Epoch {epoch_1indexed}/{n_epochs}  train_loss={train_loss:.4f}  "
-              f"val_loss={val_loss:.4f}  {metric_str}")
+              f"val_loss={val_loss:.4f}  {metric_str}  "
+              f"[{_format_duration(took)}, avg {_format_duration(mean_epoch)}, "
+              f"<={_format_duration(worst_case)} left]", flush=True)
 
         if selector.consider(epoch_1indexed, val_loss):
             torch.save({"model_state": model.state_dict(), "epoch": epoch,

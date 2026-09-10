@@ -180,7 +180,13 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
     produced by three runs that overwrote each other.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"Training on: {device}")
+    # Says the size of the job before the first epoch line, which does not
+    # arrive until an epoch completes -- minutes on DAVIS, longer on KIBA.
+    # Without this the gap between "started" and the first bar is silent, and
+    # a slow first epoch is indistinguishable from a run that never began.
+    print(f"Training on: {device}  |  {len(train_loader)} train batches/epoch, "
+          f"{len(val_loader)} val, up to {n_epochs} epochs "
+          f"(early stopping: patience {patience}, min {min_epochs})", flush=True)
 
     model = ColdSiteDTI(drug_vocab_size, protein_vocab_size).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)

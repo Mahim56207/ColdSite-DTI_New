@@ -275,7 +275,10 @@ def status_table(results: list) -> str:
     lines += ["", f"{done} of {len(results)} cells complete "
                   f"(accuracy = the task's headline metric on the test split; "
                   f"concordance index for regression, AUROC for binary)."]
-    failures = [e for e in results if e["status"] not in ("ok", "skipped", "dry-run")]
+    # "missing" is a cell nobody has reached yet -- the other GPU's share, or
+    # the rest of a grid still running. Not done, but not a failure either.
+    failures = [e for e in results
+                if e["status"] not in ("ok", "skipped", "dry-run", "missing")]
     if failures:
         lines += ["", "## Failures", ""]
         for entry in failures:
@@ -286,16 +289,76 @@ def status_table(results: list) -> str:
     return "\n".join(lines)
 
 
-def write_status(results: list, out_dir="results") -> tuple:
+def grid_state(datasets, results_dir="results", task=TASK, run_results=()) -> list:
+    """Every cell of the grid for `datasets`, as it stands on disk.
+
+    Read from the results directory rather than from one process's memory.
+    On a two-GPU machine two run_grid processes share a directory, each
+    training half the split types. A status built from memory described only
+    the caller's half, and whichever process finished last overwrote the
+    other's file -- so the table read "6 of 6 cells complete" on a 12-cell
+    grid. Built from the directory, either process writes the whole grid, and
+    the one that finishes last writes it complete.
+
+    Covers every split and seed, not only the ones this process trains:
+    --splits and --seeds are how the work is divided between processes
+    sharing a directory, and the status describes the grid, not one share.
+
+    A cell is "ok" if verify_cell vouches for it, "interrupted" if it has a
+    checkpoint but is not complete, "missing" if nothing has been written.
+    A failure from this run keeps its own record, so its problems still show.
+    """
+    from_this_run = {(e["cell"]["dataset"], e["cell"]["split"], e["cell"]["seed"]): e
+                     for e in run_results}
+    rows = []
+    for cell in grid_cells(list(datasets), list(SPLITS), list(SEEDS)):
+        key = (cell["dataset"], cell["split"], cell["seed"])
+        verdict = verify_cell(cell, results_dir, task)
+        ours = from_this_run.get(key)
+        if verdict["valid"]:
+            rows.append({"cell": cell, "status": "ok",
+                         "checkpoint": verdict["checkpoint"],
+                         "accuracy": verdict["accuracy"]})
+        elif ours is not None and ours["status"] not in ("ok", "skipped"):
+            rows.append(ours)
+        elif os.path.exists(verdict["checkpoint"]):
+            rows.append({"cell": cell, "status": "interrupted",
+                         "checkpoint": verdict["checkpoint"], "accuracy": None,
+                         "problems": verdict["problems"]})
+        else:
+            rows.append({"cell": cell, "status": "missing",
+                         "checkpoint": verdict["checkpoint"], "accuracy": None})
+    return rows
+
+
+def _write_atomic(path, text):
+    """Write via a temporary file and rename, so two processes finishing at
+    the same moment can each replace the file but never interleave into it."""
+    tmp = f"{path}.{os.getpid()}.tmp"
+    with open(tmp, "w") as f:
+        f.write(text)
+    os.replace(tmp, path)
+
+
+def write_status(results: list, out_dir="results", datasets=None, task=TASK) -> tuple:
+    """Write grid_status.json and grid_status.md for the whole grid.
+
+    `results` are this process's outcomes; the files describe every cell of
+    `datasets` as found on disk (see grid_state). Returns the two paths and
+    the rows written, so the caller can print what it saved.
+    """
     os.makedirs(out_dir, exist_ok=True)
+    if datasets is None:
+        datasets = sorted({e["cell"]["dataset"] for e in results}) or list(DATASETS)
+    rows = grid_state(datasets, out_dir, task, results)
+
     json_path = os.path.join(out_dir, "grid_status.json")
-    with open(json_path, "w") as f:
-        json.dump(results, f, indent=2, default=str)
+    _write_atomic(json_path, json.dumps(rows, indent=2, default=str))
     table_path = os.path.join(out_dir, "grid_status.md")
-    with open(table_path, "w") as f:
-        f.write("# Training grid — 2 datasets x 4 splits x 3 training seeds\n\n")
-        f.write(status_table(results) + "\n")
-    return json_path, table_path
+    title = (f"# Training grid — {len(datasets)} dataset{'s' if len(datasets) != 1 else ''}"
+             f" ({', '.join(datasets)}) x {len(SPLITS)} splits x {len(SEEDS)} training seeds")
+    _write_atomic(table_path, f"{title}\n\n{status_table(rows)}\n")
+    return json_path, table_path, rows
 
 
 # ---------------------------------------------------------------------------
@@ -343,8 +406,9 @@ def main():
         extra += ["--min-epochs", str(args.min_epochs)]
     extra = tuple(extra)
 
+    datasets = [d.strip() for d in args.datasets.split(",") if d.strip()]
     cells = grid_cells(
-        [d.strip() for d in args.datasets.split(",") if d.strip()],
+        datasets,
         [s.strip() for s in args.splits.split(",") if s.strip()],
         [int(s) for s in args.seeds.split(",") if s.strip()])
 
@@ -394,7 +458,7 @@ def main():
                                args.task, args.epochs, extra)
             results.append(outcome)
             if outcome["status"] != "ok":
-                write_status(results, args.results_dir)
+                write_status(results, args.results_dir, datasets, args.task)
                 raise SystemExit(
                     f"\nValidation cell failed: {outcome.get('problems')}\n"
                     f"The remaining {len(remaining)} cells were NOT launched. "
@@ -431,8 +495,9 @@ def main():
         results.append(run_cell(cell, args.split_root, args.results_dir,
                                 args.task, args.epochs, extra))
 
-    json_path, table_path = write_status(results, args.results_dir)
-    print("\n" + status_table(results))
+    json_path, table_path, rows = write_status(results, args.results_dir,
+                                               datasets, args.task)
+    print("\n" + status_table(rows))
     print(f"\nSaved -> {json_path}\nSaved -> {table_path}")
 
     failed = [e for e in results if e["status"] not in ("ok", "skipped")]

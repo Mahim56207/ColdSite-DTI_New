@@ -24,6 +24,7 @@ from src.model.run_grid import (
     status_table,
     train_command,
     verify_cell,
+    write_status,
 )
 
 
@@ -375,3 +376,63 @@ def test_the_metric_mapping_has_one_definition():
 def test_an_unknown_task_raises_rather_than_guessing():
     with pytest.raises(ValueError, match="no accuracy metric"):
         accuracy_metric_for("ranking")
+
+
+# --------------------------------------------------------------------------
+# the status file, when two processes share a results directory
+# --------------------------------------------------------------------------
+
+def _share(split_types):
+    return [{"dataset": "davis", "split": sp, "seed": seed}
+            for sp in split_types for seed in SEEDS]
+
+
+@pytest.mark.slow
+def test_the_last_process_to_finish_writes_the_whole_grid(tmp_path):
+    """Two GPUs, one results directory, each process training half the split
+    types. The status used to be built from the caller's memory, so the last
+    process to finish overwrote the other's file with its own half: a 12-cell
+    grid reported "6 of 6 cells complete". Built from disk, the last writer
+    describes all twelve.
+    """
+    gpu0, gpu1 = _share(["random", "cold_drug"]), _share(["cold_target", "cold_pair"])
+    for cell in gpu0 + gpu1:
+        _finish_cell(tmp_path, cell)
+
+    def outcomes(cells):
+        return [{"cell": c, "status": "ok", "accuracy": 0.72,
+                 "checkpoint": str(tmp_path / checkpoint_name(
+                     c["dataset"], c["split"], TASK, c["seed"]))} for c in cells]
+
+    write_status(outcomes(gpu1), str(tmp_path), ["davis"])       # finishes first
+    _, table_path, rows = write_status(outcomes(gpu0), str(tmp_path), ["davis"])
+
+    text = open(table_path).read()
+    assert "12 of 12 cells complete" in text, text
+    assert len(rows) == 12
+    # a cell only the *other* process trained must still be in the table
+    assert "| davis | cold_pair | 3 |" in text
+
+
+@pytest.mark.slow
+def test_a_resumed_grid_counts_skipped_cells_as_complete(tmp_path):
+    """On a resumed run every finished cell comes back as "skipped", and the
+    count only included "ok" -- a complete grid read as nearly empty."""
+    cells = _share(["random", "cold_drug", "cold_target", "cold_pair"])
+    for cell in cells:
+        _finish_cell(tmp_path, cell)
+    skipped = [{"cell": c, "status": "skipped", "accuracy": 0.72} for c in cells]
+
+    _, table_path, _ = write_status(skipped, str(tmp_path), ["davis"])
+
+    assert "12 of 12 cells complete" in open(table_path).read()
+
+
+def test_a_cell_nobody_has_reached_is_not_a_failure(tmp_path):
+    """The other GPU's unstarted share is "missing", not a failure."""
+    _, table_path, rows = write_status([], str(tmp_path), ["davis"])
+    text = open(table_path).read()
+
+    assert {r["status"] for r in rows} == {"missing"}
+    assert "0 of 12 cells complete" in text
+    assert "## Failures" not in text

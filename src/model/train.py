@@ -29,7 +29,7 @@ from src.model.checkpoint_naming import (
     run_tag,
 )
 from src.model.coldsite_dti import ColdSiteDTI
-from src.model.dataset import load_split, make_loader, random_dataset
+from src.model.dataset import BINARY_THRESHOLD, load_split, make_loader, random_dataset
 
 
 # --------------------------------------------------------------------------
@@ -292,9 +292,19 @@ if __name__ == "__main__":
     else:
         if not args.split_dir:
             parser.error("--split-dir is required unless --dummy is set")
+        threshold = None
+        if args.task == "binary":
+            # The split files hold affinities, not classes; the threshold is
+            # what makes this the same binary task the baselines are scored on.
+            if args.dataset not in BINARY_THRESHOLD:
+                parser.error(f"--task binary needs --dataset in "
+                             f"{sorted(BINARY_THRESHOLD)} to know where binding "
+                             f"begins, got {args.dataset!r}")
+            threshold = BINARY_THRESHOLD[args.dataset]
         train_loader, val_loader, test_loader, drug_vocab, protein_vocab = load_split(
             args.split_dir, args.max_protein_len, args.batch_size,
-            train_subsample=args.train_subsample, subsample_seed=args.seed)
+            train_subsample=args.train_subsample, subsample_seed=args.seed,
+            binary_threshold=threshold)
         if args.train_subsample:
             print(f"VOLUME-MATCHED CONTROL: training on "
                   f"{len(train_loader.dataset)} rows "

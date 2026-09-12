@@ -122,16 +122,30 @@ from chance. That dissociation is the audit's thesis, visible in our own model.
 Preliminary: one seed, regression rather than the binary checkpoints the audit uses.
 The significance is easy at n > 1,000 per level; the effect size is what to report.
 
-**Two things to fix before the paper's numbers:**
+**Two things it surfaced, both since fixed:**
 
-1. **54 targets with annotated sites have a DAVIS sequence of a different length from
-   UniProt's** (e.g. ABL1 and its variants, 1,167 vs 1,130), so UniProt residue numbers
-   may not map onto the sequence the model saw. 376 of 442 targets match in length, so
-   this cannot explain the result -- if the mismatched ones scored pure chance, the
-   aligned ones would still sit near 0.038 -- but they should be aligned or excluded.
-2. **The headline figure hides the scale.** `run_ladder`'s precision panel runs from 0
-   to 0.037 with no chance line or ceiling, which makes differences of 0.01 look
-   dramatic. The paper figure needs the chance line on it.
+1. **Ground truth numbered along the wrong sequence** (`cb92832`). 54 targets had a DAVIS
+   sequence differing from UniProt's -- fragments, isoforms, constructs -- so UniProt
+   residue numbers pointed at the wrong residues. `src/data/align_ground_truth.py` now
+   re-numbers every site along the DAVIS sequence. It also found **four targets carrying
+   another protein's sites** (PKAC-alpha, PAK1, MLCK, CDK11; corrected via overrides) and
+   DAVIS sequences that omit the kinase domain entirely (ROCK2, MLK1). Details:
+   `data/GROUND_TRUTH_README.md`.
+2. **The headline figure hid the scale** (`865cfe7`). It now draws chance and states
+   the ceiling.
+
+**The ladder re-run on the corrected ground truth** (same checkpoints, seed 1):
+
+| level | precision@10 before | after | chance |
+|---|---|---|---|
+| warm | 0.036 | **0.040** | 0.020 |
+| cold-drug | 0.023 | **0.028** | 0.020 |
+| cold-target | 0.018 | **0.018** (p = 0.98) | 0.019 |
+| cold-pair | 0.035 | **0.033** | 0.019 |
+
+The misaligned sites were diluting the signal: where the model has one, it rose. The
+conclusion is unchanged -- at best ~2x chance against a ceiling of 0.99, and cold-target
+indistinguishable from chance.
 
 ### What is left
 
@@ -141,9 +155,9 @@ The significance is easy at n > 1,000 per level; the effect size is what to repo
    section once 36/36 exist.
 3. Volume-matched control for cold-pair -- `notebooks/colab_volume_control.ipynb`,
    ColdSite-DTI on `random` cut to 15,190 rows, three seeds, on Colab.
-4. Align or exclude the 54 length-mismatched targets; add the chance line to the
-   headline figure (both above).
-5. Writing decisions below: the ladder's framing, and the cotransport-ion treatment.
+4. Writing decisions below: the ladder's framing, and the cotransport-ion treatment.
+5. MolTrans: trainer not yet written; measured at ~3-12 GPU-hours for DAVIS on two T4s,
+   far cheaper than KIBA. Decide its protocol (published 13 epochs vs early stopping).
 
 **Deferred, to be written up as limitations:** KIBA for ColdSite-DTI and the binary
 grid; MolTrans.

@@ -132,12 +132,17 @@ account on KIBA.**
     (AUROC and precision@10). Rejected as protocol changes: shorter patience/epochs, larger
     batches, fewer rows/seeds.
   - **KIBA scope still open** (full 48 cells vs random + cold-drug 24): check with supervisor.
-  - **Blocker: epoch-level resume** in all four trainers (+ `run_grid`, `early_stopping`
-    selector state): save model/optimizer/scheduler/selector/epoch/RNG atomically to
-    `<checkpoint>_resume.pt` each epoch, continue on restart, delete when the cell finishes.
-    Training code ⇒ build on branch `kiba-resume` (separate worktree), add a `BRANCH`
-    setting (default `main`) to `kaggle_binary_grid.ipynb` so KIBA clones the branch
-    while DAVIS stays on `main`; merge after both DAVIS runs finish.
+  - **Epoch-level resume + `--amp`: built 2026-09-12 on branch `kiba-resume`** (commit
+    `0306e44`; worktree `../ColdSite-DTI-kiba-resume`, not on `main`). All four trainers
+    write `<checkpoint>_resume.pt` each epoch (atomic; best checkpoint written after it, so
+    the 11 h kill can land anywhere), continue on restart, refuse changed settings, delete
+    it when the cell finishes. `--amp` off by default. Verified on real DAVIS rows: resumed
+    == uninterrupted and branch (amp off) == `main`, bit for bit on CPU; 689 tests pass.
+    `kaggle_binary_grid.ipynb` on the branch has `BRANCH`/`AMP` settings (KIBA:
+    `BRANCH='kiba-resume'`, `AMP=True`). **Merge into `main` only after both DAVIS runs
+    finish.** Next: run `notebooks/colab_amp_validation.ipynb` (branch; DAVIS
+    HyperAttentionDTI cold-pair × 3 seeds with `--amp`, set `FP32_DIR` to account 1's
+    fp32 cells) — verdict = AMP mean within the fp32 seed spread for AUROC and precision@10.
 - **Send the first ColdSite-DTI binary cell's Test metrics** (and account 1's §10 table)
   to check, once account 1 produces one.
 - **Colab**: free since the volume control finished (2026-09-12; numbers in §3). If Colab

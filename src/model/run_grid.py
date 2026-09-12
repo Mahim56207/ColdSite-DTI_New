@@ -36,6 +36,7 @@ import subprocess
 import sys
 import time
 
+from src.model import resume
 from src.model.checkpoint_naming import (
     checkpoint_path as build_checkpoint_path,
     discover_checkpoints,
@@ -95,8 +96,9 @@ def preflight(cells, split_root="data/splits", results_dir="results",
             results_dir, cell["dataset"], cell["split"], task, cell["seed"])
         if os.path.exists(checkpoint):
             warnings.append(f"checkpoint already exists; the cell will be "
-                            f"skipped if it is complete, retrained if it was "
-                            f"interrupted: {checkpoint}")
+                            f"skipped if it is complete, continued (or retrained, "
+                            f"if it has no resume file) if it was interrupted: "
+                            f"{checkpoint}")
 
     # the property the whole naming module exists to guarantee
     n_expected = len(cells)
@@ -390,6 +392,10 @@ def main():
              "the grid: the audit compares them to each other, so a cell "
              "checkpointed at epoch 2 against one at epoch 16 confounds the "
              "explanation axis. See src/model/early_stopping.py")
+    parser.add_argument("--amp", action="store_true",
+                        help="mixed precision in every cell; see "
+                             "src/model/precision.py. Off (the default) is the "
+                             "DAVIS grid's protocol")
     parser.add_argument("--overwrite", action="store_true",
                         help="retrain cells that already have a checkpoint")
     parser.add_argument("--skip-validation-cell", action="store_true",
@@ -404,6 +410,8 @@ def main():
         extra += ["--lr", str(args.lr)]
     if args.min_epochs is not None:
         extra += ["--min-epochs", str(args.min_epochs)]
+    if args.amp:
+        extra += ["--amp"]
     extra = tuple(extra)
 
     datasets = [d.strip() for d in args.datasets.split(",") if d.strip()]
@@ -431,6 +439,14 @@ def main():
             "\nRefusing to launch. Fix the problems above first — a grid "
             "started against missing or colliding cells wastes the compute and "
             "produces results nobody can attribute to a run.")
+
+    if args.overwrite:
+        # --overwrite means train from scratch; a resume file would instead
+        # continue the old run.
+        for cell in cells:
+            resume.clear(resume.resume_path(build_checkpoint_path(
+                args.results_dir, cell["dataset"], cell["split"], args.task,
+                cell["seed"])))
 
     results, remaining = [], list(cells)
 
@@ -487,7 +503,12 @@ def main():
                                 "checkpoint": checkpoint,
                                 "accuracy": verdict["accuracy"]})
                 continue
-            print(f"[retrain] {cell['dataset']}/{cell['split']}/seed{cell['seed']} "
+            # train.py continues from the resume file when one exists, and
+            # starts the cell again only when it does not (a checkpoint left
+            # by code older than src/model/resume.py).
+            action = ("resume" if os.path.exists(resume.resume_path(checkpoint))
+                      else "retrain")
+            print(f"[{action}] {cell['dataset']}/{cell['split']}/seed{cell['seed']} "
                   f"— checkpoint exists but the cell is incomplete, so it was "
                   f"interrupted rather than finished:")
             for problem in verdict["problems"]:

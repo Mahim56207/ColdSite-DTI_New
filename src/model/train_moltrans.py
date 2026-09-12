@@ -80,6 +80,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
+from src.model import precision, resume
 from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import checkpoint_path, results_path, run_tag
 from src.model.train import compute_metrics
@@ -87,6 +88,8 @@ from src.model.train import compute_metrics
 from src.model.dataset import BINARY_THRESHOLD
 
 VENDORED = os.path.join("baselines", "MolTrans")
+# Settings a resumed cell must share with the run it continues (src/model/resume.py).
+RESUME_KEYS = ("amp", "batch_size", "lr", "epochs", "patience", "min_epochs")
 
 
 def _import_vendored():
@@ -165,29 +168,30 @@ class MolTransDataset(Dataset):
 
 
 def run_epoch(model, loader, loss_fn, device, optimizer=None,
-              log_every: int = 20, label: str = ""):
+              log_every: int = 20, label: str = "", scaler=None, amp: bool = False):
     training = optimizer is not None
     model.train(training)
     total, n, logits, trues = 0.0, 0, [], []
     n_batches = len(loader)
+    if training and scaler is None:
+        scaler = precision.make_scaler(device, False)
 
     for batch_index, (d, p, dm, pm, y) in enumerate(loader, start=1):
         d, p, dm, pm, y = (d.to(device), p.to(device), dm.to(device),
                            pm.to(device), y.to(device))
         _fit_batch_size(model, d.shape[0])
-        with torch.set_grad_enabled(training):
+        with torch.set_grad_enabled(training), precision.autocast(device, amp):
             out = model(d, p, dm, pm).squeeze(-1)
             loss = loss_fn(out, y)
         if training:
             optimizer.zero_grad()
-            loss.backward()
+            scaler.scale(loss).backward()
             # Same clipping as train.py and train_deepdta.py.
-            nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
-            optimizer.step()
+            precision.step(optimizer, scaler, model.parameters(), clip=5.0)
 
         total += float(loss.item()) * len(y)
         n += len(y)
-        logits.append(out.detach().cpu().numpy())
+        logits.append(out.detach().float().cpu().numpy())
         trues.append(y.detach().cpu().numpy())
 
         if log_every and (batch_index % log_every == 0 or batch_index == n_batches):
@@ -223,6 +227,13 @@ def main():
                         help="exit immediately if this cell's results file "
                              "already exists, so a grid can be resumed after "
                              "an interruption without redoing work")
+    parser.add_argument("--amp", action="store_true",
+                        help="mixed precision (float16 autocast + GradScaler); "
+                             "see src/model/precision.py. Off reproduces the "
+                             "DAVIS grid exactly")
+    parser.add_argument("--stop-after-epoch", type=int,
+                        help="testing only: stop after this epoch as if killed, "
+                             "leaving the resume file behind")
     args = parser.parse_args()
 
     tag = run_tag(args.dataset, args.split, "binary", args.seed)
@@ -260,6 +271,7 @@ def main():
              f"{torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB)"
              if device.startswith("cuda") and torch.cuda.is_available() else ""))
     print(f"  batch size    {args.batch_size} (vendored: 16)")
+    print(f"  precision     {'mixed (float16 autocast)' if args.amp else 'float32'}")
     if device == "cpu":
         print("  WARNING: running on CPU. Two 2-layer transformer encoders "
               "(384-dim, 545 protein tokens) per pair; a full split will "
@@ -280,26 +292,36 @@ def main():
     selector = CheckpointSelector(patience=args.patience,
                                   min_epochs=args.min_epochs,
                                   n_epochs=args.epochs)
-    for epoch in range(1, args.epochs + 1):
+    scaler = precision.make_scaler(device, args.amp)
+    run = resume.Resumable(ckpt, device, vars(args), RESUME_KEYS, args.stop_after_epoch)
+    start = run.begin(model, optimizer, selector, scaler=scaler)
+    for epoch in (range(start, args.epochs + 1) if start else ()):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
-                                     optimizer, label=f"epoch {epoch} train")
+                                     optimizer, label=f"epoch {epoch} train",
+                                     scaler=scaler, amp=args.amp)
         val_loss, val_true, val_score = run_epoch(model, loaders["valid"], loss_fn,
-                                                  device, label=f"epoch {epoch} valid")
+                                                  device, label=f"epoch {epoch} valid",
+                                                  amp=args.amp)
         metrics = compute_metrics(val_true, val_score, "binary")
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
 
-        if selector.consider(epoch, val_loss):
-            torch.save({"model_state": model.state_dict(), "epoch": epoch,
-                        "args": vars(args)}, ckpt)
-        elif selector.should_stop(epoch):
+        best = ({"model_state": model.state_dict(), "epoch": epoch, "args": vars(args)}
+                if selector.consider(epoch, val_loss) else None)
+        stopping = best is None and selector.should_stop(epoch)
+        # end_epoch writes the checkpoint as well, after the resume file
+        run.end_epoch(epoch, finished=stopping or epoch == args.epochs,
+                      best_checkpoint=best)
+        if stopping:
             print(f"  early stop at epoch {epoch} (best {selector.best_epoch})")
             break
+        if run.interrupt_now(epoch):
+            return
 
     model.load_state_dict(torch.load(ckpt, map_location=device,
                                      weights_only=False)["model_state"])
     _loss, test_true, test_score = run_epoch(model, loaders["test"], loss_fn,
-                                             device, label="test")
+                                             device, label="test", amp=args.amp)
     test_metrics = compute_metrics(test_true, test_score, "binary")
 
     with open(out_path, "w") as handle:
@@ -308,9 +330,11 @@ def main():
                    "checkpoint": ckpt, "best_epoch": selector.best_epoch,
                    "selection": selector.summary(),
                    "batch_size": args.batch_size,
+                   "amp": args.amp, "resumed_after_epoch": run.resumed_from,
                    "test_positive_rate": float(datasets["test"].y.mean()),
                    "n_train_rows": len(datasets["train"]),
                    "test_metrics": test_metrics}, handle, indent=2)
+    run.clear()
 
     print("\nTest metrics:", json.dumps(test_metrics, indent=2))
     print(f"Saved -> {out_path}")

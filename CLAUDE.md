@@ -118,12 +118,17 @@ account on KIBA.**
     ColdSite-DTI 3.4/2.3 and 4.8/3.2; DeepDTA ~0.6–0.8. Total ~240–340 GPU-h ≈ 2–3 weeks of
     both accounts at ~30 h/week each (verify quota). ETA ~6–10 Oct; Colab (with resume)
     is the overflow.
-  - **Speed-up candidate: mixed precision** (fp16 autocast + GradScaler; est. 1.5–3× for
-    HyperAttentionDTI/MolTrans on a T4 — unmeasured). Measure first with
-    `notebooks/colab_speed_test.ipynb` (`src/model/benchmark_speed.py`, trains nothing;
-    result → Drive `coldsite-speed-test/speed_kiba.md`). If worth it: validate one DAVIS
-    cell under AMP within the seed spread, then apply to every KIBA cell and state it.
-    Rejected as protocol changes: shorter patience/epochs, larger batches, fewer rows/seeds.
+  - **Mixed precision, measured on a T4 (2026-09-12, `results/speed_test_kiba_t4.md`):**
+    HyperAttentionDTI 2.0×, MolTrans 1.3×, ColdSite-DTI 1.15×, DeepDTA 2.3×; no non-finite
+    steps; outputs shift ~0.02–0.04% (untrained weights). cudnn autotuning alone: nothing.
+    KIBA per cell at 36 epochs: HyperAttentionDTI 14.8 → 7.3 h, MolTrans 12.4 → 9.4 h,
+    ColdSite-DTI 5.2 → 4.5 h, DeepDTA ~0.1–0.3 h. Totals: full KIBA ~165–235 GPU-h with
+    AMP (vs ~250–360); random + cold-drug ~90–130. Proposed: `--amp` opt-in flag (DAVIS
+    stays fp32), used for every KIBA cell of every model; **validate first** on DAVIS
+    HyperAttentionDTI cold-pair × 3 seeds under AMP on Colab vs the fp32 grid cells' spread
+    (AUROC and precision@10). Rejected as protocol changes: shorter patience/epochs, larger
+    batches, fewer rows/seeds.
+  - **KIBA scope still open** (full 48 cells vs random + cold-drug 24): check with supervisor.
   - **Blocker: epoch-level resume** in all four trainers (+ `run_grid`, `early_stopping`
     selector state): save model/optimizer/scheduler/selector/epoch/RNG atomically to
     `<checkpoint>_resume.pt` each epoch, continue on restart, delete when the cell finishes.

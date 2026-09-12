@@ -64,8 +64,8 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 
 **To do**
 - ColdSite-DTI + HyperAttentionDTI binary on DAVIS (running on Kaggle, account 1).
-- MolTrans binary on DAVIS, then KIBA (running on Kaggle, account 2 — see §4 for the
-  split with account 1's KIBA share).
+- MolTrans binary on DAVIS (running on Kaggle, account 2). KIBA: six accounts, see §4 for the
+  `KIBA_RUN` split.
 - Once every cell above is trained, per seed: `run_faithfulness` → `run_ladder`; then
   `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. Automatic in the DAVIS
   36-grid's own §11 for its three models only — MolTrans and KIBA need the same three
@@ -108,14 +108,18 @@ account on KIBA.**
   Next: the user sends the first two `STATUS` lines (to estimate epochs/hour and whether
   12 cells need one commit or two) and the first `✓` test AUROC (believable DAVIS
   `random` ≈ 0.85–0.93; ≥ 0.98 means leakage, ≈ 0.5 means it isn't learning).
-- **KIBA plan (2026-09-12; supersedes the earlier half/half split, which left cells
-  untrained).** 48 cells, each on exactly one account, balanced by GPU-hours:
-  - **Account 2** (after DAVIS MolTrans 12/12): run A `MODELS=['moltrans']`, all 4 splits;
-    then run B `MODELS=['deepdta','coldsite_dti','hyperattentiondti']`,
-    `SPLIT_SUBSET=['cold_pair']`. ~170 GPU-h.
-  - **Account 1** (after DAVIS 36/36): `MODELS=['deepdta','coldsite_dti','hyperattentiondti']`,
-    `SPLIT_SUBSET=['random','cold_drug','cold_target']`. ~175 GPU-h.
-  - Both via `kaggle_binary_grid.ipynb`, `DATASET='kiba'`, own restore dataset per run.
+- **KIBA plan — six accounts (2026-09-12; supersedes the two-account split).** In
+  `kaggle_binary_grid.ipynb` on branch `kiba-resume` (commit `03ab140`), each account sets
+  only `KIBA_RUN` = one of `K1`…`K6`, which fills in `DATASET='kiba'`, all 4 splits,
+  `BRANCH='kiba-resume'`, `AMP=True`, and:
+  - K1 / K2 / K3: MolTrans, seed 1 / 2 / 3 — ~19 h on the slower T4 (13–26 h at 25–50 epochs).
+  - K4 / K5 / K6: DeepDTA + ColdSite-DTI + HyperAttentionDTI, seed 1 / 2 / 3 — ~24 h (17–34 h).
+  - Together exactly the 48 cells, each once (tested). 2–3 commits per account; K4–K6 at
+    50 epochs would pass a week's ~30 h quota. Each account has its own restore dataset;
+    **never two accounts on the same K-run.** Accounts 1 and 2 can take K-runs once
+    their DAVIS work is finished. Start only after the AMP validation passes.
+  - Kaggle's terms allow one account per person — each account must be a different team
+    member's own.
   - Cost per cell on a T4 (large split / cold-pair), hours at 25 (min) and 36 (typical)
     epochs: HyperAttentionDTI 9.5/6.3 and 13.8/9.1; MolTrans 8.2/5.5 and 11.8/7.9;
     ColdSite-DTI 3.4/2.3 and 4.8/3.2; DeepDTA ~0.6–0.8. Total ~240–340 GPU-h ≈ 2–3 weeks of
@@ -139,7 +143,7 @@ account on KIBA.**
     it when the cell finishes. `--amp` off by default. Verified on real DAVIS rows: resumed
     == uninterrupted and branch (amp off) == `main`, bit for bit on CPU; 689 tests pass.
     `kaggle_binary_grid.ipynb` on the branch has `BRANCH`/`AMP` settings (KIBA:
-    `BRANCH='kiba-resume'`, `AMP=True`). **Merge into `main` only after both DAVIS runs
+    `BRANCH='kiba-resume'`, `AMP=True`; six-account `KIBA_RUN` presets above). **Merge into `main` only after both DAVIS runs
     finish.** Next: run `notebooks/colab_amp_validation.ipynb` (branch; DAVIS
     HyperAttentionDTI cold-pair × 3 seeds with `--amp`, set `FP32_DIR` to account 1's
     fp32 cells) — verdict = AMP mean within the fp32 seed spread for AUROC and precision@10.

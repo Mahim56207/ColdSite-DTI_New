@@ -175,3 +175,14 @@ def test_real_pipeline_scores_the_oracle_at_its_ceiling(dataset):
     failures = [m for ok, hard, m in results["verdicts"] if hard and not ok]
     assert not failures, failures
     assert "Positive control" in report(results)
+
+
+def test_a_missing_equivalent_dose_says_why():
+    from src.evaluation.positive_control import equivalent_dose_with_reason
+
+    rising = {0.0: {"precision_at_k": 0.02}, 1.0: {"precision_at_k": 0.9}}
+    bumpy = {0.0: {"precision_at_k": 0.05}, 0.5: {"precision_at_k": 0.03},
+             1.0: {"precision_at_k": 0.9}}
+    assert equivalent_dose_with_reason(rising, 0.01) == (None, "at or below chance")
+    assert equivalent_dose_with_reason(rising, 0.95) == (None, "above the oracle")
+    assert equivalent_dose_with_reason(bumpy, 0.04)[1].startswith("curve not monotone")

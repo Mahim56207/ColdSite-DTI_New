@@ -215,7 +215,12 @@ checkpoints and pipeline as the model's own test split (`src/evaluation/run_cont
 Sequences come from UniProt, not from BindingDB's target-chain column, because the site
 coordinates are UniProt's and BindingDB chains are often tagged or truncated constructs.
 The panel's protein, family and drugs are all unseen, so this is strictly harder than
-cold-target, and it is described as transfer rather than as stratification. The panel is
+cold-target, and it is described as transfer rather than as stratification. BindingDB
+writes ChemAxon extended SMILES, whose annotations (e.g. `|r|`, relative
+stereochemistry) follow a space, on 4,694 of the panel's 21,145 pairs; every SMILES is
+read up to its first whitespace. 16 pairs whose molecule contains a wildcard atom or a
+dative bond, which no audited model's alphabet can represent, are excluded for all
+models alike; all 60 proteins remain. DAVIS and KIBA contain neither. The panel is
 sized to clear the ≥20-target minimum the analysis sets for any family comparison; the
 antiviral targets (HIV-1 protease and reverse transcriptase, influenza neuraminidase)
 remain inside it as a named case study.

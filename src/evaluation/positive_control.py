@@ -181,13 +181,21 @@ def equivalent_dose(curve: dict, observed_precision: float) -> float | None:
     Interpolated along the measured curve. None if the curve is not monotone
     (too few proteins to trust it) or the value is outside its range.
     """
+    return equivalent_dose_with_reason(curve, observed_precision)[0]
+
+
+def equivalent_dose_with_reason(curve: dict, observed_precision: float) -> tuple:
+    """(dose or None, why). A missing dose has three different meanings, and a
+    report that calls all of them "at chance" misreads two of them."""
     doses = sorted(curve)
     values = [curve[d]["precision_at_k"] for d in doses]
     if any(b < a - 1e-9 for a, b in zip(values, values[1:])):
-        return None
-    if not values[0] <= observed_precision <= values[-1]:
-        return None
-    return float(np.interp(observed_precision, values, doses))
+        return None, "curve not monotone (too few proteins to read)"
+    if observed_precision < values[0]:
+        return None, "at or below chance"
+    if observed_precision > values[-1]:
+        return None, "above the oracle"
+    return float(np.interp(observed_precision, values, doses)), "ok"
 
 
 # --------------------------------------------------------------------------
@@ -335,7 +343,8 @@ def report(results: dict) -> str:
             for level, item in per_level.items():
                 eq = item["equivalent_dose"]
                 lines.append(f"| {model} | {level} | {_fmt(item['precision_at_k'])} | "
-                             + (f"{eq:.3f}" if eq is not None else "outside the curve")
+                             + (f"{eq:.3f}" if eq is not None
+                                else item.get("reason", "outside the curve"))
                              + " |")
         lines += ["", "Equivalent dose: the fraction of sites a dosed explanation "
                   "must rank first to match the model's precision@k. Like for like "
@@ -394,11 +403,14 @@ def run(dataset: str, ground_truth: str, split_root: str = "data/splits",
         results["compare"] = {}
         for model, path in compare.items():
             observed = _read_ladder(path, k)
-            results["compare"][model] = {
-                level: {"precision_at_k": value,
-                        "equivalent_dose": equivalent_dose(
-                            results["levels"][level]["plausibility"], value)}
-                for level, value in observed.items() if level in results["levels"]}
+            results["compare"][model] = {}
+            for level, value in observed.items():
+                if level not in results["levels"]:
+                    continue
+                dose, why = equivalent_dose_with_reason(
+                    results["levels"][level]["plausibility"], value)
+                results["compare"][model][level] = {
+                    "precision_at_k": value, "equivalent_dose": dose, "reason": why}
 
     results["verdicts"] = verdicts(results)
     return results

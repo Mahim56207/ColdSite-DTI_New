@@ -229,3 +229,35 @@ def test_explanations_are_cut_to_the_ground_truth_window(cell, monkeypatch):
         task="binary", split_root=cell["split_root"],
         checkpoint_dir=cell["checkpoint_dir"], max_protein_len=1000, verbose=False)
     assert {w.size for w in weights} == {1000}
+
+
+def test_cxsmiles_annotations_are_cut_and_unreadable_molecules_dropped(tmp_path):
+    """BindingDB's panel writes `SMILES |r|`; a wildcard or a dative bond is no
+    molecule any model can read. Cut the first, drop the second, for every
+    model alike -- and let the protein's next readable pair stand in."""
+    import pandas as pd
+
+    from src.evaluation.collect import _read_test_rows, clean_smiles
+
+    assert clean_smiles("CC(=O)O |r,c:3|") == "CC(=O)O"
+    pd.DataFrame({
+        "Target_ID": ["P1", "P1", "P2", "P3"],
+        "Drug": ["*.CCO", "CCN |r|", "CC->[Re+]", "c1ccccc1"],
+        "Target": ["MKV"] * 4,
+    }).to_csv(tmp_path / "test.csv", index=False)
+    rows = _read_test_rows(str(tmp_path), pairs_per_target=1)
+    assert [(t, s) for t, s, _seq in rows] == [("P1", "CCN"), ("P3", "c1ccccc1")]
+
+
+def test_davis_and_kiba_rows_are_untouched_by_the_cleaning():
+    import json
+
+    from src.evaluation.collect import UNREADABLE_SMILES, clean_smiles
+
+    for dataset in ("davis", "kiba"):
+        path = f"src/data/baselines/deepdta/data/{dataset}/ligands_can.txt"
+        if not os.path.exists(path):
+            pytest.skip("DeepDTA source files not present")
+        for smiles in json.load(open(path)).values():
+            assert clean_smiles(smiles) == smiles
+            assert not UNREADABLE_SMILES.search(smiles)

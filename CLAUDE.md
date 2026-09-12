@@ -117,14 +117,30 @@ account on KIBA.**
 - **Colab**: free since the volume control finished (2026-09-12; numbers in §3). If Colab
   shows "Monaco: unable to load", reload, or turn off Brave Shields for
   colab.research.google.com.
-- Once every cell above is trained, per seed: `run_faithfulness` → `run_ladder`; then
-  `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. The DAVIS 36-grid's §11
-  runs faithfulness and the ladder for **ColdSite-DTI only** (it passes no `--model`).
-  Since 2026-09-12 both runners take `--model hyperattentiondti|moltrans --task binary`
-  (outputs prefixed with the model name; pass the matching
-  `accuracy_<model>_<dataset>_seed<N>.json` to the ladder). Run those by hand for
-  HyperAttentionDTI, MolTrans and every KIBA cell.
+- **Results day = one command** (2026-09-12): `python -m src.evaluation.run_all --dataset
+  davis --checkpoint-dir <merged results> [--volume-control-dir ...]` runs faithfulness and
+  the ladder per model and seed (each ladder fed its own model's accuracy file), the audit
+  (Holm), the non-kinase control both ion settings, the positive control, and writes
+  `analysis_summary_<dataset>.md`. Resumable (skips finished outputs); `--dry-run` shows the
+  plan. Run it on Colab with `notebooks/colab_analysis.ipynb` (merges result folders from
+  Drive, refuses `_trainsub` files, writes outputs to Drive). The 36-grid's own §11 still
+  runs the old ColdSite-only commands; `run_all` supersedes it. Verified end to end on tiny
+  checkpoints of all four models — which caught the non-kinase control crashing for
+  HyperAttentionDTI on BindingDB's extended SMILES (fixed in `collect.py`).
 - ~~Check KIBA ground truth for sequence/protein mismatches~~ — done 2026-09-12 (see §3).
+
+**Measured speeds (Kaggle T4, 2026-09-12 logs) and the KIBA risk they expose:**
+- Account 1 at 6.5 h: GPU1 already on HyperAttentionDTI (~0.5 s/batch at 32, ~6 min/epoch
+  on DAVIS); GPU0 on ColdSite-DTI cold-drug s1 (~2 min 15 s/epoch; val AUROC 0.53 at the
+  epoch-10 floor, watch its test AUROC). v1 predates the per-cell log prefixes.
+- Account 2 at 2.9 h: MolTrans ~0.21 s/batch at 16, ~5 min/epoch on DAVIS, train loss ~0.10
+  (guessing the base rate ≈ 0.29). Every cell runs ≥ 25 epochs (floor 10 + patience 15), so
+  ≥ ~2 h/cell → **2 commits** for 12 cells.
+- Both show "Latest Container Image": pin the environment to v1's for later commits.
+- **KIBA (~3.9× DAVIS rows) ⇒ ~20 min/epoch MolTrans, ~23 min/epoch HyperAttentionDTI ⇒
+  ≥ 8–10 h per cell; any cell needing > ~25 epochs exceeds the 11 h commit and, with no
+  mid-cell resume, restarts from scratch forever.** Needs epoch-level resume in the trainers
+  before KIBA — a training-code change, so only after both DAVIS runs finish (or on a branch).
 
 **Later, to strengthen the paper (after the grids, before the draft is due 15 Nov 2026):**
 - **Run the non-kinase control properly.** `run_control` already runs automatically

@@ -52,6 +52,7 @@ Usage
 from __future__ import annotations
 
 import os
+import re
 
 import numpy as np
 
@@ -72,6 +73,27 @@ CHECKPOINT_FREE = {"uniform_control"}
 SMILES_COLUMN = "Drug"
 SEQUENCE_COLUMN = "Target"
 TARGET_ID_COLUMN = "Target_ID"
+
+# A wildcard atom (`*`) or a dative bond (`->`, `<-`) is not a concrete molecule
+# any audited model can read: HyperAttentionDTI's alphabet has none of them and
+# raises. 16 of the non-kinase panel's 21,145 rows (BindingDB) carry one; no
+# DAVIS or KIBA row does. They are dropped for every model alike, so each model
+# is scored on the same rows -- dropping them only where one model fails would
+# compare models on different panels.
+UNREADABLE_SMILES = re.compile(r"[*<>]")
+
+
+def clean_smiles(smiles: str) -> str:
+    """The SMILES itself: everything before the first whitespace.
+
+    BindingDB writes ChemAxon extended SMILES, where annotations such as
+    `|r|` (relative stereochemistry) follow a space. They are not atoms. Read
+    as part of the molecule they crash HyperAttentionDTI's tokeniser and are
+    silently tokenised as chemistry by the other two models. 4,694 of the
+    panel's rows carry one; DAVIS and KIBA carry none.
+    """
+    parts = str(smiles).split()
+    return parts[0] if parts else ""
 
 
 class MissingCell(Exception):
@@ -109,6 +131,11 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
     for target_id, smiles, sequence in zip(frame[TARGET_ID_COLUMN],
                                            frame[SMILES_COLUMN],
                                            frame[SEQUENCE_COLUMN]):
+        # Before the per-target cap, so a protein's first READABLE pair is
+        # the one kept. See clean_smiles and UNREADABLE_SMILES.
+        smiles = clean_smiles(smiles)
+        if not smiles or UNREADABLE_SMILES.search(smiles):
+            continue
         count = seen.get(target_id, 0)
         if pairs_per_target and count >= pairs_per_target:
             continue

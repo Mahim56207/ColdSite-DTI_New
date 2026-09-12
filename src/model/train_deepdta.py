@@ -39,6 +39,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
+from src.model import precision, resume
 from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import checkpoint_path, results_path, run_tag
 from src.model.deepdta_torch import (
@@ -54,6 +55,10 @@ from src.model.train import compute_metrics
 # are already verified against the real data (8.3% and 21.0% positive). Shared
 # with the other two models from src.model.dataset -- see the note there.
 from src.model.dataset import BINARY_THRESHOLD
+
+# Settings a resumed cell must share with the run it continues (src/model/resume.py).
+RESUME_KEYS = ("amp", "task", "batch_size", "lr", "epochs", "patience", "min_epochs",
+               "drug_kernel", "protein_kernel")
 
 
 class DeepDTADataset(Dataset):
@@ -95,28 +100,30 @@ class DeepDTADataset(Dataset):
                 torch.tensor(self.y[index], dtype=torch.float32))
 
 
-def run_epoch(model, loader, loss_fn, device, optimizer=None) -> tuple:
+def run_epoch(model, loader, loss_fn, device, optimizer=None, scaler=None,
+              amp: bool = False) -> tuple:
     training = optimizer is not None
     model.train(training)
     total, n, preds, trues = 0.0, 0, [], []
+    if training and scaler is None:
+        scaler = precision.make_scaler(device, False)
 
     for drug, protein, y in loader:
         drug, protein, y = drug.to(device), protein.to(device), y.to(device)
-        with torch.set_grad_enabled(training):
+        with torch.set_grad_enabled(training), precision.autocast(device, amp):
             out = model(drug, protein)
             loss = loss_fn(out, y)
         if training:
             optimizer.zero_grad()
-            loss.backward()
+            scaler.scale(loss).backward()
             # Same clipping as train.py. DeepDTA's three stacked convolutions
             # on a 1000-wide input can spike early, and a NaN on epoch 2 of a
             # 24-run grid is expensive to notice late.
-            nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
-            optimizer.step()
+            precision.step(optimizer, scaler, model.parameters(), clip=5.0)
 
         total += float(loss.item()) * len(y)
         n += len(y)
-        preds.append(out.detach().cpu().numpy())
+        preds.append(out.detach().float().cpu().numpy())
         trues.append(y.detach().cpu().numpy())
 
     return total / max(n, 1), np.concatenate(trues), np.concatenate(preds)
@@ -148,6 +155,11 @@ def main():
                         help="exit immediately if this cell's results file "
                              "already exists, so a 24-run grid can be resumed "
                              "after an interruption without redoing work")
+    parser.add_argument("--amp", action="store_true",
+                        help="mixed precision; see src/model/precision.py. Off "
+                             "reproduces the DAVIS grid exactly")
+    parser.add_argument("--stop-after-epoch", type=int,
+                        help="testing only: stop after this epoch as if killed")
     args = parser.parse_args()
 
     tag = run_tag(args.dataset, args.split, args.task, args.seed)
@@ -186,32 +198,41 @@ def main():
                            args.task, args.seed, model="deepdta")
     os.makedirs(os.path.dirname(ckpt) or ".", exist_ok=True)
 
-    history = []
     selector = CheckpointSelector(patience=args.patience,
                                   min_epochs=args.min_epochs,
                                   n_epochs=args.epochs)
-    for epoch in range(1, args.epochs + 1):
+    scaler = precision.make_scaler(device, args.amp)
+    run = resume.Resumable(ckpt, device, vars(args), RESUME_KEYS, args.stop_after_epoch)
+    start = run.begin(model, optimizer, selector, scaler=scaler)
+    history = run.extra.get("history", [])
+    for epoch in (range(start, args.epochs + 1) if start else ()):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
-                                     optimizer)
+                                     optimizer, scaler=scaler, amp=args.amp)
         val_loss, val_true, val_pred = run_epoch(model, loaders["valid"],
-                                                 loss_fn, device)
+                                                 loss_fn, device, amp=args.amp)
         metrics = compute_metrics(val_true, val_pred, args.task)
         history.append({"epoch": epoch, "train_loss": train_loss,
                         "val_loss": val_loss, **metrics})
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
 
-        if selector.consider(epoch, val_loss):
-            torch.save({"model_state": model.state_dict(), "epoch": epoch,
-                        "args": vars(args)}, ckpt)
-        elif selector.should_stop(epoch):
+        best = ({"model_state": model.state_dict(), "epoch": epoch, "args": vars(args)}
+                if selector.consider(epoch, val_loss) else None)
+        stopping = best is None and selector.should_stop(epoch)
+        # end_epoch writes the checkpoint as well, after the resume file
+        run.end_epoch(epoch, finished=stopping or epoch == args.epochs,
+                      best_checkpoint=best, history=history)
+        if stopping:
             print(f"  early stop at epoch {epoch} "
                   f"(best {selector.best_epoch})")
             break
+        if run.interrupt_now(epoch):
+            return
 
     model.load_state_dict(torch.load(ckpt, map_location=device,
                                      weights_only=False)["model_state"])
-    _loss, test_true, test_pred = run_epoch(model, loaders["test"], loss_fn, device)
+    _loss, test_true, test_pred = run_epoch(model, loaders["test"], loss_fn, device,
+                                            amp=args.amp)
     test_metrics = compute_metrics(test_true, test_pred, args.task)
 
     with open(out_path, "w") as handle:
@@ -219,8 +240,10 @@ def main():
                    "split": args.split, "task": args.task, "seed": args.seed,
                    "checkpoint": ckpt, "best_epoch": selector.best_epoch,
                    "selection": selector.summary(),
+                   "amp": args.amp, "resumed_after_epoch": run.resumed_from,
                    "n_train_rows": len(loaders["train"].dataset),
                    "test_metrics": test_metrics}, handle, indent=2)
+    run.clear()
 
     print("\nTest metrics:", json.dumps(test_metrics, indent=2))
     print(f"Saved -> {out_path}")

@@ -74,12 +74,16 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
+from src.model import precision, resume
 from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import checkpoint_path, results_path, run_tag
 from src.model.train import compute_metrics
 # Shared with the other two models -- see the note in src.model.dataset.
 from src.model.dataset import BINARY_THRESHOLD
 VENDORED = os.path.join("baselines", "HpyerAttentionDTI")
+# Settings a resumed cell must share with the run it continues (src/model/resume.py).
+RESUME_KEYS = ("amp", "batch_size", "accum_steps", "lr", "epochs", "patience",
+               "min_epochs", "class_weight")
 
 
 def _import_vendored():
@@ -148,7 +152,8 @@ def attention_memory_gb(batch_size: int) -> float:
 
 
 def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None,
-              log_every: int = 20, label: str = "", accum_steps: int = 1):
+              log_every: int = 20, label: str = "", accum_steps: int = 1,
+              scaler=None, amp: bool = False):
     """One pass. `accum_steps` micro-batches make one optimiser step.
 
     Gradient accumulation exists here for a specific reason. The vendored
@@ -177,16 +182,19 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None,
 
     if training:
         optimizer.zero_grad()
+        if scaler is None:
+            scaler = precision.make_scaler(device, False)
 
     for batch_index, (drug, protein, y) in enumerate(loader, start=1):
         drug, protein, y = drug.to(device), protein.to(device), y.to(device)
-        with torch.set_grad_enabled(training):
+        with torch.set_grad_enabled(training), precision.autocast(device, amp):
             out = model(drug, protein)
             loss = loss_fn(out, y)
         if training:
-            (loss / accum_steps).backward()
+            scaler.scale(loss / accum_steps).backward()
             if batch_index % accum_steps == 0 or batch_index == n_batches:
-                optimizer.step()
+                # no clipping: the vendored recipe has none
+                precision.step(optimizer, scaler)
                 optimizer.zero_grad()
                 # per OPTIMISER step -- see this function's docstring
                 if scheduler is not None:
@@ -194,7 +202,7 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None, scheduler=None,
 
         total += float(loss.item()) * len(y)
         n += len(y)
-        logits.append(out.detach().cpu().numpy())
+        logits.append(out.detach().float().cpu().numpy())
         trues.append(y.detach().cpu().numpy())
 
         # Per-batch progress, not per-epoch. One epoch here is ~660 batches of a
@@ -247,6 +255,11 @@ def main():
     parser.add_argument("--results-dir", default="results")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--skip-if-done", action="store_true")
+    parser.add_argument("--amp", action="store_true",
+                        help="mixed precision; see src/model/precision.py. Off "
+                             "reproduces the DAVIS grid exactly")
+    parser.add_argument("--stop-after-epoch", type=int,
+                        help="testing only: stop after this epoch as if killed")
     args = parser.parse_args()
 
     # task is always binary: the head is Linear(512, 2)
@@ -328,30 +341,40 @@ def main():
     selector = CheckpointSelector(patience=args.patience,
                                   min_epochs=args.min_epochs,
                                   n_epochs=args.epochs)
-    for epoch in range(1, args.epochs + 1):
+    scaler = precision.make_scaler(device, args.amp)
+    run = resume.Resumable(ckpt, device, vars(args), RESUME_KEYS, args.stop_after_epoch)
+    start = run.begin(model, optimizer, selector, scheduler=scheduler, scaler=scaler)
+    for epoch in (range(start, args.epochs + 1) if start else ()):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device,
                                      optimizer, scheduler,
                                      label=f"epoch {epoch} train",
-                                     accum_steps=args.accum_steps)
+                                     accum_steps=args.accum_steps,
+                                     scaler=scaler, amp=args.amp)
         val_loss, val_true, val_score = run_epoch(model, loaders["valid"],
                                                   loss_fn, device,
-                                                  label=f"epoch {epoch} valid")
+                                                  label=f"epoch {epoch} valid",
+                                                  amp=args.amp)
         metrics = compute_metrics(val_true, val_score, "binary")
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
 
-        if selector.consider(epoch, val_loss):
-            torch.save({"model_state": model.state_dict(), "epoch": epoch,
-                        "args": vars(args)}, ckpt)
-        elif selector.should_stop(epoch):
+        best = ({"model_state": model.state_dict(), "epoch": epoch, "args": vars(args)}
+                if selector.consider(epoch, val_loss) else None)
+        stopping = best is None and selector.should_stop(epoch)
+        # end_epoch writes the checkpoint as well, after the resume file
+        run.end_epoch(epoch, finished=stopping or epoch == args.epochs,
+                      best_checkpoint=best)
+        if stopping:
             print(f"  early stop at epoch {epoch} "
                   f"(best {selector.best_epoch})")
             break
+        if run.interrupt_now(epoch):
+            return
 
     model.load_state_dict(torch.load(ckpt, map_location=device,
                                      weights_only=False)["model_state"])
     _loss, test_true, test_score = run_epoch(model, loaders["test"], loss_fn,
-                                             device, label="test")
+                                             device, label="test", amp=args.amp)
     test_metrics = compute_metrics(test_true, test_score, "binary")
 
     with open(out_path, "w") as handle:
@@ -364,9 +387,11 @@ def main():
                    "batch_size": args.batch_size,
                    "accum_steps": args.accum_steps,
                    "effective_batch": effective_batch,
+                   "amp": args.amp, "resumed_after_epoch": run.resumed_from,
                    "test_positive_rate": float(datasets["test"].y.mean()),
                    "n_train_rows": len(datasets["train"]),
                    "test_metrics": test_metrics}, handle, indent=2)
+    run.clear()
 
     print("\nTest metrics:", json.dumps(test_metrics, indent=2))
     print(f"Saved -> {out_path}")

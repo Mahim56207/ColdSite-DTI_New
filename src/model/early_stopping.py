@@ -103,6 +103,16 @@ class CheckpointSelector:
             return False
         return epoch - self.best_epoch >= self.patience
 
+    def state_dict(self) -> dict:
+        """Everything needed to continue the selection after a resume."""
+        return {"floor": self.floor, "requested_min_epochs": self.requested_min_epochs,
+                "patience": self.patience, "best_loss": self.best_loss,
+                "best_epoch": self.best_epoch}
+
+    def load_state_dict(self, state: dict) -> None:
+        for key, value in state.items():
+            setattr(self, key, value)
+
     def summary(self) -> dict:
         """What Methods has to report: which epoch the audited weights are from."""
         return {

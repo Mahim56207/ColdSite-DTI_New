@@ -20,6 +20,12 @@ Usage
         --dataset davis \
         --ground-truth data/davis_ground_truth_sites.json \
         --checkpoint-dir results
+
+    # the audited baselines; pass the accuracy file run_faithfulness wrote for
+    # the SAME model (accuracy_moltrans_davis_seed1.json), never ColdSite-DTI's
+    python -m src.evaluation.run_ladder --model moltrans --task binary \
+        --dataset davis --ground-truth data/davis_ground_truth_sites.json \
+        --accuracy-json results/accuracy_moltrans_davis_seed1.json
 """
 import argparse
 import json
@@ -30,7 +36,7 @@ import torch
 
 from src.data.ground_truth import load_site_sets
 from src.model.checkpoint_naming import checkpoint_path as build_checkpoint_path
-from src.model.checkpoint_naming import discover_checkpoints
+from src.model.checkpoint_naming import DEFAULT_MODEL, discover_checkpoints
 from src.evaluation.precision_at_k import batch_precision_at_k
 from src.evaluation.significance_test import permutation_test_batch
 
@@ -41,6 +47,9 @@ LEVEL_LABELS = {
     "cold_target": "Cold-Target",
     "cold_pair": "Cold-Pair",
 }
+# One naming rule for both runners: the accuracy file run_faithfulness writes
+# is the one this runner reads, so the two tags must never be spelled twice.
+from src.evaluation.run_faithfulness import MODELS, output_tag  # noqa: E402
 
 
 def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
@@ -223,6 +232,9 @@ def main():
     parser = argparse.ArgumentParser(description="Run the explanation-fidelity ladder")
     parser.add_argument("--dummy", action="store_true",
                         help="synthetic run, no data or checkpoints needed")
+    parser.add_argument("--model", default=DEFAULT_MODEL, choices=MODELS,
+                        help="whose checkpoints to read. Outputs for any model "
+                             "but coldsite_dti are prefixed with its name")
     parser.add_argument("--dataset", default="davis")
     parser.add_argument("--ground-truth", help="path to *_ground_truth_sites.json")
     parser.add_argument("--split-root", default="data/splits")
@@ -239,6 +251,9 @@ def main():
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--max-protein-len", type=int, default=1000)
     parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--device", default="cpu",
+                        help="for --model hyperattentiondti / moltrans; "
+                             "ColdSite-DTI runs on CPU as before")
     args = parser.parse_args()
 
     if args.dummy:
@@ -247,6 +262,9 @@ def main():
 
     if not args.ground_truth:
         parser.error("--ground-truth is required unless --dummy is set")
+    if args.model != DEFAULT_MODEL and args.task != "binary":
+        parser.error(f"--model {args.model} only exists as a binary classifier; "
+                     f"pass --task binary")
 
     from src.model.coldsite_dti import ColdSiteDTI
     from src.model.dataset import load_split
@@ -262,28 +280,48 @@ def main():
         # Built by the same module the trainer writes with, so the two ends
         # cannot drift apart. See src/model/checkpoint_naming.py.
         checkpoint = build_checkpoint_path(
-            args.checkpoint_dir, args.dataset, level, args.task, args.seed)
+            args.checkpoint_dir, args.dataset, level, args.task, args.seed,
+            model=args.model)
         if not (os.path.isdir(split_dir) and os.path.exists(checkpoint)):
             print(f"[skip] {level}: missing {split_dir} or {checkpoint}")
             available = [c["seed"] for c in discover_checkpoints(
                 args.checkpoint_dir, dataset=args.dataset, split=level,
-                task=args.task)]
+                task=args.task, model=args.model)]
             if available:
                 print(f"        (seeds present for this cell: {available})")
             continue
 
-        import pandas as pd
-        test_df = pd.read_csv(os.path.join(split_dir, "test.csv"))
-        target_ids = test_df["Target_ID"].tolist()
+        if args.model == DEFAULT_MODEL:
+            import pandas as pd
+            test_df = pd.read_csv(os.path.join(split_dir, "test.csv"))
+            target_ids = test_df["Target_ID"].tolist()
 
-        _train, _valid, test_loader, drug_vocab, protein_vocab = load_split(
-            split_dir, args.max_protein_len)
-        model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
-        state = torch.load(checkpoint, map_location="cpu", weights_only=False)
-        model.load_state_dict(state["model_state"])
+            _train, _valid, test_loader, drug_vocab, protein_vocab = load_split(
+                split_dir, args.max_protein_len)
+            model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
+            state = torch.load(checkpoint, map_location="cpu", weights_only=False)
+            model.load_state_dict(state["model_state"])
 
-        weights, sites, used = collect_explanations(
-            model, test_loader, target_ids, site_sets)
+            weights, sites, used = collect_explanations(
+                model, test_loader, target_ids, site_sets)
+        else:
+            from src.evaluation.collect import MissingCell, collect_cell
+
+            # pairs_per_target=0 takes every test pair, as the ColdSite-DTI
+            # branch above does, so the two ladders are measured over the same
+            # rows. (run_audit's default of one pair per protein is a
+            # different, deliberate choice -- see collect.py.)
+            try:
+                weights, sites, used = collect_cell(
+                    args.model, args.dataset, level, args.seed,
+                    site_sets=site_sets, task=args.task,
+                    split_root=args.split_root,
+                    checkpoint_dir=args.checkpoint_dir,
+                    max_protein_len=args.max_protein_len,
+                    pairs_per_target=0, device=args.device, verbose=False)
+            except MissingCell as reason:
+                print(f"[skip] {level}: {reason}")
+                continue
         print(f"{level}: {len(used)} proteins with usable ground truth")
         results[level] = evaluate_level(weights, sites, n_trials=args.n_trials)
 
@@ -296,7 +334,8 @@ def main():
     # Seed in the output tag as well as the input path: a ladder run per seed
     # writing to one `ladder_davis.json` reintroduces at the reading end
     # exactly the overwrite the checkpoint naming just fixed.
-    write_results(results, args.out_dir, f"{args.dataset}_seed{args.seed}",
+    write_results(results, args.out_dir,
+                  output_tag(args.model, args.dataset, args.seed),
                   k=args.k, accuracy=accuracy)
 
 

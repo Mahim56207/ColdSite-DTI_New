@@ -44,6 +44,14 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
   `src/model/train_moltrans.py` added 2026-09-12 (MolTrans binary trainer — see §4);
   tested locally against real DAVIS rows end to end (encodes, trains, early-stops, writes
   a checkpoint and results JSON in the same shape as the other two baseline trainers).
+- Analysis for the baselines (2026-09-12): `run_faithfulness` and `run_ladder` now take
+  `--model`; verified end to end on real (tiny) HyperAttentionDTI and MolTrans checkpoints.
+  Masking for the baselines goes through `src/evaluation/residue_space.py`: a masked
+  residue becomes `X` and is re-tokenised by the model's own tokeniser. That is the same
+  intervention ColdSite-DTI gets (its UNK token), where the old code would have mutated
+  HyperAttentionDTI residues to alanine. `HyperAttentionDTIAdapter.predict` now returns
+  log-odds (logit1 − logit0), not the positive logit. `check_adapters --checkpoints` now
+  actually finds trained checkpoints (before, it silently fell back to random weights).
 - Checkpoint backup: all 12 DAVIS regression checkpoints (`.pt` + `_results.json` +
   `_history.json`) verified byte-for-byte in Drive folder `coldsite-grid24-kaggle`
   (2026-09-12) — local `results/` and `~/Downloads/results` are no longer the only copy.
@@ -76,14 +84,17 @@ account on KIBA.**
   the `11` in `DEADLINE` (its own §6) → Save & Run All. Confirm its §1's `torch` version
   and Environment column match v1. Repeat until its own §10 shows 36/36.
 - **Account 2 — MolTrans, DAVIS first:** new notebook `notebooks/kaggle_binary_grid.ipynb`
-  (built and tested locally 2026-09-12; trainer is `src/model/train_moltrans.py`). Settings
+  (built and tested locally 2026-09-12; trainer is `src/model/train_moltrans.py`), Kaggle
+  notebook `mahim234/notebook51d23b99dd`, version 1 (scriptVersionId 349227830) started
+  2026-09-12 on commit `e252048`. Settings
   cell: `DATASET = 'davis'`, `MODELS = ['moltrans']`, `SPLIT_SUBSET` = all four splits,
   `SEEDS = [1, 2, 3]` — 12 cells, nothing account 1 is training. Same restore loop as
   account 1 (this notebook's own §6 restore cell, §9 "what landed" table), until 12/12.
   **MolTrans checkpoints are ~250 MB each** (vs ~2.5 MB for the other three models) — size
   the restore dataset and the eventual Drive backup for ~3 GB, not ~30 MB.
-  `train_moltrans.py` must be pushed to `origin/main` before account 2's first commit, or
-  the clone cell's assertion stops it.
+  Next: the user sends the first two `STATUS` lines (to estimate epochs/hour and whether
+  12 cells need one commit or two) and the first `✓` test AUROC (believable DAVIS
+  `random` ≈ 0.85–0.93; ≥ 0.98 means leakage, ≈ 0.5 means it isn't learning).
 - **After account 1's DAVIS grid reaches 36/36 — both accounts move to KIBA**, splitting
   the four split types so no cell trains twice. Pick the actual split with account 1 once
   DAVIS is close to done (KIBA is ~4x DAVIS by row count, so get this right before
@@ -97,9 +108,12 @@ account on KIBA.**
   Colab shows "Monaco: unable to load", reload, or turn off Brave Shields for
   colab.research.google.com.
 - Once every cell above is trained, per seed: `run_faithfulness` → `run_ladder`; then
-  `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. Automatic in the DAVIS
-  36-grid's own §11 for its three models — MolTrans and KIBA need the same three commands
-  run by hand once trained, since neither notebook's analysis cell knows about them.
+  `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. The DAVIS 36-grid's §11
+  runs faithfulness and the ladder for **ColdSite-DTI only** (it passes no `--model`).
+  Since 2026-09-12 both runners take `--model hyperattentiondti|moltrans --task binary`
+  (outputs prefixed with the model name; pass the matching
+  `accuracy_<model>_<dataset>_seed<N>.json` to the ladder). Run those by hand for
+  HyperAttentionDTI, MolTrans and every KIBA cell.
 - Optional CPU task: check KIBA ground truth for the same sequence/protein mismatches.
 
 **Later, to strengthen the paper (after the grids, before the draft is due 15 Nov 2026):**
@@ -131,6 +145,14 @@ account on KIBA.**
 - State in Methods: binary threshold (DAVIS pKd ≥ 7.0, one shared constant), truncation
   (`exclude`, 1,000 residues), cold-pair volume (15,190 vs 21,039 rows), mutants
   mapped to wild-type sites, cotransport-ion choice, ground-truth re-numbering.
+- Also state: faithfulness masks a residue as `X` through each model's own tokeniser;
+  HyperAttentionDTI's prediction is its log-odds. Also, vendored MolTrans keeps dropout
+  on at inference (`F.dropout` without `training=`), so its test AUROC includes that
+  noise as published; faithfulness holds the RNG fixed per forward pass.
+- Open question for Methods: MolTrans sees 545 **tokens**, i.e. up to ~1,400 residues,
+  but ground truth is cut at 1,000 residues (`max_protein_len`, also in `run_audit`).
+  MolTrans attention past residue 1,000 can never hit a site. Decide whether to truncate
+  its explanation to 1,000 as well.
 - Ladder is **not** monotonic on DAVIS: treat levels as categories, not severity.
 
 ## 6. Working rules

@@ -57,9 +57,11 @@ One row per protein
 -------------------
 An explanation built from a protein's sites is the same for every drug that
 protein was measured against, so extra pairs would only repeat it. The unit
-here is the protein (`pairs_per_target=1`, as `run_audit` uses). The ladder
-averages over every test pair, so an equivalent dose read against a ladder
-number is approximate -- the two weight proteins differently.
+here is the protein (`pairs_per_target=1`), and it is the same set of proteins
+the ladder and the audit table score: all three keep each protein's first test
+pair in file order. A ladder run with `--pairs-per-target 0` (every pair, as
+ladders before 2026-09-12 did) weights proteins by their pair counts, and an
+equivalent dose read against it is only approximate.
 
 Usage
 -----
@@ -336,8 +338,9 @@ def report(results: dict) -> str:
                              + (f"{eq:.3f}" if eq is not None else "outside the curve")
                              + " |")
         lines += ["", "Equivalent dose: the fraction of sites a dosed explanation "
-                  "must rank first to match the model's precision@k. Approximate -- "
-                  "the ladder averages over pairs, this control over proteins.", ""]
+                  "must rank first to match the model's precision@k. Like for like "
+                  "when the ladder scored one pair per protein (its default); a ladder "
+                  "run over every pair is only approximately comparable.", ""]
 
     lines += ["## Checks", ""]
     for passed, hard, message in results["verdicts"]:

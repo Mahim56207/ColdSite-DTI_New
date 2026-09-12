@@ -16,7 +16,9 @@ trainer built 2026-09-12, now training — see §4); DeepDTA = accuracy anchor o
 Early signal (dry run: 1 seed, regression checkpoints): ColdSite-DTI's attention is
 **faithful but not plausible** — load-bearing at every level, at best ~2× chance at
 hitting sites (precision@10 0.040 vs 0.020; ceiling 0.99); cold-target is the most
-accurate level and sits at chance.
+accurate level and sits at chance. Counted one pair per protein (2026-09-12), cold-pair is
+at chance too (0.024, p = 0.19; it was "significant" only when 79 proteins were counted as
+1,027 pairs) — `results/ladder_dryrun_regression_davis_seed1.md`.
 Team 124AD0008 (data) · 124AD0015 (model) · 124AD0067 (evaluation); supervisor
 Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / ISMB.
 **Draft due 15 Nov 2026.**
@@ -157,6 +159,10 @@ account on KIBA.**
 - State in Methods: binary threshold (DAVIS pKd ≥ 7.0, one shared constant), truncation
   (`exclude`, 1,000 residues), cold-pair volume (15,190 vs 21,039 rows), mutants
   mapped to wild-type sites, cotransport-ion choice, ground-truth re-numbering.
+- Unit of averaging (settled 2026-09-12): the ladder and the audit table both score **one
+  test pair per protein**, the first in file order (`run_ladder --pairs-per-target 1`, the
+  default; `0` = every pair, the old behaviour). The dry-run ladder numbers in §1 and
+  STATUS.md were computed per pair.
 - Also state: faithfulness masks a residue as `X` through each model's own tokeniser;
   HyperAttentionDTI's prediction is its log-odds. Also, vendored MolTrans keeps dropout
   on at inference (`F.dropout` without `training=`), so its test AUROC includes that

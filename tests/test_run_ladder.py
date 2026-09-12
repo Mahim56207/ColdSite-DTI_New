@@ -109,3 +109,88 @@ def test_dummy_outputs_are_tagged_so_they_cannot_pass_as_results(tmp_path):
     run_dummy(out_dir=str(tmp_path), n_proteins=4, protein_length=120)
     written = [p.name for p in tmp_path.iterdir()]
     assert all("DUMMY_PLACEHOLDER" in name for name in written), written
+
+
+# --------------------------------------------------------------------------
+# one pair per protein, and the row alignment it depends on
+# --------------------------------------------------------------------------
+
+class _RowModel:
+    """Explains row i with a one-hot at position i, so the output names its row."""
+
+    def eval(self):
+        return self
+
+    def to(self, _device):
+        return self
+
+    def explain(self, drug_batch, protein_batch):
+        return [np.eye(50)[int(row)] for row in drug_batch[:, 0]]
+
+
+def _loader(n_rows, batch=4):
+    import torch
+    rows = torch.arange(n_rows).reshape(-1, 1)
+    return [(rows[i:i + batch], rows[i:i + batch], None) for i in range(0, n_rows, batch)]
+
+
+def _sites(*targets):
+    from src.data.ground_truth import SiteSet
+    return {t: SiteSet(target_id=t, positions={1, 2}) for t in targets}
+
+
+def test_ladder_keeps_the_first_pair_of_each_protein_in_file_order():
+    from src.evaluation.run_ladder import collect_explanations
+
+    ids = ["A", "B", "A", "C", "B", "A", "C"]        # rows 0..6
+    weights, _sites_out, used = collect_explanations(
+        _RowModel(), _loader(len(ids)), ids, _sites("A", "B", "C"))
+    assert used == ["A", "B", "C"]
+    assert [int(np.argmax(w)) for w in weights] == [0, 1, 3], \
+        "each protein must be scored on its FIRST test row"
+
+
+def test_zero_keeps_every_pair():
+    from src.evaluation.run_ladder import collect_explanations
+
+    ids = ["A", "B", "A", "C", "B", "A", "C"]
+    _w, _s, used = collect_explanations(_RowModel(), _loader(len(ids)), ids,
+                                        _sites("A", "B", "C"), pairs_per_target=0)
+    assert used == ids
+
+
+def test_protein_without_sites_is_skipped_not_scored():
+    from src.evaluation.run_ladder import collect_explanations
+
+    ids = ["A", "X", "A", "X"]
+    _w, _s, used = collect_explanations(_RowModel(), _loader(len(ids)), ids, _sites("A"))
+    assert used == ["A"]
+
+
+def test_ladder_and_audit_choose_the_same_pairs(tmp_path):
+    """The point of the change: the headline figure and the audit table score
+    identical rows, so their numbers can be compared directly."""
+    import pandas as pd
+
+    from src.evaluation.collect import _read_test_rows
+    from src.evaluation.run_ladder import collect_explanations
+
+    ids = ["A", "B", "A", "C", "B", "A", "C"]
+    pd.DataFrame({"Target_ID": ids, "Drug": [f"C{i}" for i in range(len(ids))],
+                  "Target": ["MKV"] * len(ids)}).to_csv(tmp_path / "test.csv", index=False)
+    audit_rows = _read_test_rows(str(tmp_path), pairs_per_target=1)
+    audit_drugs = [smiles for _t, smiles, _seq in audit_rows]
+
+    weights, _s, _u = collect_explanations(
+        _RowModel(), _loader(len(ids)), ids, _sites("A", "B", "C"))
+    ladder_drugs = [f"C{int(np.argmax(w))}" for w in weights]
+    assert ladder_drugs == audit_drugs
+
+
+def test_ladder_table_states_what_n_counts():
+    per_protein = {"random": evaluate_level([perfect()], [SITES], k_values=(10,),
+                                            n_trials=20, pairs_per_target=1)}
+    per_pair = {"random": evaluate_level([perfect()], [SITES], k_values=(10,),
+                                         n_trials=20, pairs_per_target=0)}
+    assert "`n` = proteins" in ladder_table(per_protein, k=10)
+    assert "`n` = test pairs" in ladder_table(per_pair, k=10)

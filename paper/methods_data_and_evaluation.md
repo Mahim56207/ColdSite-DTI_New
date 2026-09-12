@@ -291,11 +291,14 @@ model actually saw (`methods_track_b.md` §1.6, §5); `validate_adapter` and
 `check_adapters` verify the length against trained checkpoints, because an explanation of
 the wrong length does not fail, it misaligns every site.
 
-**Unit of averaging.** The audit table averages over proteins, one test pair each
-(`pairs_per_target = 1`, `src/evaluation/collect.py`): precision@k is a per-protein
-quantity, and averaging every pair would enter a protein once per drug it was measured
-against and overstate *n*. *(The ladder runner currently averages over every test pair;
-see §10.)*
+**Unit of averaging.** Both the ladder and the audit table average over proteins, one
+test pair each: the first pair of each protein in the test file (`pairs_per_target = 1`,
+`src/evaluation/collect.py`, `run_ladder.collect_explanations`). precision@k is a
+per-protein quantity, and averaging every pair would enter a protein once per drug it
+was measured against, weighting proteins by how many drugs they were tested with and
+reporting correlated pairs as independent observations. *n* is therefore the number of
+proteins with usable sites: 402 on DAVIS random and cold-drug, 79 on cold-target and
+cold-pair (KIBA 211, 212, 42, 41).
 
 ## 7. Significance and aggregation
 
@@ -376,10 +379,9 @@ of sites its attention effectively ranks first.
    ground truth is cut at 1,000 residues, so MolTrans attention past residue 1,000 can
    never hit a site. Either truncate its explanation at 1,000 too, or report the
    difference.
-2. **Unit of averaging in the ladder.** The audit table uses one pair per protein; the
-   ladder runner averages over every test pair. The headline figure and the audit table
-   should use the same unit (per protein is the defensible one), or the difference must be
-   stated.
+2. ~~**Unit of averaging in the ladder.**~~ Settled 2026-09-12: the ladder now scores one
+   pair per protein, the same pairs as the audit table (§6). Ladders computed before
+   then, including the dry-run numbers in STATUS.md, averaged over every pair.
 3. **Early-stopping patience.** DeepDTA runs with patience 10, the others 15. It changes
    only the accuracy anchor, but it should be stated or aligned.
 4. **Cotransport ions.** Reported both ways (§3.5); choose which is primary.

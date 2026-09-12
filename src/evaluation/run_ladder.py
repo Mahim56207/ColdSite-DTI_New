@@ -53,16 +53,24 @@ from src.evaluation.run_faithfulness import MODELS, output_tag  # noqa: E402
 
 
 def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
-                         max_proteins=None):
+                         max_proteins=None, pairs_per_target: int = 1):
     """Run a split through the model and pair each explanation with its sites.
 
     `target_ids` must be aligned to the dataloader's row order. This is the
     alignment the two guides call the main integration seam; if it drifts,
     every protein gets scored against another protein's ground truth and the
     result still looks like a plausible number.
+
+    `pairs_per_target` keeps the first N test rows of each protein, in file
+    order -- the same rows `collect._read_test_rows` keeps for the audit table,
+    so the ladder and the audit score the same pairs. precision@k is a
+    per-protein quantity: averaging every pair enters a protein once per drug
+    it was measured against and makes n a count of correlated pairs. 0 keeps
+    every pair (the behaviour before 2026-09-12).
     """
     model.eval().to(device)
     weights, sites, used_ids = [], [], []
+    seen: dict = {}
     cursor = 0
 
     with torch.no_grad():
@@ -72,6 +80,10 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
             explanations = model.explain(drug_batch.to(device), protein_batch.to(device))
 
             for target_id, explanation in zip(batch_ids, explanations):
+                count = seen.get(target_id, 0)
+                if pairs_per_target and count >= pairs_per_target:
+                    continue
+                seen[target_id] = count + 1
                 site_set = site_sets.get(target_id)
                 if site_set is None or not site_set.usable:
                     continue
@@ -84,9 +96,16 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
     return weights, sites, used_ids
 
 
-def evaluate_level(weights, sites, k_values=(5, 10, 20), n_trials=1000, seed=0):
-    """One difficulty level -> fidelity at each k, plus a split-level p-value."""
+def evaluate_level(weights, sites, k_values=(5, 10, 20), n_trials=1000, seed=0,
+                   pairs_per_target=None):
+    """One difficulty level -> fidelity at each k, plus a split-level p-value.
+
+    `pairs_per_target` is recorded, not used: it says whether `n` counts
+    proteins (1) or test pairs (0), which a reader of the JSON cannot tell.
+    """
     result = {"n_proteins": len(weights), "by_k": {}}
+    if pairs_per_target is not None:
+        result["pairs_per_target"] = pairs_per_target
     for k in k_values:
         batch = batch_precision_at_k(weights, sites, k=k,
                                      rng=np.random.default_rng(seed))
@@ -131,7 +150,15 @@ def ladder_table(results: dict, k: int = 10) -> str:
             f"{fmt(entry['chance'])} | {fmt(entry['p_value'])} | "
             f"{entry['n_evaluated']} |"
         )
-    return header + "\n".join(rows) + "\n\n`*` = significantly above chance (p < 0.05).\n"
+    units = {results[l].get("pairs_per_target") for l in LEVELS if l in results}
+    if units == {1}:
+        unit = "\n`n` = proteins, one test pair each."
+    elif units == {0}:
+        unit = "\n`n` = test pairs (every pair of every protein)."
+    else:
+        unit = ""
+    return (header + "\n".join(rows)
+            + "\n\n`*` = significantly above chance (p < 0.05)." + unit + "\n")
 
 
 def write_results(results: dict, out_dir: str, tag: str, k: int = 10,
@@ -251,6 +278,10 @@ def main():
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--max-protein-len", type=int, default=1000)
     parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--pairs-per-target", type=int, default=1,
+                        help="test pairs scored per protein, first in file order "
+                             "(default 1, as run_audit). 0 scores every pair, "
+                             "which reproduces ladders run before 2026-09-12")
     parser.add_argument("--device", default="cpu",
                         help="for --model hyperattentiondti / moltrans; "
                              "ColdSite-DTI runs on CPU as before")
@@ -303,14 +334,13 @@ def main():
             model.load_state_dict(state["model_state"])
 
             weights, sites, used = collect_explanations(
-                model, test_loader, target_ids, site_sets)
+                model, test_loader, target_ids, site_sets,
+                pairs_per_target=args.pairs_per_target)
         else:
             from src.evaluation.collect import MissingCell, collect_cell
 
-            # pairs_per_target=0 takes every test pair, as the ColdSite-DTI
-            # branch above does, so the two ladders are measured over the same
-            # rows. (run_audit's default of one pair per protein is a
-            # different, deliberate choice -- see collect.py.)
+            # Same rows as the ColdSite-DTI branch above and as run_audit:
+            # the first `pairs_per_target` test pairs of each protein.
             try:
                 weights, sites, used = collect_cell(
                     args.model, args.dataset, level, args.seed,
@@ -318,12 +348,15 @@ def main():
                     split_root=args.split_root,
                     checkpoint_dir=args.checkpoint_dir,
                     max_protein_len=args.max_protein_len,
-                    pairs_per_target=0, device=args.device, verbose=False)
+                    pairs_per_target=args.pairs_per_target,
+                    device=args.device, verbose=False)
             except MissingCell as reason:
                 print(f"[skip] {level}: {reason}")
                 continue
-        print(f"{level}: {len(used)} proteins with usable ground truth")
-        results[level] = evaluate_level(weights, sites, n_trials=args.n_trials)
+        unit = "proteins" if args.pairs_per_target == 1 else "pairs"
+        print(f"{level}: {len(used)} {unit} with usable ground truth")
+        results[level] = evaluate_level(weights, sites, n_trials=args.n_trials,
+                                        pairs_per_target=args.pairs_per_target)
 
     if not results:
         raise SystemExit(

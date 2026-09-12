@@ -67,8 +67,13 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
   36-grid's own §11 for its three models only — MolTrans and KIBA need the same three
   commands run by hand once trained (see §4's "later" list for why that matters more than
   it sounds).
-- Volume-matched control: `notebooks/colab_volume_control.ipynb` running now (seed 1,
-  started 2026-09-12).
+- Volume-matched control **done 2026-09-12** (Colab; Drive folder `coldsite-volume-control`,
+  3 seeds × `.pt`/results/history, renamed `_trainsub15190` — never copy into a grid
+  folder). ColdSite-DTI binary, DAVIS `random` trained on cold-pair's 15,190 rows, full
+  test set: AUROC 0.884 / 0.906 / 0.871 → **0.887 ± 0.018** (AUPRC 0.472 / 0.578 / 0.449;
+  seed 2 ran to epoch 38, the others 14). Interpret once account 1 supplies ColdSite-DTI's
+  full `random` and `cold_pair` binary cells: full − 0.887 = cost of fewer rows;
+  0.887 − cold_pair = genuine cold-pair difficulty. A gap under the 0.018 spread is not a finding.
 - Write every section marked above; fill Related Work DOIs; checklist at its end.
 
 ## 4. Active goals — next steps, in order
@@ -106,8 +111,8 @@ account on KIBA.**
   Account 2 continues with `MODELS = ['moltrans']` on the other half.
 - **Send the first ColdSite-DTI binary cell's Test metrics** (and account 1's §10 table)
   to check, once account 1 produces one.
-- **Colab volume control**: running now (seed 1, ~1.5 min/epoch, started 2026-09-12). If
-  Colab shows "Monaco: unable to load", reload, or turn off Brave Shields for
+- **Colab**: free since the volume control finished (2026-09-12; numbers in §3). If Colab
+  shows "Monaco: unable to load", reload, or turn off Brave Shields for
   colab.research.google.com.
 - Once every cell above is trained, per seed: `run_faithfulness` → `run_ladder`; then
   `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. The DAVIS 36-grid's §11

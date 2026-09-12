@@ -67,7 +67,8 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
   36-grid's own §11 for its three models only — MolTrans and KIBA need the same three
   commands run by hand once trained (see §4's "later" list for why that matters more than
   it sounds).
-- Volume-matched control **done 2026-09-12** (Colab; Drive folder `coldsite-volume-control`,
+- Volume-matched control **done 2026-09-12** — record in `results/volume_control_davis.md`
+  (Colab; Drive folder `coldsite-volume-control`,
   3 seeds × `.pt`/results/history, renamed `_trainsub15190` — never copy into a grid
   folder). ColdSite-DTI binary, DAVIS `random` trained on cold-pair's 15,190 rows, full
   test set: AUROC 0.884 / 0.906 / 0.871 → **0.887 ± 0.018** (AUPRC 0.472 / 0.578 / 0.449;

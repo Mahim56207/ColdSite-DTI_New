@@ -96,6 +96,16 @@ account on KIBA.**
   lines) → Add Input → set `RESTORE_FROM` (its own §5) → check quota ≥ 11.5 h, else lower
   the `11` in `DEADLINE` (its own §6) → Save & Run All. Confirm its §1's `torch` version
   and Environment column match v1. Repeat until its own §10 shows 36/36.
+  **Status 2026-09-12 22:30:** v1 ended with **26/36** (DeepDTA 12, ColdSite-DTI 12,
+  HyperAttentionDTI cold-target s1–s2). v2 running (scriptVersionId 349324711), restored 65
+  files from private dataset `mahim5/coldsite-grid36-results`; the 10 HyperAttentionDTI
+  cells left need v2 + a short v3 (~9:30 AM Sun + ~3–5 h). v2 still shows "Latest
+  Container Image" (pin didn't take) — compare its `torch` line with v1's.
+  **Restore path:** use `RESTORE_FROM = '/kaggle/input'` (searches every attached input).
+  `/kaggle/input/<dataset-name>` failed with "not a directory" — this Kaggle mounts
+  datasets elsewhere. Same for every account and the KIBA runs.
+  Upload only `grid36_results.zip` to the dataset: the full Output also holds the repo
+  clone `ColdSite-DTI_New/`, whose regression files the restore would copy in.
 - **Account 2 — MolTrans, DAVIS first:** new notebook `notebooks/kaggle_binary_grid.ipynb`
   (built and tested locally 2026-09-12; trainer is `src/model/train_moltrans.py`), Kaggle
   notebook `mahim234/notebook51d23b99dd`, version 1 (scriptVersionId 349227830) started

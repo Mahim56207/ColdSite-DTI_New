@@ -190,9 +190,13 @@ Three non-kinase panel targets (§4) carry most of their annotated sites on cotr
 ions: SLC6A3 (14 of 20 positions), SLC6A4 (10 of 16) and DRD4 (2 of 4), all sodium or
 chloride. No drug binds a sodium-coordination residue. Excluding every metal would be
 wrong in the other direction: carbonic-anhydrase and HDAC inhibitors chelate the catalytic
-zinc, which is then the correct answer. The default therefore excludes nothing, and the
-non-kinase control is reported both with and without the cotransport ions
-(`--exclude-cotransport-ions`: Na⁺, K⁺, Cl⁻).
+zinc, which is then the correct answer. **The primary result excludes the cotransport
+ions** (Na⁺, K⁺, Cl⁻; `run_control --exclude-cotransport-ions`, outputs suffixed
+`_noions`), because the ground truth is meant to mark where drugs bind; zinc and every
+other ligand stay in. Including them is reported as a sensitivity analysis. A residue
+annotated for an ion and for another ligand keeps its site through the other annotation.
+The choice affects only the non-kinase panel: DAVIS and KIBA carry no cotransport-ion
+sites, and the panel carries 34 ion features, on 4 targets.
 
 ---
 
@@ -256,8 +260,10 @@ subject under a different optimiser would measure a model its authors never rele
 
 All four share one checkpoint-selection rule (`src/model/early_stopping.py`): up to 100
 epochs; the checkpoint is the lowest validation loss **among epochs ≥ 10**; early
-stopping fires after a patience of 15 epochs without improvement (10 for DeepDTA) and
-never before epoch 10. The floor exists because DAVIS cold-pair validation is 264 rows:
+stopping fires after a patience of 15 epochs without improvement, and never before
+epoch 10. DeepDTA's patience is 10, on both datasets: it is the accuracy anchor, its
+checkpoints never enter the explanation axis, and its DAVIS cells were trained with it,
+so aligning it would split DeepDTA across two settings rather than unify the grid. The floor exists because DAVIS cold-pair validation is 264 rows:
 without it, validation loss bottomed out by epoch 2 on the sparse levels while random
 trained to epoch 16, and the explanation axis would have compared an undertrained cold
 checkpoint against a trained warm one. MolTrans's published script trains a fixed number
@@ -290,6 +296,15 @@ Every model's explanation reaches this metric as one non-negative weight per res
 model actually saw (`methods_track_b.md` §1.6, §5); `validate_adapter` and
 `check_adapters` verify the length against trained checkpoints, because an explanation of
 the wrong length does not fail, it misaligns every site.
+
+**One window for every model.** Explanations are scored over the first 1,000 residues,
+the window the ground truth is cut to (§3.4). ColdSite-DTI and HyperAttentionDTI never
+read past it. MolTrans reads 545 subword tokens, which reach past residue 1,000 on 115 of
+DAVIS's 442 proteins and 44 of KIBA's 229; its explanation is cut to the window
+(`collect.py`), because attention past it would compete for the top *k* where no site
+can exist. MolTrans never covers fewer residues than the window on either dataset, so the
+cut removes attention without leaving any window residue unseen. Faithfulness uses the
+same window (§8), so both axes describe the same top *k*.
 
 **Unit of averaging.** Both the ladder and the audit table average over proteins, one
 test pair each: the first pair of each protein in the test file (`pairs_per_target = 1`,
@@ -340,8 +355,9 @@ models (`src/evaluation/residue_space.py`):
   unknown token, one token per residue. In HyperAttentionDTI's alphabet that token value
   is alanine, and MolTrans's input is subword tokens that each cover several residues.
   For both, a masked residue is instead replaced by `X` (unknown amino acid) in the
-  sequence, which is then re-tokenised by the model's own tokeniser; residues beyond
-  what the model saw are passed through unchanged. Every model therefore receives the
+  sequence, which is then re-tokenised by the model's own tokeniser. Masking is
+  confined to the 1,000-residue window (§6); residues past it are passed through
+  unchanged. Every model therefore receives the
   same intervention: the residue becomes an unknown amino acid, as seen through that
   model's input encoding.
 - **The prediction compared is the model's own decision quantity.** HyperAttentionDTI
@@ -373,17 +389,18 @@ of sites its attention effectively ranks first.
 
 ---
 
-## 10. Decisions still open (settle before submission)
+## 10. Decisions taken (2026-09-12)
 
-1. **MolTrans's window.** MolTrans reads 545 subword tokens, up to ~1,400 residues, but
-   ground truth is cut at 1,000 residues, so MolTrans attention past residue 1,000 can
-   never hit a site. Either truncate its explanation at 1,000 too, or report the
-   difference.
-2. ~~**Unit of averaging in the ladder.**~~ Settled 2026-09-12: the ladder now scores one
-   pair per protein, the same pairs as the audit table (§6). Ladders computed before
-   then, including the dry-run numbers in STATUS.md, averaged over every pair.
-3. **Early-stopping patience.** DeepDTA runs with patience 10, the others 15. It changes
-   only the accuracy anchor, but it should be stated or aligned.
-4. **Cotransport ions.** Reported both ways (§3.5); choose which is primary.
-5. The truncation-policy deflation figure and ceiling comparison in `methods_track_b.md`
-   §4.1 were computed before the 2026-09-12 re-numbering and need recomputing.
+These were open in the first draft; each is now settled and applied in the code.
+
+1. **MolTrans's window.** Its explanation is cut to the same 1,000 residues as every
+   other model and the ground truth (§6), for plausibility and faithfulness alike.
+2. **Unit of averaging.** The ladder scores one pair per protein, the same pairs as the
+   audit table (§6). Ladders computed before this, including the dry-run numbers in
+   STATUS.md, averaged over every pair.
+3. **Early-stopping patience.** DeepDTA keeps patience 10 on both datasets, stated rather
+   than aligned (§5). Each model's patience is pinned explicitly in the grid notebook.
+4. **Cotransport ions.** Excluded in the primary result; all ligands as sensitivity (§3.5).
+5. **Truncation figures.** Recomputed on the re-numbered ground truth
+   (`methods_track_b.md` §4.1): 3.8% (DAVIS) and 4.1% (KIBA) deflation under the
+   retaining policy, level-dependent from 2.3% to 7.1%; ceilings within 0.8%.

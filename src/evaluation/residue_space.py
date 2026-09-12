@@ -147,14 +147,20 @@ class ResidueSpaceModel:
 
     # -- the two things batch_faithfulness needs ----------------------------
 
-    def add_pair(self, smiles: str, sequence: str):
+    def add_pair(self, smiles: str, sequence: str, max_len: int | None = None):
         """Explain one pair. Returns (drug, protein, attention) for batch_faithfulness.
 
         The protein tensor is cut to exactly `len(attention)` residues, so that
         `random_control` samples from the same residues the explanation was
-        scored over. Residues past that point were never seen by the model;
-        `predict` re-attaches them unchanged, so the model's input differs
-        from the original only where a residue was masked.
+        scored over. Residues past that point are re-attached unchanged by
+        `predict`, so the model's input differs from the original only where a
+        residue was masked.
+
+        `max_len` cuts the explanation to the evaluation window, as `collect`
+        does for plausibility: MolTrans can read ~1,400 residues, and without
+        the cut its faithfulness top-k could include residues its plausibility
+        top-k never competes for, so the two axes would describe different
+        explanations.
         """
         sequence = str(sequence).upper()
         encoded = self._encode(smiles, sequence)
@@ -166,6 +172,8 @@ class ResidueSpaceModel:
                 protein_tokens=encoded["tokens"],
                 drug_mask=encoded["drug_mask"], protein_mask=encoded["protein_mask"])
         attention = np.asarray(attention, dtype=float)
+        if max_len is not None:
+            attention = attention[:max_len]
 
         n_seen = int(attention.size)
         if not 0 < n_seen <= len(sequence):

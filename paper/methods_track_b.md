@@ -250,14 +250,16 @@ ground truth as re-numbered along the dataset sequences on 2026-09-12
 (`methods_data_and_evaluation.md` §3.3–3.4). Other targets are unusable for reasons
 unrelated to truncation (no annotated site, or none that survives the alignment).
 
-The alternative — retaining out-of-window sites — leaves those targets in the
-average with a structurally guaranteed precision@k of 0. That deflates each
-split mean by approximately **3.7%** for reasons unrelated to explanation
-quality, and by a *level-dependent* amount, since the proportion of affected
-targets varies with each split's test set. A constant offset would be harmless
-to a claim about the shape of a degradation curve; a varying one is not. We
-prefer a stated selection bias to a moving one. *(The 3.7% figure and the
-ceiling comparison below predate the re-numbering; recompute before submission.)*
+The alternative — retaining out-of-window sites — leaves the targets whose
+every site lies past the window in the average with a structurally guaranteed
+precision@k of 0, whatever the model does. They would be **3.8%** of the DAVIS
+targets scored (16 of 418) and **4.1%** of KIBA's (9 of 221), deflating every
+split mean by that fraction for reasons unrelated to explanation quality — and
+by a *level-dependent* amount, because the affected targets fall unevenly into
+the test sets: 3.8% on DAVIS random and cold-drug, 4.8% on cold-pair and 7.1%
+on cold-target (KIBA: 4.1%, 4.1%, 2.3% and 4.7%). A constant offset would be
+harmless to a claim about the shape of a degradation curve; a varying one is
+not. We prefer a stated selection bias to a moving one.
 
 The bias must be stated: excluded targets are systematically the longest
 proteins — median final annotated residue **1,320 versus 312** for retained
@@ -265,8 +267,11 @@ DAVIS targets (KIBA: 1,212 versus 272) — and are predominantly large multidoma
 receptor kinases (ALK, MET, IGF1R, ROS1, MTOR, LRRK2, MST1R). Results should not
 be extrapolated to proteins substantially longer than the input window.
 
-The mean achievable ceiling differs between policies by under 1.2% at every *k*
-tested, so the ceiling is not a reason to prefer either.
+The mean achievable ceiling differs between policies by under 0.8% at every *k*
+tested and every level of both datasets, so the ceiling is not a reason to
+prefer either. (All figures on the ground truth re-numbered 2026-09-12; the
+deflation is the fraction of targets scored under the retaining policy that the
+excluding policy removes.)
 
 ### 4.2 Cold-pair training volume
 

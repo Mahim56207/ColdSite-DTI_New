@@ -167,10 +167,13 @@ account on KIBA.**
   HyperAttentionDTI's prediction is its log-odds. Also, vendored MolTrans keeps dropout
   on at inference (`F.dropout` without `training=`), so its test AUROC includes that
   noise as published; faithfulness holds the RNG fixed per forward pass.
-- Open question for Methods: MolTrans sees 545 **tokens**, i.e. up to ~1,400 residues,
-  but ground truth is cut at 1,000 residues (`max_protein_len`, also in `run_audit`).
-  MolTrans attention past residue 1,000 can never hit a site. Decide whether to truncate
-  its explanation to 1,000 as well.
+- Decided 2026-09-12 (`paper/methods_data_and_evaluation.md` §10): every model's
+  explanation is scored over the same first 1,000 residues as the ground truth — MolTrans's
+  is cut there (`collect.py`, and `residue_space` for faithfulness); DeepDTA keeps
+  patience 10 on both datasets, stated not aligned (patience pinned per model in
+  `kaggle_binary_grid.ipynb`); the **primary non-kinase result excludes cotransport
+  ions** (`run_control --exclude-cotransport-ions`, `_noions` outputs), all ligands as
+  sensitivity; truncation deflation recomputed (3.8% DAVIS / 4.1% KIBA, 2.3–7.1% by level).
 - Ladder is **not** monotonic on DAVIS: treat levels as categories, not severity.
 
 ## 6. Working rules

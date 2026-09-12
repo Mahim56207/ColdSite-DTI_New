@@ -139,7 +139,8 @@ def collect_adapter_pairs(model_name: str, split_dir: str, checkpoint: str,
     wrapped = ResidueSpaceModel(adapter, model_name, device=device)
     drugs, proteins, attentions = [], [], []
     for _target_id, smiles, sequence in _read_test_rows(split_dir, pairs_per_target=0):
-        drug, protein, attention = wrapped.add_pair(smiles, sequence)
+        drug, protein, attention = wrapped.add_pair(smiles, sequence,
+                                                    max_len=max_protein_len)
         drugs.append(drug)
         proteins.append(protein)
         attentions.append(attention)

@@ -241,8 +241,13 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         if site_set is None or not site_set.usable:
             skipped_no_sites += 1
             continue
+        # One evaluation window for every model: the same first
+        # `max_protein_len` residues the ground truth is cut to. ColdSite-DTI
+        # and HyperAttentionDTI never read past it; MolTrans's 545 tokens reach
+        # ~1,400 residues on long proteins (115 of DAVIS's 442), and attention
+        # there competes for the top k while no site can exist there to hit.
         weights.append(_explain_row(model_name, adapter, vocabs, smiles,
-                                    sequence, max_protein_len))
+                                    sequence, max_protein_len)[:max_protein_len])
         sites.append(site_set.positions)
         used_ids.append(target_id)
         if max_proteins and len(weights) >= max_proteins:

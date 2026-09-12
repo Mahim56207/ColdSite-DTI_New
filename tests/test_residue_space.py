@@ -296,3 +296,14 @@ def test_accuracy_is_read_from_the_named_models_own_results(tmp_path):
                                levels=("random",))
     assert moltrans["accuracy"]["random"] == 0.6
     assert default["accuracy"]["random"] == 0.9
+
+
+def test_faithfulness_uses_the_same_window_as_plausibility():
+    """Cut at max_len, masking stays inside the window both axes score, and the
+    residues past it still reach the model unchanged."""
+    adapter = FakeHAT()
+    wrapped = ResidueSpaceModel(adapter, "hyperattentiondti")
+    drug, protein, attention = wrapped.add_pair("CCO", SEQUENCE, max_len=20)
+    assert protein.shape[1] == attention.size == 20
+    wrapped.predict(drug, protein)
+    assert adapter.predicted_on[-1] == SEQUENCE

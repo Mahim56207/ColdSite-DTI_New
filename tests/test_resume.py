@@ -296,13 +296,14 @@ def test_amp_trains_coldsite_dti_on_a_cpu():
 NOTEBOOK = "notebooks/kaggle_binary_grid.ipynb"
 
 
-def _notebook_commands(amp, models):
+def _notebook_commands(amp, models, kiba_run=None):
     cells = json.load(open(NOTEBOOK))["cells"]
     settings = next(c for c in cells if "SETTINGS" in "".join(c["source"]))
     runner = next(c for c in cells if "def build_queue" in "".join(c["source"]))
     source = "".join(settings["source"])
     source = source.replace("AMP = False", f"AMP = {amp}")
     source = source.replace("MODELS = ['moltrans']", f"MODELS = {models!r}")
+    source = source.replace("KIBA_RUN = None", f"KIBA_RUN = {kiba_run!r}")
     import time
     namespace = {"time": time, "os": os, "START": 0.0, "N_GPU": 2, "WORK": "/w", "RESULTS": "/w/results",
                  "COLDSITE_BATCH": 16, "HAT_BATCH": 8, "HAT_ACCUM": 4,
@@ -323,6 +324,33 @@ def test_the_notebook_gives_every_cell_the_same_amp_setting(amp):
         "src.model.train_deepdta", "src.model.run_grid",
         "src.model.train_hyperattentiondti", "src.model.train_moltrans"}
     assert all(("--amp" in cmd) == amp for cmd in commands)
+
+
+def _cell_of(cmd):
+    """(model, split, seed) for a per-cell command; run_grid expands to several."""
+    arg = lambda flag: cmd[cmd.index(flag) + 1]
+    model = {"src.model.train_deepdta": "deepdta", "src.model.train_moltrans": "moltrans",
+             "src.model.train_hyperattentiondti": "hyperattentiondti",
+             "src.model.run_grid": "coldsite_dti"}[cmd[3]]
+    if model == "coldsite_dti":
+        return [(model, split, int(seed)) for split in arg("--splits").split(",")
+                for seed in arg("--seeds").split(",")]
+    return [(model, arg("--split"), int(arg("--seed")))]
+
+
+def test_the_six_kiba_runs_are_the_48_cells_each_exactly_once():
+    """Six accounts, one KIBA_RUN each: nothing trained twice, nothing left out."""
+    seen = []
+    for run in ("K1", "K2", "K3", "K4", "K5", "K6"):
+        commands = _notebook_commands(False, ["moltrans"], kiba_run=run)
+        assert all("--amp" in cmd for cmd in commands), f"{run} must train with --amp"
+        assert all(("--datasets" if cmd[3] == "src.model.run_grid" else "--dataset") in cmd
+                   and "kiba" in cmd for cmd in commands), f"{run} must train KIBA"
+        seen += [cell for cmd in commands for cell in _cell_of(cmd)]
+    assert len(seen) == len(set(seen)) == 48
+    assert set(seen) == {(m, s, seed) for m in ALL_MODELS
+                         for s in ("random", "cold_drug", "cold_target", "cold_pair")
+                         for seed in (1, 2, 3)}
 
 
 def test_the_notebook_clones_the_configured_branch():

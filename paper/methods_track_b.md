@@ -164,7 +164,11 @@ reading of the figure.
 
 ### 2.1 The grid
 
-**Two datasets × four splits × three training seeds = 24 runs.**
+**Four splits × three training seeds per dataset, per model and task.** The audit's
+accuracy axis is binary (`methods_data_and_evaluation.md` §1.2): DAVIS is trained for
+DeepDTA, ColdSite-DTI and HyperAttentionDTI (36 runs) and for MolTrans (12), and KIBA is
+shared out the same way. ColdSite-DTI was also trained for regression on DAVIS (12 runs),
+the setting the architecture was designed in; those runs do not enter the audit table.
 
 The three seeds are **training** seeds — weight initialisation and batch order
 — on one fixed split per cell. Consequently the reported standard deviation
@@ -240,9 +244,11 @@ binding-site positions beyond that window are **excluded** from the ground truth
 (`truncation="exclude"`). Targets retaining no annotated site within the window
 are removed from the evaluation population rather than scored zero.
 
-This affects **24 of 409 DAVIS targets** (283 annotated positions; 15 targets
-removed) and **14 of 224 KIBA targets** (165 positions; 8 removed). A further
-two KIBA targets are unusable for reasons unrelated to truncation.
+This affects **24 of 442 DAVIS targets** (280 annotated positions; 16 targets
+removed) and **14 of 229 KIBA targets** (164 positions; 9 removed), counted on the
+ground truth as re-numbered along the dataset sequences on 2026-09-12
+(`methods_data_and_evaluation.md` §3.3–3.4). Other targets are unusable for reasons
+unrelated to truncation (no annotated site, or none that survives the alignment).
 
 The alternative — retaining out-of-window sites — leaves those targets in the
 average with a structurally guaranteed precision@k of 0. That deflates each
@@ -250,13 +256,14 @@ split mean by approximately **3.7%** for reasons unrelated to explanation
 quality, and by a *level-dependent* amount, since the proportion of affected
 targets varies with each split's test set. A constant offset would be harmless
 to a claim about the shape of a degradation curve; a varying one is not. We
-prefer a stated selection bias to a moving one.
+prefer a stated selection bias to a moving one. *(The 3.7% figure and the
+ceiling comparison below predate the re-numbering; recompute before submission.)*
 
 The bias must be stated: excluded targets are systematically the longest
-proteins — median final annotated residue **1,204 versus 332** for retained
-targets — and are predominantly large multidomain receptor kinases (ALK, MET,
-IGF1R, ROS1, MTOR, LRRK2, MST1R). Results should not be extrapolated to
-proteins substantially longer than the input window.
+proteins — median final annotated residue **1,320 versus 312** for retained
+DAVIS targets (KIBA: 1,212 versus 272) — and are predominantly large multidomain
+receptor kinases (ALK, MET, IGF1R, ROS1, MTOR, LRRK2, MST1R). Results should not
+be extrapolated to proteins substantially longer than the input window.
 
 The mean achievable ceiling differs between policies by under 1.2% at every *k*
 tested, so the ceiling is not a reason to prefer either.
@@ -264,25 +271,25 @@ tested, so the ceiling is not a reason to prefer either.
 ### 4.2 Cold-pair training volume
 
 The cold-pair split withholds both drug and target identities and therefore
-discards every pair in which exactly one entity is held out. Its training set
-contains approximately **71%** of the pairs available to the other three levels,
-and it uses roughly **54%** of all measured pairs once discarded rows are
-counted. *(Exact counts pending Track A's split files; the figures above are
-derived from the split code at the published dataset shapes.)*
+discards every pair in which exactly one entity is held out. On DAVIS its
+training set is **15,190 rows against 21,039** for random (**72.2%**), and it
+uses **55.2%** of all measured pairs once discarded rows are counted (KIBA:
+58,041 against 82,778, 70.1%; 53.9% used).
 
-Note that the 54% figure is the proportion of pairs *used at all*, not the
+Note that the 55% figure is the proportion of pairs *used at all*, not the
 training-set ratio. Quoting it as the training ratio overstates the confound by
 roughly a factor of two.
 
 We **report** these counts rather than subsampling the other three splits to
 match, so that each level is trained on all data legitimately available to it.
-Subsampling would discard roughly 30% of the training data across 18 of 24 runs
-to control a confound on the accuracy axis, which is not this paper's
-contribution. The cold-pair accuracy drop should therefore be read as
-difficulty *and* reduced training volume, and we bound the latter with a single
-**volume-matched control run**: the warm split retrained on a random subsample
-of its training rows matched to cold-pair's volume, same seed, same test set.
-*(Pending split files.)*
+Subsampling would discard roughly 28% of the training data in three of every
+four cells to control a confound on the accuracy axis, which is not this
+paper's contribution. The cold-pair accuracy drop should therefore be read as
+difficulty *and* reduced training volume, and we bound the latter with a
+**volume-matched control**: ColdSite-DTI retrained on the DAVIS random split with
+its training set cut to cold-pair's 15,190 rows, three seeds, each seed drawing
+its own subsample, scored on the unchanged random test set
+(`methods_data_and_evaluation.md` §2.3).
 
 A second and larger comparability gap is inherent to the design and is not
 fixable by subsampling. Because plausibility is averaged **per target**, warm
@@ -323,4 +330,6 @@ would make top-*k* selection a function of ESPF token length rather than of
 attention.
 
 Baseline adapter implementation is owned by 124AD0008; the extraction and
-projection machinery above is contributed by this track.
+projection machinery above is contributed by this track. How faithfulness is
+measured on these two models, which needs residue-level masking through each
+model's own tokeniser, is in `methods_data_and_evaluation.md` §8.

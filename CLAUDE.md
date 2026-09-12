@@ -26,9 +26,9 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 |---|---|---|
 | Abstract, Introduction | — | not written |
 | Related Work (DTI claims; OOD explainability; attention-as-explanation) | `literature_differentiation.md` | drafted |
-| Methods: data, splits, ground truth, family control | `results/split_summary.md`, `data/GROUND_TRUTH_README.md` | material only |
-| Methods: models, training, faithfulness, attention extraction | `paper/methods_track_b.md` | drafted |
-| Methods: metrics & statistics | `src/evaluation/*` docstrings | not written |
+| Methods: data, splits, ground truth, family control | `paper/methods_data_and_evaluation.md` §1–4 | drafted 2026-09-12 |
+| Methods: ColdSite-DTI architecture & training, attention extraction | `paper/methods_track_b.md` | drafted (stale placeholders filled 2026-09-12) |
+| Methods: baselines' training, metrics & statistics, baseline faithfulness, positive control | `paper/methods_data_and_evaluation.md` §5–9 | drafted 2026-09-12; §10 lists 5 open decisions |
 | Results: audit grid, kinase control, antiviral case study | — | awaiting 36-run grid |
 | Discussion / Limitations | — | not written |
 

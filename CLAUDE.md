@@ -105,13 +105,31 @@ account on KIBA.**
   Next: the user sends the first two `STATUS` lines (to estimate epochs/hour and whether
   12 cells need one commit or two) and the first `✓` test AUROC (believable DAVIS
   `random` ≈ 0.85–0.93; ≥ 0.98 means leakage, ≈ 0.5 means it isn't learning).
-- **After account 1's DAVIS grid reaches 36/36 — both accounts move to KIBA**, splitting
-  the four split types so no cell trains twice. Pick the actual split with account 1 once
-  DAVIS is close to done (KIBA is ~4x DAVIS by row count, so get this right before
-  launching either side — see "splitting KIBA" below). From this point account 1 also uses
-  `kaggle_binary_grid.ipynb` (the 36-grid notebook is DAVIS-only): `DATASET = 'kiba'`,
-  `MODELS = ['deepdta', 'coldsite_dti', 'hyperattentiondti']`, its half of `SPLIT_SUBSET`.
-  Account 2 continues with `MODELS = ['moltrans']` on the other half.
+- **KIBA plan (2026-09-12; supersedes the earlier half/half split, which left cells
+  untrained).** 48 cells, each on exactly one account, balanced by GPU-hours:
+  - **Account 2** (after DAVIS MolTrans 12/12): run A `MODELS=['moltrans']`, all 4 splits;
+    then run B `MODELS=['deepdta','coldsite_dti','hyperattentiondti']`,
+    `SPLIT_SUBSET=['cold_pair']`. ~170 GPU-h.
+  - **Account 1** (after DAVIS 36/36): `MODELS=['deepdta','coldsite_dti','hyperattentiondti']`,
+    `SPLIT_SUBSET=['random','cold_drug','cold_target']`. ~175 GPU-h.
+  - Both via `kaggle_binary_grid.ipynb`, `DATASET='kiba'`, own restore dataset per run.
+  - Cost per cell on a T4 (large split / cold-pair), hours at 25 (min) and 36 (typical)
+    epochs: HyperAttentionDTI 9.5/6.3 and 13.8/9.1; MolTrans 8.2/5.5 and 11.8/7.9;
+    ColdSite-DTI 3.4/2.3 and 4.8/3.2; DeepDTA ~0.6–0.8. Total ~240–340 GPU-h ≈ 2–3 weeks of
+    both accounts at ~30 h/week each (verify quota). ETA ~6–10 Oct; Colab (with resume)
+    is the overflow.
+  - **Speed-up candidate: mixed precision** (fp16 autocast + GradScaler; est. 1.5–3× for
+    HyperAttentionDTI/MolTrans on a T4 — unmeasured). Measure first with
+    `notebooks/colab_speed_test.ipynb` (`src/model/benchmark_speed.py`, trains nothing;
+    result → Drive `coldsite-speed-test/speed_kiba.md`). If worth it: validate one DAVIS
+    cell under AMP within the seed spread, then apply to every KIBA cell and state it.
+    Rejected as protocol changes: shorter patience/epochs, larger batches, fewer rows/seeds.
+  - **Blocker: epoch-level resume** in all four trainers (+ `run_grid`, `early_stopping`
+    selector state): save model/optimizer/scheduler/selector/epoch/RNG atomically to
+    `<checkpoint>_resume.pt` each epoch, continue on restart, delete when the cell finishes.
+    Training code ⇒ build on branch `kiba-resume` (separate worktree), add a `BRANCH`
+    setting (default `main`) to `kaggle_binary_grid.ipynb` so KIBA clones the branch
+    while DAVIS stays on `main`; merge after both DAVIS runs finish.
 - **Send the first ColdSite-DTI binary cell's Test metrics** (and account 1's §10 table)
   to check, once account 1 produces one.
 - **Colab**: free since the volume control finished (2026-09-12; numbers in §3). If Colab

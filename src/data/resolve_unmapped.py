@@ -343,8 +343,10 @@ def main():
     if args.apply:
         apply_overrides(args.dataset, sites_path, provenance_path,
                         overrides_path, delay=args.delay)
-        if args.dataset == "davis":
-            print("\nNow re-align to DAVIS's sequences:  python -m src.data.align_ground_truth")
+        from src.data.align_ground_truth import ALIGNED_DATASETS
+        if args.dataset in ALIGNED_DATASETS:
+            print(f"\nNow re-align to {args.dataset.upper()}'s sequences:  "
+                  f"python -m src.data.align_ground_truth --dataset {args.dataset}")
 
 
 if __name__ == "__main__":

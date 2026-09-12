@@ -25,10 +25,21 @@ exists, and there is nothing to align them to.
 The original UniProt-numbered file is kept beside the aligned one, and a per-target
 report records what happened to every site.
 
-    python -m src.data.align_ground_truth            # fetch sequences if needed, apply
+    python -m src.data.align_ground_truth                  # DAVIS
+    python -m src.data.align_ground_truth --dataset kiba   # KIBA
 
 Fetching needs network access to rest.uniprot.org; the sequences are then saved, so
 applying again works offline.
+
+KIBA
+----
+KIBA's targets are keyed by UniProt accession, so it cannot carry another protein's
+sites the way four DAVIS gene names did. Its sequences can still differ from UniProt's
+canonical one: on 2026-09-12, 219 of its 221 annotated targets matched UniProt's
+length and two did not (PIM1, the same longer isoform DAVIS holds, and SGK2). The
+same alignment applies, with the same one-writer rule: the fetch writes
+`kiba_ground_truth_sites_uniprot.json`, and only this module writes
+`kiba_ground_truth_sites.json`.
 """
 from __future__ import annotations
 
@@ -40,24 +51,41 @@ import shutil
 import sys
 import urllib.request
 
-GROUND_TRUTH = "data/davis_ground_truth_sites.json"
-ORIGINAL = "data/davis_ground_truth_sites_uniprot.json"
-PROVENANCE = "data/davis_ground_truth_sites_provenance.json"
-SEQUENCES = "data/davis_uniprot_sequences.json"
-REPORT = "data/davis_ground_truth_alignment.json"
-DAVIS_PROTEINS = "src/data/baselines/deepdta/data/davis/proteins.txt"
+ALIGNED_DATASETS = ("davis", "kiba")
 
 UNIPROT_FASTA = "https://rest.uniprot.org/uniprotkb/accessions?accessions={}&format=fasta"
+
+
+def paths(dataset: str) -> dict:
+    """Every file one dataset's alignment reads or writes."""
+    if dataset not in ALIGNED_DATASETS:
+        raise ValueError(f"no alignment step for {dataset!r}; known: {ALIGNED_DATASETS}")
+    return {
+        "ground_truth": f"data/{dataset}_ground_truth_sites.json",           # derived here
+        "original": f"data/{dataset}_ground_truth_sites_uniprot.json",       # the source
+        "provenance": f"data/{dataset}_ground_truth_sites_provenance.json",
+        "sequences": f"data/{dataset}_uniprot_sequences.json",
+        "report": f"data/{dataset}_ground_truth_alignment.json",
+        "proteins": f"src/data/baselines/deepdta/data/{dataset}/proteins.txt",
+    }
+
+
+# DAVIS's paths under their original names, for anything importing them.
+_DAVIS = paths("davis")
+GROUND_TRUTH, ORIGINAL, PROVENANCE = _DAVIS["ground_truth"], _DAVIS["original"], _DAVIS["provenance"]
+SEQUENCES, REPORT, DAVIS_PROTEINS = _DAVIS["sequences"], _DAVIS["report"], _DAVIS["proteins"]
 
 
 def uniprot_numbered_path(dataset: str) -> str:
     """Where the fetch and the manual overrides write UniProt-numbered sites.
 
-    For DAVIS that is ORIGINAL, and GROUND_TRUTH is derived from it by this module --
-    so each file has one writer, and nothing can be aligned twice. KIBA has no
-    alignment step yet and keeps its single file.
+    For an aligned dataset that is its `_uniprot` file, and the file evaluation reads
+    is derived from it by this module -- so each file has one writer, and nothing can
+    be aligned twice. Any other dataset keeps its single file.
     """
-    return ORIGINAL if dataset == "davis" else f"data/{dataset}_ground_truth_sites.json"
+    if dataset in ALIGNED_DATASETS:
+        return paths(dataset)["original"]
+    return f"data/{dataset}_ground_truth_sites.json"
 
 # An identical stretch shorter than this is not trusted as alignment: short exact
 # matches turn up by chance inside regions that do not correspond at all.
@@ -129,10 +157,14 @@ def map_features(features: list, mapping: dict) -> tuple[list, int, int]:
 
 
 def align_target(features: list, uniprot: str | None, davis: str,
-                 recorded_length: int | None) -> tuple[list, dict]:
-    """One target: its aligned features and a report entry."""
+                 recorded_length: int | None, dataset: str = "davis") -> tuple[list, dict]:
+    """One target: its aligned features and a report entry.
+
+    `davis` is the sequence the dataset holds for this target, whichever dataset it is.
+    """
     n_residues = sum(f["end"] - f["start"] + 1 for f in features)
-    entry = {"davis_length": len(davis), "uniprot_length": len(uniprot) if uniprot else None,
+    entry = {f"{dataset}_length": len(davis),
+             "uniprot_length": len(uniprot) if uniprot else None,
              "residues_before": n_residues}
 
     if not features:
@@ -187,62 +219,65 @@ def fetch_sequences(accessions: list, batch: int = 100) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--dataset", default="davis", choices=ALIGNED_DATASETS)
     parser.add_argument("--refetch", action="store_true",
-                        help=f"fetch sequences again even if {SEQUENCES} exists")
+                        help="fetch sequences again even if the cached file exists")
     args = parser.parse_args()
+    p = paths(args.dataset)
 
     # The UniProt-numbered file is the source; the aligned file is derived from it.
     # On the first run the current file IS the original and is set aside. After that
     # the original is always read from its own file, so re-running cannot align an
     # already-aligned file a second time.
-    if not os.path.exists(ORIGINAL):
-        if os.path.exists(REPORT):
-            sys.exit(f"{REPORT} exists but {ORIGINAL} does not: {GROUND_TRUTH} may already "
-                     "be aligned. Restore the UniProt-numbered file before re-running.")
-        shutil.copy2(GROUND_TRUTH, ORIGINAL)
-        print(f"kept the UniProt-numbered original -> {ORIGINAL}")
+    if not os.path.exists(p["original"]):
+        if os.path.exists(p["report"]):
+            sys.exit(f"{p['report']} exists but {p['original']} does not: "
+                     f"{p['ground_truth']} may already be aligned. Restore the "
+                     "UniProt-numbered file before re-running.")
+        shutil.copy2(p["ground_truth"], p["original"])
+        print(f"kept the UniProt-numbered original -> {p['original']}")
 
-    sites = json.load(open(ORIGINAL))
-    provenance = json.load(open(PROVENANCE))
-    davis = json.load(open(DAVIS_PROTEINS))
+    sites = json.load(open(p["original"]))
+    provenance = json.load(open(p["provenance"]))
+    held = json.load(open(p["proteins"]))
 
-    accessions = sorted({p["uniprot_accession"] for p in provenance.values()
-                         if p.get("uniprot_accession")})
-    sequences = ({} if args.refetch or not os.path.exists(SEQUENCES)
-                 else json.load(open(SEQUENCES)))
+    accessions = sorted({entry["uniprot_accession"] for entry in provenance.values()
+                         if entry.get("uniprot_accession")})
+    sequences = ({} if args.refetch or not os.path.exists(p["sequences"])
+                 else json.load(open(p["sequences"])))
     # Only what is missing -- a manual override brings in a new accession.
     missing = [a for a in accessions if a not in sequences]
     if missing:
         print(f"fetching {len(missing)} UniProt sequence(s)")
         sequences.update(fetch_sequences(missing))
-        with open(SEQUENCES, "w") as f:
+        with open(p["sequences"], "w") as f:
             json.dump(sequences, f, indent=1, sort_keys=True)
 
     aligned, report = {}, {}
     for target, features in sites.items():
         prov = provenance.get(target, {})
-        seq = davis.get(target)
+        seq = held.get(target)
         if seq is None:
-            aligned[target], report[target] = [], {"status": "not_in_davis"}
+            aligned[target], report[target] = [], {"status": f"not_in_{args.dataset}"}
             continue
         aligned[target], report[target] = align_target(
             features, sequences.get(prov.get("uniprot_accession")), seq,
-            prov.get("sequence_length"))
+            prov.get("sequence_length"), dataset=args.dataset)
 
-    with open(GROUND_TRUTH, "w") as f:
+    with open(p["ground_truth"], "w") as f:
         json.dump(aligned, f, indent=1)
-    with open(REPORT, "w") as f:
+    with open(p["report"], "w") as f:
         json.dump(report, f, indent=1, sort_keys=True)
 
     from collections import Counter
     counts = Counter(r["status"] for r in report.values())
     before = sum(r.get("residues_before", 0) for r in report.values())
     after = sum(r.get("residues_after", 0) for r in report.values())
-    print(f"\n{GROUND_TRUTH} is now in DAVIS-sequence coordinates")
+    print(f"\n{p['ground_truth']} is now in {args.dataset.upper()}-sequence coordinates")
     for status, n in counts.most_common():
         print(f"  {status:26s} {n}")
     print(f"  annotated residues: {before} -> {after} ({before - after} dropped)")
-    print(f"report -> {REPORT}")
+    print(f"report -> {p['report']}")
 
 
 if __name__ == "__main__":

@@ -37,6 +37,8 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 - Data: splits (verified on 3 machines), antiviral subset (3 targets), non-kinase panel
   (60 targets), gene maps. Ground truth re-numbered to DAVIS sequences
   (`src/data/align_ground_truth.py`); 4 wrong-protein targets corrected via overrides.
+  KIBA re-numbered the same way (2026-09-12, `--dataset kiba`): 212 of 221 identical,
+  PIM1 and SGK2 were isoforms (24 site residues moved), 0 dropped.
 - Training: DeepDTA regression DAVIS+KIBA 24/24 (`results.md`); ColdSite-DTI regression
   DAVIS 12/12 + replication (`results/`); DeepDTA **binary** DAVIS 12/12 — AUROC
   random 0.929, cold-target 0.908, cold-pair 0.728, cold-drug 0.692.
@@ -114,7 +116,7 @@ account on KIBA.**
   (outputs prefixed with the model name; pass the matching
   `accuracy_<model>_<dataset>_seed<N>.json` to the ladder). Run those by hand for
   HyperAttentionDTI, MolTrans and every KIBA cell.
-- Optional CPU task: check KIBA ground truth for the same sequence/protein mismatches.
+- ~~Check KIBA ground truth for sequence/protein mismatches~~ — done 2026-09-12 (see §3).
 
 **Later, to strengthen the paper (after the grids, before the draft is due 15 Nov 2026):**
 - **Run the non-kinase control properly.** `run_control` already runs automatically
@@ -161,6 +163,7 @@ account on KIBA.**
   Claude Code → New → Local · folder ColdSite-DTI · branch **main** · worktree off.
 - Confirm with the user before any `git push`.
 - Do not change training code while a grid is mid-run (cells must share one code state).
-- DAVIS ground truth: fetch/overrides write `data/davis_ground_truth_sites_uniprot.json`;
-  only `align_ground_truth` writes `data/davis_ground_truth_sites.json`. Re-align after either.
+- Ground truth (DAVIS and KIBA): fetch/overrides write `data/<dataset>_ground_truth_sites_uniprot.json`;
+  only `align_ground_truth --dataset <dataset>` writes `data/<dataset>_ground_truth_sites.json`.
+  Re-align after either.
 - Explain in plain language; the user prefers step-by-step instructions.

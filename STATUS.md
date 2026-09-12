@@ -4,7 +4,7 @@
 > interpretability claims, not a single-model paper. Read
 > `docs/00_MASTER_PLAN_V2.md`, then your `docs/PART2_GUIDE_<roll>.md`.
 
-Last updated: 2026-08-18. Regenerate the numbers with `python -m pytest tests/ -q`
+Last updated: 2026-09-12. Regenerate the numbers with `python -m pytest tests/ -q`
 and `python -m src.data.ground_truth`.
 
 This file tracks Part 1 against the checklists in each guide. **Part 1 is not
@@ -22,6 +22,131 @@ to run. Track A's step-by-step is `docs/RUNBOOK_124AD0008.md`.
 > Note for 124AD0015: **DAVIS cold-pair validation is 264 rows.** Inherent to
 > requiring both drug and target unseen, not a bug — but early stopping on it
 > will be noisy, so decide how to handle that before the grid runs.
+
+---
+
+## 2026-09-12 — where things stand
+
+**The scope is unchanged from 2026-08-18: the 36-run binary grid on DAVIS is the
+paper's spine.** Two older "what is left" tables further down (§ *What is left, and
+why* and § *Remaining work, by owner*) predate that decision and are marked
+superseded; read this section instead.
+
+### Trained
+
+| model | task | DAVIS | KIBA | where |
+|---|---|---|---|---|
+| DeepDTA | regression | 12/12 | 12/12 | `results.md` |
+| ColdSite-DTI | regression | 12/12, plus a full replication | deferred | `results/davis_*_regression_*` |
+| DeepDTA | **binary** | **12/12** | — | Kaggle, in progress |
+| ColdSite-DTI | **binary** | 0/12 | — | Kaggle, in progress |
+| HyperAttentionDTI | **binary** | 0/12 | — | Kaggle, in progress |
+
+The regression cells do not enter the audit table -- HyperAttentionDTI and MolTrans
+are binary-only, so the table compares AUROC. The ColdSite-DTI regression grid shows
+it on par with DeepDTA (CI 0.846 / 0.657 / 0.804 / 0.602 against 0.877 / 0.640 /
+0.818 / 0.603 across random / cold-drug / cold-target / cold-pair).
+
+**DeepDTA, binary, DAVIS** -- test AUROC, mean over 3 seeds, from the sanity gate of
+the first Kaggle commit:
+
+| random | cold_target | cold_pair | cold_drug |
+|---|---|---|---|
+| 0.929 | 0.908 | 0.728 | 0.692 |
+
+The drug/target asymmetry documented for regression holds for the binary task, and
+more strongly: an unseen target costs 0.022 AUROC, an unseen drug 0.238.
+
+### Running
+
+`notebooks/kaggle_davis_binary_grid36.ipynb`, Kaggle T4 x2. Each commit starts in an
+empty container, so finished cells are carried forward through a restore dataset; the
+notebook stops itself at 11 hours so a commit always saves its output. Expect 2-3
+commits.
+
+### Fixed since 2026-08-18
+
+- **ColdSite-DTI could not train on the binary task** (`61ac412`). Its loader passed
+  raw pKd values to the loss, and the run died at its first AUROC. `--dummy` hid it --
+  its random labels are already 0/1. A third of the binary grid would have failed.
+  The three trainers now share one `BINARY_THRESHOLD` (DAVIS pKd >= 7.0), so they are
+  scored against identical labels. The 2026-08-18 note below that "nothing above the
+  line is waiting on code" was wrong on this point: that path had never been run on
+  real data.
+- **Resuming a grid was unsafe** (`d9a03c1`, `f9d36f0`). An interrupted cell was
+  banked as finished, and every restart retrained a finished cell.
+- **The grid status file showed half the grid** on two GPUs (`bdad54c`).
+
+### What the replication showed
+
+The DAVIS regression grid was trained twice on identical code and hardware. Split
+means agree within 0.024 CI and the drug/target asymmetry holds in both (4.0x and
+4.5x). **Individual seeds do not reproduce**: the same seed moved by up to 0.058 CI,
+because cuDNN's LSTM kernels are nondeterministic. Report split-level means with their
+spread, never a single seed. Details: `results/davis_replication_run1.md`.
+
+### Dry run of the interpretability analysis
+
+`run_faithfulness` and `run_ladder` had only ever run on synthetic fixtures. They
+were run on the real DAVIS **regression** ColdSite-DTI checkpoints, seed 1, to find
+out before the binary grid finished whether they work. **They do**, end to end; the
+accuracy hand-off matches the trainer's results exactly. Faithfulness used 40 pairs
+per level; the ladder used every test pair.
+
+**Faithfulness -- the attended residues are load-bearing at every level.** Masking
+them moves the prediction 2-4x more than masking random residues:
+
+| level | comprehensiveness | random control | delta |
+|---|---|---|---|
+| warm | 0.093 | 0.022 | 0.071 |
+| cold-target | 0.123 | 0.054 | 0.069 |
+| cold-drug | 0.094 | 0.041 | 0.053 |
+| cold-pair | 0.078 | 0.030 | 0.048 |
+
+**Ladder -- but they are barely binding sites.** precision@10 against the ceiling
+(~0.99) and chance:
+
+| level | precision@10 | chance | p | accuracy (CI) |
+|---|---|---|---|---|
+| warm | 0.036 | 0.020 | 0.001 | 0.780 |
+| cold-drug | 0.023 | 0.020 | 0.001 | 0.657 |
+| cold-target | **0.018** | 0.019 | **0.987** | **0.797** |
+| cold-pair | 0.035 | 0.019 | 0.001 | 0.581 |
+
+Of the ten residues ColdSite-DTI attends to most, on average fewer than half of one is
+an annotated binding site. The attention is **faithful but not plausible**: it drives
+the model's predictions without pointing at the biology. And the two axes come apart --
+cold-target has the *highest* accuracy and the *lowest* fidelity, indistinguishable
+from chance. That dissociation is the audit's thesis, visible in our own model.
+
+Preliminary: one seed, regression rather than the binary checkpoints the audit uses.
+The significance is easy at n > 1,000 per level; the effect size is what to report.
+
+**Two things to fix before the paper's numbers:**
+
+1. **54 targets with annotated sites have a DAVIS sequence of a different length from
+   UniProt's** (e.g. ABL1 and its variants, 1,167 vs 1,130), so UniProt residue numbers
+   may not map onto the sequence the model saw. 376 of 442 targets match in length, so
+   this cannot explain the result -- if the mismatched ones scored pure chance, the
+   aligned ones would still sit near 0.038 -- but they should be aligned or excluded.
+2. **The headline figure hides the scale.** `run_ladder`'s precision panel runs from 0
+   to 0.037 with no chance line or ceiling, which makes differences of 0.01 look
+   dramatic. The paper figure needs the chance line on it.
+
+### What is left
+
+1. Finish the binary grid: ColdSite-DTI and HyperAttentionDTI, 12 cells each.
+2. Faithfulness, then the ladder, per seed; then the audit grid; then the control,
+   with and without `--exclude-cotransport-ions`. All run in the notebook's last
+   section once 36/36 exist.
+3. Volume-matched control for cold-pair -- `notebooks/colab_volume_control.ipynb`,
+   ColdSite-DTI on `random` cut to 15,190 rows, three seeds, on Colab.
+4. Align or exclude the 54 length-mismatched targets; add the chance line to the
+   headline figure (both above).
+5. Writing decisions below: the ladder's framing, and the cotransport-ion treatment.
+
+**Deferred, to be written up as limitations:** KIBA for ColdSite-DTI and the binary
+grid; MolTrans.
 
 ---
 
@@ -370,6 +495,11 @@ tie ordering — and every real number produced afterwards is suspect.
 
 ## What is left, and why
 
+> **Superseded -- see § 2026-09-12 at the top.** Items 0-5 are accurate. Item 6, the
+> 24-run regression grid called "the critical path" here, was replaced as the critical
+> path by the 36-run binary grid on 2026-08-18. Its DAVIS half has since been trained;
+> its KIBA half is deferred.
+
 None of these are code problems. They need data or compute — `rest.uniprot.org`
 and `bindingdb.org` are unreachable from the environment the code was written
 in, so every network step has to run on a team member's own machine.
@@ -500,7 +630,13 @@ KIBA is zero because it uses UniProt accessions, not gene symbols, and cannot be
 classified without a mapping. **The control arm does not currently exist.** This
 is the highest-priority gap in the project.
 
+> **Stale.** The control arm now exists: the non-kinase panel (A13) supplies 60
+> targets, `control_is_usable: True`, and KIBA is mapped 229/229.
+
 ## Remaining work, by owner
+
+> **Stale -- kept for history.** Written before the splits existed. Every item below
+> is either done or superseded; see § 2026-09-12 at the top.
 
 | # | Item | Owner | Blocking |
 |---|---|---|---|

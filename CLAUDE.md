@@ -50,11 +50,22 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 - Deferred (write up as limitations unless time allows): **MolTrans** (~3–12 GPU-h,
   preferred next), **KIBA** (~2–5 weeks of quota).
 
-## 4. Active goals this session
-- Kaggle `notebooks/kaggle_davis_binary_grid36.ipynb` (notebook `mahim5/notebooka7e4de1f63`,
-  version 1 running). Each commit starts empty: download `results` → Kaggle Dataset →
-  set `RESTORE_FROM` → commit again. Self-stops at 11 h. Expect 2–3 commits.
-- Ladder re-run on the aligned ground truth (seed 1) → add before/after to STATUS.md.
+## 4. Active goals — next steps, in order
+- **Kaggle grid:** `notebooks/kaggle_davis_binary_grid36.ipynb`, Kaggle notebook
+  `mahim5/notebooka7e4de1f63`, version 1 started 2026-09-12 ~10:40 (gate passed, stage 2
+  running). Each commit starts empty and self-stops at 11 h; expect 2–3 commits.
+  When v1 finishes: Output → download `grid36_results.zip` → Kaggle Dataset (private) →
+  **re-import the notebook from GitHub** (gets the per-cell log prefixes and STATUS
+  lines) → Add Input → set `RESTORE_FROM` (§5) → check quota ≥ 11.5 h, else lower the
+  `11` in `DEADLINE` (§6) → Save & Run All. Confirm §1's `torch` version and the
+  Environment column match v1. Repeat until §10 shows 36/36.
+- **Send the first ColdSite-DTI binary cell's Test metrics** (and §10's table) to check.
+- **Back up the 12 DAVIS regression checkpoints**: they exist only in local `results/`
+  (and `~/Downloads/results`). Upload `.pt` + `*_results.json` + `*_history.json` to Drive
+  folder `coldsite-grid24-kaggle`. The first attempt never arrived — check Brave is
+  signed into mahimagarwal5@gmail.com.
+- **Colab volume control**: if Colab shows "Monaco: unable to load", reload, or turn off
+  Brave Shields for colab.research.google.com.
 - Decide MolTrans protocol: published 13 epochs vs our early stopping (lean: ours).
 - Optional CPU task: check KIBA ground truth for the same sequence/protein mismatches.
 
@@ -74,7 +85,8 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 
 ## 6. Working rules
 - Repo: fork `Mahim56207/ColdSite-DTI_New`, branch `main`; `upstream` = udayraj1238.
-  Ignore `project-completion` (stale). Run sessions **locally** (Colab/Kaggle/`gh` need it).
+  Ignore `project-completion` (stale). Run sessions **locally** (Colab/Kaggle/`gh` need it):
+  Claude Code → New → Local · folder ColdSite-DTI · branch **main** · worktree off.
 - Confirm with the user before any `git push`.
 - Do not change training code while a grid is mid-run (cells must share one code state).
 - DAVIS ground truth: fetch/overrides write `data/davis_ground_truth_sites_uniprot.json`;

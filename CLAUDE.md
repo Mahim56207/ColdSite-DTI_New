@@ -126,14 +126,18 @@ account on KIBA.**
   tells us whether the plausibility gap is a kinase-domain artifact or general to the
   model, and right now it only ever runs on a third of the seeds and none of the subjects
   that will exist once the grids finish.
-- **Add a positive control for the metric itself.** Every number so far shows the audited
-  models scoring near chance at plausibility. Nothing yet proves the precision@k /
-  faithfulness pipeline *would* score a genuinely good explanation as good — the
-  `achievable_ceiling` already reported alongside precision@k is a mathematical best case
-  (site count vs k), not a check that the measurement works. Construct one (e.g. an
-  adapter or synthetic attention that returns the ground-truth sites themselves) and
-  confirm it scores near that ceiling. Without it, a reviewer can reasonably ask whether
-  the near-chance numbers reflect the models or an insensitive test.
+- ~~Add a positive control for the metric itself~~ — **done 2026-09-12**:
+  `python -m src.evaluation.positive_control --dataset davis|kiba` → `results/positive_control_<dataset>.md`.
+  Explanations of known quality ("dose" = fraction of true sites ranked first) scored by
+  the audit's own functions on the real splits and ground truth. All hard checks pass on
+  both datasets: 0 sites outside the seen sequence, oracle = ceiling, oracle p = 0.001,
+  oracle load-bearing on a planted model. It **fails** on DAVIS's pre-renumbering sites
+  (146 outside the sequence), so it catches that class of bug. The test reliably detects
+  a 2% dose at every level of both datasets (cold-target: 79 DAVIS / 42 KIBA proteins).
+  Read against it, ColdSite-DTI's dry-run precision@10 (regression, seed 1) ≈ 1.7% of
+  sites at warm, 2.1% cold-pair, 0.5% cold-drug (below reliable resolution), and
+  cold-target at chance — a real null, not a power problem. For Results:
+  `--compare <model>=<ladder json>` does this for every real ladder once the grids finish.
 
 ## 5. Citation & reporting rules
 - **No citation style chosen yet.** Drafts cite by model name + year (e.g. "CS-DTA

@@ -83,18 +83,57 @@ weak to see anything. On a planted model whose prediction depends only on the an
 sites, the faithfulness measure separates the oracle (comprehensiveness delta ≈ +10.2)
 from no signal (≈ 0) at every level.
 
-## 4. Does ColdSite-DTI's attention mark binding sites? *[PENDING — running]*
+## 4. ColdSite-DTI's attention is load-bearing but does not mark binding sites
 
-*[PENDING: faithfulness (delta over random masking) and precision@10 vs chance and
-ceiling per level, 3 seeds, from `run_all` on the 12 binary checkpoints (running
-2026-09-13, `results/analysis_davis_partial/`). Read each precision@10 against §3's dose
-curve via `positive_control --compare`. The dry run (regression, seed 1) found attention
-faithful at every level but at most ~2× chance at hitting sites; check whether the
-binary checkpoints agree.]*
+Computed 2026-09-13 on the 12 binary checkpoints (`run_all`, CPU; outputs in
+`results/analysis_davis_partial/`, not committed). Faithfulness uses up to 200 test pairs
+per level; precision@10 scores one test pair per protein (402 proteins at random and
+cold-drug, 79 at cold-target and cold-pair) against a 1,000-trial permutation null.
+
+**Table R2.** ColdSite-DTI, DAVIS binary, seeds 1 / 2 / 3.
+
+| level | faithfulness delta | mean ± sd | precision@10 | mean ± sd | chance | ceiling |
+|---|---|---|---|---|---|---|
+| random | 0.771 / 2.009 / 0.784 | 1.19 ± 0.71 | 0.022 / 0.009 / 0.012 | 0.015 ± 0.006 | 0.020 | 0.990 |
+| cold-drug | 1.825 / 0.968 / 0.798 | 1.20 ± 0.55 | 0.025 / 0.025 / 0.013 | 0.021 ± 0.006 | 0.020 | 0.990 |
+| cold-target | 0.240 / 0.946 / 0.563 | 0.58 ± 0.35 | 0.014 / 0.019 / 0.019 | 0.017 ± 0.003 | 0.019 | 0.992 |
+| cold-pair | 0.639 / 0.974 / 0.450 | 0.69 ± 0.27 | 0.018 / 0.011 / 0.008 | 0.012 ± 0.005 | 0.019 | 0.991 |
+
+Faithfulness delta = comprehensiveness (absolute change in the predicted logit when the 10
+most-attended residues are masked) minus the same for 10 random residues; only the delta
+is a result.
+
+**Faithful at every level.** Masking the residues ColdSite-DTI attends to moves its
+prediction more than masking random residues in all 12 cells (every delta positive,
+flagged load-bearing in each seed's report). The attention is not decoration: the model
+uses the residues it points at, at every split level.
+
+**Not plausible at any level.** Mean precision@10 is 0.012–0.021 against a chance of
+0.019–0.020 and a ceiling of 0.99. No level exceeds chance on average. The only cells
+significant before correction are cold-drug seeds 1 and 2 (0.025, p = 0.022 each), which
+seed 3 does not reproduce (0.013, p = 0.999). Read against the positive control (§3,
+`positive_control --compare`), every cell is equivalent to an explanation that places at
+most ~0.2% of the true sites first, a tenth of the smallest dose the test reliably detects
+(2%); eight of the twelve sit at or below the dose-0 curve. This is a real null, not an
+underpowered one.
+
+Taken together: the attention is causally used, and what it is used for is not the
+annotated binding site. This is the dry run's "faithful but not plausible" pattern,
+now on the binary checkpoints, three seeds and one pair per protein, and stronger: the
+dry run's warm level reached ~2× chance, here no level does. *[Formal statement waits
+for the audit table (§5): Holm over the whole family.]*
 
 ## 5. *[PENDING]* The audit table (all subjects, Holm over the whole family)
 
 ## 6. *[PENDING]* Kinase-family control (60 non-kinase proteins, cotransport ions excluded)
+
+*[First look, ColdSite-DTI only, not yet a result (2026-09-13): on the 60 non-kinase
+proteins precision@10 is above its own chance (0.012) in 7 of 12 cells before
+correction — e.g. seed 2 random 0.050, cold-pair 0.048 — while the kinase arm sits at
+chance. It is not consistent across seeds (seed 1 random 0.008) and the non-kinase
+ceiling is 0.50, not 0.99. Before this is interpreted, check whether it is a positional
+effect (attention concentrated at one end of the sequence meeting sites clustered
+there), which a uniform permutation null would not remove.]*
 
 ## 7. *[PENDING]* KIBA
 

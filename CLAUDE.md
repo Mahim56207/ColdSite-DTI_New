@@ -19,6 +19,12 @@ hitting sites (precision@10 0.040 vs 0.020; ceiling 0.99); cold-target is the mo
 accurate level and sits at chance. Counted one pair per protein (2026-09-12), cold-pair is
 at chance too (0.024, p = 0.19; it was "significant" only when 79 proteins were counted as
 1,027 pairs) — `results/ladder_dryrun_regression_davis_seed1.md`.
+**First real result (2026-09-13, binary, 3 seeds, one pair per protein; `paper/results.md`
+§4):** ColdSite-DTI's attention is load-bearing in all 12 cells (faithfulness delta
+0.24–2.01) and at chance at every level (mean precision@10 0.012–0.021 vs chance
+0.019–0.020; ≤ ~0.2% dose-equivalent vs the 2% the test detects). Holm pending (audit
+needs all subjects). Non-kinase arm shows unexplained above-chance cells — check for a
+positional artefact before reading it (`paper/results.md` §6).
 Team 124AD0008 (data) · 124AD0015 (model) · 124AD0067 (evaluation); supervisor
 Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / ISMB.
 **Draft due 15 Nov 2026.**

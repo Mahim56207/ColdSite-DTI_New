@@ -26,8 +26,10 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 ## 2. Paper structure (planned) → where material lives
 | Section | Source | State |
 |---|---|---|
-| Abstract, Introduction | — | not written |
-| Related Work (DTI claims; OOD explainability; attention-as-explanation) | `literature_differentiation.md` | drafted |
+| Abstract | — | not written (last, from the results) |
+| Introduction | `paper/introduction.md` | skeleton with draft prose, results as placeholders (2026-09-12) |
+| Related Work (DTI claims; OOD explainability; attention-as-explanation) | `literature_differentiation.md` | drafted; citations verified 2026-09-12 (`paper/references.md`); **two factual errors corrected** (DMFF-DTA does test unseen drugs/targets; GPS-DTI does claim interpretability); SAE "faithfulness gap" claim removed, no source; full-text checks listed in its checklist |
+| Discussion — Limitations | `paper/limitations.md` | drafted 2026-09-12; KIBA scope/AMP pending |
 | Methods: data, splits, ground truth, family control | `paper/methods_data_and_evaluation.md` §1–4 | drafted 2026-09-12 |
 | Methods: ColdSite-DTI architecture & training, attention extraction | `paper/methods_track_b.md` | drafted (stale placeholders filled 2026-09-12) |
 | Methods: baselines' training, metrics & statistics, baseline faithfulness, positive control | `paper/methods_data_and_evaluation.md` §5–9 | drafted 2026-09-12; §10 lists 5 open decisions |
@@ -77,7 +79,8 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
   seed 2 ran to epoch 38, the others 14). Interpret once account 1 supplies ColdSite-DTI's
   full `random` and `cold_pair` binary cells: full − 0.887 = cost of fewer rows;
   0.887 − cold_pair = genuine cold-pair difficulty. A gap under the 0.018 spread is not a finding.
-- Write every section marked above; fill Related Work DOIs; checklist at its end.
+- Write every section marked above. Related Work citations are verified
+  (`paper/references.md`); its checklist still lists full-text checks and newer papers.
 
 ## 4. Active goals — next steps, in order
 

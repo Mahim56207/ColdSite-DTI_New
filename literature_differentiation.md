@@ -18,32 +18,38 @@ three are taken seriously.
 
 ## 1. Interpretability claims in DTI prediction
 
-### 1.1 DMFF-DTA (2025)
+### 1.1 DMFF-DTA (He et al., 2025, *npj Digital Medicine*)
 
-Evaluates internal attention weights against known biological binding sites
-with statistical testing rather than by eye — the closest methodological
-ancestor of our plausibility metric. Its entire pipeline runs on standard
-random splits. **What we add:** the same class of validation carried across
-four levels of split difficulty, so the question becomes how that validation
-behaves when the drug or protein is unfamiliar, not whether it passes once.
+Builds a binding-site-focused protein graph from AlphaFold2 contact maps, reports
+generalization to completely unseen drugs and targets (over 8% better than prior
+methods), and includes an interpretability analysis said to validate the model's
+biological relevance. *(Corrected 2026-09-12: an earlier version of this paragraph said
+its pipeline ran only on random splits; the abstract shows it does not. Whether its
+interpretability analysis was run on the unseen-drug/target setting, and whether it
+tests against binding sites statistically, must be checked in the full text.)*
+**What we add:** explanation quality measured as a quantity at each of four difficulty
+levels, for several published models, against a floor and with faithfulness — rather
+than an interpretability analysis reported alongside a generalization result.
 
-### 1.2 EviDTI (2025)
+### 1.2 EviDTI (Zhao et al., 2025, *Nature Communications*)
 
-Computes a binding-site hit ratio *and* evaluates cold-start prediction — but
-as two independent experiments. Interpretive fidelity is never expressed as a
+Computes a binding-site hit ratio for high-attention residues *and* evaluates robustness
+on novel, unseen drug–target pairs — but, as far as the abstract and tables show, as two
+independent experiments *(confirm in the full text)*. Interpretive fidelity is never expressed as a
 function of generalization difficulty. **What we add:** the connection. The
 two axes are measured on the same splits, the same proteins and the same
 checkpoints, so a change in one can be read against the other.
 
-### 1.3 ColdDTI (2025)
+### 1.3 ColdDTI (Zhang et al., 2025, arXiv preprint)
 
-Strong predictive accuracy under cold-start using multi-level protein
-structural representations, with no assessment of explanation quality. It
+Strong predictive accuracy under cold-start using a hierarchical attention mechanism over
+multi-level protein structure, with no assessment of explanation quality in its abstract
+*(a preprint at the time of writing — re-check for a published version)*. It
 establishes that cold-start accuracy is achievable; it does not ask whether
 the model reaches those predictions for defensible reasons. **What we add:**
 that question, on the same difficulty spectrum.
 
-### 1.4 CS-DTA (2026, *Frontiers in Chemistry*) — the closest prior work
+### 1.4 CS-DTA (Jiang et al., 2026, *Frontiers in Chemistry*) — the closest prior work
 
 **This paragraph is deliberately unflattering, and must stay that way.** A
 reviewer who has read CS-DTA will notice any softening, and it costs more
@@ -72,18 +78,23 @@ faithfulness, a control floor, and family-wise error control. That is a real
 difference, and it is a difference of *method*, not of claim. It is not a
 claim to have discovered that cold-start hurts interpretability.
 
-### 1.5 GPS-DTI (2025)
+### 1.5 GPS-DTI (Xiong et al., 2025, *BMC Biology*)
 
-Cold-start performance from protein language models (ESM-2) plus attention.
-Evaluates predictive capability without asking whether explanation fidelity
-tracks it. **What we add:** the audit treats "high accuracy" and "attention
-points at the right residues" as separate claims requiring separate evidence —
-which is precisely the pairing GPS-DTI leaves untested.
+Targets generalization to unseen drugs and targets with ESM-2 protein representations and
+a drug–protein cross-attention module, and presents visualised cross-attention maps as
+"interpretable insights into key molecular interactions". *(Corrected 2026-09-12: it
+does make an interpretability claim — by inspection of attention maps.)* **What we add:**
+the audit treats "high accuracy" and "attention points at the right residues" as separate
+claims requiring separate, quantitative evidence at each difficulty level — the pairing
+GPS-DTI supports by visualisation rather than measurement *(confirm it reports no
+quantitative binding-site test)*.
 
-### 1.6 KANPM-DTA (*Briefings in Bioinformatics*)
+### 1.6 KANPM-DTA (Rakib et al., 2026, *Briefings in Bioinformatics*)
 
-Named in the master plan as venue evidence rather than as a differentiation
-target. Relevant here mainly for calibrating where this work publishes.
+Named in the master plan as venue evidence rather than as a differentiation target: a
+2026 *Briefings in Bioinformatics* DTA model that itself lists interpretability and
+generalization to unseen pairs among its aims. Relevant mainly for calibrating where this
+work publishes.
 
 ---
 
@@ -92,35 +103,44 @@ target. Relevant here mainly for calibrating where this work publishes.
 This is the section that keeps a reviewer from dismissing the paper as naive.
 "Explanations get worse out of distribution" is **not a new finding**, and
 claiming it as one would be the fastest possible rejection. It is established
-in at least four separate literatures:
+in several separate literatures:
 
-- **Vision attribution.** Insertion and deletion scores for saliency methods
-  drop substantially — reported up to ~40% — when evaluation moves
-  out-of-distribution.
-- **Graph neural networks.** An Explanation-Generalization Score has been
-  proposed on exactly our premise: that an explainer validated in-distribution
-  need not remain valid outside it.
-- **Mechanistic interpretability.** Sparse-autoencoder faithfulness has been
-  formalized as a geometric "faithfulness gap", making the degradation
-  measurable rather than anecdotal.
-- **Recommender systems.** CIRR addresses the same phenomenon for
-  recommendation explanations.
+- **Vision attribution.** Subset-selection attribution methods that perform well
+  in-distribution degrade severely out of distribution, with insertion and deletion
+  scores dropping by up to 40% across curated in-/out-of-distribution pairs (Gupta,
+  Prasad C & Ramakrishnan, 2025, arXiv:2512.08445 — the figure is in the full text, not
+  the abstract, so cite it with its page).
+- **Graph neural networks.** The Explanation-Generalization Score uses out-of-distribution
+  generalization as the test of whether a GNN explanation captures causal structure
+  (Zhang, Betala & Agarwal, 2026, arXiv:2602.07708) — explanation quality judged by what
+  survives distribution shift.
+- **Recommender systems.** CIRR targets faithful explanations under distribution shift,
+  motivated by recommenders' degradation out of distribution (Sun, 2025,
+  arXiv:2512.18683).
+- ~~**Mechanistic interpretability.** Sparse-autoencoder faithfulness formalized as a
+  geometric "faithfulness gap".~~ **Removed 2026-09-12: no source could be found that
+  makes this claim.** The nearest, an audit finding that sparse-autoencoder features can be
+  geometrically recovered yet causally inert (Bal, 2026, arXiv:2607.12166), concerns
+  faithfulness in-distribution, not degradation under shift. Reinstate only with the
+  original source.
 
 **Our position against this literature.** We do not claim the phenomenon is
 new. We claim that DTI's published interpretability results have not been
 checked against it — that a field making biological claims from attention maps
-has validated those claims almost exclusively on random splits, while
-deploying the models in precisely the cold-start regime where the phenomenon
-is known to bite. State this directly in the Intro. A reviewer who believes we
+supports them by inspection, on random splits, or beside a separate cold-start
+accuracy result (§1), but not, to our knowledge, as a quantity measured across levels of
+distribution shift, while deploying the models in precisely the cold-start regime where
+the phenomenon is known to bite. *(Revised 2026-09-12: "almost exclusively on random
+splits" overstated it — DMFF-DTA, EviDTI, GPS-DTI and CS-DTA all pair interpretability
+with cold-start results.)* State this directly in the Intro. A reviewer who believes we
 are unaware of this work will reject; one who sees we have positioned against
 it deliberately will not.
 
-> **Citation status.** The four claims above are recorded in
-> `docs/00_MASTER_PLAN_V2.md` §1 and are stated here as the project has
-> established them. Authors, venues and DOIs must be filled in before
-> submission — including the specific source for the ~40% figure, which is the
-> only quantitative claim in this section and the one most likely to be
-> checked. Do not submit with this note still present.
+> **Citation status (2026-09-12).** The three remaining claims are verified against
+> their sources and listed in `paper/references.md`. All three are **arXiv preprints**:
+> check each for a peer-reviewed version before submission, and prefer it. The 40%
+> figure is in the full text of arXiv:2512.08445 (not its abstract). One claim was
+> removed for lack of a source — see above.
 
 ---
 
@@ -184,11 +204,21 @@ cold-start is unprecedented in DTI (§1.4).
 
 ## Before submission
 
-- [ ] Fill in authors, venues and DOIs for every §2 claim; delete the citation
-      note once done
-- [ ] Confirm the CS-DTA description against the published paper, not against
-      this summary
-- [ ] Re-check whether anything newer than CS-DTA has appeared — this document
-      was last revised 2026-08-23
+- [x] Fill in authors, venues and DOIs for every §2 claim (2026-09-12; one claim
+      removed for lack of a source). Remaining: swap the three arXiv preprints for
+      published versions if they exist.
+- [x] Confirm the CS-DTA description against the published abstract (2026-09-12: it
+      matches — warm and strict cold-start, interpretability on localized protein
+      regions, non-kinase validation as "preliminary evidence of partial
+      transferability"). Still to check in the full text: that it measures no
+      faithfulness and uses no floor or correction.
+- [ ] Full-text checks flagged in §1: DMFF-DTA (where its interpretability analysis ran),
+      EviDTI (hit ratio and cold-start as separate experiments), GPS-DTI (no quantitative
+      binding-site test), ColdDTI (published version?)
+- [ ] Re-check whether anything newer than CS-DTA has appeared. Seen in passing on
+      2026-09-12, not yet read: PCIM-DTA (2026, *Bioinformatics*, cold-start DTA),
+      CMA-DTI (2026, *Frontiers in Bioinformatics*, "interpretable" DTI), ColdstartMHDTI
+      (2026, *Frontiers in Chemistry*), CDI-DTI ("cross-domain interpretable", JCIM),
+      TrustDTI (2026, *IEEE Access*)
 - [ ] Cross-check §4's claims against what the finished grid actually shows;
       any claim the numbers do not support comes out

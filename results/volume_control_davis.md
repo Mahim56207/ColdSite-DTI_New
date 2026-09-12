@@ -34,12 +34,39 @@ top-level `best_epoch` is `train.py`'s 0-indexed epoch counter and reads one low
 ## How to read it
 
 Compared against ColdSite-DTI's full **random** and **cold-pair** binary cells from the
-DAVIS audit grid (Kaggle, account 1), once they exist:
+DAVIS audit grid (Kaggle, account 1):
 
 | comparison | measures |
 |---|---|
 | full random − 0.887 | the AUROC cost of training on cold-pair's volume alone |
 | 0.887 − cold-pair | the part of the cold-pair drop that is genuine difficulty |
+
+## Result (2026-09-13)
+
+The grid's ColdSite-DTI cells arrived with account 1's first commit (Kaggle, 2026-09-12):
+
+| cell | training rows | test set | AUROC per seed | AUROC mean ± sd |
+|---|---|---|---|---|
+| random, full | 21,039 | random (6,011) | 0.9254 / 0.9232 / 0.9234 | **0.9240 ± 0.0012** |
+| random, volume-matched (this control) | 15,190 | random (6,011) | 0.8841 / 0.9065 / 0.8708 | **0.8871 ± 0.0180** |
+| cold-pair | 15,190 | cold-pair (1,144) | 0.7375 / 0.5568 / 0.5765 | **0.6236 ± 0.0991** |
+
+- **Cost of fewer rows: 0.924 − 0.887 = 0.037.** Larger than either cell's seed spread,
+  so volume matters, but it is small.
+- **Genuine cold-pair difficulty: 0.887 − 0.624 = 0.263**, 2.7× the cold-pair seed
+  spread. Of the 0.300 drop from random to cold-pair, about **12% is volume and 88% is
+  the task**. The cold-pair drop is not an artefact of cold-pair's smaller training set.
+- The difficulty term also contains whatever differs between the two test sets (the
+  cold-pair test set is its own 1,144 pairs of unseen drugs and unseen targets); that is
+  what "cold-pair difficulty" means here, and it should be stated as such.
+- Compare AUROC only. AUPRC depends on each test set's positive rate, so it is not
+  comparable across the two test sets (random full 0.612, control 0.500, cold-pair 0.133).
+- Cold-pair is also the least stable cell: seed 1 scores 0.738, seeds 2–3 score 0.557 and
+  0.577, and all three checkpoints come from epoch 11 — validation loss (264 rows) was
+  lowest one epoch after the floor. Full random ran long by comparison (best epochs 40,
+  40, 32). Report the cold-pair mean with its spread, never one seed.
+
+Epochs here are 1-indexed (`selection.best_epoch`).
 
 ## Where the files are
 

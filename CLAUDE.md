@@ -33,7 +33,7 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 | Methods: data, splits, ground truth, family control | `paper/methods_data_and_evaluation.md` §1–4 | drafted 2026-09-12 |
 | Methods: ColdSite-DTI architecture & training, attention extraction | `paper/methods_track_b.md` | drafted (stale placeholders filled 2026-09-12) |
 | Methods: baselines' training, metrics & statistics, baseline faithfulness, positive control | `paper/methods_data_and_evaluation.md` §5–9 | drafted 2026-09-12; §10 lists 5 open decisions |
-| Results: audit grid, kinase control, antiviral case study | — | awaiting 36-run grid |
+| Results | `paper/results.md` | §1–3 drafted 2026-09-13 (accuracy for DeepDTA + ColdSite-DTI, volume control, positive control); §4 ColdSite-DTI interpretability running; HyperAttentionDTI, MolTrans, audit, control, KIBA pending |
 | Discussion / Limitations | — | not written |
 
 ## 3. Done vs. to do

@@ -52,6 +52,7 @@ Usage
 from __future__ import annotations
 
 import os
+import re
 
 import numpy as np
 
@@ -73,13 +74,34 @@ SMILES_COLUMN = "Drug"
 SEQUENCE_COLUMN = "Target"
 TARGET_ID_COLUMN = "Target_ID"
 
+# A wildcard atom (`*`) or a dative bond (`->`, `<-`) is not a concrete molecule
+# any audited model can read: HyperAttentionDTI's alphabet has none of them and
+# raises. 16 of the non-kinase panel's 21,145 rows (BindingDB) carry one; no
+# DAVIS or KIBA row does. They are dropped for every model alike, so each model
+# is scored on the same rows -- dropping them only where one model fails would
+# compare models on different panels.
+UNREADABLE_SMILES = re.compile(r"[*<>]")
+
+
+def clean_smiles(smiles: str) -> str:
+    """The SMILES itself: everything before the first whitespace.
+
+    BindingDB writes ChemAxon extended SMILES, where annotations such as
+    `|r|` (relative stereochemistry) follow a space. They are not atoms. Read
+    as part of the molecule they crash HyperAttentionDTI's tokeniser and are
+    silently tokenised as chemistry by the other two models. 4,694 of the
+    panel's rows carry one; DAVIS and KIBA carry none.
+    """
+    parts = str(smiles).split()
+    return parts[0] if parts else ""
+
 
 class MissingCell(Exception):
     """This cell cannot be collected yet. Carries the reason for the report."""
 
 
 def _read_test_rows(split_dir: str, pairs_per_target: int,
-                    rows_csv: str | None = None):
+                    rows_csv: str | None = None, policy: bool = True):
     """One row per (target, drug) pair from the test split, capped per target.
 
     Returns a list of (target_id, smiles, sequence). Rows keep the file's own
@@ -91,7 +113,15 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
     comes from `split_dir`, because it is a property of the *trained model*:
     rebuilding it from the panel would give the model an embedding table it
     was never trained with.
+
+    `policy` applies `src/evaluation/exclusions.py` (option A, 2026-09-13): test
+    targets seen by sequence at the cold levels and targets without the kinase pocket
+    are skipped, and the per-protein cap counts distinct sequences, not names. On a
+    panel (`rows_csv`) only the per-sequence cap applies -- its proteins are not this
+    dataset's targets. `policy=False` reproduces the numbers from before the decision.
     """
+    from src.evaluation.exclusions import (dataset_level_from_split_dir,
+                                           excluded_target_ids, protein_key)
     import pandas as pd
 
     path = rows_csv or os.path.join(split_dir, "test.csv")
@@ -104,15 +134,25 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
             raise MissingCell(
                 f"{path} has no {column!r} column (found {list(frame.columns)})")
 
+    excluded = (frozenset() if rows_csv
+                else excluded_target_ids(*dataset_level_from_split_dir(split_dir), policy))
     seen: dict = {}
     rows = []
     for target_id, smiles, sequence in zip(frame[TARGET_ID_COLUMN],
                                            frame[SMILES_COLUMN],
                                            frame[SEQUENCE_COLUMN]):
-        count = seen.get(target_id, 0)
+        if str(target_id) in excluded:
+            continue
+        # Before the per-target cap, so a protein's first READABLE pair is
+        # the one kept. See clean_smiles and UNREADABLE_SMILES.
+        smiles = clean_smiles(smiles)
+        if not smiles or UNREADABLE_SMILES.search(smiles):
+            continue
+        key = protein_key(target_id, sequence, policy)
+        count = seen.get(key, 0)
         if pairs_per_target and count >= pairs_per_target:
             continue
-        seen[target_id] = count + 1
+        seen[key] = count + 1
         rows.append((str(target_id), str(smiles), str(sequence).upper()))
     return rows
 
@@ -201,7 +241,8 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
                  max_proteins: int | None = None,
                  rows_csv: str | None = None,
                  device: str = "cpu",
-                 verbose: bool = True):
+                 verbose: bool = True,
+                 policy: bool = True):
     """One grid cell. Returns (weights, sites, target_ids), or raises MissingCell.
 
     A protein with no usable ground truth is skipped rather than scored against
@@ -230,7 +271,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         if not os.path.exists(checkpoint):
             raise MissingCell(f"no checkpoint at {checkpoint}")
 
-    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv)
+    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv, policy=policy)
     adapter, vocabs = _build_adapter(model_name, checkpoint, split_dir, device,
                                      max_protein_len)
 
@@ -241,8 +282,13 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         if site_set is None or not site_set.usable:
             skipped_no_sites += 1
             continue
+        # One evaluation window for every model: the same first
+        # `max_protein_len` residues the ground truth is cut to. ColdSite-DTI
+        # and HyperAttentionDTI never read past it; MolTrans's 545 tokens reach
+        # ~1,400 residues on long proteins (115 of DAVIS's 442), and attention
+        # there competes for the top k while no site can exist there to hit.
         weights.append(_explain_row(model_name, adapter, vocabs, smiles,
-                                    sequence, max_protein_len))
+                                    sequence, max_protein_len)[:max_protein_len])
         sites.append(site_set.positions)
         used_ids.append(target_id)
         if max_proteins and len(weights) >= max_proteins:

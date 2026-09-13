@@ -39,7 +39,7 @@ with perfect attention it returns 0.67 instead of 1.00
 | `start`, `end` | 1-indexed, **inclusive** residue numbers. `52–60` is nine residues. For DAVIS they number **the DAVIS sequence the model reads**; for KIBA, UniProt's. See below. |
 | `type` | UniProt feature type. Only `Binding site`, `Active site`, `Nucleotide binding` are collected. |
 | `description` | free text, informational only |
-| `uniprot_start`, `uniprot_end` | DAVIS only, on remapped features: the UniProt residues the feature came from |
+| `uniprot_start`, `uniprot_end` | DAVIS and KIBA, on remapped features: the UniProt residues the feature came from |
 
 A sibling `*_provenance.json` records, per target, which UniProt accession was
 used and how it was resolved.
@@ -80,6 +80,22 @@ What the alignment found, beyond the numbering:
   domain earlier in the chain. The model never sees those sites. Five targets lose every
   site this way and drop out of the ladder as unusable, rather than being scored against
   residues they do not contain.
+
+## KIBA: the same two files, a much smaller fix
+
+KIBA is aligned the same way (`python -m src.data.align_ground_truth --dataset kiba`,
+2026-09-12), with the same one-writer rule: the fetch and overrides write
+`kiba_ground_truth_sites_uniprot.json`, and only the alignment writes
+`kiba_ground_truth_sites.json`. Report: `kiba_ground_truth_alignment.json`; sequences
+cached in `kiba_uniprot_sequences.json`.
+
+KIBA's targets are keyed by UniProt accession, so it cannot carry another protein's
+sites the way four DAVIS gene names did. Of its 221 targets with sites, 212 are
+identical to UniProt. Seven differ from UniProt at one or two residues, none of them
+sites, so their numbering is unchanged. Two hold a different isoform: **PIM1** (404
+residues against UniProt's 313, the same isoform DAVIS holds) and **SGK2** (427 against
+367). Their 24 site residues now point at the right amino acids. No site was dropped
+(3,071 residues before and after).
 
 ## What the adapter gives you
 
@@ -149,7 +165,8 @@ Run `python -m src.data.ground_truth` to regenerate these numbers.
 | distinct wild-type accessions | 353 | 212 |
 | total 0-indexed positions | 5,035 | 2,726 |
 
-(2026-09-12, DAVIS after the alignment above.) Both files now carry `type` on every
+(2026-09-12, both after the alignments above; KIBA's counts did not change, only the
+positions of PIM1's and SGK2's sites.) Both files now carry `type` on every
 feature -- `dropped_description` is 0 and nothing depends on the heuristic below any
 more. The note is kept for history.
 

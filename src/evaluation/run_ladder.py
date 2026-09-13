@@ -20,6 +20,12 @@ Usage
         --dataset davis \
         --ground-truth data/davis_ground_truth_sites.json \
         --checkpoint-dir results
+
+    # the audited baselines; pass the accuracy file run_faithfulness wrote for
+    # the SAME model (accuracy_moltrans_davis_seed1.json), never ColdSite-DTI's
+    python -m src.evaluation.run_ladder --model moltrans --task binary \
+        --dataset davis --ground-truth data/davis_ground_truth_sites.json \
+        --accuracy-json results/accuracy_moltrans_davis_seed1.json
 """
 import argparse
 import json
@@ -30,7 +36,7 @@ import torch
 
 from src.data.ground_truth import load_site_sets
 from src.model.checkpoint_naming import checkpoint_path as build_checkpoint_path
-from src.model.checkpoint_naming import discover_checkpoints
+from src.model.checkpoint_naming import DEFAULT_MODEL, discover_checkpoints
 from src.evaluation.precision_at_k import batch_precision_at_k
 from src.evaluation.significance_test import permutation_test_batch
 
@@ -41,28 +47,52 @@ LEVEL_LABELS = {
     "cold_target": "Cold-Target",
     "cold_pair": "Cold-Pair",
 }
+# One naming rule for both runners: the accuracy file run_faithfulness writes
+# is the one this runner reads, so the two tags must never be spelled twice.
+from src.evaluation.run_faithfulness import MODELS, output_tag  # noqa: E402
 
 
 def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
-                         max_proteins=None):
+                         max_proteins=None, pairs_per_target: int = 1,
+                         keys=None, exclude=frozenset()):
     """Run a split through the model and pair each explanation with its sites.
 
     `target_ids` must be aligned to the dataloader's row order. This is the
     alignment the two guides call the main integration seam; if it drifts,
     every protein gets scored against another protein's ground truth and the
     result still looks like a plausible number.
+
+    `pairs_per_target` keeps the first N test rows of each protein, in file
+    order -- the same rows `collect._read_test_rows` keeps for the audit table,
+    so the ladder and the audit score the same pairs. precision@k is a
+    per-protein quantity: averaging every pair enters a protein once per drug
+    it was measured against and makes n a count of correlated pairs. 0 keeps
+    every pair (the behaviour before 2026-09-12).
+
+    `keys` (aligned like `target_ids`) is what counts as one protein -- its sequence
+    under `src/evaluation/exclusions.py` -- and `exclude` names targets to skip. Both
+    default to the old behaviour: one protein per name, nothing skipped.
     """
+    keys = list(target_ids) if keys is None else list(keys)
     model.eval().to(device)
     weights, sites, used_ids = [], [], []
+    seen: dict = {}
     cursor = 0
 
     with torch.no_grad():
         for drug_batch, protein_batch, _labels in dataloader:
             batch_ids = target_ids[cursor:cursor + len(drug_batch)]
+            batch_keys = keys[cursor:cursor + len(drug_batch)]
             cursor += len(drug_batch)
             explanations = model.explain(drug_batch.to(device), protein_batch.to(device))
 
-            for target_id, explanation in zip(batch_ids, explanations):
+            for target_id, key, explanation in zip(batch_ids, batch_keys, explanations):
+                if target_id in exclude:
+                    continue
+                count = seen.get(key, 0)
+                if pairs_per_target and count >= pairs_per_target:
+                    continue
+                seen[key] = count + 1
                 site_set = site_sets.get(target_id)
                 if site_set is None or not site_set.usable:
                     continue
@@ -75,9 +105,16 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
     return weights, sites, used_ids
 
 
-def evaluate_level(weights, sites, k_values=(5, 10, 20), n_trials=1000, seed=0):
-    """One difficulty level -> fidelity at each k, plus a split-level p-value."""
+def evaluate_level(weights, sites, k_values=(5, 10, 20), n_trials=1000, seed=0,
+                   pairs_per_target=None):
+    """One difficulty level -> fidelity at each k, plus a split-level p-value.
+
+    `pairs_per_target` is recorded, not used: it says whether `n` counts
+    proteins (1) or test pairs (0), which a reader of the JSON cannot tell.
+    """
     result = {"n_proteins": len(weights), "by_k": {}}
+    if pairs_per_target is not None:
+        result["pairs_per_target"] = pairs_per_target
     for k in k_values:
         batch = batch_precision_at_k(weights, sites, k=k,
                                      rng=np.random.default_rng(seed))
@@ -122,7 +159,15 @@ def ladder_table(results: dict, k: int = 10) -> str:
             f"{fmt(entry['chance'])} | {fmt(entry['p_value'])} | "
             f"{entry['n_evaluated']} |"
         )
-    return header + "\n".join(rows) + "\n\n`*` = significantly above chance (p < 0.05).\n"
+    units = {results[l].get("pairs_per_target") for l in LEVELS if l in results}
+    if units == {1}:
+        unit = "\n`n` = proteins, one test pair each."
+    elif units == {0}:
+        unit = "\n`n` = test pairs (every pair of every protein)."
+    else:
+        unit = ""
+    return (header + "\n".join(rows)
+            + "\n\n`*` = significantly above chance (p < 0.05)." + unit + "\n")
 
 
 def write_results(results: dict, out_dir: str, tag: str, k: int = 10,
@@ -223,6 +268,9 @@ def main():
     parser = argparse.ArgumentParser(description="Run the explanation-fidelity ladder")
     parser.add_argument("--dummy", action="store_true",
                         help="synthetic run, no data or checkpoints needed")
+    parser.add_argument("--model", default=DEFAULT_MODEL, choices=MODELS,
+                        help="whose checkpoints to read. Outputs for any model "
+                             "but coldsite_dti are prefixed with its name")
     parser.add_argument("--dataset", default="davis")
     parser.add_argument("--ground-truth", help="path to *_ground_truth_sites.json")
     parser.add_argument("--split-root", default="data/splits")
@@ -239,6 +287,16 @@ def main():
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--max-protein-len", type=int, default=1000)
     parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--pairs-per-target", type=int, default=1,
+                        help="test pairs scored per protein, first in file order "
+                             "(default 1, as run_audit). 0 scores every pair, "
+                             "which reproduces ladders run before 2026-09-12")
+    parser.add_argument("--no-sequence-policy", action="store_true",
+                        help="score every test target by name, as before 2026-09-13 "
+                             "(see src/evaluation/exclusions.py)")
+    parser.add_argument("--device", default="cpu",
+                        help="for --model hyperattentiondti / moltrans; "
+                             "ColdSite-DTI runs on CPU as before")
     args = parser.parse_args()
 
     if args.dummy:
@@ -247,6 +305,9 @@ def main():
 
     if not args.ground_truth:
         parser.error("--ground-truth is required unless --dummy is set")
+    if args.model != DEFAULT_MODEL and args.task != "binary":
+        parser.error(f"--model {args.model} only exists as a binary classifier; "
+                     f"pass --task binary")
 
     from src.model.coldsite_dti import ColdSiteDTI
     from src.model.dataset import load_split
@@ -262,30 +323,57 @@ def main():
         # Built by the same module the trainer writes with, so the two ends
         # cannot drift apart. See src/model/checkpoint_naming.py.
         checkpoint = build_checkpoint_path(
-            args.checkpoint_dir, args.dataset, level, args.task, args.seed)
+            args.checkpoint_dir, args.dataset, level, args.task, args.seed,
+            model=args.model)
         if not (os.path.isdir(split_dir) and os.path.exists(checkpoint)):
             print(f"[skip] {level}: missing {split_dir} or {checkpoint}")
             available = [c["seed"] for c in discover_checkpoints(
                 args.checkpoint_dir, dataset=args.dataset, split=level,
-                task=args.task)]
+                task=args.task, model=args.model)]
             if available:
                 print(f"        (seeds present for this cell: {available})")
             continue
 
-        import pandas as pd
-        test_df = pd.read_csv(os.path.join(split_dir, "test.csv"))
-        target_ids = test_df["Target_ID"].tolist()
+        if args.model == DEFAULT_MODEL:
+            import pandas as pd
+            test_df = pd.read_csv(os.path.join(split_dir, "test.csv"))
+            target_ids = test_df["Target_ID"].tolist()
 
-        _train, _valid, test_loader, drug_vocab, protein_vocab = load_split(
-            split_dir, args.max_protein_len)
-        model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
-        state = torch.load(checkpoint, map_location="cpu", weights_only=False)
-        model.load_state_dict(state["model_state"])
+            _train, _valid, test_loader, drug_vocab, protein_vocab = load_split(
+                split_dir, args.max_protein_len)
+            model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
+            state = torch.load(checkpoint, map_location="cpu", weights_only=False)
+            model.load_state_dict(state["model_state"])
 
-        weights, sites, used = collect_explanations(
-            model, test_loader, target_ids, site_sets)
-        print(f"{level}: {len(used)} proteins with usable ground truth")
-        results[level] = evaluate_level(weights, sites, n_trials=args.n_trials)
+            from src.evaluation.exclusions import excluded_target_ids, protein_key
+            policy = not args.no_sequence_policy
+            weights, sites, used = collect_explanations(
+                model, test_loader, target_ids, site_sets,
+                pairs_per_target=args.pairs_per_target,
+                keys=[protein_key(t, q, policy) for t, q in zip(target_ids, test_df["Target"])],
+                exclude=excluded_target_ids(args.dataset, level, policy))
+        else:
+            from src.evaluation.collect import MissingCell, collect_cell
+
+            # Same rows as the ColdSite-DTI branch above and as run_audit:
+            # the first `pairs_per_target` test pairs of each protein.
+            try:
+                weights, sites, used = collect_cell(
+                    args.model, args.dataset, level, args.seed,
+                    site_sets=site_sets, task=args.task,
+                    split_root=args.split_root,
+                    checkpoint_dir=args.checkpoint_dir,
+                    max_protein_len=args.max_protein_len,
+                    pairs_per_target=args.pairs_per_target,
+                    device=args.device, verbose=False,
+                    policy=not args.no_sequence_policy)
+            except MissingCell as reason:
+                print(f"[skip] {level}: {reason}")
+                continue
+        unit = "proteins" if args.pairs_per_target == 1 else "pairs"
+        print(f"{level}: {len(used)} {unit} with usable ground truth")
+        results[level] = evaluate_level(weights, sites, n_trials=args.n_trials,
+                                        pairs_per_target=args.pairs_per_target)
 
     if not results:
         raise SystemExit(
@@ -296,7 +384,8 @@ def main():
     # Seed in the output tag as well as the input path: a ladder run per seed
     # writing to one `ladder_davis.json` reintroduces at the reading end
     # exactly the overwrite the checkpoint naming just fixed.
-    write_results(results, args.out_dir, f"{args.dataset}_seed{args.seed}",
+    write_results(results, args.out_dir,
+                  output_tag(args.model, args.dataset, args.seed),
                   k=args.k, accuracy=accuracy)
 
 

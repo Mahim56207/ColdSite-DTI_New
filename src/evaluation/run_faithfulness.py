@@ -13,6 +13,10 @@ control, and write both outputs the rest of the project needs.
     python -m src.evaluation.run_faithfulness \
         --dataset davis --seed 1 --checkpoint-dir results
 
+    # the audited baselines (binary only); outputs are prefixed with the model
+    python -m src.evaluation.run_faithfulness --model hyperattentiondti \
+        --task binary --dataset davis --seed 1 --checkpoint-dir results
+
 Two artefacts come out, and they are for different readers.
 
 `faithfulness_{dataset}_seed{N}.json`
@@ -45,9 +49,16 @@ import torch
 
 from src.evaluation.faithfulness import batch_faithfulness
 from src.model.checkpoint_naming import checkpoint_path as build_checkpoint_path
-from src.model.checkpoint_naming import discover_checkpoints, results_path, run_tag
+from src.model.checkpoint_naming import (
+    DEFAULT_MODEL,
+    discover_checkpoints,
+    results_path,
+    run_tag,
+)
+from src.evaluation.residue_space import SUPPORTED_MODELS as RESIDUE_SPACE_MODELS
 
 LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
+MODELS = (DEFAULT_MODEL, *RESIDUE_SPACE_MODELS)
 LEVEL_LABELS = {"random": "Warm", "cold_drug": "Cold-Drug",
                 "cold_target": "Cold-Target", "cold_pair": "Cold-Pair"}
 
@@ -61,7 +72,8 @@ from src.model.train import DEFAULT_ACCURACY_METRIC, accuracy_metric_for  # noqa
 # collecting the inputs batch_faithfulness needs
 # --------------------------------------------------------------------------
 
-def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu"):
+def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu",
+                  keep=None):
     """(drugs, proteins, attentions) as one-row tensors plus real-length weights.
 
     `batch_faithfulness` masks positions of the protein tensor using indices
@@ -70,17 +82,26 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu"):
     with `real_lengths()`, and padding is trailing -- so attention index j is
     protein column j. Returning padded-length attention here would not crash;
     it would silently shift every masked position.
+
+    `keep` (one bool per dataloader row, in file order) skips rows the sequence policy
+    excludes -- `src/evaluation/exclusions.py`. None keeps every row.
     """
     model.eval().to(device)
     drugs, proteins, attentions = [], [], []
+    cursor = 0
 
     with torch.no_grad():
         for drug_batch, protein_batch, _labels in dataloader:
             drug_batch = drug_batch.to(device)
             protein_batch = protein_batch.to(device)
             explanations = model.explain(drug_batch, protein_batch)
+            batch_keep = (keep[cursor:cursor + len(drug_batch)] if keep is not None
+                          else [True] * len(drug_batch))
+            cursor += len(drug_batch)
 
             for i, explanation in enumerate(explanations):
+                if not batch_keep[i]:
+                    continue
                 drugs.append(drug_batch[i:i + 1].cpu())
                 proteins.append(protein_batch[i:i + 1].cpu())
                 attentions.append(np.asarray(explanation, dtype=float))
@@ -92,14 +113,14 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu"):
 
 def faithfulness_for_level(model, dataloader, k: int = 10,
                            n_random_trials: int = 5, max_pairs: int = 200,
-                           seed: int = 0, device: str = "cpu") -> dict:
+                           seed: int = 0, device: str = "cpu", keep=None) -> dict:
     """One difficulty level: collect pairs, then measure with the control.
 
     Cost is `(2 + 2*n_random_trials + len(k_values))` forward passes per pair,
     so `max_pairs` is the budget knob. The mean over a few hundred pairs is the
     number; the mean over all of them is the same number and a much longer wait.
     """
-    drugs, proteins, attentions = collect_pairs(model, dataloader, max_pairs, device)
+    drugs, proteins, attentions = collect_pairs(model, dataloader, max_pairs, device, keep)
     if not attentions:
         return {"n_pairs": 0, "comprehensiveness_delta": float("nan"),
                 "explanation_is_load_bearing": False}
@@ -108,12 +129,56 @@ def faithfulness_for_level(model, dataloader, k: int = 10,
                               max_pairs=max_pairs)
 
 
+def collect_adapter_pairs(model_name: str, split_dir: str, checkpoint: str,
+                          max_pairs: int = 200, device: str = "cpu",
+                          max_protein_len: int = 1000, policy: bool = True):
+    """The audited baselines' equivalent of `collect_pairs`.
+
+    Returns (wrapped_model, drugs, proteins, attentions), ready for
+    `batch_faithfulness`. Test rows are taken in file order, every pair, like
+    the ColdSite-DTI path -- not one per protein as `run_audit` does, because
+    faithfulness is a per-pair quantity. Masking happens in residue space, so
+    each model is perturbed through its own tokeniser; see residue_space.py
+    for why the tensor-level mask cannot be reused for these two models.
+    """
+    from src.evaluation.collect import _build_adapter, _read_test_rows
+    from src.evaluation.residue_space import ResidueSpaceModel
+
+    adapter, _vocabs = _build_adapter(model_name, checkpoint, split_dir, device,
+                                      max_protein_len)
+    wrapped = ResidueSpaceModel(adapter, model_name, device=device)
+    drugs, proteins, attentions = [], [], []
+    for _target_id, smiles, sequence in _read_test_rows(split_dir, pairs_per_target=0,
+                                                        policy=policy):
+        drug, protein, attention = wrapped.add_pair(smiles, sequence,
+                                                    max_len=max_protein_len)
+        drugs.append(drug)
+        proteins.append(protein)
+        attentions.append(attention)
+        if len(attentions) >= max_pairs:
+            break
+    return wrapped, drugs, proteins, attentions
+
+
+def output_tag(model: str, dataset: str, seed: int) -> str:
+    """Filename tag for one run. ColdSite-DTI keeps its original, unprefixed tag.
+
+    Every other model is prefixed, so a HyperAttentionDTI run can never
+    overwrite ColdSite-DTI's `faithfulness_davis_seed1.json` -- or its
+    `accuracy_davis_seed1.json`, which `run_ladder` would then draw against
+    the wrong model's attention.
+    """
+    base = f"{dataset}_seed{seed}"
+    return base if model == DEFAULT_MODEL else f"{model}_{base}"
+
+
 # --------------------------------------------------------------------------
 # the accuracy hand-off to Track C
 # --------------------------------------------------------------------------
 
 def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
-                     metric: str = None, levels=LEVELS) -> dict:
+                     metric: str = None, levels=LEVELS,
+                     model: str = DEFAULT_MODEL, clean_accuracy_path: str = None) -> dict:
     """Read `{level: accuracy}` out of the trainer's per-run results files.
 
     This is the Track C hand-off. It is derived rather than re-computed on
@@ -124,13 +189,22 @@ def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
     A level with no results file is reported as NaN and named in
     `missing_levels`, never defaulted to zero -- a zero would draw as a real
     point on the figure.
+
+    At a level whose test set holds targets seen by sequence in training (DAVIS
+    cold-target and cold-pair; `src/evaluation/clean_accuracy.py`), AUROC is taken on
+    the unseen targets when that cell has been re-scored, and `sources` says so; a
+    leaking level without a re-score keeps the recorded value and is named in
+    `uncorrected_levels`, so the figure never mixes the two silently.
     """
+    from src.evaluation.clean_accuracy import leaks, unseen_auroc
+
     metric = metric or accuracy_metric_for(task)
     accuracy, missing, found_metrics = {}, [], {}
+    sources, uncorrected = {}, []
 
     for level in levels:
         tag = run_tag(dataset, level, task, seed)
-        path = results_path(results_dir, tag)
+        path = results_path(results_dir, tag, model=model)
         if not os.path.exists(path):
             accuracy[level] = float("nan")
             missing.append(level)
@@ -143,10 +217,19 @@ def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
             missing.append(f"{level} (no '{metric}' in {sorted(metrics)})")
             continue
         accuracy[level] = float(metrics[metric])
+        sources[level] = "recorded test set"
+        if metric == "auroc" and leaks(dataset, level):
+            clean = unseen_auroc(dataset, model, level, seed, clean_accuracy_path)
+            if clean is None:
+                uncorrected.append(level)
+            else:
+                accuracy[level] = float(clean)
+                sources[level] = "targets unseen by sequence"
         found_metrics[level] = metrics
 
     return {"accuracy": accuracy, "metric": metric, "missing_levels": missing,
-            "all_metrics": found_metrics}
+            "all_metrics": found_metrics, "sources": sources,
+            "uncorrected_levels": uncorrected}
 
 
 def write_accuracy_json(accuracy: dict, out_dir: str, tag: str) -> str:
@@ -304,6 +387,9 @@ def main():
                     "accuracy hand-off for Track C")
     parser.add_argument("--dummy", action="store_true",
                         help="synthetic run, no data or checkpoints needed")
+    parser.add_argument("--model", default=DEFAULT_MODEL, choices=MODELS,
+                        help="whose checkpoints to measure. Outputs for any "
+                             "model but coldsite_dti are prefixed with its name")
     parser.add_argument("--dataset", default="davis")
     parser.add_argument("--seed", type=int, default=1,
                         help="training seed of the checkpoints to read")
@@ -322,6 +408,12 @@ def main():
     parser.add_argument("--accuracy-metric",
                         help="field of test_metrics to use as accuracy "
                              "(default: ci for regression, auroc for binary)")
+    parser.add_argument("--no-sequence-policy", action="store_true",
+                        help="use every test row, as before 2026-09-13 "
+                             "(see src/evaluation/exclusions.py)")
+    parser.add_argument("--device", default="cpu",
+                        help="for --model hyperattentiondti / moltrans; "
+                             "ColdSite-DTI runs on CPU as before")
     args = parser.parse_args()
 
     if args.dummy:
@@ -332,34 +424,53 @@ def main():
     from src.model.coldsite_dti import ColdSiteDTI
     from src.model.dataset import load_split
 
-    tag = f"{args.dataset}_seed{args.seed}"
+    if args.model != DEFAULT_MODEL and args.task != "binary":
+        parser.error(f"--model {args.model} only exists as a binary classifier; "
+                     f"pass --task binary")
+
+    tag = output_tag(args.model, args.dataset, args.seed)
     summaries, evaluated = {}, []
 
     for level in LEVELS:
         split_dir = os.path.join(args.split_root, args.dataset, level)
         checkpoint = build_checkpoint_path(
-            args.checkpoint_dir, args.dataset, level, args.task, args.seed)
+            args.checkpoint_dir, args.dataset, level, args.task, args.seed,
+            model=args.model)
 
         if not (os.path.isdir(split_dir) and os.path.exists(checkpoint)):
             print(f"[skip] {level}: missing {split_dir} or {checkpoint}")
             available = [c["seed"] for c in discover_checkpoints(
                 args.checkpoint_dir, dataset=args.dataset, split=level,
-                task=args.task)]
+                task=args.task, model=args.model)]
             if available:
                 print(f"        (seeds present for this cell: {available})")
             continue
 
-        _train, _valid, test_loader, drug_vocab, protein_vocab = load_split(
-            split_dir, args.max_protein_len)
-        model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
-        state = torch.load(checkpoint, map_location="cpu", weights_only=False)
-        model.load_state_dict(state["model_state"])
-
         print(f"\n{level}: measuring up to {args.max_pairs} pairs "
               f"({2 + 2 * args.n_random_trials + 5} forward passes each)")
-        summaries[level] = faithfulness_for_level(
-            model, test_loader, k=args.k, n_random_trials=args.n_random_trials,
-            max_pairs=args.max_pairs, seed=args.seed)
+        if args.model == DEFAULT_MODEL:
+            _train, _valid, test_loader, drug_vocab, protein_vocab = load_split(
+                split_dir, args.max_protein_len)
+            model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
+            state = torch.load(checkpoint, map_location="cpu", weights_only=False)
+            model.load_state_dict(state["model_state"])
+            import pandas as pd
+            from src.evaluation.exclusions import excluded_target_ids
+            excluded = excluded_target_ids(args.dataset, level, not args.no_sequence_policy)
+            test_ids = pd.read_csv(os.path.join(split_dir, "test.csv"))["Target_ID"].astype(str)
+            summaries[level] = faithfulness_for_level(
+                model, test_loader, k=args.k, n_random_trials=args.n_random_trials,
+                max_pairs=args.max_pairs, seed=args.seed,
+                keep=[t not in excluded for t in test_ids])
+        else:
+            wrapped, drugs, proteins, attentions = collect_adapter_pairs(
+                args.model, split_dir, checkpoint, max_pairs=args.max_pairs,
+                device=args.device, max_protein_len=args.max_protein_len,
+                policy=not args.no_sequence_policy)
+            summaries[level] = batch_faithfulness(
+                wrapped, drugs, proteins, attentions, k=args.k,
+                n_random_trials=args.n_random_trials, seed=args.seed,
+                max_pairs=args.max_pairs)
         evaluated.append(level)
 
     if not summaries:
@@ -373,7 +484,8 @@ def main():
             "  python -m src.evaluation.run_faithfulness --dummy")
 
     collected = collect_accuracy(args.results_dir, args.dataset, args.task,
-                                 args.seed, metric=args.accuracy_metric)
+                                 args.seed, metric=args.accuracy_metric,
+                                 model=args.model)
     if collected["missing_levels"]:
         print(f"\nWARNING: no accuracy for {collected['missing_levels']}. "
               f"run_ladder will refuse to draw the headline figure until every "
@@ -381,7 +493,7 @@ def main():
 
     write_results(summaries, args.out_dir, tag,
                   accuracy=collected["accuracy"],
-                  metadata={"model": "coldsite_dti", "dataset": args.dataset,
+                  metadata={"model": args.model, "dataset": args.dataset,
                             "task": args.task, "seed": args.seed, "k": args.k,
                             "n_random_trials": args.n_random_trials,
                             "max_pairs": args.max_pairs,

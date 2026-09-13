@@ -213,11 +213,19 @@ class HyperAttentionDTIAdapter(ExplainableDTIModel):
         with torch.no_grad():
             out = self.model(_as_batch(drug).to(self.device),
                              _as_batch(protein).to(self.device))
-        # The vendored head returns 2 logits (binary). Use the positive-class
-        # logit so the value is monotone in predicted affinity, which is what
-        # the faithfulness masking compares against.
-        out = out.squeeze()
-        return float(out[-1].item() if out.ndim else out.item())
+        # The vendored head returns 2 logits (binary). Return their difference,
+        # the log-odds of the positive class -- not the positive logit alone.
+        # Softmax ignores a constant added to both logits, so the positive
+        # logit can move a long way while the prediction does not move at all;
+        # faithfulness would then count a change the model never made. The
+        # difference is also exactly what train_hyperattentiondti scores its
+        # AUROC on, so faithfulness and accuracy read the same quantity.
+        logits = out.reshape(-1)
+        if logits.numel() != 2:
+            raise RuntimeError(
+                f"HyperAttentionDTI returned {logits.numel()} logits for one "
+                f"pair; expected 2 (binary head)")
+        return float((logits[1] - logits[0]).item())
 
     def explain(self, drug, protein) -> np.ndarray:
         from src.evaluation.attention_projection import (

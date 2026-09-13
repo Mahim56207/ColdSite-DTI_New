@@ -113,18 +113,23 @@ def test_short_chance_matches_are_not_trusted():
 # the real files
 # --------------------------------------------------------------------------
 
-REAL = ("data/davis_ground_truth_sites.json", "data/davis_ground_truth_sites_uniprot.json",
-        "data/davis_uniprot_sequences.json", "data/davis_ground_truth_sites_provenance.json",
-        "src/data/baselines/deepdta/data/davis/proteins.txt")
+def _real(dataset):
+    return (f"data/{dataset}_ground_truth_sites.json",
+            f"data/{dataset}_ground_truth_sites_uniprot.json",
+            f"data/{dataset}_uniprot_sequences.json",
+            f"data/{dataset}_ground_truth_sites_provenance.json",
+            f"src/data/baselines/deepdta/data/{dataset}/proteins.txt")
 
 
-def test_every_aligned_site_lands_on_the_residue_it_annotated():
+@pytest.mark.parametrize("dataset", ["davis", "kiba"])
+def test_every_aligned_site_lands_on_the_residue_it_annotated(dataset):
     """The guarantee the alignment exists to give. For every site in the aligned file,
-    the DAVIS residue it now points at is the UniProt residue it was annotated on --
-    or a mapped point substitution, of which there are only a handful."""
-    if not all(os.path.exists(p) for p in REAL):
+    the residue it now points at in the dataset's sequence is the UniProt residue it
+    was annotated on -- or a mapped point substitution, of which there are a handful."""
+    real = _real(dataset)
+    if not all(os.path.exists(p) for p in real):
         pytest.skip("aligned ground truth or its inputs not present")
-    aligned, _orig, uniprot, prov, davis = (json.load(open(p)) for p in REAL)
+    aligned, _orig, uniprot, prov, davis = (json.load(open(p)) for p in real)
 
     checked = mismatched = 0
     for target, features in aligned.items():
@@ -141,11 +146,24 @@ def test_every_aligned_site_lands_on_the_residue_it_annotated():
     assert mismatched <= checked * 0.02, f"{mismatched} of {checked} remapped residues differ"
 
 
-def test_no_aligned_site_points_past_the_end_of_its_sequence():
-    if not all(os.path.exists(p) for p in REAL):
+@pytest.mark.parametrize("dataset", ["davis", "kiba"])
+def test_no_aligned_site_points_past_the_end_of_its_sequence(dataset):
+    real = _real(dataset)
+    if not all(os.path.exists(p) for p in real):
         pytest.skip("aligned ground truth or its inputs not present")
-    aligned = json.load(open(REAL[0]))
-    davis = json.load(open(REAL[4]))
+    aligned = json.load(open(real[0]))
+    held = json.load(open(real[4]))
     for target, features in aligned.items():
         for f in features:
-            assert 1 <= f["start"] <= f["end"] <= len(davis[target]), (target, f)
+            assert 1 <= f["start"] <= f["end"] <= len(held[target]), (target, f)
+
+
+def test_kiba_fetch_writes_the_uniprot_file_not_the_aligned_one():
+    """One writer per file. If the fetch still wrote kiba_ground_truth_sites.json,
+    the next re-fetch would overwrite the aligned file with UniProt numbering and
+    PIM1 and SGK2 would silently go back to pointing at the wrong residues."""
+    from src.data.align_ground_truth import paths, uniprot_numbered_path
+
+    assert uniprot_numbered_path("kiba") == paths("kiba")["original"]
+    assert uniprot_numbered_path("kiba") != paths("kiba")["ground_truth"]
+    assert uniprot_numbered_path("davis") == "data/davis_ground_truth_sites_uniprot.json"

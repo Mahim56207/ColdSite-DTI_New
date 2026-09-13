@@ -327,8 +327,10 @@ def main():
     print(f"{variants} were variant IDs resolved to a wild-type entry")
     print(f"Saved -> {out_path}")
     print(f"Saved -> {provenance_path}")
-    if args.dataset == "davis" and not args.out:
-        print("\nNow align to DAVIS's sequences:  python -m src.data.align_ground_truth")
+    from src.data.align_ground_truth import ALIGNED_DATASETS
+    if args.dataset in ALIGNED_DATASETS and not args.out:
+        print(f"\nNow align to {args.dataset.upper()}'s sequences:  "
+              f"python -m src.data.align_ground_truth --dataset {args.dataset}")
     print("\nNow verify with:  python -m src.data.ground_truth")
 
 

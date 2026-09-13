@@ -1,0 +1,1632 @@
+{
+ "O00141": {
+  "kiba_length": 431,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 431
+ },
+ "O00311": {
+  "kiba_length": 574,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 574
+ },
+ "O00329": {
+  "kiba_length": 1044,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 1044
+ },
+ "O00418": {
+  "kiba_length": 725,
+  "residues_after": 7,
+  "residues_before": 7,
+  "status": "identical",
+  "uniprot_length": 725
+ },
+ "O00444": {
+  "kiba_length": 970,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 970
+ },
+ "O14757": {
+  "kiba_length": 476,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 476
+ },
+ "O14920": {
+  "kiba_length": 756,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 756
+ },
+ "O14965": {
+  "aligned_residues": 403,
+  "kiba_length": 403,
+  "residues_after": 9,
+  "residues_before": 9,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 1,
+  "uniprot_length": 403
+ },
+ "O15075": {
+  "kiba_length": 740,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 740
+ },
+ "O15111": {
+  "kiba_length": 745,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 745
+ },
+ "O15264": {
+  "kiba_length": 365,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 365
+ },
+ "O15530": {
+  "kiba_length": 556,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 556
+ },
+ "O43293": {
+  "kiba_length": 454,
+  "residues_after": 13,
+  "residues_before": 13,
+  "status": "identical",
+  "uniprot_length": 454
+ },
+ "O43741": {
+  "kiba_length": 272,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 272
+ },
+ "O43781": {
+  "kiba_length": 588,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 588
+ },
+ "O60285": {
+  "kiba_length": 661,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 661
+ },
+ "O60674": {
+  "kiba_length": 1132,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1132
+ },
+ "O75116": {
+  "kiba_length": 1388,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1388
+ },
+ "O75582": {
+  "kiba_length": 802,
+  "residues_after": 22,
+  "residues_before": 22,
+  "status": "identical",
+  "uniprot_length": 802
+ },
+ "O75676": {
+  "kiba_length": 772,
+  "residues_after": 22,
+  "residues_before": 22,
+  "status": "identical",
+  "uniprot_length": 772
+ },
+ "O94806": {
+  "kiba_length": 890,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 890
+ },
+ "O95819": {
+  "kiba_length": 1239,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1239
+ },
+ "O96013": {
+  "kiba_length": 591,
+  "residues_after": 17,
+  "residues_before": 17,
+  "status": "identical",
+  "uniprot_length": 591
+ },
+ "O96017": {
+  "kiba_length": 543,
+  "residues_after": 20,
+  "residues_before": 20,
+  "status": "identical",
+  "uniprot_length": 543
+ },
+ "P00519": {
+  "kiba_length": 1130,
+  "residues_after": 18,
+  "residues_before": 18,
+  "status": "identical",
+  "uniprot_length": 1130
+ },
+ "P00533": {
+  "kiba_length": 1210,
+  "residues_after": 14,
+  "residues_before": 14,
+  "status": "identical",
+  "uniprot_length": 1210
+ },
+ "P04049": {
+  "kiba_length": 648,
+  "residues_after": 19,
+  "residues_before": 19,
+  "status": "identical",
+  "uniprot_length": 648
+ },
+ "P04626": {
+  "kiba_length": 1255,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1255
+ },
+ "P04629": {
+  "kiba_length": 796,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 796
+ },
+ "P05129": {
+  "kiba_length": 697,
+  "residues_after": 25,
+  "residues_before": 25,
+  "status": "identical",
+  "uniprot_length": 697
+ },
+ "P05771": {
+  "kiba_length": 671,
+  "residues_after": 25,
+  "residues_before": 25,
+  "status": "identical",
+  "uniprot_length": 671
+ },
+ "P06213": {
+  "kiba_length": 1382,
+  "residues_after": 13,
+  "residues_before": 13,
+  "status": "identical",
+  "uniprot_length": 1382
+ },
+ "P06239": {
+  "kiba_length": 509,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 509
+ },
+ "P06241": {
+  "kiba_length": 537,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 537
+ },
+ "P06493": {
+  "kiba_length": 297,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 297
+ },
+ "P07332": {
+  "kiba_length": 822,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 822
+ },
+ "P07333": {
+  "kiba_length": 972,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 972
+ },
+ "P07947": {
+  "kiba_length": 543,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 543
+ },
+ "P07948": {
+  "kiba_length": 512,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 512
+ },
+ "P07949": {
+  "kiba_length": 1114,
+  "residues_after": 35,
+  "residues_before": 35,
+  "status": "identical",
+  "uniprot_length": 1114
+ },
+ "P08069": {
+  "kiba_length": 1367,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1367
+ },
+ "P08581": {
+  "kiba_length": 1390,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1390
+ },
+ "P08631": {
+  "kiba_length": 526,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 526
+ },
+ "P08922": {
+  "kiba_length": 2347,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 2347
+ },
+ "P09619": {
+  "kiba_length": 1106,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1106
+ },
+ "P09769": {
+  "kiba_length": 529,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 529
+ },
+ "P10721": {
+  "kiba_length": 976,
+  "residues_after": 21,
+  "residues_before": 21,
+  "status": "identical",
+  "uniprot_length": 976
+ },
+ "P11309": {
+  "aligned_residues": 313,
+  "kiba_length": 404,
+  "residues_after": 13,
+  "residues_before": 13,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 0,
+  "uniprot_length": 313
+ },
+ "P11362": {
+  "kiba_length": 822,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 822
+ },
+ "P11802": {
+  "kiba_length": 303,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 303
+ },
+ "P12931": {
+  "kiba_length": 536,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 536
+ },
+ "P15056": {
+  "kiba_length": 766,
+  "residues_after": 19,
+  "residues_before": 19,
+  "status": "identical",
+  "uniprot_length": 766
+ },
+ "P15735": {
+  "kiba_length": 406,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 406
+ },
+ "P16234": {
+  "kiba_length": 1089,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1089
+ },
+ "P16591": {
+  "kiba_length": 822,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 822
+ },
+ "P17252": {
+  "kiba_length": 672,
+  "residues_after": 26,
+  "residues_before": 26,
+  "status": "identical",
+  "uniprot_length": 672
+ },
+ "P17612": {
+  "kiba_length": 351,
+  "residues_after": 22,
+  "residues_before": 22,
+  "status": "identical",
+  "uniprot_length": 351
+ },
+ "P17948": {
+  "kiba_length": 1338,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1338
+ },
+ "P19784": {
+  "kiba_length": 350,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 350
+ },
+ "P21802": {
+  "kiba_length": 821,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 821
+ },
+ "P22455": {
+  "kiba_length": 802,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 802
+ },
+ "P22607": {
+  "kiba_length": 806,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 806
+ },
+ "P22612": {
+  "kiba_length": 351,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 351
+ },
+ "P22694": {
+  "kiba_length": 351,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 351
+ },
+ "P23443": {
+  "kiba_length": 525,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 525
+ },
+ "P23458": {
+  "kiba_length": 1154,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1154
+ },
+ "P24723": {
+  "kiba_length": 683,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 683
+ },
+ "P24941": {
+  "kiba_length": 298,
+  "residues_after": 27,
+  "residues_before": 27,
+  "status": "identical",
+  "uniprot_length": 298
+ },
+ "P27361": {
+  "kiba_length": 379,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 379
+ },
+ "P27448": {
+  "aligned_residues": 753,
+  "kiba_length": 753,
+  "residues_after": 11,
+  "residues_before": 11,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 1,
+  "uniprot_length": 753
+ },
+ "P28482": {
+  "kiba_length": 360,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 360
+ },
+ "P29317": {
+  "kiba_length": 976,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 976
+ },
+ "P29323": {
+  "kiba_length": 1055,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1055
+ },
+ "P29376": {
+  "kiba_length": 864,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 864
+ },
+ "P29597": {
+  "kiba_length": 1187,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1187
+ },
+ "P30291": {
+  "kiba_length": 646,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 646
+ },
+ "P30530": {
+  "aligned_residues": 894,
+  "kiba_length": 894,
+  "residues_after": 11,
+  "residues_before": 11,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 1,
+  "uniprot_length": 894
+ },
+ "P31749": {
+  "kiba_length": 480,
+  "residues_after": 22,
+  "residues_before": 22,
+  "status": "identical",
+  "uniprot_length": 480
+ },
+ "P31751": {
+  "kiba_length": 481,
+  "residues_after": 13,
+  "residues_before": 13,
+  "status": "identical",
+  "uniprot_length": 481
+ },
+ "P34947": {
+  "kiba_length": 590,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 590
+ },
+ "P35916": {
+  "kiba_length": 1363,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1363
+ },
+ "P35968": {
+  "kiba_length": 1356,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1356
+ },
+ "P36507": {
+  "kiba_length": 400,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 400
+ },
+ "P36888": {
+  "kiba_length": 993,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 993
+ },
+ "P41240": {
+  "kiba_length": 450,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 450
+ },
+ "P41279": {
+  "kiba_length": 467,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 467
+ },
+ "P41743": {
+  "kiba_length": 596,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 596
+ },
+ "P42336": {
+  "kiba_length": 1068,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 1068
+ },
+ "P42338": {
+  "kiba_length": 1070,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 1070
+ },
+ "P42345": {
+  "kiba_length": 2549,
+  "residues_after": 17,
+  "residues_before": 17,
+  "status": "identical",
+  "uniprot_length": 2549
+ },
+ "P42679": {
+  "kiba_length": 507,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 507
+ },
+ "P42684": {
+  "kiba_length": 1182,
+  "residues_after": 18,
+  "residues_before": 18,
+  "status": "identical",
+  "uniprot_length": 1182
+ },
+ "P42685": {
+  "kiba_length": 505,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 505
+ },
+ "P43403": {
+  "kiba_length": 619,
+  "residues_after": 10,
+  "residues_before": 10,
+  "status": "identical",
+  "uniprot_length": 619
+ },
+ "P43405": {
+  "kiba_length": 635,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 635
+ },
+ "P45983": {
+  "kiba_length": 427,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 427
+ },
+ "P45984": {
+  "kiba_length": 424,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 424
+ },
+ "P48729": {
+  "kiba_length": 337,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 337
+ },
+ "P48730": {
+  "kiba_length": 415,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 415
+ },
+ "P48736": {
+  "kiba_length": 1102,
+  "residues_after": 28,
+  "residues_before": 28,
+  "status": "identical",
+  "uniprot_length": 1102
+ },
+ "P49137": {
+  "kiba_length": 400,
+  "residues_after": 14,
+  "residues_before": 14,
+  "status": "identical",
+  "uniprot_length": 400
+ },
+ "P49336": {
+  "kiba_length": 464,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 464
+ },
+ "P49674": {
+  "kiba_length": 416,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 416
+ },
+ "P49759": {
+  "kiba_length": 484,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 484
+ },
+ "P49760": {
+  "kiba_length": 499,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 499
+ },
+ "P49840": {
+  "kiba_length": 483,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 483
+ },
+ "P49841": {
+  "kiba_length": 420,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 420
+ },
+ "P50613": {
+  "kiba_length": 346,
+  "residues_after": 19,
+  "residues_before": 19,
+  "status": "identical",
+  "uniprot_length": 346
+ },
+ "P50750": {
+  "kiba_length": 372,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 372
+ },
+ "P51451": {
+  "kiba_length": 505,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 505
+ },
+ "P51617": {
+  "kiba_length": 712,
+  "residues_after": 16,
+  "residues_before": 16,
+  "status": "identical",
+  "uniprot_length": 712
+ },
+ "P51812": {
+  "kiba_length": 740,
+  "residues_after": 22,
+  "residues_before": 22,
+  "status": "identical",
+  "uniprot_length": 740
+ },
+ "P51813": {
+  "kiba_length": 675,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 675
+ },
+ "P51817": {
+  "kiba_length": 358,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 358
+ },
+ "P51955": {
+  "kiba_length": 445,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 445
+ },
+ "P51957": {
+  "kiba_length": 841,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 841
+ },
+ "P52333": {
+  "kiba_length": 1124,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1124
+ },
+ "P52564": {
+  "kiba_length": 334,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 334
+ },
+ "P53350": {
+  "kiba_length": 603,
+  "residues_after": 17,
+  "residues_before": 17,
+  "status": "identical",
+  "uniprot_length": 603
+ },
+ "P53667": {
+  "kiba_length": 647,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 647
+ },
+ "P53778": {
+  "kiba_length": 367,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 367
+ },
+ "P53779": {
+  "kiba_length": 464,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 464
+ },
+ "P54619": {
+  "kiba_length": 331,
+  "residues_after": 69,
+  "residues_before": 69,
+  "status": "identical",
+  "uniprot_length": 331
+ },
+ "P54646": {
+  "kiba_length": 552,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 552
+ },
+ "P54760": {
+  "kiba_length": 987,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 987
+ },
+ "P67870": {
+  "kiba_length": 215,
+  "residues_after": 4,
+  "residues_before": 4,
+  "status": "identical",
+  "uniprot_length": 215
+ },
+ "P68400": {
+  "kiba_length": 391,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 391
+ },
+ "P78368": {
+  "kiba_length": 415,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 415
+ },
+ "P78527": {
+  "kiba_length": 4128,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 4128
+ },
+ "P80192": {
+  "kiba_length": 1104,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1104
+ },
+ "Q00534": {
+  "kiba_length": 326,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 326
+ },
+ "Q00535": {
+  "kiba_length": 292,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 292
+ },
+ "Q02156": {
+  "kiba_length": 737,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 737
+ },
+ "Q02750": {
+  "kiba_length": 393,
+  "residues_after": 33,
+  "residues_before": 33,
+  "status": "identical",
+  "uniprot_length": 393
+ },
+ "Q02763": {
+  "kiba_length": 1124,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1124
+ },
+ "Q02779": {
+  "kiba_length": 954,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 954
+ },
+ "Q04759": {
+  "kiba_length": 706,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 706
+ },
+ "Q04771": {
+  "kiba_length": 509,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 509
+ },
+ "Q04912": {
+  "aligned_residues": 1400,
+  "kiba_length": 1400,
+  "residues_after": 16,
+  "residues_before": 16,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 1,
+  "uniprot_length": 1400
+ },
+ "Q05397": {
+  "kiba_length": 1052,
+  "residues_after": 12,
+  "residues_before": 12,
+  "status": "identical",
+  "uniprot_length": 1052
+ },
+ "Q05513": {
+  "kiba_length": 592,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 592
+ },
+ "Q05655": {
+  "kiba_length": 676,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 676
+ },
+ "Q06187": {
+  "kiba_length": 659,
+  "residues_after": 28,
+  "residues_before": 28,
+  "status": "identical",
+  "uniprot_length": 659
+ },
+ "Q06418": {
+  "kiba_length": 890,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 890
+ },
+ "Q07912": {
+  "kiba_length": 1038,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1038
+ },
+ "Q08881": {
+  "kiba_length": 620,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 620
+ },
+ "Q12851": {
+  "kiba_length": 820,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 820
+ },
+ "Q12866": {
+  "kiba_length": 999,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 999
+ },
+ "Q13131": {
+  "kiba_length": 559,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 559
+ },
+ "Q13153": {
+  "kiba_length": 545,
+  "residues_after": 14,
+  "residues_before": 14,
+  "status": "identical",
+  "uniprot_length": 545
+ },
+ "Q13177": {
+  "kiba_length": 524,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 524
+ },
+ "Q13188": {
+  "kiba_length": 491,
+  "residues_after": 13,
+  "residues_before": 13,
+  "status": "identical",
+  "uniprot_length": 491
+ },
+ "Q13237": {
+  "kiba_length": 762,
+  "residues_after": 32,
+  "residues_before": 32,
+  "status": "identical",
+  "uniprot_length": 762
+ },
+ "Q13464": {
+  "kiba_length": 1354,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1354
+ },
+ "Q13554": {
+  "kiba_length": 666,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 666
+ },
+ "Q13555": {
+  "aligned_residues": 555,
+  "kiba_length": 558,
+  "residues_after": 11,
+  "residues_before": 11,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 0,
+  "uniprot_length": 558
+ },
+ "Q13557": {
+  "kiba_length": 499,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 499
+ },
+ "Q13627": {
+  "kiba_length": 763,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 763
+ },
+ "Q13882": {
+  "kiba_length": 451,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 451
+ },
+ "Q13976": {
+  "kiba_length": 671,
+  "residues_after": 38,
+  "residues_before": 38,
+  "status": "identical",
+  "uniprot_length": 671
+ },
+ "Q14012": {
+  "kiba_length": 370,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 370
+ },
+ "Q14164": {
+  "kiba_length": 716,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 716
+ },
+ "Q14289": {
+  "kiba_length": 1009,
+  "residues_after": 18,
+  "residues_before": 18,
+  "status": "identical",
+  "uniprot_length": 1009
+ },
+ "Q14680": {
+  "kiba_length": 651,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 651
+ },
+ "Q15078": {
+  "kiba_length": 307,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 307
+ },
+ "Q15118": {
+  "kiba_length": 436,
+  "residues_after": 17,
+  "residues_before": 17,
+  "status": "identical",
+  "uniprot_length": 436
+ },
+ "Q15139": {
+  "kiba_length": 912,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 912
+ },
+ "Q15303": {
+  "kiba_length": 1308,
+  "residues_after": 20,
+  "residues_before": 20,
+  "status": "identical",
+  "uniprot_length": 1308
+ },
+ "Q15418": {
+  "kiba_length": 735,
+  "residues_after": 22,
+  "residues_before": 22,
+  "status": "identical",
+  "uniprot_length": 735
+ },
+ "Q15759": {
+  "kiba_length": 364,
+  "residues_after": 12,
+  "residues_before": 12,
+  "status": "identical",
+  "uniprot_length": 364
+ },
+ "Q16288": {
+  "kiba_length": 839,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 839
+ },
+ "Q16512": {
+  "kiba_length": 942,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 942
+ },
+ "Q16513": {
+  "kiba_length": 984,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 984
+ },
+ "Q16539": {
+  "kiba_length": 360,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 360
+ },
+ "Q16566": {
+  "kiba_length": 473,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 473
+ },
+ "Q16584": {
+  "kiba_length": 847,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 847
+ },
+ "Q16620": {
+  "kiba_length": 822,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 822
+ },
+ "Q16644": {
+  "kiba_length": 382,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 382
+ },
+ "Q5S007": {
+  "kiba_length": 2527,
+  "residues_after": 53,
+  "residues_before": 53,
+  "status": "identical",
+  "uniprot_length": 2527
+ },
+ "Q5VT25": {
+  "kiba_length": 1732,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1732
+ },
+ "Q7KZI7": {
+  "kiba_length": 788,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 788
+ },
+ "Q7L7X3": {
+  "kiba_length": 1001,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1001
+ },
+ "Q86V86": {
+  "kiba_length": 326,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 326
+ },
+ "Q8IU85": {
+  "kiba_length": 385,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 385
+ },
+ "Q8IW41": {
+  "kiba_length": 473,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 473
+ },
+ "Q8N4C8": {
+  "kiba_length": 1332,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1332
+ },
+ "Q8NE63": {
+  "kiba_length": 616,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 616
+ },
+ "Q8TDC3": {
+  "kiba_length": 778,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 778
+ },
+ "Q96GD4": {
+  "kiba_length": 344,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 344
+ },
+ "Q96KB5": {
+  "kiba_length": 322,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 322
+ },
+ "Q96L34": {
+  "kiba_length": 752,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 752
+ },
+ "Q96PF2": {
+  "kiba_length": 358,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 358
+ },
+ "Q96RG2": {
+  "kiba_length": 1323,
+  "residues_after": 20,
+  "residues_before": 20,
+  "status": "identical",
+  "uniprot_length": 1323
+ },
+ "Q96RR4": {
+  "kiba_length": 588,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 588
+ },
+ "Q96SB4": {
+  "kiba_length": 655,
+  "residues_after": 14,
+  "residues_before": 14,
+  "status": "identical",
+  "uniprot_length": 655
+ },
+ "Q99683": {
+  "kiba_length": 1374,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1374
+ },
+ "Q9BUB5": {
+  "kiba_length": 465,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 465
+ },
+ "Q9BWU1": {
+  "kiba_length": 502,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 502
+ },
+ "Q9BXA7": {
+  "kiba_length": 367,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 367
+ },
+ "Q9BZL6": {
+  "aligned_residues": 878,
+  "kiba_length": 878,
+  "residues_after": 11,
+  "residues_before": 11,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 1,
+  "uniprot_length": 878
+ },
+ "Q9H0K1": {
+  "kiba_length": 926,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 926
+ },
+ "Q9H2G2": {
+  "kiba_length": 1235,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1235
+ },
+ "Q9H2X6": {
+  "kiba_length": 1198,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 1198
+ },
+ "Q9H3Y6": {
+  "kiba_length": 488,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 488
+ },
+ "Q9H4B4": {
+  "kiba_length": 646,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 646
+ },
+ "Q9HAZ1": {
+  "kiba_length": 481,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 481
+ },
+ "Q9HBH9": {
+  "kiba_length": 465,
+  "residues_after": 18,
+  "residues_before": 18,
+  "status": "identical",
+  "uniprot_length": 465
+ },
+ "Q9HBY8": {
+  "aligned_residues": 367,
+  "kiba_length": 427,
+  "residues_after": 11,
+  "residues_before": 11,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 0,
+  "uniprot_length": 367
+ },
+ "Q9HC98": {
+  "kiba_length": 313,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 313
+ },
+ "Q9HCP0": {
+  "kiba_length": 422,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 422
+ },
+ "Q9NR20": {
+  "kiba_length": 520,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 520
+ },
+ "Q9NWZ3": {
+  "kiba_length": 460,
+  "residues_after": 16,
+  "residues_before": 16,
+  "status": "identical",
+  "uniprot_length": 460
+ },
+ "Q9NYL2": {
+  "kiba_length": 800,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 800
+ },
+ "Q9P1W9": {
+  "kiba_length": 311,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 311
+ },
+ "Q9P289": {
+  "kiba_length": 416,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 416
+ },
+ "Q9UBE8": {
+  "kiba_length": 527,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 527
+ },
+ "Q9UBF8": {
+  "kiba_length": 816,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 816
+ },
+ "Q9UBS0": {
+  "kiba_length": 482,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 482
+ },
+ "Q9UEE5": {
+  "kiba_length": 414,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 414
+ },
+ "Q9UGI9": {
+  "kiba_length": 489,
+  "residues_after": 69,
+  "residues_before": 69,
+  "status": "identical",
+  "uniprot_length": 489
+ },
+ "Q9UGJ0": {
+  "kiba_length": 569,
+  "residues_after": 66,
+  "residues_before": 66,
+  "status": "identical",
+  "uniprot_length": 569
+ },
+ "Q9UHD2": {
+  "kiba_length": 729,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 729
+ },
+ "Q9UM73": {
+  "kiba_length": 1620,
+  "residues_after": 7,
+  "residues_before": 7,
+  "status": "identical",
+  "uniprot_length": 1620
+ },
+ "Q9UQM7": {
+  "kiba_length": 478,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 478
+ },
+ "Q9Y243": {
+  "kiba_length": 479,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 479
+ },
+ "Q9Y463": {
+  "kiba_length": 629,
+  "residues_after": 15,
+  "residues_before": 15,
+  "status": "identical",
+  "uniprot_length": 629
+ },
+ "Q9Y478": {
+  "kiba_length": 270,
+  "residues_after": 0,
+  "residues_before": 0,
+  "status": "no_sites",
+  "uniprot_length": 270
+ },
+ "Q9Y4K4": {
+  "aligned_residues": 846,
+  "kiba_length": 846,
+  "residues_after": 11,
+  "residues_before": 11,
+  "residues_dropped": 0,
+  "status": "remapped",
+  "substitutions_mapped": 1,
+  "uniprot_length": 846
+ },
+ "Q9Y6M4": {
+  "kiba_length": 447,
+  "residues_after": 11,
+  "residues_before": 11,
+  "status": "identical",
+  "uniprot_length": 447
+ }
+}

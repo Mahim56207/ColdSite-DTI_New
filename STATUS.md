@@ -147,6 +147,23 @@ The misaligned sites were diluting the signal: where the model has one, it rose.
 conclusion is unchanged -- at best ~2x chance against a ceiling of 0.99, and cold-target
 indistinguishable from chance.
 
+**Counted per protein, cold-pair is at chance too** (2026-09-12). The tables above
+average over every test pair, so a protein tested against 13 drugs counts 13 times with
+the same attention. The ladder now scores one pair per protein, the same pairs as the
+audit table. Same checkpoints, seed 1, 100 permutation trials
+(`results/ladder_dryrun_regression_davis_seed1.md`):
+
+| level | every pair (n pairs) | one per protein (n proteins) | chance |
+|---|---|---|---|
+| warm | 0.040, p = 0.01 (5,439) | **0.040**, p = 0.01 (402) | 0.020 |
+| cold-drug | 0.028, p = 0.01 (5,226) | **0.029**, p = 0.01 (402) | 0.020 |
+| cold-target | 0.018, p = 1.0 (5,372) | **0.016**, p = 0.72 (79) | 0.019 |
+| cold-pair | 0.033, p = 0.01 (1,027) | **0.024**, p = 0.19 (79) | 0.019 |
+
+Cold-pair's significance came from counting 79 proteins as 1,027 observations. The
+positive control (`results/positive_control_davis.md`) detects a 2%-of-sites explanation
+on those same 79 proteins, so this is a null result, not a lack of power.
+
 ### What is left
 
 1. Finish the binary grid: ColdSite-DTI and HyperAttentionDTI, 12 cells each.

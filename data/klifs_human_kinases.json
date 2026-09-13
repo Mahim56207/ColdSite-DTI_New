@@ -1,0 +1,4997 @@
+[
+ {
+  "kinase_ID": 1,
+  "name": "AKT1",
+  "HGNC": "AKT1",
+  "family": "Akt",
+  "group": "AGC",
+  "uniprot": "P31749",
+  "pocket": "KLLGKGTFGKVILYAMKILHTLTENRVLQNSRPFLTALKYSCFVMEYANGGELFFHLSRLHSEKNVVYRDLKLENLMLITDFGLC"
+ },
+ {
+  "kinase_ID": 2,
+  "name": "AKT2",
+  "HGNC": "AKT2",
+  "family": "Akt",
+  "group": "AGC",
+  "uniprot": "P31751",
+  "pocket": "KLLGKGTFGKVILYAMKILHTVTESRVLQNTRPFLTALKYACFVMEYANGGELFFHLSRYLHSRDVVYRDIKLENLMLITDFGLC"
+ },
+ {
+  "kinase_ID": 3,
+  "name": "AKT3",
+  "HGNC": "AKT3",
+  "family": "Akt",
+  "group": "AGC",
+  "uniprot": "Q9Y243",
+  "pocket": "KLLGKGTFGKVILYAMKILHTLTESRVLKNTRPFLTSLKYSCFVMEYVNGGELFFHLSRYLHSGKIVYRDLKLENLMLITDFGLC"
+ },
+ {
+  "kinase_ID": 4,
+  "name": "CRIK",
+  "HGNC": "CIT",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "O14578",
+  "pocket": "SLVGCGHFAEVQVYAMKVMFFEEERNILSRSTPWIPQLQYAYLVMEYQPGGDLLSLLNRSVHLMGYVHRDIKPENILVLVDFGSA"
+ },
+ {
+  "kinase_ID": 6,
+  "name": "MRCKa",
+  "HGNC": "CDC42BPA",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "Q5VT25",
+  "pocket": "KVIGRGAFGEVAVFAMKILCFREERDVLVNGDKWITTLHYAYLVMDYYVGGDLLTLLSKSVHQLHYVHRDIKPDNILMLADFGSC"
+ },
+ {
+  "kinase_ID": 7,
+  "name": "MRCKb",
+  "HGNC": "CDC42BPB",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "Q9Y5S2",
+  "pocket": "KVIGRGAFGEVAVYAMKILCFREERDVLVNGDQWITALHYAYLVMDYYVGGDLLTLLSKSIHQLHYVHRDIKPDNVLLLADFGSC"
+ },
+ {
+  "kinase_ID": 8,
+  "name": "DMPK2",
+  "HGNC": "CDC42BPG",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "Q6DT37",
+  "pocket": "KVIGRGAFGEVTVFAMKMLCFREERDVLVKGDRWVTTLHYAYLVMDYYAGGDLLTLLSRSLHQLGYVHRDVKPDNVLLLADFGSC"
+ },
+ {
+  "kinase_ID": 70,
+  "name": "ADCK3",
+  "HGNC": "COQ8A",
+  "family": "ABC1",
+  "group": "Atypical",
+  "uniprot": "Q8NI60",
+  "pocket": "RPFAAASIGQVHLVAMKIQDYQREAACARKFRFYVPEIVDEVLTTELVSGFPLDQAEGLELFEFNFMQTDPNWSNFFYLLDFGAT"
+ },
+ {
+  "kinase_ID": 71,
+  "name": "ADCK4",
+  "HGNC": "COQ8B",
+  "family": "ABC1",
+  "group": "Atypical",
+  "uniprot": "Q96D53",
+  "pocket": "VPFAAASIGQVHQVAVKIQDYRREAACAQNFRFRVPAVVKETRVLGMELGVPLDQCQGLELFEFRFMQTDPNWANFLYLLDFGAS"
+ },
+ {
+  "kinase_ID": 72,
+  "name": "ADCK1",
+  "HGNC": "ADCK1",
+  "family": "ABC1",
+  "group": "Atypical",
+  "uniprot": "Q86TW2",
+  "pocket": "TPLGTASLAQVHKVAVKVQDFLNEGRNAEKVSLKVPRIHWDERVLLMEFGQVNDRDYMEFVNG--FVHCDPHPGNVLVLLDHGLY"
+ },
+ {
+  "kinase_ID": 73,
+  "name": "ADCK5",
+  "HGNC": "ADCK5",
+  "family": "ABC1",
+  "group": "Atypical",
+  "uniprot": "Q3MIX3",
+  "pocket": "QPIAAASLAQVHRVAVKVQDFENEGRNAERCAVVVPRVHWDKRVLTADFCKVNDVEAIRFYTG--FIHSDPHPGNVLVLLDHGLY"
+ },
+ {
+  "kinase_ID": 74,
+  "name": "ADCK2",
+  "HGNC": "ADCK2",
+  "family": "ABC1",
+  "group": "Atypical",
+  "uniprot": "Q7Z695",
+  "pocket": "GSNAGVSRAQVPGVAVKVLDLRYEAQNLEHFQVKFPTPLRPREVLVETYVSSYQQAGIPMIFVDNFVHADLHPGNILVLLDAGIV"
+ },
+ {
+  "kinase_ID": 75,
+  "name": "AlphaK1",
+  "HGNC": "ALPK1",
+  "family": "Alpha",
+  "group": "Atypical",
+  "uniprot": "Q96QP1",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 76,
+  "name": "AlphaK3",
+  "HGNC": "ALPK3",
+  "family": "Alpha",
+  "group": "Atypical",
+  "uniprot": "Q96L96",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 77,
+  "name": "AlphaK2",
+  "HGNC": "ALPK2",
+  "family": "Alpha",
+  "group": "Atypical",
+  "uniprot": "Q86TB3",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 81,
+  "name": "BCR",
+  "HGNC": "BCR",
+  "family": "BCR",
+  "group": "Atypical",
+  "uniprot": "P11274",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 82,
+  "name": "BRDT",
+  "HGNC": "BRDT",
+  "family": "BRD",
+  "group": "Atypical",
+  "uniprot": "Q58F21",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 83,
+  "name": "BRD2",
+  "HGNC": "BRD2",
+  "family": "BRD",
+  "group": "Atypical",
+  "uniprot": "P25440",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 84,
+  "name": "BRD3",
+  "HGNC": "BRD3",
+  "family": "BRD",
+  "group": "Atypical",
+  "uniprot": "Q15059",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 85,
+  "name": "BRD4",
+  "HGNC": "BRD4",
+  "family": "BRD",
+  "group": "Atypical",
+  "uniprot": "O60885",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 89,
+  "name": "BCKDK",
+  "HGNC": "BCKDK",
+  "family": "PDHK",
+  "group": "Atypical",
+  "uniprot": "O14874",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 94,
+  "name": "ATM",
+  "HGNC": "ATM",
+  "family": "PIKK",
+  "group": "Atypical",
+  "uniprot": "Q13315",
+  "pocket": "LAGGVNLPKIIDCQLVKGRDLRQDAVMQQVFQLTICTYKVVSGVLEWCTTVPIGEFLVNVGYI--LGLGDRHVQNILIHIDLGVA"
+ },
+ {
+  "kinase_ID": 95,
+  "name": "ATR",
+  "HGNC": "ATR",
+  "family": "PIKK",
+  "group": "Atypical",
+  "uniprot": "Q13535",
+  "pocket": "LASLQKPKKISLKMMCKPKDLRKDCRLMEFNSLHIRTYAVICGIIEWVNTAGLRPILTKVGYI--LGLGDRHGENILFHVDFNCL"
+ },
+ {
+  "kinase_ID": 96,
+  "name": "DNAPK",
+  "HGNC": "ANTXR1",
+  "family": "PIKK",
+  "group": "Atypical",
+  "uniprot": "Q9H6X2",
+  "pocket": "MASLRRPKRIIIRFLVKGGDLRQDQRVEQLFQLQLRTYSVVLGLIEWLEKDLLLNTMSQSHWI--LGIGDRHLNNFMVGIDFGHA"
+ },
+ {
+  "kinase_ID": 108,
+  "name": "CaMK4",
+  "HGNC": "CAMK4",
+  "family": "CAMK1",
+  "group": "CAMK",
+  "uniprot": "Q16566",
+  "pocket": "SELGRGATSIVYRYALKVLIVRTEIGVLLRLSPNIIKLKEISLVLELVTGGELFDRIVEYLHENGIVHRDLKPENLLYIADFGLS"
+ },
+ {
+  "kinase_ID": 109,
+  "name": "CaMK1a",
+  "HGNC": "CAMK1",
+  "family": "CAMK1",
+  "group": "CAMK",
+  "uniprot": "Q14012",
+  "pocket": "DVLGTGAFSEVILVAIKCISMENEIAVLHKIKPNIVALDDIYLIMQLVSGGELFDRIVEYLHDLGIVHRDLKPENLLYISDFGLS"
+ },
+ {
+  "kinase_ID": 110,
+  "name": "CaMK1d",
+  "HGNC": "CAMK1D",
+  "family": "CAMK1",
+  "group": "CAMK",
+  "uniprot": "Q8IU85",
+  "pocket": "ETLGTGAFSEVVLFAVKCISIENEIAVLRKIKENIVALEDIYLVMQLVSGGELFDRIVEYLHRMGIVHRDLKPENLLYISDFGLS"
+ },
+ {
+  "kinase_ID": 111,
+  "name": "CaMK1g",
+  "HGNC": "CAMK1G",
+  "family": "CAMK1",
+  "group": "CAMK",
+  "uniprot": "Q96NX5",
+  "pocket": "EVLGSGAFSEVFLFALKCISLENEIAVLKKIKENIVTLEDIYLVMQLVSGGELFDRILEYLHENGIVHRDLKPENLLYITDFGLS"
+ },
+ {
+  "kinase_ID": 113,
+  "name": "CaMK2a",
+  "HGNC": "CAMK2A",
+  "family": "CAMK2",
+  "group": "CAMK",
+  "uniprot": "Q9UQM7",
+  "pocket": "EELGKGAFSVVRRYAAKIIKLEREARICRLLKPNIVRLHDSYLIFDLVTGGELFEDIVAHCHQMGVVHRDLKPENLLLLADFGLA"
+ },
+ {
+  "kinase_ID": 114,
+  "name": "CaMK2b",
+  "HGNC": "CAMK2B",
+  "family": "CAMK2",
+  "group": "CAMK",
+  "uniprot": "Q13554",
+  "pocket": "EDIGKGAFSVVRRYAAKIIKLEREARICRLLKSNIVRLHDSYLVFDLVTGGELFEDIVAHCHQMGVVHRDLKPENLLLLADFGLA"
+ },
+ {
+  "kinase_ID": 115,
+  "name": "CaMK2d",
+  "HGNC": "CAMK2D",
+  "family": "CAMK2",
+  "group": "CAMK",
+  "uniprot": "Q13557",
+  "pocket": "EELGKGAFSVVRRYAAKIIKLEREARICRLLKPNIVRLHDSYLVFDLVTGGELFEDIVAHCHLNGIVHRDLKPENLLLLADFGLA"
+ },
+ {
+  "kinase_ID": 116,
+  "name": "CaMK2g",
+  "HGNC": "CAMK2G",
+  "family": "CAMK2",
+  "group": "CAMK",
+  "uniprot": "Q13555",
+  "pocket": "EELGKGAFSVVRRYAAKIIKLEREARICRLLKPNIVRLHDSYLVFDLVTGGELFEDIVAHIHQHDIVHRDLKPENLLLLADFGLA"
+ },
+ {
+  "kinase_ID": 119,
+  "name": "BRSK2",
+  "HGNC": "BRSK2",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q8IWQ3",
+  "pocket": "KTLGKGQTGLVKLVAIKIVKVEREIAILKLIEPHVLKLHDVYLVLEHVSGGELFDYLVKFCHSHSICHRDLKPENLLLIADFGMA"
+ },
+ {
+  "kinase_ID": 120,
+  "name": "BRSK1",
+  "HGNC": "BRSK1",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q8TDC3",
+  "pocket": "KTLGKGQTGLVKLVAIKIVKVEREIAILKLIEPHVLKLHDVYLVLEHVSGGELFDYLVKFCHSYSICHRDLKPENLLLIADFGMA"
+ },
+ {
+  "kinase_ID": 121,
+  "name": "CHK1",
+  "HGNC": "CHEK1",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "O14757",
+  "pocket": "QTLGEGAYGEVQLVAVKIVNIKKEICINKMLNENVVKFYGHYLFLEYCSGGELFDRIEPYLHGIGITHRDIKPENLLLISDFGLA"
+ },
+ {
+  "kinase_ID": 138,
+  "name": "VACAMKL",
+  "HGNC": "CAMKV",
+  "family": "CAMK-Unique",
+  "group": "CAMK",
+  "uniprot": "Q8NCB2",
+  "pocket": "QVIKTEEFCEIFRHTCKKFAAKNEIGILKMVKPNILQLVDVFIFLELATGREVFDWILDYLHSLKIVHRNLKLENLVYISDFHLA"
+ },
+ {
+  "kinase_ID": 139,
+  "name": "CASK",
+  "HGNC": "CASK",
+  "family": "CASK",
+  "group": "CAMK",
+  "uniprot": "O14936",
+  "pocket": "EVIGKGPFSVVRRFAVKIVDLKREASICHMLKPHIVELLETYMVFEFMDGADLCFEIVKYCHDNNIIHRDVKPHCVLLLGGFGVA"
+ },
+ {
+  "kinase_ID": 168,
+  "name": "CHK2",
+  "HGNC": "CHEK2",
+  "family": "RAD53",
+  "group": "CAMK",
+  "uniprot": "O96017",
+  "pocket": "KTLGSGACGEVKLVAIKIINVETEIEILKKLNPCIIKIKNFYIVLELMEGGELFDKVVGYLHENGIIHRDLKPENVLLITDFGHS"
+ },
+ {
+  "kinase_ID": 196,
+  "name": "CCRK",
+  "HGNC": "CDK20",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q8IZL9",
+  "pocket": "GRIGEGAHGIVFKVALKKVQALREIKALQEMEQYVVQLKAVVLAFEFML-SDLAEVVRHFCHANNIVHRDLKPANLLIIADFGLA"
+ },
+ {
+  "kinase_ID": 197,
+  "name": "CDC2",
+  "HGNC": "CDK1",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P06493",
+  "pocket": "EKIGEGTYGVVYKVAMKKITAIREISLLKELRPNIVSLQDVYLIFEFLS-MDLKKYLDSFCHSRRVLHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 198,
+  "name": "CDK2",
+  "HGNC": "CDK2",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P24941",
+  "pocket": "EKIGEGTYGVVYKVALKKITAIREISLLKELNPNIVKLLDVYLVFEFLH-QDLKKFMDAFCHSHRVLHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 199,
+  "name": "CDK3",
+  "HGNC": "CDK3",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q00526",
+  "pocket": "EKIGEGTYGVVYKVALKKITAIREISLLKELKPNIVRLLDVYLVFEFLS-QDLKKYMDSFCHSHRVIHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 200,
+  "name": "CDK10",
+  "HGNC": "CDK10",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q15131",
+  "pocket": "NRIGEGTYGIVYRVALKKVSSLREITLLLRLRPNIVELKEVFLVMGYCE-QDLASLLENYLHRNFIIHRDLKVSNLLMTADFGLA"
+ },
+ {
+  "kinase_ID": 201,
+  "name": "CDK4",
+  "HGNC": "CDK4",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P11802",
+  "pocket": "AEIGVGAYGTVYKVALKSVSTVREVALLRRLEPNVVRLMDVTLVFEHVD-QDLRTYLDKFLHANCIVHRDLKPENILVLADFGLA"
+ },
+ {
+  "kinase_ID": 202,
+  "name": "CDK6",
+  "HGNC": "CDK6",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q00534",
+  "pocket": "AEIGEGAYGKVFKVALKRVSTIREVAVLRHLEPNVVRLFDVTLVFEHVD-QDLTTYLDKFLHSHRVVHRDLKPQNILVLADFGLA"
+ },
+ {
+  "kinase_ID": 203,
+  "name": "CDK5",
+  "HGNC": "CDK5",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q00535",
+  "pocket": "EKIGEGTYGTVFKVALKRVSALREICLLKELKKNIVRLHDVTLVFEFCD-QDLKKYFDSFCHSRNVLHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 204,
+  "name": "CDK7",
+  "HGNC": "CDK7",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P50613",
+  "pocket": "DFLGEGQFATVYKVAIKKITALREIKLLQELSPNIIGLLDASLVFDFME-TDLEVIIKDYLHQHWILHRDLKPNNLLLLADFGLA"
+ },
+ {
+  "kinase_ID": 205,
+  "name": "CDK8",
+  "HGNC": "CDK8",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P49336",
+  "pocket": "CKVGRGTYGHVYKYALKQISACREIALLRELKPNVISLQKVWLLFDYAE-HDLWHIIKFYLHANWVLHRDLKPANILVIADMGFA"
+ },
+ {
+  "kinase_ID": 206,
+  "name": "CDK11",
+  "HGNC": "CDK19",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q9BWU1",
+  "pocket": "CKVGRGTYGHVYKYALKQISACREIALLRELKPNVIALQKVWLLFDYAE-HDLWHIIKFYLHANWVLHRDLKPANILVIADMGFA"
+ },
+ {
+  "kinase_ID": 207,
+  "name": "CDK9",
+  "HGNC": "CDK9",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P50750",
+  "pocket": "AKIGQGTFGEVFKVALKKVTALREIKILQLLKENVVNLIEIYLVFDFCE-HDLAGLLSNYIHRNKILHRDMKAANVLILADFGLA"
+ },
+ {
+  "kinase_ID": 208,
+  "name": "CHED",
+  "HGNC": "CDK13",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q14004",
+  "pocket": "GIIGEGTYGQVYKVALKKVTAIREIKILRQLTQSIINMKEIYLVFEYMD-HDLMGLLESYCHKKNFLHRDIKCSNILLLADFGLA"
+ },
+ {
+  "kinase_ID": 209,
+  "name": "CRK7",
+  "HGNC": "CDK12",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q9NYV4",
+  "pocket": "GIIGEGTYGQVYKVALKKVTAIREIKILRQLIRSVVNMKEIYLVFEYMD-HDLMGLLESYCHKKNFLHRDIKCSNILLLADFGLA"
+ },
+ {
+  "kinase_ID": 210,
+  "name": "PCTAIRE1",
+  "HGNC": "CDK16",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q00536",
+  "pocket": "DKLGEGTYATVYKVALKEITAIREVSLLKDLKANIVTLHDITLVFEYLD-KDLKQYLDDYCHRQKVLHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 211,
+  "name": "PCTAIRE2",
+  "HGNC": "CDK17",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q00537",
+  "pocket": "EKLGEGTYATVYKVALKEITAIREVSLLKDLKANIVTLHDITLVFEYLD-KDLKQYMDDYCHRRKVLHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 212,
+  "name": "PCTAIRE3",
+  "HGNC": "CDK18",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q07002",
+  "pocket": "DKLGEGTYATVFKVALKEITAIREVSLLKNLKANIVTLHDLTLVFEYLD-SDLKQYLDHYCHHRKILHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 213,
+  "name": "PFTAIRE1",
+  "HGNC": "CDK14",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "O94921",
+  "pocket": "EKLGEGSYATVYKVALKVITAIREASLLKGLKANIVLLHDITLVFEYVH-TDLCQYMDKYIHQRYILHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 214,
+  "name": "PFTAIRE2",
+  "HGNC": "CDK15",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q96Q40",
+  "pocket": "EKLGEGSYATVYKVALKVITAIREASLLKGLKANIVLLHDITFVFEYMH-TDLAQYMSQYIHHQHVLHRDLKPQNLLILADFGLA"
+ },
+ {
+  "kinase_ID": 215,
+  "name": "PITSLRE",
+  "HGNC": "CDK11B",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "P21127",
+  "pocket": "NRIEEGTYGVVYRVALKRLTSLREINTILKAQPNIVTVREIYIVMNYVE-HDLKSLMETHLHDNWILHRDLKTSNLLLVGDFGLA"
+ },
+ {
+  "kinase_ID": 216,
+  "name": "CDKL5",
+  "HGNC": "CDKL5",
+  "family": "CDKL",
+  "group": "CMGC",
+  "uniprot": "O76039",
+  "pocket": "GVVGEGAYGVVLKVAIKKFTTLRELKMLRTLKENIVELKEAYLVFEYVE-KNMLELLEEWCHKNDIVHRDIKPENLLILCDFGFA"
+ },
+ {
+  "kinase_ID": 217,
+  "name": "CDKL1",
+  "HGNC": "CDKL1",
+  "family": "CDKL",
+  "group": "CMGC",
+  "uniprot": "Q00532",
+  "pocket": "GKIGEGSYGVVFKVAIKKFIALREIRMLKQLKPNLVNLLEVHLVFEYCD-HTVLHELDRFCHKHNCIHRDVKPENILILCDFGFA"
+ },
+ {
+  "kinase_ID": 218,
+  "name": "CDKL2",
+  "HGNC": "CDKL2",
+  "family": "CDKL",
+  "group": "CMGC",
+  "uniprot": "Q92772",
+  "pocket": "GLVGEGSYGMVMKVAIKKFIAMREIKLLKQLRENLVNLLEVYLVFEFVD-HTILDDLELFCHSHNIIHRDIKPENILVLCDFGFA"
+ },
+ {
+  "kinase_ID": 219,
+  "name": "CDKL3",
+  "HGNC": "CDKL3",
+  "family": "CDKL",
+  "group": "CMGC",
+  "uniprot": "Q8IVW4",
+  "pocket": "GKVGEGSYGTVMKVAIKIFIAMREIKFLKQFHENLVNLIEVHLVFEFID-HTVLDELQHYLHSNNIIHRDIKPENILVLCDFGFA"
+ },
+ {
+  "kinase_ID": 220,
+  "name": "CDKL4",
+  "HGNC": "CDKL4",
+  "family": "CDKL",
+  "group": "CMGC",
+  "uniprot": "Q5MAI5",
+  "pocket": "AKTGEGSYGVVFKVAVKKFIALREIRMLKQLKPNLVNLIEVHLVFEYCD-HTLLNELERFCHIHNCIHRDIKPENILIICDFGFA"
+ },
+ {
+  "kinase_ID": 223,
+  "name": "CLK1",
+  "HGNC": "CLK1",
+  "family": "CLK",
+  "group": "CMGC",
+  "uniprot": "P49759",
+  "pocket": "DTLGEGAFGKVVEVAVKIVAARSEIQVLEHLNFRCVQMLEWCIVFELLG-LSTYDFIKEFLHSNKLTHTDLKPENILFVVDFGSA"
+ },
+ {
+  "kinase_ID": 224,
+  "name": "CLK2",
+  "HGNC": "CLK2",
+  "family": "CLK",
+  "group": "CMGC",
+  "uniprot": "P49760",
+  "pocket": "STLGEGTFGRVVQVALKIIAARLEINVLEKINNLCVQMFDWCISFELLG-LSTFDFLKDFLHDNKLTHTDLKPENILFVVDFGSA"
+ },
+ {
+  "kinase_ID": 225,
+  "name": "CLK3",
+  "HGNC": "CLK3",
+  "family": "CLK",
+  "group": "CMGC",
+  "uniprot": "P49761",
+  "pocket": "GNLGEGTFGKVVEVALKIIAARLEINVLKKIKFLCVLMSDWCIAFELLG-KNTFEFLKEFLHENQLTHTDLKPENILFVADFGSA"
+ },
+ {
+  "kinase_ID": 226,
+  "name": "CLK4",
+  "HGNC": "CLK4",
+  "family": "CLK",
+  "group": "CMGC",
+  "uniprot": "Q9HAZ1",
+  "pocket": "DTLGEGAFGKVVEVAVKIVAARSEIQVLEHLNFRCVQMLEWCIVFELLG-LSTYDFIKEFLHHNKLTHTDLKPENILFVVDFGSA"
+ },
+ {
+  "kinase_ID": 259,
+  "name": "AurA",
+  "HGNC": "AURKA",
+  "family": "Aur",
+  "group": "Other",
+  "uniprot": "O14965",
+  "pocket": "RPLGKGKFGNVYLLALKVLQLRREVEIQSHLRPNILRLYGYYLILEYAPLGTVYRELQKYCHSKRVIHRDIKPENLLLIADFGWS"
+ },
+ {
+  "kinase_ID": 260,
+  "name": "AurC",
+  "HGNC": "AURKC",
+  "family": "Aur",
+  "group": "Other",
+  "uniprot": "Q9UQB9",
+  "pocket": "RPLGKGKFGNVYLVALKVLQLRREIEIQAHLQPNILRLYNYYLILEYAPRGELYKELQKYCHDKKVIHRDIKPENLLLIADFGWS"
+ },
+ {
+  "kinase_ID": 261,
+  "name": "AurB",
+  "HGNC": "AURKB",
+  "family": "Aur",
+  "group": "Other",
+  "uniprot": "Q96GD4",
+  "pocket": "RPLGKGKFGNVYLVALKVLQLRREIEIQAHLHPNILRLYNYYLILEYAPRGELYKELQKYCHGKKVIHRDIKPENLLLIADFGWS"
+ },
+ {
+  "kinase_ID": 262,
+  "name": "BUB1",
+  "HGNC": "BUB1",
+  "family": "BUB",
+  "group": "Other",
+  "uniprot": "O43683",
+  "pocket": "HLLGEGAFAQVYEFVLKVQIGTQLMERLKPSMHMFMKFYSAVLVGELYSYGTLLNAINLQVHDCEIIHGDIKPDNFILLIDLGQS"
+ },
+ {
+  "kinase_ID": 263,
+  "name": "BUBR1",
+  "HGNC": "BUB1B",
+  "family": "BUB",
+  "group": "Other",
+  "uniprot": "O60566",
+  "pocket": "IELGNEDYCIKRETVIKVSINLKLKERLN---DFDHFCSCYIVWHQYINCFTLQDLLQHMLHKAEIVHGDLSPRCLILIVDFSYS"
+ },
+ {
+  "kinase_ID": 265,
+  "name": "CaMKK2",
+  "HGNC": "CAMKK2",
+  "family": "CAMKK",
+  "group": "Other",
+  "uniprot": "Q96RR4",
+  "pocket": "DEIGKGSYGVVKLYAMKVLQVYQEIAILKKLDPNVVKLVEVYMVFELVNQGPVMEVPTLYLHYQKIIHRDIKPSNLLVIADFGVS"
+ },
+ {
+  "kinase_ID": 266,
+  "name": "CaMKK1",
+  "HGNC": "CAMKK1",
+  "family": "CAMKK",
+  "group": "Other",
+  "uniprot": "Q8N5S9",
+  "pocket": "DAYLQGAYGVVRLYAMKVLRVYQEIAILKKLDVNVVKLIEVLYLFDLLRKGPVMEVPCDYLHCQKIVHRDIKPSNLLLIADFGVS"
+ },
+ {
+  "kinase_ID": 267,
+  "name": "CDC7",
+  "HGNC": "CDC7",
+  "family": "CDC7",
+  "group": "Other",
+  "uniprot": "O00311",
+  "pocket": "DKIGEGTFSSVYLIALKHLRIAAELQCLTVAGDNVMGVKYCVIAMPYLE-HESFLD--IRIHQFGIVHRDVKPSNFLYLVDFGLA"
+ },
+ {
+  "kinase_ID": 269,
+  "name": "IKKa",
+  "HGNC": "CHUK",
+  "family": "IKK",
+  "group": "Other",
+  "uniprot": "O15111",
+  "pocket": "ERLGTGGFGNVCLIAIKSCRWCHEIQIMKKLNANVVKACDVLLAMEYCSGGDLRKLLNKYLHENKIIHRDLKPENIVLIIDLGYA"
+ },
+ {
+  "kinase_ID": 277,
+  "name": "AAK1",
+  "HGNC": "AAK1",
+  "family": "NAK",
+  "group": "Other",
+  "uniprot": "Q2M2I8",
+  "pocket": "EVLAEGGFAIVFLCALKRMVCKREIQIMRDLSKNIVGYIDSLILMDFCRGGQVVNLMNQHQCKTPIIHRDLKVENILLLCDFGSA"
+ },
+ {
+  "kinase_ID": 278,
+  "name": "BIKE",
+  "HGNC": "BMP2K",
+  "family": "NAK",
+  "group": "Other",
+  "uniprot": "Q9NSY1",
+  "pocket": "ESLAEGGFSTVFLCALKRMVCKREITIMKELSKNIVGYLDCLILMEYCRAGQVVNQMNKHQCKTPIIHRDLKVENILLLCDFGSA"
+ },
+ {
+  "kinase_ID": 392,
+  "name": "ABL1",
+  "HGNC": "ABL1",
+  "family": "Abl",
+  "group": "TK",
+  "uniprot": "P00519",
+  "pocket": "HKLGGGQYGEVYEVAVKTLEFLKEAAVMKEIKPNLVQLLGVYIITEFMTYGNLLDYLREYLEKKNFIHRDLAARNCLVVADFGLS"
+ },
+ {
+  "kinase_ID": 393,
+  "name": "ABL2",
+  "HGNC": "ABL2",
+  "family": "Abl",
+  "group": "TK",
+  "uniprot": "P42684",
+  "pocket": "HKLGGGQYGEVYVVAVKTLEFLKEAAVMKEIKPNLVQLLGVYIVTEYMPYGNLLDYLREYLEKKNFIHRDLAARNCLVVADFGLS"
+ },
+ {
+  "kinase_ID": 396,
+  "name": "ALK",
+  "HGNC": "ALK",
+  "family": "ALK",
+  "group": "TK",
+  "uniprot": "Q9UM73",
+  "pocket": "RGLGHGAFGEVYEVAVKTLDFLMEALIISKFNQNIVRCIGVFILLELMAGGDLKSFLREYLEENHFIHRDIAARNCLLIGDFGMA"
+ },
+ {
+  "kinase_ID": 398,
+  "name": "AXL",
+  "HGNC": "AXL",
+  "family": "Axl",
+  "group": "TK",
+  "uniprot": "P30530",
+  "pocket": "KTLGEGEFGAVMEVAVKTMDFLSEAVCMKEFDPNVMRLIGVVVILPFMKHGDLHSFLLYYLSTKRFIHRDLAARNCMLVADFGLS"
+ },
+ {
+  "kinase_ID": 443,
+  "name": "LMR1",
+  "HGNC": "AATK",
+  "family": "Lmr",
+  "group": "TK",
+  "uniprot": "Q6ZMQ8",
+  "pocket": "KEIGRGWFGKVFLVVVKELQFLEEVQPYRALKSNLLQCLAQLLVMEFCPLGDLKGYLRSHLHRNNFVHSDLALRNCLLIGDYGLA"
+ },
+ {
+  "kinase_ID": 464,
+  "name": "BLK",
+  "HGNC": "BLK",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P51451",
+  "pocket": "RKLGSGQFGEVWMVAIKTLAFLGEANVMKALQERLVRLYAVYIVTEYMARGCLLDFLKTYIERMNSIHRDLRAANILVIADFGLA"
+ },
+ {
+  "kinase_ID": 472,
+  "name": "BMX",
+  "HGNC": "BMX",
+  "family": "Tec",
+  "group": "TK",
+  "uniprot": "P51813",
+  "pocket": "KELGSGQFGVVQLVAVKMIEFFQEAQTMMKLSPKLVKFYGVYIVTEYISNGCLLNYLRSFLESHQFIHRDLAARNCLVVSDFGMT"
+ },
+ {
+  "kinase_ID": 473,
+  "name": "BTK",
+  "HGNC": "BTK",
+  "family": "Tec",
+  "group": "TK",
+  "uniprot": "Q06187",
+  "pocket": "KELGTGQFGVVKYVAIKMIEFIEEAKVMMNLSEKLVQLYGVFIITEYMANGCLLNYLREYLESKQFLHRDLAARNCLVVSDFGLS"
+ },
+ {
+  "kinase_ID": 508,
+  "name": "ARAF",
+  "HGNC": "ARAF",
+  "family": "RAF",
+  "group": "TKL",
+  "uniprot": "P10398",
+  "pocket": "KRIGTGSFGTVFRVAVKVLAFKNEMQVLRKTRVNILLFMGFAIITQWCEGSSLYHHLHVYLHAKNIIHRDLKSNNIFLIGDFGLA"
+ },
+ {
+  "kinase_ID": 509,
+  "name": "BRAF",
+  "HGNC": "BRAF",
+  "family": "RAF",
+  "group": "TKL",
+  "uniprot": "P15056",
+  "pocket": "QRIGSGSFGTVYKVAVKMLAFKNEVGVLRKTRVNILLFMGYAIVTQWCEGSSLYHHLHIYLHAKSIIHRDLKSNNIFLIGDFGLA"
+ },
+ {
+  "kinase_ID": 515,
+  "name": "SgK288",
+  "HGNC": "ANKK1",
+  "family": "RIPK",
+  "group": "TKL",
+  "uniprot": "Q8NFD2",
+  "pocket": "RLVASGGFSQVFQYAIKCAYLIEEAAKMKKIKQHIVSIYGVGIVMEFMANGSLEKVLSTHSIKPPLLHLDLKPGNILLISDFGLS"
+ },
+ {
+  "kinase_ID": 516,
+  "name": "ALK2",
+  "HGNC": "ACVR1",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "Q04771",
+  "pocket": "ECVGKGRYGEVWRVAVKIFSWFRETELYNTVMENILGFIASWLITHYHEMGSLYDYLQLTQGKPAIAHRDLKSKNILVIADLGLA"
+ },
+ {
+  "kinase_ID": 517,
+  "name": "ALK4",
+  "HGNC": "ACVR1B",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "P36896",
+  "pocket": "EIIGKGRFGEVWRVAVKIFSWFREAEIYQTVMENILGFIAAWLVSDYHEHGSLFDYLNRTQGKPGIAHRDLKSKNILVIADLGLA"
+ },
+ {
+  "kinase_ID": 518,
+  "name": "ALK1",
+  "HGNC": "ACVRL1",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "P37023",
+  "pocket": "ECVGKGRYGEVWRVAVKIFSWFRETEIYNTVLDNILGFIASWLITHYHEHGSLYDFLQRTQGKPAIAHRDFKSRNVLVIADLGLA"
+ },
+ {
+  "kinase_ID": 519,
+  "name": "BMPR1A",
+  "HGNC": "BMPR1A",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "P36894",
+  "pocket": "RQVGKGRYGEVWMVAVKVFSWFRETEIYQTVLENILGFIAAYLITDYHENGSLYDFLKCTQGKPAIAHRDLKSKNILIIADLGLA"
+ },
+ {
+  "kinase_ID": 520,
+  "name": "BMPR1B",
+  "HGNC": "BMPR1B",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "O00238",
+  "pocket": "KQIGKGRYGEVWMVAVKVFSWFRETEIYQTVLENILGFIAAYLITDYHENGSLYDYLKSTQGKPAIAHRDLKSKNILVIADLGLA"
+ },
+ {
+  "kinase_ID": 522,
+  "name": "ALK7",
+  "HGNC": "ACVR1C",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "Q8NER5",
+  "pocket": "EIVGKGRFGEVWHVAVKIFSWFREAEIYQTVMENILGFIAAWLVSEYHEQGSLYDYLNRTQGKPAIAHRDIKSKNILVIADLGLA"
+ },
+ {
+  "kinase_ID": 523,
+  "name": "ACTR2",
+  "HGNC": "ACVR2A",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "P27037",
+  "pocket": "EVKARGRFGCVWKVAVKIFSWQNEYEVYSLPGENILQFIGAWLITAFHEKGSLSDFLKADGHKPAISHRDIKSKNVLLIADFGLA"
+ },
+ {
+  "kinase_ID": 524,
+  "name": "ACTR2B",
+  "HGNC": "ACVR2B",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "Q13705",
+  "pocket": "EIKARGRFGCVWKVAVKIFSWQSEREIFSTPGENLLQFIAAWLITAFHDKGSLTDYLKGEGHKPSIAHRDFKSKNVLLLADFGLA"
+ },
+ {
+  "kinase_ID": 525,
+  "name": "MISR2",
+  "HGNC": "AMHR2",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "Q16671",
+  "pocket": "QVIREGGHAVVWAVAIKAFQFQAERALYELPGDHIVRFITALLVLELHPKGSLCHYLTQGQYKPGIAHRDLSSQNVLIIGDLGLA"
+ },
+ {
+  "kinase_ID": 526,
+  "name": "BMPR2",
+  "HGNC": "BMPR2",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "Q13873",
+  "pocket": "ELIGRGRYGAVYKVAVKVFNFINEKNIYRVPLDNIARFIVGLLVMEYYPNGSLCKYLSLDHYKPAISHRDLNSRNVLVISDFGLS"
+ },
+ {
+  "kinase_ID": 1103,
+  "name": "CDK11a",
+  "HGNC": "CDK11A",
+  "family": "CDK",
+  "group": "CMGC",
+  "uniprot": "Q9UQ88",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 5,
+  "name": "DMPK1",
+  "HGNC": "DMPK",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "Q09013",
+  "pocket": "KVIGRGAFSEVAVYAMKIMCFREERDVLVNGDRWITQLHFAYLVMEYYVGGDLLTLLSKSVHRLGYVHRDIKPDNILLLADFGSC"
+ },
+ {
+  "kinase_ID": 11,
+  "name": "BARK1",
+  "HGNC": "GRK2",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "P25098",
+  "pocket": "RIIGRGGFGEVYGYAMKCLLALNERIMLSLVSPFIVCMSYASFILDLMNGGDLHYHLSQHMHNRFVVYRDLKPANILLISDLGLA"
+ },
+ {
+  "kinase_ID": 12,
+  "name": "BARK2",
+  "HGNC": "GRK3",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "P35626",
+  "pocket": "RIIGRGGFGEVYGYAMKCLLALNERIMLSLVSPFIVCMTYACFILDLMNGGDLHYHLSQHMHNRFVVYRDLKPANILLISDLGLA"
+ },
+ {
+  "kinase_ID": 13,
+  "name": "GPRK4",
+  "HGNC": "GRK4",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "P32298",
+  "pocket": "RVLGKGGFGEVCAYACKKLMALNEKRILEKVQRFVVSLAYACLVLTIMNGGDLKFHIYNDLQRERIVYRDLKPENILLISDLGLA"
+ },
+ {
+  "kinase_ID": 14,
+  "name": "GPRK5",
+  "HGNC": "GRK5",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "P34947",
+  "pocket": "RVLGKGGFGEVCAYACKRLMALNEKQILEKVNQFVVNLAYACLVLTIMNGGDLKFHIYNDLHRENTVYRDLKPENILLISDLGLA"
+ },
+ {
+  "kinase_ID": 15,
+  "name": "GPRK6",
+  "HGNC": "GRK6",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "P43250",
+  "pocket": "RVLGKGGFGEVCAYACKKLMALNEKQILEKVNRFVVSLAYACLVLTLMNGGDLKFHIYHDLHRERIVYRDLKPENILLISDLGLA"
+ },
+ {
+  "kinase_ID": 16,
+  "name": "RHOK",
+  "HGNC": "GRK1",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "Q15835",
+  "pocket": "RVLGKGGFGEVSAYACKKLGAMVEKKILMKVHRFIVSLAYACLVMTIMNGGDIRYHIYNHLHQRRIVYRDLKPENVLLISDLGLA"
+ },
+ {
+  "kinase_ID": 17,
+  "name": "GPRK7",
+  "HGNC": "GRK7",
+  "family": "GRK",
+  "group": "AGC",
+  "uniprot": "Q8WTQ7",
+  "pocket": "RVLGKGGFGEVCAYACKKLMALLEKEILEKVSPFIVSLAYACLVMSLMNGGDLKFHIYNHLHELGIVYRDMKPENVLLLSDLGLA"
+ },
+ {
+  "kinase_ID": 80,
+  "name": "eEF2K",
+  "HGNC": "EEF2K",
+  "family": "Alpha",
+  "group": "Atypical",
+  "uniprot": "O00418",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 86,
+  "name": "FASTK",
+  "HGNC": "FASTK",
+  "family": "FAST",
+  "group": "Atypical",
+  "uniprot": "Q14296",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 88,
+  "name": "H11",
+  "HGNC": "HSPB8",
+  "family": "H11",
+  "group": "Atypical",
+  "uniprot": "Q9UJY1",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 122,
+  "name": "HUNK",
+  "HGNC": "HUNK",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "P57058",
+  "pocket": "RKLGEGSFAKVREVAIKVINLRREGQIQQMIRPNITQLLDIYLVMELCPGGNLMHKIYEHLHRAGVVHRDLKIENLLLLIDFGLS"
+ },
+ {
+  "kinase_ID": 140,
+  "name": "DAPK1",
+  "HGNC": "DAPK1",
+  "family": "DAPK",
+  "group": "CAMK",
+  "uniprot": "P53355",
+  "pocket": "EELGSGQFAVVKKYAAKFIDIEREVSILKEIQPNVITLHEVILILELVAGGELFDFLAEYLHSLQIAHFDLKPENIMLIIDFGLA"
+ },
+ {
+  "kinase_ID": 141,
+  "name": "DAPK3",
+  "HGNC": "DAPK3",
+  "family": "DAPK",
+  "group": "CAMK",
+  "uniprot": "O43293",
+  "pocket": "EELGSGQFAIVRKYAAKFIEIEREVNILREIRPNIITLHDIVLILELVSGGELFDFLAEYLHSKRIAHFDLKPENIMLLIDFGIA"
+ },
+ {
+  "kinase_ID": 142,
+  "name": "DAPK2",
+  "HGNC": "DAPK2",
+  "family": "DAPK",
+  "group": "CAMK",
+  "uniprot": "Q9UIK4",
+  "pocket": "EELGSGQFAIVKKYAAKFIEIEREVSILRQVLHNVITLHDVVLILELVSGGELFDFLAQYLHTKKIAHFDLKPENIMLLIDFGLA"
+ },
+ {
+  "kinase_ID": 145,
+  "name": "DCLK1",
+  "HGNC": "DCLK1",
+  "family": "DCAMKL",
+  "group": "CAMK",
+  "uniprot": "O15075",
+  "pocket": "RTIGDGNFAVVKEYALKIIMIQNEVSILRRVKPNIVLLIEEYLVMELVKGGDLFDAITSYLHSLNIVHRDIKPENLLVLGDFGLA"
+ },
+ {
+  "kinase_ID": 146,
+  "name": "DCLK3",
+  "HGNC": "DCLK3",
+  "family": "DCAMKL",
+  "group": "CAMK",
+  "uniprot": "Q9C098",
+  "pocket": "RVIGDGNFAVVKEYAMKIIMVDSEILIIQSLSPNIVKLHEVYLILEYVQGGDLFDAIIEHMHDKSIVHRDLKPENLLVLADFGLA"
+ },
+ {
+  "kinase_ID": 147,
+  "name": "DCLK2",
+  "HGNC": "DCLK2",
+  "family": "DCAMKL",
+  "group": "CAMK",
+  "uniprot": "Q8N568",
+  "pocket": "KVIGDGNFAVVKEFALKIILIENEVSILRRVKPNIIMLVEEFLVMELVKGGDLFDAITSYLHGLSIVHRDIKPENLLVLGDFGLA"
+ },
+ {
+  "kinase_ID": 184,
+  "name": "CK1a",
+  "HGNC": "CSNK1A1",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "P48729",
+  "pocket": "RKIGSGSFGDIYLVAVKLEQLLYESKLYKILQVGIPHIRWYVLVMDLLG-PSLEDLFNFYVHTKNFIHRDIKPDNFLMLIDFGLA"
+ },
+ {
+  "kinase_ID": 185,
+  "name": "CK1a2",
+  "HGNC": "CSNK1A1L",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "Q8N752",
+  "pocket": "RKIGSGSFGDVYLVAVKLEQLLYESKLYTILQVGIPHMHWYVLVMDLLG-PSLEDLFNFYVHTKNFLHRDIKPDNFLMLIDFGLA"
+ },
+ {
+  "kinase_ID": 186,
+  "name": "CK1d",
+  "HGNC": "CSNK1D",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "P48730",
+  "pocket": "RKIGSGSFGDIYLVAIKLEQLHIESKIYKMMQVGIPTIRWCVMVMELLG-PSLEDLFNFYIHSKNFIHRDVKPDNFLMIIDFGLA"
+ },
+ {
+  "kinase_ID": 187,
+  "name": "CK1e",
+  "HGNC": "CSNK1E",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "P49674",
+  "pocket": "RKIGSGSFGDIYLVAIKLEQLHIESKFYKMMQVGIPSIKWCVMVMELLG-PSLEDLFNFYIHSKNFIHRDVKPDNFLMIIDFGLA"
+ },
+ {
+  "kinase_ID": 188,
+  "name": "CK1g2",
+  "HGNC": "CSNK1G2",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "P78368",
+  "pocket": "KKIGCGNFGELRLVAIKLEQLHLEYRFYKQLSEGVPQVYYFAMVLELLG-PSLEDLFDLYVHTKSLIYRDVKPENFLVIIDFGLA"
+ },
+ {
+  "kinase_ID": 189,
+  "name": "CK1g3",
+  "HGNC": "CSNK1G3",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "Q9Y6M4",
+  "pocket": "KKIGCGNFGELRLVAIKLEQLHLEYRFYKQLGDGIPQVYYFAMVLELLG-PSLEDLFDLYVHSKNLIYRDVKPENFLIIIDFGLA"
+ },
+ {
+  "kinase_ID": 190,
+  "name": "CK1g1",
+  "HGNC": "CSNK1G1",
+  "family": "CK1",
+  "group": "CK1",
+  "uniprot": "Q9HCP0",
+  "pocket": "KKIGCGNFGELRLVAIKLEQLHLEYRFYKQLGEGLPQVYYFAMVLELLG-PSLEDLFDLYVHSKNLIYRDVKPENFLIIIDFGLA"
+ },
+ {
+  "kinase_ID": 221,
+  "name": "CK2a1",
+  "HGNC": "CSNK2A1",
+  "family": "CK2",
+  "group": "CMGC",
+  "uniprot": "P68400",
+  "pocket": "RKLGRGKYSEVFEVVVKILKIKREIKILENLRPNIITLADIALVFEHVN-NTDFKQ--LYCHSMGIMHRDVKPHNVMILIDWGLA"
+ },
+ {
+  "kinase_ID": 222,
+  "name": "CK2a2",
+  "HGNC": "CSNK2A2",
+  "family": "CK2",
+  "group": "CMGC",
+  "uniprot": "P19784",
+  "pocket": "RKLGRGKYSEVFEVVVKILKIKREVKILENLRTNIIKLIDTALVFEYIN-NTDFKQLYQYCHSKGIMHRDVKPHNVMILIDWGLA"
+ },
+ {
+  "kinase_ID": 227,
+  "name": "DYRK1A",
+  "HGNC": "DYRK1A",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q13627",
+  "pocket": "SLIGKGSFGQVVKVAIKIIQAQIEVRLLELMNYYIVHLKRHCLVFEMLS-YNLYDLLRNATPELSIIHCDLKPENILLIVDFGSS"
+ },
+ {
+  "kinase_ID": 228,
+  "name": "DYRK1B",
+  "HGNC": "DYRK1B",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q9Y463",
+  "pocket": "SLIGKGSFGQVVKVAIKIIQAQIELRLLELMNYYIVHLKRHCLVFELLS-YNLYDLLRNATPELSIIHCDLKPENILLIVDFGSS"
+ },
+ {
+  "kinase_ID": 229,
+  "name": "DYRK3",
+  "HGNC": "DYRK3",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "O43781",
+  "pocket": "KIIGKGSFGQVARVALKMVQAAEEIRILEHLKMNVIHMLESCMAFELLS-IDLYELIKKALHKNKIIHCDLKPENILLVIDFGSS"
+ },
+ {
+  "kinase_ID": 230,
+  "name": "DYRK2",
+  "HGNC": "DYRK2",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q92630",
+  "pocket": "KVIGKGSFGQVVKVALKMVQAAEEIRILEHLRMNVIHMLENCMTFELLS-MNLYELIKKALHKNRIIHCDLKPENILLVIDFGSS"
+ },
+ {
+  "kinase_ID": 231,
+  "name": "DYRK4",
+  "HGNC": "DYRK4",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q9NR20",
+  "pocket": "ETIGKGSFGQVAKVALKIIQALMELKILEALRYNVVHMKDFCITFELLG-INLYELMKNMLSVEKIIHCDLKPENIVLVIDFGSS"
+ },
+ {
+  "kinase_ID": 232,
+  "name": "HIPK3",
+  "HGNC": "HIPK3",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q9H422",
+  "pocket": "DFLGRGTFGQVVKVAIKILQGQIEVSILARLSYNFVRAYECCLVFEMLE-QNLYDFLKQKLKSLGLIHADLKPENIMLVIDFGSA"
+ },
+ {
+  "kinase_ID": 233,
+  "name": "HIPK2",
+  "HGNC": "HIPK2",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q9H2X6",
+  "pocket": "EFLGRGTFGQVVKVAIKILQGQIEVSILARLSYNFVRAYECCLVFEMLE-QNLYDFLKQKLKSLGLIHADLKPENIMLVIDFGSA"
+ },
+ {
+  "kinase_ID": 234,
+  "name": "HIPK4",
+  "HGNC": "HIPK4",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q8NE63",
+  "pocket": "EVLGKGTFGEVAKVAIKILIIKNELKLLHCMRPEEAHVIRFYLVFELLE-QNLFEFQKERLKELAIIHADLKPENIMLVIDFGSA"
+ },
+ {
+  "kinase_ID": 235,
+  "name": "HIPK1",
+  "HGNC": "HIPK1",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q86Z02",
+  "pocket": "EFLGRGTFGQVAKVAIKILQGQIEVSILSRLSYNFVRSYECCLVFEMLE-QNLYDFLKQKLKSLGLIHADLKPENIMLVIDFGSA"
+ },
+ {
+  "kinase_ID": 237,
+  "name": "GSK3A",
+  "HGNC": "GSK3A",
+  "family": "GSK",
+  "group": "CMGC",
+  "uniprot": "P49840",
+  "pocket": "KVIGNGSFGVVYQVAIKKVFKNRELQIMRKLDCNIVRLRYFNLVLEYVP-ETVYRVARHYIHSQGVCHRDIKPQNLLVLCDFGSA"
+ },
+ {
+  "kinase_ID": 238,
+  "name": "GSK3B",
+  "HGNC": "GSK3B",
+  "family": "GSK",
+  "group": "CMGC",
+  "uniprot": "P49841",
+  "pocket": "KVIGNGSFGVVYQVAIKKVFKNRELQIMRKLDCNIVRLRYFNLVLDYVP-ETVYRVARHYIHSFGICHRDIKPQNLLLLCDFGSA"
+ },
+ {
+  "kinase_ID": 255,
+  "name": "ICK",
+  "HGNC": "ICK",
+  "family": "RCK",
+  "group": "CMGC",
+  "uniprot": "Q9UPZ9",
+  "pocket": "RQLGDGTYGSVLLIAIKKMMNLREVKSLKKLNANVVKLKEVYFIFEYMK-ENLYQLIKEFIHKHGFFHRDLKPENLLCIADFGLA"
+ },
+ {
+  "kinase_ID": 268,
+  "name": "Haspin",
+  "HGNC": "HASPIN",
+  "family": "Haspin",
+  "group": "Other",
+  "uniprot": "Q8TF76",
+  "pocket": "EKIGEGVFGEVFQVAIKIIEILPEIIISKELSEGFIGLNSVVLEFEFGG-IDLEQMRTKAEASLRFEHRDLHWGNVLLIIDYTLS"
+ },
+ {
+  "kinase_ID": 270,
+  "name": "IKKb",
+  "HGNC": "IKBKB",
+  "family": "IKK",
+  "group": "Other",
+  "uniprot": "O14920",
+  "pocket": "ERLGTGGFGNVIRIAIKQCRWCLEIQIMRRLTPNVVAARDVLLAMEYCQGGDLRKYLNQYLHENRIIHRDLKPENIVLIIDLGYA"
+ },
+ {
+  "kinase_ID": 271,
+  "name": "IKKe",
+  "HGNC": "IKBKE",
+  "family": "IKK",
+  "group": "Other",
+  "uniprot": "Q14164",
+  "pocket": "DLLGQGATASVYKVAVKVFVQVREFEVLRKLNQNIVKLFAVVLVMEYCSSGSLLSVLESHLRENGIVHRDIKPGNIMRLTDFGAA"
+ },
+ {
+  "kinase_ID": 273,
+  "name": "IRE1",
+  "HGNC": "ERN1",
+  "family": "IRE",
+  "group": "Other",
+  "uniprot": "O75460",
+  "pocket": "DVLGHGAEGTIVYVAVKRIFADREVQLLRESDPNVIRYFCTYIAIELCAA-TLQEYVEQHLHSLNIVHRDLKPHNILIISDFGLC"
+ },
+ {
+  "kinase_ID": 274,
+  "name": "IRE2",
+  "HGNC": "ERN2",
+  "family": "IRE",
+  "group": "Other",
+  "uniprot": "Q76MJ5",
+  "pocket": "DVLGRGAGGTFVFVAVKRLLVRREVQLLQESDPNVLRYFCTYIALELCRA-SLQEYVENHLHSLHIVHRDLKPGNILILSDFGLC"
+ },
+ {
+  "kinase_ID": 279,
+  "name": "GAK",
+  "HGNC": "GAK",
+  "family": "NAK",
+  "group": "Other",
+  "uniprot": "O14976",
+  "pocket": "RVLAEGGFAFVYEYALKRLAIIQEVCFMKKLSPNIVQFCSALLLTELCK-GQLVEFLKKHRQKPPIIHRDLKVENLLLLCDFGSA"
+ },
+ {
+  "kinase_ID": 306,
+  "name": "GCN2",
+  "HGNC": "EIF2AK4",
+  "family": "PEK",
+  "group": "Other",
+  "uniprot": "Q9P2K8",
+  "pocket": "QLLGKGAFGAVIKYAVKRIRIKGEVTLLSRLHENIVRYYNALDSVEAAAPPPILSSSVEYIHEKGMIHRDLKPVNIFLIGDFGLA"
+ },
+ {
+  "kinase_ID": 307,
+  "name": "GCN2-b",
+  "HGNC": "EIF2AK4-b",
+  "family": "STE-Unique",
+  "group": "STE",
+  "uniprot": "Q9P2K8",
+  "pocket": "KCIGSDEQLGKLVVLLYEWGTETEFNSLVKLSPNVVRYLAMDILVEHISGVSLAAHLSHYLHSNSVVHKVLSASNVLVITDYSIS"
+ },
+ {
+  "kinase_ID": 308,
+  "name": "HRI",
+  "HGNC": "EIF2AK1",
+  "family": "PEK",
+  "group": "Other",
+  "uniprot": "Q9BQI3",
+  "pocket": "AILGKGGYGRVYKYAIKKIKVLREVKVLAGLQPNIVGYHTALSDQEEDREQCGVKNDESYIHNMGIVHRDLKPRNIFLIGDFGLA"
+ },
+ {
+  "kinase_ID": 309,
+  "name": "PEK",
+  "HGNC": "EIF2AK3",
+  "family": "PEK",
+  "group": "Other",
+  "uniprot": "Q9NZJ5",
+  "pocket": "QCLGRGGFGVVFEYAIKRIKVMREVKALAKLEPGIVRYFNAYIQMQLCRKENLKDWMNGFLHSKGLMHRDLKPSNIFFVGDFGLV"
+ },
+ {
+  "kinase_ID": 310,
+  "name": "PKR",
+  "HGNC": "EIF2AK2",
+  "family": "PEK",
+  "group": "Other",
+  "uniprot": "P19525",
+  "pocket": "ELIGSGGFGQVFKYVIKRVKAEREVKALAKLDVNIVHYNGCFIQMEFCDKGTLEQWIEKYIHSKKLIHRDLKPSNIFLIGDFGLV"
+ },
+ {
+  "kinase_ID": 320,
+  "name": "SgK496",
+  "HGNC": "DSTYK",
+  "family": "SgK496",
+  "group": "Other",
+  "uniprot": "Q6XUX3",
+  "pocket": "QELGRGQYGVVYLCALKSVDLALEFHYMRSLPERLVDLHGSLLIMERLH-RDLYTGLKAFLHSQGLVHRDIKLKNVLLITDLGFC"
+ },
+ {
+  "kinase_ID": 340,
+  "name": "HSER",
+  "HGNC": "GUCY2C",
+  "family": "RGC",
+  "group": "RGC",
+  "uniprot": "P25092",
+  "pocket": "DDKRRDTIQRLRQVILKDLKQKIELNKLLQIDYNLTKFYGTFGVIEYCERGSLREVLNDLHSSKTEVHGRLKSTNCVVITDFGCN"
+ },
+ {
+  "kinase_ID": 341,
+  "name": "CYGF",
+  "HGNC": "GUCY2F",
+  "family": "RGC",
+  "group": "RGC",
+  "uniprot": "P51841",
+  "pocket": "SEVQSGRSPRLSFVWLKKFRASDVFEMMKDLRENINPLLGFAIVTEFCSRGSLEDILTNYLHHREFVHGRLKSRNCVVVTDYGFN"
+ },
+ {
+  "kinase_ID": 342,
+  "name": "CYGD",
+  "HGNC": "GUCY2D",
+  "family": "RGC",
+  "group": "RGC",
+  "uniprot": "Q02846",
+  "pocket": "SDIRSGPSQHLDSVWLKKFATKTAFSKLQELRENVALYLGLAVVSEHCTRGSLQDLLAQYLHHRGVAHGRLKSRNCIVITDHGHG"
+ },
+ {
+  "kinase_ID": 355,
+  "name": "GCK",
+  "HGNC": "GCK",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "P35557",
+  "pocket": "QRVGAGTYGDVYKAAVKIVSLQQEITILRECRPNVVAYIGSWICMEFCGGGSLQEIYHAHLHSQGKIHRDIKGANLLLLADFGVS"
+ },
+ {
+  "kinase_ID": 402,
+  "name": "CSK",
+  "HGNC": "CSK",
+  "family": "Csk",
+  "group": "TK",
+  "uniprot": "P41240",
+  "pocket": "QTIGKGEFGDVMLVAVKCIAFLAEASVMTQLRSNLVQLLGVYIVTEYMAKGSLVDYLRSYLEGNNFVHRDLAARNVLVVSDFGLT"
+ },
+ {
+  "kinase_ID": 404,
+  "name": "DDR1",
+  "HGNC": "DDR1",
+  "family": "DDR",
+  "group": "TK",
+  "uniprot": "Q08345",
+  "pocket": "EKLGEGQFGEVHLVAVKILDFLKEVKIMSRLKPNIIRLLGVCMITDYMENGDLNQFLSAYLATLNFVHRDLATRNCLVIADFGMS"
+ },
+ {
+  "kinase_ID": 405,
+  "name": "DDR2",
+  "HGNC": "DDR2",
+  "family": "DDR",
+  "group": "TK",
+  "uniprot": "Q16832",
+  "pocket": "EKLGEGQFGEVHLVAVKMLDFLKEIKIMSRLKPNIIHLLAVCMITEYMENGDLNQFLSRYLSSLNFVHRDLATRNCLVIADFGMS"
+ },
+ {
+  "kinase_ID": 406,
+  "name": "EGFR",
+  "HGNC": "EGFR",
+  "family": "EGFR",
+  "group": "TK",
+  "uniprot": "P00533",
+  "pocket": "KVLGSGAFGTVYKVAIKELEILDEAYVMASVDPHVCRLLGIQLITQLMPFGCLLDYVREYLEDRRLVHRDLAARNVLVITDFGLA"
+ },
+ {
+  "kinase_ID": 407,
+  "name": "ErbB2",
+  "HGNC": "ERBB2",
+  "family": "EGFR",
+  "group": "TK",
+  "uniprot": "P04626",
+  "pocket": "KVLGSGAFGTVYKVAIKVLEILDEAYVMAGVGPYVSRLLGIQLVTQLMPYGCLLDHVREYLEDVRLVHRDLAARNVLVITDFGLA"
+ },
+ {
+  "kinase_ID": 408,
+  "name": "ErbB3",
+  "HGNC": "ERBB3",
+  "family": "EGFR",
+  "group": "TK",
+  "uniprot": "P21860",
+  "pocket": "KVLGSGVFGTVHKVCIKVIAVTDHMLAIGSLDAHIVRLLGLQLVTQYLPLGSLLDHVRQYLEEHGMVHRNLAARNVLLVADFGVA"
+ },
+ {
+  "kinase_ID": 409,
+  "name": "ErbB4",
+  "HGNC": "ERBB4",
+  "family": "EGFR",
+  "group": "TK",
+  "uniprot": "Q15303",
+  "pocket": "KVLGSGAFGTVYKVAIKILEFMDEALIMASMDPHLVRLLGVQLVTQLMPHGCLLEYVHEYLEERRLVHRDLAARNVLVITDFGLA"
+ },
+ {
+  "kinase_ID": 410,
+  "name": "EphA2",
+  "HGNC": "EPHA2",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P29317",
+  "pocket": "KVIGAGEFGEVYKVAIKTLDFLGEAGIMGQFSHNIIRLEGVMIITEYMENGALDKFLREYLANMNYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 411,
+  "name": "EphA1",
+  "HGNC": "EPHA1",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P21709",
+  "pocket": "TVIGEGEFGEVYRVAIKTLNFLREATIMGQFSPHILHLEGVMIITEFMENGALDAFLREYLSNHNYVHRDLAARNILVVSDFGLT"
+ },
+ {
+  "kinase_ID": 412,
+  "name": "EphA3",
+  "HGNC": "EPHA3",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P29320",
+  "pocket": "KVVGAGEFGEVCSVAIKTLDFLGEASIMGQFDPNIIRLEGVMIVTEYMENGSLDSFLRKYLSDMGYVHRDLAARNILIVSDFGLS"
+ },
+ {
+  "kinase_ID": 413,
+  "name": "EphA4",
+  "HGNC": "EPHA4",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P54764",
+  "pocket": "KVIGVGEFGEVCSVAIKTLDFLSEASIMGQFDPNIIHLEGVMIITEYMENGSLDAFLRKYLSDMSYVHRDLAARNILVVSDFGMS"
+ },
+ {
+  "kinase_ID": 414,
+  "name": "EphA5",
+  "HGNC": "EPHA5",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P54756",
+  "pocket": "RVIGAGEFGEVCSVAIKTLDFLGEASIMGQFDPNIIHLEGVMIVTEYMENGSLDTFLKKYLSDMGYVHRDLAARNILIVSDFGLS"
+ },
+ {
+  "kinase_ID": 415,
+  "name": "EphA7",
+  "HGNC": "EPHA7",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "Q15375",
+  "pocket": "RVIGAGEFGEVCSVAIKTLDFLCEASIMGQFDPNVVHLEGVMIVIEFMENGALDAFLRKYLADMGYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 416,
+  "name": "EphA8",
+  "HGNC": "EPHA8",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P29322",
+  "pocket": "KIIGSGDSGEVCYVAIKALDFLSEASIMGQFDPNIIRLEGVMIVTEYMENGSLDTFLRTYLSDLGYVHRDLAARNVLVVSDFGLS"
+ },
+ {
+  "kinase_ID": 417,
+  "name": "EphB1",
+  "HGNC": "EPHB1",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P54762",
+  "pocket": "EVIGAGEFGEVYKVAIKTLDFLSEASIMGQFDPNIIRLEGVMIITEFMENGALDSFLRQYLAEMNYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 418,
+  "name": "EphB2",
+  "HGNC": "EPHB2",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P29323",
+  "pocket": "QVIGAGEFGEVCSVAIKTLDFLSEASIMGQFDPNVIHLEGVMIITEFMENGSLDSFLRQYLADMNYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 419,
+  "name": "EphB3",
+  "HGNC": "EPHB3",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P54753",
+  "pocket": "EVIGAGEFGEVCRVAIKTLDFLSEASIMGQFDPNIIRLEGVMILTEFMENCALDSFLRLYLSEMNYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 420,
+  "name": "EphB4",
+  "HGNC": "EPHB4",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "P54760",
+  "pocket": "EVIGAGEFGEVCRVAIKTLEFLSEASIMGQFEPNIIRLEGVMILTEFMENGALDSFLRLYLAEMSYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 421,
+  "name": "EphB6",
+  "HGNC": "EPHB6",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "O15197",
+  "pocket": "EVIGTGSFGEVRQVAIQALTFLGRAAVLGQFQPNILRLEGVMVLTEFMELGPLDSFLRQYLSSFAFVHRSLSAHSVLVVARLGHS"
+ },
+ {
+  "kinase_ID": 422,
+  "name": "EphA10",
+  "HGNC": "EPHA10",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "Q5JZY3",
+  "pocket": "RSLGGGRFGELCCVAVHMLGFLAEALTLGQFDSHIVRLEGVMIVTEYMSHGALDGFLRRYLSEMGYVHRGLAARHVLVISGFGRG"
+ },
+ {
+  "kinase_ID": 423,
+  "name": "EphA6",
+  "HGNC": "EPHA6",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "Q9UF33",
+  "pocket": "RVIGAGEFGEVCSVAIKTLDFLREASIMGQFDPNIIRLEGVAIGVEAFCPSFLRAGFLNYLSDMGYVHRDLAARNILVVSDFGLS"
+ },
+ {
+  "kinase_ID": 426,
+  "name": "FER",
+  "HGNC": "FER",
+  "family": "Fer",
+  "group": "TK",
+  "uniprot": "P16591",
+  "pocket": "ELLGKGNFGEVYKVAVKTCKFLQEAKILKQYDPNIVKLIGVYIIMELVSGGDFLTFLRRYLESKNCIHRDLAARNCLVISDFGMS"
+ },
+ {
+  "kinase_ID": 427,
+  "name": "FES",
+  "HGNC": "FES",
+  "family": "Fer",
+  "group": "TK",
+  "uniprot": "P07332",
+  "pocket": "EQIGRGNFGEVFSVAVKSCKFLQEARILKQYSPNIVRLIGVYIVMELVQGGDFLTFLRTYLESKCCIHRDLAARNCLVISDFGMS"
+ },
+ {
+  "kinase_ID": 428,
+  "name": "FGFR1",
+  "HGNC": "FGFR1",
+  "family": "FGFR",
+  "group": "TK",
+  "uniprot": "P11362",
+  "pocket": "KPLGEGCFGQVVLVAVKMLDLISEMEMMKMIGKNIINLLGAYVIVEYASKGNLREYLQAYLASKKCIHRDLAARNVLVIADFGLA"
+ },
+ {
+  "kinase_ID": 429,
+  "name": "FGFR3",
+  "HGNC": "FGFR3",
+  "family": "FGFR",
+  "group": "TK",
+  "uniprot": "P22607",
+  "pocket": "KPLGEGCFGQVVMVAVKMLDLVSEMEMMKMIGKNIINLLGAYVLVEYAAKGNLREFLRAYLASQKCIHRDLAARNVLVIADFGLA"
+ },
+ {
+  "kinase_ID": 430,
+  "name": "FGFR2",
+  "HGNC": "FGFR2",
+  "family": "FGFR",
+  "group": "TK",
+  "uniprot": "P21802",
+  "pocket": "KPLGEGCFGQVVMVAVKMLDLVSEMEMMKMIGKNIINLLGAYVIVEYASKGNLREYLRAYLASQKCIHRDLAARNVLVIADFGLA"
+ },
+ {
+  "kinase_ID": 431,
+  "name": "FGFR4",
+  "HGNC": "FGFR4",
+  "family": "FGFR",
+  "group": "TK",
+  "uniprot": "P22455",
+  "pocket": "KPLGEGCFGQVVRVAVKMLDLVSEMEVMKLIGKNIINLLGVYVIVECAAKGNLREFLRAYLESRKCIHRDLAARNVLVIADFGLA"
+ },
+ {
+  "kinase_ID": 432,
+  "name": "IGF1R",
+  "HGNC": "IGF1R",
+  "family": "InsR",
+  "group": "TK",
+  "uniprot": "P08069",
+  "pocket": "RELGQGSFGMVYEVAIKTVEFLNEASVMKEFN-HVVRLLGVLVIMELMTRGDLKSYLRSYLNANKFVHRDLAARNCMVIGDFGMT"
+ },
+ {
+  "kinase_ID": 433,
+  "name": "INSR",
+  "HGNC": "INSR",
+  "family": "InsR",
+  "group": "TK",
+  "uniprot": "P06213",
+  "pocket": "RELGQGSFGMVYEVAVKTVEFLNEASVMKGFT-HVVRLLGVLVVMELMAHGDLKSYLRSYLNAKKFVHRDLAARNCMVIGDFGMT"
+ },
+ {
+  "kinase_ID": 434,
+  "name": "IRR",
+  "HGNC": "INSRR",
+  "family": "InsR",
+  "group": "TK",
+  "uniprot": "P14616",
+  "pocket": "RELGQGSFGMVYEVALKTVEFLKEASVMKAFK-HVVRLLGVLVIMELMTRGDLKSHLRSYLAANKFVHRDLAARNCMVIGDFGMT"
+ },
+ {
+  "kinase_ID": 449,
+  "name": "FMS",
+  "HGNC": "CSF1R",
+  "family": "PDGFR",
+  "group": "TK",
+  "uniprot": "P07333",
+  "pocket": "KTLGAGAFGKVVEVAVKMLALMSELKIMSHLGENIVNLLGALVITEYCCYGDLLNFLRRFLASKNCIHRDVAARNVLLIGDFGLA"
+ },
+ {
+  "kinase_ID": 450,
+  "name": "FLT3",
+  "HGNC": "FLT3",
+  "family": "PDGFR",
+  "group": "TK",
+  "uniprot": "P36888",
+  "pocket": "KVLGSGAFGKVMNVAVKMLALMSELKMMTQLGENIVNLLGAYLIFEYCCYGDLLNYLRSFLEFKSCVHRDLAARNVLVICDFGLA"
+ },
+ {
+  "kinase_ID": 459,
+  "name": "FRK",
+  "HGNC": "FRK",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P42685",
+  "pocket": "KRLGSGQFGEVWEVAVKTLDFLREAQIMKNLRPKLIQLYAVYIITELMRHGSLQEYLQNYLESRNYIHRDLAARNVLVVADFGLA"
+ },
+ {
+  "kinase_ID": 460,
+  "name": "FGR",
+  "HGNC": "FGR",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P09769",
+  "pocket": "RRLGTGCFGDVWLVAVKTLAFLEEAQVMKLLRDKLVQLYAVYIVTEFMCHGSLLDFLKNYMERMNYIHRDLRAANILVIADFGLA"
+ },
+ {
+  "kinase_ID": 461,
+  "name": "FYN",
+  "HGNC": "FYN",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P06241",
+  "pocket": "KRLGNGQFGEVWMVAIKTLSFLEEAQIMKKLKDKLVQLYAVYIVTEYMNKGSLLDFLKDYIERMNYIHRDLRSANILVIADFGLA"
+ },
+ {
+  "kinase_ID": 465,
+  "name": "HCK",
+  "HGNC": "HCK",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P08631",
+  "pocket": "KKLGAGQFGEVWMVAVKTMAFLAEANVMKTLQDKLVKLHAVYIITEFMAKGSLLDFLKSFIEQRNYIHRDLRAANILVIADFGLA"
+ },
+ {
+  "kinase_ID": 483,
+  "name": "FLT1",
+  "HGNC": "FLT1",
+  "family": "VEGFR",
+  "group": "TK",
+  "uniprot": "P17948",
+  "pocket": "KSLGRGAFGKVVQVAVKMLALMTELKILTHIGLNVVNLLGAMVIVEYCKYGNLSNYLKSFLSSRKCIHRDLAARNILLICDFGLA"
+ },
+ {
+  "kinase_ID": 484,
+  "name": "FLT4",
+  "HGNC": "FLT4",
+  "family": "VEGFR",
+  "group": "TK",
+  "uniprot": "P35916",
+  "pocket": "RVLGYGAFGKVVEVAVKMLALMSELKILIHIGLNVVNLLGAMVIVEFCKYGNLSNFLRAFLASRKCIHRDLAARNILLICDFGLA"
+ },
+ {
+  "kinase_ID": 486,
+  "name": "IRAK1",
+  "HGNC": "IRAK1",
+  "family": "IRAK",
+  "group": "TKL",
+  "uniprot": "P51617",
+  "pocket": "LKIGEGGFGCVYRYAVKRLSFLTEVEQLSRFRPNIVDFAGYCLVYGFLPNGSLEDRLHCHQDSPSLIHGDIKSSNVLLLGDFGLA"
+ },
+ {
+  "kinase_ID": 487,
+  "name": "IRAK2",
+  "HGNC": "IRAK2",
+  "family": "IRAK",
+  "group": "TKL",
+  "uniprot": "O43187",
+  "pocket": "RKISQGTFADVYRFVFKKLFFQAELQICLRCCPNVLPVLGFSFIYPYMANGSLQDRLQGYLHGLEIIHSNVKSSNVLLLAHPMAH"
+ },
+ {
+  "kinase_ID": 488,
+  "name": "IRAK3",
+  "HGNC": "IRAK3",
+  "family": "IRAK",
+  "group": "TKL",
+  "uniprot": "Q9Y616",
+  "pocket": "FLIGEGEIFEVYRYAVKLFRFLSELEVLLLFHPNILELAAYCLIYPYMRNGTLFDRLQCNVQPCSVICGSISSANILLLTDFAMA"
+ },
+ {
+  "kinase_ID": 489,
+  "name": "IRAK4",
+  "HGNC": "IRAK4",
+  "family": "IRAK",
+  "group": "TKL",
+  "uniprot": "Q9NWZ3",
+  "pocket": "NKMGEGGFGVVYKVAVKKLQFDQEIKVMAKCQENLVELLGFCLVYVYMPNGSLLDRLSCFLHENHHIHRDIKSANILLISDFGLA"
+ },
+ {
+  "kinase_ID": 497,
+  "name": "ILK",
+  "HGNC": "ILK",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q13418",
+  "pocket": "TKLNENHSGELWKIVVKVLDFNEECPRLRIFSPNVLPVLGATLITHWMPYGSLYNVLHEHTLEPLIPRHALNSRSVMIISMADVK"
+ },
+ {
+  "kinase_ID": 1104,
+  "name": "CSNK2A3",
+  "HGNC": "CSNK2A3",
+  "family": "CK2",
+  "group": "CMGC",
+  "uniprot": "Q8NEV1",
+  "pocket": "RKLGRGKYSEVFEVVVKILKIKREIKILENLRPNIITLADIALVFEHVN-NTDFKQ--LYCHSMGIMHRDVKPHNVMILIDWGLA"
+ },
+ {
+  "kinase_ID": 1110,
+  "name": "EFNA2",
+  "HGNC": "EFNA2",
+  "family": "Eph",
+  "group": "TK",
+  "uniprot": "O43921",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 18,
+  "name": "MAST1",
+  "HGNC": "MAST1",
+  "family": "MAST",
+  "group": "AGC",
+  "uniprot": "Q9Y2H9",
+  "pocket": "KLISNGAYGAVYLFAMKKIQAFVERDILTFAEPFVVGMFCSCMVMEYVEGGDCATLLKNYLHNYGIVHRDLKPDNLLILTDFGLS"
+ },
+ {
+  "kinase_ID": 19,
+  "name": "MAST3",
+  "HGNC": "MAST3",
+  "family": "MAST",
+  "group": "AGC",
+  "uniprot": "O60307",
+  "pocket": "KLISNGAYGAVYLFAIKKIQVFVERDILTFAEPFVVSMFCSCMVMEYVEGGDCATLLKNYLHNYGIVHRDLKPDNLLILTDFGLS"
+ },
+ {
+  "kinase_ID": 20,
+  "name": "MAST2",
+  "HGNC": "MAST2",
+  "family": "MAST",
+  "group": "AGC",
+  "uniprot": "Q6P0Q8",
+  "pocket": "KLISNGAYGAVFLFAMKKIQAFVERDILTFAEPFVVSMFCSCMVMEYVEGGDCATLLKNYLHNYGIVHRDLKPDNLLILTDFGLS"
+ },
+ {
+  "kinase_ID": 21,
+  "name": "MAST4",
+  "HGNC": "MAST4",
+  "family": "MAST",
+  "group": "AGC",
+  "uniprot": "O15021",
+  "pocket": "KLISNGAYGAVYFFAMKKIQAFVERDILTFAEPFVVSMYCSCMVMEYVEGGDCATLMKNYLHNYGIVHRDLKPDNLLVLTDFGLS"
+ },
+ {
+  "kinase_ID": 22,
+  "name": "MASTL",
+  "HGNC": "MASTL",
+  "family": "MAST",
+  "group": "AGC",
+  "uniprot": "Q96GX5",
+  "pocket": "KPISRGAFGKVYLYAVKVVQVQAERDALALSKPFIVHLYYSYLVMEYLIGGDVKSLLHIYLHRHGIIHRDLKPDNMLILTDFGLS"
+ },
+ {
+  "kinase_ID": 23,
+  "name": "LATS1",
+  "HGNC": "LATS1",
+  "family": "NDR",
+  "group": "AGC",
+  "uniprot": "O95835",
+  "pocket": "KTLGIGAFGEVCLYATKTLHVKAERDILAEADEWVVRLYYSYFVMDYIPGGDMMSLLIRSVHKMGFIHRDIKPDNILILTDFGLC"
+ },
+ {
+  "kinase_ID": 26,
+  "name": "LATS2",
+  "HGNC": "LATS2",
+  "family": "NDR",
+  "group": "AGC",
+  "uniprot": "Q9NRM7",
+  "pocket": "KTLGIGAFGEVCLYAMKTLHVKAERDILAEADEWVVKLYYSYFVMDYIPGGDMMSLLIRSVHKMGFIHRDIKPDNILILTDFGLC"
+ },
+ {
+  "kinase_ID": 97,
+  "name": "FRAP",
+  "HGNC": "MTOR",
+  "family": "PIKK",
+  "group": "Atypical",
+  "uniprot": "P42345",
+  "pocket": "LQVITSKQRPRKLFLLKGHDLRQDERVMQLFGLSIQRYAVISGLIGWVPCDTLHALIRDVGYI--LGLGDRHPSNLMLHIDFGDC"
+ },
+ {
+  "kinase_ID": 124,
+  "name": "MARK2",
+  "HGNC": "MARK2",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q7KZI7",
+  "pocket": "KTIGKGNFAKVKLVAVKIIKLFREVRIMKVLNPNIVKLFEVYLVMEYASGGEVFDYLVAYCHQKFIVHRDLKAENLLLIADFGFS"
+ },
+ {
+  "kinase_ID": 125,
+  "name": "MARK1",
+  "HGNC": "MARK1",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q9P0L2",
+  "pocket": "KTIGKGNFAKVKLVAVKIIKLFREVRIMKILNPNIVKLFEVYLVMEYASGGEVFDYLVAYCHQKYIVHRDLKAENLLLIADFGFS"
+ },
+ {
+  "kinase_ID": 126,
+  "name": "MARK3",
+  "HGNC": "MARK3",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "P27448",
+  "pocket": "KTIGKGNFAKVKLVAIKIIKLFREVRIMKILNPNIVKLFEVYLIMEYASGGEVFDYLVAYCHQKRIVHRDLKAENLLLIADFGFS"
+ },
+ {
+  "kinase_ID": 127,
+  "name": "MARK4",
+  "HGNC": "MARK4",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q96L34",
+  "pocket": "RTIGKGNFAKVKLVAIKIIKLFREVRIMKGLNPNIVKLFEVYLVMEYASAGEVFDYLVSYCHQKNIVHRDLKAENLLLIADFGFS"
+ },
+ {
+  "kinase_ID": 128,
+  "name": "MELK",
+  "HGNC": "MELK",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q14680",
+  "pocket": "ETIGTGGFAKVKLVAIKIMRIKTEIEALKNLRQHICQLYHVFMVLEYCPGGELFDYIISYVHSQGYAHRDLKPENLLFLIDFGLC"
+ },
+ {
+  "kinase_ID": 148,
+  "name": "MAPKAPK3",
+  "HGNC": "MAPKAPK3",
+  "family": "MAPKAPK",
+  "group": "CAMK",
+  "uniprot": "Q16644",
+  "pocket": "QVLGLGVNGKVLECALKLLKARQEVDHHWQASPHIVCILDVLIIMECMEGGELFSRIQEFLHSHNIAHRDVKPENLLYLTDFGFA"
+ },
+ {
+  "kinase_ID": 149,
+  "name": "MAPKAPK5",
+  "HGNC": "MAPKAPK5",
+  "family": "MAPKAPK",
+  "group": "CAMK",
+  "uniprot": "Q8IW41",
+  "pocket": "QKLGAGISGPVRVFALKILKARNEVRLHMMCAPNIVQIIEVLIVMEMMEGGELFHRISQHCHLLNIAHRDLKPENLLFLCDFGFA"
+ },
+ {
+  "kinase_ID": 150,
+  "name": "MAPKAPK2",
+  "HGNC": "MAPKAPK2",
+  "family": "MAPKAPK",
+  "group": "CAMK",
+  "uniprot": "P49137",
+  "pocket": "QVLGLGINGKVLQFALKMLKARREVELHWRASPHIVRIVDVLIVMECLDGGELFSRIQDYLHSINIAHRDVKPENLLYLTDFGFA"
+ },
+ {
+  "kinase_ID": 151,
+  "name": "MNK2",
+  "HGNC": "MKNK2",
+  "family": "MAPKAPK",
+  "group": "CAMK",
+  "uniprot": "Q9HBH9",
+  "pocket": "DVLGEGAHARVQTYAVKIIRVFREVEMLYQCQRNVLELIEFYLVFEKMRGGSILSHIHKFLHNKGIAHRDLKPENILCICDFDLG"
+ },
+ {
+  "kinase_ID": 152,
+  "name": "MNK1",
+  "HGNC": "MKNK1",
+  "family": "MAPKAPK",
+  "group": "CAMK",
+  "uniprot": "Q9BUB5",
+  "pocket": "ELLGEGAYAKVQGYAVKIIRVFREVETLYQCQKNILELIEFYLVFEKLQGGSILAHIQKFLHTKGIAHRDLKPENILCICDFDLG"
+ },
+ {
+  "kinase_ID": 153,
+  "name": "smMLCK",
+  "HGNC": "MYLK",
+  "family": "MLCK",
+  "group": "CAMK",
+  "uniprot": "Q15746",
+  "pocket": "ERLGSGKFGQVFRWAGKFFNIRQEISIMNCLHPKLVQCVDAVMVLEIVSGGELFERIIDYIHKQGIVHLDLKPENIMCLIDFGLA"
+ },
+ {
+  "kinase_ID": 155,
+  "name": "skMLCK",
+  "HGNC": "MYLK2",
+  "family": "MLCK",
+  "group": "CAMK",
+  "uniprot": "Q9H1R3",
+  "pocket": "EALGGGKFGAVCTLAAKVIMVLLEIEVMNQLNRNLIQLYAAVLFMEYIEGGELFERIVDFMHKMRVLHLDLKPENILCIIDFGLA"
+ },
+ {
+  "kinase_ID": 156,
+  "name": "caMLCK",
+  "HGNC": "MYLK3",
+  "family": "MLCK",
+  "group": "CAMK",
+  "uniprot": "Q32MK0",
+  "pocket": "EVLGGGRFGQVHRLAAKIIDVKNEINIMNQLSVNLIQLYDATLVMEYVDGGELFDRITDYLHQHYILHLDLKPENILCIIDFGLA"
+ },
+ {
+  "kinase_ID": 157,
+  "name": "SgK085",
+  "HGNC": "MYLK4",
+  "family": "MLCK",
+  "group": "CAMK",
+  "uniprot": "Q86YV6",
+  "pocket": "EILGGGRFGQVHKLAAKIIEVKNEISVMNQLDANLIQLYDAVLVMEYVDGGELFDRIIDHMHQMYILHLDLKPENILCIIDFGLA"
+ },
+ {
+  "kinase_ID": 178,
+  "name": "Trad",
+  "HGNC": "KALRN",
+  "family": "Trio",
+  "group": "CAMK",
+  "uniprot": "O60229",
+  "pocket": "NEIGRGRFSIVKKVAVKFVQAAHEAALLQHLQPQYITLHDTILILELMDDGRLLDYLMNYLHNCRVAHLDIKPENLLILIDLEDA"
+ },
+ {
+  "kinase_ID": 239,
+  "name": "Erk2",
+  "HGNC": "MAPK1",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P28482",
+  "pocket": "SYIGEGAYGMVCSVAIKKIRTLREIKILLRFRENIIGINDIYIVQDLME-TDLYKLLKTYIHSANVLHRDLKPSNLLLICDFGLA"
+ },
+ {
+  "kinase_ID": 240,
+  "name": "Erk1",
+  "HGNC": "MAPK3",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P27361",
+  "pocket": "QYIGEGAYGMVSSVAIKKIRTLREIQILLRFRENVIGIRDIYIVQDLME-TDLYKLLKSYIHSANVLHRDLKPSNLLIICDFGLA"
+ },
+ {
+  "kinase_ID": 241,
+  "name": "Erk4",
+  "HGNC": "MAPK4",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P31152",
+  "pocket": "QPLGFGVNGLVLSVAVKKIHALREIKIIRRLDDNIVKVYEVYIVQEYME-TDLARLLEQYIHSANVLHRDLKPANIFIIGDFGLA"
+ },
+ {
+  "kinase_ID": 242,
+  "name": "Erk3",
+  "HGNC": "MAPK6",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "Q16659",
+  "pocket": "KPLGCGGNGLVFSVAIKKIHALREIKIIRRLDDNIVKVFEIYIVQEYME-TDLANVLEQYIHSANVLHRDLKPANLFIIGDFGLA"
+ },
+ {
+  "kinase_ID": 243,
+  "name": "Erk5",
+  "HGNC": "MAPK7",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "Q13164",
+  "pocket": "ETIGNGAYGVVSSVAIKKIRTLRELKILKHFKDNIIAIKDIYVVLDLME-SDLHQIIHSYMHSAQVIHRDLKPSNLLVIGDFGMA"
+ },
+ {
+  "kinase_ID": 244,
+  "name": "Erk7",
+  "HGNC": "MAPK15",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "Q8TD08",
+  "pocket": "RQLGQGAYGIVWKVAIKKIRTFREITLLQEFGPNIISLLDVYLVFEFMD-TDLNAVIRKFLHSGHVVHRDQKPSNVLLLCDFGLA"
+ },
+ {
+  "kinase_ID": 245,
+  "name": "JNK1",
+  "HGNC": "MAPK8",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P45983",
+  "pocket": "KPIGSGAQGIVCAVAIKKLRAYRELVLMKCVNKNIIGLLNVYIVMELMD-ANLCQVIQMHLHSAGIIHRDLKPSNIVVILDFGLA"
+ },
+ {
+  "kinase_ID": 246,
+  "name": "JNK2",
+  "HGNC": "MAPK9",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P45984",
+  "pocket": "KPIGSGAQGIVCAVAVKKLRAYRELVLLKCVNKNIISLLNVYLVMELMD-ANLCQVIHMHLHSAGIIHRDLKPSNIVVILDFGLA"
+ },
+ {
+  "kinase_ID": 247,
+  "name": "JNK3",
+  "HGNC": "MAPK10",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P53779",
+  "pocket": "KPIGSGAQGIVCAVAIKKLRAYRELVLMKCVNKNIISLLNVYLVMELMD-ANLCQVIQMHLHSAGIIHRDLKPSNIVVILDFGLA"
+ },
+ {
+  "kinase_ID": 249,
+  "name": "p38a",
+  "HGNC": "MAPK14",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "Q16539",
+  "pocket": "SPVGSGAYGSVCAVAVKKLRTYRELRLLKHMKENVIGLLDVYLVTHLMG-ADLNNIVKCYIHSADIIHRDLKPSNLAVILDFGLA"
+ },
+ {
+  "kinase_ID": 250,
+  "name": "p38b",
+  "HGNC": "MAPK11",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "Q15759",
+  "pocket": "RPVGSGAYGSVCSVAVKKLRTYRELRLLKHLKENVIGLLDVYLVTTLMG-ADLNNIVKCYIHSAGIIHRDLKPSNVAVILDFGLA"
+ },
+ {
+  "kinase_ID": 251,
+  "name": "p38d",
+  "HGNC": "MAPK13",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "O15264",
+  "pocket": "THVGSGAYGSVCSVAIKKLRAYRELLLLKHMQENVIGLLDVYLVMPFMQ-TDLQKIMGMYIHSAGVVHRDLKPGNLAVILDFGLA"
+ },
+ {
+  "kinase_ID": 252,
+  "name": "p38g",
+  "HGNC": "MAPK12",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "P53778",
+  "pocket": "QPVGSGAYGAVCSVAIKKLRAYRELRLLKHMRENVIGLLDVYLVMPFMG-TDLGKLMKHYIHAAGIIHRDLKPGNLAVILDFGLA"
+ },
+ {
+  "kinase_ID": 253,
+  "name": "MAK",
+  "HGNC": "MAK",
+  "family": "RCK",
+  "group": "CMGC",
+  "uniprot": "P20794",
+  "pocket": "RQLGDGTYGSVLMVAIKRMMNLREVKSLKKLNANVIKLKEVYFIFEYMK-ENLYQLMKDFIHKHGFFHRDMKPENLLCIADFGLA"
+ },
+ {
+  "kinase_ID": 254,
+  "name": "MOK",
+  "HGNC": "MOK",
+  "family": "RCK",
+  "group": "CMGC",
+  "uniprot": "Q9UQ07",
+  "pocket": "GKIGEGTFSEVMKYACKQMNNLREIQALRRLNPNILMLHEVALICELMD-MNIYELIRGHIHRNGIFHRDVKPENILILGDFGSC"
+ },
+ {
+  "kinase_ID": 276,
+  "name": "MOS",
+  "HGNC": "MOS",
+  "family": "MOS",
+  "group": "Other",
+  "uniprot": "P00540",
+  "pocket": "QRLGAGGFGSVYKVAIKQVRLASRRSFWAELNDNIVRVVAATIIMEFGGNVTLHQVIYGFLHSQSIVHLDLKPANILIISDFGCS"
+ },
+ {
+  "kinase_ID": 281,
+  "name": "NEK1",
+  "HGNC": "NEK1",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q96PY6",
+  "pocket": "QKIGEGSFGKAILYVIKEIESRREVAVLANMKPNIVQYRESYIVMDYCEGGDLFKRINAHVHDRKILHRDIKSQNIFLLGDFGIA"
+ },
+ {
+  "kinase_ID": 284,
+  "name": "NEK10",
+  "HGNC": "NEK10",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q6ZWH5",
+  "pocket": "DHLGSGAFGCVYKLAMKEVNIVSELTIIKEQLPNIVRYYKTYIVMELIEGAPLGEHFSSLHKEKRIVHRDLTPNNIMLVTDFGLA"
+ },
+ {
+  "kinase_ID": 345,
+  "name": "MAP3K5",
+  "HGNC": "MAP3K5",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q99683",
+  "pocket": "VVLGKGTYGIVYAIAIKEIPLHEEIALHKHLKKNIVQYLGSKIFMEQVPGGSLSALLRSYLHDNQIVHRDIKGDNVLIISDFGTS"
+ },
+ {
+  "kinase_ID": 346,
+  "name": "MAP3K6",
+  "HGNC": "MAP3K6",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "O95382",
+  "pocket": "LVLGKGTYGVVYAIAIKEIPLHEEIALHRRLRKNIVRYLGSKIFMEEVPGGSLSSLLRSYLHDNHIVHRDIKGDNVLIISDFGTS"
+ },
+ {
+  "kinase_ID": 347,
+  "name": "MAP3K7",
+  "HGNC": "MAP3K15",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q6ZN16",
+  "pocket": "VVLGKGTYGIVYAIAIKEIPLHEEIALHKYLKRNIVQYLGSKIFMEQVPGGSLSALLRSYLHENQIVHRDIKGDNVLVISDFGTS"
+ },
+ {
+  "kinase_ID": 348,
+  "name": "MAP3K1",
+  "HGNC": "MAP3K1",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q13233",
+  "pocket": "QQIGLGAFSSCYQMAVKQVALREEIRMMSHLNPNIIRMLGANLFIEWMAGGSVAHLLSKYLHENQIIHRDVKGANLLIIADFGAA"
+ },
+ {
+  "kinase_ID": 349,
+  "name": "MAP3K8",
+  "HGNC": "MAP3K19",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q56UN5",
+  "pocket": "EILGKGAYGTVYCIAVKQVKLQEEVDLLKALKVNIVAYLGTSIFMEFVPGGSISSIINRYLHENCVVHRDIKGNNVMLLIDFGCA"
+ },
+ {
+  "kinase_ID": 350,
+  "name": "MAP3K3",
+  "HGNC": "MAP3K3",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q99759",
+  "pocket": "KLLGQGAFGRVYLLASKQVALECEIQLLKNLQERIVQYYGCTIFMEYMPGGSVKDQLKAYLHSNMIVHRDIKGANILRLGDFGAS"
+ },
+ {
+  "kinase_ID": 351,
+  "name": "MAP3K2",
+  "HGNC": "MAP3K2",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q9Y2U5",
+  "pocket": "KLLGQGAFGRVYLLAVKQVALECEIQLLKNLLERIVQYYGCSIFMEYMPGGSIKDQLKAYLHSNMIVHRDIKGANILRLGDFGAS"
+ },
+ {
+  "kinase_ID": 352,
+  "name": "MAP3K4",
+  "HGNC": "MAP3K4",
+  "family": "STE11",
+  "group": "STE",
+  "uniprot": "Q9Y6R4",
+  "pocket": "NKIGEGQYGKVYTMAMKEIETADELKIFEGIKPNLVRYFGVYIFMEYCDEGTLEEVSRLVLHEHGIVHRDIKGANIFLLGDFGCS"
+ },
+ {
+  "kinase_ID": 356,
+  "name": "KHS2",
+  "HGNC": "MAP4K3",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q8IVH8",
+  "pocket": "QRIGSGTYGDVYKAAIKVIVVQQEIIMMKDCKPNIVAYFGSWICMEFCGGGSLQDIYHVYLHSKGKMHRDIKGANILLLADFGVS"
+ },
+ {
+  "kinase_ID": 357,
+  "name": "KHS1",
+  "HGNC": "MAP4K5",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9Y4K4",
+  "pocket": "QRVGSGTYGDVYKAAVKIILIQQEIFMVKECKCNIVAYFGSWICMEYCGGGSLQDIYHVYLHTKGKMHRDIKGANILLLADFGVA"
+ },
+ {
+  "kinase_ID": 358,
+  "name": "HPK1",
+  "HGNC": "MAP4K1",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q92918",
+  "pocket": "QRLGGGTYGEVFKVALKMVTLQKEILILKTCRANIVAYHGSWICMEFCGAGSLQDIYQVYLHSQKKIHRDIKGANILILADFGIS"
+ },
+ {
+  "kinase_ID": 359,
+  "name": "HGK",
+  "HGNC": "MAP4K4",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "O95819",
+  "pocket": "EVVGNGTYGQVYKAAIKVMEIKLEINMLKKYSRNIATYYGAWLVMEFCGAGSITDLVKNHLHIHHVIHRDIKGQNVLLLVDFGVS"
+ },
+ {
+  "kinase_ID": 362,
+  "name": "MINK",
+  "HGNC": "MINK1",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q8N4C8",
+  "pocket": "EVVGNGTYGQVYKAAIKVMEIKQEINMLKKYSRNIATYYGAWLVMEFCGAGSVTDLVKNHLHAHKVIHRDIKGQNVLLLVDFGVS"
+ },
+ {
+  "kinase_ID": 365,
+  "name": "MYO3A",
+  "HGNC": "MYO3A",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q8NEV4",
+  "pocket": "ETIGKGTYGKVFKAAVKILEIEAEYNILKALSPNVVRFYGIWLVLELCSGGSVTDLVKGHLHNNKTIHRDVKGNNILLLVDFGVS"
+ },
+ {
+  "kinase_ID": 366,
+  "name": "MYO3B",
+  "HGNC": "MYO3B",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q8WXR4",
+  "pocket": "ETIGKGTYGKVYKAAVKILEIEAEYNILQFLPPNVVKFYGMWLVLELCNGGSVTELVKGHLHNNRIIHRDVKGNNILLLVDFGVS"
+ },
+ {
+  "kinase_ID": 383,
+  "name": "MAP2K1",
+  "HGNC": "MAP2K1",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "Q02750",
+  "pocket": "SELGAGNGGVVFKMARKLIQIIRELQVLHECNPYIVGFYGASICMEHMDGGSLDQVLKKLREKHKIMHRDVKPSNILVLCDFGVS"
+ },
+ {
+  "kinase_ID": 384,
+  "name": "MAP2K2",
+  "HGNC": "MAP2K2",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "P36507",
+  "pocket": "SELGAGNGGVVTKMARKLIQIIRELQVLHECNPYIVGFYGASICMEHMDGGSLDQVLKELREKHQIMHRDVKPSNILVLCDFGVS"
+ },
+ {
+  "kinase_ID": 385,
+  "name": "MAP2K3",
+  "HGNC": "MAP2K3",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "P46734",
+  "pocket": "SELGRGAYGVVEKMAVKRIRLLMDLDINMRTVFYTVTFYGAWICMELMD-TSLDKFYRKLHSKLSVIHRDVKPSNVLIMCDFGIS"
+ },
+ {
+  "kinase_ID": 386,
+  "name": "MAP2K6",
+  "HGNC": "MAP2K6",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "P52564",
+  "pocket": "MELGRGAYGVVEKMAVKRIRLLMDLDISMRTVPFTVTFYGAWICMELMD-TSLDKFYKQLHSKLSVIHRDVKPSNVLIMCDFGIS"
+ },
+ {
+  "kinase_ID": 387,
+  "name": "MAP2K4",
+  "HGNC": "MAP2K4",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "P45985",
+  "pocket": "GEIGRGAYGSVNKMAVKRIQLLMDLDVVMRSSPYIVQFYGAWICMELMS-TSFDKFYKYLKENLKIIHRDIKPSNILLLCDFGIS"
+ },
+ {
+  "kinase_ID": 388,
+  "name": "MAP2K5",
+  "HGNC": "MAP2K5",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "Q13163",
+  "pocket": "DTLGHGNGGTVYKLAVKVIQIMSELEILYKCDSYIIGFYGASICTEFMDGGSL-DVYRKYLWSLKILHRDVKPSNMLVLCDFGVS"
+ },
+ {
+  "kinase_ID": 389,
+  "name": "MAP2K7",
+  "HGNC": "MAP2K7",
+  "family": "STE7",
+  "group": "STE",
+  "uniprot": "O14733",
+  "pocket": "GEMGSGTCGQVWKIAVKQMRILMDLDVVLKSHPYIVQCFGTFIAMELMGTCAEKLKKRMLKEKHGVIHRDVKPSNILLLCDFGIS"
+ },
+ {
+  "kinase_ID": 390,
+  "name": "COT",
+  "HGNC": "MAP3K8",
+  "family": "STE-Unique",
+  "group": "STE",
+  "uniprot": "P41279",
+  "pocket": "DFIPRGAFGKVYLMACKLIFKPSDVEIQACFRENIAELYGAHLFMEAGEGGSVLEKLESFLHSKKVIHHDIKPSNIVFLVDFGLS"
+ },
+ {
+  "kinase_ID": 391,
+  "name": "NIK",
+  "HGNC": "MAP3K14",
+  "family": "STE-Unique",
+  "group": "STE",
+  "uniprot": "Q99558",
+  "pocket": "LRLGRGSFGEVHRCAVKKVFRAEELMACAGLTPRIVPLYGANIFMELLEGGSLGQLVKEYLHSRRILHGDVKADNVLLLCDFGHA"
+ },
+ {
+  "kinase_ID": 397,
+  "name": "LTK",
+  "HGNC": "LTK",
+  "family": "ALK",
+  "group": "TK",
+  "uniprot": "P29376",
+  "pocket": "RALGHGAFGEVYEVAIKTLDFLMEALIISKFRQNIVRCVGLLILLELMSGGDMKSFLRHYLEENHFIHRDIAARNCLLIGDFGMA"
+ },
+ {
+  "kinase_ID": 400,
+  "name": "MER",
+  "HGNC": "MERTK",
+  "family": "Axl",
+  "group": "TK",
+  "uniprot": "Q12866",
+  "pocket": "KILGEGEFGSVMEVAVKTMEFLSEAACMKDFSPNVIRLLGVMVILPFMKYGDLHTYLLYYLSNRNFLHRDLAARNCMLVADFGLS"
+ },
+ {
+  "kinase_ID": 403,
+  "name": "CTK",
+  "HGNC": "MATK",
+  "family": "Csk",
+  "group": "TK",
+  "uniprot": "P42679",
+  "pocket": "AQIGEGEFGAVLQVAVKNIAFLDETAVMTKMQENLVRLLGVYIVMEHVSKGNLVNFLRTYLESKKLVHRDLAARNILVVSDFGLA"
+ },
+ {
+  "kinase_ID": 435,
+  "name": "JAK1",
+  "HGNC": "JAK1",
+  "family": "JakA",
+  "group": "TK",
+  "uniprot": "P23458",
+  "pocket": "RDLGEGHFGKVELVAVKSLDLKKEIEILRNLYENIVKYKGIKLIMEFLPSGSLKEYLPKYLGSRQYVHRDLAARNVLVIGDFGLT"
+ },
+ {
+  "kinase_ID": 436,
+  "name": "JAK2",
+  "HGNC": "JAK2",
+  "family": "JakA",
+  "group": "TK",
+  "uniprot": "O60674",
+  "pocket": "QQLGKGNFGSVEMVAVKKLDFEREIEILKSLQDNIVKYKGVKLIMEYLPYGSLRDYLQKYLGTKRYIHRDLATRNILVIGDFGLT"
+ },
+ {
+  "kinase_ID": 437,
+  "name": "JAK3",
+  "HGNC": "JAK3",
+  "family": "JakA",
+  "group": "TK",
+  "uniprot": "P52333",
+  "pocket": "SQLGKGNFGSVELVAVKQLDFQREIQILKALHDFIVKYRGVRLVMEYLPSGCLRDFLQRYLGSRRCVHRDLAARNILVIADFGLA"
+ },
+ {
+  "kinase_ID": 438,
+  "name": "JAK1-b",
+  "HGNC": "JAK1-b",
+  "family": "JakB",
+  "group": "TK",
+  "uniprot": "P23458",
+  "pocket": "EHLGRGTRTHIYSVILKVLLAFFEAASMMRQVKHIVYLYGVIMVEEFVEGGPLDLFMHRYLEDKDLVHGNVCTKNLLLLSDPGIP"
+ },
+ {
+  "kinase_ID": 439,
+  "name": "JAK2-b",
+  "HGNC": "JAK2-b",
+  "family": "JakB",
+  "group": "TK",
+  "uniprot": "O60674",
+  "pocket": "ESLGQGTFTKIFKVLLKVLESFFEAASMMSKLKHLVLNYGVILVQEFVKFGSLDTYLKKFLEENTLIHGNVCAKNILLTGNPPFI"
+ },
+ {
+  "kinase_ID": 440,
+  "name": "JAK3-b",
+  "HGNC": "JAK3-b",
+  "family": "JakB",
+  "group": "TK",
+  "uniprot": "P52333",
+  "pocket": "ENLGHGSFTKIYRVLLKVMSFLEAASLMSQVSRHLVLLHGVTMVQEFVHLGAIDMYLRKYLEDKGLPHGNVSARKVLLLSDPGVS"
+ },
+ {
+  "kinase_ID": 444,
+  "name": "LMR2",
+  "HGNC": "LMTK2",
+  "family": "Lmr",
+  "group": "TK",
+  "uniprot": "Q8IWU2",
+  "pocket": "QEIGNGWFGKVLLVIVKELTFLKNGEPYYILQPNILQCVGQLLVFEFCDLGDLKAYLRSAMHKLHFLHSDLALRNCFLVGDYGIG"
+ },
+ {
+  "kinase_ID": 445,
+  "name": "LMR3",
+  "HGNC": "LMTK3",
+  "family": "Lmr",
+  "group": "TK",
+  "uniprot": "Q96Q04",
+  "pocket": "QEIGSGWFGKVILVVVKELKFISEAQPYRSLQPNVLQCLGLLLIMEFCQLGDLKRYLRAHLHSHNYVHSDLALRNCLLIGDYGLA"
+ },
+ {
+  "kinase_ID": 446,
+  "name": "MET",
+  "HGNC": "MET",
+  "family": "Met",
+  "group": "TK",
+  "uniprot": "P08581",
+  "pocket": "EVIGRGHFGCVYHCAVKSLQFLTEGIIMKDFSPNVLSLLGILVVLPYMKHGDLRNFIRNYLASKKFVHRDLAARNCMLVADFGLA"
+ },
+ {
+  "kinase_ID": 447,
+  "name": "RON",
+  "HGNC": "MST1R",
+  "family": "Met",
+  "group": "TK",
+  "uniprot": "Q04912",
+  "pocket": "RVIGKGHFGVVYHCAIKSLAFLREGLLMRGLNPNVLALIGIHVLLPYMCHGDLLQFIRSYLAEQKFVHRDLAARNCMLVADFGLA"
+ },
+ {
+  "kinase_ID": 448,
+  "name": "MUSK",
+  "HGNC": "MUSK",
+  "family": "Musk",
+  "group": "TK",
+  "uniprot": "O15146",
+  "pocket": "RDIGEGAFGRVFQVAVKMLDFQREAALMAEFDPNIVKLLGVCLLFEYMAYGDLNEFLRSYLSERKFVHRDLATRNCLVIADFGLS"
+ },
+ {
+  "kinase_ID": 451,
+  "name": "KIT",
+  "HGNC": "KIT",
+  "family": "PDGFR",
+  "group": "TK",
+  "uniprot": "P10721",
+  "pocket": "KTLGAGAFGKVVEVAVKMLALMSELKVLSYLGMNIVNLLGALVITEYCCYGDLLNFLRRFLASKNCIHRDLAARNILLICDFGLA"
+ },
+ {
+  "kinase_ID": 466,
+  "name": "LCK",
+  "HGNC": "LCK",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P06239",
+  "pocket": "ERLGAGQFGEVWMVAVKSLAFLAEANLMKQLQQRLVRLYAVYIITEYMENGSLVDFLKTFIEERNYIHRDLRAANILVIADFGLA"
+ },
+ {
+  "kinase_ID": 467,
+  "name": "LYN",
+  "HGNC": "LYN",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P07948",
+  "pocket": "KRLGAGQFGEVWMVAVKTLAFLEEANLMKTLQDKLVRLYAVYIITEYMAKGSLLDFLKSYIERKNYIHRDLRAANVLVIADFGLA"
+ },
+ {
+  "kinase_ID": 474,
+  "name": "ITK",
+  "HGNC": "ITK",
+  "family": "Tec",
+  "group": "TK",
+  "uniprot": "Q08881",
+  "pocket": "QEIGSGQFGLVHLVAIKTIDFIEEAEVMMKLSPKLVQLYGVCLVFEFMEHGCLSDYLRTYLEEACVIHRDLAARNCLVVSDFGMT"
+ },
+ {
+  "kinase_ID": 485,
+  "name": "KDR",
+  "HGNC": "KDR",
+  "family": "VEGFR",
+  "group": "TK",
+  "uniprot": "P35968",
+  "pocket": "KPLGRGAFGQVIEVAVKMLALMSELKILIHIGLNVVNLLGAMVIVEFCKFGNLSTYLRSFLASRKCIHRDLAARNILLICDFGLA"
+ },
+ {
+  "kinase_ID": 490,
+  "name": "LIMK1",
+  "HGNC": "LIMK1",
+  "family": "LISK",
+  "group": "TKL",
+  "uniprot": "P53667",
+  "pocket": "EVLGKGCFGQAIKMVMKELTFLKEVKVMRCLEPNVLKFIGVNFITEYIKGGTLRGIIKSYLHSMNIIHRDLNSHNCLVVADFGLA"
+ },
+ {
+  "kinase_ID": 491,
+  "name": "LIMK2",
+  "HGNC": "LIMK2",
+  "family": "LISK",
+  "group": "TKL",
+  "uniprot": "P53671",
+  "pocket": "EVLGKGFFGQAIKMVMKELTFLTEVKVMRSLDPNVLKFIGVNLLTEYIEGGTLKDFLRSYLHSMCIIHRDLNSHNCLIVADFGLS"
+ },
+ {
+  "kinase_ID": 494,
+  "name": "LRRK1",
+  "HGNC": "LRRK1",
+  "family": "LRRK",
+  "group": "TKL",
+  "uniprot": "Q38SD2",
+  "pocket": "SVLGQGGSGTVIYVAVKRFEFRQEASMLHALQPCIVALIGICFALELAPLSSLNTVLSEYLHKKNIIFCDLKSDNILVLSDYGIS"
+ },
+ {
+  "kinase_ID": 495,
+  "name": "LRRK2",
+  "HGNC": "LRRK2",
+  "family": "LRRK",
+  "group": "TKL",
+  "uniprot": "Q5S007",
+  "pocket": "ADHGDGSFGSVYRVAVKIFLLRQELVVLCHLHPSLISLLAAMLVMELASKGSLDRLLQQYLHSAMIIYRDLKPHNVLLIADYGIA"
+ },
+ {
+  "kinase_ID": 498,
+  "name": "DLK",
+  "HGNC": "MAP3K12",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q12852",
+  "pocket": "QWVGSGAQGAVFLVAVKKVLKETDIKHLRKLKPNIITFKGVCILMEFCAQGQLYEVLRAYLHLHKIIHRDLKSPNMLIISDFGTS"
+ },
+ {
+  "kinase_ID": 499,
+  "name": "LZK",
+  "HGNC": "MAP3K13",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "O43283",
+  "pocket": "QWLGSGAQGAVFLVAIKKVQNETDIKHLRKLKPNIIAFKGVCIIMEYCAHGQLYEVLRAYLHLHKIIHRDLKSPNVLVISDFGTS"
+ },
+ {
+  "kinase_ID": 500,
+  "name": "MLK1",
+  "HGNC": "MAP3K9",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "P80192",
+  "pocket": "EIIGIGGFGKVYRVAVKAANVRQEAKLFAMLKPNIIALRGVCLVMEFARGGPLNRVLSGDEAIVPIIHRDLKSSNILIITDFGLA"
+ },
+ {
+  "kinase_ID": 501,
+  "name": "MLK2",
+  "HGNC": "MAP3K10",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q02779",
+  "pocket": "EIIGVGGFGKVYRVAVKAAQVCQEARLFGALQPNIIALRGACLVMEYARGGALSRVLAGNDAPVPIIHRDLKSINILIITDFGLA"
+ },
+ {
+  "kinase_ID": 502,
+  "name": "MLK3",
+  "HGNC": "MAP3K11",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q16584",
+  "pocket": "EVIGIGGFGKVYRVAVKAASVRQEARLFAMLAPNIIALKAVCLVMEYAAGGPLSRALAGCEALVPVIHRDLKSNNILLITDFGLA"
+ },
+ {
+  "kinase_ID": 503,
+  "name": "MLK4",
+  "HGNC": "MAP3K21",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q5TCX8",
+  "pocket": "ELIGAGGFGQVYRVAVKAASVRREARLFAMLRPNIIELRGVCLVLEFARGGALNRALAAEEAFVPILHRDLKSSNILLITDFGLA"
+ },
+ {
+  "kinase_ID": 504,
+  "name": "TAK1",
+  "HGNC": "MAP3K7",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "O43318",
+  "pocket": "EVVGRGAFGVVCKVAIKQIAFIVELRQLSRVNPNIVKLYGACLVMEYAEGGSLYNVLHGSMQPKALIHRDLKPPNLLLICDFGTA"
+ },
+ {
+  "kinase_ID": 505,
+  "name": "ZAK",
+  "HGNC": "MAP3K20",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q9NYL2",
+  "pocket": "ENCGGGSFGSVYRVAVKKLKIEKEAEILSVLSRNIIQFYGVGIVTEYASLGSLYDYINSMEAPVKVIHRDLKSRNVVIICDFGAS"
+ },
+ {
+  "kinase_ID": 506,
+  "name": "KSR1",
+  "HGNC": "KSR1",
+  "family": "RAF",
+  "group": "TKL",
+  "uniprot": "Q8IVT5",
+  "pocket": "EPIGQGRWGRVHRVAIRLLLFKKEVMNYRQTRENVVLFMGAAIITSFCKGRTLHSFVRDYLHAKGIVHKDLKSKNVFYITDFGLF"
+ },
+ {
+  "kinase_ID": 507,
+  "name": "KSR2",
+  "HGNC": "KSR2",
+  "family": "RAF",
+  "group": "TKL",
+  "uniprot": "Q6VAB6",
+  "pocket": "ELIGKGRFGQVYHVAIRLIAFKREVMAYRQTRENVVLFMGAAIITSLCKGRTLYSVVRDYLHAKGILHKDLKSKNVFYITDFGLF"
+ },
+ {
+  "kinase_ID": 528,
+  "name": "MLKL",
+  "HGNC": "MLKL",
+  "family": "TKL-Unique",
+  "group": "TKL",
+  "uniprot": "Q8NB16",
+  "pocket": "ILLRENEVSTLYKVAIKVFTFNKEIKTMKKFEPNILRIFGISIVMEYCELGTLRELLDRHHSEAPELHGKIRSSNFLVLAGFELR"
+ },
+ {
+  "kinase_ID": 1105,
+  "name": "Map4k2",
+  "HGNC": "MAP4K2",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q12851",
+  "pocket": "QRVGAGTYGDVYKAAVKIVSLQQEITILRECRPNVVAYIGSWICMEFCGGGSLQEIYHAHLHSQGKIHRDIKGANLLLLADFGVS"
+ },
+ {
+  "kinase_ID": 27,
+  "name": "PDK1",
+  "HGNC": "PDPK1",
+  "family": "PDK1",
+  "group": "AGC",
+  "uniprot": "O15530",
+  "pocket": "KILGEGSFSTVVLYAIKILYVTRERDVMSRLDPFFVKLYFTYFGLSYAKNGELLKYIRKYLHGKGIIHRDLKPENILLITDFGTA"
+ },
+ {
+  "kinase_ID": 28,
+  "name": "PKACa",
+  "HGNC": "PRKACA",
+  "family": "PKA",
+  "group": "AGC",
+  "uniprot": "P17612",
+  "pocket": "KTLGTGSFGRVMLYAMKILHTLNEKRILQAVNPFLVKLEFSYMVMEYVPGGEMFSHLRRYLHSLDLIYRDLKPENLLIVTDFGFA"
+ },
+ {
+  "kinase_ID": 29,
+  "name": "PKACb",
+  "HGNC": "PRKACB",
+  "family": "PKA",
+  "group": "AGC",
+  "uniprot": "P22694",
+  "pocket": "KTLGTGSFGRVMLYAMKILHTLNEKRILQAVNPFLVRLEYAYMVMEYVPGGEMFSHLRRYLHSLDLIYRDLKPENLLIVTDFGFA"
+ },
+ {
+  "kinase_ID": 30,
+  "name": "PKACg",
+  "HGNC": "PRKACG",
+  "family": "PKA",
+  "group": "AGC",
+  "uniprot": "P22612",
+  "pocket": "RTLGMGSFGRVMLYAMKILHILNEKRILQAIDPFLVKLQFSYLVMEYVPGGEMFSRLQRYLHSLDLIHRDLKPENLLIVTDFGFA"
+ },
+ {
+  "kinase_ID": 33,
+  "name": "PKCa",
+  "HGNC": "PRKCA",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "P17252",
+  "pocket": "MVLGKGSFGKVMLYAIKILCTMVEKRVLALLDPFLTQLHSCYFVMEYVNGGDLMYHIQQFLHKRGIIYRDLKLDNVMLIADFGMC"
+ },
+ {
+  "kinase_ID": 34,
+  "name": "PKCb",
+  "HGNC": "PRKCB",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "P05771",
+  "pocket": "MVLGKGSFGKVMLYAVKILCTMVEKRVLALPGPFLTQLHSCYFVMEYVNGGDLMYHIQQFLQSKGIIYRDLKLDNVMLIADFGMC"
+ },
+ {
+  "kinase_ID": 35,
+  "name": "PKCg",
+  "HGNC": "PRKCG",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "P05129",
+  "pocket": "MVLGKGSFGKVMLYAIKILCTLVEKRVLALGGHFLTQLHSTYFVMEYVTGGDLMYHIQQFLHNQGIIYRDLKLDNVMLITDFGMC"
+ },
+ {
+  "kinase_ID": 36,
+  "name": "PKCd",
+  "HGNC": "PRKCD",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "Q05655",
+  "pocket": "KVLGKGSFGKVLLFAIKALCTMVEKRVLTLAAPFLTHLICTFFVMEFLNGGDLMYHIQDFLHSKGIIYRDLKLDNVLLIADFGMC"
+ },
+ {
+  "kinase_ID": 37,
+  "name": "PKCt",
+  "HGNC": "PRKCQ",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "Q04759",
+  "pocket": "KMLGKGSFGKVFLFAIKALCTMVEKRVLSLAWPFLTHMFCTFFVMEYLNGGDLMYHIQSFLHSKGIVYRDLKLDNILLIADFGMC"
+ },
+ {
+  "kinase_ID": 38,
+  "name": "PKCe",
+  "HGNC": "PRKCE",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "Q02156",
+  "pocket": "KVLGKGSFGKVMLYAVKVLCTMTEKRILALARPYLTQLYCCFFVMEYVNGGDLMFQIQRFLHQHGVIYRDLKLDNILLLADFGMC"
+ },
+ {
+  "kinase_ID": 39,
+  "name": "PKCh",
+  "HGNC": "PRKCH",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "P24723",
+  "pocket": "RVLGKGSFGKVMLYAVKVLCTMTEKRILSLARPFLTQLFCCFFVMEFVNGGDLMFHIQKFLHDKGIIYRDLKLDNVLLLADFGMC"
+ },
+ {
+  "kinase_ID": 40,
+  "name": "PKCi",
+  "HGNC": "PRKCI",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "P41743",
+  "pocket": "RVIGRGSYAKVLLYAMKVVWVQTEKHVFEQASPFLVGLHSCFFVIEYVNGGDLMFHMQRYLHERGIIYRDLKLDNVLLLTDYGMC"
+ },
+ {
+  "kinase_ID": 41,
+  "name": "PKCz",
+  "HGNC": "PRKCZ",
+  "family": "PKC",
+  "group": "AGC",
+  "uniprot": "Q05513",
+  "pocket": "RVIGRGSYAKVLLYAMKVVWVQTEKHVFEQASPFLVGLHSCFLVIEYVNGGDLMFHMQRFLHERGIIYRDLKLDNVLLLTDYGMC"
+ },
+ {
+  "kinase_ID": 44,
+  "name": "PKN1",
+  "HGNC": "PKN1",
+  "family": "PKN",
+  "group": "AGC",
+  "uniprot": "Q16512",
+  "pocket": "AVLGRGHFGKVLLFAIKALSLMCEKRILAAVTPFLVNLFGCCFVMEYSAGGDLMLHIHSFLHEHKIVYRDLKLDNLLLIADFGLC"
+ },
+ {
+  "kinase_ID": 45,
+  "name": "PKN2",
+  "HGNC": "PKN2",
+  "family": "PKN",
+  "group": "AGC",
+  "uniprot": "Q16513",
+  "pocket": "AVLGRGHFGKVLLFAIKALSLMCEKRIFETVNPFLVNLFACCFVMEYAAGGDLMMHIHTYLHEHKIVYRDLKLDNLLLIADFGLC"
+ },
+ {
+  "kinase_ID": 46,
+  "name": "PKN3",
+  "HGNC": "PKN3",
+  "family": "PKN",
+  "group": "AGC",
+  "uniprot": "Q6P5Z2",
+  "pocket": "AVLGRGHFGKVLLYAIKALSLYCEKRILEAVGPFLLSLLACCFVTEFVPGGDLMMQIHEFLHEKKIIYRDLKLDNLLLIADFGLC"
+ },
+ {
+  "kinase_ID": 90,
+  "name": "PDHK1",
+  "HGNC": "PDK1",
+  "family": "PDHK",
+  "group": "Atypical",
+  "uniprot": "Q15118",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 91,
+  "name": "PDHK2",
+  "HGNC": "PDK2",
+  "family": "PDHK",
+  "group": "Atypical",
+  "uniprot": "Q15119",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 92,
+  "name": "PDHK3",
+  "HGNC": "PDK3",
+  "family": "PDHK",
+  "group": "Atypical",
+  "uniprot": "Q15120",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 93,
+  "name": "PDHK4",
+  "HGNC": "PDK4",
+  "family": "PDHK",
+  "group": "Atypical",
+  "uniprot": "Q16654",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 112,
+  "name": "CaMK1b",
+  "HGNC": "PNCK",
+  "family": "CAMK1",
+  "group": "CAMK",
+  "uniprot": "Q6P2M8",
+  "pocket": "ERLGSGAFSEVVLVALKCILVENEIAVLRRISPNIVALEDVYLAMELVTGGELFDRIMEYLHSLGIVHRDLKPENLLYVSDFGLS"
+ },
+ {
+  "kinase_ID": 117,
+  "name": "AMPKa1",
+  "HGNC": "PRKAA1",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q13131",
+  "pocket": "DTLGVGTFGKVKVVAVKILKIRREIQNLKLFRPHIIKLYQVFMVMEYVSGGELFDYICKYCHRHMVVHRDLKPENVLLIADFGLS"
+ },
+ {
+  "kinase_ID": 118,
+  "name": "AMPKa2",
+  "HGNC": "PRKAA2",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "P54646",
+  "pocket": "DTLGVGTFGKVKIVAVKILKIKREIQNLKLFRPHIIKLYQVFMVMEYVSGGELFDYICKYCHRHMVVHRDLKPENVLLIADFGLS"
+ },
+ {
+  "kinase_ID": 129,
+  "name": "NIM1",
+  "HGNC": "NIM1K",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q8IY84",
+  "pocket": "GEIGSGNFSQVKLVAIKILLLSREISSMEKLHPNIIRLYEVHLVMEYAGGGELFGKISTHMHENQIIHRDLKAENVFYVGDFGFS"
+ },
+ {
+  "kinase_ID": 130,
+  "name": "NuaK1",
+  "HGNC": "NUAK1",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "O60285",
+  "pocket": "ETLGKGTYGKVKRVAIKSIHIRREIEIMSSLNPHIISIYEVVIIMEYASKGELYDYISEYCHKNGVVHRDLKLENILLIADFGLS"
+ },
+ {
+  "kinase_ID": 131,
+  "name": "NuaK2",
+  "HGNC": "NUAK2",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q9H093",
+  "pocket": "ETLGKGTYGKVKKVAIKSIHIRREIEIMSSLNPHIIAIHEVVIVMEYASRGDLYDYISEYCHQNRVVHRDLKLENILLIADFGLS"
+ },
+ {
+  "kinase_ID": 132,
+  "name": "PASK",
+  "HGNC": "PASK",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q96RG2",
+  "pocket": "SPLGSGAFGFVWTVVVKFIKVTLEIAILSRVEANIIKVLDIQLVMEKHGSGLDLFAFIDYLRLKDIIHRDIKDENIVILIDFGSA"
+ },
+ {
+  "kinase_ID": 158,
+  "name": "PHKg1",
+  "HGNC": "PHKG1",
+  "family": "PHK",
+  "group": "CAMK",
+  "uniprot": "Q16816",
+  "pocket": "EILGRGVSSVVRRYAVKVIATLKEVDILRKVSPNIIQLKDTFLVFDLMKRGELFDYLTETLHKLNIVHRDLKPENILLLTDFGFS"
+ },
+ {
+  "kinase_ID": 159,
+  "name": "PHKg2",
+  "HGNC": "PHKG2",
+  "family": "PHK",
+  "group": "CAMK",
+  "uniprot": "P15735",
+  "pocket": "DVIGRGVSSVVRRFAVKIMATRRETHILRQVAPHIITLIDSFLVFDLMRKGELFDYLTEFLHANNIVHRDLKPENILLLSDFGFS"
+ },
+ {
+  "kinase_ID": 160,
+  "name": "PIM1",
+  "HGNC": "PIM1",
+  "family": "PIM",
+  "group": "CAMK",
+  "uniprot": "P11309",
+  "pocket": "PLLGSGGFGSVYSVAIKHVRVPMEVVLLKKVSSGVIRLLDWVLILERPEVQDLFDFITEHCHNCGVLHRDIKDENILILIDFGSG"
+ },
+ {
+  "kinase_ID": 161,
+  "name": "PIM2",
+  "HGNC": "PIM2",
+  "family": "PIM",
+  "group": "CAMK",
+  "uniprot": "Q9P1W9",
+  "pocket": "PLLGKGGFGTVFAVAIKVITCPLEVALLWKVGPGVIRLLDWMLVLERPLAQDLFDYITEHCHSRGVVHRDIKDENILILIDFGSG"
+ },
+ {
+  "kinase_ID": 162,
+  "name": "PIM3",
+  "HGNC": "PIM3",
+  "family": "PIM",
+  "group": "CAMK",
+  "uniprot": "Q86V86",
+  "pocket": "AVLGSGGFGTVYAVAVKHVTVPLEVVLLRKVGRGVIRLLDWLLVLERPEAQDLFDFITEHCHSCGVVHRDIKDENLLVLIDFGSG"
+ },
+ {
+  "kinase_ID": 163,
+  "name": "PKD1",
+  "HGNC": "PRKD1",
+  "family": "PKD",
+  "group": "CAMK",
+  "uniprot": "Q15139",
+  "pocket": "EVLGSGQFGIVYGVAIKIIQLRNEVAILQNLHPGVVNLECMFVVMEKLHGDMLEMILSSHLHFKNIVHCDLKPENVLLLCDFGFA"
+ },
+ {
+  "kinase_ID": 164,
+  "name": "PKD3",
+  "HGNC": "PRKD3",
+  "family": "PKD",
+  "group": "CAMK",
+  "uniprot": "O94806",
+  "pocket": "EVLGSGQFGIVYGVAIKVIQLRNEVAILQNLHPGIVNLECMFVVMEKLHGDMLEMILSSNLHFKNIVHCDLKPENVLLLCDFGFA"
+ },
+ {
+  "kinase_ID": 165,
+  "name": "PKD2",
+  "HGNC": "PRKD2",
+  "family": "PKD",
+  "group": "CAMK",
+  "uniprot": "Q9BZL6",
+  "pocket": "EVLGSGQFGVVYGVAVKVIQLRNEVAILQSLRPGIVNLECMFVVMEKLHGDMLEMILSSHLHFKNIVHCDLKPENVLLLCDFGFA"
+ },
+ {
+  "kinase_ID": 173,
+  "name": "Obscn",
+  "HGNC": "OBSCN",
+  "family": "Trio",
+  "group": "CAMK",
+  "uniprot": "Q5VST9",
+  "pocket": "EEIGRGVFGFVKRCAAKFIQAYRERDILAALSPLVTGLLDQILILELCSSEELLDRLYRYLHSHGVLHLDIKPSNILMICDFGFA"
+ },
+ {
+  "kinase_ID": 174,
+  "name": "Obscn-b",
+  "HGNC": "OBSCN-b",
+  "family": "Trio",
+  "group": "CAMK",
+  "uniprot": "Q5VST9",
+  "pocket": "TQIQRGRFSVVRQLAAKIIAVLREYEALKGLRPHLAQLHAAVLILELCSGPELLPCLAEYLHNQHILHLDLRSENMIIVVDLGNA"
+ },
+ {
+  "kinase_ID": 248,
+  "name": "NLK",
+  "HGNC": "NLK",
+  "family": "MAPK",
+  "group": "CMGC",
+  "uniprot": "Q9UBE8",
+  "pocket": "RPIGYGAFGVVWSVALKKMRVFRELKMLCFFKDNVLSALDIYVVTELMQ-SDLHKIIVSYLHSAGILHRDIKPGNLLVICDFGLA"
+ },
+ {
+  "kinase_ID": 282,
+  "name": "NEK3",
+  "HGNC": "NEK3",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "P51956",
+  "pocket": "RMIGEGSFGRALLFAMKEINSRKEAVLLAKMKPNIVAFKESYIVMEYCDGGDLMQKIKQHIHKKRVLHRDIKSKNIFLLGDFGSA"
+ },
+ {
+  "kinase_ID": 283,
+  "name": "NEK5",
+  "HGNC": "NEK5",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q6P3R8",
+  "pocket": "KAIGQGAFGKAYLCVIKEIASKKEVILLEKMKPNIVAFFNSFIVMEYCDGGDLMKRINRHIHDRKILHRDIKAQNIFLLGDFGIA"
+ },
+ {
+  "kinase_ID": 285,
+  "name": "NEK11",
+  "HGNC": "NEK11",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q8NG66",
+  "pocket": "QKLGSGSFGTVYLKVLKEIQANLEAQLLSKLDPAIVKFHASCIITEYCEGRDLDDKIQEYMHERRILHRDLKSKNVFLIGDFGVS"
+ },
+ {
+  "kinase_ID": 286,
+  "name": "NEK2",
+  "HGNC": "NEK2",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "P51955",
+  "pocket": "YTIGTGSYGRCQKLVWKELMLVSEVNLLRELKPNIVRYYDRYIVMEYCEGGDLASVITKSDGGHTVLHRDLKPANVFLLGDFGLA"
+ },
+ {
+  "kinase_ID": 287,
+  "name": "NEK4",
+  "HGNC": "NEK4",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "P51957",
+  "pocket": "RVVGKGSYGEVTLYVIKKLAAEQEAQLLSQLKPNIVTYKESYIVMGFCEGGDLYRKLKEYLHEKHILHRDLKTQNVFLVGDLGIA"
+ },
+ {
+  "kinase_ID": 288,
+  "name": "NEK6",
+  "HGNC": "NEK6",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q9HC98",
+  "pocket": "KKIGRGQFSEVYKVALKKVDCVKEIGLLKQLNPNIIKYLDSNIVLELADAGDLSQMIKYHMHSRRVMHRDIKPANVFILGDLGLG"
+ },
+ {
+  "kinase_ID": 289,
+  "name": "NEK7",
+  "HGNC": "NEK7",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q8TDX7",
+  "pocket": "KKIGRGQFSEVYRVALKKVDCIKEIDLLKQLNPNVIKYYASNIVLELADAGDLSRMIKHHMHSRRVMHRDIKPANVFILGDLGLG"
+ },
+ {
+  "kinase_ID": 290,
+  "name": "NEK9",
+  "HGNC": "NEK9",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q8TD19",
+  "pocket": "RVLGRGAFGEATLVVWKEVDALNEIVILALLQDNIIAYYNHLIELEYCNGGNLYDKILRCIHKAGILHRDIKTLNIFLLGDYGLA"
+ },
+ {
+  "kinase_ID": 291,
+  "name": "NEK8",
+  "HGNC": "NEK8",
+  "family": "NEK",
+  "group": "Other",
+  "uniprot": "Q86SG6",
+  "pocket": "RVVGRGAFGIVHLVIIKQIAAQNECQVLKLLNPNVIEYYENMIAMEYAPGGTLAEFIQKHVHTHLILHRDLKTQNILLIGDFGIS"
+ },
+ {
+  "kinase_ID": 295,
+  "name": "PINK1",
+  "HGNC": "PINK1",
+  "family": "NKF2",
+  "group": "Other",
+  "uniprot": "Q9BXM7",
+  "pocket": "QSIGKGCSAAVYELAIKMMGSSSEAILNTMSQPNIIRVLRALPGALVDYPDVLPSRLHPHLVQQGIAHRDLKSDNILVIADFGCC"
+ },
+ {
+  "kinase_ID": 296,
+  "name": "SgK269",
+  "HGNC": "PEAK1",
+  "family": "NKF3",
+  "group": "Other",
+  "uniprot": "Q9H792",
+  "pocket": "KPCCEAGDAVYYTYAVKICSKAKESQQYYHSLFNIQQDCGHPDDPEKDEDDMEETEEDAHLKPYHVTHCDLRLENLLLVSNFSQA"
+ },
+ {
+  "kinase_ID": 297,
+  "name": "SgK223",
+  "HGNC": "PRAG1",
+  "family": "NKF3",
+  "group": "Other",
+  "uniprot": "Q86YV5",
+  "pocket": "KPCCDSGDAIYYCYAVKICVASVPSSMLSSPDPPAQEQDCVREVPHQT-ASDFVRDSAAHLKEHGIIHRDLCLENLLLISNFLKA"
+ },
+ {
+  "kinase_ID": 299,
+  "name": "CLIK1L",
+  "HGNC": "PDIK1L",
+  "family": "NKF4",
+  "group": "Other",
+  "uniprot": "Q8N165",
+  "pocket": "REVGRGSYGVVYEVAVKKILALREFWALSSIKPNVIHLEECLQLVETSLKGEIAFDPRSFLHKNQIIHRDLKPDNILIVADFGLS"
+ },
+ {
+  "kinase_ID": 301,
+  "name": "NRBP1",
+  "HGNC": "NRBP1",
+  "family": "NRBP",
+  "group": "Other",
+  "uniprot": "Q9UHY1",
+  "pocket": "EEVNQRNVPGIDSVVWNEVKVRAVFDNLIQLELNIVKFHKYIFITEYMSSGSLKQFLKKHSCDPPIIHGNLTCDTIFIIGSVAPD"
+ },
+ {
+  "kinase_ID": 302,
+  "name": "NRBP2",
+  "HGNC": "NRBP2",
+  "family": "NRBP",
+  "group": "Other",
+  "uniprot": "Q9NSY0",
+  "pocket": "EQVNQGNMPGLQSVWNELHKIQTVFEQLVLVDPNIVKLHKYIFITEYVSSGSLKQFLKKHACSPPIIHGNLTSDTIFIIGSVWHR"
+ },
+ {
+  "kinase_ID": 305,
+  "name": "SgK196",
+  "HGNC": "POMK",
+  "family": "Other-Unique",
+  "group": "Other",
+  "uniprot": "Q9H5K3",
+  "pocket": "KRVGEGAVKRVFLVALSQLDFLHGLQMLKSLQTHVVTLLGYTMLTEYHPLGSLSNLEETYLHHSPVGTRVMCDSNDLPANDLDAL"
+ },
+ {
+  "kinase_ID": 311,
+  "name": "PLK1",
+  "HGNC": "PLK1",
+  "family": "PLK",
+  "group": "Other",
+  "uniprot": "P53350",
+  "pocket": "RFLGKGGFAKCFEFAGKIVKMSMEISIHRSLAQHVVGFHGFFVVLELCRRRSLLELHKRYLHRNRVIHRDLKLGNLFLIGDFGLA"
+ },
+ {
+  "kinase_ID": 312,
+  "name": "PLK3",
+  "HGNC": "PLK3",
+  "family": "PLK",
+  "group": "Other",
+  "uniprot": "Q9H4B4",
+  "pocket": "RLLGKGGFARCYEYAVKVIKILNEIELHRDLQRHIVRFSHHYIFLELCSRKSLAHIWKAYLHQRGILHRDLKLGNFFIVGDFGLA"
+ },
+ {
+  "kinase_ID": 313,
+  "name": "PLK2",
+  "HGNC": "PLK2",
+  "family": "PLK",
+  "group": "Other",
+  "uniprot": "Q9NYY3",
+  "pocket": "KVLGKGGFAKCYEYAAKIIKIDKEIELHRILHKHVVQFYHYYILLEYCSRRSMAHILKAYLHEQEILHRDLKLGNFFIVGDFGLA"
+ },
+ {
+  "kinase_ID": 314,
+  "name": "PLK4",
+  "HGNC": "PLK4",
+  "family": "PLK",
+  "group": "Other",
+  "uniprot": "O00444",
+  "pocket": "NLLGKGSFAGVYRVAIKMIRVQNEVKIHCQLKPSILELYNYYLVLEMCHNGEMNRYLKNYLHSHGILHRDLTLSNLLLIADFGLA"
+ },
+ {
+  "kinase_ID": 319,
+  "name": "SgK493",
+  "HGNC": "PKDCC",
+  "family": "SgK493",
+  "group": "Other",
+  "uniprot": "Q504Y2",
+  "pocket": "QYMGSGYTKAVYRVALKAVKLLKEMVLLERLRPNVLQLYGYDTLTTITELGAPVEMIQLHSPLGSVTLLDFRPRQFVLVTDLDDA"
+ },
+ {
+  "kinase_ID": 325,
+  "name": "PBK",
+  "HGNC": "PBK",
+  "family": "TOPK",
+  "group": "Other",
+  "uniprot": "Q96KB5",
+  "pocket": "QKLGFGTGVNVYLWAVKKIRLMDEAKILKSLHPNIVGYRAFCLAMEYGGEKSLNDLIEELHQEKKLLHGDIKSSNVVIICDVGVS"
+ },
+ {
+  "kinase_ID": 332,
+  "name": "PIK3R4",
+  "HGNC": "PIK3R4",
+  "family": "VPS15",
+  "group": "Other",
+  "uniprot": "Q99570",
+  "pocket": "KSLGSTRFFKVARVVVKVFSYKQELEELKIR---LNSAQNCMLFRQYVR-DNLYDRISTQAHKSGVRHGDIKTENVMVLTDFASF"
+ },
+ {
+  "kinase_ID": 334,
+  "name": "MYT1",
+  "HGNC": "PKMYT1",
+  "family": "WEE",
+  "group": "Other",
+  "uniprot": "Q99640",
+  "pocket": "SRLGHGSYGEVFKYAVKRSRKLAEVGSHEKVGPCCVRLEQAYLQTELC-GPSLQQHCEAHLHSQGLVHLDVKPANIFLLGDFGLL"
+ },
+ {
+  "kinase_ID": 343,
+  "name": "ANPa",
+  "HGNC": "NPR1",
+  "family": "RGC",
+  "group": "RGC",
+  "uniprot": "P16066",
+  "pocket": "TLSGRGSNYGSLLVAVKRVKVLFELKHMRDVQEHLTRFVGACILTEYCPRGSLQDILENLHNGAICSHGNLKSSNCVVITDYGLE"
+ },
+ {
+  "kinase_ID": 344,
+  "name": "ANPb",
+  "HGNC": "NPR2",
+  "family": "RGC",
+  "group": "RGC",
+  "uniprot": "P20594",
+  "pocket": "TLSLRGSSYGSLMVAIKHVQVLFELKHMRDVQNHLTRFIGACIVTEYCPRGSLQDILENLHNSIISSHGSLKSSNCVVITDYGLA"
+ },
+ {
+  "kinase_ID": 353,
+  "name": "OSR1",
+  "HGNC": "OXSR1",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "O95747",
+  "pocket": "EVIGSGATAVVQAVAIKRIELLKEIQAMSQCHPNIVSYYTSWLVMKLLSGGSVLDIIKHYLHKNGQIHRDVKAGNILLIADFGVS"
+ },
+ {
+  "kinase_ID": 361,
+  "name": "NRK",
+  "HGNC": "NRK",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q7Z2Y5",
+  "pocket": "KTIGLGTYGRIYLTAVKVMDLRTELNLLRKYSKNIVSFYGAWMVMELCAAGSVTDVVRMHLHAHRVIHRDIKGQNVLLLVDFGVS"
+ },
+ {
+  "kinase_ID": 367,
+  "name": "PAK1",
+  "HGNC": "PAK1",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q13153",
+  "pocket": "EKIGQGASGTVYTVAIKQMLIINEILVMRENKPNIVNYLDSWVVMEYLAGGSLTDVVTEFLHSNQVIHRDIKSDNILLLTDFGFC"
+ },
+ {
+  "kinase_ID": 368,
+  "name": "PAK2",
+  "HGNC": "PAK2",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q13177",
+  "pocket": "EKIGQGASGTVFTVAIKQILIINEILVMKELKPNIVNFLDSFVVMEYLAGGSLTDVVTEFLHANQVIHRDIKSDNVLLLTDFGFC"
+ },
+ {
+  "kinase_ID": 369,
+  "name": "PAK3",
+  "HGNC": "PAK3",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "O75914",
+  "pocket": "EKIGQGASGTVYTVAIKQMLIINEILVMRENKPNIVNYLDSWVVMEYLAGGSLTDVVTEFLHSNQVIHRDIKSDNILLLTDFGFC"
+ },
+ {
+  "kinase_ID": 370,
+  "name": "PAK4",
+  "HGNC": "PAK4",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "O96013",
+  "pocket": "IKIGEGSTGIVCIVAVKKMLLFNEVVIMRDYQENVVEMYNSWVVMEFLEGGALTDIVTHVLHAQGVIHRDIKSDSILLLSDFGFC"
+ },
+ {
+  "kinase_ID": 371,
+  "name": "PAK6",
+  "HGNC": "PAK6",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9NQU5",
+  "pocket": "VKIGEGSTGIVCLVAVKMMLLFNEVVIMRDYQFNVVEMYKSWVLMEFLQGGALTDIVSQYLHAQGVIHRDIKSDSILLLSDFGFC"
+ },
+ {
+  "kinase_ID": 372,
+  "name": "PAK5",
+  "HGNC": "PAK5",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9P286",
+  "pocket": "IKIGEGSTGIVCIVAVKKMLLFNEVVIMRDYHDNVVDMYSSWVVMEFLEGGALTDIVTHYLHNQGVIHRDIKSDSILLLSDFGFC"
+ },
+ {
+  "kinase_ID": 452,
+  "name": "PDGFRa",
+  "HGNC": "PDGFRA",
+  "family": "PDGFR",
+  "group": "TK",
+  "uniprot": "P16234",
+  "pocket": "RVLGSGAFGKVVEVAVKMLALMSELKIMTHLGLNIVNLLGAYIITEYCFYGDLVNYLHKFLASKNCVHRDLAARNVLLICDFGLA"
+ },
+ {
+  "kinase_ID": 453,
+  "name": "PDGFRb",
+  "HGNC": "PDGFRB",
+  "family": "PDGFR",
+  "group": "TK",
+  "uniprot": "P09619",
+  "pocket": "RTLGSGAFGQVVEVAVKMLALMSELKIMSHLGLNVVNLLGAYIITEYCRYGDLVDYLHRFLASKNCVHRDLAARNVLIICDFGLA"
+ },
+ {
+  "kinase_ID": 480,
+  "name": "TRKA",
+  "HGNC": "NTRK1",
+  "family": "Trk",
+  "group": "TK",
+  "uniprot": "P04629",
+  "pocket": "WELGEGAFGKVFLVAVKALDFQREAELLTMLQQHIVRFFGVLMVFEYMRHGDLNRFLRSYLAGLHFVHRDLATRNCLVIGDFGMS"
+ },
+ {
+  "kinase_ID": 481,
+  "name": "TRKB",
+  "HGNC": "NTRK2",
+  "family": "Trk",
+  "group": "TK",
+  "uniprot": "Q16620",
+  "pocket": "RELGEGAFGKVFLVAVKTLDFHREAELLTNLQEHIVKFYGVIMVFEYMKHGDLNKFLRAYLASQHFVHRDLATRNCLVIGDFGMS"
+ },
+ {
+  "kinase_ID": 482,
+  "name": "TRKC",
+  "HGNC": "NTRK3",
+  "family": "Trk",
+  "group": "TK",
+  "uniprot": "Q16288",
+  "pocket": "RELGEGAFGKVFLVAVKALDFQREAELLTNLQEHIVKFYGVIMVFEYMKHGDLNKFLRAYLASQHFVHRDLATRNCLVIGDFGMS"
+ },
+ {
+  "kinase_ID": 1080,
+  "name": "p110b",
+  "HGNC": "PIK3CB",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "P42338",
+  "pocket": "CKYMDSKMKPLWLVIFKNGDLRQDMLTLQMLRLRMLPYGCLSGLIEVVSSETIADIQLNASYV--LGIGDRHSDNIMVHIDFGHI"
+ },
+ {
+  "kinase_ID": 1081,
+  "name": "p110g",
+  "HGNC": "PIK3CG",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "P48736",
+  "pocket": "CKVMASKKKPLWLIIFKHGDLRQDMLILQILRLCLLPYGCIIGMIEIVKATTIAKIQQSATFV--LGIGDRHNDNIMIHIDFGHI"
+ },
+ {
+  "kinase_ID": 1082,
+  "name": "p110d",
+  "HGNC": "PIK3CD",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "O00329",
+  "pocket": "CTFMDSKMKPLWIIIFKNGDLRQDMLTLQMIQLRMTPYGCLTGLIEVVLSDTIANIQLNATYV--LGIGDRHSDNIMIHIDFGHF"
+ },
+ {
+  "kinase_ID": 1087,
+  "name": "p110a",
+  "HGNC": "PIK3CA",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "P42336",
+  "pocket": "CRIMSSAKRPLWLIIFKNGDLRQDMLTLQIIRLRMLPYGCLVGLIEVVRSHTIMQIQCKATFI--LGIGDRHNSNIMVHIDFGHF"
+ },
+ {
+  "kinase_ID": 1088,
+  "name": "PIK3C3",
+  "HGNC": "PIK3C3",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "Q8NEB9",
+  "pocket": "ATLFKSALMPAQLVIFKHGDLRQDQLILQIISLKLTPYKVLHGFMQFIQSVPVAEVLDTITYI--LGVGDRHLDNLLLHIDFGYI"
+ },
+ {
+  "kinase_ID": 1089,
+  "name": "PI4K2A",
+  "HGNC": "PI4K2A",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "Q9BTU6",
+  "pocket": "ERIYQGSSGSYFVAVFKPKGYLSEAGASLVDQNIVPRTKVVGSFQLFVEYKDADYWLRRLDYI--IRNTDRGNDNWLIAIDNGLA"
+ },
+ {
+  "kinase_ID": 1090,
+  "name": "PI4KB",
+  "HGNC": "PI4KB",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "Q9UBF8",
+  "pocket": "VVLNSKDKAPYLIVIVKCGDLRQELLAFQVLKLWIKPYKILSGMIEPVVAVSIHQVKKQVCYL--LQVKDRHNGNILLHIDFGFI"
+ },
+ {
+  "kinase_ID": 1091,
+  "name": "PI4K2B",
+  "HGNC": "PI4K2B",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "Q8TCG2",
+  "pocket": "ERISQGSSGSYFVGVFKPKGYLSEAGAYLVDNSIVPKTKVVGSFQLFVEYKEAEYWLRKLDYI--IRNTDRGNDNWLVAIDNGLA"
+ },
+ {
+  "kinase_ID": 1092,
+  "name": "PIK3C2G",
+  "HGNC": "PIK3C2G",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "O75747",
+  "pocket": "CSYFTSNALPLKIIIFKAGDLRQDMLVLQLIQMQMIIYRCLQGLVQMVPAVTLAKIHRHVTFI--LGVCDRHNDNIMLHIDFGKF"
+ },
+ {
+  "kinase_ID": 1093,
+  "name": "PIK3C2A",
+  "HGNC": "PIK3C2A",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "O00443",
+  "pocket": "CSFFSSNAVPLKVVMFKVGDLRQDMLALQMIKLRMVIFKCLRGMVELVPSDTLRKIQVEATYV--LGICDRHNDNIMLHIDFGKF"
+ },
+ {
+  "kinase_ID": 1094,
+  "name": "PI4KAP2",
+  "HGNC": "PI4KAP2",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "A4QPH2",
+  "pocket": "TPMQSAAKAPYLAAIFKLGPASQDMLALQIIDLFVFPYRVVCGVIECIPCTSRDQLGRQLLFL--LQIKDRHNGNIMLHIDFGFM"
+ },
+ {
+  "kinase_ID": 1095,
+  "name": "PIK3C2B",
+  "HGNC": "PIK3C2B",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "O00750",
+  "pocket": "CSYFNSNAVPLKLVIFKCGDLRQDMLTLQMIRMRMVIFRCFRGMVEMIPAETLRKIQVEATYV--LGICDRHNDNIMLHIDFGRF"
+ },
+ {
+  "kinase_ID": 1096,
+  "name": "PI4KA",
+  "HGNC": "PI4KA",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "P42356",
+  "pocket": "TPMQSAAKAPYLAAIFKVGDCRQDMLALQIIDLFVFPYRVVCGVIECIPCTSRDQLGRQLLFL--LQIKDRHNGNIMLHIDFGFM"
+ },
+ {
+  "kinase_ID": 1097,
+  "name": "PIP4K2A",
+  "HGNC": "PIP4K2A",
+  "family": "PIPK",
+  "group": "Atypical",
+  "uniprot": "P48426",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1098,
+  "name": "PIP5K1C",
+  "HGNC": "PIP5K1C",
+  "family": "PIPK",
+  "group": "Atypical",
+  "uniprot": "O60331",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1099,
+  "name": "PIP4K2B",
+  "HGNC": "PIP4K2B",
+  "family": "PIPK",
+  "group": "Atypical",
+  "uniprot": "P78356",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1100,
+  "name": "PIP4K2C",
+  "HGNC": "PIP4K2C",
+  "family": "PIPK",
+  "group": "Atypical",
+  "uniprot": "Q8TBX8",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1101,
+  "name": "PIP5K1A",
+  "HGNC": "PIP5K1A",
+  "family": "PIPK",
+  "group": "Atypical",
+  "uniprot": "Q99755",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1102,
+  "name": "PIP5K1B",
+  "HGNC": "PIP5K1B",
+  "family": "PIPK",
+  "group": "Atypical",
+  "uniprot": "O14986",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1106,
+  "name": "PAN3",
+  "HGNC": "PAN3",
+  "family": "PAN3",
+  "group": "Other",
+  "uniprot": "Q58A45",
+  "pocket": "RIQKSSNFGYITSPYCLRRCM-VLVDMWKKIQSNIVTLREVAYDFHAGGETMMSRHFNDTIHTAGLACRVMDPTKILIVNCVGVF"
+ },
+ {
+  "kinase_ID": 1107,
+  "name": "PDPK2P",
+  "HGNC": "PDPK2P",
+  "family": "PDK1",
+  "group": "AGC",
+  "uniprot": "Q6A1A2",
+  "pocket": "KILGEGSFSTVVLYAIKILYVTRERDVMSRLDPFFVKLYFTYFGLSYAKNGELLKYIRKYLHGKGIIHRDLKPENILLITDFGTA"
+ },
+ {
+  "kinase_ID": 1108,
+  "name": "PLK5",
+  "HGNC": "PLK5",
+  "family": "PLK",
+  "group": "Other",
+  "uniprot": "Q496M5",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 1109,
+  "name": "PI4KAP1",
+  "HGNC": "PI4KAP1",
+  "family": "PIK",
+  "group": "Atypical",
+  "uniprot": "Q8N8J0",
+  "pocket": 0
+ },
+ {
+  "kinase_ID": 9,
+  "name": "ROCK1",
+  "HGNC": "ROCK1",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "Q13464",
+  "pocket": "KVIGRGAFGEVQLYAMKLLFFWEERDIMAFANPWVVQLFYAYMVMEYMPGGDLVNLMSNAIHSMGFIHRDVKPDNMLLLADFGTC"
+ },
+ {
+  "kinase_ID": 10,
+  "name": "ROCK2",
+  "HGNC": "ROCK2",
+  "family": "DMPK",
+  "group": "AGC",
+  "uniprot": "O75116",
+  "pocket": "KVIGRGAFGEVQLYAMKLLFFWEERDIMAFANPWVVQLFYAYMVMEYMPGGDLVNLMSNAIHSMGLIHRDVKPDNMLLLADFGTC"
+ },
+ {
+  "kinase_ID": 24,
+  "name": "NDR1",
+  "HGNC": "STK38",
+  "family": "NDR",
+  "group": "AGC",
+  "uniprot": "Q15208",
+  "pocket": "KVIGRGAFGEVRLYAMKILHIRAERDILVEADLWVVKMFYSYLIMEFLPGGDMMTLLMKSIHQLGFIHRDIKPDNLLLLSDFGLC"
+ },
+ {
+  "kinase_ID": 25,
+  "name": "NDR2",
+  "HGNC": "STK38L",
+  "family": "NDR",
+  "group": "AGC",
+  "uniprot": "Q9Y2H1",
+  "pocket": "KVIGRGAFGEVRLYAMKILHIRAERDILVEADAWVVKMFYSYLIMEFLPGGDMMTLLMKAIHQLGFIHRDIKPDNLLLLSDFGLC"
+ },
+ {
+  "kinase_ID": 31,
+  "name": "PRKX",
+  "HGNC": "PRKX",
+  "family": "PKA",
+  "group": "AGC",
+  "uniprot": "P51817",
+  "pocket": "ATVGTGTFGRVHLFALKVMHVHNEKSVLKEVSPFLIRLFWTYMLMEYVPGGELFSYLRNYLHSKEIVYRDLKPENILLLTDFGFA"
+ },
+ {
+  "kinase_ID": 32,
+  "name": "PRKY",
+  "HGNC": "PRKY",
+  "family": "PKA",
+  "group": "AGC",
+  "uniprot": "O43930",
+  "pocket": "VTMGTGTFGRVHLFALKVMHVHNEKSVLKEVSPFLIRLFWTYMLMEYVPGGELFSYLRNYLHSKEIVYRDLKPENILLLTDFGFA"
+ },
+ {
+  "kinase_ID": 42,
+  "name": "PKG1",
+  "HGNC": "PRKG1",
+  "family": "PKG",
+  "group": "AGC",
+  "uniprot": "Q13976",
+  "pocket": "DTLGVGGFGRVELFAMKILHIRSEKQIMQGAHDFIVRLYRTYMLMEACLGGELWTILRDYLHSKGIIYRDLKPENLILLVDFGFA"
+ },
+ {
+  "kinase_ID": 43,
+  "name": "PKG2",
+  "HGNC": "PRKG2",
+  "family": "PKG",
+  "group": "AGC",
+  "uniprot": "Q13237",
+  "pocket": "ATLGVGGFGRVELFAMKCIHVYSEKRILEELCPFIVKLYRTYMLLEACLGGELWSILRDYLHRLGIIYRDLKPENLILLVDFGFA"
+ },
+ {
+  "kinase_ID": 47,
+  "name": "MSK2",
+  "HGNC": "RPS6KA4",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "O75676",
+  "pocket": "KVLGTGAYGKVFLYAMKVLHTRTERSVLELVRPFLVTLHYAHLILDYVSGGEMFTHLYQHLHKLGIIYRDLKLENVLLLTDFGLS"
+ },
+ {
+  "kinase_ID": 48,
+  "name": "MSK2-b",
+  "HGNC": "RPS6KA4-b",
+  "family": "RSKb",
+  "group": "CAMK",
+  "uniprot": "O75676",
+  "pocket": "PALGQGSFSVCRRFAVKILNTQREVAALRLCQPNVVNLHEVYLVLELLRGGELLEHIRKMHEEAGVVHRDLKPENILYIIDFGFA"
+ },
+ {
+  "kinase_ID": 49,
+  "name": "MSK1",
+  "HGNC": "RPS6KA5",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "O75582",
+  "pocket": "KVLGTGAYGKVFLYAMKVLHTRTERQVLEHIRPFLVTLHYAHLILDYINGGELFTHLSQHLHKLGIIYRDIKLENILLLTDFGLS"
+ },
+ {
+  "kinase_ID": 50,
+  "name": "MSK1-b",
+  "HGNC": "RPS6KA5-b",
+  "family": "RSKb",
+  "group": "CAMK",
+  "uniprot": "O75582",
+  "pocket": "KPLGEGSFSICRKFAVKIINTQKEITALKLCEPNIVKLHEVFLVMELLNGGELFERIKKHMHDVGVVHRDLKPENLLFIIDFGFA"
+ },
+ {
+  "kinase_ID": 51,
+  "name": "p70S6K",
+  "HGNC": "RPS6KB1",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "P23443",
+  "pocket": "RVLGKGGYGKVFQFAMKVLHTKAERNILEEVKPFIVDLIYAYLILEYLSGGELFMQLERHLHQKGIIYRDLKPENIMLLTDFGLC"
+ },
+ {
+  "kinase_ID": 52,
+  "name": "p70S6Kb",
+  "HGNC": "RPS6KB2",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "Q9UBS0",
+  "pocket": "RVLGKGGYGKVFQYAMKVLHTRAERNILESVKPFIVELAYAYLILECLSGGELFTHLERHLHSQGIIYRDLKPENIMLLTDFGLC"
+ },
+ {
+  "kinase_ID": 53,
+  "name": "RSK1",
+  "HGNC": "RPS6KA2",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "Q15349",
+  "pocket": "KVLGQGSYGKVFLYAMKVLRSKMERDILAEVNPFIVKLHYAYLILDFLRGGDLFTRLSKHLHSLGIIYRDLKPENILLITDFGLS"
+ },
+ {
+  "kinase_ID": 54,
+  "name": "RSK3",
+  "HGNC": "RPS6KA1",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "Q15418",
+  "pocket": "KVLGQGSFGKVFLYAMKVLRTKMERDILADVNPFVVKLHYAYLILDFLRGGDLFTRLSKHLHSLGIIYRDLKPENILLLTDFGLS"
+ },
+ {
+  "kinase_ID": 55,
+  "name": "RSK2",
+  "HGNC": "RPS6KA3",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "P51812",
+  "pocket": "KVLGQGSFGKVFLYAMKVLRTKMERDILVEVNPFIVKLHYAYLILDFLRGGDLFTRLSKHLHSLGIIYRDLKPENILLLTDFGLS"
+ },
+ {
+  "kinase_ID": 56,
+  "name": "RSK4",
+  "HGNC": "RPS6KA6",
+  "family": "RSK",
+  "group": "AGC",
+  "uniprot": "Q9UK32",
+  "pocket": "KVLGQGSFGKVFLYAMKVLRTKMERDILVEVNPFIVKLHYAYLILDFLRGGDVFTRLSKHLHQLGIVYRDLKPENILLLTDFGLS"
+ },
+ {
+  "kinase_ID": 57,
+  "name": "RSK1-b",
+  "HGNC": "RPS6KA2-b",
+  "family": "RSKb",
+  "group": "CAMK",
+  "uniprot": "Q15349",
+  "pocket": "EDIGVGSYSVCKRYAVKIIDPSEEIEILLRYGPNIITLKDVYLVMELMRGGELLDRILRYLHSQGVVHRDLKPSNILYVCDFGFA"
+ },
+ {
+  "kinase_ID": 58,
+  "name": "RSK3-b",
+  "HGNC": "RPS6KA1-b",
+  "family": "RSKb",
+  "group": "CAMK",
+  "uniprot": "Q15418",
+  "pocket": "ETIGVGSYSECKRYAVKVIDPSEEIEILLRYGPNIITLKDVYLVTELMRGGELLDKILRYLHSQGVVHRDLKPSNILYICDFGFA"
+ },
+ {
+  "kinase_ID": 59,
+  "name": "RSK2-b",
+  "HGNC": "RPS6KA3-b",
+  "family": "RSKb",
+  "group": "CAMK",
+  "uniprot": "P51812",
+  "pocket": "EDIGVGSYSVCKRFAVKIIDPTEEIEILLRYGPNIITLKDVYVVTELMKGGELLDKILRYLHAQGVVHRDLKPSNILYICDFGFA"
+ },
+ {
+  "kinase_ID": 60,
+  "name": "RSK4-b",
+  "HGNC": "RPS6KA6-b",
+  "family": "RSKb",
+  "group": "CAMK",
+  "uniprot": "Q9UK32",
+  "pocket": "EDIGVGSYSVCKRFAVKIIDPSEEIEILMRYGPNIITLKDVYLVTDLMKGGELLDRILKYLHCQGVVHRDLKPSNILYICDFGFA"
+ },
+ {
+  "kinase_ID": 61,
+  "name": "RSKL1",
+  "HGNC": "RPS6KC1",
+  "family": "RSKL",
+  "group": "AGC",
+  "uniprot": "Q96S38",
+  "pocket": "-------------GANEYILLFTDQTDDLAKETSLFQRDSEHQIFEDLD-KKLALASRFALHREGIVCRDLNPNNILLLTYFSRW"
+ },
+ {
+  "kinase_ID": 62,
+  "name": "RSKL2",
+  "HGNC": "RPS6KL1",
+  "family": "RSKL",
+  "group": "AGC",
+  "uniprot": "Q9Y6S9",
+  "pocket": "QLRGCRVVGVIEKFVVKSLMVSRERLTIIPHGPYMTKLLRYFLHLEHVQGGTLWSHLLSALHEQGVLCRDLHPGNLLLLTYFGQW"
+ },
+ {
+  "kinase_ID": 63,
+  "name": "SgK494",
+  "HGNC": "SGK494",
+  "family": "RSKR",
+  "group": "AGC",
+  "uniprot": "Q96LW2",
+  "pocket": "GLVAKGSFGTVLKFAVKVVQCKEEVSIQRQINPFVHSLGDSFIMCSYC-STDLYSLWSAYLHDLGIMHRDVKMENILLLTDFGLS"
+ },
+ {
+  "kinase_ID": 64,
+  "name": "SGK1",
+  "HGNC": "SGK1",
+  "family": "SGK",
+  "group": "AGC",
+  "uniprot": "O00141",
+  "pocket": "KVIGKGSFGKVLLYAVKVLHIMSERNVLLKNVPFLVGLHFSYFVLDYINGGELFYHLQRYLHSLNIVYRDLKPENILLLTDFGLC"
+ },
+ {
+  "kinase_ID": 65,
+  "name": "SGK2",
+  "HGNC": "SGK2",
+  "family": "SGK",
+  "group": "AGC",
+  "uniprot": "Q9HBY8",
+  "pocket": "KVIGKGNYGKVLLYAVKVLHIMAERSVLLKNVPFLVGLRYSYFVLDYVNGGELFFHLQRYLHSLNIIYRDLKPENILLLTDFGLC"
+ },
+ {
+  "kinase_ID": 66,
+  "name": "SGK3",
+  "HGNC": "SGK3",
+  "family": "SGK",
+  "group": "AGC",
+  "uniprot": "Q96BR1",
+  "pocket": "KVIGKGSFGKVLLYAVKVLHIMAERNVLLKNVPFLVGLHYSYFVLDFVNGGELFFHLQRYLHSIKIVYRDLKPENILLLTDFGLC"
+ },
+ {
+  "kinase_ID": 67,
+  "name": "YANK2",
+  "HGNC": "STK32B",
+  "family": "YANK",
+  "group": "AGC",
+  "uniprot": "Q9NY57",
+  "pocket": "RAIGKGSFGKVCIYAMKYMNVFRELQIMQGLEPFLVNLWYSFMVVDLLLGGDLRYHLQQYLQRYHIIHRDIKPDNILLITDFNIA"
+ },
+ {
+  "kinase_ID": 68,
+  "name": "YANK1",
+  "HGNC": "STK32A",
+  "family": "YANK",
+  "group": "AGC",
+  "uniprot": "Q8WU08",
+  "pocket": "RAIGKGSFGKVCIYAMKYMNVFKELQIMQGLEPFLVNLWYSFMVVDLLLGGDLRYHLQQYLQNQRIIHRDMKPDNILLITDFNIA"
+ },
+ {
+  "kinase_ID": 69,
+  "name": "YANK3",
+  "HGNC": "STK32C",
+  "family": "YANK",
+  "group": "AGC",
+  "uniprot": "Q86UX6",
+  "pocket": "RAIGKGSFGKVCIYAMKYMNVFRELEILQEIEVFLVNLWYSFMVVDLLLGGDLRYHLQQYLRGQHIIHRDVKPDNILLLTDFNIA"
+ },
+ {
+  "kinase_ID": 87,
+  "name": "G11",
+  "HGNC": "STK19",
+  "family": "G11",
+  "group": "Atypical",
+  "uniprot": "P49842",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 98,
+  "name": "SMG1",
+  "HGNC": "SMG1",
+  "family": "PIKK",
+  "group": "Atypical",
+  "uniprot": "Q96Q15",
+  "pocket": "LPTKTKPKKLLFLYLFKGLDLHLDERIMQFLSFHARHYSVTSGLIQWVDATPLFGLYKRVGYI--IGLGDRHLDNVLIHIDYNVC"
+ },
+ {
+  "kinase_ID": 100,
+  "name": "RIOK1",
+  "HGNC": "RIOK1",
+  "family": "RIO",
+  "group": "Atypical",
+  "uniprot": "Q9BRS2",
+  "pocket": "GCISTGKEANVYHRAIKIYWAEKEMRNLIRLNIPCPEPIMLVLVMSFIGAPLLKNVQLSMYQDARLVHADLSEFNMLYIIDVSQS"
+ },
+ {
+  "kinase_ID": 101,
+  "name": "RIOK2",
+  "HGNC": "RIOK2",
+  "family": "RIO",
+  "group": "Atypical",
+  "uniprot": "Q9BVS4",
+  "pocket": "NQMGVGKESDIYIFALKLHSAMKEFAYMKALYFPVPKPIDYAVVMELINGYPLCQIHHVLANHG-LIHGDFNEFNLILMIDFPQM"
+ },
+ {
+  "kinase_ID": 102,
+  "name": "RIOK3",
+  "HGNC": "RIOK3",
+  "family": "RIO",
+  "group": "Atypical",
+  "uniprot": "O14730",
+  "pocket": "GCISTGKESVVFHCAIKVFWAEKEMHNLARMQIPCPTVVLLILVMSFIGAPKLKEVKLNLYHECTLVHADLSEYNMLWLIDVSQS"
+ },
+ {
+  "kinase_ID": 103,
+  "name": "TAF1",
+  "HGNC": "TAF1",
+  "family": "TAF1",
+  "group": "Atypical",
+  "uniprot": "P21675",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 104,
+  "name": "TAF1L",
+  "HGNC": "TAF1L",
+  "family": "TAF1",
+  "group": "Atypical",
+  "uniprot": "Q8IZX4",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 123,
+  "name": "LKB1",
+  "HGNC": "STK11",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q15831",
+  "pocket": "DLLGEGSYGKVKERAVKILNVKKEIQLLRRLRKNVIQLVDVYMVMEYCVCGMQEMLDSVYLHSQGIVHKDIKPGNLLLISDLGVA"
+ },
+ {
+  "kinase_ID": 133,
+  "name": "QIK",
+  "HGNC": "SIK2",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q9H0K1",
+  "pocket": "GTLGKGNFAVVKLVAIKIIKIYREVQIMKMLDPHIIKLYQVYLVTEYAKNGEIFDYLANYCHGRKIVHRDLKAENLLLIADFGFG"
+ },
+ {
+  "kinase_ID": 134,
+  "name": "QSK",
+  "HGNC": "SIK3",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q9Y2K2",
+  "pocket": "RTIGKGNFAVVKRVAIKIIKIFREVQIMKMLCPHIIRLYQVYLVTEYASGGEIFDHLVAFCHCRNIVHRDLKAENLLLIADFGFS"
+ },
+ {
+  "kinase_ID": 135,
+  "name": "SIK",
+  "HGNC": "SIK1",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "P57059",
+  "pocket": "RTLGKGNFAVVKLVAIKIIKIYREVQLMKLLNPHIIKLYQVYIVTEFAKNGEMFDYLTSYCHDHHIVHRDLKTENLLLLADFGFG"
+ },
+ {
+  "kinase_ID": 136,
+  "name": "SNRK",
+  "HGNC": "SNRK",
+  "family": "CAMKL",
+  "group": "CAMK",
+  "uniprot": "Q9NRH2",
+  "pocket": "KTLGRGHFAVVKLVAVKVIHLFQEVRCMKLVQPNIVRLYEVYLILELGDGGDMFDYIMKYCHKLHVVHRDLKPENVVFLTDFGFS"
+ },
+ {
+  "kinase_ID": 137,
+  "name": "STK33",
+  "HGNC": "STK33",
+  "family": "CAMK-Unique",
+  "group": "CAMK",
+  "uniprot": "Q9BYT3",
+  "pocket": "RILGKGSFGIVIEWAIKKVLLEREVNILKSVKEHIIHLEQVYLVMELCEDGELKEILDRYLHNNDIVHRDLKLENIMVVTDFGLA"
+ },
+ {
+  "kinase_ID": 143,
+  "name": "DRAK2",
+  "HGNC": "STK17B",
+  "family": "DAPK",
+  "group": "CAMK",
+  "uniprot": "O94768",
+  "pocket": "KELGRGKFAVVRQYAAKFLEILHEIAVLELAKPRVINLHEVILILEYAAGGEIFSLCLPYLHQNNIVHLDLKPQNILLIVDFGMS"
+ },
+ {
+  "kinase_ID": 144,
+  "name": "DRAK1",
+  "HGNC": "STK17A",
+  "family": "DAPK",
+  "group": "CAMK",
+  "uniprot": "Q9UEE5",
+  "pocket": "RELGRGKFAVVRKFAAKFMEIIHEIAVLELAQPWVINLHEVILVLEYAAGGEIFDQCVAFLHTRDVVHLDLKPQNILLIVDFGLS"
+ },
+ {
+  "kinase_ID": 166,
+  "name": "PSKH1",
+  "HGNC": "PSKH1",
+  "family": "PSK",
+  "group": "CAMK",
+  "uniprot": "P11801",
+  "pocket": "ALIGRGSFSRVVRYAIKMIVCESELRVLRRVRANIIQLVEVYMVMELATGGELFDRIIAYLHALGITHRDLKPENLLYITDFGLA"
+ },
+ {
+  "kinase_ID": 167,
+  "name": "PSKH2",
+  "HGNC": "PSKH2",
+  "family": "PSK",
+  "group": "CAMK",
+  "uniprot": "Q96QS6",
+  "pocket": "ALIGTGSFSRVVRFAIKVMACVSELSVLRRVSRYIVQLMEIYMVMELATGGELFDRLIAYLHALQITHRNLKPENLLYITDFGLA"
+ },
+ {
+  "kinase_ID": 169,
+  "name": "SgK495",
+  "HGNC": "STK40",
+  "family": "SgK495",
+  "group": "CAMK",
+  "uniprot": "Q8N2I9",
+  "pocket": "-------------------------------------------------NLQHYVIKEKALHQKNIVHRDLKLGNMVLITNFCLG"
+ },
+ {
+  "kinase_ID": 175,
+  "name": "SPEG",
+  "HGNC": "SPEG",
+  "family": "Trio",
+  "group": "CAMK",
+  "uniprot": "Q15772",
+  "pocket": "QEIGRGAFSYLRRFAAKFISARREARLLARLQDCVLYFHEAVIVTELCT-EELLERIARYLHQSHVLHLDVKPENLLVICDFGNA"
+ },
+ {
+  "kinase_ID": 176,
+  "name": "SPEG-b",
+  "HGNC": "SPEG-b",
+  "family": "Trio",
+  "group": "CAMK",
+  "uniprot": "Q15772",
+  "pocket": "EEKARGRFGVVRAFVAKIVRVLQEYEVLRTLHERIMSLHEAVLIAESCGNRELLCGLSDYLHGHHVLHLDIKPDNLLLIVDFGSA"
+ },
+ {
+  "kinase_ID": 236,
+  "name": "PRP4",
+  "HGNC": "PRPF4B",
+  "family": "DYRK",
+  "group": "CMGC",
+  "uniprot": "Q13523",
+  "pocket": "GYTGQGVFSNVVRVAVKIITGLKELEFLKKLNFHCLRLFRHCLVFEPLS-MNLREVLKKLLKRCNILHADIKPDNILVLCDFGSA"
+ },
+ {
+  "kinase_ID": 256,
+  "name": "SRPK1",
+  "HGNC": "SRPK1",
+  "family": "SRPK",
+  "group": "CMGC",
+  "uniprot": "Q96SB4",
+  "pocket": "RKLGWGHFSTVWLVAMKVVTALDEIRLLKSVREMVVQLLDDCMVFEVLG-HHLLKWIIKLHTKCRIIHTDIKPENILLIADLGNA"
+ },
+ {
+  "kinase_ID": 257,
+  "name": "SRPK2",
+  "HGNC": "SRPK2",
+  "family": "SRPK",
+  "group": "CMGC",
+  "uniprot": "P78362",
+  "pocket": "RKLGWGHFSTVWLVAMKVVTALDEIKLLKCVRDMVVQLIDDCMVFEVLG-HHLLKWIIKLHSKCKIIHTDIKPENILMIADLGNA"
+ },
+ {
+  "kinase_ID": 258,
+  "name": "MSSK1",
+  "HGNC": "SRPK3",
+  "family": "SRPK",
+  "group": "CMGC",
+  "uniprot": "Q9UPE1",
+  "pocket": "RKLGWGHFSTVWLVALKVVTAVDEIKLLKCVRETIVQLIDDCMVLEVLG-HQLLKWIIKLHTKCKIIHTDIKPENILLIADLGNA"
+ },
+ {
+  "kinase_ID": 280,
+  "name": "MPSK1",
+  "HGNC": "STK16",
+  "family": "NAK",
+  "group": "Other",
+  "uniprot": "O75716",
+  "pocket": "QKLGEGGFSYVDLYALKRIEAQREADMHRLFNPNILRLVAYWLLLPFFKRGTLWNEIERAIHAKGYAHRDLKPTNILLLMDLGSM"
+ },
+ {
+  "kinase_ID": 292,
+  "name": "SBK",
+  "HGNC": "SBK1",
+  "family": "NKF1",
+  "group": "Other",
+  "uniprot": "Q52WX2",
+  "pocket": "RELGKGTYGKVDLMALKFVNFLREVSITNSLSPFIIKVFDVVFAQEYAPAGDLFDIIPPFMHGRQLVHRDIKPENVLLLADFGMT"
+ },
+ {
+  "kinase_ID": 293,
+  "name": "SgK069",
+  "HGNC": "SBK2",
+  "family": "NKF1",
+  "group": "Other",
+  "uniprot": "P0C263",
+  "pocket": "RPLGQGCYGRVLLLALKQLGFLYEFCVGLSLGSAIVTAYGISFLTEPVLHGDLMAFIQPYIHARGLVYRDLKPENVLVLTDFGHT"
+ },
+ {
+  "kinase_ID": 294,
+  "name": "SgK110",
+  "HGNC": "SBK3",
+  "family": "NKF1",
+  "group": "Other",
+  "uniprot": "P0C264",
+  "pocket": "RKLGSGSYGRVLLVALKLLTFLREFCVGRCVSPGLLQTLAGAFAQEYAPCGDLSGMLQEFLHSRGLVHADVKPDNVLVLGDLGLT"
+ },
+ {
+  "kinase_ID": 298,
+  "name": "CLIK1",
+  "HGNC": "STK35",
+  "family": "NKF4",
+  "group": "Other",
+  "uniprot": "Q8TDR2",
+  "pocket": "AEIGRGSYGVVYEVAVKKILALAEFWALTSLKGNKSSQLYLGYAEEPCYLWFVMEFCEGFLHKNHIVHRDLKPDNILIVADFGLS"
+ },
+ {
+  "kinase_ID": 303,
+  "name": "RNAseL",
+  "HGNC": "RNASEL",
+  "family": "Other-Unique",
+  "group": "Other",
+  "uniprot": "Q05823",
+  "pocket": "YKIADTSEGGIYLVAVKTFRAQREVSCLQSSRSHLVTFYGSFVCVTLCEQ-TLEACLDVLHLSCGYTHQDLQPQNILILADFDKS"
+ },
+ {
+  "kinase_ID": 304,
+  "name": "SgK396",
+  "HGNC": "STK31",
+  "family": "Other-Unique",
+  "group": "Other",
+  "uniprot": "Q9BXU1",
+  "pocket": "EPMKELSSKRPLVILLKGYAKVIERAATYHRAEAEGDSGLLYLMVPYYPRANLNAVQANTLHKADIIHGSLHQNNVFAVGDFDFT"
+ },
+ {
+  "kinase_ID": 315,
+  "name": "SCYL2",
+  "HGNC": "SCYL2",
+  "family": "SCY1",
+  "group": "Other",
+  "uniprot": "Q6P3W7",
+  "pocket": "RHIASGGNGLAWKVAVFVFSLKRGVQQLTRLRPRLLTVQHPAFCTEPVF-ASLANVLGNLHSSVKMVHGNITPENIILIMGFDFC"
+ },
+ {
+  "kinase_ID": 316,
+  "name": "SCYL3",
+  "HGNC": "SCYL3",
+  "family": "SCY1",
+  "group": "Other",
+  "uniprot": "Q8IZE3",
+  "pocket": "---------AVYPASVFVYKVNKAAKHLKTLRPCLLRFLSCHLVTERV--QPLEVALETLHDRGHLTHNNVCLSSVFVLGGMETV"
+ },
+ {
+  "kinase_ID": 317,
+  "name": "SCYL1",
+  "HGNC": "SCYL1",
+  "family": "SCY1",
+  "group": "Other",
+  "uniprot": "Q96KG9",
+  "pocket": "--------WALHRVSIFVYVAKAAFKRFKTLRPNILAYIDGHVVTEAV--TPLGIYLKALVNDCSLIHNNVCMAAVFVLGGLDYM"
+ },
+ {
+  "kinase_ID": 318,
+  "name": "SgK071",
+  "HGNC": "STKLD1",
+  "family": "SgK071",
+  "group": "Other",
+  "uniprot": "Q8NE28",
+  "pocket": "YQLNPGALGVNLVHVIKQVQALEELMPLLKLRAHISVYQELCLVMEFNE-LSFQEVIEDYLHHLDIIHRNLKPSNIILLQDLSSN"
+ },
+ {
+  "kinase_ID": 321,
+  "name": "Slob",
+  "HGNC": "PXK",
+  "family": "Slob",
+  "group": "Other",
+  "uniprot": "Q7Z7A4",
+  "pocket": "KDIGWRIRKKYFLLVLSWADFQCLIKLLPSCLPYIYRVTFALLIRMFNEKGTLKDLIYKFLHDKGFPYGHLHASNVMLLLDLE--"
+ },
+ {
+  "kinase_ID": 322,
+  "name": "TBCK",
+  "HGNC": "TBCK",
+  "family": "TBCK",
+  "group": "Other",
+  "uniprot": "Q8TEA7",
+  "pocket": "-------------LPHDVCKILGRFQILKTITPRLCQYVDIVVVAEHCE-RSLEDLLREYMNKHGIVHRALSPHNILLLAKFGLY"
+ },
+ {
+  "kinase_ID": 327,
+  "name": "Fused",
+  "HGNC": "STK36",
+  "family": "ULK",
+  "group": "Other",
+  "uniprot": "Q9NRP7",
+  "pocket": "EMIGEGSFGRVYKVALKFINLQREIEIMRGLRPNIVHMLDSVVVTDYAE-GELFQILEDYLHSHRILHRDMKPQNILLLCDFGFA"
+ },
+ {
+  "kinase_ID": 354,
+  "name": "STLK3",
+  "HGNC": "STK39",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9UEW8",
+  "pocket": "EVIGSGATAVVQAVAIKRIELLKEIQAMSQCSPNVVTYYTSWLVMKLLSGGSMLDIIKYYLHRNGQIHRDLKAGNILLIADFGVS"
+ },
+ {
+  "kinase_ID": 363,
+  "name": "MST2",
+  "HGNC": "STK3",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q13188",
+  "pocket": "EKLGEGSYGSVFKVAIKQVEIIKEISIMQQCDPYVVKYYGSWIVMEYCGAGSVSDIIRLYLHFMRKIHRDIKAGNILLLADFGVA"
+ },
+ {
+  "kinase_ID": 364,
+  "name": "MST1",
+  "HGNC": "STK4",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q13043",
+  "pocket": "EKLGEGSYGSVYKVAIKQVEIIKEISIMQQCDPHVVKYYGSWIVMEYCGAGSVSDIIRLYLHFMRKIHRDIKAGNILLLADFGVA"
+ },
+ {
+  "kinase_ID": 373,
+  "name": "LOK",
+  "HGNC": "STK10",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "O94804",
+  "pocket": "GELGDGAFGKVYKAAAKVIDYIVEIEILATCDPYIVKLLGAWIMIEFCPGGAVDAIMLEFLHSKRIIHRDLKAGNVLMLADFGVS"
+ },
+ {
+  "kinase_ID": 374,
+  "name": "SLK",
+  "HGNC": "SLK",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9H2G2",
+  "pocket": "GELGDGAFGKVYKAAAKVIDYMVEIDILASCDPNIVKLLDAWILIEFCAGGAVDAVMLEYLHDNKIIHRDLKAGNILFLADFGVS"
+ },
+ {
+  "kinase_ID": 375,
+  "name": "STLK6",
+  "HGNC": "STRADB",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9C0K7",
+  "pocket": "VEIGRGFDNLTSVVTIKITALQKAVILSHFFRPNITTYWTVWVISPFMAYGSASQLLRTYLHQNGCIHRSIKASHILILSGLSHL"
+ },
+ {
+  "kinase_ID": 376,
+  "name": "STLK5",
+  "HGNC": "STRADA",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q7RTN6",
+  "pocket": "TVIGKGFEDLMTVVTVRRIFLQGELHVSKLFNPNIVPYRATWVVTSFMAYGSAKDLICTYIHHMGYVHRSVKASHILILSGLRSN"
+ },
+ {
+  "kinase_ID": 377,
+  "name": "TAO2",
+  "HGNC": "TAOK2",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9UL54",
+  "pocket": "REIGHGSFGAVYFVAIKKMDIIKEVRFLQKLRPNTIQYRGCWLVMEYCLGSASDLLEVHYLHSHNMIHRDVKAGNILLLGDFGSA"
+ },
+ {
+  "kinase_ID": 378,
+  "name": "TAO3",
+  "HGNC": "TAOK3",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9H2K8",
+  "pocket": "HEIGHGSFGAVYFVAIKKMDILKEVKFLRQLKPNTIEYKGCWLVMEYCLGSASDLLEVHYLHSHALIHRDIKAGNILLLADFGSA"
+ },
+ {
+  "kinase_ID": 379,
+  "name": "TAO1",
+  "HGNC": "TAOK1",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q7L7X3",
+  "pocket": "REIGHGSFGAVYFVAIKKMDIIKEVKFLQRIKPNSIEYKGCWLVMEYCLGSASDLLEVHYLHSHTMIHRDIKAGNILLLADFGSA"
+ },
+ {
+  "kinase_ID": 380,
+  "name": "MST3",
+  "HGNC": "STK24",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9Y6E0",
+  "pocket": "EKIGKGSFGEVFKVAIKIIDIQQEITVLSQCDPYVTKYYGSWIIMEYLGGGSALDLLEPYLHSEKKIHRDIKAANVLLLADFGVA"
+ },
+ {
+  "kinase_ID": 381,
+  "name": "YSK1",
+  "HGNC": "STK25",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "O00506",
+  "pocket": "DRIGKGSFGEVYKVAIKIIDIQQEITVLSQCDPYITRYFGSWIIMEYLGGGSALDLLKPYLHSERKIHRDIKAANVLLLADFGVA"
+ },
+ {
+  "kinase_ID": 382,
+  "name": "MST4",
+  "HGNC": "STK26",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9P289",
+  "pocket": "ERIGKGSFGEVFKVAIKIIDIQQEITVLSQCDSYVTKYYGSWIIMEYLGGGSALDLLRAYLHSEKKIHRDIKAANVLLLADFGVA"
+ },
+ {
+  "kinase_ID": 401,
+  "name": "CCK4",
+  "HGNC": "PTK7",
+  "family": "CCK4",
+  "group": "TK",
+  "uniprot": "Q13308",
+  "pocket": "TTLGKSEFGEVFLVLVKSLDFRRELEMFGKLNANVVRLLGLYMVLEYVDLGDLKQFLRIHLSNNRFVHKDLAARNCLVVSALGLS"
+ },
+ {
+  "kinase_ID": 424,
+  "name": "PYK2",
+  "HGNC": "PTK2B",
+  "family": "FAK",
+  "group": "TK",
+  "uniprot": "Q14289",
+  "pocket": "RILGEGFFGEVYEVAVKTCKFMSEAVIMKNLDPHIVKLIGIWIIMELYPYGELGHYLERYLESINCVHRDIAVRNILVLGDFGLS"
+ },
+ {
+  "kinase_ID": 425,
+  "name": "FAK",
+  "HGNC": "PTK2",
+  "family": "FAK",
+  "group": "TK",
+  "uniprot": "Q05397",
+  "pocket": "RCIGEGQFGDVHQVAIKTCKFLQEALTMRQFDPHIVKLIGVWIIMELCTLGELRSFLQVYLESKRFVHRDIAARNVLVLGDFGLS"
+ },
+ {
+  "kinase_ID": 454,
+  "name": "RET",
+  "HGNC": "RET",
+  "family": "Ret",
+  "group": "TK",
+  "uniprot": "P07949",
+  "pocket": "KTLGEGEFGKVVKVAVKMLDLLSEFNVLKQVNPHVIKLYGALLIVEYAKYGSLRGFLREYLAEMKLVHRDLAARNILVISDFGLS"
+ },
+ {
+  "kinase_ID": 455,
+  "name": "ROR1",
+  "HGNC": "ROR1",
+  "family": "Ror",
+  "group": "TK",
+  "uniprot": "Q01973",
+  "pocket": "EELGECAFGKIYKVAIKTLEFQQEASLMAELHPNIVCLLGACMLFEYINQGDLHEFLIMYLSSHFFVHKDLAARNILIISDLGLS"
+ },
+ {
+  "kinase_ID": 456,
+  "name": "ROR2",
+  "HGNC": "ROR2",
+  "family": "Ror",
+  "group": "TK",
+  "uniprot": "Q01974",
+  "pocket": "EELGEDRFGKVYKVAIKTLEFRHEAMLRARLQPNVVCLLGVSMIFSYCSHGDLHEFLVMYLSSHHVVHKDLATRNVLVISDLGLF"
+ },
+ {
+  "kinase_ID": 457,
+  "name": "RYK",
+  "HGNC": "RYK",
+  "family": "Ryk",
+  "group": "TK",
+  "uniprot": "P34925",
+  "pocket": "DVLQEGTFGRIFHAFVKTVMMLTESCKLRGLHRNLLPITHVMVILPYMNWGNLKLFLRQYLARREVIHKDLAARNCVIITDNALS"
+ },
+ {
+  "kinase_ID": 458,
+  "name": "ROS",
+  "HGNC": "ROS1",
+  "family": "Sev",
+  "group": "TK",
+  "uniprot": "P08922",
+  "pocket": "LLLGSGAFGEVYEVAVKTLEFLKEAHLMSKFNPNILKQLGVYIILELMEGGDLLTYLRKYLERMHFIHRDLAARNCLVIGDFGLA"
+ },
+ {
+  "kinase_ID": 462,
+  "name": "SRC",
+  "HGNC": "SRC",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P12931",
+  "pocket": "VKLGQGCFGEVWMVAIKTLAFLQEAQVMKKLREKLVQLYAVYIVTEYMSKGSLLDFLKGYVERMNYVHRDLRAANILVVADFGLA"
+ },
+ {
+  "kinase_ID": 468,
+  "name": "BRK",
+  "HGNC": "PTK6",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "Q13882",
+  "pocket": "RKLGSGYFGEVFEVAIKVIMLQSEIQAMKKLRKHILALYAVYIITELMAKGSLLELLRDYLESQNYIHRDLAARNILVVGDFGLA"
+ },
+ {
+  "kinase_ID": 469,
+  "name": "SRM",
+  "HGNC": "SRMS",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "Q9H3Y6",
+  "pocket": "RKLGEGYFGEVWEVAIKVIDLAKEIQTLKGLRERLIRLHAVYIVTELMRKGNLQAFLGTYLEEQRVVHRDLAARNVLVVADFGLA"
+ },
+ {
+  "kinase_ID": 470,
+  "name": "SYK",
+  "HGNC": "SYK",
+  "family": "Syk",
+  "group": "TK",
+  "uniprot": "P43405",
+  "pocket": "KELGSGNFGTVKKVAVKILELLAEANVMQQLDPYIVRMIGIMLVMEMAELGPLNKYLQQYLEESNFVHRDLAARNVLLISDFGLS"
+ },
+ {
+  "kinase_ID": 479,
+  "name": "SuRTK106",
+  "HGNC": "STYK1",
+  "family": "TK-Unique",
+  "group": "TK",
+  "uniprot": "Q6J9G0",
+  "pocket": "EQICSGSCGPIFRVILKALDFLGRIQFHQYLGKNLVQLEGCYMVLEDVAQGDLLSFLWTFLQEKHLFHGDVAARNILMLCGLGLA"
+ },
+ {
+  "kinase_ID": 510,
+  "name": "RAF1",
+  "HGNC": "RAF1",
+  "family": "RAF",
+  "group": "TKL",
+  "uniprot": "P04049",
+  "pocket": "TRIGSGSFGTVYKVAVKILAFRNEVAVLRKTRVNILLFMGYAIVTQWCEGSSLYKHLHVYLHAKNIIHRDMKSNNIFLIGDFGLA"
+ },
+ {
+  "kinase_ID": 511,
+  "name": "RIPK1",
+  "HGNC": "RIPK1",
+  "family": "RIPK",
+  "group": "TKL",
+  "uniprot": "Q13546",
+  "pocket": "AELDSGGFGKVSLMIMKTVALLEEAKMMNRLRSRVVKLLGVSLVMEYMEKGNLMHVLKAYLHGKGVIHKDLKPENILVIADLGLA"
+ },
+ {
+  "kinase_ID": 512,
+  "name": "RIPK2",
+  "HGNC": "RIPK2",
+  "family": "RIPK",
+  "group": "TKL",
+  "uniprot": "O43353",
+  "pocket": "RYLSRGASGTVSSVAVKHLDVLREAEILHKARSYILPILGIGIVTEYMPNGSLNELLHRHNMTPPLLHHDLKTQNILLIADFGLS"
+ },
+ {
+  "kinase_ID": 513,
+  "name": "RIPK3",
+  "HGNC": "RIPK3",
+  "family": "RIPK",
+  "group": "TKL",
+  "uniprot": "Q9Y572",
+  "pocket": "ELVGKGGFGTVFRVAVKIVAISREVKAMASLDEFVLRLEGVALVTKFMENGSLSGLLQSHDQNPVLLHRDLKPSNVLLLADFGLS"
+ },
+ {
+  "kinase_ID": 514,
+  "name": "ANKRD3",
+  "HGNC": "RIPK4",
+  "family": "RIPK",
+  "group": "TKL",
+  "uniprot": "P57078",
+  "pocket": "EKVGSGGFGQVYKLAIKCSELLEEAKKMEMAKRYILPVYGIGLVMEYMETGSLEKLLASHCMAPPLLHLDLKPANILLISDFGLA"
+ },
+ {
+  "kinase_ID": 78,
+  "name": "ChaK1",
+  "HGNC": "TRPM7",
+  "family": "Alpha",
+  "group": "Atypical",
+  "uniprot": "Q96QT4",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 79,
+  "name": "ChaK2",
+  "HGNC": "TRPM6",
+  "family": "Alpha",
+  "group": "Atypical",
+  "uniprot": "Q9BX84",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 99,
+  "name": "TRRAP",
+  "HGNC": "TRRAP",
+  "family": "PIKK",
+  "group": "Atypical",
+  "uniprot": "Q9Y4A5",
+  "pocket": "VQKHNTAARRLYIYLVMNDESRREERVLQLLRFFTVPRVVAMRLVEDNPVEIYKQRCAKAEFV--LHLNRLNPEMLQITIGVSGP"
+ },
+ {
+  "kinase_ID": 105,
+  "name": "TIF1a",
+  "HGNC": "TRIM24",
+  "family": "TIF1",
+  "group": "Atypical",
+  "uniprot": "O15164",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 106,
+  "name": "TIF1b",
+  "HGNC": "TRIM28",
+  "family": "TIF1",
+  "group": "Atypical",
+  "uniprot": "Q13263",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 107,
+  "name": "TIF1g",
+  "HGNC": "TRIM33",
+  "family": "TIF1",
+  "group": "Atypical",
+  "uniprot": "Q9UPN9",
+  "pocket": ""
+ },
+ {
+  "kinase_ID": 154,
+  "name": "TTN",
+  "HGNC": "TTN",
+  "family": "MLCK",
+  "group": "CAMK",
+  "uniprot": "Q8WZ42",
+  "pocket": "EDLGRGEFGIVHRYMAKFVLVKKEISILNIARRNILHLHESVMIFEFISGLDIFERINTFLHSHNIGHFDIRPENIIYIIEFGQA"
+ },
+ {
+  "kinase_ID": 170,
+  "name": "Trb1",
+  "HGNC": "TRIB1",
+  "family": "Trbl",
+  "group": "CAMK",
+  "uniprot": "Q96RU8",
+  "pocket": "LLLPLAEREHVSRLRCKVFYQDKIRPYIQLPSSNITGIVEVYVFFEKDF-GDMHSYVRSHCHQSAIVLGDLKLRKFVFLRLESLE"
+ },
+ {
+  "kinase_ID": 171,
+  "name": "Trb2",
+  "HGNC": "TRIB2",
+  "family": "Trbl",
+  "group": "CAMK",
+  "uniprot": "Q92519",
+  "pocket": "LLLEPLEGDHVFRLVCKVFYQESLAPCFCLSASNINQITEIYVFFERSY-GDMHSFVRTHCHDGGLVLRDLKLRKFIFVKLESLE"
+ },
+ {
+  "kinase_ID": 172,
+  "name": "Trb3",
+  "HGNC": "TRIB3",
+  "family": "Trbl",
+  "group": "CAMK",
+  "uniprot": "Q96RU7",
+  "pocket": "VLLEPEEGGRAYQYTCKVYALAVLEPYARLPPKHVARPTEVYAFFTRTH-GDMHSLVRSHCHQHGLVLRDLKLCRFVFLVLENLE"
+ },
+ {
+  "kinase_ID": 177,
+  "name": "Trio",
+  "HGNC": "TRIO",
+  "family": "Trio",
+  "group": "CAMK",
+  "uniprot": "O75962",
+  "pocket": "AELGRGRFSVVKKVATKFVQVTHELGILQSLQPLLVGLLDTILVLEMADQGRLLDCVVRYLHNCRIAHLDLKPENILVLADFGDA"
+ },
+ {
+  "kinase_ID": 179,
+  "name": "TSSK2",
+  "HGNC": "TSSK2",
+  "family": "TSSK",
+  "group": "CAMK",
+  "uniprot": "Q96PF2",
+  "pocket": "INLGKGSYAKVKSVAVKIIFLPREMDILATVNGSIIKTYEIYIIMELGVQGDLLEFIKCYCHDLDIVHRDLKCENLLLLSDFGFS"
+ },
+ {
+  "kinase_ID": 180,
+  "name": "TSSK3",
+  "HGNC": "TSSK3",
+  "family": "TSSK",
+  "group": "CAMK",
+  "uniprot": "Q96PN8",
+  "pocket": "KTIGEGTYSKVKEVAIKVIFLPRELQIVRTLDKNIIQVYEMCLVMELAEGGDVFDCVLNYCHGCGVAHRDLKCENALLLTDFGFA"
+ },
+ {
+  "kinase_ID": 181,
+  "name": "TSSK1",
+  "HGNC": "TSSK1B",
+  "family": "TSSK",
+  "group": "CAMK",
+  "uniprot": "Q9BXA7",
+  "pocket": "INLGEGSYAKVKSVAIKIIFLPREIEILAMLNCSIIKTYEIYIVMELAVQGDLLELIKTYCHDLDVVHRDLKCDNLLLLSDFSFS"
+ },
+ {
+  "kinase_ID": 182,
+  "name": "SSTK",
+  "HGNC": "TSSK6",
+  "family": "TSSK",
+  "group": "CAMK",
+  "uniprot": "Q9BXA6",
+  "pocket": "RTIGEGSYSKVKVVAIKVVFLPRELSILRGVRPHIVHVFEFYIVMEAAA-TDLLQAVQRYLHDHHLVHRDLKCENVLLLTDFGFG"
+ },
+ {
+  "kinase_ID": 183,
+  "name": "TSSK4",
+  "HGNC": "TSSK4",
+  "family": "TSSK",
+  "group": "CAMK",
+  "uniprot": "Q6SA08",
+  "pocket": "KAIGHGSYGSVYEVAVKIIFLPREIQVMKVLRKYLINFYRAYIILELAQGGDVLEWIQRYLHSKSIVHRDLKLENLLLISDFGFA"
+ },
+ {
+  "kinase_ID": 191,
+  "name": "TTBK1",
+  "HGNC": "TTBK1",
+  "family": "TTBK",
+  "group": "CK1",
+  "uniprot": "Q5TCY1",
+  "pocket": "KKIGGGGFGEIYEVALKVEVLKMEVAVLKKLQDHVCRFIGCYVVMQLQG-RNLADLRRSAIHSVGFLHRDIKPSNFAMMLDFGLA"
+ },
+ {
+  "kinase_ID": 192,
+  "name": "TTBK2",
+  "HGNC": "TTBK2",
+  "family": "TTBK",
+  "group": "CK1",
+  "uniprot": "Q6IQ55",
+  "pocket": "RKIGGGGFGEIYDVALKVEVLKMEVAVLKKLQDHVCRFIGCYVVMQLQG-RNLADLRRSSIHSVGFLHRDIKPSNFAMMLDFGLA"
+ },
+ {
+  "kinase_ID": 193,
+  "name": "VRK1",
+  "HGNC": "VRK1",
+  "family": "VRK",
+  "group": "CK1",
+  "uniprot": "Q99986",
+  "pocket": "LPIGQGGFGCIYLCVVKVEPLFTELKFYQRAALGVPKYWGSFMIMDRFG-SDLQKIYEAYIHEHEYVHGDIKASNLLLLVDYGLA"
+ },
+ {
+  "kinase_ID": 194,
+  "name": "VRK2",
+  "HGNC": "VRK2",
+  "family": "VRK",
+  "group": "CK1",
+  "uniprot": "Q86Y07",
+  "pocket": "KKIGSGGFGLIYLHVVKVEPLFSELKFYQRVALGIPLFYGSFMVMERLG-IDLQKISGQYIHENEYVHGDIKAANLLLLADYGLS"
+ },
+ {
+  "kinase_ID": 195,
+  "name": "VRK3",
+  "HGNC": "VRK3",
+  "family": "VRK",
+  "group": "CK1",
+  "uniprot": "Q8IV63",
+  "pocket": "SFQTRDNQGILYEFSLKLDLQVNKWKKLYSTPLAIPTCMGFFLVLPSLG-RSLQSALDVFLHENEYVHGNVTAENIFVLAGYGFA"
+ },
+ {
+  "kinase_ID": 264,
+  "name": "PRPK",
+  "HGNC": "TP53RK",
+  "family": "Bud32",
+  "group": "Other",
+  "uniprot": "Q96S44",
+  "pocket": "ELVKQGAEARVFRAVIKHRRTVQEARALLRCRAGISAPVVFCLYMEEIE-GSVTVRDYIRMHDEDLIHGDLTTSNMLLLIDFGLS"
+ },
+ {
+  "kinase_ID": 272,
+  "name": "TBK1",
+  "HGNC": "TBK1",
+  "family": "IKK",
+  "group": "Other",
+  "uniprot": "Q9UHD2",
+  "pocket": "DILGQGATANVFRFAIKVFVQMREFEVLKKLNKNIVKLFAIVLIMEFCPCGSLYTVLEEHLRENGIVHRDIKPGNIMRLTDFGAA"
+ },
+ {
+  "kinase_ID": 275,
+  "name": "KIS",
+  "HGNC": "UHMK1",
+  "family": "KIS",
+  "group": "Other",
+  "uniprot": "Q8TAS1",
+  "pocket": "SRLGSGSSASVYRGALKQFGFRKERAALEQLQRNIVTLYGVCLLLELLD-VSVSELLLYFLHHEGYVHADLKPRNILWLIDFGLS"
+ },
+ {
+  "kinase_ID": 300,
+  "name": "SgK307",
+  "HGNC": "TEX14",
+  "family": "NKF5",
+  "group": "Other",
+  "uniprot": "Q8IWB6",
+  "pocket": "-------------VTVKELLLIAEQEHSSKLRPYLLQLMAVRLVYERITIGTLFSVLHEYLHFQGFIHRSLSSYAVHILTNLEYM"
+ },
+ {
+  "kinase_ID": 323,
+  "name": "TLK1",
+  "HGNC": "TLK1",
+  "family": "TLK",
+  "group": "Other",
+  "uniprot": "Q9UKI8",
+  "pocket": "HLLGRGGFSEVYKAAVKIHHACREYRIHKELDPRIVKLYDYCTVLEYCEGNDLDFYLKQNEIKPPIIHYDLKPGNILLITDFGLS"
+ },
+ {
+  "kinase_ID": 324,
+  "name": "TLK2",
+  "HGNC": "TLK2",
+  "family": "TLK",
+  "group": "Other",
+  "uniprot": "Q86UE8",
+  "pocket": "HLLGRGGFSEVYKVAVKIHHACREYRIHKELDPRIVKLYDYCTVLEYCEGNDLDFYLKQNEIKPPIIHYDLKPGNILLITDFGLS"
+ },
+ {
+  "kinase_ID": 326,
+  "name": "TTK",
+  "HGNC": "TTK",
+  "family": "TTK",
+  "group": "Other",
+  "uniprot": "P33981",
+  "pocket": "KQIGSGGSSKVFQYAIKYVSYRNEIAYLNKLQDKIIRLYDYYMVMECGN-IDLNSWLKKTIHQHGIVHSDLKPANFLILIDFGIA"
+ },
+ {
+  "kinase_ID": 328,
+  "name": "ULK1",
+  "HGNC": "ULK1",
+  "family": "ULK",
+  "group": "Other",
+  "uniprot": "O75385",
+  "pocket": "DLIGHGAFAVVFKVAVKCILLGKEIKILKELKENIVALYDFYLVMEYCNGGDLADYLHALLHSKGIIHRDLKPQNILLIADFGFA"
+ },
+ {
+  "kinase_ID": 329,
+  "name": "ULK2",
+  "HGNC": "ULK2",
+  "family": "ULK",
+  "group": "Other",
+  "uniprot": "Q8IYT8",
+  "pocket": "DLVGHGAFAVVFRVAIKSILLGKEIKILKELQENIVALYDVFLVMEYCNGGDLADYLQAILHSKGIIHRDLKPQNILLIADFGFA"
+ },
+ {
+  "kinase_ID": 330,
+  "name": "ULK3",
+  "HGNC": "ULK3",
+  "family": "ULK",
+  "group": "Other",
+  "uniprot": "Q6PHR2",
+  "pocket": "ERLGSGTYATVYKVAIKCVNLLTEIEILKGIRPHIVQLKDFYLIMEFCAGGDLSRFIHTFLHERNISHLDLKPQNILLLADFGFA"
+ },
+ {
+  "kinase_ID": 331,
+  "name": "ULK4",
+  "HGNC": "ULK4",
+  "family": "ULK",
+  "group": "Other",
+  "uniprot": "Q96C45",
+  "pocket": "EEIGRGSKTVVYKVAILCTEITNWVRLTREIKKNIVTFHEWWLVVELCTGGSLKTVIAQHLHKLGILFCDISPRKILLFSNFCLA"
+ },
+ {
+  "kinase_ID": 333,
+  "name": "Wee1",
+  "HGNC": "WEE1",
+  "family": "WEE",
+  "group": "Other",
+  "uniprot": "P30291",
+  "pocket": "EKIGSGEFGSVFKYAIKRSNALREVYAHAVLGSHVVRYFSALIQNEYCNGGSLADAISEYIHSMSLVHMDIKPSNIFIIGDLGHV"
+ },
+ {
+  "kinase_ID": 335,
+  "name": "Wee1B",
+  "HGNC": "WEE2",
+  "family": "WEE",
+  "group": "Other",
+  "uniprot": "P0C1S8",
+  "pocket": "EKIGVGEFGTVYKYAIKRSSALHEVYAHAVLGPHVVRYYSSIIQNEYCNGGSLQAAISEYIHNSSMVHLDIKPSNIFIIGDLGHA"
+ },
+ {
+  "kinase_ID": 336,
+  "name": "Wnk1",
+  "HGNC": "WNK1",
+  "family": "WNK",
+  "group": "Other",
+  "uniprot": "Q9H4A3",
+  "pocket": "IEIGRGSFKTVYKVAWCELRFKEEAEMLKGLQPNIVRFYDSVLVTELMTSGTLKTYLKRHTRTPPIIHRDLKCDNIFIIGDLGLA"
+ },
+ {
+  "kinase_ID": 337,
+  "name": "Wnk4",
+  "HGNC": "WNK4",
+  "family": "WNK",
+  "group": "Other",
+  "uniprot": "Q96J92",
+  "pocket": "IEIGRGSFKTVYRVAWCELRFSEEVEMLKGLQPNIVRFYDSVLVTELMTSGTLKTYLRRHSRVPPILHRDLKCDNVFIIGDLGLA"
+ },
+ {
+  "kinase_ID": 338,
+  "name": "Wnk3",
+  "HGNC": "WNK3",
+  "family": "WNK",
+  "group": "Other",
+  "uniprot": "Q9BYP7",
+  "pocket": "IELGRGAFKTVYKVAWCELRFKEEAEMLKGLQPNIVRFYDSVLVTELMTSGTLKTYLKRHTRTPPIIHRDLKCDNIFIIGDLGLA"
+ },
+ {
+  "kinase_ID": 339,
+  "name": "Wnk2",
+  "HGNC": "WNK2",
+  "family": "WNK",
+  "group": "Other",
+  "uniprot": "Q9Y3S1",
+  "pocket": "IELGRGSFKTVYKVAWCELRFKEEAEMLKGLQPNIVRFYDFVLVTELMTSGTLKTYLKRHTRTPPIIHRDLKCDNIFIIGDLGLA"
+ },
+ {
+  "kinase_ID": 360,
+  "name": "TNIK",
+  "HGNC": "TNIK",
+  "family": "STE20",
+  "group": "STE",
+  "uniprot": "Q9UKE5",
+  "pocket": "ELVGNGTYGQVYKAAIKVMEIKQEINMLKKYSRNIATYYGAWLVMEFCGAGSVTDLIKNHLHQHKVIHRDIKGQNVLLLVDFGVS"
+ },
+ {
+  "kinase_ID": 394,
+  "name": "ACK",
+  "HGNC": "TNK2",
+  "family": "Ack",
+  "group": "TK",
+  "uniprot": "Q07912",
+  "pocket": "EKLGDGSFGVVRRVAVKCLDFIREVNAMHSLDRNLIRLYGVKMVTELAPLGSLLDRLRKYLESKRFIHRDLAARNLLLIGDFGLM"
+ },
+ {
+  "kinase_ID": 395,
+  "name": "TNK1",
+  "HGNC": "TNK1",
+  "family": "Ack",
+  "group": "TK",
+  "uniprot": "Q13470",
+  "pocket": "ELLGSGCFGVVHRVAVKSLDFLREVSVMMNLEPHVLRLHGLQMVMELAPLGSLHARLTAYLGARGLVHRDLATRNLLLVADFGLV"
+ },
+ {
+  "kinase_ID": 399,
+  "name": "TYRO3",
+  "HGNC": "TYRO3",
+  "family": "Axl",
+  "group": "TK",
+  "uniprot": "Q06418",
+  "pocket": "RMLGKGEFGSVREVAVKMLEFLREAACMKEFDPHVAKLVGVMVILPFMKHGDLHAFLLAYLSSRNFIHRDLAARNCMLVADFGLS"
+ },
+ {
+  "kinase_ID": 441,
+  "name": "TYK2",
+  "HGNC": "TYK2",
+  "family": "JakA",
+  "group": "TK",
+  "uniprot": "P29597",
+  "pocket": "RDLGEGHFGKVSLVAVKALGWKQEIDILRTLYEHIIKYKGCQLVMEYVPLGSLRDYLPRYLHAQHYIHRDLAARNVLLIGDFGLA"
+ },
+ {
+  "kinase_ID": 442,
+  "name": "TYK2-b",
+  "HGNC": "TYK2-b",
+  "family": "JakB",
+  "group": "TK",
+  "uniprot": "P29597",
+  "pocket": "SHLGQGTRTNVYEVVLKVLLAFYETASLMSQVTHLAFVHGVIMVTEYVEHGPLDVWLRRYLENKNLVHGNVCGRNILLLSDPGVG"
+ },
+ {
+  "kinase_ID": 463,
+  "name": "YES",
+  "HGNC": "YES1",
+  "family": "Src",
+  "group": "TK",
+  "uniprot": "P07947",
+  "pocket": "VKLGQGCFGEVWMVAIKTLAFLQEAQIMKKLRDKLVPLYAVYIVTEFMSKGSLLDFLKEYIERMNYIHRDLRAANILVIADFGLA"
+ },
+ {
+  "kinase_ID": 471,
+  "name": "ZAP70",
+  "HGNC": "ZAP70",
+  "family": "Syk",
+  "group": "TK",
+  "uniprot": "P43403",
+  "pocket": "IELGCGNFGSVRQVAIKVLEMMREAQIMHQLDPYIVRLIGVMLVMEMAGGGPLHKFLVGYLEEKNFVHRDLAARNVLLISDFGLS"
+ },
+ {
+  "kinase_ID": 475,
+  "name": "TEC",
+  "HGNC": "TEC",
+  "family": "Tec",
+  "group": "TK",
+  "uniprot": "P42680",
+  "pocket": "RELGSGLFGVVRLVAIKAIDFIEEAKVMMKLTPKLVQLYGVYIVTEFMERGCLLNFLRQYLERNSFIHRDLAARNCLVVSDFGMA"
+ },
+ {
+  "kinase_ID": 476,
+  "name": "TXK",
+  "HGNC": "TXK",
+  "family": "Tec",
+  "group": "TK",
+  "uniprot": "P42681",
+  "pocket": "KEIGSGQFGVVHLVAIKAIDFIEEAKVMMKLSSKLVQLYGVYIVTEFMENGCLLNYLREYLERNGYIHRDLAARNCLVISDFGMT"
+ },
+ {
+  "kinase_ID": 477,
+  "name": "TIE2",
+  "HGNC": "TEK",
+  "family": "Tie",
+  "group": "TK",
+  "uniprot": "Q02763",
+  "pocket": "DVIGEGNFGQVLKAAIKRMDFAGELEVLCKLGPNIINLLGAYLAIEYAPHGNLLDFLRKYLSQKQFIHRDLAARNILVIADFGLS"
+ },
+ {
+  "kinase_ID": 478,
+  "name": "TIE1",
+  "HGNC": "TIE1",
+  "family": "Tie",
+  "group": "TK",
+  "uniprot": "P35590",
+  "pocket": "DLIGEGNFGQVIRAAIKMLDFAGELEVLCKLGPNIINLLGAYIAIEYAPYGNLLDFLRKYLSEKQFIHRDLAARNVLVIADFGLS"
+ },
+ {
+  "kinase_ID": 492,
+  "name": "TESK1",
+  "HGNC": "TESK1",
+  "family": "LISK",
+  "group": "TKL",
+  "uniprot": "Q15569",
+  "pocket": "EKIGAGFFSEVYKMVLKMNNTLREVQLMNRLRPNILRFMGVHALTEYMNGGTLEQLLSSYLHSKGVFHRDLTSKNCLVVGDFGLA"
+ },
+ {
+  "kinase_ID": 493,
+  "name": "TESK2",
+  "HGNC": "TESK2",
+  "family": "LISK",
+  "group": "TKL",
+  "uniprot": "Q96S53",
+  "pocket": "EKIGSGFFSEVFKMALKMNNMLKEVQLMNRLSPNILRFMGVHALTEYINSGNLEQLLDSYLHFKGIFHRDLTSKNCLIVADFGLA"
+ },
+ {
+  "kinase_ID": 496,
+  "name": "HH498",
+  "HGNC": "TNNI3K",
+  "family": "MLK",
+  "group": "TKL",
+  "uniprot": "Q59H18",
+  "pocket": "EIIGSGSFGKVYKVAIKRYMFCREVSILCQLNPCVIQFVGAAIVTQYISGGSLFSLLHEHNLTQPIIHRDLNSHNILLVADFGES"
+ },
+ {
+  "kinase_ID": 521,
+  "name": "TGFbR1",
+  "HGNC": "TGFBR1",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "P36897",
+  "pocket": "ESIGKGRFGEVWRVAVKIFSWFREAEIYQTVMENILGFIAAWLVSDYHEHGSLFDYLNRTQGKPAIAHRDLKSKNILVIADLGLA"
+ },
+ {
+  "kinase_ID": 527,
+  "name": "TGFbR2",
+  "HGNC": "TGFBR2",
+  "family": "STKR",
+  "group": "TKL",
+  "uniprot": "P37173",
+  "pocket": "TLVGKGRFAEVYKVAVKIFSWKTEKDIFSDINENILQFLTAWLITAFHAKGNLQEYLTRGRPKMPIVHRDLKSSNILVLCDFGLS"
+ }
+]

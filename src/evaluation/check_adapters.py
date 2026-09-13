@@ -24,6 +24,8 @@ random model cannot tell you is whether the *numbers* are meaningful — for tha
 `tests/test_integration.py` has a sanity floor asserting an untrained model
 scores around chance, and if that ever fires the metric is measuring an artefact.
 """
+from __future__ import annotations
+
 import argparse
 import os
 
@@ -139,6 +141,28 @@ CHECKS = {
 }
 
 
+def find_checkpoint(directory: str, name: str) -> str | None:
+    """A trained checkpoint for `name` in `directory`, or None.
+
+    Resolved through checkpoint_naming, the module the trainers write with.
+    The names this used to look for (`moltrans.pt`, `moltrans_best.pt`) are
+    written by nothing, so `--checkpoints results/` fell back to random
+    weights on every run and still printed PASS -- the gate never once saw a
+    trained model. Those names are kept only as a fallback for hand-placed
+    files.
+    """
+    from src.model.checkpoint_naming import discover_checkpoints
+
+    found = discover_checkpoints(directory, model=name)
+    if found:
+        return found[0]["path"]
+    for candidate in (f"{name}.pt", f"{name}_best.pt", f"{name}.pth"):
+        path = os.path.join(directory, candidate)
+        if os.path.exists(path):
+            return path
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Validate the baseline adapters")
     parser.add_argument("--checkpoints", help="directory of trained checkpoints; "
@@ -154,13 +178,10 @@ def main():
 
     failures = 0
     for name in names:
-        checkpoint = None
-        if args.checkpoints:
-            for candidate in (f"{name}.pt", f"{name}_best.pt", f"{name}.pth"):
-                path = os.path.join(args.checkpoints, candidate)
-                if os.path.exists(path):
-                    checkpoint = path
-                    break
+        checkpoint = find_checkpoint(args.checkpoints, name) if args.checkpoints else None
+        if args.checkpoints and checkpoint is None:
+            print(f"  note: no trained {name} checkpoint in {args.checkpoints} "
+                  f"-- checking a random init instead")
 
         try:
             result = CHECKS[name](checkpoint)

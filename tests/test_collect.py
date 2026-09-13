@@ -214,3 +214,51 @@ def test_collector_drives_the_audit_grid_end_to_end(cell):
     # only 'random' has a split directory in the fixture
     assert any("cold_drug" in cell_name for cell_name in results["missing_cells"])
     assert "Audit grid" in summarise(results)
+
+
+def test_explanations_are_cut_to_the_ground_truth_window(cell, monkeypatch):
+    """MolTrans's 545 tokens reach past residue 1,000 on long proteins. Its
+    attention there would compete for the top k while no site can exist to hit,
+    so every model's explanation is cut to the window the sites are cut to."""
+    from src.evaluation import collect
+
+    monkeypatch.setattr(collect, "_explain_row",
+                        lambda *args, **kwargs: np.linspace(0, 1, 1400))
+    weights, _sites, _ids = collect_cell(
+        "uniform_control", "davis", "random", 1, site_sets=cell["site_sets"],
+        task="binary", split_root=cell["split_root"],
+        checkpoint_dir=cell["checkpoint_dir"], max_protein_len=1000, verbose=False)
+    assert {w.size for w in weights} == {1000}
+
+
+def test_cxsmiles_annotations_are_cut_and_unreadable_molecules_dropped(tmp_path):
+    """BindingDB's panel writes `SMILES |r|`; a wildcard or a dative bond is no
+    molecule any model can read. Cut the first, drop the second, for every
+    model alike -- and let the protein's next readable pair stand in."""
+    import pandas as pd
+
+    from src.evaluation.collect import _read_test_rows, clean_smiles
+
+    assert clean_smiles("CC(=O)O |r,c:3|") == "CC(=O)O"
+    pd.DataFrame({
+        "Target_ID": ["P1", "P1", "P2", "P3"],
+        "Drug": ["*.CCO", "CCN |r|", "CC->[Re+]", "c1ccccc1"],
+        # one sequence per protein: since 2026-09-13 a protein is a distinct sequence
+        "Target": ["MKV", "MKV", "MKW", "MKY"],
+    }).to_csv(tmp_path / "test.csv", index=False)
+    rows = _read_test_rows(str(tmp_path), pairs_per_target=1)
+    assert [(t, s) for t, s, _seq in rows] == [("P1", "CCN"), ("P3", "c1ccccc1")]
+
+
+def test_davis_and_kiba_rows_are_untouched_by_the_cleaning():
+    import json
+
+    from src.evaluation.collect import UNREADABLE_SMILES, clean_smiles
+
+    for dataset in ("davis", "kiba"):
+        path = f"src/data/baselines/deepdta/data/{dataset}/ligands_can.txt"
+        if not os.path.exists(path):
+            pytest.skip("DeepDTA source files not present")
+        for smiles in json.load(open(path)).values():
+            assert clean_smiles(smiles) == smiles
+            assert not UNREADABLE_SMILES.search(smiles)

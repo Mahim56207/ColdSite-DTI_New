@@ -269,6 +269,7 @@ def summary(cfg: dict, state: dict) -> str:
     lines.append("")
 
     # accuracy
+    from src.evaluation.clean_accuracy import leaks, unseen_auroc
     lines += ["## Accuracy — test AUROC", "", "| model | " + " | ".join(LEVELS) + " |",
               "|---|" + "---|" * len(LEVELS)]
     auroc = {}
@@ -280,12 +281,19 @@ def summary(cfg: dict, state: dict) -> str:
                 res = _load(results_path(cfg["results_dir"], run_tag(d, lv, TASK, s),
                                          model=m))
                 if res:
-                    values.append(res.get("test_metrics", {}).get("auroc"))
+                    # cold levels on targets unseen by sequence where re-scored
+                    # (src/evaluation/clean_accuracy.py)
+                    clean = unseen_auroc(d, m, lv, s) if leaks(d, lv) else None
+                    values.append(clean if clean is not None
+                                  else res.get("test_metrics", {}).get("auroc"))
             auroc[(m, lv)] = _agg(values)
             cells.append(_fmt(auroc[(m, lv)]))
         lines.append(f"| {m} | " + " | ".join(cells) + " |")
     lines += ["", f"{ANCHOR} has no attention: it anchors this axis and appears "
-              "nowhere below.", ""]
+              "nowhere below.",
+              "Where a level's test set holds targets seen by sequence in training, AUROC is "
+              "on the unseen targets (`clean_accuracy`); a cell not yet re-scored keeps its "
+              "recorded value.", ""]
 
     # plausibility, with the Holm verdict from the audit
     audit = _load(os.path.join(out, f"audit_{d}_{TASK}.json")) or {}

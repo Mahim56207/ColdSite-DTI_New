@@ -1,7 +1,7 @@
-# CLAUDE.md — ColdSite-DTI (session checkpoint, 2026-09-12)
+# CLAUDE.md — ColdSite-DTI (session checkpoint, 2026-09-13)
 
-Source of truth for status: `STATUS.md` § *2026-09-12* (top). Older tables in it are
-marked superseded — **check dates before trusting any "what is left" list**.
+Source of truth for status: **this file** (§4 below, 2026-09-13). `STATUS.md` was last
+updated 2026-09-12 and is superseded where they differ — **check dates**.
 
 ## 1. Thesis
 **Do published interpretability claims in drug–target interaction (DTI) prediction
@@ -30,14 +30,18 @@ attention's histidine preference (11–15× enriched) meeting His-rich metal sit
 positional, not knowledge. New modules: `src/data/klifs_pocket.py` (second ground truth,
 placement verified vs KLIFS numbering, 41/41), `src/evaluation/positional_control.py`
 (borrowed-map, same-residue and within-span nulls, each tested on planted cases).
-**DAVIS data problems (`results/sequence_audit_davis.md`, decision pending with user):**
+**DAVIS data problems (`results/sequence_audit_davis.md`; option A decided 2026-09-13):**
 54/54 checkable mutants carry the wild-type sequence (442 targets = 379 sequences);
 cold-target 12/88 and cold-pair 11/88 test targets are seen-by-sequence in training
 (13.6% / 12.5% of rows); 10 targets lack the kinase pocket (RET ×4 = residues 1–430).
-KIBA is clean. Recommended option A: evaluate cold levels on sequence-unseen targets,
-count each distinct sequence once, exclude pocketless targets; B = rebuild splits + retrain.
-Team 124AD0008 (data) · 124AD0015 (model) · 124AD0067 (evaluation); supervisor
-Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / ISMB.
+KIBA is clean. **Option A (decided):** cold-level accuracy on sequence-unseen targets
+(`src/evaluation/clean_accuracy.py`, reproduces every recorded AUROC; leakage inflated
+cold-target by ~0.02 for every model), explanation metrics drop seen-by-sequence and
+pocketless targets and count one protein per sequence (`src/evaluation/exclusions.py`,
+used by every analysis path; `--no-sequence-policy` reproduces old numbers).
+**From 2026-09-13 the user (Mahim) is the only person on this project**; the former team
+(124AD0008 data · 124AD0015 model · 124AD0067 evaluation) works on other projects.
+Supervisor Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / ISMB.
 **Draft due 15 Nov 2026.**
 
 ## 2. Paper structure (planned) → where material lives
@@ -50,7 +54,7 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 | Methods: data, splits, ground truth, family control | `paper/methods_data_and_evaluation.md` §1–4 | drafted 2026-09-12 |
 | Methods: ColdSite-DTI architecture & training, attention extraction | `paper/methods_track_b.md` | drafted (stale placeholders filled 2026-09-12) |
 | Methods: baselines' training, metrics & statistics, baseline faithfulness, positive control | `paper/methods_data_and_evaluation.md` §5–9 | drafted 2026-09-12; §10 lists 5 open decisions |
-| Results | `paper/results.md` | drafted 2026-09-13: §1 accuracy (DeepDTA, ColdSite-DTI; MolTrans seed 1), §1b DAVIS sequence problems (decision pending), §2 volume control, §3 positive control, §4 ColdSite-DTI faithful + coarsely plausible (KLIFS) not finely (UniProt), §6 non-kinase = histidine preference; HyperAttentionDTI, MolTrans, audit, KIBA pending |
+| Results | `paper/results.md` | drafted 2026-09-13: §1 accuracy (DeepDTA, ColdSite-DTI; MolTrans seed 1), §1b DAVIS sequence problems (option A), §2 volume control, §3 positive control, §4 ColdSite-DTI faithful + coarsely plausible (KLIFS) not finely (UniProt), §6 non-kinase = histidine preference; HyperAttentionDTI, MolTrans, audit, KIBA pending |
 | Discussion / Limitations | — | not written |
 
 ## 3. Done vs. to do
@@ -81,8 +85,8 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 
 **To do**
 - ColdSite-DTI + HyperAttentionDTI binary on DAVIS (running on Kaggle, account 1).
-- MolTrans binary on DAVIS (running on Kaggle, account 2). KIBA: six accounts, see §4 for the
-  `KIBA_RUN` split.
+- MolTrans binary on DAVIS: seed 1 valid; seeds 2–3 retraining on account 2 (seed bug).
+  KIBA: one account, run order in §4's action plan.
 - Once every cell above is trained, per seed: `run_faithfulness` → `run_ladder`; then
   `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. Automatic in the DAVIS
   36-grid's own §11 for its three models only — MolTrans and KIBA need the same three
@@ -100,6 +104,34 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
   (`paper/references.md`); its checklist still lists full-text checks and newer papers.
 
 ## 4. Active goals — next steps, in order
+
+**Next action plan (2026-09-13, one person; details in the bullets below):**
+1. *Now:* account 1 v3 trains the last 3 DAVIS cells (HyperAttentionDTI cold-drug s1–s3);
+   account 2 retrains MolTrans seeds 2–3 (seed 1 valid, seeds 2–3 of the first run are
+   invalid copies of seed 1 — never merge them).
+2. *When both finish:* download each output's results zip; build ONE merged DAVIS folder
+   **outside iCloud** (e.g. `~/ColdSite-results/davis_binary/`): account 1 v3 (36 cells) +
+   MolTrans seed 1 (`~/Downloads/results (2)/results`) + MolTrans seeds 2–3 (new run).
+   Check 48 cells, no identical seeds; back it up to Google Drive.
+3. *Analysis (CPU, this Mac):* `clean_accuracy` for all 4 models; `run_all` for all models
+   under option A (faithfulness, UniProt ladder, **audit with Holm — first time all
+   subjects**, controls); KLIFS ladder + `positional_control` for HyperAttentionDTI and
+   MolTrans; `positive_control` again under the policy. Then Results §4–6 for all subjects.
+4. *Merge `kiba-resume` into `main`* (DAVIS training is over, so the rule against changing
+   training code mid-grid no longer applies); re-run both test suites.
+5. *KIBA on ONE Kaggle account* (one account per person — the six-account `KIBA_RUN` split
+   below assumed teammates' accounts and no longer applies): run K4, K1, K5, K2, K6, K3 in
+   that order on the same notebook (`KIBA_RUN` changes per run, own restore dataset per
+   run), so a complete seed 1 of all four models exists after ~2 weeks. ~165–235 GPU-h with
+   AMP ≈ 60 GPU-h/week per account ⇒ ~4 weeks; Colab (with resume) as overflow. Before each
+   start: the checks in memory `verify-before-gpu-runs`.
+6. *Writing, in parallel:* Discussion, Abstract, Introduction results; figures; Limitations
+   (DAVIS sequence issues, AMP caveat, cold-pair validation leak).
+7. *Machine:* the Mac's disk was 97% full and the repo is in iCloud-synced ~/Documents —
+   macOS offloaded ~960 project files (git and Python then time out). The user should free
+   the redundant Downloads zips (~15.8 GB, listed 2026-09-13) and set both project folders
+   to "Keep Downloaded".
+
 
 **Two Kaggle accounts train in parallel now. They must never train the same
 (dataset, model, split, seed) cell — see the KIBA split below before starting either
@@ -146,7 +178,8 @@ account on KIBA.**
   Next: the user sends the first two `STATUS` lines (to estimate epochs/hour and whether
   12 cells need one commit or two) and the first `✓` test AUROC (believable DAVIS
   `random` ≈ 0.85–0.93; ≥ 0.98 means leakage, ≈ 0.5 means it isn't learning).
-- **KIBA plan — six accounts (2026-09-12; supersedes the two-account split).** In
+- **KIBA plan — six accounts (2026-09-12; SUPERSEDED 2026-09-13 by the one-account order in
+  the action plan above — the `KIBA_RUN` presets still define the six runs).** In
   `kaggle_binary_grid.ipynb` on branch `kiba-resume` (commit `03ab140`), each account sets
   only `KIBA_RUN` = one of `K1`…`K6`, which fills in `DATASET='kiba'`, all 4 splits,
   `BRANCH='kiba-resume'`, `AMP=True`, and:

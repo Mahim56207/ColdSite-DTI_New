@@ -84,7 +84,8 @@ initialisation variance, not split-selection variance, and is labelled as such.
 On DAVIS the levels do not order by difficulty the way their names suggest: for every
 model trained so far, cold-target is the most accurate cold level, close to random, and
 cold-drug falls far below it, near cold-pair (DeepDTA binary AUROC: random 0.929,
-cold-target 0.908, cold-pair 0.728, cold-drug 0.692). Holding out 13 of 68 drugs removes
+cold-target 0.884 and cold-pair 0.749 on targets unseen by sequence — 0.908 and 0.728 on
+all test rows, §2.4 — cold-drug 0.692). Holding out 13 of 68 drugs removes
 far more of what a model learns from than holding out 88 of 442 kinases that share a
 binding pocket with the rest. The levels are therefore
 treated as four categories of distribution shift throughout, and no analysis assumes a
@@ -112,6 +113,32 @@ A second comparability gap cannot be fixed by subsampling: plausibility is avera
 protein, and cold-target and cold-pair test sets hold 88 DAVIS / 45 KIBA proteins against
 442 / 229 for the others. Wider seed-to-seed variance in those cells is expected on that
 basis alone.
+
+### 2.4 Targets are sequences, not names (DAVIS)
+
+The splits hold targets out by name. In DeepDTA's DAVIS sequence file, which this study
+and most DTI benchmarks use, a name is not a sequence: all 54 variant targets with a
+wild-type entry (ABL1(T315I), EGFR(T790M), BRAF(V600E) and the rest) carry exactly the
+wild-type sequence, so the 442 targets are 379 distinct sequences, and ten targets'
+sequences contain few or none of the 85 KLIFS ATP-pocket residues (RET and its three
+mutants are RET's extracellular residues 1–430) (`src/data/sequence_audit.py`,
+`results/sequence_audit_davis.md`). Two consequences follow. At cold-target, 12 of the 88
+held-out targets (816 of 5,984 test rows, 13.6%) and at cold-pair 11 of 88 (143 of 1,144,
+12.5%) are identical in sequence to a training target, so they are not unseen; cold-pair's
+validation set is 13.6% such rows. And at every level, averaging per target name enters one
+sequence up to seventeen times.
+
+Nothing is retrained; the evaluation stops counting what it should not
+(`src/evaluation/exclusions.py`). **Accuracy** at cold-target and cold-pair is reported on
+the test rows whose target is unseen by sequence, beside the full-test value, each cell
+re-scored by its own trainer's test pass, which reproduces every recorded test AUROC to
+four decimals (`src/evaluation/clean_accuracy.py`). **Explanation metrics** drop the
+seen-by-sequence targets at the cold levels and the ten pocketless targets at every level,
+and count one protein per distinct sequence. What cannot be undone without retraining is the
+leak into cold-pair's validation set, which influenced checkpoint selection; it is stated as
+a limitation. KIBA has none of these problems: its 229 targets are 229 distinct sequences,
+no cold test target is seen by sequence, and every sequence contains its pocket
+(`results/sequence_audit_kiba.md`).
 
 ---
 
@@ -199,6 +226,25 @@ The choice affects only the non-kinase panel: DAVIS and KIBA carry no cotranspor
 sites, and the panel carries 34 ion features, on 4 targets.
 
 ---
+
+### 3.6 A second ground truth: the KLIFS ATP pocket
+
+UniProt's annotation is protein-level and sparse (about a dozen residues per kinase) and
+uneven across kinases. As a second, structure-derived ground truth we use the KLIFS pocket
+(Kanev et al., *Nucleic Acids Res.* 2021): the same 85 residues lining the ATP cleft of
+every kinase, defined by structural alignment, where the ATP-competitive inhibitors that
+make up most of DAVIS bind. KLIFS gives each kinase's UniProt accession and its 85-residue
+pocket sequence; the pocket is placed on the UniProt canonical sequence in order, with
+KLIFS's 19 structural regions (van Linden et al., *J. Med. Chem.* 2014) kept contiguous
+where the kinase has no insertion, and carried onto each dataset's sequences by the same
+alignment as the UniProt sites (§3.3). Placement agrees with KLIFS's own residue numbers
+for all 41 kinases checked against a crystal structure carrying KLIFS's reference pocket
+(36 identical, 5 at a constant numbering offset) (`src/data/klifs_pocket.py`). DAVIS: 432 of
+442 targets are covered (10 are not in KLIFS); for kinases with two kinase domains the
+assayed domain is taken from the target name (JH1/JH2, KinDom.1/2). Precision@k against
+the pocket has a chance level near 0.13 (85 residues of a typical chain) rather than 0.02,
+and the two ground truths answer different questions: whether attention reaches the
+pocket, and whether it lands on the residues UniProt annotates.
 
 ## 4. The kinase confound, and the control for it
 

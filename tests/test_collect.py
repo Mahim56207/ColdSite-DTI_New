@@ -243,7 +243,8 @@ def test_cxsmiles_annotations_are_cut_and_unreadable_molecules_dropped(tmp_path)
     pd.DataFrame({
         "Target_ID": ["P1", "P1", "P2", "P3"],
         "Drug": ["*.CCO", "CCN |r|", "CC->[Re+]", "c1ccccc1"],
-        "Target": ["MKV"] * 4,
+        # one sequence per protein: since 2026-09-13 a protein is a distinct sequence
+        "Target": ["MKV", "MKV", "MKW", "MKY"],
     }).to_csv(tmp_path / "test.csv", index=False)
     rows = _read_test_rows(str(tmp_path), pairs_per_target=1)
     assert [(t, s) for t, s, _seq in rows] == [("P1", "CCN"), ("P3", "c1ccccc1")]

@@ -53,7 +53,8 @@ from src.evaluation.run_faithfulness import MODELS, output_tag  # noqa: E402
 
 
 def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
-                         max_proteins=None, pairs_per_target: int = 1):
+                         max_proteins=None, pairs_per_target: int = 1,
+                         keys=None, exclude=frozenset()):
     """Run a split through the model and pair each explanation with its sites.
 
     `target_ids` must be aligned to the dataloader's row order. This is the
@@ -67,7 +68,12 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
     per-protein quantity: averaging every pair enters a protein once per drug
     it was measured against and makes n a count of correlated pairs. 0 keeps
     every pair (the behaviour before 2026-09-12).
+
+    `keys` (aligned like `target_ids`) is what counts as one protein -- its sequence
+    under `src/evaluation/exclusions.py` -- and `exclude` names targets to skip. Both
+    default to the old behaviour: one protein per name, nothing skipped.
     """
+    keys = list(target_ids) if keys is None else list(keys)
     model.eval().to(device)
     weights, sites, used_ids = [], [], []
     seen: dict = {}
@@ -76,14 +82,17 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
     with torch.no_grad():
         for drug_batch, protein_batch, _labels in dataloader:
             batch_ids = target_ids[cursor:cursor + len(drug_batch)]
+            batch_keys = keys[cursor:cursor + len(drug_batch)]
             cursor += len(drug_batch)
             explanations = model.explain(drug_batch.to(device), protein_batch.to(device))
 
-            for target_id, explanation in zip(batch_ids, explanations):
-                count = seen.get(target_id, 0)
+            for target_id, key, explanation in zip(batch_ids, batch_keys, explanations):
+                if target_id in exclude:
+                    continue
+                count = seen.get(key, 0)
                 if pairs_per_target and count >= pairs_per_target:
                     continue
-                seen[target_id] = count + 1
+                seen[key] = count + 1
                 site_set = site_sets.get(target_id)
                 if site_set is None or not site_set.usable:
                     continue
@@ -282,6 +291,9 @@ def main():
                         help="test pairs scored per protein, first in file order "
                              "(default 1, as run_audit). 0 scores every pair, "
                              "which reproduces ladders run before 2026-09-12")
+    parser.add_argument("--no-sequence-policy", action="store_true",
+                        help="score every test target by name, as before 2026-09-13 "
+                             "(see src/evaluation/exclusions.py)")
     parser.add_argument("--device", default="cpu",
                         help="for --model hyperattentiondti / moltrans; "
                              "ColdSite-DTI runs on CPU as before")
@@ -333,9 +345,13 @@ def main():
             state = torch.load(checkpoint, map_location="cpu", weights_only=False)
             model.load_state_dict(state["model_state"])
 
+            from src.evaluation.exclusions import excluded_target_ids, protein_key
+            policy = not args.no_sequence_policy
             weights, sites, used = collect_explanations(
                 model, test_loader, target_ids, site_sets,
-                pairs_per_target=args.pairs_per_target)
+                pairs_per_target=args.pairs_per_target,
+                keys=[protein_key(t, q, policy) for t, q in zip(target_ids, test_df["Target"])],
+                exclude=excluded_target_ids(args.dataset, level, policy))
         else:
             from src.evaluation.collect import MissingCell, collect_cell
 
@@ -349,7 +365,8 @@ def main():
                     checkpoint_dir=args.checkpoint_dir,
                     max_protein_len=args.max_protein_len,
                     pairs_per_target=args.pairs_per_target,
-                    device=args.device, verbose=False)
+                    device=args.device, verbose=False,
+                    policy=not args.no_sequence_policy)
             except MissingCell as reason:
                 print(f"[skip] {level}: {reason}")
                 continue

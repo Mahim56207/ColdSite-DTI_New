@@ -175,16 +175,23 @@ def test_ladder_and_audit_choose_the_same_pairs(tmp_path):
     from src.evaluation.collect import _read_test_rows
     from src.evaluation.run_ladder import collect_explanations
 
-    ids = ["A", "B", "A", "C", "B", "A", "C"]
-    pd.DataFrame({"Target_ID": ids, "Drug": [f"C{i}" for i in range(len(ids))],
-                  "Target": ["MKV"] * len(ids)}).to_csv(tmp_path / "test.csv", index=False)
-    audit_rows = _read_test_rows(str(tmp_path), pairs_per_target=1)
-    audit_drugs = [smiles for _t, smiles, _seq in audit_rows]
+    from src.evaluation.exclusions import protein_key
 
-    weights, _s, _u = collect_explanations(
-        _RowModel(), _loader(len(ids)), ids, _sites("A", "B", "C"))
-    ladder_drugs = [f"C{int(np.argmax(w))}" for w in weights]
-    assert ladder_drugs == audit_drugs
+    ids = ["A", "B", "A", "C", "B", "A", "C"]
+    # B is a second name for A's sequence (DAVIS's mutants): one protein under the policy
+    seqs = {"A": "MKV", "B": "MKV", "C": "MKW"}
+    pd.DataFrame({"Target_ID": ids, "Drug": [f"C{i}" for i in range(len(ids))],
+                  "Target": [seqs[t] for t in ids]}).to_csv(tmp_path / "test.csv", index=False)
+
+    for policy in (True, False):
+        audit_rows = _read_test_rows(str(tmp_path), pairs_per_target=1, policy=policy)
+        audit_drugs = [smiles for _t, smiles, _seq in audit_rows]
+        weights, _s, _u = collect_explanations(
+            _RowModel(), _loader(len(ids)), ids, _sites("A", "B", "C"),
+            keys=[protein_key(t, seqs[t], policy) for t in ids])
+        ladder_drugs = [f"C{int(np.argmax(w))}" for w in weights]
+        assert ladder_drugs == audit_drugs, f"policy={policy}"
+    assert len(audit_drugs) == 3 and len(ladder_drugs) == 3          # policy off: by name
 
 
 def test_ladder_table_states_what_n_counts():

@@ -72,7 +72,8 @@ from src.model.train import DEFAULT_ACCURACY_METRIC, accuracy_metric_for  # noqa
 # collecting the inputs batch_faithfulness needs
 # --------------------------------------------------------------------------
 
-def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu"):
+def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu",
+                  keep=None):
     """(drugs, proteins, attentions) as one-row tensors plus real-length weights.
 
     `batch_faithfulness` masks positions of the protein tensor using indices
@@ -81,17 +82,26 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu"):
     with `real_lengths()`, and padding is trailing -- so attention index j is
     protein column j. Returning padded-length attention here would not crash;
     it would silently shift every masked position.
+
+    `keep` (one bool per dataloader row, in file order) skips rows the sequence policy
+    excludes -- `src/evaluation/exclusions.py`. None keeps every row.
     """
     model.eval().to(device)
     drugs, proteins, attentions = [], [], []
+    cursor = 0
 
     with torch.no_grad():
         for drug_batch, protein_batch, _labels in dataloader:
             drug_batch = drug_batch.to(device)
             protein_batch = protein_batch.to(device)
             explanations = model.explain(drug_batch, protein_batch)
+            batch_keep = (keep[cursor:cursor + len(drug_batch)] if keep is not None
+                          else [True] * len(drug_batch))
+            cursor += len(drug_batch)
 
             for i, explanation in enumerate(explanations):
+                if not batch_keep[i]:
+                    continue
                 drugs.append(drug_batch[i:i + 1].cpu())
                 proteins.append(protein_batch[i:i + 1].cpu())
                 attentions.append(np.asarray(explanation, dtype=float))
@@ -103,14 +113,14 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu"):
 
 def faithfulness_for_level(model, dataloader, k: int = 10,
                            n_random_trials: int = 5, max_pairs: int = 200,
-                           seed: int = 0, device: str = "cpu") -> dict:
+                           seed: int = 0, device: str = "cpu", keep=None) -> dict:
     """One difficulty level: collect pairs, then measure with the control.
 
     Cost is `(2 + 2*n_random_trials + len(k_values))` forward passes per pair,
     so `max_pairs` is the budget knob. The mean over a few hundred pairs is the
     number; the mean over all of them is the same number and a much longer wait.
     """
-    drugs, proteins, attentions = collect_pairs(model, dataloader, max_pairs, device)
+    drugs, proteins, attentions = collect_pairs(model, dataloader, max_pairs, device, keep)
     if not attentions:
         return {"n_pairs": 0, "comprehensiveness_delta": float("nan"),
                 "explanation_is_load_bearing": False}
@@ -121,7 +131,7 @@ def faithfulness_for_level(model, dataloader, k: int = 10,
 
 def collect_adapter_pairs(model_name: str, split_dir: str, checkpoint: str,
                           max_pairs: int = 200, device: str = "cpu",
-                          max_protein_len: int = 1000):
+                          max_protein_len: int = 1000, policy: bool = True):
     """The audited baselines' equivalent of `collect_pairs`.
 
     Returns (wrapped_model, drugs, proteins, attentions), ready for
@@ -138,7 +148,8 @@ def collect_adapter_pairs(model_name: str, split_dir: str, checkpoint: str,
                                       max_protein_len)
     wrapped = ResidueSpaceModel(adapter, model_name, device=device)
     drugs, proteins, attentions = [], [], []
-    for _target_id, smiles, sequence in _read_test_rows(split_dir, pairs_per_target=0):
+    for _target_id, smiles, sequence in _read_test_rows(split_dir, pairs_per_target=0,
+                                                        policy=policy):
         drug, protein, attention = wrapped.add_pair(smiles, sequence,
                                                     max_len=max_protein_len)
         drugs.append(drug)
@@ -167,7 +178,7 @@ def output_tag(model: str, dataset: str, seed: int) -> str:
 
 def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
                      metric: str = None, levels=LEVELS,
-                     model: str = DEFAULT_MODEL) -> dict:
+                     model: str = DEFAULT_MODEL, clean_accuracy_path: str = None) -> dict:
     """Read `{level: accuracy}` out of the trainer's per-run results files.
 
     This is the Track C hand-off. It is derived rather than re-computed on
@@ -178,9 +189,18 @@ def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
     A level with no results file is reported as NaN and named in
     `missing_levels`, never defaulted to zero -- a zero would draw as a real
     point on the figure.
+
+    At a level whose test set holds targets seen by sequence in training (DAVIS
+    cold-target and cold-pair; `src/evaluation/clean_accuracy.py`), AUROC is taken on
+    the unseen targets when that cell has been re-scored, and `sources` says so; a
+    leaking level without a re-score keeps the recorded value and is named in
+    `uncorrected_levels`, so the figure never mixes the two silently.
     """
+    from src.evaluation.clean_accuracy import leaks, unseen_auroc
+
     metric = metric or accuracy_metric_for(task)
     accuracy, missing, found_metrics = {}, [], {}
+    sources, uncorrected = {}, []
 
     for level in levels:
         tag = run_tag(dataset, level, task, seed)
@@ -197,10 +217,19 @@ def collect_accuracy(results_dir: str, dataset: str, task: str, seed: int,
             missing.append(f"{level} (no '{metric}' in {sorted(metrics)})")
             continue
         accuracy[level] = float(metrics[metric])
+        sources[level] = "recorded test set"
+        if metric == "auroc" and leaks(dataset, level):
+            clean = unseen_auroc(dataset, model, level, seed, clean_accuracy_path)
+            if clean is None:
+                uncorrected.append(level)
+            else:
+                accuracy[level] = float(clean)
+                sources[level] = "targets unseen by sequence"
         found_metrics[level] = metrics
 
     return {"accuracy": accuracy, "metric": metric, "missing_levels": missing,
-            "all_metrics": found_metrics}
+            "all_metrics": found_metrics, "sources": sources,
+            "uncorrected_levels": uncorrected}
 
 
 def write_accuracy_json(accuracy: dict, out_dir: str, tag: str) -> str:
@@ -379,6 +408,9 @@ def main():
     parser.add_argument("--accuracy-metric",
                         help="field of test_metrics to use as accuracy "
                              "(default: ci for regression, auroc for binary)")
+    parser.add_argument("--no-sequence-policy", action="store_true",
+                        help="use every test row, as before 2026-09-13 "
+                             "(see src/evaluation/exclusions.py)")
     parser.add_argument("--device", default="cpu",
                         help="for --model hyperattentiondti / moltrans; "
                              "ColdSite-DTI runs on CPU as before")
@@ -422,13 +454,19 @@ def main():
             model = ColdSiteDTI(len(drug_vocab) + 2, len(protein_vocab) + 2)
             state = torch.load(checkpoint, map_location="cpu", weights_only=False)
             model.load_state_dict(state["model_state"])
+            import pandas as pd
+            from src.evaluation.exclusions import excluded_target_ids
+            excluded = excluded_target_ids(args.dataset, level, not args.no_sequence_policy)
+            test_ids = pd.read_csv(os.path.join(split_dir, "test.csv"))["Target_ID"].astype(str)
             summaries[level] = faithfulness_for_level(
                 model, test_loader, k=args.k, n_random_trials=args.n_random_trials,
-                max_pairs=args.max_pairs, seed=args.seed)
+                max_pairs=args.max_pairs, seed=args.seed,
+                keep=[t not in excluded for t in test_ids])
         else:
             wrapped, drugs, proteins, attentions = collect_adapter_pairs(
                 args.model, split_dir, checkpoint, max_pairs=args.max_pairs,
-                device=args.device, max_protein_len=args.max_protein_len)
+                device=args.device, max_protein_len=args.max_protein_len,
+                policy=not args.no_sequence_policy)
             summaries[level] = batch_faithfulness(
                 wrapped, drugs, proteins, attentions, k=args.k,
                 n_random_trials=args.n_random_trials, seed=args.seed,

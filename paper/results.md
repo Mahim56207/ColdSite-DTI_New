@@ -124,19 +124,21 @@ from no signal (≈ 0) at every level.
 
 ## 4. ColdSite-DTI's attention is load-bearing, finds the pocket region, misses the annotated residues
 
-Computed 2026-09-13 on the 12 binary checkpoints (`run_all`, CPU; outputs in
-`results/analysis_davis_partial/`, not committed). Faithfulness uses up to 200 test pairs
-per level; precision@10 scores one test pair per protein (402 proteins at random and
-cold-drug, 79 at cold-target and cold-pair) against a 1,000-trial permutation null.
+Computed 2026-09-13 on the 12 binary checkpoints under the sequence policy of §1b (option A:
+one protein per distinct sequence, seen-by-sequence targets dropped at the cold levels,
+pocketless targets dropped everywhere). Outputs: `results/analysis_davis_policyA/` (not
+committed). Faithfulness uses up to 200 test pairs per level; precision@10 scores one test
+pair per protein — 349 proteins at random and cold-drug, 68 at cold-target and 72 at
+cold-pair (UniProt; KLIFS: 350 / 350 / 67 / 71) — against a 1,000-trial permutation null.
 
 **Table R2.** ColdSite-DTI, DAVIS binary, seeds 1 / 2 / 3.
 
-| level | faithfulness delta | mean ± sd | precision@10 | mean ± sd | chance | ceiling |
+| level | faithfulness delta | mean ± sd | precision@10 (UniProt) | mean ± sd | chance | ceiling |
 |---|---|---|---|---|---|---|
-| random | 0.771 / 2.009 / 0.784 | 1.19 ± 0.71 | 0.022 / 0.009 / 0.012 | 0.015 ± 0.006 | 0.020 | 0.990 |
-| cold-drug | 1.825 / 0.968 / 0.798 | 1.20 ± 0.55 | 0.025 / 0.025 / 0.013 | 0.021 ± 0.006 | 0.020 | 0.990 |
-| cold-target | 0.240 / 0.946 / 0.563 | 0.58 ± 0.35 | 0.014 / 0.019 / 0.019 | 0.017 ± 0.003 | 0.019 | 0.992 |
-| cold-pair | 0.639 / 0.974 / 0.450 | 0.69 ± 0.27 | 0.018 / 0.011 / 0.008 | 0.012 ± 0.005 | 0.019 | 0.991 |
+| random | 0.801 / 1.993 / 0.770 | 1.19 ± 0.70 | 0.023 / 0.009 / 0.013 | 0.015 ± 0.007 | 0.020 | 0.99 |
+| cold-drug | 1.801 / 0.966 / 0.771 | 1.18 ± 0.55 | 0.027 / 0.027 / 0.011 | 0.022 ± 0.009 | 0.020 | 0.99 |
+| cold-target | 0.163 / 0.891 / 0.496 | 0.52 ± 0.36 | 0.015 / 0.019 / 0.018 | 0.017 ± 0.002 | 0.019 | 0.99 |
+| cold-pair | 0.619 / 0.944 / 0.432 | 0.67 ± 0.26 | 0.018 / 0.013 / 0.008 | 0.013 ± 0.005 | 0.019 | 0.99 |
 
 Faithfulness delta = comprehensiveness (absolute change in the predicted logit when the 10
 most-attended residues are masked) minus the same for 10 random residues; only the delta
@@ -147,48 +149,41 @@ prediction more than masking random residues in all 12 cells (every delta positi
 flagged load-bearing in each seed's report). The attention is not decoration: the model
 uses the residues it points at, at every split level.
 
-**Against UniProt's annotated residues: at chance.** Mean precision@10 is 0.012–0.021 against a chance of
-0.019–0.020 and a ceiling of 0.99. No level exceeds chance on average. The only cells
-significant before correction are cold-drug seeds 1 and 2 (0.025, p = 0.022 each), which
-seed 3 does not reproduce (0.013, p = 0.999). Read against the positive control (§3,
-`positive_control --compare`), every cell is equivalent to an explanation that places at
-most ~0.2% of the true sites first, a tenth of the smallest dose the test reliably detects
-(2%); eight of the twelve sit at or below the dose-0 curve. This is a real null, not an
-underpowered one.
+**Against UniProt's annotated residues: at chance.** Mean precision@10 is 0.013–0.022
+against a chance of 0.019–0.020 and a ceiling of 0.99; no level exceeds chance on average.
+The only cells significant before correction are cold-drug seeds 1 and 2 (0.027, p = 0.008
+and 0.010), which seed 3 does not reproduce (0.011, p = 1.0). *[Re-read against the
+positive control recomputed under the policy (§3) — pending.]*
 
-**Against the KLIFS ATP pocket: about twice chance, mostly by finding the domain.**
-UniProt's annotation is about a dozen residues per kinase. The same checkpoints scored
-against KLIFS's structure-derived 85-residue ATP pocket (`src/data/klifs_pocket.py`;
-placement checked against KLIFS's own residue numbers for 41 kinases, all consistent)
-give:
+**Against the KLIFS ATP pocket: above chance, mostly by finding the domain.** The same
+checkpoints scored against KLIFS's 85-residue ATP pocket (Methods §3.6):
 
 **Table R3.** ColdSite-DTI precision@10 against the KLIFS pocket, seeds 1 / 2 / 3
-(`results/positional_control_coldsite_dti_davis_klifs.md`).
+(`results/analysis_davis_policyA/positional_control_coldsite_dti_davis_klifs_policyA.md`).
 
-| level | precision@10 | mean ± sd | chance | top-10 inside the pocket's span | span / chain |
-|---|---|---|---|---|---|
-| random | 0.175 / 0.208 / 0.236 | 0.21 ± 0.03 | 0.13 | 0.31–0.35 | 0.24 |
-| cold-drug | 0.276 / 0.243 / 0.318 | 0.28 ± 0.04 | 0.13 | 0.37–0.44 | 0.24 |
-| cold-target | 0.219 / 0.191 / 0.278 | 0.23 ± 0.04 | 0.13 | 0.32–0.41 | 0.24 |
-| cold-pair | 0.300 / 0.259 / 0.240 | 0.27 ± 0.03 | 0.13 | 0.39–0.47 | 0.23 |
+| level | precision@10 | mean ± sd | chance | beats in-span shuffle (p) | top-10 inside the pocket's span | span / chain |
+|---|---|---|---|---|---|---|
+| random | 0.191 / 0.226 / 0.239 | 0.22 ± 0.02 | 0.14 | 0.205 / 0.001 / 0.001 | 0.33–0.36 | 0.25 |
+| cold-drug | 0.300 / 0.259 / 0.338 | 0.30 ± 0.04 | 0.14 | 0.001 / 0.001 / 0.001 | 0.39–0.46 | 0.25 |
+| cold-target | 0.228 / 0.204 / 0.296 | 0.24 ± 0.05 | 0.14 | 0.049 / 0.196 / 0.001 | 0.34–0.43 | 0.25 |
+| cold-pair | 0.310 / 0.259 / 0.245 | 0.27 ± 0.03 | 0.14 | 0.005 / 0.009 / 0.211 | 0.40–0.48 | 0.24 |
 
-Every cell beats, at p = 0.001, both a map borrowed from another protein (position
-alone) and the protein's own attention shuffled among residues of the same amino acid
+Every cell beats, at p = 0.001, both a map borrowed from another protein (position alone)
+and the protein's own attention shuffled among residues of the same amino acid
 (residue-type preference alone). So the attention does find the pocket region of each
-kinase. How: 31–47% of its top ten residues fall inside the stretch the pocket spans
-(the kinase domain core), which is 23–24% of the chain; shuffled within that stretch
-it keeps most of its score, and beats the within-stretch shuffle in 9 of 12 cells
-(p ≤ 0.014) by a modest margin (e.g. cold-drug seed 1: 0.276 vs 0.236). Most of the
+kinase. How: 33–48% of its top ten residues fall inside the stretch the pocket spans (the
+kinase domain core), which is 24–25% of the chain; shuffled within that stretch it keeps
+most of its score, and beats the within-stretch shuffle in 9 of 12 cells (p ≤ 0.049,
+before correction) by a modest margin (e.g. cold-drug seed 1: 0.300 vs 0.250). Most of the
 pocket signal is knowing the domain; a smaller part is knowing the pocket inside it.
 
-Taken together: the attention is causally used (every level), is **coarsely
-plausible** — it concentrates on the kinase domain and its ATP pocket at about twice
-chance, beyond position and amino-acid preference — and is **not finely plausible**:
-it does not land on the residues UniProt annotates. "Is attention plausible?" has a
-different answer at each ground-truth resolution, so both are reported. *[Formal
-statement waits for the audit table (§5), Holm over the whole family, and for the
-decision on DAVIS's sequence leakage (§1b): the cold-target and cold-pair numbers
-here still include the 12 and 11 test proteins that are seen by sequence.]*
+Taken together: the attention is causally used (every level), is **coarsely plausible** —
+it concentrates on the kinase domain and its ATP pocket at about twice chance, beyond
+position and amino-acid preference — and is **not finely plausible**: it does not land on
+the residues UniProt annotates. "Is attention plausible?" has a different answer at each
+ground-truth resolution, so both are reported. The pattern is the same with and without
+the sequence policy (pre-policy values: `results/positional_control_coldsite_dti_davis_klifs.md`).
+*[Formal statement waits for the audit table (§5), Holm over the whole family.]*
 
 ## 5. *[PENDING]* The audit table (all subjects, Holm over the whole family)
 

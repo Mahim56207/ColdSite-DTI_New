@@ -97,3 +97,19 @@ def test_accuracy_uses_the_unseen_auroc_only_where_the_level_leaks(tmp_path):
     assert out["accuracy"]["cold_target"] == 0.88
     assert out["sources"]["cold_target"] == "targets unseen by sequence"
     assert out["accuracy"]["cold_pair"] == 0.73 and out["uncorrected_levels"] == ["cold_pair"]
+
+
+def test_several_dropout_passes_are_averaged_and_judged_by_their_range():
+    from src.evaluation.clean_accuracy import combine_draws, merge_cells, reproduces
+    draws = [({"auroc": a, "auprc": 0.1, "rows": 10}, {"auroc": a - 0.05, "auprc": 0.1, "rows": 8})
+             for a in (0.562, 0.575, 0.570)]
+    every, unseen = combine_draws(draws)
+    assert abs(every["auroc"] - 0.569) < 1e-9 and len(every["auroc_draws"]) == 3
+    assert reproduces(0.567, [0.562, 0.575, 0.570])            # the MolTrans case
+    assert not reproduces(0.600, [0.562, 0.575, 0.570])
+    assert reproduces(0.9039, [0.9039]) and not reproduces(0.91, [0.90])
+    old = [{"model": "deepdta", "dataset": "davis", "level": "cold_pair", "seed": 1, "v": 1},
+           {"model": "moltrans", "dataset": "davis", "level": "cold_pair", "seed": 1, "v": 1}]
+    new = [{"model": "moltrans", "dataset": "davis", "level": "cold_pair", "seed": 1, "v": 2}]
+    merged = merge_cells(old, new)
+    assert len(merged) == 2 and {c["model"]: c["v"] for c in merged} == {"deepdta": 1, "moltrans": 2}

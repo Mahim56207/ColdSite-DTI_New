@@ -3,9 +3,12 @@
 UniProt numbers residues along its canonical sequence; the model reads DAVIS's own
 sequence. For most targets the two are identical and a UniProt residue number is also
 a position in what the model saw. For 54 targets with annotated sites they are not:
-DAVIS holds a kinase-domain fragment (RET: 458 residues against UniProt's 1,114), a
-longer isoform (PIM1: 404 against 313) or a construct with extra residues (ABL1 and
-its sixteen variants: 1,167 against 1,130). There a UniProt residue number points at
+DAVIS holds a fragment (RET: 458 residues against UniProt's 1,114), a longer isoform
+(PIM1: 404 against 313) or a construct with extra residues (ABL1 and its sixteen
+variants: 1,167 against 1,130). Some fragments are NOT the kinase domain: DAVIS's RET
+(and its three mutants) is residues 1-430, the extracellular part, while the kinase
+pocket is at 728-896; see `src/data/klifs_pocket.py` and the KLIFS report for the ten
+targets whose DAVIS sequence lacks most or all of the ATP pocket (checked 2026-09-13). There a UniProt residue number points at
 the wrong residue of the DAVIS sequence, or past its end, and precision@k scores the
 model against sites it was never shown -- pulling every level toward chance.
 

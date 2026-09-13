@@ -57,6 +57,21 @@ models keep their accuracy at cold-target and cold-pair.]*
 `models.py` reseeds torch on import; fixed 2026-09-13) and are being retrained; until
 then MolTrans has no spread and no claim rests on it.*
 
+## 1b. DAVIS's sequences: leakage and pseudo-variants *[decision pending]*
+
+Found 2026-09-13 building the KLIFS ground truth; `results/sequence_audit_davis.md`
+(`src/data/sequence_audit.py`). In DeepDTA's DAVIS `proteins.txt`, which this project
+and most DTI papers use: (i) all 54 variant targets with a wild-type entry carry exactly
+the wild-type sequence — ABL1(T315I), EGFR(T790M), BRAF(V600E) and the rest — so 442
+targets are 379 distinct sequences; (ii) at cold-target 12 of 88 test targets (816 of
+5,984 rows, 13.6%) and at cold-pair 11 of 88 (143 of 1,144, 12.5%) are unseen by name
+but identical in sequence to a training target, and cold-pair validation is 13.6% such
+rows; (iii) ten targets' sequences hold few or none of the 85 KLIFS pocket residues
+(RET and its three mutants are RET's extracellular residues 1–430). KIBA has none of
+the three. *[Pending: evaluate cold levels on sequence-unseen targets only, count each
+distinct sequence once in the explanation metrics, exclude the ten pocketless targets
+(option A) — or rebuild the DAVIS cold splits and retrain (option B).]*
+
 ## 2. The cold-pair drop is mostly task, not volume
 
 Cold-pair trains on 15,190 rows against random's 21,039. Retraining ColdSite-DTI on
@@ -87,7 +102,7 @@ weak to see anything. On a planted model whose prediction depends only on the an
 sites, the faithfulness measure separates the oracle (comprehensiveness delta ≈ +10.2)
 from no signal (≈ 0) at every level.
 
-## 4. ColdSite-DTI's attention is load-bearing but does not mark binding sites
+## 4. ColdSite-DTI's attention is load-bearing, finds the pocket region, misses the annotated residues
 
 Computed 2026-09-13 on the 12 binary checkpoints (`run_all`, CPU; outputs in
 `results/analysis_davis_partial/`, not committed). Faithfulness uses up to 200 test pairs
@@ -112,7 +127,7 @@ prediction more than masking random residues in all 12 cells (every delta positi
 flagged load-bearing in each seed's report). The attention is not decoration: the model
 uses the residues it points at, at every split level.
 
-**Not plausible at any level.** Mean precision@10 is 0.012–0.021 against a chance of
+**Against UniProt's annotated residues: at chance.** Mean precision@10 is 0.012–0.021 against a chance of
 0.019–0.020 and a ceiling of 0.99. No level exceeds chance on average. The only cells
 significant before correction are cold-drug seeds 1 and 2 (0.025, p = 0.022 each), which
 seed 3 does not reproduce (0.013, p = 0.999). Read against the positive control (§3,
@@ -121,23 +136,57 @@ most ~0.2% of the true sites first, a tenth of the smallest dose the test reliab
 (2%); eight of the twelve sit at or below the dose-0 curve. This is a real null, not an
 underpowered one.
 
-Taken together: the attention is causally used, and what it is used for is not the
-annotated binding site. This is the dry run's "faithful but not plausible" pattern,
-now on the binary checkpoints, three seeds and one pair per protein, and stronger: the
-dry run's warm level reached ~2× chance, here no level does. *[Formal statement waits
-for the audit table (§5): Holm over the whole family.]*
+**Against the KLIFS ATP pocket: about twice chance, mostly by finding the domain.**
+UniProt's annotation is about a dozen residues per kinase. The same checkpoints scored
+against KLIFS's structure-derived 85-residue ATP pocket (`src/data/klifs_pocket.py`;
+placement checked against KLIFS's own residue numbers for 41 kinases, all consistent)
+give:
+
+**Table R3.** ColdSite-DTI precision@10 against the KLIFS pocket, seeds 1 / 2 / 3
+(`results/positional_control_coldsite_dti_davis_klifs.md`).
+
+| level | precision@10 | mean ± sd | chance | top-10 inside the pocket's span | span / chain |
+|---|---|---|---|---|---|
+| random | 0.175 / 0.208 / 0.236 | 0.21 ± 0.03 | 0.13 | 0.31–0.35 | 0.24 |
+| cold-drug | 0.276 / 0.243 / 0.318 | 0.28 ± 0.04 | 0.13 | 0.37–0.44 | 0.24 |
+| cold-target | 0.219 / 0.191 / 0.278 | 0.23 ± 0.04 | 0.13 | 0.32–0.41 | 0.24 |
+| cold-pair | 0.300 / 0.259 / 0.240 | 0.27 ± 0.03 | 0.13 | 0.39–0.47 | 0.23 |
+
+Every cell beats, at p = 0.001, both a map borrowed from another protein (position
+alone) and the protein's own attention shuffled among residues of the same amino acid
+(residue-type preference alone). So the attention does find the pocket region of each
+kinase. How: 31–47% of its top ten residues fall inside the stretch the pocket spans
+(the kinase domain core), which is 23–24% of the chain; shuffled within that stretch
+it keeps most of its score, and beats the within-stretch shuffle in 9 of 12 cells
+(p ≤ 0.014) by a modest margin (e.g. cold-drug seed 1: 0.276 vs 0.236). Most of the
+pocket signal is knowing the domain; a smaller part is knowing the pocket inside it.
+
+Taken together: the attention is causally used (every level), is **coarsely
+plausible** — it concentrates on the kinase domain and its ATP pocket at about twice
+chance, beyond position and amino-acid preference — and is **not finely plausible**:
+it does not land on the residues UniProt annotates. "Is attention plausible?" has a
+different answer at each ground-truth resolution, so both are reported. *[Formal
+statement waits for the audit table (§5), Holm over the whole family, and for the
+decision on DAVIS's sequence leakage (§1b): the cold-target and cold-pair numbers
+here still include the 12 and 11 test proteins that are seen by sequence.]*
 
 ## 5. *[PENDING]* The audit table (all subjects, Holm over the whole family)
 
 ## 6. *[PENDING]* Kinase-family control (60 non-kinase proteins, cotransport ions excluded)
 
-*[First look, ColdSite-DTI only, not yet a result (2026-09-13): on the 60 non-kinase
-proteins precision@10 is above its own chance (0.012) in 7 of 12 cells before
-correction — e.g. seed 2 random 0.050, cold-pair 0.048 — while the kinase arm sits at
-chance. It is not consistent across seeds (seed 1 random 0.008) and the non-kinase
-ceiling is 0.50, not 0.99. Before this is interpreted, check whether it is a positional
-effect (attention concentrated at one end of the sequence meeting sites clustered
-there), which a uniform permutation null would not remove.]*
+*[ColdSite-DTI only, 2026-09-13; `results/positional_control_coldsite_dti_davis.md`.]*
+On the 60 non-kinase proteins, precision@10 against UniProt sites is above its own
+chance (0.012) in 7 of 12 cells before correction (e.g. seed 2 random 0.050), while the
+kinase arm sits at chance. It is **not positional**: maps borrowed from other proteins
+score 0.012–0.014. It is **mostly amino-acid preference**: ColdSite-DTI's top-ten
+attention is enriched in histidine (3× in seed 1, 11–15× in seed 2), non-kinase
+binding sites are histidine-rich (8.8×; many are metal sites), kinase ATP sites are not
+(enriched in G, D, K). Shuffling attention among residues of the same amino acid
+recovers most of the non-kinase score (seed 2 random: 0.045 of 0.050, p = 0.28); three
+cells keep a remainder (p = 0.004–0.048 before correction). The non-kinase "signal" is
+the attention's liking for histidine meeting histidine-rich sites, not knowledge of
+where the sites are — the same preference that lets it miss the glycine-rich kinase
+sites. Seed 2, the strongest histidine preference, has the highest non-kinase scores.
 
 ## 7. *[PENDING]* KIBA
 

@@ -20,11 +20,22 @@ accurate level and sits at chance. Counted one pair per protein (2026-09-12), co
 at chance too (0.024, p = 0.19; it was "significant" only when 79 proteins were counted as
 1,027 pairs) — `results/ladder_dryrun_regression_davis_seed1.md`.
 **First real result (2026-09-13, binary, 3 seeds, one pair per protein; `paper/results.md`
-§4):** ColdSite-DTI's attention is load-bearing in all 12 cells (faithfulness delta
-0.24–2.01) and at chance at every level (mean precision@10 0.012–0.021 vs chance
-0.019–0.020; ≤ ~0.2% dose-equivalent vs the 2% the test detects). Holm pending (audit
-needs all subjects). Non-kinase arm shows unexplained above-chance cells — check for a
-positional artefact before reading it (`paper/results.md` §6).
+§4, §6):** ColdSite-DTI's attention is load-bearing in all 12 cells (faithfulness delta
+0.24–2.01); at chance against UniProt's annotated residues (precision@10 0.012–0.021 vs
+0.019–0.020); but ~2× chance against the **KLIFS 85-residue ATP pocket** (0.21–0.28 vs
+0.13), beating position-only, amino-acid-only and — in 9/12 cells, modestly —
+within-kinase-domain nulls. Verdict: **coarsely plausible (finds the domain/pocket), not
+finely plausible (misses annotated residues).** Non-kinase above-chance cells are the
+attention's histidine preference (11–15× enriched) meeting His-rich metal sites — not
+positional, not knowledge. New modules: `src/data/klifs_pocket.py` (second ground truth,
+placement verified vs KLIFS numbering, 41/41), `src/evaluation/positional_control.py`
+(borrowed-map, same-residue and within-span nulls, each tested on planted cases).
+**DAVIS data problems (`results/sequence_audit_davis.md`, decision pending with user):**
+54/54 checkable mutants carry the wild-type sequence (442 targets = 379 sequences);
+cold-target 12/88 and cold-pair 11/88 test targets are seen-by-sequence in training
+(13.6% / 12.5% of rows); 10 targets lack the kinase pocket (RET ×4 = residues 1–430).
+KIBA is clean. Recommended option A: evaluate cold levels on sequence-unseen targets,
+count each distinct sequence once, exclude pocketless targets; B = rebuild splits + retrain.
 Team 124AD0008 (data) · 124AD0015 (model) · 124AD0067 (evaluation); supervisor
 Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / ISMB.
 **Draft due 15 Nov 2026.**
@@ -39,7 +50,7 @@ Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinformatics / 
 | Methods: data, splits, ground truth, family control | `paper/methods_data_and_evaluation.md` §1–4 | drafted 2026-09-12 |
 | Methods: ColdSite-DTI architecture & training, attention extraction | `paper/methods_track_b.md` | drafted (stale placeholders filled 2026-09-12) |
 | Methods: baselines' training, metrics & statistics, baseline faithfulness, positive control | `paper/methods_data_and_evaluation.md` §5–9 | drafted 2026-09-12; §10 lists 5 open decisions |
-| Results | `paper/results.md` | §1–3 drafted 2026-09-13 (accuracy for DeepDTA + ColdSite-DTI, volume control, positive control); §4 ColdSite-DTI interpretability running; HyperAttentionDTI, MolTrans, audit, control, KIBA pending |
+| Results | `paper/results.md` | drafted 2026-09-13: §1 accuracy (DeepDTA, ColdSite-DTI; MolTrans seed 1), §1b DAVIS sequence problems (decision pending), §2 volume control, §3 positive control, §4 ColdSite-DTI faithful + coarsely plausible (KLIFS) not finely (UniProt), §6 non-kinase = histidine preference; HyperAttentionDTI, MolTrans, audit, KIBA pending |
 | Discussion / Limitations | — | not written |
 
 ## 3. Done vs. to do

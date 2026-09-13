@@ -1,0 +1,3116 @@
+{
+ "O00141": {
+  "accession": "O00141",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 102,
+  "klifs": [
+   "SGK1"
+  ],
+  "last_davis_residue": 244,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O00311": {
+  "accession": "O00311",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 62,
+  "klifs": [
+   "CDC7"
+  ],
+  "last_davis_residue": 200,
+  "pocket_residues": 82,
+  "rejected": [],
+  "residues_in_davis": 82,
+  "status": "identical_sequence"
+ },
+ "O00329": {
+  "accession": "O00329",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 749,
+  "klifs": [
+   "p110d"
+  ],
+  "last_davis_residue": 915,
+  "pocket_residues": 83,
+  "rejected": [],
+  "residues_in_davis": 83,
+  "status": "identical_sequence"
+ },
+ "O00418": {
+  "accession": "O00418",
+  "status": "not_in_klifs"
+ },
+ "O00444": {
+  "accession": "O00444",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 16,
+  "klifs": [
+   "PLK4"
+  ],
+  "last_davis_residue": 158,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O14757": {
+  "accession": "O14757",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 13,
+  "klifs": [
+   "CHK1"
+  ],
+  "last_davis_residue": 152,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O14920": {
+  "accession": "O14920",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 19,
+  "klifs": [
+   "IKKb"
+  ],
+  "last_davis_residue": 170,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O14965": {
+  "accession": "O14965",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 137,
+  "klifs": [
+   "AurA"
+  ],
+  "last_davis_residue": 278,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "O15075": {
+  "accession": "O15075",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 394,
+  "klifs": [
+   "DCLK1"
+  ],
+  "last_davis_residue": 537,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O15111": {
+  "accession": "O15111",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 19,
+  "klifs": [
+   "IKKa"
+  ],
+  "last_davis_residue": 169,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O15264": {
+  "accession": "O15264",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 29,
+  "klifs": [
+   "p38d"
+  ],
+  "last_davis_residue": 172,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "O15530": {
+  "accession": "O15530",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 86,
+  "klifs": [
+   "PDK1"
+  ],
+  "last_davis_residue": 227,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O43293": {
+  "accession": "O43293",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 17,
+  "klifs": [
+   "DAPK3"
+  ],
+  "last_davis_residue": 165,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O43741": {
+  "accession": "O43741",
+  "status": "not_in_klifs"
+ },
+ "O43781": {
+  "accession": "O43781",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 213,
+  "klifs": [
+   "DYRK3"
+  ],
+  "last_davis_residue": 359,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "O60285": {
+  "accession": "O60285",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 59,
+  "klifs": [
+   "NuaK1"
+  ],
+  "last_davis_residue": 200,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O60674": {
+  "accession": "O60674",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 549,
+  "klifs": [
+   "JAK2-b",
+   "JAK2"
+  ],
+  "last_davis_residue": 998,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "O75116": {
+  "accession": "O75116",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 96,
+  "klifs": [
+   "ROCK2"
+  ],
+  "last_davis_residue": 236,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O75582": {
+  "accession": "O75582",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 53,
+  "klifs": [
+   "MSK1",
+   "MSK1-b"
+  ],
+  "last_davis_residue": 569,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "O75676": {
+  "accession": "O75676",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 37,
+  "klifs": [
+   "MSK2",
+   "MSK2-b"
+  ],
+  "last_davis_residue": 555,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "O94806": {
+  "accession": "O94806",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 580,
+  "klifs": [
+   "PKD3"
+  ],
+  "last_davis_residue": 724,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O95819": {
+  "accession": "O95819",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 29,
+  "klifs": [
+   "HGK"
+  ],
+  "last_davis_residue": 175,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O96013": {
+  "accession": "O96013",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 325,
+  "klifs": [
+   "PAK4"
+  ],
+  "last_davis_residue": 462,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "O96017": {
+  "accession": "O96017",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 224,
+  "klifs": [
+   "CHK2"
+  ],
+  "last_davis_residue": 372,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P00519": {
+  "accession": "P00519",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 246,
+  "klifs": [
+   "ABL1"
+  ],
+  "last_davis_residue": 385,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P00533": {
+  "accession": "P00533",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 716,
+  "klifs": [
+   "EGFR"
+  ],
+  "last_davis_residue": 859,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P04049": {
+  "accession": "P04049",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 353,
+  "klifs": [
+   "RAF1"
+  ],
+  "last_davis_residue": 490,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P04626": {
+  "accession": "P04626",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 724,
+  "klifs": [
+   "ErbB2"
+  ],
+  "last_davis_residue": 867,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P04629": {
+  "accession": "P04629",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 514,
+  "klifs": [
+   "TRKA"
+  ],
+  "last_davis_residue": 672,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P05129": {
+  "accession": "P05129",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 355,
+  "klifs": [
+   "PKCg"
+  ],
+  "last_davis_residue": 502,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P05771": {
+  "accession": "P05771",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 346,
+  "klifs": [
+   "PKCb"
+  ],
+  "last_davis_residue": 488,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P06213": {
+  "accession": "P06213",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1027,
+  "klifs": [
+   "INSR"
+  ],
+  "last_davis_residue": 1181,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P06239": {
+  "accession": "P06239",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 249,
+  "klifs": [
+   "LCK"
+  ],
+  "last_davis_residue": 386,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P06241": {
+  "accession": "P06241",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 275,
+  "klifs": [
+   "FYN"
+  ],
+  "last_davis_residue": 412,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P06493": {
+  "accession": "P06493",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 8,
+  "klifs": [
+   "CDC2"
+  ],
+  "last_davis_residue": 150,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P07332": {
+  "accession": "P07332",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 565,
+  "klifs": [
+   "FES"
+  ],
+  "last_davis_residue": 705,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P07333": {
+  "accession": "P07333",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 586,
+  "klifs": [
+   "FMS"
+  ],
+  "last_davis_residue": 800,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P07947": {
+  "accession": "P07947",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 281,
+  "klifs": [
+   "YES"
+  ],
+  "last_davis_residue": 418,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P07948": {
+  "accession": "P07948",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 251,
+  "klifs": [
+   "LYN"
+  ],
+  "last_davis_residue": 389,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P07949": {
+  "accession": "P07949",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 728,
+  "klifs": [
+   "RET"
+  ],
+  "last_davis_residue": 896,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P08069": {
+  "accession": "P08069",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1003,
+  "klifs": [
+   "IGF1R"
+  ],
+  "last_davis_residue": 1157,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P08581": {
+  "accession": "P08581",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1082,
+  "klifs": [
+   "MET"
+  ],
+  "last_davis_residue": 1226,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P08631": {
+  "accession": "P08631",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 266,
+  "klifs": [
+   "HCK"
+  ],
+  "last_davis_residue": 403,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P08922": {
+  "accession": "P08922",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1949,
+  "klifs": [
+   "ROS"
+  ],
+  "last_davis_residue": 2106,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P09619": {
+  "accession": "P09619",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 604,
+  "klifs": [
+   "PDGFRb"
+  ],
+  "last_davis_residue": 848,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P09769": {
+  "accession": "P09769",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 267,
+  "klifs": [
+   "FGR"
+  ],
+  "last_davis_residue": 404,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P10721": {
+  "accession": "P10721",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 593,
+  "klifs": [
+   "KIT"
+  ],
+  "last_davis_residue": 814,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P11309": {
+  "accession": "P11309",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 133,
+  "klifs": [
+   "PIM1"
+  ],
+  "last_davis_residue": 281,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "P11362": {
+  "accession": "P11362",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 482,
+  "klifs": [
+   "FGFR1"
+  ],
+  "last_davis_residue": 645,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P11802": {
+  "accession": "P11802",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 10,
+  "klifs": [
+   "CDK4"
+  ],
+  "last_davis_residue": 162,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P12931": {
+  "accession": "P12931",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 274,
+  "klifs": [
+   "SRC"
+  ],
+  "last_davis_residue": 411,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P15056": {
+  "accession": "P15056",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 461,
+  "klifs": [
+   "BRAF"
+  ],
+  "last_davis_residue": 598,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P15735": {
+  "accession": "P15735",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 28,
+  "klifs": [
+   "PHKg2"
+  ],
+  "last_davis_residue": 175,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P16234": {
+  "accession": "P16234",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 597,
+  "klifs": [
+   "PDGFRa"
+  ],
+  "last_davis_residue": 840,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P16591": {
+  "accession": "P16591",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 567,
+  "klifs": [
+   "FER"
+  ],
+  "last_davis_residue": 706,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P17252": {
+  "accession": "P17252",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 343,
+  "klifs": [
+   "PKCa"
+  ],
+  "last_davis_residue": 485,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P17612": {
+  "accession": "P17612",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 48,
+  "klifs": [
+   "PKACa"
+  ],
+  "last_davis_residue": 189,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P17948": {
+  "accession": "P17948",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 831,
+  "klifs": [
+   "FLT1"
+  ],
+  "last_davis_residue": 1044,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P19784": {
+  "accession": "P19784",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 44,
+  "klifs": [
+   "CK2a2"
+  ],
+  "last_davis_residue": 180,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P21802": {
+  "accession": "P21802",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 485,
+  "klifs": [
+   "FGFR2"
+  ],
+  "last_davis_residue": 648,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P22455": {
+  "accession": "P22455",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 471,
+  "klifs": [
+   "FGFR4"
+  ],
+  "last_davis_residue": 634,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P22607": {
+  "accession": "P22607",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 476,
+  "klifs": [
+   "FGFR3"
+  ],
+  "last_davis_residue": 639,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P22612": {
+  "accession": "P22612",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 48,
+  "klifs": [
+   "PKACg"
+  ],
+  "last_davis_residue": 189,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P22694": {
+  "accession": "P22694",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 48,
+  "klifs": [
+   "PKACb"
+  ],
+  "last_davis_residue": 189,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P23443": {
+  "accession": "P23443",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 95,
+  "klifs": [
+   "p70S6K"
+  ],
+  "last_davis_residue": 240,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P23458": {
+  "accession": "P23458",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 587,
+  "klifs": [
+   "JAK1-b",
+   "JAK1"
+  ],
+  "last_davis_residue": 1025,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "P24723": {
+  "accession": "P24723",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 359,
+  "klifs": [
+   "PKCh"
+  ],
+  "last_davis_residue": 501,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P24941": {
+  "accession": "P24941",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 8,
+  "klifs": [
+   "CDK2"
+  ],
+  "last_davis_residue": 149,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P27361": {
+  "accession": "P27361",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 46,
+  "klifs": [
+   "Erk1"
+  ],
+  "last_davis_residue": 188,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P27448": {
+  "accession": "P27448",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 60,
+  "klifs": [
+   "MARK3"
+  ],
+  "last_davis_residue": 200,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "P28482": {
+  "accession": "P28482",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 29,
+  "klifs": [
+   "Erk2"
+  ],
+  "last_davis_residue": 171,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P29317": {
+  "accession": "P29317",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 617,
+  "klifs": [
+   "EphA2"
+  ],
+  "last_davis_residue": 761,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P29323": {
+  "accession": "P29323",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 625,
+  "klifs": [
+   "EphB2"
+  ],
+  "last_davis_residue": 768,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P29376": {
+  "accession": "P29376",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 514,
+  "klifs": [
+   "LTK"
+  ],
+  "last_davis_residue": 668,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P29597": {
+  "accession": "P29597",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 593,
+  "klifs": [
+   "TYK2-b",
+   "TYK2"
+  ],
+  "last_davis_residue": 1045,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "P30291": {
+  "accession": "P30291",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 303,
+  "klifs": [
+   "Wee1"
+  ],
+  "last_davis_residue": 467,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P30530": {
+  "accession": "P30530",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 540,
+  "klifs": [
+   "AXL"
+  ],
+  "last_davis_residue": 694,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "P31749": {
+  "accession": "P31749",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 154,
+  "klifs": [
+   "AKT1"
+  ],
+  "last_davis_residue": 296,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P31751": {
+  "accession": "P31751",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 156,
+  "klifs": [
+   "AKT2"
+  ],
+  "last_davis_residue": 297,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P34947": {
+  "accession": "P34947",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 190,
+  "klifs": [
+   "GPRK5"
+  ],
+  "last_davis_residue": 333,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P35916": {
+  "accession": "P35916",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 849,
+  "klifs": [
+   "FLT4"
+  ],
+  "last_davis_residue": 1059,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P35968": {
+  "accession": "P35968",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 838,
+  "klifs": [
+   "KDR"
+  ],
+  "last_davis_residue": 1050,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P36507": {
+  "accession": "P36507",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 76,
+  "klifs": [
+   "MAP2K2"
+  ],
+  "last_davis_residue": 216,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P36888": {
+  "accession": "P36888",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 614,
+  "klifs": [
+   "FLT3"
+  ],
+  "last_davis_residue": 833,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P41240": {
+  "accession": "P41240",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 199,
+  "klifs": [
+   "CSK"
+  ],
+  "last_davis_residue": 336,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P41279": {
+  "accession": "P41279",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 142,
+  "klifs": [
+   "COT"
+  ],
+  "last_davis_residue": 274,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P41743": {
+  "accession": "P41743",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 258,
+  "klifs": [
+   "PKCi"
+  ],
+  "last_davis_residue": 400,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P42336": {
+  "accession": "P42336",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 769,
+  "klifs": [
+   "p110a"
+  ],
+  "last_davis_residue": 937,
+  "pocket_residues": 83,
+  "rejected": [],
+  "residues_in_davis": 83,
+  "status": "identical_sequence"
+ },
+ "P42338": {
+  "accession": "P42338",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 776,
+  "klifs": [
+   "p110b"
+  ],
+  "last_davis_residue": 941,
+  "pocket_residues": 83,
+  "rejected": [],
+  "residues_in_davis": 83,
+  "status": "identical_sequence"
+ },
+ "P42345": {
+  "accession": "P42345",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 2160,
+  "klifs": [
+   "FRAP"
+  ],
+  "last_davis_residue": 2361,
+  "pocket_residues": 83,
+  "rejected": [],
+  "residues_in_davis": 83,
+  "status": "identical_sequence"
+ },
+ "P42679": {
+  "accession": "P42679",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 239,
+  "klifs": [
+   "CTK"
+  ],
+  "last_davis_residue": 374,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P42684": {
+  "accession": "P42684",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 292,
+  "klifs": [
+   "ABL2"
+  ],
+  "last_davis_residue": 431,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P42685": {
+  "accession": "P42685",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 238,
+  "klifs": [
+   "FRK"
+  ],
+  "last_davis_residue": 376,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P43403": {
+  "accession": "P43403",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 342,
+  "klifs": [
+   "ZAP70"
+  ],
+  "last_davis_residue": 483,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P43405": {
+  "accession": "P43405",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 375,
+  "klifs": [
+   "SYK"
+  ],
+  "last_davis_residue": 516,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P45983": {
+  "accession": "P45983",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 30,
+  "klifs": [
+   "JNK1"
+  ],
+  "last_davis_residue": 173,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P45984": {
+  "accession": "P45984",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 30,
+  "klifs": [
+   "JNK2"
+  ],
+  "last_davis_residue": 173,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P48729": {
+  "accession": "P48729",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 21,
+  "klifs": [
+   "CK1a"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P48730": {
+  "accession": "P48730",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 13,
+  "klifs": [
+   "CK1d"
+  ],
+  "last_davis_residue": 153,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P48736": {
+  "accession": "P48736",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 801,
+  "klifs": [
+   "p110g"
+  ],
+  "last_davis_residue": 968,
+  "pocket_residues": 83,
+  "rejected": [],
+  "residues_in_davis": 83,
+  "status": "identical_sequence"
+ },
+ "P49137": {
+  "accession": "P49137",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 68,
+  "klifs": [
+   "MAPKAPK2"
+  ],
+  "last_davis_residue": 211,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P49336": {
+  "accession": "P49336",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 25,
+  "klifs": [
+   "CDK8"
+  ],
+  "last_davis_residue": 177,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P49674": {
+  "accession": "P49674",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 13,
+  "klifs": [
+   "CK1e"
+  ],
+  "last_davis_residue": 153,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P49759": {
+  "accession": "P49759",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 165,
+  "klifs": [
+   "CLK1"
+  ],
+  "last_davis_residue": 329,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P49760": {
+  "accession": "P49760",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 167,
+  "klifs": [
+   "CLK2"
+  ],
+  "last_davis_residue": 331,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P49840": {
+  "accession": "P49840",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 123,
+  "klifs": [
+   "GSK3A"
+  ],
+  "last_davis_residue": 267,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P49841": {
+  "accession": "P49841",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 60,
+  "klifs": [
+   "GSK3B"
+  ],
+  "last_davis_residue": 204,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P50613": {
+  "accession": "P50613",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 16,
+  "klifs": [
+   "CDK7"
+  ],
+  "last_davis_residue": 159,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P50750": {
+  "accession": "P50750",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 23,
+  "klifs": [
+   "CDK9"
+  ],
+  "last_davis_residue": 171,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P51451": {
+  "accession": "P51451",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 245,
+  "klifs": [
+   "BLK"
+  ],
+  "last_davis_residue": 382,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P51617": {
+  "accession": "P51617",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 216,
+  "klifs": [
+   "IRAK1"
+  ],
+  "last_davis_residue": 362,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P51812": {
+  "accession": "P51812",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 72,
+  "klifs": [
+   "RSK2",
+   "RSK2-b"
+  ],
+  "last_davis_residue": 565,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "P51813": {
+  "accession": "P51813",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 421,
+  "klifs": [
+   "BMX"
+  ],
+  "last_davis_residue": 558,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P51817": {
+  "accession": "P51817",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 53,
+  "klifs": [
+   "PRKX"
+  ],
+  "last_davis_residue": 194,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P51955": {
+  "accession": "P51955",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 12,
+  "klifs": [
+   "NEK2"
+  ],
+  "last_davis_residue": 163,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P51957": {
+  "accession": "P51957",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 10,
+  "klifs": [
+   "NEK4"
+  ],
+  "last_davis_residue": 153,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P52333": {
+  "accession": "P52333",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 525,
+  "klifs": [
+   "JAK3-b",
+   "JAK3"
+  ],
+  "last_davis_residue": 971,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "P52564": {
+  "accession": "P52564",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 57,
+  "klifs": [
+   "MAP2K6"
+  ],
+  "last_davis_residue": 201,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P53350": {
+  "accession": "P53350",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 57,
+  "klifs": [
+   "PLK1"
+  ],
+  "last_davis_residue": 198,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P53667": {
+  "accession": "P53667",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 343,
+  "klifs": [
+   "LIMK1"
+  ],
+  "last_davis_residue": 482,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P53778": {
+  "accession": "P53778",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 31,
+  "klifs": [
+   "p38g"
+  ],
+  "last_davis_residue": 175,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P53779": {
+  "accession": "P53779",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 68,
+  "klifs": [
+   "JNK3"
+  ],
+  "last_davis_residue": 211,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P54619": {
+  "accession": "P54619",
+  "status": "not_in_klifs"
+ },
+ "P54646": {
+  "accession": "P54646",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 20,
+  "klifs": [
+   "AMPKa2"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P54760": {
+  "accession": "P54760",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 619,
+  "klifs": [
+   "EphB4"
+  ],
+  "last_davis_residue": 762,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "P67870": {
+  "accession": "P67870",
+  "status": "not_in_klifs"
+ },
+ "P68400": {
+  "accession": "P68400",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 43,
+  "klifs": [
+   "CK2a1"
+  ],
+  "last_davis_residue": 179,
+  "pocket_residues": 82,
+  "rejected": [],
+  "residues_in_davis": 82,
+  "status": "identical_sequence"
+ },
+ "P78368": {
+  "accession": "P78368",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 50,
+  "klifs": [
+   "CK1g2"
+  ],
+  "last_davis_residue": 192,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "P78527": {
+  "accession": "P78527",
+  "status": "not_in_klifs"
+ },
+ "P80192": {
+  "accession": "P80192",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 148,
+  "klifs": [
+   "MLK1"
+  ],
+  "last_davis_residue": 298,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q00534": {
+  "accession": "Q00534",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 17,
+  "klifs": [
+   "CDK6"
+  ],
+  "last_davis_residue": 167,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q00535": {
+  "accession": "Q00535",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 8,
+  "klifs": [
+   "CDK5"
+  ],
+  "last_davis_residue": 148,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q02156": {
+  "accession": "Q02156",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 412,
+  "klifs": [
+   "PKCe"
+  ],
+  "last_davis_residue": 554,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q02750": {
+  "accession": "Q02750",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 72,
+  "klifs": [
+   "MAP2K1"
+  ],
+  "last_davis_residue": 212,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q02763": {
+  "accession": "Q02763",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 828,
+  "klifs": [
+   "TIE2"
+  ],
+  "last_davis_residue": 986,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q02779": {
+  "accession": "Q02779",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 102,
+  "klifs": [
+   "MLK2"
+  ],
+  "last_davis_residue": 252,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q04759": {
+  "accession": "Q04759",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 384,
+  "klifs": [
+   "PKCt"
+  ],
+  "last_davis_residue": 526,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q04771": {
+  "accession": "Q04771",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 212,
+  "klifs": [
+   "ALK2"
+  ],
+  "last_davis_residue": 358,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q04912": {
+  "accession": "Q04912",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1086,
+  "klifs": [
+   "RON"
+  ],
+  "last_davis_residue": 1230,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "Q05397": {
+  "accession": "Q05397",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 426,
+  "klifs": [
+   "FAK"
+  ],
+  "last_davis_residue": 568,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q05513": {
+  "accession": "Q05513",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 256,
+  "klifs": [
+   "PKCz"
+  ],
+  "last_davis_residue": 398,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q05655": {
+  "accession": "Q05655",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 353,
+  "klifs": [
+   "PKCd"
+  ],
+  "last_davis_residue": 495,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q06187": {
+  "accession": "Q06187",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 406,
+  "klifs": [
+   "BTK"
+  ],
+  "last_davis_residue": 543,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q06418": {
+  "accession": "Q06418",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 522,
+  "klifs": [
+   "TYRO3"
+  ],
+  "last_davis_residue": 677,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q07912": {
+  "accession": "Q07912",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 130,
+  "klifs": [
+   "ACK"
+  ],
+  "last_davis_residue": 274,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q08881": {
+  "accession": "Q08881",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 367,
+  "klifs": [
+   "ITK"
+  ],
+  "last_davis_residue": 504,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q12851": {
+  "accession": "Q12851",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 20,
+  "klifs": [
+   "Map4k2"
+  ],
+  "last_davis_residue": 158,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q12866": {
+  "accession": "Q12866",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 591,
+  "klifs": [
+   "MER"
+  ],
+  "last_davis_residue": 745,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13131": {
+  "accession": "Q13131",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 31,
+  "klifs": [
+   "AMPKa1"
+  ],
+  "last_davis_residue": 172,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13153": {
+  "accession": "Q13153",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 274,
+  "klifs": [
+   "PAK1"
+  ],
+  "last_davis_residue": 411,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13177": {
+  "accession": "Q13177",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 253,
+  "klifs": [
+   "PAK2"
+  ],
+  "last_davis_residue": 390,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13188": {
+  "accession": "Q13188",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 31,
+  "klifs": [
+   "MST2"
+  ],
+  "last_davis_residue": 168,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13237": {
+  "accession": "Q13237",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 457,
+  "klifs": [
+   "PKG2"
+  ],
+  "last_davis_residue": 598,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13464": {
+  "accession": "Q13464",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 80,
+  "klifs": [
+   "ROCK1"
+  ],
+  "last_davis_residue": 220,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13554": {
+  "accession": "Q13554",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 18,
+  "klifs": [
+   "CaMK2b"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13555": {
+  "accession": "Q13555",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 18,
+  "klifs": [
+   "CaMK2g"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "Q13557": {
+  "accession": "Q13557",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 18,
+  "klifs": [
+   "CaMK2d"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13627": {
+  "accession": "Q13627",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 163,
+  "klifs": [
+   "DYRK1A"
+  ],
+  "last_davis_residue": 311,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q13882": {
+  "accession": "Q13882",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 195,
+  "klifs": [
+   "BRK"
+  ],
+  "last_davis_residue": 334,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q13976": {
+  "accession": "Q13976",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 364,
+  "klifs": [
+   "PKG1"
+  ],
+  "last_davis_residue": 506,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q14012": {
+  "accession": "Q14012",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 24,
+  "klifs": [
+   "CaMK1a"
+  ],
+  "last_davis_residue": 166,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q14164": {
+  "accession": "Q14164",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 13,
+  "klifs": [
+   "IKKe"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q14289": {
+  "accession": "Q14289",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 429,
+  "klifs": [
+   "PYK2"
+  ],
+  "last_davis_residue": 571,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q14680": {
+  "accession": "Q14680",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 15,
+  "klifs": [
+   "MELK"
+  ],
+  "last_davis_residue": 154,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q15078": {
+  "accession": "Q15078",
+  "status": "not_in_klifs"
+ },
+ "Q15118": {
+  "accession": "Q15118",
+  "status": "not_in_klifs"
+ },
+ "Q15139": {
+  "accession": "Q15139",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 587,
+  "klifs": [
+   "PKD1"
+  ],
+  "last_davis_residue": 731,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q15303": {
+  "accession": "Q15303",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 722,
+  "klifs": [
+   "ErbB4"
+  ],
+  "last_davis_residue": 865,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q15418": {
+  "accession": "Q15418",
+  "domain_rule": "both domains (the name does not say which)",
+  "dropped": 0,
+  "first_davis_residue": 66,
+  "klifs": [
+   "RSK3",
+   "RSK3-b"
+  ],
+  "last_davis_residue": 561,
+  "pocket_residues": 170,
+  "rejected": [],
+  "residues_in_davis": 170,
+  "status": "identical_sequence"
+ },
+ "Q15759": {
+  "accession": "Q15759",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 28,
+  "klifs": [
+   "p38b"
+  ],
+  "last_davis_residue": 172,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q16288": {
+  "accession": "Q16288",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 542,
+  "klifs": [
+   "TRKC"
+  ],
+  "last_davis_residue": 701,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q16512": {
+  "accession": "Q16512",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 619,
+  "klifs": [
+   "PKN1"
+  ],
+  "last_davis_residue": 762,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q16513": {
+  "accession": "Q16513",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 661,
+  "klifs": [
+   "PKN2"
+  ],
+  "last_davis_residue": 804,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q16539": {
+  "accession": "Q16539",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 28,
+  "klifs": [
+   "p38a"
+  ],
+  "last_davis_residue": 172,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q16566": {
+  "accession": "Q16566",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 50,
+  "klifs": [
+   "CaMK4"
+  ],
+  "last_davis_residue": 189,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q16584": {
+  "accession": "Q16584",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 121,
+  "klifs": [
+   "MLK3"
+  ],
+  "last_davis_residue": 271,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q16620": {
+  "accession": "Q16620",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 542,
+  "klifs": [
+   "TRKB"
+  ],
+  "last_davis_residue": 698,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q16644": {
+  "accession": "Q16644",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 48,
+  "klifs": [
+   "MAPKAPK3"
+  ],
+  "last_davis_residue": 191,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q5S007": {
+  "accession": "Q5S007",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 733,
+  "klifs": [
+   "LRRK2"
+  ],
+  "last_davis_residue": 2021,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q5VT25": {
+  "accession": "Q5VT25",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 81,
+  "klifs": [
+   "MRCKa"
+  ],
+  "last_davis_residue": 223,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q7KZI7": {
+  "accession": "Q7KZI7",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 57,
+  "klifs": [
+   "MARK2"
+  ],
+  "last_davis_residue": 197,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q7L7X3": {
+  "accession": "Q7L7X3",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 32,
+  "klifs": [
+   "TAO1"
+  ],
+  "last_davis_residue": 173,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q86V86": {
+  "accession": "Q86V86",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 44,
+  "klifs": [
+   "PIM3"
+  ],
+  "last_davis_residue": 193,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q8IU85": {
+  "accession": "Q8IU85",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 27,
+  "klifs": [
+   "CaMK1d"
+  ],
+  "last_davis_residue": 169,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q8IW41": {
+  "accession": "Q8IW41",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 26,
+  "klifs": [
+   "MAPKAPK5"
+  ],
+  "last_davis_residue": 173,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q8N4C8": {
+  "accession": "Q8N4C8",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 29,
+  "klifs": [
+   "MINK"
+  ],
+  "last_davis_residue": 175,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q8NE63": {
+  "accession": "Q8NE63",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 15,
+  "klifs": [
+   "HIPK4"
+  ],
+  "last_davis_residue": 162,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q8TDC3": {
+  "accession": "Q8TDC3",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 38,
+  "klifs": [
+   "BRSK1"
+  ],
+  "last_davis_residue": 178,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96GD4": {
+  "accession": "Q96GD4",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 81,
+  "klifs": [
+   "AurB"
+  ],
+  "last_davis_residue": 222,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96KB5": {
+  "accession": "Q96KB5",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 36,
+  "klifs": [
+   "PBK"
+  ],
+  "last_davis_residue": 190,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96L34": {
+  "accession": "Q96L34",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 63,
+  "klifs": [
+   "MARK4"
+  ],
+  "last_davis_residue": 203,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96PF2": {
+  "accession": "Q96PF2",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 16,
+  "klifs": [
+   "TSSK2"
+  ],
+  "last_davis_residue": 158,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96RG2": {
+  "accession": "Q96RG2",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1003,
+  "klifs": [
+   "PASK"
+  ],
+  "last_davis_residue": 1150,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96RR4": {
+  "accession": "Q96RR4",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 169,
+  "klifs": [
+   "CaMKK2"
+  ],
+  "last_davis_residue": 334,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q96SB4": {
+  "accession": "Q96SB4",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 84,
+  "klifs": [
+   "SRPK1"
+  ],
+  "last_davis_residue": 501,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q99683": {
+  "accession": "Q99683",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 684,
+  "klifs": [
+   "MAP3K5"
+  ],
+  "last_davis_residue": 826,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9BUB5": {
+  "accession": "Q9BUB5",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 53,
+  "klifs": [
+   "MNK1"
+  ],
+  "last_davis_residue": 236,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9BWU1": {
+  "accession": "Q9BWU1",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 25,
+  "klifs": [
+   "CDK11"
+  ],
+  "last_davis_residue": 177,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9BXA7": {
+  "accession": "Q9BXA7",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 16,
+  "klifs": [
+   "TSSK1"
+  ],
+  "last_davis_residue": 158,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9BZL6": {
+  "accession": "Q9BZL6",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 555,
+  "klifs": [
+   "PKD2"
+  ],
+  "last_davis_residue": 699,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "Q9H0K1": {
+  "accession": "Q9H0K1",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 24,
+  "klifs": [
+   "QIK"
+  ],
+  "last_davis_residue": 164,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9H2G2": {
+  "accession": "Q9H2G2",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 38,
+  "klifs": [
+   "SLK"
+  ],
+  "last_davis_residue": 177,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9H2X6": {
+  "accession": "Q9H2X6",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 203,
+  "klifs": [
+   "HIPK2"
+  ],
+  "last_davis_residue": 350,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9H3Y6": {
+  "accession": "Q9H3Y6",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 234,
+  "klifs": [
+   "SRM"
+  ],
+  "last_davis_residue": 372,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9H4B4": {
+  "accession": "Q9H4B4",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 66,
+  "klifs": [
+   "PLK3"
+  ],
+  "last_davis_residue": 207,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9HAZ1": {
+  "accession": "Q9HAZ1",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 163,
+  "klifs": [
+   "CLK4"
+  ],
+  "last_davis_residue": 327,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9HBH9": {
+  "accession": "Q9HBH9",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 88,
+  "klifs": [
+   "MNK2"
+  ],
+  "last_davis_residue": 230,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9HBY8": {
+  "accession": "Q9HBY8",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 99,
+  "klifs": [
+   "SGK2"
+  ],
+  "last_davis_residue": 241,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "Q9HC98": {
+  "accession": "Q9HC98",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 49,
+  "klifs": [
+   "NEK6"
+  ],
+  "last_davis_residue": 194,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9HCP0": {
+  "accession": "Q9HCP0",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 48,
+  "klifs": [
+   "CK1g1"
+  ],
+  "last_davis_residue": 191,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9NR20": {
+  "accession": "Q9NR20",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 108,
+  "klifs": [
+   "DYRK4"
+  ],
+  "last_davis_residue": 254,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9NWZ3": {
+  "accession": "Q9NWZ3",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 190,
+  "klifs": [
+   "IRAK4"
+  ],
+  "last_davis_residue": 333,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9NYL2": {
+  "accession": "Q9NYL2",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 20,
+  "klifs": [
+   "ZAK"
+  ],
+  "last_davis_residue": 155,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9P1W9": {
+  "accession": "Q9P1W9",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 36,
+  "klifs": [
+   "PIM2"
+  ],
+  "last_davis_residue": 186,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9P289": {
+  "accession": "Q9P289",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 28,
+  "klifs": [
+   "MST4"
+  ],
+  "last_davis_residue": 166,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9UBE8": {
+  "accession": "Q9UBE8",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 142,
+  "klifs": [
+   "NLK"
+  ],
+  "last_davis_residue": 286,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9UBF8": {
+  "accession": "Q9UBF8",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 387,
+  "klifs": [
+   "PI4KB"
+  ],
+  "last_davis_residue": 693,
+  "pocket_residues": 83,
+  "rejected": [],
+  "residues_in_davis": 83,
+  "status": "identical_sequence"
+ },
+ "Q9UBS0": {
+  "accession": "Q9UBS0",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 71,
+  "klifs": [
+   "p70S6Kb"
+  ],
+  "last_davis_residue": 216,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9UEE5": {
+  "accession": "Q9UEE5",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 65,
+  "klifs": [
+   "DRAK1"
+  ],
+  "last_davis_residue": 211,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9UGI9": {
+  "accession": "Q9UGI9",
+  "status": "not_in_klifs"
+ },
+ "Q9UGJ0": {
+  "accession": "Q9UGJ0",
+  "status": "not_in_klifs"
+ },
+ "Q9UHD2": {
+  "accession": "Q9UHD2",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 13,
+  "klifs": [
+   "TBK1"
+  ],
+  "last_davis_residue": 161,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9UM73": {
+  "accession": "Q9UM73",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 1120,
+  "klifs": [
+   "ALK"
+  ],
+  "last_davis_residue": 1274,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9UQM7": {
+  "accession": "Q9UQM7",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 17,
+  "klifs": [
+   "CaMK2a"
+  ],
+  "last_davis_residue": 160,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9Y243": {
+  "accession": "Q9Y243",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 152,
+  "klifs": [
+   "AKT3"
+  ],
+  "last_davis_residue": 293,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "identical_sequence"
+ },
+ "Q9Y463": {
+  "accession": "Q9Y463",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 115,
+  "klifs": [
+   "DYRK1B"
+  ],
+  "last_davis_residue": 263,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ },
+ "Q9Y478": {
+  "accession": "Q9Y478",
+  "status": "not_in_klifs"
+ },
+ "Q9Y4K4": {
+  "accession": "Q9Y4K4",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 24,
+  "klifs": [
+   "KHS1"
+  ],
+  "last_davis_residue": 162,
+  "pocket_residues": 85,
+  "rejected": [],
+  "residues_in_davis": 85,
+  "status": "remapped"
+ },
+ "Q9Y6M4": {
+  "accession": "Q9Y6M4",
+  "domain_rule": null,
+  "dropped": 0,
+  "first_davis_residue": 47,
+  "klifs": [
+   "CK1g3"
+  ],
+  "last_davis_residue": 189,
+  "pocket_residues": 84,
+  "rejected": [],
+  "residues_in_davis": 84,
+  "status": "identical_sequence"
+ }
+}

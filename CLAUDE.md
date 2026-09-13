@@ -302,6 +302,14 @@ account on KIBA.**
   Claude Code → New → Local · folder ColdSite-DTI · branch **main** · worktree off.
 - Confirm with the user before any `git push`.
 - Do not change training code while a grid is mid-run (cells must share one code state).
+- **The same applies to `src/evaluation/` while `run_all` is running.** It shells out to
+  each runner as that step starts, so a file edited mid-run is loaded by the later steps
+  only: the faithfulness numbers would come from one code state and the ladders from
+  another. Wait for the run to end (or work on a copy of the repo).
+- A checkpoint with no `_results.json` beside it is an interrupted cell, not a result.
+  `run_all` refuses to analyse one (2026-09-14, after a cut-off HyperAttentionDTI
+  cold-drug seed-1 checkpoint was scored); keep such files out of the merged results
+  folder — `~/ColdSite-results/partial_do_not_use/` is where they go.
 - Ground truth (DAVIS and KIBA): fetch/overrides write `data/<dataset>_ground_truth_sites_uniprot.json`;
   only `align_ground_truth --dataset <dataset>` writes `data/<dataset>_ground_truth_sites.json`.
   Re-align after either.

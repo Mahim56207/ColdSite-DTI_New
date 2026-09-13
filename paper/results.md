@@ -195,6 +195,25 @@ the sequence policy (pre-policy values: `results/positional_control_coldsite_dti
 
 ## 5. *[PENDING]* The audit table (all subjects, Holm over the whole family)
 
+*[Waiting on the analysis running 2026-09-14 (`results/analysis_davis_policyA/`):
+HyperAttentionDTI and MolTrans faithfulness, both models' UniProt and KLIFS ladders, the
+non-kinase control for both, then `run_audit` once over the whole family. Structure this
+section will take, so the numbers only have to be dropped in:*
+
+1. *One row per (model, level): faithfulness delta (mean ± sd over 3 seeds, "load-bearing"
+   in n/3 cells), precision@10 against UniProt and against KLIFS, each beside its chance
+   and the Holm-corrected p. Three audited models × 4 levels = 12 rows, minus
+   HyperAttentionDTI cold-drug if account 1's last three cells do not arrive.*
+2. *The verdict per model in one sentence each, in the three-way form §4 establishes for
+   ColdSite-DTI: faithful / coarsely plausible / finely plausible, each answered against
+   its own null.*
+3. *Whether the published models (HyperAttentionDTI, MolTrans) behave like ours. If they
+   are finely plausible where ColdSite-DTI is not, the §4 finding is model-specific; if all
+   three are coarse-only, it is a property of attention trained on affinity labels alone —
+   which is the paper's central claim and decides how Discussion §2 is written.*
+4. *Read against the dose curve of §3 (`positive_control --compare`) for every ladder, so
+   each null carries the resolution at which it is a null.*
+
 ## 6. *[PENDING]* Kinase-family control (60 non-kinase proteins, cotransport ions excluded)
 
 *[ColdSite-DTI only, 2026-09-13; `results/positional_control_coldsite_dti_davis.md`.]*

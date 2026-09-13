@@ -56,7 +56,7 @@ import re
 
 import numpy as np
 
-from src.data.ground_truth import load_site_sets
+from src.data.ground_truth import load_site_sets, site_lookup
 
 # Imported for its registration side-effect: @register runs at import time, so
 # without this the registry holds only coldsite_dti and uniform_control and
@@ -101,10 +101,14 @@ class MissingCell(Exception):
 
 
 def _read_test_rows(split_dir: str, pairs_per_target: int,
-                    rows_csv: str | None = None, policy: bool = True):
+                    rows_csv: str | None = None, policy: bool = True,
+                    with_drug: bool = False):
     """One row per (target, drug) pair from the test split, capped per target.
 
-    Returns a list of (target_id, smiles, sequence). Rows keep the file's own
+    Returns a list of (target_id, smiles, sequence), or of
+    (target_id, drug_id, smiles, sequence) when `with_drug` -- which a drug-specific
+    ground truth needs, since its sites belong to the pair and not to the protein.
+    Rows keep the file's own
     order so a cap of 1 is deterministic rather than whichever pair pandas
     happened to group first.
 
@@ -138,9 +142,11 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
                 else excluded_target_ids(*dataset_level_from_split_dir(split_dir), policy))
     seen: dict = {}
     rows = []
-    for target_id, smiles, sequence in zip(frame[TARGET_ID_COLUMN],
-                                           frame[SMILES_COLUMN],
-                                           frame[SEQUENCE_COLUMN]):
+    drug_column = frame["Drug_ID"] if "Drug_ID" in frame.columns else frame[SMILES_COLUMN]
+    for target_id, drug_id, smiles, sequence in zip(frame[TARGET_ID_COLUMN],
+                                                    drug_column,
+                                                    frame[SMILES_COLUMN],
+                                                    frame[SEQUENCE_COLUMN]):
         if str(target_id) in excluded:
             continue
         # Before the per-target cap, so a protein's first READABLE pair is
@@ -153,7 +159,8 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
         if pairs_per_target and count >= pairs_per_target:
             continue
         seen[key] = count + 1
-        rows.append((str(target_id), str(smiles), str(sequence).upper()))
+        row = (str(target_id), str(smiles), str(sequence).upper())
+        rows.append((row[0], str(drug_id)) + row[1:] if with_drug else row)
     return rows
 
 
@@ -271,14 +278,18 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         if not os.path.exists(checkpoint):
             raise MissingCell(f"no checkpoint at {checkpoint}")
 
-    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv, policy=policy)
+    lookup = site_lookup(site_sets)
+    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv, policy=policy,
+                           with_drug=lookup.pair_keyed)
     adapter, vocabs = _build_adapter(model_name, checkpoint, split_dir, device,
                                      max_protein_len)
 
     weights, sites, used_ids = [], [], []
     skipped_no_sites = 0
-    for target_id, smiles, sequence in rows:
-        site_set = site_sets.get(target_id)
+    for row in rows:
+        target_id, drug_id, smiles, sequence = (
+            row if lookup.pair_keyed else (row[0], None, row[1], row[2]))
+        site_set = lookup(target_id, drug_id)
         if site_set is None or not site_set.usable:
             skipped_no_sites += 1
             continue
@@ -290,7 +301,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         weights.append(_explain_row(model_name, adapter, vocabs, smiles,
                                     sequence, max_protein_len)[:max_protein_len])
         sites.append(site_set.positions)
-        used_ids.append(target_id)
+        used_ids.append(f"{drug_id}|{target_id}" if lookup.pair_keyed else target_id)
         if max_proteins and len(weights) >= max_proteins:
             break
 
@@ -298,11 +309,15 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         raise MissingCell(
             f"{len(rows)} test rows, none with usable ground truth "
             f"(skipped {skipped_no_sites}) — check that the ground-truth file "
-            f"matches this dataset's Target_ID spelling")
+            + ("has pairs from this split: a drug-specific ground truth only covers "
+               "pairs with a co-crystal structure, and a cold split may hold none"
+               if lookup.pair_keyed else
+               "matches this dataset's Target_ID spelling"))
 
     if verbose:
+        unit = "drug-protein pairs" if lookup.pair_keyed else "proteins"
         print(f"  {model_name}/{dataset}/{level}/seed{seed}: "
-              f"{len(weights)} proteins ({skipped_no_sites} without usable sites)")
+              f"{len(weights)} {unit} ({skipped_no_sites} without usable sites)")
     return weights, sites, used_ids
 
 

@@ -354,6 +354,41 @@ def load_site_sets(
     return out
 
 
+PAIR_SEPARATOR = "|"
+
+
+def is_pair_keyed(site_sets: dict) -> bool:
+    """True for a drug-specific ground truth, whose keys are "<drug id>|<target id>".
+
+    Per-protein ground truths (UniProt annotations, the KLIFS pocket) are keyed by target
+    alone; `src/data/klifs_ligand_contacts.py` keys by the pair, because which residues
+    are touched depends on the drug.
+    """
+    return any(PAIR_SEPARATOR in key for key in site_sets)
+
+
+def site_lookup(site_sets: dict):
+    """A (target_id, drug_id) -> SiteSet | None function for either kind of ground truth.
+
+    Returned as a closure so the key shape is decided once per cell, not per row, and so
+    no scoring path has to know which kind it was handed. A drug-specific ground truth
+    given no drug id raises rather than silently scoring nothing: that mistake would read
+    as "this model has no measurable pairs".
+    """
+    paired = is_pair_keyed(site_sets)
+
+    def lookup(target_id, drug_id=None):
+        if not paired:
+            return site_sets.get(target_id)
+        if drug_id is None:
+            raise ValueError("this ground truth is drug-specific (keys are "
+                             "'<drug>|<target>'), so scoring it needs each row's drug id")
+        return site_sets.get(f"{drug_id}{PAIR_SEPARATOR}{target_id}")
+
+    lookup.pair_keyed = paired
+    return lookup
+
+
 def coverage_report(site_sets: dict) -> dict:
     """Summary numbers for the Methods section.
 

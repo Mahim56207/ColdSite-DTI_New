@@ -34,7 +34,7 @@ import os
 import numpy as np
 import torch
 
-from src.data.ground_truth import load_site_sets
+from src.data.ground_truth import load_site_sets, site_lookup
 from src.model.checkpoint_naming import checkpoint_path as build_checkpoint_path
 from src.model.checkpoint_naming import DEFAULT_MODEL, discover_checkpoints
 from src.evaluation.precision_at_k import batch_precision_at_k
@@ -54,7 +54,7 @@ from src.evaluation.run_faithfulness import MODELS, output_tag  # noqa: E402
 
 def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
                          max_proteins=None, pairs_per_target: int = 1,
-                         keys=None, exclude=frozenset()):
+                         keys=None, exclude=frozenset(), drug_ids=None):
     """Run a split through the model and pair each explanation with its sites.
 
     `target_ids` must be aligned to the dataloader's row order. This is the
@@ -72,8 +72,14 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
     `keys` (aligned like `target_ids`) is what counts as one protein -- its sequence
     under `src/evaluation/exclusions.py` -- and `exclude` names targets to skip. Both
     default to the old behaviour: one protein per name, nothing skipped.
+
+    `drug_ids` (aligned too) is required by a drug-specific ground truth
+    (`src/data/klifs_ligand_contacts.py`), whose sites belong to the pair: there the
+    lookup is by (drug, protein) and a pair without a co-crystal structure is skipped.
     """
     keys = list(target_ids) if keys is None else list(keys)
+    lookup = site_lookup(site_sets)
+    drug_ids = list(drug_ids) if drug_ids is not None else [None] * len(list(target_ids))
     model.eval().to(device)
     weights, sites, used_ids = [], [], []
     seen: dict = {}
@@ -83,17 +89,19 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
         for drug_batch, protein_batch, _labels in dataloader:
             batch_ids = target_ids[cursor:cursor + len(drug_batch)]
             batch_keys = keys[cursor:cursor + len(drug_batch)]
+            batch_drugs = drug_ids[cursor:cursor + len(drug_batch)]
             cursor += len(drug_batch)
             explanations = model.explain(drug_batch.to(device), protein_batch.to(device))
 
-            for target_id, key, explanation in zip(batch_ids, batch_keys, explanations):
+            for target_id, key, drug_id, explanation in zip(batch_ids, batch_keys,
+                                                            batch_drugs, explanations):
                 if target_id in exclude:
                     continue
                 count = seen.get(key, 0)
                 if pairs_per_target and count >= pairs_per_target:
                     continue
                 seen[key] = count + 1
-                site_set = site_sets.get(target_id)
+                site_set = lookup(target_id, drug_id)
                 if site_set is None or not site_set.usable:
                     continue
                 weights.append(np.asarray(explanation, dtype=float))
@@ -351,7 +359,8 @@ def main():
                 model, test_loader, target_ids, site_sets,
                 pairs_per_target=args.pairs_per_target,
                 keys=[protein_key(t, q, policy) for t, q in zip(target_ids, test_df["Target"])],
-                exclude=excluded_target_ids(args.dataset, level, policy))
+                exclude=excluded_target_ids(args.dataset, level, policy),
+                drug_ids=test_df["Drug_ID"].astype(str).tolist())
         else:
             from src.evaluation.collect import MissingCell, collect_cell
 

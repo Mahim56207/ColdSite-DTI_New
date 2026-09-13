@@ -1,0 +1,9527 @@
+{
+ "AAK1": {
+  "status": "placed",
+  "klifs": [
+   "AAK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q2M2I8",
+  "drugs_crystallised": 0
+ },
+ "3062316|ABL1": {
+  "status": "pair",
+  "target": "ABL1",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1": {
+  "status": "pair",
+  "target": "ABL1",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1": {
+  "status": "pair",
+  "target": "ABL1",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1": {
+  "status": "pair",
+  "target": "ABL1",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1": {
+  "status": "pair",
+  "target": "ABL1",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(E255K)": {
+  "status": "pair",
+  "target": "ABL1(E255K)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(E255K)": {
+  "status": "pair",
+  "target": "ABL1(E255K)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(E255K)": {
+  "status": "pair",
+  "target": "ABL1(E255K)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(E255K)": {
+  "status": "pair",
+  "target": "ABL1(E255K)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(E255K)": {
+  "status": "pair",
+  "target": "ABL1(E255K)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(E255K)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(F317I)": {
+  "status": "pair",
+  "target": "ABL1(F317I)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(F317I)": {
+  "status": "pair",
+  "target": "ABL1(F317I)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(F317I)": {
+  "status": "pair",
+  "target": "ABL1(F317I)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(F317I)": {
+  "status": "pair",
+  "target": "ABL1(F317I)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(F317I)": {
+  "status": "pair",
+  "target": "ABL1(F317I)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(F317I)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(F317I)p": {
+  "status": "pair",
+  "target": "ABL1(F317I)p",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(F317I)p": {
+  "status": "pair",
+  "target": "ABL1(F317I)p",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(F317I)p": {
+  "status": "pair",
+  "target": "ABL1(F317I)p",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(F317I)p": {
+  "status": "pair",
+  "target": "ABL1(F317I)p",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(F317I)p": {
+  "status": "pair",
+  "target": "ABL1(F317I)p",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(F317I)p": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(F317L)": {
+  "status": "pair",
+  "target": "ABL1(F317L)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(F317L)": {
+  "status": "pair",
+  "target": "ABL1(F317L)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(F317L)": {
+  "status": "pair",
+  "target": "ABL1(F317L)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(F317L)": {
+  "status": "pair",
+  "target": "ABL1(F317L)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(F317L)": {
+  "status": "pair",
+  "target": "ABL1(F317L)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(F317L)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(F317L)p": {
+  "status": "pair",
+  "target": "ABL1(F317L)p",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(F317L)p": {
+  "status": "pair",
+  "target": "ABL1(F317L)p",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(F317L)p": {
+  "status": "pair",
+  "target": "ABL1(F317L)p",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(F317L)p": {
+  "status": "pair",
+  "target": "ABL1(F317L)p",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(F317L)p": {
+  "status": "pair",
+  "target": "ABL1(F317L)p",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(F317L)p": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(H396P)": {
+  "status": "pair",
+  "target": "ABL1(H396P)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(H396P)": {
+  "status": "pair",
+  "target": "ABL1(H396P)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(H396P)": {
+  "status": "pair",
+  "target": "ABL1(H396P)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(H396P)": {
+  "status": "pair",
+  "target": "ABL1(H396P)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(H396P)": {
+  "status": "pair",
+  "target": "ABL1(H396P)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(H396P)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(H396P)p": {
+  "status": "pair",
+  "target": "ABL1(H396P)p",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(H396P)p": {
+  "status": "pair",
+  "target": "ABL1(H396P)p",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(H396P)p": {
+  "status": "pair",
+  "target": "ABL1(H396P)p",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(H396P)p": {
+  "status": "pair",
+  "target": "ABL1(H396P)p",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(H396P)p": {
+  "status": "pair",
+  "target": "ABL1(H396P)p",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(H396P)p": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(M351T)": {
+  "status": "pair",
+  "target": "ABL1(M351T)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(M351T)": {
+  "status": "pair",
+  "target": "ABL1(M351T)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(M351T)": {
+  "status": "pair",
+  "target": "ABL1(M351T)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(M351T)": {
+  "status": "pair",
+  "target": "ABL1(M351T)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(M351T)": {
+  "status": "pair",
+  "target": "ABL1(M351T)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(M351T)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(Q252H)": {
+  "status": "pair",
+  "target": "ABL1(Q252H)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(Q252H)": {
+  "status": "pair",
+  "target": "ABL1(Q252H)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(Q252H)": {
+  "status": "pair",
+  "target": "ABL1(Q252H)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(Q252H)": {
+  "status": "pair",
+  "target": "ABL1(Q252H)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(Q252H)": {
+  "status": "pair",
+  "target": "ABL1(Q252H)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(Q252H)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(Q252H)p": {
+  "status": "pair",
+  "target": "ABL1(Q252H)p",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(Q252H)p": {
+  "status": "pair",
+  "target": "ABL1(Q252H)p",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(Q252H)p": {
+  "status": "pair",
+  "target": "ABL1(Q252H)p",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(Q252H)p": {
+  "status": "pair",
+  "target": "ABL1(Q252H)p",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(Q252H)p": {
+  "status": "pair",
+  "target": "ABL1(Q252H)p",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(Q252H)p": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(T315I)": {
+  "status": "pair",
+  "target": "ABL1(T315I)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(T315I)": {
+  "status": "pair",
+  "target": "ABL1(T315I)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(T315I)": {
+  "status": "pair",
+  "target": "ABL1(T315I)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(T315I)": {
+  "status": "pair",
+  "target": "ABL1(T315I)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(T315I)": {
+  "status": "pair",
+  "target": "ABL1(T315I)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(T315I)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(T315I)p": {
+  "status": "pair",
+  "target": "ABL1(T315I)p",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(T315I)p": {
+  "status": "pair",
+  "target": "ABL1(T315I)p",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(T315I)p": {
+  "status": "pair",
+  "target": "ABL1(T315I)p",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(T315I)p": {
+  "status": "pair",
+  "target": "ABL1(T315I)p",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(T315I)p": {
+  "status": "pair",
+  "target": "ABL1(T315I)p",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(T315I)p": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1(Y253F)": {
+  "status": "pair",
+  "target": "ABL1(Y253F)",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1(Y253F)": {
+  "status": "pair",
+  "target": "ABL1(Y253F)",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1(Y253F)": {
+  "status": "pair",
+  "target": "ABL1(Y253F)",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1(Y253F)": {
+  "status": "pair",
+  "target": "ABL1(Y253F)",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1(Y253F)": {
+  "status": "pair",
+  "target": "ABL1(Y253F)",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1(Y253F)": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "3062316|ABL1p": {
+  "status": "pair",
+  "target": "ABL1p",
+  "drug": "3062316",
+  "structures": 7,
+  "pdb_entries": [
+   "2gqg",
+   "4xey",
+   "7n9g"
+  ],
+  "pdb": [
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "2gqg",
+   "4xey",
+   "4xey",
+   "7n9g"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 22,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5291|ABL1p": {
+  "status": "pair",
+  "target": "ABL1p",
+  "drug": "5291",
+  "structures": 18,
+  "pdb_entries": [
+   "2hyy",
+   "3pyy",
+   "6npe",
+   "6npu",
+   "6npv"
+  ],
+  "pdb": [
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "2hyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "3pyy",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npe",
+   "6npu",
+   "6npu",
+   "6npv",
+   "6npv",
+   "6npv",
+   "6npv"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5328940|ABL1p": {
+  "status": "pair",
+  "target": "ABL1p",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "3ue4"
+  ],
+  "pdb": [
+   "3ue4",
+   "3ue4"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "5494449|ABL1p": {
+  "status": "pair",
+  "target": "ABL1p",
+  "drug": "5494449",
+  "structures": 3,
+  "pdb_entries": [
+   "2f4j",
+   "4zog"
+  ],
+  "pdb": [
+   "2f4j",
+   "4zog",
+   "4zog"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 23,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "644241|ABL1p": {
+  "status": "pair",
+  "target": "ABL1p",
+  "drug": "644241",
+  "structures": 10,
+  "pdb_entries": [
+   "3cs9",
+   "5mo4"
+  ],
+  "pdb": [
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "3cs9",
+   "5mo4",
+   "5mo4"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 285,
+  "last_residue": 419
+ },
+ "ABL1p": {
+  "status": "placed",
+  "klifs": [
+   "ABL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00519",
+  "drugs_crystallised": 5
+ },
+ "5291|ABL2": {
+  "status": "pair",
+  "target": "ABL2",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "3gvu"
+  ],
+  "pdb": [
+   "3gvu",
+   "3gvu"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 279,
+  "last_residue": 413
+ },
+ "5494449|ABL2": {
+  "status": "pair",
+  "target": "ABL2",
+  "drug": "5494449",
+  "structures": 6,
+  "pdb_entries": [
+   "2xyn"
+  ],
+  "pdb": [
+   "2xyn",
+   "2xyn",
+   "2xyn",
+   "2xyn",
+   "2xyn",
+   "2xyn"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 18,
+  "first_residue": 279,
+  "last_residue": 412
+ },
+ "ABL2": {
+  "status": "placed",
+  "klifs": [
+   "ABL2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P42684",
+  "drugs_crystallised": 2
+ },
+ "ACVR1": {
+  "status": "placed",
+  "klifs": [
+   "ALK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q04771",
+  "drugs_crystallised": 0
+ },
+ "ACVR1B": {
+  "status": "placed",
+  "klifs": [
+   "ALK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36896",
+  "drugs_crystallised": 0
+ },
+ "ACVR2A": {
+  "status": "placed",
+  "klifs": [
+   "ACTR2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P27037",
+  "drugs_crystallised": 0
+ },
+ "ACVR2B": {
+  "status": "placed",
+  "klifs": [
+   "ACTR2B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13705",
+  "drugs_crystallised": 0
+ },
+ "ACVRL1": {
+  "status": "placed",
+  "klifs": [
+   "ALK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P37023",
+  "drugs_crystallised": 0
+ },
+ "ADCK3": {
+  "status": "placed",
+  "klifs": [
+   "ADCK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8NI60",
+  "drugs_crystallised": 0
+ },
+ "ADCK4": {
+  "status": "placed",
+  "klifs": [
+   "ADCK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96D53",
+  "drugs_crystallised": 0
+ },
+ "AKT1": {
+  "status": "placed",
+  "klifs": [
+   "AKT1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P31749",
+  "drugs_crystallised": 0
+ },
+ "AKT2": {
+  "status": "placed",
+  "klifs": [
+   "AKT2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P31751",
+  "drugs_crystallised": 0
+ },
+ "AKT3": {
+  "status": "placed",
+  "klifs": [
+   "AKT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y243",
+  "drugs_crystallised": 0
+ },
+ "16038120|ALK": {
+  "status": "pair",
+  "target": "ALK",
+  "drug": "16038120",
+  "structures": 1,
+  "pdb_entries": [
+   "2xb7"
+  ],
+  "pdb": [
+   "2xb7"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 1122,
+  "last_residue": 1270
+ },
+ "ALK": {
+  "status": "placed",
+  "klifs": [
+   "ALK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UM73",
+  "drugs_crystallised": 1
+ },
+ "AMPK-alpha1": {
+  "status": "placed",
+  "klifs": [
+   "AMPKa1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13131",
+  "drugs_crystallised": 0
+ },
+ "AMPK-alpha2": {
+  "status": "placed",
+  "klifs": [
+   "AMPKa2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P54646",
+  "drugs_crystallised": 0
+ },
+ "ANKK1": {
+  "status": "placed",
+  "klifs": [
+   "SgK288"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8NFD2",
+  "drugs_crystallised": 0
+ },
+ "ARK5": {
+  "status": "placed",
+  "klifs": [
+   "NuaK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O60285",
+  "drugs_crystallised": 0
+ },
+ "ASK1": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q99683",
+  "drugs_crystallised": 0
+ },
+ "ASK2": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K6"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O95382",
+  "drugs_crystallised": 0
+ },
+ "11712649|AURKA": {
+  "status": "pair",
+  "target": "AURKA",
+  "drug": "11712649",
+  "structures": 10,
+  "pdb_entries": [
+   "2wtv",
+   "2wtw",
+   "2x81"
+  ],
+  "pdb": [
+   "2wtv",
+   "2wtv",
+   "2wtv",
+   "2wtv",
+   "2wtv",
+   "2wtv",
+   "2wtv",
+   "2wtv",
+   "2wtw",
+   "2x81"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 22,
+  "first_residue": 139,
+  "last_residue": 276
+ },
+ "5494449|AURKA": {
+  "status": "pair",
+  "target": "AURKA",
+  "drug": "5494449",
+  "structures": 2,
+  "pdb_entries": [
+   "3e5a",
+   "4jbq"
+  ],
+  "pdb": [
+   "3e5a",
+   "4jbq"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 139,
+  "last_residue": 275
+ },
+ "AURKA": {
+  "status": "placed",
+  "klifs": [
+   "AurA"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14965",
+  "drugs_crystallised": 2
+ },
+ "5494449|AURKB": {
+  "status": "pair",
+  "target": "AURKB",
+  "drug": "5494449",
+  "structures": 1,
+  "pdb_entries": [
+   "4af3"
+  ],
+  "pdb": [
+   "4af3"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 83,
+  "last_residue": 219
+ },
+ "AURKB": {
+  "status": "placed",
+  "klifs": [
+   "AurB"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96GD4",
+  "drugs_crystallised": 1
+ },
+ "5494449|AURKC": {
+  "status": "pair",
+  "target": "AURKC",
+  "drug": "5494449",
+  "structures": 2,
+  "pdb_entries": [
+   "6gr9"
+  ],
+  "pdb": [
+   "6gr9",
+   "6gr9"
+  ],
+  "klifs_positions_contacted": 16,
+  "residues": 16,
+  "residues_union": 16,
+  "first_residue": 49,
+  "last_residue": 183
+ },
+ "AURKC": {
+  "status": "placed",
+  "klifs": [
+   "AurC"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UQB9",
+  "drugs_crystallised": 1
+ },
+ "AXL": {
+  "status": "placed",
+  "klifs": [
+   "AXL"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P30530",
+  "drugs_crystallised": 0
+ },
+ "BIKE": {
+  "status": "placed",
+  "klifs": [
+   "BIKE"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NSY1",
+  "drugs_crystallised": 0
+ },
+ "BLK": {
+  "status": "placed",
+  "klifs": [
+   "BLK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51451",
+  "drugs_crystallised": 0
+ },
+ "BMPR1A": {
+  "status": "placed",
+  "klifs": [
+   "BMPR1A"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36894",
+  "drugs_crystallised": 0
+ },
+ "BMPR1B": {
+  "status": "placed",
+  "klifs": [
+   "BMPR1B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O00238",
+  "drugs_crystallised": 0
+ },
+ "BMPR2": {
+  "status": "placed",
+  "klifs": [
+   "BMPR2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13873",
+  "drugs_crystallised": 0
+ },
+ "3062316|BMX": {
+  "status": "pair",
+  "target": "BMX",
+  "drug": "3062316",
+  "structures": 2,
+  "pdb_entries": [
+   "3sxr"
+  ],
+  "pdb": [
+   "3sxr",
+   "3sxr"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 423,
+  "last_residue": 555
+ },
+ "BMX": {
+  "status": "placed",
+  "klifs": [
+   "BMX"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51813",
+  "drugs_crystallised": 1
+ },
+ "11656518|BRAF": {
+  "status": "pair",
+  "target": "BRAF",
+  "drug": "11656518",
+  "structures": 2,
+  "pdb_entries": [
+   "5ct7"
+  ],
+  "pdb": [
+   "5ct7",
+   "5ct7"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 463,
+  "last_residue": 595
+ },
+ "11717001|BRAF": {
+  "status": "pair",
+  "target": "BRAF",
+  "drug": "11717001",
+  "structures": 8,
+  "pdb_entries": [
+   "4mnf",
+   "6u2h",
+   "7shv"
+  ],
+  "pdb": [
+   "4mnf",
+   "4mnf",
+   "4mnf",
+   "4mnf",
+   "6u2h",
+   "6u2h",
+   "7shv",
+   "7shv"
+  ],
+  "klifs_positions_contacted": 11,
+  "residues": 11,
+  "residues_union": 14,
+  "first_residue": 463,
+  "last_residue": 594
+ },
+ "156422|BRAF": {
+  "status": "pair",
+  "target": "BRAF",
+  "drug": "156422",
+  "structures": 4,
+  "pdb_entries": [
+   "4jvg"
+  ],
+  "pdb": [
+   "4jvg",
+   "4jvg",
+   "4jvg",
+   "4jvg"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 25,
+  "first_residue": 471,
+  "last_residue": 595
+ },
+ "216239|BRAF": {
+  "status": "pair",
+  "target": "BRAF",
+  "drug": "216239",
+  "structures": 5,
+  "pdb_entries": [
+   "1uwh",
+   "1uwj",
+   "5hi2"
+  ],
+  "pdb": [
+   "1uwh",
+   "1uwh",
+   "1uwj",
+   "1uwj",
+   "5hi2"
+  ],
+  "klifs_positions_contacted": 21,
+  "residues": 21,
+  "residues_union": 22,
+  "first_residue": 471,
+  "last_residue": 595
+ },
+ "24180719|BRAF": {
+  "status": "pair",
+  "target": "BRAF",
+  "drug": "24180719",
+  "structures": 4,
+  "pdb_entries": [
+   "3c4c",
+   "4wo5"
+  ],
+  "pdb": [
+   "3c4c",
+   "3c4c",
+   "4wo5",
+   "4wo5"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 463,
+  "last_residue": 595
+ },
+ "BRAF": {
+  "status": "placed",
+  "klifs": [
+   "BRAF"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P15056",
+  "drugs_crystallised": 5
+ },
+ "11656518|BRAF(V600E)": {
+  "status": "pair",
+  "target": "BRAF(V600E)",
+  "drug": "11656518",
+  "structures": 2,
+  "pdb_entries": [
+   "5ct7"
+  ],
+  "pdb": [
+   "5ct7",
+   "5ct7"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 463,
+  "last_residue": 595
+ },
+ "11717001|BRAF(V600E)": {
+  "status": "pair",
+  "target": "BRAF(V600E)",
+  "drug": "11717001",
+  "structures": 8,
+  "pdb_entries": [
+   "4mnf",
+   "6u2h",
+   "7shv"
+  ],
+  "pdb": [
+   "4mnf",
+   "4mnf",
+   "4mnf",
+   "4mnf",
+   "6u2h",
+   "6u2h",
+   "7shv",
+   "7shv"
+  ],
+  "klifs_positions_contacted": 11,
+  "residues": 11,
+  "residues_union": 14,
+  "first_residue": 463,
+  "last_residue": 594
+ },
+ "156422|BRAF(V600E)": {
+  "status": "pair",
+  "target": "BRAF(V600E)",
+  "drug": "156422",
+  "structures": 4,
+  "pdb_entries": [
+   "4jvg"
+  ],
+  "pdb": [
+   "4jvg",
+   "4jvg",
+   "4jvg",
+   "4jvg"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 25,
+  "first_residue": 471,
+  "last_residue": 595
+ },
+ "216239|BRAF(V600E)": {
+  "status": "pair",
+  "target": "BRAF(V600E)",
+  "drug": "216239",
+  "structures": 5,
+  "pdb_entries": [
+   "1uwh",
+   "1uwj",
+   "5hi2"
+  ],
+  "pdb": [
+   "1uwh",
+   "1uwh",
+   "1uwj",
+   "1uwj",
+   "5hi2"
+  ],
+  "klifs_positions_contacted": 21,
+  "residues": 21,
+  "residues_union": 22,
+  "first_residue": 471,
+  "last_residue": 595
+ },
+ "24180719|BRAF(V600E)": {
+  "status": "pair",
+  "target": "BRAF(V600E)",
+  "drug": "24180719",
+  "structures": 4,
+  "pdb_entries": [
+   "3c4c",
+   "4wo5"
+  ],
+  "pdb": [
+   "3c4c",
+   "3c4c",
+   "4wo5",
+   "4wo5"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 463,
+  "last_residue": 595
+ },
+ "BRAF(V600E)": {
+  "status": "placed",
+  "klifs": [
+   "BRAF"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P15056",
+  "drugs_crystallised": 5
+ },
+ "3062316|BRK": {
+  "status": "pair",
+  "target": "BRK",
+  "drug": "3062316",
+  "structures": 8,
+  "pdb_entries": [
+   "5h2u"
+  ],
+  "pdb": [
+   "5h2u",
+   "5h2u",
+   "5h2u",
+   "5h2u",
+   "5h2u",
+   "5h2u",
+   "5h2u",
+   "5h2u"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 19,
+  "first_residue": 197,
+  "last_residue": 333
+ },
+ "BRK": {
+  "status": "placed",
+  "klifs": [
+   "BRK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13882",
+  "drugs_crystallised": 1
+ },
+ "BRSK1": {
+  "status": "placed",
+  "klifs": [
+   "BRSK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8TDC3",
+  "drugs_crystallised": 0
+ },
+ "BRSK2": {
+  "status": "placed",
+  "klifs": [
+   "BRSK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8IWQ3",
+  "drugs_crystallised": 0
+ },
+ "3062316|BTK": {
+  "status": "pair",
+  "target": "BTK",
+  "drug": "3062316",
+  "structures": 4,
+  "pdb_entries": [
+   "3k54",
+   "3oct"
+  ],
+  "pdb": [
+   "3k54",
+   "3k54",
+   "3oct",
+   "3oct"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 3,
+  "residues_union": 3,
+  "first_residue": 352,
+  "last_residue": 364
+ },
+ "BTK": {
+  "status": "placed",
+  "klifs": [
+   "BTK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 13,
+  "accession": "Q06187",
+  "drugs_crystallised": 1
+ },
+ "CAMK1": {
+  "status": "placed",
+  "klifs": [
+   "CaMK1a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q14012",
+  "drugs_crystallised": 0
+ },
+ "CAMK1D": {
+  "status": "placed",
+  "klifs": [
+   "CaMK1d"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8IU85",
+  "drugs_crystallised": 0
+ },
+ "CAMK1G": {
+  "status": "placed",
+  "klifs": [
+   "CaMK1g"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96NX5",
+  "drugs_crystallised": 0
+ },
+ "5328940|CAMK2A": {
+  "status": "pair",
+  "target": "CAMK2A",
+  "drug": "5328940",
+  "structures": 1,
+  "pdb_entries": [
+   "3soa"
+  ],
+  "pdb": [
+   "3soa"
+  ],
+  "klifs_positions_contacted": 8,
+  "residues": 8,
+  "residues_union": 8,
+  "first_residue": 19,
+  "last_residue": 157
+ },
+ "CAMK2A": {
+  "status": "placed",
+  "klifs": [
+   "CaMK2a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UQM7",
+  "drugs_crystallised": 1
+ },
+ "CAMK2B": {
+  "status": "placed",
+  "klifs": [
+   "CaMK2b"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13554",
+  "drugs_crystallised": 0
+ },
+ "CAMK2D": {
+  "status": "placed",
+  "klifs": [
+   "CaMK2d"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13557",
+  "drugs_crystallised": 0
+ },
+ "CAMK2G": {
+  "status": "placed",
+  "klifs": [
+   "CaMK2g"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13555",
+  "drugs_crystallised": 0
+ },
+ "CAMK4": {
+  "status": "placed",
+  "klifs": [
+   "CaMK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16566",
+  "drugs_crystallised": 0
+ },
+ "CAMKK1": {
+  "status": "placed",
+  "klifs": [
+   "CaMKK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8N5S9",
+  "drugs_crystallised": 0
+ },
+ "CAMKK2": {
+  "status": "placed",
+  "klifs": [
+   "CaMKK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96RR4",
+  "drugs_crystallised": 0
+ },
+ "CASK": {
+  "status": "placed",
+  "klifs": [
+   "CASK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14936",
+  "drugs_crystallised": 0
+ },
+ "CDC2L1": {
+  "status": "placed",
+  "klifs": [
+   "PITSLRE"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P21127",
+  "drugs_crystallised": 0
+ },
+ "CDC2L2": {
+  "status": "not_in_klifs",
+  "accession": "Q9UQ88"
+ },
+ "CDC2L5": {
+  "status": "placed",
+  "klifs": [
+   "CHED"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q14004",
+  "drugs_crystallised": 0
+ },
+ "CDK11": {
+  "status": "placed",
+  "klifs": [
+   "CDK11"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9BWU1",
+  "drugs_crystallised": 0
+ },
+ "11338033|CDK2": {
+  "status": "pair",
+  "target": "CDK2",
+  "drug": "11338033",
+  "structures": 2,
+  "pdb_entries": [
+   "2vu3"
+  ],
+  "pdb": [
+   "2vu3",
+   "2vu3"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 10,
+  "last_residue": 145
+ },
+ "3025986|CDK2": {
+  "status": "pair",
+  "target": "CDK2",
+  "drug": "3025986",
+  "structures": 1,
+  "pdb_entries": [
+   "5d1j"
+  ],
+  "pdb": [
+   "5d1j"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 20,
+  "first_residue": 10,
+  "last_residue": 145
+ },
+ "CDK2": {
+  "status": "placed",
+  "klifs": [
+   "CDK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P24941",
+  "drugs_crystallised": 2
+ },
+ "CDK3": {
+  "status": "placed",
+  "klifs": [
+   "CDK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q00526",
+  "drugs_crystallised": 0
+ },
+ "CDK4-cyclinD1": {
+  "status": "placed",
+  "klifs": [
+   "CDK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P11802",
+  "drugs_crystallised": 0
+ },
+ "CDK4-cyclinD3": {
+  "status": "placed",
+  "klifs": [
+   "CDK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P11802",
+  "drugs_crystallised": 0
+ },
+ "CDK5": {
+  "status": "placed",
+  "klifs": [
+   "CDK5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q00535",
+  "drugs_crystallised": 0
+ },
+ "CDK7": {
+  "status": "placed",
+  "klifs": [
+   "CDK7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P50613",
+  "drugs_crystallised": 0
+ },
+ "216239|CDK8": {
+  "status": "pair",
+  "target": "CDK8",
+  "drug": "216239",
+  "structures": 2,
+  "pdb_entries": [
+   "3rgf"
+  ],
+  "pdb": [
+   "3rgf",
+   "3rgf"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 23,
+  "first_residue": 35,
+  "last_residue": 176
+ },
+ "CDK8": {
+  "status": "placed",
+  "klifs": [
+   "CDK8"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49336",
+  "drugs_crystallised": 1
+ },
+ "CDK9": {
+  "status": "placed",
+  "klifs": [
+   "CDK9"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P50750",
+  "drugs_crystallised": 0
+ },
+ "CDKL1": {
+  "status": "placed",
+  "klifs": [
+   "CDKL1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q00532",
+  "drugs_crystallised": 0
+ },
+ "CDKL2": {
+  "status": "placed",
+  "klifs": [
+   "CDKL2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q92772",
+  "drugs_crystallised": 0
+ },
+ "CDKL3": {
+  "status": "placed",
+  "klifs": [
+   "CDKL3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q8IVW4",
+  "drugs_crystallised": 0
+ },
+ "CDKL5": {
+  "status": "placed",
+  "klifs": [
+   "CDKL5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "O76039",
+  "drugs_crystallised": 0
+ },
+ "CHEK1": {
+  "status": "placed",
+  "klifs": [
+   "CHK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14757",
+  "drugs_crystallised": 0
+ },
+ "CHEK2": {
+  "status": "placed",
+  "klifs": [
+   "CHK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O96017",
+  "drugs_crystallised": 0
+ },
+ "CIT": {
+  "status": "placed",
+  "klifs": [
+   "CRIK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14578",
+  "drugs_crystallised": 0
+ },
+ "CLK1": {
+  "status": "placed",
+  "klifs": [
+   "CLK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49759",
+  "drugs_crystallised": 0
+ },
+ "CLK2": {
+  "status": "placed",
+  "klifs": [
+   "CLK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49760",
+  "drugs_crystallised": 0
+ },
+ "CLK3": {
+  "status": "placed",
+  "klifs": [
+   "CLK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49761",
+  "drugs_crystallised": 0
+ },
+ "CLK4": {
+  "status": "placed",
+  "klifs": [
+   "CLK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9HAZ1",
+  "drugs_crystallised": 0
+ },
+ "5291|CSF1R": {
+  "status": "pair",
+  "target": "CSF1R",
+  "drug": "5291",
+  "structures": 1,
+  "pdb_entries": [
+   "4r7i"
+  ],
+  "pdb": [
+   "4r7i"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 23,
+  "first_residue": 588,
+  "last_residue": 797
+ },
+ "CSF1R": {
+  "status": "placed",
+  "klifs": [
+   "FMS"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P07333",
+  "drugs_crystallised": 1
+ },
+ "CSK": {
+  "status": "placed",
+  "klifs": [
+   "CSK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P41240",
+  "drugs_crystallised": 0
+ },
+ "CSNK1A1": {
+  "status": "placed",
+  "klifs": [
+   "CK1a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P48729",
+  "drugs_crystallised": 0
+ },
+ "CSNK1A1L": {
+  "status": "placed",
+  "klifs": [
+   "CK1a2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q8N752",
+  "drugs_crystallised": 0
+ },
+ "CSNK1D": {
+  "status": "placed",
+  "klifs": [
+   "CK1d"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P48730",
+  "drugs_crystallised": 0
+ },
+ "CSNK1E": {
+  "status": "placed",
+  "klifs": [
+   "CK1e"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49674",
+  "drugs_crystallised": 0
+ },
+ "CSNK1G1": {
+  "status": "placed",
+  "klifs": [
+   "CK1g1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9HCP0",
+  "drugs_crystallised": 0
+ },
+ "CSNK1G2": {
+  "status": "placed",
+  "klifs": [
+   "CK1g2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P78368",
+  "drugs_crystallised": 0
+ },
+ "CSNK1G3": {
+  "status": "placed",
+  "klifs": [
+   "CK1g3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9Y6M4",
+  "drugs_crystallised": 0
+ },
+ "CSNK2A1": {
+  "status": "placed",
+  "klifs": [
+   "CK2a1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 82,
+  "accession": "P68400",
+  "drugs_crystallised": 0
+ },
+ "CSNK2A2": {
+  "status": "placed",
+  "klifs": [
+   "CK2a2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P19784",
+  "drugs_crystallised": 0
+ },
+ "CTK": {
+  "status": "placed",
+  "klifs": [
+   "CTK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P42679",
+  "drugs_crystallised": 0
+ },
+ "DAPK1": {
+  "status": "placed",
+  "klifs": [
+   "DAPK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P53355",
+  "drugs_crystallised": 0
+ },
+ "DAPK2": {
+  "status": "placed",
+  "klifs": [
+   "DAPK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UIK4",
+  "drugs_crystallised": 0
+ },
+ "DAPK3": {
+  "status": "placed",
+  "klifs": [
+   "DAPK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O43293",
+  "drugs_crystallised": 0
+ },
+ "16038120|DCAMKL1": {
+  "status": "pair",
+  "target": "DCAMKL1",
+  "drug": "16038120",
+  "structures": 2,
+  "pdb_entries": [
+   "5jzn"
+  ],
+  "pdb": [
+   "5jzn",
+   "5jzn"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 396,
+  "last_residue": 533
+ },
+ "DCAMKL1": {
+  "status": "placed",
+  "klifs": [
+   "DCLK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O15075",
+  "drugs_crystallised": 1
+ },
+ "DCAMKL2": {
+  "status": "placed",
+  "klifs": [
+   "DCLK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8N568",
+  "drugs_crystallised": 0
+ },
+ "DCAMKL3": {
+  "status": "placed",
+  "klifs": [
+   "DCLK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9C098",
+  "drugs_crystallised": 0
+ },
+ "3062316|DDR1": {
+  "status": "pair",
+  "target": "DDR1",
+  "drug": "3062316",
+  "structures": 2,
+  "pdb_entries": [
+   "5bvw",
+   "6bsd"
+  ],
+  "pdb": [
+   "5bvw",
+   "6bsd"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 20,
+  "first_residue": 616,
+  "last_residue": 785
+ },
+ "5291|DDR1": {
+  "status": "pair",
+  "target": "DDR1",
+  "drug": "5291",
+  "structures": 4,
+  "pdb_entries": [
+   "4bkj"
+  ],
+  "pdb": [
+   "4bkj",
+   "4bkj",
+   "4bkj",
+   "4bkj"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 23,
+  "first_residue": 616,
+  "last_residue": 785
+ },
+ "5494449|DDR1": {
+  "status": "pair",
+  "target": "DDR1",
+  "drug": "5494449",
+  "structures": 1,
+  "pdb_entries": [
+   "6brj"
+  ],
+  "pdb": [
+   "6brj"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 616,
+  "last_residue": 787
+ },
+ "DDR1": {
+  "status": "placed",
+  "klifs": [
+   "DDR1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q08345",
+  "drugs_crystallised": 3
+ },
+ "DDR2": {
+  "status": "placed",
+  "klifs": [
+   "DDR2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16832",
+  "drugs_crystallised": 0
+ },
+ "DLK": {
+  "status": "placed",
+  "klifs": [
+   "DLK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q12852",
+  "drugs_crystallised": 0
+ },
+ "DMPK": {
+  "status": "placed",
+  "klifs": [
+   "DMPK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q09013",
+  "drugs_crystallised": 0
+ },
+ "DMPK2": {
+  "status": "placed",
+  "klifs": [
+   "DMPK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q6DT37",
+  "drugs_crystallised": 0
+ },
+ "DRAK1": {
+  "status": "placed",
+  "klifs": [
+   "DRAK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UEE5",
+  "drugs_crystallised": 0
+ },
+ "DRAK2": {
+  "status": "placed",
+  "klifs": [
+   "DRAK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O94768",
+  "drugs_crystallised": 0
+ },
+ "DYRK1A": {
+  "status": "placed",
+  "klifs": [
+   "DYRK1A"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q13627",
+  "drugs_crystallised": 0
+ },
+ "DYRK1B": {
+  "status": "placed",
+  "klifs": [
+   "DYRK1B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9Y463",
+  "drugs_crystallised": 0
+ },
+ "DYRK2": {
+  "status": "placed",
+  "klifs": [
+   "DYRK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q92630",
+  "drugs_crystallised": 0
+ },
+ "123631|EGFR": {
+  "status": "pair",
+  "target": "EGFR",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR": {
+  "status": "pair",
+  "target": "EGFR",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR": {
+  "status": "pair",
+  "target": "EGFR",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(E746A750del)": {
+  "status": "pair",
+  "target": "EGFR(E746A750del)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(E746A750del)": {
+  "status": "pair",
+  "target": "EGFR(E746A750del)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(E746A750del)": {
+  "status": "pair",
+  "target": "EGFR(E746A750del)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(E746A750del)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(G719C)": {
+  "status": "pair",
+  "target": "EGFR(G719C)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(G719C)": {
+  "status": "pair",
+  "target": "EGFR(G719C)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(G719C)": {
+  "status": "pair",
+  "target": "EGFR(G719C)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(G719C)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(G719S)": {
+  "status": "pair",
+  "target": "EGFR(G719S)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(G719S)": {
+  "status": "pair",
+  "target": "EGFR(G719S)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(G719S)": {
+  "status": "pair",
+  "target": "EGFR(G719S)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(G719S)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(L747E749del)": {
+  "status": "pair",
+  "target": "EGFR(L747E749del)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(L747E749del)": {
+  "status": "pair",
+  "target": "EGFR(L747E749del)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(L747E749del)": {
+  "status": "pair",
+  "target": "EGFR(L747E749del)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(L747E749del)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(L747S752del)": {
+  "status": "pair",
+  "target": "EGFR(L747S752del)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(L747S752del)": {
+  "status": "pair",
+  "target": "EGFR(L747S752del)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(L747S752del)": {
+  "status": "pair",
+  "target": "EGFR(L747S752del)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(L747S752del)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(L747T751del)": {
+  "status": "pair",
+  "target": "EGFR(L747T751del)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(L747T751del)": {
+  "status": "pair",
+  "target": "EGFR(L747T751del)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(L747T751del)": {
+  "status": "pair",
+  "target": "EGFR(L747T751del)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(L747T751del)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(L858R)": {
+  "status": "pair",
+  "target": "EGFR(L858R)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(L858R)": {
+  "status": "pair",
+  "target": "EGFR(L858R)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(L858R)": {
+  "status": "pair",
+  "target": "EGFR(L858R)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(L858R)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(L858RT790M)": {
+  "status": "pair",
+  "target": "EGFR(L858RT790M)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(L858RT790M)": {
+  "status": "pair",
+  "target": "EGFR(L858RT790M)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(L858RT790M)": {
+  "status": "pair",
+  "target": "EGFR(L858RT790M)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(L858RT790M)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(L861Q)": {
+  "status": "pair",
+  "target": "EGFR(L861Q)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(L861Q)": {
+  "status": "pair",
+  "target": "EGFR(L861Q)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(L861Q)": {
+  "status": "pair",
+  "target": "EGFR(L861Q)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(L861Q)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(S752I759del)": {
+  "status": "pair",
+  "target": "EGFR(S752I759del)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(S752I759del)": {
+  "status": "pair",
+  "target": "EGFR(S752I759del)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(S752I759del)": {
+  "status": "pair",
+  "target": "EGFR(S752I759del)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(S752I759del)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "123631|EGFR(T790M)": {
+  "status": "pair",
+  "target": "EGFR(T790M)",
+  "drug": "123631",
+  "structures": 8,
+  "pdb_entries": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "4i22",
+   "4wkq"
+  ],
+  "pdb": [
+   "2ito",
+   "2ity",
+   "2itz",
+   "3ug2",
+   "3ug2",
+   "4i22",
+   "4wkq",
+   "4wkq"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 21,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "176870|EGFR(T790M)": {
+  "status": "pair",
+  "target": "EGFR(T790M)",
+  "drug": "176870",
+  "structures": 3,
+  "pdb_entries": [
+   "1m17",
+   "4hjo"
+  ],
+  "pdb": [
+   "1m17",
+   "1m17",
+   "4hjo"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 19,
+  "first_residue": 718,
+  "last_residue": 855
+ },
+ "208908|EGFR(T790M)": {
+  "status": "pair",
+  "target": "EGFR(T790M)",
+  "drug": "208908",
+  "structures": 1,
+  "pdb_entries": [
+   "1xkk"
+  ],
+  "pdb": [
+   "1xkk"
+  ],
+  "klifs_positions_contacted": 26,
+  "residues": 26,
+  "residues_union": 26,
+  "first_residue": 718,
+  "last_residue": 858
+ },
+ "EGFR(T790M)": {
+  "status": "placed",
+  "klifs": [
+   "EGFR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P00533",
+  "drugs_crystallised": 3
+ },
+ "EIF2AK1": {
+  "status": "placed",
+  "klifs": [
+   "HRI"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9BQI3",
+  "drugs_crystallised": 0
+ },
+ "EPHA1": {
+  "status": "placed",
+  "klifs": [
+   "EphA1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P21709",
+  "drugs_crystallised": 0
+ },
+ "11712649|EPHA2": {
+  "status": "pair",
+  "target": "EPHA2",
+  "drug": "11712649",
+  "structures": 1,
+  "pdb_entries": [
+   "5ia1"
+  ],
+  "pdb": [
+   "5ia1"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 619,
+  "last_residue": 757
+ },
+ "3062316|EPHA2": {
+  "status": "pair",
+  "target": "EPHA2",
+  "drug": "3062316",
+  "structures": 2,
+  "pdb_entries": [
+   "5i9y"
+  ],
+  "pdb": [
+   "5i9y",
+   "5i9y"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 619,
+  "last_residue": 756
+ },
+ "42642645|EPHA2": {
+  "status": "pair",
+  "target": "EPHA2",
+  "drug": "42642645",
+  "structures": 2,
+  "pdb_entries": [
+   "5ia4"
+  ],
+  "pdb": [
+   "5ia4",
+   "5ia4"
+  ],
+  "klifs_positions_contacted": 27,
+  "residues": 27,
+  "residues_union": 27,
+  "first_residue": 619,
+  "last_residue": 758
+ },
+ "447077|EPHA2": {
+  "status": "pair",
+  "target": "EPHA2",
+  "drug": "447077",
+  "structures": 2,
+  "pdb_entries": [
+   "5ia3"
+  ],
+  "pdb": [
+   "5ia3",
+   "5ia3"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 619,
+  "last_residue": 756
+ },
+ "5328940|EPHA2": {
+  "status": "pair",
+  "target": "EPHA2",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "5i9x"
+  ],
+  "pdb": [
+   "5i9x",
+   "5i9x"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 20,
+  "first_residue": 619,
+  "last_residue": 757
+ },
+ "EPHA2": {
+  "status": "placed",
+  "klifs": [
+   "EphA2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P29317",
+  "drugs_crystallised": 5
+ },
+ "156422|EPHA3": {
+  "status": "pair",
+  "target": "EPHA3",
+  "drug": "156422",
+  "structures": 2,
+  "pdb_entries": [
+   "4twn"
+  ],
+  "pdb": [
+   "4twn",
+   "4twn"
+  ],
+  "klifs_positions_contacted": 25,
+  "residues": 25,
+  "residues_union": 25,
+  "first_residue": 635,
+  "last_residue": 768
+ },
+ "EPHA3": {
+  "status": "placed",
+  "klifs": [
+   "EphA3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P29320",
+  "drugs_crystallised": 1
+ },
+ "EPHA4": {
+  "status": "placed",
+  "klifs": [
+   "EphA4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P54764",
+  "drugs_crystallised": 0
+ },
+ "EPHA5": {
+  "status": "placed",
+  "klifs": [
+   "EphA5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P54756",
+  "drugs_crystallised": 0
+ },
+ "EPHA6": {
+  "status": "placed",
+  "klifs": [
+   "EphA6"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "Q9UF33"
+ },
+ "EPHA7": {
+  "status": "placed",
+  "klifs": [
+   "EphA7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15375",
+  "drugs_crystallised": 0
+ },
+ "EPHA8": {
+  "status": "placed",
+  "klifs": [
+   "EphA8"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P29322",
+  "drugs_crystallised": 0
+ },
+ "EPHB1": {
+  "status": "placed",
+  "klifs": [
+   "EphB1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P54762",
+  "drugs_crystallised": 0
+ },
+ "EPHB2": {
+  "status": "placed",
+  "klifs": [
+   "EphB2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "P29323"
+ },
+ "EPHB3": {
+  "status": "placed",
+  "klifs": [
+   "EphB3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P54753",
+  "drugs_crystallised": 0
+ },
+ "3062316|EPHB4": {
+  "status": "pair",
+  "target": "EPHB4",
+  "drug": "3062316",
+  "structures": 2,
+  "pdb_entries": [
+   "6fnm"
+  ],
+  "pdb": [
+   "6fnm",
+   "6fnm"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 20,
+  "first_residue": 621,
+  "last_residue": 757
+ },
+ "EPHB4": {
+  "status": "placed",
+  "klifs": [
+   "EphB4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P54760",
+  "drugs_crystallised": 1
+ },
+ "EPHB6": {
+  "status": "placed",
+  "klifs": [
+   "EphB6"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O15197",
+  "drugs_crystallised": 0
+ },
+ "ERBB2": {
+  "status": "placed",
+  "klifs": [
+   "ErbB2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P04626",
+  "drugs_crystallised": 0
+ },
+ "5328940|ERBB3": {
+  "status": "pair",
+  "target": "ERBB3",
+  "drug": "5328940",
+  "structures": 3,
+  "pdb_entries": [
+   "4otw",
+   "6op9"
+  ],
+  "pdb": [
+   "4otw",
+   "6op9",
+   "6op9"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 20,
+  "first_residue": 715,
+  "last_residue": 855
+ },
+ "ERBB3": {
+  "status": "placed",
+  "klifs": [
+   "ErbB3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P21860",
+  "drugs_crystallised": 1
+ },
+ "208908|ERBB4": {
+  "status": "pair",
+  "target": "ERBB4",
+  "drug": "208908",
+  "structures": 2,
+  "pdb_entries": [
+   "3bbt"
+  ],
+  "pdb": [
+   "3bbt",
+   "3bbt"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 724,
+  "last_residue": 864
+ },
+ "ERBB4": {
+  "status": "placed",
+  "klifs": [
+   "ErbB4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15303",
+  "drugs_crystallised": 1
+ },
+ "ERK1": {
+  "status": "placed",
+  "klifs": [
+   "Erk1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P27361",
+  "drugs_crystallised": 0
+ },
+ "176155|ERK2": {
+  "status": "pair",
+  "target": "ERK2",
+  "drug": "176155",
+  "structures": 1,
+  "pdb_entries": [
+   "1pme"
+  ],
+  "pdb": [
+   "1pme"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 39,
+  "last_residue": 167
+ },
+ "ERK2": {
+  "status": "placed",
+  "klifs": [
+   "Erk2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P28482",
+  "drugs_crystallised": 1
+ },
+ "ERK3": {
+  "status": "placed",
+  "klifs": [
+   "Erk3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q16659",
+  "drugs_crystallised": 0
+ },
+ "ERK4": {
+  "status": "placed",
+  "klifs": [
+   "Erk4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P31152",
+  "drugs_crystallised": 0
+ },
+ "ERK5": {
+  "status": "placed",
+  "klifs": [
+   "Erk5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q13164",
+  "drugs_crystallised": 0
+ },
+ "ERK8": {
+  "status": "placed",
+  "klifs": [
+   "Erk7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q8TD08",
+  "drugs_crystallised": 0
+ },
+ "ERN1": {
+  "status": "placed",
+  "klifs": [
+   "IRE1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "O75460",
+  "drugs_crystallised": 0
+ },
+ "FAK": {
+  "status": "placed",
+  "klifs": [
+   "FAK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q05397",
+  "drugs_crystallised": 0
+ },
+ "FER": {
+  "status": "placed",
+  "klifs": [
+   "FER"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P16591",
+  "drugs_crystallised": 0
+ },
+ "16038120|FES": {
+  "status": "pair",
+  "target": "FES",
+  "drug": "16038120",
+  "structures": 2,
+  "pdb_entries": [
+   "4e93"
+  ],
+  "pdb": [
+   "4e93",
+   "4e93"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 567,
+  "last_residue": 701
+ },
+ "FES": {
+  "status": "placed",
+  "klifs": [
+   "FES"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P07332",
+  "drugs_crystallised": 1
+ },
+ "FGFR1": {
+  "status": "placed",
+  "klifs": [
+   "FGFR1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P11362",
+  "drugs_crystallised": 0
+ },
+ "FGFR2": {
+  "status": "placed",
+  "klifs": [
+   "FGFR2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P21802",
+  "drugs_crystallised": 0
+ },
+ "FGFR3": {
+  "status": "placed",
+  "klifs": [
+   "FGFR3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P22607",
+  "drugs_crystallised": 0
+ },
+ "FGFR3(G697C)": {
+  "status": "placed",
+  "klifs": [
+   "FGFR3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P22607",
+  "drugs_crystallised": 0
+ },
+ "FGFR4": {
+  "status": "placed",
+  "klifs": [
+   "FGFR4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P22455",
+  "drugs_crystallised": 0
+ },
+ "FGR": {
+  "status": "placed",
+  "klifs": [
+   "FGR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P09769",
+  "drugs_crystallised": 0
+ },
+ "FLT1": {
+  "status": "placed",
+  "klifs": [
+   "FLT1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P17948",
+  "drugs_crystallised": 0
+ },
+ "24889392|FLT3": {
+  "status": "pair",
+  "target": "FLT3",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "24889392|FLT3(D835H)": {
+  "status": "pair",
+  "target": "FLT3(D835H)",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3(D835H)": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "24889392|FLT3(D835Y)": {
+  "status": "pair",
+  "target": "FLT3(D835Y)",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3(D835Y)": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "24889392|FLT3(ITD)": {
+  "status": "pair",
+  "target": "FLT3(ITD)",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3(ITD)": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "24889392|FLT3(K663Q)": {
+  "status": "pair",
+  "target": "FLT3(K663Q)",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3(K663Q)": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "24889392|FLT3(N841I)": {
+  "status": "pair",
+  "target": "FLT3(N841I)",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3(N841I)": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "24889392|FLT3(R834Q)": {
+  "status": "pair",
+  "target": "FLT3(R834Q)",
+  "drug": "24889392",
+  "structures": 4,
+  "pdb_entries": [
+   "4rt7",
+   "4xuf"
+  ],
+  "pdb": [
+   "4rt7",
+   "4rt7",
+   "4xuf",
+   "4xuf"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 616,
+  "last_residue": 833
+ },
+ "FLT3(R834Q)": {
+  "status": "placed",
+  "klifs": [
+   "FLT3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36888",
+  "drugs_crystallised": 1
+ },
+ "FLT4": {
+  "status": "placed",
+  "klifs": [
+   "FLT4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P35916",
+  "drugs_crystallised": 0
+ },
+ "FRK": {
+  "status": "placed",
+  "klifs": [
+   "FRK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P42685",
+  "drugs_crystallised": 0
+ },
+ "FYN": {
+  "status": "placed",
+  "klifs": [
+   "FYN"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P06241",
+  "drugs_crystallised": 0
+ },
+ "123631|GAK": {
+  "status": "pair",
+  "target": "GAK",
+  "drug": "123631",
+  "structures": 4,
+  "pdb_entries": [
+   "5y7z",
+   "5y80"
+  ],
+  "pdb": [
+   "5y7z",
+   "5y7z",
+   "5y80",
+   "5y80"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 46,
+  "last_residue": 191
+ },
+ "GAK": {
+  "status": "placed",
+  "klifs": [
+   "GAK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "O14976",
+  "drugs_crystallised": 1
+ },
+ "GCN2(KinDom2S808G)": {
+  "status": "placed",
+  "klifs": [
+   "GCN2"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9P2K8",
+  "drugs_crystallised": 0
+ },
+ "GRK1": {
+  "status": "placed",
+  "klifs": [
+   "RHOK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15835",
+  "drugs_crystallised": 0
+ },
+ "GRK4": {
+  "status": "placed",
+  "klifs": [
+   "GPRK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P32298",
+  "drugs_crystallised": 0
+ },
+ "GRK7": {
+  "status": "placed",
+  "klifs": [
+   "GPRK7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8WTQ7",
+  "drugs_crystallised": 0
+ },
+ "GSK3A": {
+  "status": "placed",
+  "klifs": [
+   "GSK3A"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49840",
+  "drugs_crystallised": 0
+ },
+ "GSK3B": {
+  "status": "placed",
+  "klifs": [
+   "GSK3B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P49841",
+  "drugs_crystallised": 0
+ },
+ "HCK": {
+  "status": "placed",
+  "klifs": [
+   "HCK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P08631",
+  "drugs_crystallised": 0
+ },
+ "HIPK1": {
+  "status": "placed",
+  "klifs": [
+   "HIPK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q86Z02",
+  "drugs_crystallised": 0
+ },
+ "HIPK2": {
+  "status": "placed",
+  "klifs": [
+   "HIPK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9H2X6",
+  "drugs_crystallised": 0
+ },
+ "HIPK3": {
+  "status": "placed",
+  "klifs": [
+   "HIPK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9H422",
+  "drugs_crystallised": 0
+ },
+ "HIPK4": {
+  "status": "placed",
+  "klifs": [
+   "HIPK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q8NE63",
+  "drugs_crystallised": 0
+ },
+ "HPK1": {
+  "status": "placed",
+  "klifs": [
+   "HPK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q92918",
+  "drugs_crystallised": 0
+ },
+ "HUNK": {
+  "status": "placed",
+  "klifs": [
+   "HUNK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P57058",
+  "drugs_crystallised": 0
+ },
+ "ICK": {
+  "status": "placed",
+  "klifs": [
+   "ICK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9UPZ9",
+  "drugs_crystallised": 0
+ },
+ "IGF1R": {
+  "status": "placed",
+  "klifs": [
+   "IGF1R"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P08069",
+  "drugs_crystallised": 0
+ },
+ "IKK-alpha": {
+  "status": "placed",
+  "klifs": [
+   "IKKa"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O15111",
+  "drugs_crystallised": 0
+ },
+ "IKK-beta": {
+  "status": "placed",
+  "klifs": [
+   "IKKb"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14920",
+  "drugs_crystallised": 0
+ },
+ "IKK-epsilon": {
+  "status": "placed",
+  "klifs": [
+   "IKKe"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q14164",
+  "drugs_crystallised": 0
+ },
+ "INSR": {
+  "status": "placed",
+  "klifs": [
+   "INSR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P06213",
+  "drugs_crystallised": 0
+ },
+ "INSRR": {
+  "status": "placed",
+  "klifs": [
+   "IRR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P14616",
+  "drugs_crystallised": 0
+ },
+ "IRAK1": {
+  "status": "placed",
+  "klifs": [
+   "IRAK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51617",
+  "drugs_crystallised": 0
+ },
+ "IRAK3": {
+  "status": "placed",
+  "klifs": [
+   "IRAK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y616",
+  "drugs_crystallised": 0
+ },
+ "IRAK4": {
+  "status": "placed",
+  "klifs": [
+   "IRAK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NWZ3",
+  "drugs_crystallised": 0
+ },
+ "ITK": {
+  "status": "placed",
+  "klifs": [
+   "ITK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q08881",
+  "drugs_crystallised": 0
+ },
+ "JAK1(JH1domain-catalytic)": {
+  "status": "placed",
+  "klifs": [
+   "JAK1"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P23458",
+  "drugs_crystallised": 0
+ },
+ "JAK1(JH2domain-pseudokinase)": {
+  "status": "placed",
+  "klifs": [
+   "JAK1-b"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P23458",
+  "drugs_crystallised": 0
+ },
+ "16722836|JAK2(JH1domain-catalytic)": {
+  "status": "pair",
+  "target": "JAK2(JH1domain-catalytic)",
+  "drug": "16722836",
+  "structures": 2,
+  "pdb_entries": [
+   "6vne"
+  ],
+  "pdb": [
+   "6vne",
+   "6vne"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 19,
+  "first_residue": 853,
+  "last_residue": 994
+ },
+ "JAK2(JH1domain-catalytic)": {
+  "status": "placed",
+  "klifs": [
+   "JAK2"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O60674",
+  "drugs_crystallised": 1
+ },
+ "JAK3(JH1domain-catalytic)": {
+  "status": "placed",
+  "klifs": [
+   "JAK3"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P52333",
+  "drugs_crystallised": 0
+ },
+ "JNK1": {
+  "status": "placed",
+  "klifs": [
+   "JNK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P45983",
+  "drugs_crystallised": 0
+ },
+ "156422|JNK2": {
+  "status": "pair",
+  "target": "JNK2",
+  "drug": "156422",
+  "structures": 2,
+  "pdb_entries": [
+   "3npc"
+  ],
+  "pdb": [
+   "3npc",
+   "3npc"
+  ],
+  "klifs_positions_contacted": 27,
+  "residues": 27,
+  "residues_union": 27,
+  "first_residue": 32,
+  "last_residue": 170
+ },
+ "JNK2": {
+  "status": "placed",
+  "klifs": [
+   "JNK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P45984",
+  "drugs_crystallised": 1
+ },
+ "JNK3": {
+  "status": "placed",
+  "klifs": [
+   "JNK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P53779",
+  "drugs_crystallised": 0
+ },
+ "5291|KIT": {
+  "status": "pair",
+  "target": "KIT",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(A829P)": {
+  "status": "pair",
+  "target": "KIT(A829P)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(A829P)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(D816H)": {
+  "status": "pair",
+  "target": "KIT(D816H)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(D816H)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(D816V)": {
+  "status": "pair",
+  "target": "KIT(D816V)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(D816V)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(L576P)": {
+  "status": "pair",
+  "target": "KIT(L576P)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(L576P)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(V559D)": {
+  "status": "pair",
+  "target": "KIT(V559D)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(V559D)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(V559D-T670I)": {
+  "status": "pair",
+  "target": "KIT(V559D-T670I)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(V559D-T670I)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "5291|KIT(V559D-V654A)": {
+  "status": "pair",
+  "target": "KIT(V559D-V654A)",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1t46"
+  ],
+  "pdb": [
+   "1t46",
+   "1t46"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 24,
+  "first_residue": 595,
+  "last_residue": 811
+ },
+ "KIT(V559D-V654A)": {
+  "status": "placed",
+  "klifs": [
+   "KIT"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P10721",
+  "drugs_crystallised": 1
+ },
+ "LATS1": {
+  "status": "placed",
+  "klifs": [
+   "LATS1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O95835",
+  "drugs_crystallised": 0
+ },
+ "LATS2": {
+  "status": "placed",
+  "klifs": [
+   "LATS2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NRM7",
+  "drugs_crystallised": 0
+ },
+ "5291|LCK": {
+  "status": "pair",
+  "target": "LCK",
+  "drug": "5291",
+  "structures": 1,
+  "pdb_entries": [
+   "2pl0"
+  ],
+  "pdb": [
+   "2pl0"
+  ],
+  "klifs_positions_contacted": 22,
+  "residues": 22,
+  "residues_union": 22,
+  "first_residue": 259,
+  "last_residue": 383
+ },
+ "LCK": {
+  "status": "placed",
+  "klifs": [
+   "LCK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P06239",
+  "drugs_crystallised": 1
+ },
+ "LIMK1": {
+  "status": "placed",
+  "klifs": [
+   "LIMK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P53667",
+  "drugs_crystallised": 0
+ },
+ "LIMK2": {
+  "status": "placed",
+  "klifs": [
+   "LIMK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P53671",
+  "drugs_crystallised": 0
+ },
+ "LKB1": {
+  "status": "placed",
+  "klifs": [
+   "LKB1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15831",
+  "drugs_crystallised": 0
+ },
+ "156422|LOK": {
+  "status": "pair",
+  "target": "LOK",
+  "drug": "156422",
+  "structures": 2,
+  "pdb_entries": [
+   "6gtt"
+  ],
+  "pdb": [
+   "6gtt",
+   "6gtt"
+  ],
+  "klifs_positions_contacted": 22,
+  "residues": 22,
+  "residues_union": 22,
+  "first_residue": 42,
+  "last_residue": 176
+ },
+ "3062316|LOK": {
+  "status": "pair",
+  "target": "LOK",
+  "drug": "3062316",
+  "structures": 2,
+  "pdb_entries": [
+   "5owr"
+  ],
+  "pdb": [
+   "5owr",
+   "5owr"
+  ],
+  "klifs_positions_contacted": 13,
+  "residues": 13,
+  "residues_union": 13,
+  "first_residue": 42,
+  "last_residue": 175
+ },
+ "42642645|LOK": {
+  "status": "pair",
+  "target": "LOK",
+  "drug": "42642645",
+  "structures": 2,
+  "pdb_entries": [
+   "6i2y"
+  ],
+  "pdb": [
+   "6i2y",
+   "6i2y"
+  ],
+  "klifs_positions_contacted": 21,
+  "residues": 21,
+  "residues_union": 21,
+  "first_residue": 42,
+  "last_residue": 176
+ },
+ "5328940|LOK": {
+  "status": "pair",
+  "target": "LOK",
+  "drug": "5328940",
+  "structures": 4,
+  "pdb_entries": [
+   "5ajq"
+  ],
+  "pdb": [
+   "5ajq",
+   "5ajq",
+   "5ajq",
+   "5ajq"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 20,
+  "first_residue": 42,
+  "last_residue": 178
+ },
+ "LOK": {
+  "status": "placed",
+  "klifs": [
+   "LOK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O94804",
+  "drugs_crystallised": 4
+ },
+ "LRRK2": {
+  "status": "placed",
+  "klifs": [
+   "LRRK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q5S007",
+  "drugs_crystallised": 0
+ },
+ "LRRK2(G2019S)": {
+  "status": "placed",
+  "klifs": [
+   "LRRK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q5S007",
+  "drugs_crystallised": 0
+ },
+ "LTK": {
+  "status": "placed",
+  "klifs": [
+   "LTK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P29376",
+  "drugs_crystallised": 0
+ },
+ "LYN": {
+  "status": "placed",
+  "klifs": [
+   "LYN"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P07948",
+  "drugs_crystallised": 0
+ },
+ "LZK": {
+  "status": "placed",
+  "klifs": [
+   "LZK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O43283",
+  "drugs_crystallised": 0
+ },
+ "MAK": {
+  "status": "not_in_klifs",
+  "accession": "Q96L96"
+ },
+ "MAP3K1": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13233",
+  "drugs_crystallised": 0
+ },
+ "MAP3K15": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q6ZN16",
+  "drugs_crystallised": 0
+ },
+ "MAP3K2": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y2U5",
+  "drugs_crystallised": 0
+ },
+ "MAP3K3": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q99759",
+  "drugs_crystallised": 0
+ },
+ "MAP3K4": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y6R4",
+  "drugs_crystallised": 0
+ },
+ "MAP4K2": {
+  "status": "placed",
+  "klifs": [
+   "Map4k2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q12851",
+  "drugs_crystallised": 0
+ },
+ "MAP4K3": {
+  "status": "placed",
+  "klifs": [
+   "KHS2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8IVH8",
+  "drugs_crystallised": 0
+ },
+ "MAP4K4": {
+  "status": "placed",
+  "klifs": [
+   "HGK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O95819",
+  "drugs_crystallised": 0
+ },
+ "MAP4K5": {
+  "status": "placed",
+  "klifs": [
+   "KHS1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y4K4",
+  "drugs_crystallised": 0
+ },
+ "MAPKAPK2": {
+  "status": "placed",
+  "klifs": [
+   "MAPKAPK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P49137",
+  "drugs_crystallised": 0
+ },
+ "MAPKAPK5": {
+  "status": "placed",
+  "klifs": [
+   "MAPKAPK5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8IW41",
+  "drugs_crystallised": 0
+ },
+ "MARK1": {
+  "status": "placed",
+  "klifs": [
+   "MARK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9P0L2",
+  "drugs_crystallised": 0
+ },
+ "MARK2": {
+  "status": "placed",
+  "klifs": [
+   "MARK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q7KZI7",
+  "drugs_crystallised": 0
+ },
+ "MARK3": {
+  "status": "placed",
+  "klifs": [
+   "MARK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P27448",
+  "drugs_crystallised": 0
+ },
+ "MARK4": {
+  "status": "placed",
+  "klifs": [
+   "MARK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96L34",
+  "drugs_crystallised": 0
+ },
+ "MAST1": {
+  "status": "placed",
+  "klifs": [
+   "MAST1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y2H9",
+  "drugs_crystallised": 0
+ },
+ "10127622|MEK1": {
+  "status": "pair",
+  "target": "MEK1",
+  "drug": "10127622",
+  "structures": 3,
+  "pdb_entries": [
+   "4u7z",
+   "6v32",
+   "7m0t"
+  ],
+  "pdb": [
+   "4u7z",
+   "6v32",
+   "7m0t"
+  ],
+  "klifs_positions_contacted": 27,
+  "residues": 27,
+  "residues_union": 29,
+  "first_residue": 74,
+  "last_residue": 212
+ },
+ "MEK1": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q02750",
+  "drugs_crystallised": 1
+ },
+ "MEK2": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36507",
+  "drugs_crystallised": 0
+ },
+ "MEK3": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P46734",
+  "drugs_crystallised": 0
+ },
+ "MEK4": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P45985",
+  "drugs_crystallised": 0
+ },
+ "MEK5": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q13163",
+  "drugs_crystallised": 0
+ },
+ "MEK6": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K6"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P52564",
+  "drugs_crystallised": 0
+ },
+ "MELK": {
+  "status": "placed",
+  "klifs": [
+   "MELK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q14680",
+  "drugs_crystallised": 0
+ },
+ "MERTK": {
+  "status": "placed",
+  "klifs": [
+   "MER"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q12866",
+  "drugs_crystallised": 0
+ },
+ "24779724|MET": {
+  "status": "pair",
+  "target": "MET",
+  "drug": "24779724",
+  "structures": 6,
+  "pdb_entries": [
+   "3dkf",
+   "3dkg"
+  ],
+  "pdb": [
+   "3dkf",
+   "3dkf",
+   "3dkf",
+   "3dkg",
+   "3dkg",
+   "3dkg"
+  ],
+  "klifs_positions_contacted": 13,
+  "residues": 13,
+  "residues_union": 13,
+  "first_residue": 1084,
+  "last_residue": 1222
+ },
+ "42642645|MET": {
+  "status": "pair",
+  "target": "MET",
+  "drug": "42642645",
+  "structures": 5,
+  "pdb_entries": [
+   "3lq8",
+   "6sd9",
+   "6sdc"
+  ],
+  "pdb": [
+   "3lq8",
+   "3lq8",
+   "6sd9",
+   "6sdc",
+   "6sdc"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 27,
+  "first_residue": 1084,
+  "last_residue": 1223
+ },
+ "MET": {
+  "status": "placed",
+  "klifs": [
+   "MET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P08581",
+  "drugs_crystallised": 2
+ },
+ "24779724|MET(M1250T)": {
+  "status": "pair",
+  "target": "MET(M1250T)",
+  "drug": "24779724",
+  "structures": 6,
+  "pdb_entries": [
+   "3dkf",
+   "3dkg"
+  ],
+  "pdb": [
+   "3dkf",
+   "3dkf",
+   "3dkf",
+   "3dkg",
+   "3dkg",
+   "3dkg"
+  ],
+  "klifs_positions_contacted": 13,
+  "residues": 13,
+  "residues_union": 13,
+  "first_residue": 1084,
+  "last_residue": 1222
+ },
+ "42642645|MET(M1250T)": {
+  "status": "pair",
+  "target": "MET(M1250T)",
+  "drug": "42642645",
+  "structures": 5,
+  "pdb_entries": [
+   "3lq8",
+   "6sd9",
+   "6sdc"
+  ],
+  "pdb": [
+   "3lq8",
+   "3lq8",
+   "6sd9",
+   "6sdc",
+   "6sdc"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 27,
+  "first_residue": 1084,
+  "last_residue": 1223
+ },
+ "MET(M1250T)": {
+  "status": "placed",
+  "klifs": [
+   "MET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P08581",
+  "drugs_crystallised": 2
+ },
+ "24779724|MET(Y1235D)": {
+  "status": "pair",
+  "target": "MET(Y1235D)",
+  "drug": "24779724",
+  "structures": 6,
+  "pdb_entries": [
+   "3dkf",
+   "3dkg"
+  ],
+  "pdb": [
+   "3dkf",
+   "3dkf",
+   "3dkf",
+   "3dkg",
+   "3dkg",
+   "3dkg"
+  ],
+  "klifs_positions_contacted": 13,
+  "residues": 13,
+  "residues_union": 13,
+  "first_residue": 1084,
+  "last_residue": 1222
+ },
+ "42642645|MET(Y1235D)": {
+  "status": "pair",
+  "target": "MET(Y1235D)",
+  "drug": "42642645",
+  "structures": 5,
+  "pdb_entries": [
+   "3lq8",
+   "6sd9",
+   "6sdc"
+  ],
+  "pdb": [
+   "3lq8",
+   "3lq8",
+   "6sd9",
+   "6sdc",
+   "6sdc"
+  ],
+  "klifs_positions_contacted": 24,
+  "residues": 24,
+  "residues_union": 27,
+  "first_residue": 1084,
+  "last_residue": 1223
+ },
+ "MET(Y1235D)": {
+  "status": "placed",
+  "klifs": [
+   "MET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P08581",
+  "drugs_crystallised": 2
+ },
+ "MINK": {
+  "status": "placed",
+  "klifs": [
+   "MINK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8N4C8",
+  "drugs_crystallised": 0
+ },
+ "MKK7": {
+  "status": "placed",
+  "klifs": [
+   "MAP2K7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14733",
+  "drugs_crystallised": 0
+ },
+ "MKNK1": {
+  "status": "placed",
+  "klifs": [
+   "MNK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9BUB5",
+  "drugs_crystallised": 0
+ },
+ "MKNK2": {
+  "status": "placed",
+  "klifs": [
+   "MNK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9HBH9",
+  "drugs_crystallised": 0
+ },
+ "MLCK": {
+  "status": "placed",
+  "klifs": [
+   "caMLCK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q32MK0",
+  "drugs_crystallised": 0
+ },
+ "MLK1": {
+  "status": "placed",
+  "klifs": [
+   "MLK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "P80192"
+ },
+ "MLK2": {
+  "status": "placed",
+  "klifs": [
+   "MLK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q02779",
+  "drugs_crystallised": 0
+ },
+ "MLK3": {
+  "status": "placed",
+  "klifs": [
+   "MLK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16584",
+  "drugs_crystallised": 0
+ },
+ "MRCKA": {
+  "status": "placed",
+  "klifs": [
+   "MRCKa"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q5VT25",
+  "drugs_crystallised": 0
+ },
+ "MRCKB": {
+  "status": "placed",
+  "klifs": [
+   "MRCKb"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y5S2",
+  "drugs_crystallised": 0
+ },
+ "MST1": {
+  "status": "placed",
+  "klifs": [
+   "MST1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13043",
+  "drugs_crystallised": 0
+ },
+ "MST1R": {
+  "status": "placed",
+  "klifs": [
+   "RON"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q04912",
+  "drugs_crystallised": 0
+ },
+ "MST2": {
+  "status": "placed",
+  "klifs": [
+   "MST2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13188",
+  "drugs_crystallised": 0
+ },
+ "3062316|MST3": {
+  "status": "pair",
+  "target": "MST3",
+  "drug": "3062316",
+  "structures": 2,
+  "pdb_entries": [
+   "4qms"
+  ],
+  "pdb": [
+   "4qms",
+   "4qms"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 42,
+  "last_residue": 174
+ },
+ "5328940|MST3": {
+  "status": "pair",
+  "target": "MST3",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "4qmn"
+  ],
+  "pdb": [
+   "4qmn",
+   "4qmn"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 42,
+  "last_residue": 174
+ },
+ "MST3": {
+  "status": "placed",
+  "klifs": [
+   "MST3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y6E0",
+  "drugs_crystallised": 2
+ },
+ "MST4": {
+  "status": "placed",
+  "klifs": [
+   "MST4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9P289",
+  "drugs_crystallised": 0
+ },
+ "9884685|MTOR": {
+  "status": "pair",
+  "target": "MTOR",
+  "drug": "9884685",
+  "structures": 2,
+  "pdb_entries": [
+   "4jt6"
+  ],
+  "pdb": [
+   "4jt6",
+   "4jt6"
+  ],
+  "klifs_positions_contacted": 13,
+  "residues": 13,
+  "residues_union": 13,
+  "first_residue": 2163,
+  "last_residue": 2357
+ },
+ "MTOR": {
+  "status": "placed",
+  "klifs": [
+   "FRAP"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42345",
+  "drugs_crystallised": 1
+ },
+ "MUSK": {
+  "status": "placed",
+  "klifs": [
+   "MUSK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O15146",
+  "drugs_crystallised": 0
+ },
+ "MYLK": {
+  "status": "placed",
+  "klifs": [
+   "smMLCK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15746",
+  "drugs_crystallised": 0
+ },
+ "MYLK2": {
+  "status": "placed",
+  "klifs": [
+   "skMLCK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H1R3",
+  "drugs_crystallised": 0
+ },
+ "MYLK4": {
+  "status": "placed",
+  "klifs": [
+   "SgK085"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q86YV6",
+  "drugs_crystallised": 0
+ },
+ "MYO3A": {
+  "status": "placed",
+  "klifs": [
+   "MYO3A"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8NEV4",
+  "drugs_crystallised": 0
+ },
+ "MYO3B": {
+  "status": "placed",
+  "klifs": [
+   "MYO3B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8WXR4",
+  "drugs_crystallised": 0
+ },
+ "NDR1": {
+  "status": "placed",
+  "klifs": [
+   "NDR1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15208",
+  "drugs_crystallised": 0
+ },
+ "NDR2": {
+  "status": "placed",
+  "klifs": [
+   "NDR2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y2H1",
+  "drugs_crystallised": 0
+ },
+ "NEK1": {
+  "status": "placed",
+  "klifs": [
+   "NEK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96PY6",
+  "drugs_crystallised": 0
+ },
+ "NEK11": {
+  "status": "placed",
+  "klifs": [
+   "NEK11"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8NG66",
+  "drugs_crystallised": 0
+ },
+ "NEK2": {
+  "status": "placed",
+  "klifs": [
+   "NEK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51955",
+  "drugs_crystallised": 0
+ },
+ "NEK3": {
+  "status": "placed",
+  "klifs": [
+   "NEK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51956",
+  "drugs_crystallised": 0
+ },
+ "NEK4": {
+  "status": "placed",
+  "klifs": [
+   "NEK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51957",
+  "drugs_crystallised": 0
+ },
+ "NEK5": {
+  "status": "placed",
+  "klifs": [
+   "NEK5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q6P3R8",
+  "drugs_crystallised": 0
+ },
+ "NEK6": {
+  "status": "placed",
+  "klifs": [
+   "NEK6"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9HC98",
+  "drugs_crystallised": 0
+ },
+ "NEK7": {
+  "status": "placed",
+  "klifs": [
+   "NEK7"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8TDX7",
+  "drugs_crystallised": 0
+ },
+ "NEK9": {
+  "status": "placed",
+  "klifs": [
+   "NEK9"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8TD19",
+  "drugs_crystallised": 0
+ },
+ "NIM1": {
+  "status": "placed",
+  "klifs": [
+   "NIM1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8IY84",
+  "drugs_crystallised": 0
+ },
+ "NLK": {
+  "status": "placed",
+  "klifs": [
+   "NLK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9UBE8",
+  "drugs_crystallised": 0
+ },
+ "OSR1": {
+  "status": "placed",
+  "klifs": [
+   "OSR1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O95747",
+  "drugs_crystallised": 0
+ },
+ "PAK1": {
+  "status": "placed",
+  "klifs": [
+   "PAK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13153",
+  "drugs_crystallised": 0
+ },
+ "PAK2": {
+  "status": "placed",
+  "klifs": [
+   "PAK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13177",
+  "drugs_crystallised": 0
+ },
+ "PAK3": {
+  "status": "placed",
+  "klifs": [
+   "PAK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75914",
+  "drugs_crystallised": 0
+ },
+ "PAK4": {
+  "status": "placed",
+  "klifs": [
+   "PAK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O96013",
+  "drugs_crystallised": 0
+ },
+ "PAK6": {
+  "status": "placed",
+  "klifs": [
+   "PAK6"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NQU5",
+  "drugs_crystallised": 0
+ },
+ "PAK7": {
+  "status": "placed",
+  "klifs": [
+   "PAK5"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9P286",
+  "drugs_crystallised": 0
+ },
+ "PCTK1": {
+  "status": "placed",
+  "klifs": [
+   "PCTAIRE1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q00536",
+  "drugs_crystallised": 0
+ },
+ "PCTK2": {
+  "status": "placed",
+  "klifs": [
+   "PCTAIRE2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q00537",
+  "drugs_crystallised": 0
+ },
+ "PCTK3": {
+  "status": "placed",
+  "klifs": [
+   "PCTAIRE3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q07002",
+  "drugs_crystallised": 0
+ },
+ "5291|PDGFRA": {
+  "status": "pair",
+  "target": "PDGFRA",
+  "drug": "5291",
+  "structures": 1,
+  "pdb_entries": [
+   "6jol"
+  ],
+  "pdb": [
+   "6jol"
+  ],
+  "klifs_positions_contacted": 22,
+  "residues": 22,
+  "residues_union": 22,
+  "first_residue": 599,
+  "last_residue": 837
+ },
+ "PDGFRA": {
+  "status": "placed",
+  "klifs": [
+   "PDGFRa"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P16234",
+  "drugs_crystallised": 1
+ },
+ "PDGFRB": {
+  "status": "placed",
+  "klifs": [
+   "PDGFRb"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P09619",
+  "drugs_crystallised": 0
+ },
+ "PDPK1": {
+  "status": "placed",
+  "klifs": [
+   "PDK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O15530",
+  "drugs_crystallised": 0
+ },
+ "PFCDPK1(Pfalciparum)": {
+  "status": "not_in_klifs",
+  "accession": "P62343"
+ },
+ "PFPK5(Pfalciparum)": {
+  "status": "not_in_klifs",
+  "accession": "P61075"
+ },
+ "PFTAIRE2": {
+  "status": "placed",
+  "klifs": [
+   "PFTAIRE2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q96Q40",
+  "drugs_crystallised": 0
+ },
+ "PFTK1": {
+  "status": "placed",
+  "klifs": [
+   "PFTAIRE1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "O94921",
+  "drugs_crystallised": 0
+ },
+ "PHKG1": {
+  "status": "placed",
+  "klifs": [
+   "PHKg1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16816",
+  "drugs_crystallised": 0
+ },
+ "PHKG2": {
+  "status": "placed",
+  "klifs": [
+   "PHKg2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P15735",
+  "drugs_crystallised": 0
+ },
+ "PIK3C2B": {
+  "status": "placed",
+  "klifs": [
+   "PIK3C2B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "O00750",
+  "drugs_crystallised": 0
+ },
+ "PIK3C2G": {
+  "status": "placed",
+  "klifs": [
+   "PIK3C2G"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "O75747",
+  "drugs_crystallised": 0
+ },
+ "9884685|PIK3CA": {
+  "status": "pair",
+  "target": "PIK3CA",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(C420R)": {
+  "status": "pair",
+  "target": "PIK3CA(C420R)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(C420R)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(E542K)": {
+  "status": "pair",
+  "target": "PIK3CA(E542K)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(E542K)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(E545A)": {
+  "status": "pair",
+  "target": "PIK3CA(E545A)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(E545A)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(E545K)": {
+  "status": "pair",
+  "target": "PIK3CA(E545K)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(E545K)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(H1047L)": {
+  "status": "pair",
+  "target": "PIK3CA(H1047L)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(H1047L)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(H1047Y)": {
+  "status": "pair",
+  "target": "PIK3CA(H1047Y)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(H1047Y)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(I800L)": {
+  "status": "pair",
+  "target": "PIK3CA(I800L)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(I800L)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(M1043I)": {
+  "status": "pair",
+  "target": "PIK3CA(M1043I)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(M1043I)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "9884685|PIK3CA(Q546K)": {
+  "status": "pair",
+  "target": "PIK3CA(Q546K)",
+  "drug": "9884685",
+  "structures": 1,
+  "pdb_entries": [
+   "4l23"
+  ],
+  "pdb": [
+   "4l23"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 773,
+  "last_residue": 934
+ },
+ "PIK3CA(Q546K)": {
+  "status": "placed",
+  "klifs": [
+   "p110a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42336",
+  "drugs_crystallised": 1
+ },
+ "PIK3CB": {
+  "status": "placed",
+  "klifs": [
+   "p110b"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P42338",
+  "drugs_crystallised": 0
+ },
+ "PIK3CD": {
+  "status": "placed",
+  "klifs": [
+   "p110d"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "O00329",
+  "drugs_crystallised": 0
+ },
+ "17755052|PIK3CG": {
+  "status": "pair",
+  "target": "PIK3CG",
+  "drug": "17755052",
+  "structures": 1,
+  "pdb_entries": [
+   "3dbs"
+  ],
+  "pdb": [
+   "3dbs"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 802,
+  "last_residue": 964
+ },
+ "PIK3CG": {
+  "status": "placed",
+  "klifs": [
+   "p110g"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "P48736",
+  "drugs_crystallised": 1
+ },
+ "PIK4CB": {
+  "status": "placed",
+  "klifs": [
+   "PI4KB"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 83,
+  "accession": "Q9UBF8",
+  "drugs_crystallised": 0
+ },
+ "PIM1": {
+  "status": "placed",
+  "klifs": [
+   "PIM1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P11309",
+  "drugs_crystallised": 0
+ },
+ "PIM2": {
+  "status": "placed",
+  "klifs": [
+   "PIM2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9P1W9",
+  "drugs_crystallised": 0
+ },
+ "PIM3": {
+  "status": "placed",
+  "klifs": [
+   "PIM3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q86V86",
+  "drugs_crystallised": 0
+ },
+ "PIP5K1A": {
+  "status": "not_in_klifs",
+  "accession": "Q99755"
+ },
+ "PIP5K1C": {
+  "status": "not_in_klifs",
+  "accession": "O60331"
+ },
+ "PIP5K2B": {
+  "status": "not_in_klifs",
+  "accession": "P78356"
+ },
+ "PIP5K2C": {
+  "status": "not_in_klifs",
+  "accession": "Q8TBX8"
+ },
+ "5494449|PKAC-alpha": {
+  "status": "pair",
+  "target": "PKAC-alpha",
+  "drug": "5494449",
+  "structures": 1,
+  "pdb_entries": [
+   "3amb"
+  ],
+  "pdb": [
+   "3amb"
+  ],
+  "klifs_positions_contacted": 14,
+  "residues": 14,
+  "residues_union": 14,
+  "first_residue": 50,
+  "last_residue": 185
+ },
+ "PKAC-alpha": {
+  "status": "placed",
+  "klifs": [
+   "PKACa"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P17612",
+  "drugs_crystallised": 1
+ },
+ "PKAC-beta": {
+  "status": "placed",
+  "klifs": [
+   "PKACb"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P22694",
+  "drugs_crystallised": 0
+ },
+ "3062316|PKMYT1": {
+  "status": "pair",
+  "target": "PKMYT1",
+  "drug": "3062316",
+  "structures": 1,
+  "pdb_entries": [
+   "5vcv"
+  ],
+  "pdb": [
+   "5vcv"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 116,
+  "last_residue": 251
+ },
+ "5328940|PKMYT1": {
+  "status": "pair",
+  "target": "PKMYT1",
+  "drug": "5328940",
+  "structures": 2,
+  "pdb_entries": [
+   "5vcy"
+  ],
+  "pdb": [
+   "5vcy",
+   "5vcy"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 116,
+  "last_residue": 251
+ },
+ "PKMYT1": {
+  "status": "placed",
+  "klifs": [
+   "MYT1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q99640",
+  "drugs_crystallised": 2
+ },
+ "PKN1": {
+  "status": "placed",
+  "klifs": [
+   "PKN1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16512",
+  "drugs_crystallised": 0
+ },
+ "PKN2": {
+  "status": "placed",
+  "klifs": [
+   "PKN2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16513",
+  "drugs_crystallised": 0
+ },
+ "PKNB(Mtuberculosis)": {
+  "status": "not_in_klifs",
+  "accession": "P9WI81"
+ },
+ "PLK1": {
+  "status": "placed",
+  "klifs": [
+   "PLK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P53350",
+  "drugs_crystallised": 0
+ },
+ "PLK2": {
+  "status": "placed",
+  "klifs": [
+   "PLK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NYY3",
+  "drugs_crystallised": 0
+ },
+ "PLK3": {
+  "status": "placed",
+  "klifs": [
+   "PLK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H4B4",
+  "drugs_crystallised": 0
+ },
+ "PLK4": {
+  "status": "placed",
+  "klifs": [
+   "PLK4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O00444",
+  "drugs_crystallised": 0
+ },
+ "PRKCD": {
+  "status": "placed",
+  "klifs": [
+   "PKCd"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q05655",
+  "drugs_crystallised": 0
+ },
+ "PRKCE": {
+  "status": "placed",
+  "klifs": [
+   "PKCe"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q02156",
+  "drugs_crystallised": 0
+ },
+ "PRKCH": {
+  "status": "placed",
+  "klifs": [
+   "PKCh"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P24723",
+  "drugs_crystallised": 0
+ },
+ "PRKCI": {
+  "status": "placed",
+  "klifs": [
+   "PKCi"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P41743",
+  "drugs_crystallised": 0
+ },
+ "PRKCQ": {
+  "status": "placed",
+  "klifs": [
+   "PKCt"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q04759",
+  "drugs_crystallised": 0
+ },
+ "PRKD1": {
+  "status": "placed",
+  "klifs": [
+   "PKD1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15139",
+  "drugs_crystallised": 0
+ },
+ "PRKD2": {
+  "status": "placed",
+  "klifs": [
+   "PKD2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9BZL6",
+  "drugs_crystallised": 0
+ },
+ "PRKD3": {
+  "status": "placed",
+  "klifs": [
+   "PKD3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O94806",
+  "drugs_crystallised": 0
+ },
+ "PRKG1": {
+  "status": "placed",
+  "klifs": [
+   "PKG1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13976",
+  "drugs_crystallised": 0
+ },
+ "PRKG2": {
+  "status": "placed",
+  "klifs": [
+   "PKG2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13237",
+  "drugs_crystallised": 0
+ },
+ "PRKR": {
+  "status": "placed",
+  "klifs": [
+   "PKR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P19525",
+  "drugs_crystallised": 0
+ },
+ "PRKX": {
+  "status": "placed",
+  "klifs": [
+   "PRKX"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51817",
+  "drugs_crystallised": 0
+ },
+ "PRP4": {
+  "status": "placed",
+  "klifs": [
+   "PRP4"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q13523",
+  "drugs_crystallised": 0
+ },
+ "156422|PYK2": {
+  "status": "pair",
+  "target": "PYK2",
+  "drug": "156422",
+  "structures": 1,
+  "pdb_entries": [
+   "3fzs"
+  ],
+  "pdb": [
+   "3fzs"
+  ],
+  "klifs_positions_contacted": 21,
+  "residues": 21,
+  "residues_union": 21,
+  "first_residue": 431,
+  "last_residue": 568
+ },
+ "PYK2": {
+  "status": "placed",
+  "klifs": [
+   "PYK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q14289",
+  "drugs_crystallised": 1
+ },
+ "5328940|QSK": {
+  "status": "pair",
+  "target": "QSK",
+  "drug": "5328940",
+  "structures": 1,
+  "pdb_entries": [
+   "8r4q"
+  ],
+  "pdb": [
+   "8r4q"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 12,
+  "last_residue": 148
+ },
+ "QSK": {
+  "status": "placed",
+  "klifs": [
+   "QSK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9Y2K2",
+  "drugs_crystallised": 1
+ },
+ "11717001|RAF1": {
+  "status": "pair",
+  "target": "RAF1",
+  "drug": "11717001",
+  "structures": 1,
+  "pdb_entries": [
+   "8chf"
+  ],
+  "pdb": [
+   "8chf"
+  ],
+  "klifs_positions_contacted": 13,
+  "residues": 13,
+  "residues_union": 13,
+  "first_residue": 356,
+  "last_residue": 486
+ },
+ "RAF1": {
+  "status": "placed",
+  "klifs": [
+   "RAF1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P04049",
+  "drugs_crystallised": 1
+ },
+ "RET": {
+  "status": "placed",
+  "klifs": [
+   "RET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "P07949"
+ },
+ "RET(M918T)": {
+  "status": "placed",
+  "klifs": [
+   "RET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "P07949"
+ },
+ "RET(V804L)": {
+  "status": "placed",
+  "klifs": [
+   "RET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "P07949"
+ },
+ "RET(V804M)": {
+  "status": "placed",
+  "klifs": [
+   "RET"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "P07949"
+ },
+ "RIOK1": {
+  "status": "placed",
+  "klifs": [
+   "RIOK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9BRS2",
+  "drugs_crystallised": 0
+ },
+ "RIOK2": {
+  "status": "placed",
+  "klifs": [
+   "RIOK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9BVS4",
+  "drugs_crystallised": 0
+ },
+ "RIOK3": {
+  "status": "placed",
+  "klifs": [
+   "RIOK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O14730",
+  "drugs_crystallised": 0
+ },
+ "RIPK1": {
+  "status": "placed",
+  "klifs": [
+   "RIPK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13546",
+  "drugs_crystallised": 0
+ },
+ "176155|RIPK2": {
+  "status": "pair",
+  "target": "RIPK2",
+  "drug": "176155",
+  "structures": 2,
+  "pdb_entries": [
+   "5ar4"
+  ],
+  "pdb": [
+   "5ar4",
+   "5ar4"
+  ],
+  "klifs_positions_contacted": 18,
+  "residues": 18,
+  "residues_union": 18,
+  "first_residue": 24,
+  "last_residue": 164
+ },
+ "RIPK2": {
+  "status": "placed",
+  "klifs": [
+   "RIPK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O43353",
+  "drugs_crystallised": 1
+ },
+ "RIPK4": {
+  "status": "placed",
+  "klifs": [
+   "ANKRD3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P57078",
+  "drugs_crystallised": 0
+ },
+ "RIPK5": {
+  "status": "placed",
+  "klifs": [
+   "SgK496"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q6XUX3",
+  "drugs_crystallised": 0
+ },
+ "ROCK1": {
+  "status": "placed",
+  "klifs": [
+   "ROCK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13464",
+  "drugs_crystallised": 0
+ },
+ "ROCK2": {
+  "status": "placed",
+  "klifs": [
+   "ROCK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "O75116"
+ },
+ "ROS1": {
+  "status": "placed",
+  "klifs": [
+   "ROS"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P08922",
+  "drugs_crystallised": 0
+ },
+ "RPS6KA4(KinDom.1-N-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "MSK2"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75676",
+  "drugs_crystallised": 0
+ },
+ "RPS6KA4(KinDom.2-C-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "MSK2-b"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75676",
+  "drugs_crystallised": 0
+ },
+ "RPS6KA5(KinDom.1-N-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "MSK1"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75582",
+  "drugs_crystallised": 0
+ },
+ "RPS6KA5(KinDom.2-C-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "MSK1-b"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75582",
+  "drugs_crystallised": 0
+ },
+ "RSK1(KinDom.1-N-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK3"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15418",
+  "drugs_crystallised": 0
+ },
+ "RSK1(KinDom.2-C-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK3-b"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15418",
+  "drugs_crystallised": 0
+ },
+ "RSK2(KinDom.1-N-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK2"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P51812",
+  "drugs_crystallised": 0
+ },
+ "RSK3(KinDom.1-N-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK1"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15349",
+  "drugs_crystallised": 0
+ },
+ "RSK3(KinDom.2-C-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK1-b"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q15349",
+  "drugs_crystallised": 0
+ },
+ "RSK4(KinDom.1-N-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK4"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UK32",
+  "drugs_crystallised": 0
+ },
+ "RSK4(KinDom.2-C-terminal)": {
+  "status": "placed",
+  "klifs": [
+   "RSK4-b"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UK32",
+  "drugs_crystallised": 0
+ },
+ "S6K1": {
+  "status": "placed",
+  "klifs": [
+   "p70S6K"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P23443",
+  "drugs_crystallised": 0
+ },
+ "SBK1": {
+  "status": "placed",
+  "klifs": [
+   "SBK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q52WX2",
+  "drugs_crystallised": 0
+ },
+ "SGK3": {
+  "status": "placed",
+  "klifs": [
+   "SGK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q96BR1",
+  "drugs_crystallised": 0
+ },
+ "SIK": {
+  "status": "placed",
+  "klifs": [
+   "SIK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P57059",
+  "drugs_crystallised": 0
+ },
+ "SIK2": {
+  "status": "placed",
+  "klifs": [
+   "QIK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H0K1",
+  "drugs_crystallised": 0
+ },
+ "SLK": {
+  "status": "placed",
+  "klifs": [
+   "SLK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H2G2",
+  "drugs_crystallised": 0
+ },
+ "SNARK": {
+  "status": "placed",
+  "klifs": [
+   "NuaK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H093",
+  "drugs_crystallised": 0
+ },
+ "SNRK": {
+  "status": "placed",
+  "klifs": [
+   "SNRK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NRH2",
+  "drugs_crystallised": 0
+ },
+ "5328940|SRC": {
+  "status": "pair",
+  "target": "SRC",
+  "drug": "5328940",
+  "structures": 8,
+  "pdb_entries": [
+   "4mxo",
+   "4mxx",
+   "4mxy",
+   "4mxz"
+  ],
+  "pdb": [
+   "4mxo",
+   "4mxo",
+   "4mxx",
+   "4mxx",
+   "4mxy",
+   "4mxy",
+   "4mxz",
+   "4mxz"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 22,
+  "first_residue": 276,
+  "last_residue": 407
+ },
+ "SRC": {
+  "status": "placed",
+  "klifs": [
+   "SRC"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P12931",
+  "drugs_crystallised": 1
+ },
+ "SRMS": {
+  "status": "placed",
+  "klifs": [
+   "SRM"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H3Y6",
+  "drugs_crystallised": 0
+ },
+ "SRPK1": {
+  "status": "placed",
+  "klifs": [
+   "SRPK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q96SB4",
+  "drugs_crystallised": 0
+ },
+ "SRPK2": {
+  "status": "placed",
+  "klifs": [
+   "SRPK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P78362",
+  "drugs_crystallised": 0
+ },
+ "SRPK3": {
+  "status": "placed",
+  "klifs": [
+   "MSSK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9UPE1",
+  "drugs_crystallised": 0
+ },
+ "STK16": {
+  "status": "placed",
+  "klifs": [
+   "MPSK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75716",
+  "drugs_crystallised": 0
+ },
+ "STK33": {
+  "status": "placed",
+  "klifs": [
+   "STK33"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9BYT3",
+  "drugs_crystallised": 0
+ },
+ "STK35": {
+  "status": "placed",
+  "klifs": [
+   "CLIK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8TDR2",
+  "drugs_crystallised": 0
+ },
+ "STK36": {
+  "status": "placed",
+  "klifs": [
+   "Fused"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q9NRP7",
+  "drugs_crystallised": 0
+ },
+ "STK39": {
+  "status": "placed",
+  "klifs": [
+   "STLK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UEW8",
+  "drugs_crystallised": 0
+ },
+ "5291|SYK": {
+  "status": "pair",
+  "target": "SYK",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "1xbb"
+  ],
+  "pdb": [
+   "1xbb",
+   "1xbb"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 377,
+  "last_residue": 511
+ },
+ "SYK": {
+  "status": "placed",
+  "klifs": [
+   "SYK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P43405",
+  "drugs_crystallised": 1
+ },
+ "SgK110": {
+  "status": "placed",
+  "klifs": [
+   "SgK110"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P0C264",
+  "drugs_crystallised": 0
+ },
+ "TAK1": {
+  "status": "placed",
+  "klifs": [
+   "TAK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O43318",
+  "drugs_crystallised": 0
+ },
+ "TAOK1": {
+  "status": "placed",
+  "klifs": [
+   "TAO1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q7L7X3",
+  "drugs_crystallised": 0
+ },
+ "TAOK2": {
+  "status": "placed",
+  "klifs": [
+   "TAO2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UL54",
+  "drugs_crystallised": 0
+ },
+ "TAOK3": {
+  "status": "placed",
+  "klifs": [
+   "TAO3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9H2K8",
+  "drugs_crystallised": 0
+ },
+ "TBK1": {
+  "status": "placed",
+  "klifs": [
+   "TBK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UHD2",
+  "drugs_crystallised": 0
+ },
+ "TEC": {
+  "status": "placed",
+  "klifs": [
+   "TEC"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P42680",
+  "drugs_crystallised": 0
+ },
+ "TESK1": {
+  "status": "placed",
+  "klifs": [
+   "TESK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 70,
+  "accession": "Q15569",
+  "drugs_crystallised": 0
+ },
+ "TGFBR1": {
+  "status": "placed",
+  "klifs": [
+   "TGFbR1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P36897",
+  "drugs_crystallised": 0
+ },
+ "TGFBR2": {
+  "status": "placed",
+  "klifs": [
+   "TGFbR2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P37173",
+  "drugs_crystallised": 0
+ },
+ "TIE1": {
+  "status": "placed",
+  "klifs": [
+   "TIE1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P35590",
+  "drugs_crystallised": 0
+ },
+ "TIE2": {
+  "status": "placed",
+  "klifs": [
+   "TIE2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q02763",
+  "drugs_crystallised": 0
+ },
+ "TLK1": {
+  "status": "placed",
+  "klifs": [
+   "TLK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UKI8",
+  "drugs_crystallised": 0
+ },
+ "TLK2": {
+  "status": "placed",
+  "klifs": [
+   "TLK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q86UE8",
+  "drugs_crystallised": 0
+ },
+ "TNIK": {
+  "status": "placed",
+  "klifs": [
+   "TNIK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9UKE5",
+  "drugs_crystallised": 0
+ },
+ "TNK1": {
+  "status": "placed",
+  "klifs": [
+   "TNK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q13470",
+  "drugs_crystallised": 0
+ },
+ "TNK2": {
+  "status": "placed",
+  "klifs": [
+   "ACK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q07912",
+  "drugs_crystallised": 0
+ },
+ "TNNI3K": {
+  "status": "placed",
+  "klifs": [
+   "HH498"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q59H18",
+  "drugs_crystallised": 0
+ },
+ "TRKA": {
+  "status": "placed",
+  "klifs": [
+   "TRKA"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P04629",
+  "drugs_crystallised": 0
+ },
+ "TRKB": {
+  "status": "placed",
+  "klifs": [
+   "TRKB"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 0,
+  "accession": "Q16620"
+ },
+ "TRKC": {
+  "status": "placed",
+  "klifs": [
+   "TRKC"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q16288",
+  "drugs_crystallised": 0
+ },
+ "TRPM6": {
+  "status": "not_in_klifs",
+  "accession": "Q9BX84"
+ },
+ "TSSK1B": {
+  "status": "placed",
+  "klifs": [
+   "TSSK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9BXA7",
+  "drugs_crystallised": 0
+ },
+ "TTK": {
+  "status": "placed",
+  "klifs": [
+   "TTK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P33981",
+  "drugs_crystallised": 0
+ },
+ "TXK": {
+  "status": "placed",
+  "klifs": [
+   "TXK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P42681",
+  "drugs_crystallised": 0
+ },
+ "TYK2(JH1domain-catalytic)": {
+  "status": "placed",
+  "klifs": [
+   "TYK2"
+  ],
+  "domain_rule": "second domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P29597",
+  "drugs_crystallised": 0
+ },
+ "TYK2(JH2domain-pseudokinase)": {
+  "status": "placed",
+  "klifs": [
+   "TYK2-b"
+  ],
+  "domain_rule": "first domain (from the name)",
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P29597",
+  "drugs_crystallised": 0
+ },
+ "TYRO3": {
+  "status": "placed",
+  "klifs": [
+   "TYRO3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q06418",
+  "drugs_crystallised": 0
+ },
+ "ULK1": {
+  "status": "placed",
+  "klifs": [
+   "ULK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O75385",
+  "drugs_crystallised": 0
+ },
+ "ULK2": {
+  "status": "placed",
+  "klifs": [
+   "ULK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8IYT8",
+  "drugs_crystallised": 0
+ },
+ "5328940|ULK3": {
+  "status": "pair",
+  "target": "ULK3",
+  "drug": "5328940",
+  "structures": 1,
+  "pdb_entries": [
+   "6fdy"
+  ],
+  "pdb": [
+   "6fdy"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 20,
+  "last_residue": 157
+ },
+ "ULK3": {
+  "status": "placed",
+  "klifs": [
+   "ULK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q6PHR2",
+  "drugs_crystallised": 1
+ },
+ "11667893|VEGFR2": {
+  "status": "pair",
+  "target": "VEGFR2",
+  "drug": "11667893",
+  "structures": 2,
+  "pdb_entries": [
+   "3efl"
+  ],
+  "pdb": [
+   "3efl",
+   "3efl"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 23,
+  "first_residue": 840,
+  "last_residue": 1047
+ },
+ "216239|VEGFR2": {
+  "status": "pair",
+  "target": "VEGFR2",
+  "drug": "216239",
+  "structures": 3,
+  "pdb_entries": [
+   "3wze",
+   "4asd"
+  ],
+  "pdb": [
+   "3wze",
+   "3wze",
+   "4asd"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 23,
+  "first_residue": 840,
+  "last_residue": 1047
+ },
+ "VEGFR2": {
+  "status": "placed",
+  "klifs": [
+   "KDR"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P35968",
+  "drugs_crystallised": 2
+ },
+ "VRK2": {
+  "status": "placed",
+  "klifs": [
+   "VRK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q86Y07",
+  "drugs_crystallised": 0
+ },
+ "5328940|WEE1": {
+  "status": "pair",
+  "target": "WEE1",
+  "drug": "5328940",
+  "structures": 1,
+  "pdb_entries": [
+   "5vc3"
+  ],
+  "pdb": [
+   "5vc3"
+  ],
+  "klifs_positions_contacted": 17,
+  "residues": 17,
+  "residues_union": 17,
+  "first_residue": 303,
+  "last_residue": 463
+ },
+ "WEE1": {
+  "status": "placed",
+  "klifs": [
+   "Wee1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P30291",
+  "drugs_crystallised": 1
+ },
+ "WEE2": {
+  "status": "placed",
+  "klifs": [
+   "Wee1B"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P0C1S8",
+  "drugs_crystallised": 0
+ },
+ "YANK1": {
+  "status": "placed",
+  "klifs": [
+   "YANK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q8WU08",
+  "drugs_crystallised": 0
+ },
+ "YANK2": {
+  "status": "placed",
+  "klifs": [
+   "YANK2"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NY57",
+  "drugs_crystallised": 0
+ },
+ "YANK3": {
+  "status": "placed",
+  "klifs": [
+   "YANK3"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q86UX6",
+  "drugs_crystallised": 0
+ },
+ "YES": {
+  "status": "placed",
+  "klifs": [
+   "YES"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P07947",
+  "drugs_crystallised": 0
+ },
+ "YSK1": {
+  "status": "placed",
+  "klifs": [
+   "YSK1"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "O00506",
+  "drugs_crystallised": 0
+ },
+ "YSK4": {
+  "status": "placed",
+  "klifs": [
+   "MAP3K8"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q56UN5",
+  "drugs_crystallised": 0
+ },
+ "ZAK": {
+  "status": "placed",
+  "klifs": [
+   "ZAK"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "Q9NYL2",
+  "drugs_crystallised": 0
+ },
+ "ZAP70": {
+  "status": "placed",
+  "klifs": [
+   "ZAP70"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 85,
+  "accession": "P43403",
+  "drugs_crystallised": 0
+ },
+ "156422|p38-alpha": {
+  "status": "pair",
+  "target": "p38-alpha",
+  "drug": "156422",
+  "structures": 2,
+  "pdb_entries": [
+   "1kv2",
+   "5n66"
+  ],
+  "pdb": [
+   "1kv2",
+   "5n66"
+  ],
+  "klifs_positions_contacted": 25,
+  "residues": 25,
+  "residues_union": 25,
+  "first_residue": 38,
+  "last_residue": 169
+ },
+ "176155|p38-alpha": {
+  "status": "pair",
+  "target": "p38-alpha",
+  "drug": "176155",
+  "structures": 7,
+  "pdb_entries": [
+   "1a9u",
+   "3gcp",
+   "3mpa",
+   "3obg",
+   "3zs5"
+  ],
+  "pdb": [
+   "1a9u",
+   "3gcp",
+   "3gcp",
+   "3mpa",
+   "3obg",
+   "3zs5",
+   "3zs5"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 20,
+  "first_residue": 35,
+  "last_residue": 171
+ },
+ "216239|p38-alpha": {
+  "status": "pair",
+  "target": "p38-alpha",
+  "drug": "216239",
+  "structures": 4,
+  "pdb_entries": [
+   "3gcs",
+   "3heg"
+  ],
+  "pdb": [
+   "3gcs",
+   "3gcs",
+   "3heg",
+   "3heg"
+  ],
+  "klifs_positions_contacted": 23,
+  "residues": 23,
+  "residues_union": 23,
+  "first_residue": 30,
+  "last_residue": 169
+ },
+ "3038525|p38-alpha": {
+  "status": "pair",
+  "target": "p38-alpha",
+  "drug": "3038525",
+  "structures": 4,
+  "pdb_entries": [
+   "3fc1",
+   "3hp5",
+   "3zsi"
+  ],
+  "pdb": [
+   "3fc1",
+   "3hp5",
+   "3zsi",
+   "3zsi"
+  ],
+  "klifs_positions_contacted": 19,
+  "residues": 19,
+  "residues_union": 20,
+  "first_residue": 30,
+  "last_residue": 171
+ },
+ "3062316|p38-alpha": {
+  "status": "pair",
+  "target": "p38-alpha",
+  "drug": "3062316",
+  "structures": 1,
+  "pdb_entries": [
+   "3lfa"
+  ],
+  "pdb": [
+   "3lfa"
+  ],
+  "klifs_positions_contacted": 15,
+  "residues": 15,
+  "residues_union": 15,
+  "first_residue": 30,
+  "last_residue": 167
+ },
+ "5291|p38-alpha": {
+  "status": "pair",
+  "target": "p38-alpha",
+  "drug": "5291",
+  "structures": 2,
+  "pdb_entries": [
+   "3hec"
+  ],
+  "pdb": [
+   "3hec",
+   "3hec"
+  ],
+  "klifs_positions_contacted": 20,
+  "residues": 20,
+  "residues_union": 20,
+  "first_residue": 30,
+  "last_residue": 169
+ },
+ "p38-alpha": {
+  "status": "placed",
+  "klifs": [
+   "p38a"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q16539",
+  "drugs_crystallised": 6
+ },
+ "156422|p38-beta": {
+  "status": "pair",
+  "target": "p38-beta",
+  "drug": "156422",
+  "structures": 1,
+  "pdb_entries": [
+   "8ygw"
+  ],
+  "pdb": [
+   "8ygw"
+  ],
+  "klifs_positions_contacted": 25,
+  "residues": 25,
+  "residues_union": 25,
+  "first_residue": 30,
+  "last_residue": 169
+ },
+ "644241|p38-beta": {
+  "status": "pair",
+  "target": "p38-beta",
+  "drug": "644241",
+  "structures": 2,
+  "pdb_entries": [
+   "3gp0"
+  ],
+  "pdb": [
+   "3gp0",
+   "3gp0"
+  ],
+  "klifs_positions_contacted": 25,
+  "residues": 25,
+  "residues_union": 25,
+  "first_residue": 30,
+  "last_residue": 169
+ },
+ "p38-beta": {
+  "status": "placed",
+  "klifs": [
+   "p38b"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "Q15759",
+  "drugs_crystallised": 2
+ },
+ "p38-delta": {
+  "status": "placed",
+  "klifs": [
+   "p38d"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "O15264",
+  "drugs_crystallised": 0
+ },
+ "p38-gamma": {
+  "status": "placed",
+  "klifs": [
+   "p38g"
+  ],
+  "domain_rule": null,
+  "rejected": [],
+  "positions_placed": 84,
+  "accession": "P53778",
+  "drugs_crystallised": 0
+ }
+}

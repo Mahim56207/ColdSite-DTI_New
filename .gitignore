@@ -50,3 +50,8 @@ results/*DUMMY_PLACEHOLDER*
 
 baselines/**/data/
 baselines/**/dataset/
+
+# Raw KLIFS API caches (re-fetchable; the per-pair provenance that matters is in
+# data/<dataset>_drug_sites_report.json, which records every PDB entry used)
+data/klifs_structures.json
+data/klifs_ligands.json

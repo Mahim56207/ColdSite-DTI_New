@@ -62,15 +62,34 @@ def _run(verify_cell, tmp_path, inp):
     results = tmp_path / "results"
     results.mkdir()
     scope = {"DATASET": "davis", "INPUT_ROOT": str(inp.parent), "RESULTS": str(results),
-             "os": os}
+             "os": os, "MODELS": ["hyperattentiondti", "moltrans"], "RUN_STAGE3": True,
+             "AUDIT_MODELS": ["coldsite_dti", "hyperattentiondti", "moltrans"],
+             "ALL_MODELS": ["deepdta", "coldsite_dti", "hyperattentiondti", "moltrans"]}
     exec(verify_cell, scope)
-    return results
+    return results, scope
 
 
-def test_the_verified_grid_is_accepted_and_copied(verify_cell, tmp_path):
+def test_the_verified_grid_is_accepted_and_linked(verify_cell, tmp_path):
     table = _expected(verify_cell)
-    results = _run(verify_cell, tmp_path, _fixture_inputs(tmp_path, table))
+    results, scope = _run(verify_cell, tmp_path, _fixture_inputs(tmp_path, table))
     assert len(os.listdir(results)) == 96                 # 48 results files + 48 checkpoints
+    assert scope["PRESENT"] == ["deepdta", "coldsite_dti", "hyperattentiondti", "moltrans"]
+
+
+def test_nothing_attached_says_so_instead_of_listing_every_cell(verify_cell, tmp_path):
+    """What a first run looks like when Add Input was forgotten: the old message buried
+    the cause under 48 'no results file found' lines."""
+    (tmp_path / "input").mkdir()
+    with pytest.raises(AssertionError, match="nothing to analyse"):
+        _run(verify_cell, tmp_path, tmp_path / "input" / "none")
+
+
+def test_deepdta_is_optional_because_it_is_only_the_accuracy_anchor(verify_cell, tmp_path):
+    table = {k: v for k, v in _expected(verify_cell).items() if k[0] != "deepdta"}
+    results, scope = _run(verify_cell, tmp_path, _fixture_inputs(tmp_path, table))
+    assert len(os.listdir(results)) == 72                 # the other three models
+    assert "deepdta" not in scope["PRESENT"]
+    assert scope["AUDIT_MODELS"] == ["coldsite_dti", "hyperattentiondti", "moltrans"]
 
 
 def test_a_seed_that_trained_as_another_seed_is_refused(verify_cell, tmp_path):

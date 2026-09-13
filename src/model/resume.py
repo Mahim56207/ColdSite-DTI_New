@@ -62,12 +62,15 @@ def capture_rng() -> dict:
 
 
 def restore_rng(state: dict) -> None:
+    # PyTorch takes generator states only as CPU ByteTensors, CUDA's included. A state
+    # loaded with map_location="cuda" fails here ("RNG state must be a
+    # torch.ByteTensor") -- first seen resuming on a Colab T4, 2026-09-13.
     random.setstate(state["python"])
     np.random.set_state(state["numpy"])
-    torch.set_rng_state(state["torch"])
+    torch.set_rng_state(state["torch"].cpu())
     cuda = state.get("cuda")
     if cuda is not None and torch.cuda.is_available() and len(cuda) == torch.cuda.device_count():
-        torch.cuda.set_rng_state_all(cuda)
+        torch.cuda.set_rng_state_all([s.cpu() for s in cuda])
 
 
 def save(path: str, state: dict) -> None:
@@ -126,7 +129,10 @@ class Resumable:
     def begin(self, model, optimizer, selector, scheduler=None, scaler=None):
         self._parts = {"model": model, "optimizer": optimizer, "selector": selector,
                        "scheduler": scheduler, "scaler": scaler}
-        state = load(self.path, self.device)
+        # Loaded onto the CPU whatever the training device: load_state_dict copies the
+        # weights onto the model's device and moves the optimiser state to its
+        # parameters', while the RNG states must stay CPU tensors (restore_rng).
+        state = load(self.path, "cpu")
         if state is None:
             return 1
         check_compatible(state["args"], self.args, self.keys)

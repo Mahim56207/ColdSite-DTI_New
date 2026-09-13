@@ -86,7 +86,7 @@ Supervisor Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinf
 **To do**
 - ColdSite-DTI + HyperAttentionDTI binary on DAVIS (running on Kaggle, account 1).
 - MolTrans binary on DAVIS: seed 1 valid; seeds 2–3 retraining on account 2 (seed bug).
-  KIBA: one account, run order in §4's action plan.
+  KIBA: six accounts, `KIBA_RUN` K1–K6 (§4).
 - Once every cell above is trained, per seed: `run_faithfulness` → `run_ladder`; then
   `run_audit` (Holm); `run_control` ± `--exclude-cotransport-ions`. Automatic in the DAVIS
   36-grid's own §11 for its three models only — MolTrans and KIBA need the same three
@@ -119,12 +119,11 @@ Supervisor Dr. Chandra Mohan Dasari. Venue: Bioinformatics / Briefings in Bioinf
    MolTrans; `positive_control` again under the policy. Then Results §4–6 for all subjects.
 4. *Merge `kiba-resume` into `main`* (DAVIS training is over, so the rule against changing
    training code mid-grid no longer applies); re-run both test suites.
-5. *KIBA on ONE Kaggle account* (one account per person — the six-account `KIBA_RUN` split
-   below assumed teammates' accounts and no longer applies): run K4, K1, K5, K2, K6, K3 in
-   that order on the same notebook (`KIBA_RUN` changes per run, own restore dataset per
-   run), so a complete seed 1 of all four models exists after ~2 weeks. ~165–235 GPU-h with
-   AMP ≈ 60 GPU-h/week per account ⇒ ~4 weeks; Colab (with resume) as overflow. Before each
-   start: the checks in memory `verify-before-gpu-runs`.
+5. *KIBA on six Kaggle accounts* (the user has six accounts of known members, with their
+   agreement — confirmed 2026-09-13): each account sets only `KIBA_RUN = 'K1'`…`'K6'` in
+   `kaggle_binary_grid.ipynb` on branch `kiba-resume` (or `main` after the merge); never two
+   accounts on the same K-run; own restore dataset per account. ~19–24 h per account,
+   2–3 commits. Before each start: the checks in memory `verify-before-gpu-runs`.
 6. *Writing, in parallel:* Discussion, Abstract, Introduction results; figures; Limitations
    (DAVIS sequence issues, AMP caveat, cold-pair validation leak).
 7. *Machine:* the Mac's disk was 97% full and the repo is in iCloud-synced ~/Documents —
@@ -178,8 +177,7 @@ account on KIBA.**
   Next: the user sends the first two `STATUS` lines (to estimate epochs/hour and whether
   12 cells need one commit or two) and the first `✓` test AUROC (believable DAVIS
   `random` ≈ 0.85–0.93; ≥ 0.98 means leakage, ≈ 0.5 means it isn't learning).
-- **KIBA plan — six accounts (2026-09-12; SUPERSEDED 2026-09-13 by the one-account order in
-  the action plan above — the `KIBA_RUN` presets still define the six runs).** In
+- **KIBA plan — six accounts (2026-09-12; reconfirmed 2026-09-13).** In
   `kaggle_binary_grid.ipynb` on branch `kiba-resume` (commit `03ab140`), each account sets
   only `KIBA_RUN` = one of `K1`…`K6`, which fills in `DATASET='kiba'`, all 4 splits,
   `BRANCH='kiba-resume'`, `AMP=True`, and:

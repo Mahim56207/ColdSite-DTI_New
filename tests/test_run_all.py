@@ -27,7 +27,8 @@ def _cfg(tmp, **over):
            "seeds": [1, 2, 3], "checkpoint_dir": str(tmp), "results_dir": str(tmp),
            "split_root": "data/splits", "ground_truth": "gt.json",
            "out_dir": str(tmp / "out"), "max_pairs": 200, "device": "cpu",
-           "volume_control_dir": None}
+           "volume_control_dir": None,
+           "clean_accuracy": str(tmp / "no_clean_accuracy.json")}
     cfg.update(over)
     os.makedirs(cfg["out_dir"], exist_ok=True)
     return cfg
@@ -189,3 +190,25 @@ def test_summary_never_calls_an_unreadable_curve_chance(tmp_path):
                                                   cfg["models"], cfg["seeds"]))
     assert "curve not monotone" in page
     assert "at or below chance" not in page
+
+
+def _main(tmp, monkeypatch, *extra):
+    import sys
+    monkeypatch.setattr(sys, "argv", ["run_all", "--dataset", "davis", "--models", "hyperattentiondti",
+                                      "--seeds", "1", "--checkpoint-dir", str(tmp),
+                                      "--out-dir", str(tmp / "out"), "--steps", "inventory", *extra])
+    run_all.main()
+
+
+def test_an_unfinished_cell_stops_the_analysis(tmp_path, monkeypatch):
+    """A checkpoint with no results file is a cut-off cell; scoring it would put a
+    half-trained model in the paper (HyperAttentionDTI cold-drug seed 1, 2026-09-14)."""
+    _cell(tmp_path, "hyperattentiondti", "cold_drug", 1)                 # checkpoint, no results
+    with pytest.raises(SystemExit, match="no results file"):
+        _main(tmp_path, monkeypatch)
+    _main(tmp_path, monkeypatch, "--allow-interrupted")                  # the override still works
+
+
+def test_a_finished_grid_passes_the_guard(tmp_path, monkeypatch):
+    _cell(tmp_path, "hyperattentiondti", "cold_drug", 1, auroc=0.7)
+    _main(tmp_path, monkeypatch)

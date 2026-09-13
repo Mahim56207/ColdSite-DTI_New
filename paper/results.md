@@ -113,12 +113,13 @@ cold-pair difficulty means here. The control was run for ColdSite-DTI only.
 ## 3. The plausibility metric can see a real signal
 
 Before any model is scored, the metric is scored against explanations of known quality
-(`results/positive_control_davis.md`): synthetic attention that places a fraction *d*
-of the true binding sites first. Precision@10 rises with *d* at every level, the oracle
-(*d* = 1) reaches the ceiling (0.990–0.992), and a dose of **2% of the sites is detected
-as significant at all four levels**, including cold-target and cold-pair with 79 proteins
-each. A model whose precision@10 sits at chance is therefore a real null, not a test too
-weak to see anything. On a planted model whose prediction depends only on the annotated
+(`results/positive_control_davis.md`, recomputed 2026-09-14 under the sequence policy of
+§1b): synthetic attention that places a fraction *d* of the true binding sites first.
+Precision@10 rises with *d* at every level, the oracle (*d* = 1) reaches the ceiling
+(0.989–0.991), and a dose of **2% of the sites is detected as significant at all four
+levels** — on the policy's own protein sets, 349 proteins at random and cold-drug and only
+68 and 72 at cold-target and cold-pair. A model whose precision@10 sits at chance is
+therefore a real null, not a test too weak to see anything. On a planted model whose prediction depends only on the annotated
 sites, the faithfulness measure separates the oracle (comprehensiveness delta ≈ +10.2)
 from no signal (≈ 0) at every level.
 
@@ -152,8 +153,15 @@ uses the residues it points at, at every split level.
 **Against UniProt's annotated residues: at chance.** Mean precision@10 is 0.013–0.022
 against a chance of 0.019–0.020 and a ceiling of 0.99; no level exceeds chance on average.
 The only cells significant before correction are cold-drug seeds 1 and 2 (0.027, p = 0.008
-and 0.010), which seed 3 does not reproduce (0.011, p = 1.0). *[Re-read against the
-positive control recomputed under the policy (§3) — pending.]*
+and 0.010), which seed 3 does not reproduce (0.011, p = 1.0).
+
+Read against the dose curve of §3, which was recomputed on these very protein sets, every
+one of the 12 cells is worth an **equivalent dose of 0.006 or less** — the fraction of true
+sites a synthetic explanation would have to rank first to match it — and 7 of the 12 sit at
+or below chance (`results/positive_control_davis.md`, "Audited models, read against the
+curve"). The same test detects a dose of 0.02 at every level, so this is a null with
+resolution to spare, not an underpowered test: whatever ColdSite-DTI's attention carries,
+it is worth under 1% of the annotated residues being ranked first.
 
 **Against the KLIFS ATP pocket: above chance, mostly by finding the domain.** The same
 checkpoints scored against KLIFS's 85-residue ATP pocket (Methods §3.6):

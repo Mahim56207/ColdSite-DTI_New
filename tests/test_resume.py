@@ -144,6 +144,19 @@ def test_the_resume_file_is_removed_once_the_cell_is_done(tmp_path):
     assert os.path.exists(ckpt), "clearing the resume file must keep the checkpoint"
 
 
+def test_a_gpu_run_reads_its_resume_file_onto_the_cpu(tmp_path, monkeypatch):
+    """Regression: on a Colab T4 the resume file was loaded with map_location="cuda",
+    and torch.set_rng_state refused the CUDA tensor. The weights may go anywhere;
+    the file must be read onto the CPU."""
+    seen = []
+    monkeypatch.setattr(resume, "load", lambda path, device: seen.append(device))
+    model = nn.Linear(2, 1)
+    run = resume.Resumable(_prepare(_ckpt(tmp_path)), "cuda", SETTINGS, KEYS)
+    run.begin(model, torch.optim.SGD(model.parameters(), lr=0.1),
+              CheckpointSelector(patience=3, min_epochs=1))
+    assert seen == ["cpu"]
+
+
 def test_the_save_is_atomic(tmp_path):
     path = str(tmp_path / "x_resume.pt")
     resume.save(path, {"a": 1})

@@ -19,8 +19,8 @@ that rate differs.
 |---|---|---|---|---|
 | DeepDTA (anchor) | 0.929 ± 0.002 | 0.907 ± 0.003 | 0.692 ± 0.044 | 0.728 ± 0.035 |
 | ColdSite-DTI (ours) | 0.924 ± 0.001 | 0.857 ± 0.011 | 0.721 ± 0.008 | 0.624 ± 0.099 |
-| HyperAttentionDTI | *[PENDING]* | 0.916 (seeds 1–2) *[PENDING s3]* | *[PENDING]* | *[PENDING]* |
-| MolTrans | 0.922 (seed 1) | 0.868 (seed 1) | 0.668 (seed 1) | 0.590 (seed 1) |
+| HyperAttentionDTI | 0.937 ± 0.005 | 0.915 ± 0.001 | *[PENDING]* | 0.694 ± 0.038 |
+| MolTrans | 0.923 ± 0.002 | 0.874 ± 0.005 | 0.685 ± 0.020 | 0.569 ± 0.021 |
 
 | | random | cold-target | cold-drug | cold-pair |
 |---|---|---|---|---|
@@ -29,24 +29,34 @@ that rate differs.
 | positive rate (AUPRC chance) | 0.077 | 0.075 | 0.060 | 0.057 |
 | DeepDTA AUPRC | 0.631 ± 0.013 | 0.615 ± 0.004 | 0.199 ± 0.045 | 0.206 ± 0.012 |
 | ColdSite-DTI AUPRC | 0.612 ± 0.010 | 0.464 ± 0.047 | 0.201 ± 0.035 | 0.132 ± 0.028 |
+| HyperAttentionDTI AUPRC | 0.669 ± 0.021 | 0.644 ± 0.014 | *[PENDING]* | 0.187 ± 0.028 |
+| MolTrans AUPRC | 0.616 ± 0.004 | 0.532 ± 0.010 | 0.133 ± 0.021 | 0.098 ± 0.024 |
 
 **Table R1b.** The cold levels on targets **unseen by sequence** (§1b; option A): the same
-checkpoints re-scored by their own trainers' test passes, which reproduce all 14 recorded
-AUROCs to four decimals (`results/clean_accuracy_davis.md`). Cold-target keeps 5,168 of
-5,984 test rows, cold-pair 1,001 of 1,144.
+checkpoints re-scored by their own trainers' test passes, which reproduce all 24 recorded
+AUROCs (`results/clean_accuracy_davis.md`; to four decimals for the three deterministic
+models, within the range of five passes for MolTrans, which keeps dropout on at inference
+as published). Cold-target keeps 5,168 of 5,984 test rows, cold-pair 1,001 of 1,144.
 
 | model | cold-target, all rows | cold-target, unseen | cold-pair, all rows | cold-pair, unseen |
 |---|---|---|---|---|
-| DeepDTA | 0.908 ± 0.003 | **0.884 ± 0.003** | 0.728 ± 0.035 | **0.749 ± 0.044** |
+| DeepDTA | 0.907 ± 0.003 | **0.884 ± 0.003** | 0.728 ± 0.035 | **0.749 ± 0.044** |
 | ColdSite-DTI | 0.857 ± 0.011 | **0.835 ± 0.015** | 0.624 ± 0.099 | **0.607 ± 0.128** |
-| HyperAttentionDTI | 0.916 (s1–2) | **0.894** (s1–2) | *[PENDING]* | *[PENDING]* |
+| HyperAttentionDTI | 0.915 ± 0.001 | **0.893 ± 0.001** | 0.694 ± 0.038 | **0.713 ± 0.050** |
+| MolTrans | 0.874 ± 0.006 | **0.833 ± 0.008** | 0.566 ± 0.022 | **0.530 ± 0.024** |
 
-Leakage inflated cold-target by about 0.02 AUROC for every model (every seed moves down
-except ColdSite-DTI seed 2, −0.002). At cold-pair the 11 leaked targets were the harder
-ones for DeepDTA (+0.021) and mixed for ColdSite-DTI, whose seed 2 falls to 0.510 —
-chance — on unseen proteins. The unseen-by-sequence values are the ones the paper reports
-for the cold levels; the all-rows values are kept for comparison with work that uses the
-same DAVIS files.
+Leakage inflated cold-target for **every one of the four models**, by 0.021–0.023 for
+DeepDTA, ColdSite-DTI and HyperAttentionDTI and by **0.041 for MolTrans** — 11 of the 12
+seeds move down (ColdSite-DTI seed 2, −0.002, is the exception). At cold-pair there is no
+consistent effect: the 11 leaked targets were the harder ones for DeepDTA (+0.021) and
+HyperAttentionDTI (+0.019) and the easier ones for MolTrans (−0.037) and ColdSite-DTI
+(−0.017, its seed 2 falling to 0.510 — chance — on unseen proteins). The
+unseen-by-sequence values are the ones the paper reports for the cold levels; the all-rows
+values are kept for comparison with work that uses the same DAVIS files.
+
+That the effect is largest for MolTrans, the model with by far the most parameters here,
+is what memorising a training sequence would predict, but four models is not a sample:
+we report it as an observation, not a trend.
 
 **The levels are not a ladder of increasing difficulty.** On DAVIS an unseen target costs
 little (DeepDTA 0.929 → 0.884 on targets unseen by sequence) and an unseen drug costs a
@@ -69,12 +79,18 @@ selection floor: validation loss on cold-pair's 264 validation pairs was lowest 
 immediately. Random ran long by comparison (best epochs 40, 40, 32). Every cold-pair
 result below is therefore quoted with its spread, never from one seed.
 
-*[PENDING: HyperAttentionDTI and MolTrans rows; one sentence on whether the published
-models keep their accuracy at cold-target and cold-pair.]*
+**The two published models do not degrade alike.** HyperAttentionDTI is the most accurate
+model at every level it has (random 0.937, cold-target 0.893 unseen — the best cold-target
+figure in the table) and holds up at cold-pair (0.713 unseen). MolTrans is close to the
+others on random (0.923) but loses more at every cold level, and at cold-pair it reaches
+**0.530 ± 0.024 on unseen proteins — chance**, with AUPRC 0.098 against a 0.057 positive
+rate. Whatever its attention means at cold-pair, it is attached to a model that cannot
+predict there; the audit reports that beside its explanation scores, because an
+explanation of a prediction no better than chance is not an explanation of anything.
 
-*MolTrans: seed 1 only. The first grid's seeds 2 and 3 trained as seed 1 (the vendored
-`models.py` reseeds torch on import; fixed 2026-09-13) and are being retrained; until
-then MolTrans has no spread and no claim rests on it.*
+*HyperAttentionDTI cold-drug (3 cells) is still training. MolTrans's three seeds are the
+retrained ones: the first grid's seeds 2 and 3 trained as seed 1 (the vendored `models.py`
+reseeds torch on import; fixed 2026-09-13), and only the corrected cells are used here.*
 
 ## 1b. DAVIS's sequences: leakage and pseudo-variants
 
@@ -91,6 +107,37 @@ the three. **Decided 2026-09-13: option A** (Methods §2.4) — cold-level accur
 by sequence (Table R1b), explanation metrics without the seen-by-sequence and pocketless
 targets and counting one protein per distinct sequence; nothing retrained. The leak into
 cold-pair's validation set, which influenced checkpoint selection, is a limitation.
+
+**What the leak is worth, measured by retraining without it.** Re-scoring changes which
+rows are *measured*; it cannot remove what the model *learned*. So the cold splits were
+rebuilt with the leak removed — no sequence shared between training, validation and test,
+the test file untouched — beside a control that keeps the leak at the same row count and
+the same number of positives (`src/data/seqclean_splits.py`). DeepDTA trained on both,
+three seeds each; all three arms are scored on the one test set they share
+(`results/leakage_retrain_davis.md`, `src/evaluation/leakage_retrain.py`).
+
+**Table R1c.** DeepDTA test AUROC, mean ± sd over seeds 1–3.
+
+| level | arm | training rows | leak | test AUROC |
+|---|---|---|---|---|
+| cold-target | original | 21,080 | in | 0.907 ± 0.003 |
+| | volume-matched control | 17,748 | in | 0.888 ± 0.011 |
+| | sequence-clean | 17,748 | out | **0.869 ± 0.013** |
+| cold-pair | original | 15,190 | in | 0.728 ± 0.035 |
+| | volume-matched control | 12,936 | in | 0.666 ± 0.027 |
+| | sequence-clean | 12,936 | out | **0.686 ± 0.018** |
+
+At cold-target the published 0.907 is **0.019 smaller training set + 0.019 leakage**: the
+control minus the clean arm is −0.005, −0.015 and −0.037 in seeds 1, 2 and 3 — the same
+direction in every seed, mean **0.019**. That is the figure re-scoring estimated
+independently (0.023 for DeepDTA, Table R1b) by a method with nothing in common with this
+one, which is the reason we report both. At cold-pair removing the leak costs nothing (the
+clean arm is 0.021 *higher*, in all three seeds, inside the seed spread): cold-pair's
+difficulty is its unseen drugs, as §2 finds, not its leaked proteins.
+
+Retraining every model this way was not affordable; DeepDTA, the anchor, is the one
+retrained, and the agreement between the two methods on it is what licenses using the
+re-scored values for the other three.
 
 ## 2. The cold-pair drop is mostly task, not volume
 

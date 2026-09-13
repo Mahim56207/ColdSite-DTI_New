@@ -242,10 +242,12 @@ def main():
         print(f"already done, skipping -> {out_path}")
         return
 
+    BIN_config_DBPE, BIN_Interaction_Flat, drug_encoder, protein_encoder = _import_vendored()
+    # Seed AFTER the import. The vendored models.py runs torch.manual_seed(1) and
+    # np.random.seed(1) when it is imported, which silently replaced --seed: the DAVIS
+    # grid's seeds 1, 2 and 3 all trained as seed 1 (identical AUROCs, 2026-09-13).
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
-
-    BIN_config_DBPE, BIN_Interaction_Flat, drug_encoder, protein_encoder = _import_vendored()
     encoders = (drug_encoder, protein_encoder)
     threshold = BINARY_THRESHOLD[args.dataset]
 

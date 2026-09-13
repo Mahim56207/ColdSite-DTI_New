@@ -3,7 +3,7 @@
 Drafted 2026-09-13 from the cells finished so far. Every number below is read from a
 trained cell's `_results.json` (DAVIS binary grid, Kaggle account 1, commit v1 of
 `kaggle_davis_binary_grid36.ipynb`) or from a file named beside it. *[PENDING]* marks
-what waits for HyperAttentionDTI (10 cells training), MolTrans (1 cell training), the
+what waits for HyperAttentionDTI (10 cells training), MolTrans seeds 2–3 (8 cells to retrain), the
 audit table and KIBA. All values are test-set means ± sample standard deviation over
 three training seeds; a difference smaller than the spread is not reported as one.
 
@@ -20,7 +20,7 @@ that rate differs.
 | DeepDTA (anchor) | 0.929 ± 0.002 | 0.907 ± 0.003 | 0.692 ± 0.044 | 0.728 ± 0.035 |
 | ColdSite-DTI (ours) | 0.924 ± 0.001 | 0.857 ± 0.011 | 0.721 ± 0.008 | 0.624 ± 0.099 |
 | HyperAttentionDTI | *[PENDING]* | 0.916 (seeds 1–2) *[PENDING s3]* | *[PENDING]* | *[PENDING]* |
-| MolTrans | *[PENDING]* | *[PENDING]* | *[PENDING]* | *[PENDING]* |
+| MolTrans | 0.922 (seed 1) | 0.868 (seed 1) | 0.668 (seed 1) | 0.590 (seed 1) |
 
 | | random | cold-target | cold-drug | cold-pair |
 |---|---|---|---|---|
@@ -52,6 +52,10 @@ result below is therefore quoted with its spread, never from one seed.
 
 *[PENDING: HyperAttentionDTI and MolTrans rows; one sentence on whether the published
 models keep their accuracy at cold-target and cold-pair.]*
+
+*MolTrans: seed 1 only. The first grid's seeds 2 and 3 trained as seed 1 (the vendored
+`models.py` reseeds torch on import; fixed 2026-09-13) and are being retrained; until
+then MolTrans has no spread and no claim rests on it.*
 
 ## 2. The cold-pair drop is mostly task, not volume
 

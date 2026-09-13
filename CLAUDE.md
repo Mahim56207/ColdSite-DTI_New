@@ -112,6 +112,17 @@ account on KIBA.**
   datasets elsewhere. Same for every account and the KIBA runs.
   Upload only `grid36_results.zip` to the dataset: the full Output also holds the repo
   clone `ColdSite-DTI_New/`, whose regression files the restore would copy in.
+- **MolTrans seed bug (found 2026-09-13):** account 2 finished 12/12, but every split's
+  three seeds gave the identical AUROC (random 0.922, cold-drug 0.668, cold-target 0.868,
+  cold-pair 0.590). The vendored `baselines/MolTrans/models.py` runs
+  `torch.manual_seed(1)` on import, after the trainer had seeded — every `--seed` trained
+  as seed 1. Fixed in `train_moltrans.py` on `main` and `kiba-resume` (seed after the
+  import; `tests/test_train_moltrans.py`). Verified: fixed seed 1 == old seed 1, weights
+  and metrics bit for bit, so the **seed-1 cells stand**; the **seed-2/3 files in account
+  2's v1/v2 outputs are invalid — never merge them.** Retrain: account 2,
+  `kaggle_binary_grid.ipynb`, `SEEDS = [2, 3]`, `RESTORE_FROM = None` (restoring would
+  bring the invalid files back and `--skip-if-done` would skip the cells), 8 cells ≈ one
+  commit.
 - **Account 2 — MolTrans, DAVIS first:** new notebook `notebooks/kaggle_binary_grid.ipynb`
   (built and tested locally 2026-09-12; trainer is `src/model/train_moltrans.py`), Kaggle
   notebook `mahim234/notebook51d23b99dd`, version 1 (scriptVersionId 349227830) started

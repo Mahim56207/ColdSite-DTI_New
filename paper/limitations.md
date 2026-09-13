@@ -23,7 +23,11 @@ that binds outside the annotated pocket, an allosteric kinase inhibitor for exam
 scored as if it bound the ATP site. Annotation is also incomplete: a residue without an
 annotation is not known to be uninvolved, so precision@k is a lower bound on how often
 attention falls on functionally relevant residues. Mutant and phosphorylated DAVIS
-variants (63 identifiers) are scored against the sites of their wild-type entry.
+variants (63 identifiers) are scored against the sites of their wild-type entry. The
+second ground truth, the KLIFS ATP pocket (Methods §3.6), is structure-derived and uniform
+across kinases, which answers UniProt's sparsity and unevenness, but it is still defined
+per protein rather than per ligand, and it exists only for kinases, so the non-kinase
+control is scored against UniProt alone.
 
 **One split per level, three training seeds.** Each level has a single fixed split; the
 three seeds vary initialisation and batch order only, so reported spreads exclude
@@ -32,12 +36,27 @@ are nondeterministic; an identical re-run moved single seeds by up to 0.058 CI),
 why only split means with their spread are reported.
 
 **Small held-out sets on the cold levels.** DAVIS has 68 drugs, so its cold-drug level
-holds out only 13. Its cold-target and cold-pair test sets contain 79 proteins with
-usable sites (KIBA: 42 and 41), against 402 (KIBA: 212) on the random level, so the cold
-levels' plausibility estimates are the least precise in the grid. The positive control
+holds out only 13. After the sequence policy (below), its cold-target and cold-pair test
+sets contain 68 and 72 distinct proteins with usable sites (KIBA: 42 and 41), against 349
+(KIBA: 212) on the random level, so the cold levels' plausibility estimates are the least
+precise in the grid. The positive control
 shows the permutation test still detects an explanation that ranks 2% of true sites
 first at these sizes, so a result at chance there is a null rather than a lack of power;
 it does not make the estimates as precise as the random level's.
+
+**DAVIS's sequence file.** DeepDTA's DAVIS protein file, used here as in most DTI
+benchmarks, gives all 54 variants that have a wild-type entry exactly the wild-type
+sequence, so the 442 targets are 379 distinct sequences and a mutant cannot be told from
+its wild type by any sequence model; ten targets' sequences hold few or none of the ATP
+pocket's residues (RET and its three mutants are its extracellular residues 1–430). As a
+result 13.6% of cold-target and 12.5% of cold-pair test rows are proteins seen in
+training under another name. We score the cold levels on targets unseen by sequence,
+count one protein per sequence and drop the pocketless targets (Methods §2.4); the
+all-rows accuracy is reported beside it. Two effects cannot be removed without
+retraining: 13.6% of cold-pair's validation rows are seen by sequence, which influenced
+which epoch was kept, and the models learned from duplicated sequences. Results on the
+same file elsewhere in the literature carry the same leakage. KIBA has none of these
+properties.
 
 **The 1,000-residue window.** Sequences are truncated to 1,000 residues and sites beyond
 the window are excluded; 16 DAVIS and 9 KIBA targets lose every site this way and leave
@@ -88,7 +107,22 @@ only explanation method examined; gradient- and perturbation-based attributions,
 the same models could be given, are outside this paper's question, which concerns the
 claims the published models make for their own attention.
 
-**Compute-driven choices on KIBA.** *[PENDING: KIBA scope — all four levels, or random
-and cold-drug only; and whether KIBA cells are trained with mixed precision. If mixed
-precision is used, state it here with the check that it reproduces full-precision
-accuracy within the seed spread on DAVIS.]*
+**What the non-kinase control can separate.** The control arm's binding sites differ from
+kinase ATP sites in composition as well as family: they are histidine-rich (8.8× the
+background), many of them metal sites, where kinase sites are glycine-, aspartate- and
+lysine-rich. ColdSite-DTI's attention prefers histidine (3–15× enriched), and most of its
+above-chance non-kinase precision is recovered by shuffling attention among residues of
+the same amino acid. A kinase–non-kinase gap therefore mixes the protein family with the
+sites' amino-acid composition; the same-residue null is reported beside it for every
+model so the two can be told apart.
+
+**Compute-driven choices on KIBA.** All four levels of KIBA are trained, but in mixed
+precision (float16 autocast with loss scaling), which ran 1.3–2.3× faster on the T4s
+available. On DAVIS HyperAttentionDTI cold-pair, three seeds each, mixed precision moved
+test AUROC by −0.013 and precision@10 by +0.001, both within the full-precision seed
+spread (0.038 and 0.012; `results/amp_validation_davis.md`); three seeds rule out only a
+large effect, and the two arms also differed in PyTorch version. Every KIBA cell uses
+mixed precision, so KIBA's models are compared under one protocol; comparisons between
+DAVIS (full precision) and KIBA carry the caveat. KIBA cells longer than one 11-hour
+compute session continue from their last finished epoch, restoring model, optimiser,
+scheduler, loss scaler and random-number state.

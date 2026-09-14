@@ -1,128 +1,181 @@
 # Discussion — Limitations (draft)
 
-Draft for the Limitations part of the Discussion. Every limitation here is a property of
-the design or the data, known before the results; none depends on what the grid shows.
-Items marked *[PENDING]* depend on a decision not yet taken. Numbers come from
-`paper/methods_data_and_evaluation.md`, where each is sourced.
+Draft for the Limitations part of the Discussion. Rewritten 2026-09-14 once the DAVIS audit
+was complete: the earlier version was written before the results and four of its items had
+gone stale — it declared gradient attributions out of scope, expected the readout choice not
+to matter, described the ground truth as protein-level only, and spoke of KIBA as trained.
+Each is corrected below. Numbers come from `paper/results.md` and
+`paper/methods_data_and_evaluation.md`, where each is sourced; *[PENDING]* marks what a
+run still has to settle.
 
 ---
 
-**Kinase-only training data.** DAVIS and KIBA are kinase panels (DAVIS: 429 kinase,
-0 non-kinase, 13 unclassified targets; KIBA: 227, 0, 2), so no within-dataset comparison
-can separate "attention finds binding sites" from "attention finds the ATP pocket every
-training protein shares". The non-kinase control addresses this by transfer to 60
-BindingDB proteins that no model has seen, which is a strictly harder condition than
-cold-target: protein, family and drugs all change at once. A difference between the
-kinase and non-kinase arms therefore bounds the family effect rather than isolating it,
+**Kinase-only training data, and a confound that cannot be stratified.** DAVIS and KIBA are
+kinase panels, and the natural test — compare kinase and non-kinase targets inside a cell —
+is not merely underpowered here but impossible: DAVIS's 6,011 test rows contain 3,307 rows
+our classifier names as kinases and **zero** non-kinase rows, and KIBA is 229 kinases
+(Results §6). No panel size fixes it, because the gate counts non-kinase targets in the cell
+being scored. The substitute is transfer to 60 BindingDB proteins no model has seen, which
+is strictly harder than cold-target: protein, family and drugs all change at once. A
+difference between the arms therefore bounds the family effect rather than isolating it,
 and rests on 60 proteins whose affinities come from different assays.
 
-**Protein-level, not drug-level, ground truth.** The binding sites are UniProt
-annotations of the protein (binding sites, active sites, nucleotide-binding regions), so
-every drug measured against a protein is scored against the same residues. A compound
-that binds outside the annotated pocket, an allosteric kinase inhibitor for example, is
-scored as if it bound the ATP site. Annotation is also incomplete: a residue without an
-annotation is not known to be uninvolved, so precision@k is a lower bound on how often
-attention falls on functionally relevant residues. Mutant and phosphorylated DAVIS
-variants (63 identifiers) are scored against the sites of their wild-type entry. The
-second ground truth, the KLIFS ATP pocket (Methods §3.6), is structure-derived and uniform
-across kinases, which answers UniProt's sparsity and unevenness, but it is still defined
-per protein rather than per ligand, and it exists only for kinases, so the non-kinase
-control is scored against UniProt alone.
+**Three ground truths, none of them per-pair at a usable scale.** UniProt annotations
+(binding, active and nucleotide-binding sites) and the 85-residue KLIFS ATP pocket are both
+defined per protein, so every drug measured against a protein is scored against the same
+residues; a compound binding outside the annotated pocket — an allosteric inhibitor — is
+scored as if it bound the ATP site. Annotation is also incomplete, so precision@k is a lower
+bound. DAVIS's mutant and phosphorylated variants (63 identifiers) are scored against their
+wild-type entry's sites. The third ground truth added here *is* per pair — KLIFS
+interaction fingerprints, the residues a drug is measured to contact in its own co-crystal
+(Results §7) — and its limitation is arithmetic: a pair is scorable only where that exact
+drug was crystallised with that exact kinase, which is 38, 60, 39 and 12 of DAVIS's test
+pairs at the four levels, falling to 3 at cold-pair under the sequence policy. Its
+paired-versus-swapped comparison is read off overlapping intervals rather than off a
+difference of means, and cold-pair is not reported at all. KLIFS covers kinases only, so the
+non-kinase panel is scored against UniProt alone.
 
-**One split per level, three training seeds.** Each level has a single fixed split; the
-three seeds vary initialisation and batch order only, so reported spreads exclude
-split-selection variance. Training is not bit-reproducible on GPU (cuDNN's LSTM kernels
-are nondeterministic; an identical re-run moved single seeds by up to 0.058 CI), which is
-why only split means with their spread are reported.
+**A verdict can depend on how the attention is read out.** The earlier draft of this section
+expected alternative projections to change the numbers "though not the comparison between
+levels". That expectation was wrong and the paper now reports it as a finding rather than a
+caveat (Results §7b): across 25 proteins, an alternative readout's top-ten residues overlap
+the published readout's by **2–12%**, and HyperAttentionDTI's KLIFS agreement at cold-target
+reads 0.367 under a channel-max reduction and 0.081 — below the 0.143 chance level — under a
+receptive-field projection, against 0.186 as published. What survives the choice is the
+residue-level null (every readout of every model stays at chance against annotated residues,
+all inside the seed spread bar HyperAttentionDTI's channel-max cold-drug cell) and MolTrans's
+pocket floor. What does not survive it is any statement about the *size* of the coarse
+signal. Five alternative readouts were tried beside the three published ones; the space of
+defensible readouts is larger, and a reader should treat every pocket-level magnitude in
+this paper as one reading among several.
 
-**Small held-out sets on the cold levels.** DAVIS has 68 drugs, so its cold-drug level
-holds out only 13. After the sequence policy (below), its cold-target and cold-pair test
-sets contain 68 and 72 distinct proteins with usable sites (KIBA: 42 and 41), against 349
-(KIBA: 212) on the random level, so the cold levels' plausibility estimates are the least
-precise in the grid. The positive control
-shows the permutation test still detects an explanation that ranks 2% of true sites
-first at these sizes, so a result at chance there is a null rather than a lack of power;
-it does not make the estimates as precise as the random level's.
+**What faithfulness can say, and the intervention-size problem.** Comprehensiveness replaces
+the top-*k* attended residues with an unknown amino acid and measures the change in
+prediction. The masked input is off the training distribution, which moves predictions for
+reasons unrelated to the explanation; the random-masking control removes that on average but
+not per pair. For a sub-word model the two arms are not even the same size of intervention:
+masking MolTrans's ten most-attended residues changes 48% of its tokens where ten random
+residues change 95%, and its residue-space delta was negative in 11 of 12 cells for that
+reason alone (Results §5b). MolTrans is therefore measured in token space, where both arms
+remove the same number of tokens — which fixes the comparison *within* the model across
+levels and seeds, and makes its deltas **not numerically comparable** with the two
+residue-level models', because the unit differs. Faithfulness uses the first 200 test pairs
+per level at *k* = 10 (75 and 76 at the cold levels under the sequence policy) and
+establishes whether the attended residues are load-bearing, not that they are the model's
+full reason.
 
-**DAVIS's sequence file.** DeepDTA's DAVIS protein file, used here as in most DTI
-benchmarks, gives all 54 variants that have a wild-type entry exactly the wild-type
-sequence, so the 442 targets are 379 distinct sequences and a mutant cannot be told from
-its wild type by any sequence model; ten targets' sequences hold few or none of the ATP
-pocket's residues (RET and its three mutants are its extracellular residues 1–430). As a
-result 13.6% of cold-target and 12.5% of cold-pair test rows are proteins seen in
-training under another name. We score the cold levels on targets unseen by sequence,
-count one protein per sequence and drop the pocketless targets (Methods §2.4); the
-all-rows accuracy is reported beside it. Two effects cannot be removed without
-retraining: 13.6% of cold-pair's validation rows are seen by sequence, which influenced
-which epoch was kept, and the models learned from duplicated sequences. Results on the
-same file elsewhere in the literature carry the same leakage. KIBA has none of these
-properties.
+**One alternative explanation method, with its own choices.** Integrated gradients are used
+to separate "the attention is a poor report" from "the model never learned the site"
+(Results §7c) — a question no attention measurement can answer. IG is itself parameterised:
+the path starts at the padding embedding (the same "no residue here" the masking uses), 32
+steps by the midpoint rule, attributions taken as magnitude over the protein embedding, and
+for ColdSite-DTI's recurrent tower the attribution runs in train mode with every stochastic
+component switched off (dropout modules to eval, the dropout *attributes* of
+`MultiheadAttention` and `RNNBase` zeroed), verified deterministic and agreeing with the
+eval-mode path to 1.5e-8. A different baseline or step count would give different
+magnitudes. One alternative method is enough to show attention under-reports; it is not a
+survey of attribution methods. *[PENDING: IG is reported for HyperAttentionDTI only; the
+ColdSite-DTI and MolTrans re-run settles whether the gap is general or specific to the model
+with the strongest residue-level signal.]*
 
-**The 1,000-residue window.** Sequences are truncated to 1,000 residues and sites beyond
-the window are excluded; 16 DAVIS and 9 KIBA targets lose every site this way and leave
-the evaluation. They are systematically the longest proteins (median final annotated
-residue 1,320 against 312 for retained DAVIS targets), mostly large multidomain receptor
-kinases, so the results should not be extended to proteins much longer than the window.
-MolTrans reads beyond it on long proteins; its explanation is cut to the same window for
-comparability, which scores the model on less than it saw.
+**One split per level, three training seeds, and two kinds of interval.** Each level has a
+single fixed split, and the three seeds vary initialisation and batch order only, so reported
+spreads exclude split-selection variance. Training is not bit-reproducible on GPU (cuDNN's
+LSTM kernels are nondeterministic; an identical re-run moved single seeds by up to 0.058
+CI). Seed spreads and bootstrap intervals over proteins (Results §7d) answer different
+questions and neither substitutes for the other; where a cell is small, the interval is the
+honest one.
+
+**Small held-out sets on the cold levels.** DAVIS has 68 drugs, so cold-drug holds out 13 —
+close to anecdote for a claim about unseen chemistry. After the sequence policy, cold-target
+and cold-pair test sets contain 68 and 72 proteins with usable sites (KIBA: 42 and 41)
+against 349 on random. Measured, that costs less precision than the seed spreads suggest
+(±0.005–0.009 against UniProt at n = 68) and more against KLIFS (±0.020–0.031, five times the
+random level's), so the cold-level *pocket* magnitudes are the loosest numbers in the paper.
+The positive control shows the permutation test still detects an explanation that ranks 2% of
+true sites first at these sizes, so a result at chance there is a null rather than a lack of
+power; it does not make the estimates as precise as the random level's.
+
+**DAVIS's sequence file, and what only retraining could remove.** DeepDTA's DAVIS protein
+file, used here as in most DTI benchmarks, gives all 54 variants with a wild-type entry
+exactly the wild-type sequence, so 442 targets are 379 distinct sequences and no sequence
+model can tell a mutant from its wild type; ten targets' sequences hold few or none of the
+ATP pocket's residues (RET and its three mutants are residues 1–430). 13.6% of cold-target
+and 12.5% of cold-pair test rows are proteins seen in training under another name. We score
+the cold levels on targets unseen by sequence, count one protein per sequence, and drop the
+pocketless targets (Methods §2.4), with all-rows accuracy beside it. Retraining on
+sequence-clean splits puts the leak at **0.019 of cold-target's 0.038 total drop** — but
+that was done for DeepDTA only, the anchor, and the licence for applying the re-scored
+values to the other three models is that the two independent methods agree on DeepDTA
+(0.019 retrained, 0.023 re-scored). Two effects remain: 13.6% of cold-pair's validation rows
+are seen by sequence, which influenced which epoch was kept, and every model learned from
+duplicated sequences. Results on this file elsewhere in the literature carry the same
+leakage. KIBA has none of these properties.
+
+**Single-model controls.** The volume-matched control (Results §2) was run for ColdSite-DTI
+only, so the 12%/88% division of the cold-pair drop between fewer rows and genuine
+difficulty is established for one model and assumed for the others. The leakage retraining
+was run for DeepDTA only, as above. Retraining every model for either control was not
+affordable at the compute available.
+
+**The 1,000-residue window.** Sequences are truncated to 1,000 residues and sites beyond it
+excluded; 16 DAVIS and 9 KIBA targets lose every site and leave the evaluation. They are
+systematically the longest proteins (median final annotated residue 1,320 against 312 for
+retained DAVIS targets), mostly large multidomain receptor kinases, so nothing here should
+be extended to proteins much longer than the window. MolTrans reads beyond it; its
+explanation is cut to the same window for comparability, which scores the model on less than
+it saw.
 
 **A binary task for every model.** Two of the audited models are classifiers in their
-published form, so all models are compared on a binary task at DeepDTA's published
-thresholds (DAVIS pKd ≥ 7.0, KIBA score ≥ 12.1). ColdSite-DTI and DeepDTA were designed for
-regression; their binary results are not their regression results, and a different
-threshold would change the class balance and every AUPRC.
+published form, so all four are compared on a binary task at DeepDTA's published thresholds
+(DAVIS pKd ≥ 7.0, KIBA score ≥ 12.1). ColdSite-DTI and DeepDTA were designed for regression;
+their binary results are not their regression results, and a different threshold would change
+the class balance and every AUPRC.
 
-**Published models retrained under a shared protocol.** Each published model is trained
-with its authors' optimiser, learning rate, batch size and tokeniser, but checkpoints are
-selected by one rule for all (lowest validation loss after a 10-epoch floor, patience 15;
-DeepDTA 10). MolTrans's published script trains a fixed number of epochs and keeps the
-best validation AUROC; HyperAttentionDTI's published class weights are not used. These
-choices make the subjects comparable with one another; they also mean each is the
-published architecture and recipe under our protocol, not the published checkpoint.
-MolTrans's published code keeps dropout active at inference, and its accuracy is
-reported with that noise, as published. DeepDTA runs as a PyTorch port of the original
-Keras implementation.
+**Published models retrained under a shared protocol.** Each published model uses its
+authors' optimiser, learning rate, batch size and tokeniser, but checkpoints are selected by
+one rule for all (lowest validation loss after a 10-epoch floor, patience 15; DeepDTA 10).
+MolTrans's published script trains a fixed number of epochs and keeps the best validation
+AUROC; HyperAttentionDTI's published class weights are not used. Each subject is therefore
+the published architecture and recipe under our protocol, not the published checkpoint.
+MolTrans's published code keeps dropout active at inference and its accuracy is reported
+with that noise, as published (faithfulness holds the RNG fixed per forward pass). DeepDTA
+runs as a PyTorch port of the original Keras implementation. One trainer bug of our own is
+worth recording: the vendored MolTrans module reseeds torch on import, so an earlier run's
+three seeds were one seed three times; the corrected cells are the ones used here.
 
-**Explanation extraction involves choices.** HyperAttentionDTI attends over convolution
-positions, averaged over channels and projected to each window's central residue;
-MolTrans over subword tokens, taken from the protein encoder's last layer, averaged over
-heads and over query tokens, with each token's weight given undivided to every residue it
-spans. Each is a defensible reading of the published attention and each is
-recorded; a different projection or reduction would change the numbers, though not, we
-expect, the comparison between levels. *[Check against the results: if a model sits
-near a threshold, report the alternative projection as a sensitivity analysis.]*
+**What the non-kinase control can separate.** The panel's binding sites differ from kinase
+ATP sites in composition as well as family: histidine-rich (8.8× background), many of them
+metal sites, where kinase sites are glycine-, aspartate- and lysine-rich. ColdSite-DTI's
+attention prefers histidine (3–15× enriched), and most of its above-chance panel precision is
+recovered by shuffling attention among residues of the same amino acid. A kinase–non-kinase
+gap therefore mixes family with amino-acid composition; the same-residue null is reported
+beside it for every model so the two can be told apart. No bootstrap interval was computed
+for the panel arm, whose proteins are a different population (Results §7d).
 
-**What faithfulness can and cannot say.** Comprehensiveness replaces the top-*k*
-attended residues with an unknown amino acid and measures the change in prediction. The
-masked input is off the training distribution, which moves predictions for reasons
-unrelated to the explanation; the random-masking control removes that effect on average
-but not per pair. For MolTrans, masking a residue also changes how its neighbours are
-tokenised. Faithfulness is measured on the first 200 test pairs of each level at *k* = 10,
-and establishes whether the attended residues are load-bearing for the prediction, not
-that they are the model's full reason for it.
+**Scope of the audit.** Three attention-based models are audited (HyperAttentionDTI, MolTrans
+and our own ColdSite-DTI), with DeepDTA as an accuracy anchor. Three published
+attention-based DTI models is a small sample of a large literature, and the models chosen are
+those whose code we could run faithfully; a claim about attention-based DTI interpretability
+in general rests on the argument that these are representative, not on the sample size.
 
-**Scope of the audit.** Three attention-based models are audited (HyperAttentionDTI,
-MolTrans and our own ColdSite-DTI), with DeepDTA as an accuracy anchor. Attention is the
-only explanation method examined; gradient- and perturbation-based attributions, which
-the same models could be given, are outside this paper's question, which concerns the
-claims the published models make for their own attention.
+**Compute-driven choices on KIBA.** *[PENDING: this paragraph describes the planned protocol;
+no KIBA cell is trained yet.]* KIBA is to be trained in mixed precision (float16 autocast
+with loss scaling), which ran 1.3–2.3× faster on the T4s available. On DAVIS
+HyperAttentionDTI cold-pair, three seeds each, mixed precision moved test AUROC by −0.013 and
+precision@10 by +0.001, both inside the full-precision seed spread (0.038 and 0.012;
+`results/amp_validation_davis.md`). Three seeds rule out only a gross effect — they cannot
+show equivalence, and one mixed-precision seed (0.603) sat below every full-precision seed —
+and the two arms also differed in PyTorch version (2.10 against 2.11) and in the device the
+ladder ran on. Because every KIBA cell will use mixed precision, KIBA's models are compared
+under one protocol; only DAVIS-versus-KIBA comparisons carry the caveat. Cells longer than
+one 11-hour compute session continue from their last finished epoch, restoring model,
+optimiser, scheduler, loss scaler and RNG state. *[PENDING: whether the KIBA arm is all four
+levels or random + cold-drug only — a compute decision, and the honest statement of it is
+that the replication's scope was set by available GPU hours, not by the question.]*
 
-**What the non-kinase control can separate.** The control arm's binding sites differ from
-kinase ATP sites in composition as well as family: they are histidine-rich (8.8× the
-background), many of them metal sites, where kinase sites are glycine-, aspartate- and
-lysine-rich. ColdSite-DTI's attention prefers histidine (3–15× enriched), and most of its
-above-chance non-kinase precision is recovered by shuffling attention among residues of
-the same amino acid. A kinase–non-kinase gap therefore mixes the protein family with the
-sites' amino-acid composition; the same-residue null is reported beside it for every
-model so the two can be told apart.
-
-**Compute-driven choices on KIBA.** All four levels of KIBA are trained, but in mixed
-precision (float16 autocast with loss scaling), which ran 1.3–2.3× faster on the T4s
-available. On DAVIS HyperAttentionDTI cold-pair, three seeds each, mixed precision moved
-test AUROC by −0.013 and precision@10 by +0.001, both within the full-precision seed
-spread (0.038 and 0.012; `results/amp_validation_davis.md`); three seeds rule out only a
-large effect, and the two arms also differed in PyTorch version. Every KIBA cell uses
-mixed precision, so KIBA's models are compared under one protocol; comparisons between
-DAVIS (full precision) and KIBA carry the caveat. KIBA cells longer than one 11-hour
-compute session continue from their last finished epoch, restoring model, optimiser,
-scheduler, loss scaler and random-number state.
+**One dataset, at the time of writing.** Every finding above is DAVIS. KIBA is the
+replication and repairs DAVIS's weakest axis (422 held-out drugs at cold-drug against 13),
+but it cannot repair the family confound — it is also kinases — and its cold-target level
+holds out only 45 targets (42 with usable sites), fewer than DAVIS's 68. *[PENDING: if the KIBA arm does not land before submission, the audit is a
+single-dataset result and must say so in the abstract, not only here.]*

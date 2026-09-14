@@ -446,10 +446,11 @@ and ours is above chance there for a reason that has nothing to do with binding.
 *Sensitivity: with cotransport ions included (`_noions` dropped) the panel's chance level
 rises and the same pattern holds; both settings are in
 `results/analysis_davis_policyA/control_*.json`. The panel's 60 proteins are what limit
-this comparison — a cell of 60 carries a precision@10 interval roughly ±0.03 wide (§8),
-so only the ColdSite-DTI cold-pair cell is resolved as above chance individually; the
-claim that the two published models are at chance rests on eight cells agreeing rather
-than on any one of them.*
+this comparison, and no protein-level interval was computed for it (§7d): the ± given here
+are seed spreads, and the closest measured analogue — a 68-protein UniProt cell — is
+±0.005–0.009 wide. Only the ColdSite-DTI cold-pair cell stands clear of the panel's chance
+level by more than its own spread; the claim that the two published models are at chance
+rests on eight cells agreeing rather than on any one of them.*
 
 ## 7. Does attention know *which* drug binds? A per-pair ground truth
 
@@ -491,7 +492,7 @@ two crystallised drugs can be swapped, so both arms are restricted to exactly th
 nothing else.
 
 **Table R6.** precision@10 against crystallographic contacts, mean over seeds 1–3 with
-95% intervals from resampling proteins (§8). Chance is higher than against UniProt's
+95% intervals from resampling proteins (§7d). Chance is higher than against UniProt's
 annotations because a drug touches ~19 residues rather than ~12.
 
 | model | level | n | chance | the pair's own drug | another drug, same pocket |
@@ -513,9 +514,10 @@ arm's interval. Whatever agreement exists with crystallographic contacts is agre
 the pocket those contacts lie in, not with the binding event the model was asked about.
 
 Cold-pair is omitted from the table: three scorable pairs after the sequence policy, where
-two models score 0.000 and the third's interval spans a third of the scale. Twelve pairs
-before the policy is the honest ceiling DAVIS offers at that level, and it is not enough
-to say anything.
+MolTrans scores 0.000 in both arms, ColdSite-DTI 0.011, and HyperAttentionDTI's interval is
+0.067 wide on those three proteins (§7d) — wider than any difference the table above
+reports. Twelve pairs before the policy is the honest ceiling DAVIS offers at that level,
+and it is not enough to say anything.
 
 ## 7b. Is the verdict the model's, or the readout's?
 
@@ -618,6 +620,52 @@ component switched off, verified deterministic); the re-run is ~1 h. A first loo
 proteins put ColdSite-DTI's IG at 0.000 against UniProt residues, so the gap above may be
 specific to HyperAttentionDTI rather than general — which is itself worth reporting, and
 is what the re-run settles.]*
+
+## 7d. How precisely does a cell of this size measure anything?
+
+Every mean above carries a seed spread, which says how much the *training* varied. It does
+not say how precisely a cell measures its protein population — a cell of 68 proteins and a
+cell of 349 can report the same ± and mean very different things. `src/evaluation/bootstrap_ci.py`
+resamples the **proteins** a cell scored, 10,000 times, each protein entering with all of
+its seeds (so seed variation stays inside the interval rather than being averaged away
+first). The mean is the number the ladder already reports.
+
+**Table R9.** 95% percentile intervals, precision@10 (`results/ci_davis.md`). Chance is
+0.019–0.020 against UniProt's annotated residues and 0.136–0.143 against the KLIFS pocket.
+
+| ground truth | model | random (n = 349/350) | cold-drug | cold-target (n = 68/67) | cold-pair (n = 72/71) |
+|---|---|---|---|---|---|
+| UniProt | ColdSite-DTI | 0.015 [0.013–0.018] | 0.022 [0.019–0.024] | 0.017 [0.012–0.023] | 0.013 [0.007–0.020] |
+| | HyperAttentionDTI | **0.034 [0.030–0.038]** | 0.040 [0.037–0.044] | 0.025 [0.018–0.031] | 0.022 [0.016–0.029] |
+| | MolTrans | 0.021 [0.017–0.026] | 0.026 [0.021–0.031] | 0.026 [0.018–0.035] | 0.020 [0.013–0.027] |
+| KLIFS | ColdSite-DTI | 0.219 [0.208–0.229] | 0.299 [0.286–0.312] | 0.243 [0.218–0.268] | 0.271 [0.241–0.303] |
+| | HyperAttentionDTI | 0.242 [0.232–0.253] | 0.193 [0.183–0.203] | 0.186 [0.163–0.209] | 0.185 [0.165–0.206] |
+| | MolTrans | 0.157 [0.143–0.170] | 0.154 [0.142–0.166] | 0.176 [0.150–0.201] | 0.136 [0.114–0.158] |
+
+Three things this settles that the seed spreads could not.
+
+**HyperAttentionDTI's random cell excludes chance; ColdSite-DTI's excludes it downwards.**
+The surviving cell of §5 reads 0.034 [0.030–0.038] against a chance of 0.020 — the whole
+interval above it. ColdSite-DTI at random reads 0.015 [0.013–0.018]: the entire interval
+lies *below* chance, which is a stronger statement than "at chance" and is consistent with
+§6's finding that its attention prefers an amino acid the kinase ATP site is poor in.
+
+**The cold cells are imprecise, but not as imprecise as their seed spreads suggest.**
+Against UniProt, a 68-protein cell measures precision@10 to ±0.005–0.009 — narrower than
+the ±0.008–0.016 seed spreads of Table R4, because averaging three seeds per protein
+removes noise the spread reports. Against KLIFS the same cells are ±0.020–0.031, five
+times the random level's, so the cold-level pocket numbers are the loosest in the paper.
+
+**The per-pair drug arms are too small to carry their point estimates.** The intervals for
+§7's three arms (`results/ci_drug_arms_davis.md`) run to 0.087 wide at ColdSite-DTI's
+cold-target paired cell (4 proteins) and 0.075 at its swapped cell, and every cold-pair
+arm rests on 3 proteins. This is why §7 omits cold-pair and reads the paired-versus-swapped
+comparison off overlapping intervals rather than off the difference of two means.
+
+No interval is computed for the 60-protein non-kinase panel of §6: its proteins are drawn
+from a different population, so the bootstrap would need its own run. The closest measured
+analogue is a 68-protein UniProt cell at ±0.005–0.009, which is why §6's claim rests on
+eight cells agreeing rather than on any one of them.
 
 ## 8. *[PENDING]* KIBA
 

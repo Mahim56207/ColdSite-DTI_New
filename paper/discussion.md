@@ -48,10 +48,11 @@ more than masking ten random ones (12/12 cells). It is **coarsely plausible**: a
 85-residue KLIFS ATP pocket it scores about twice chance, beyond what position or
 amino-acid preference explain, mostly because it concentrates on the kinase domain. And it
 is **not finely plausible**: against the dozen residues UniProt annotates it sits at chance
-at all four levels (0.013–0.022 against 0.019–0.020, 7 of its 12 cells at or below chance).
-The positive control says this is a real null rather than an underpowered test: a 2% dose of
-true sites is detectable at every level, on these very protein sets, while its cells are
-worth an equivalent dose of 0.006 or less.
+at all four levels (0.013–0.022 against 0.019–0.020, 7 of its 12 cells at or below chance),
+and at random the whole bootstrap interval over proteins — 0.015 [0.013–0.018] — lies
+*below* the 0.020 chance level. The positive control says this is a real null rather than an
+underpowered test: a 2% dose of true sites is detectable at every level, on these very
+protein sets, while its cells are worth an equivalent dose of 0.006 or less.
 
 **HyperAttentionDTI** is the same shape with one extra step: finely plausible at random
 (§1), coarse-only once the split is cold. **MolTrans** has the shape without the content —
@@ -183,8 +184,9 @@ three did not exist in our plan until a number forced them.
   many times; DAVIS's 442 names are 379 sequences.
 - **Seeds, spreads, and intervals over proteins**: single seeds on the cold levels move by
   more than most reported differences (ColdSite-DTI cold-pair: 0.56–0.74 AUROC across
-  seeds), and a cell resting on three scorable pairs carries an interval a third of the
-  scale wide.
+  seeds), and a cell resting on three scorable pairs carries an interval up to 0.067 wide —
+  wider than every difference that table reports. A seed spread and an interval over
+  proteins answer different questions, and a cell of 68 needs both.
 
 ## 6. Benchmark hygiene
 

@@ -90,7 +90,20 @@ MODEL_SUFFIX = {
     "deepdta": "_deepdta",
     "hyperattentiondti": "_hyperattentiondti",
     "moltrans": "_moltrans",
+    # Integrated gradients is a second explanation of the SAME trained weights
+    # (src/evaluation/integrated_gradients.py), so each variant reads its base model's
+    # checkpoint. Its outputs are still named apart, because `output_tag` prefixes any
+    # model that is not the default -- ladder_coldsite_dti_ig_davis_seed1.json.
+    "coldsite_dti_ig": "",
+    "hyperattentiondti_ig": "_hyperattentiondti",
+    "moltrans_ig": "_moltrans",
 }
+IG_SUFFIX = "_ig"
+
+
+def base_model_name(model: str) -> str:
+    """The trained model behind an explanation variant: 'moltrans_ig' -> 'moltrans'."""
+    return model[:-len(IG_SUFFIX)] if model.endswith(IG_SUFFIX) else model
 DEFAULT_MODEL = "coldsite_dti"
 
 

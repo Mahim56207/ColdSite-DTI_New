@@ -49,7 +49,22 @@ def register(name: str):
     return decorator
 
 
+def load_variant_plugins(name: str = "") -> None:
+    """Import the modules that register explanation variants of an existing model.
+
+    An adapter registers itself when its module is imported, and the integrated-gradients
+    variants live outside this file (`src/evaluation/integrated_gradients.py`, which
+    imports from here -- so it cannot be imported at the top of this one). Every lookup
+    path calls this first, so `moltrans_ig` resolves wherever `moltrans` does instead of
+    depending on which module happened to be imported already.
+    """
+    if name and not name.endswith("_ig"):
+        return
+    import src.evaluation.integrated_gradients      # noqa: F401  (registers on import)
+
+
 def available_models() -> list:
+    load_variant_plugins()
     return sorted(_REGISTRY)
 
 
@@ -61,6 +76,7 @@ def model_class(name: str):
     a checkpoint and imports a vendored repo, which is a lot of work to discover
     that the model has no attention to audit.
     """
+    load_variant_plugins(name)
     if name not in _REGISTRY:
         raise KeyError(
             f"unknown model '{name}'. Registered: {available_models()}. "

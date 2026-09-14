@@ -63,8 +63,10 @@ from src.data.ground_truth import load_site_sets, site_lookup
 # every baseline reads as "unknown model" -- with an error telling you to write
 # an adapter that already exists and already passes validate_adapter.
 from src.evaluation import baseline_adapters  # noqa: F401
-from src.evaluation.model_registry import _REGISTRY, get_model
-from src.model.checkpoint_naming import MODEL_SUFFIX, checkpoint_path
+from src.evaluation.model_registry import (_REGISTRY, get_model,
+                                           load_variant_plugins)
+from src.model.checkpoint_naming import (MODEL_SUFFIX, base_model_name,
+                                         checkpoint_path)
 
 # Models that need no checkpoint: the control is flat by construction, so
 # "untrained" is not a defect and a missing file must not skip the cell.
@@ -173,8 +175,11 @@ def _build_adapter(model_name: str, checkpoint: str | None, split_dir: str,
     size differs per cell. Rebuilt here the same way the trainer built it --
     train rows only, never valid or test, or the cold splits leak the drugs
     they exist to hold out.
+
+    An explanation variant is built exactly like the model it explains: it IS that model,
+    with a different explainer on top (`src/evaluation/integrated_gradients.py`).
     """
-    if model_name == "coldsite_dti":
+    if base_model_name(model_name) == "coldsite_dti":
         import pandas as pd
 
         from src.model.dataset import SMILES_COLUMNS, find_column
@@ -207,9 +212,14 @@ def _build_adapter(model_name: str, checkpoint: str | None, split_dir: str,
 
 def _explain_row(model_name: str, adapter, vocabs, smiles: str, sequence: str,
                  max_protein_len: int) -> np.ndarray:
-    """One explanation, tokenised the way that model's own authors tokenise."""
+    """One explanation, tokenised the way that model's own authors tokenise.
+
+    An explanation variant is tokenised like the model it explains: `type(adapter).encode`
+    below is the base adapter's, reached through the variant's own class.
+    """
     import torch
 
+    model_name = base_model_name(model_name)
     if model_name in ("coldsite_dti", "uniform_control"):
         from src.model.drug_encoder import encode_smiles
         from src.model.protein_encoder import encode_protein
@@ -255,6 +265,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
     A protein with no usable ground truth is skipped rather than scored against
     an empty site set, which would count as a zero and drag every mean down.
     """
+    load_variant_plugins(model_name)
     adapter_cls = _REGISTRY.get(model_name)
     if adapter_cls is None:
         raise MissingCell(

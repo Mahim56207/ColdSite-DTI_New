@@ -101,6 +101,10 @@ class ResidueSpaceModel:
     """
 
     def __init__(self, adapter, model_name: str, device: str = "cpu"):
+        # An explanation variant is the same trained model with a different explainer,
+        # so it is tokenised and masked exactly like its base.
+        from src.model.checkpoint_naming import base_model_name
+        model_name = base_model_name(model_name)
         if model_name not in SUPPORTED_MODELS:
             raise ValueError(
                 f"{model_name!r} has no residue-space tokenisation. Supported: "

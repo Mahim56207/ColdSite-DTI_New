@@ -72,6 +72,61 @@ def embedding_module(model, path: str):
 
 
 @contextlib.contextmanager
+def _attribution_mode(model, predict):
+    """Put the model where it can be differentiated, deterministically.
+
+    cuDNN refuses an RNN backward pass in eval mode, which killed every ColdSite-DTI job
+    on Kaggle (its protein tower is a bi-LSTM). Disabling cuDNN fixes that and then runs
+    the unfused kernels, which for 32 attribution steps over a 1,000-step sequence is
+    hours per cell.
+
+    So the fast path is train mode -- which cuDNN allows -- with every stochastic
+    component switched off by hand: dropout and normalisation modules set to eval, and
+    the dropout *attributes* that are not modules (nn.MultiheadAttention, nn.RNNBase)
+    zeroed. That is easy to get subtly wrong, so it is verified rather than trusted: two
+    forward passes must agree exactly, or the model falls back to eval mode with cuDNN
+    off. An attribution computed with dropout live would be noise wearing the shape of an
+    explanation.
+    """
+    import torch.nn as nn
+
+    was_training = model.training
+    stochastic = (nn.Dropout, nn.Dropout1d, nn.Dropout2d, nn.Dropout3d,
+                  nn.AlphaDropout, nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d,
+                  nn.LayerNorm, nn.GroupNorm, nn.InstanceNorm1d)
+    saved: dict = {}
+    model.train()
+    for name, module in model.named_modules():
+        if isinstance(module, stochastic):
+            module.eval()
+        rate = getattr(module, "dropout", None)
+        if isinstance(rate, float) and rate > 0.0:
+            saved[name] = (module, rate)
+            module.dropout = 0.0
+
+    def restore():
+        for module, rate in saved.values():
+            module.dropout = rate
+        model.train(was_training)
+
+    with torch.no_grad():
+        first, second = predict(), predict()
+    if not torch.allclose(torch.as_tensor(first), torch.as_tensor(second), rtol=0, atol=0):
+        restore()
+        model.eval()
+        with torch.backends.cudnn.flags(enabled=False):
+            try:
+                yield "eval, cuDNN off"
+            finally:
+                model.train(was_training)
+        return
+    try:
+        yield "train, stochastic layers off"
+    finally:
+        restore()
+
+
+@contextlib.contextmanager
 def _substituted(module):
     """Let the caller replace this embedding's output with a tensor of its own.
 
@@ -103,13 +158,7 @@ def attributions(predict, model, protein_embedding_path: str, steps: int = DEFAU
     """
     module = embedding_module(model, protein_embedding_path)
     was_training = model.training
-    model.eval()
-    # cuDNN refuses to backpropagate through an RNN in eval mode ("cudnn RNN backward can
-    # only be called in training mode"), which killed every ColdSite-DTI job on Kaggle
-    # while passing here, because a CPU has no cuDNN. Disabling cuDNN for the attribution
-    # uses PyTorch's own RNN kernels instead: same maths, and eval mode is kept, so
-    # dropout stays off and the attributions still belong to the model as it predicts.
-    with torch.backends.cudnn.flags(enabled=False), _substituted(module) as state:
+    with _attribution_mode(model, predict), _substituted(module) as state:
         with torch.no_grad():                      # pass 1: the real embedding
             predict()
         real = state["captured"]
@@ -136,8 +185,7 @@ def attributions(predict, model, protein_embedding_path: str, steps: int = DEFAU
         state["replacement"] = None
 
     model.zero_grad(set_to_none=True)
-    if was_training:
-        model.train()
+    model.train(was_training)
     integrated = (real - baseline) * (total / steps)
     per_token = integrated.sum(dim=-1).squeeze(0)
     return per_token.cpu().numpy() if signed else per_token.abs().cpu().numpy()

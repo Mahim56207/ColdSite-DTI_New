@@ -173,18 +173,49 @@ def test_faithfulness_masks_a_variant_like_its_base_model():
         ResidueSpaceModel(adapter=object(), model_name="deepdta_ig")
 
 
-def test_the_attribution_disables_cudnn_so_an_rnn_can_be_differentiated():
-    """ColdSite-DTI's protein tower is a bi-LSTM, and cuDNN refuses an eval-mode RNN
-    backward pass -- it killed all six of its Kaggle jobs while passing on this laptop,
-    which has no cuDNN. The attribution therefore runs with cuDNN off.
+def test_the_attribution_mode_switches_every_stochastic_component_off():
+    """ColdSite-DTI's protein tower is a bi-LSTM and cuDNN refuses an eval-mode RNN
+    backward pass, so the attribution runs in train mode with dropout switched off by
+    hand -- including the dropout *attributes* of MultiheadAttention and RNNBase, which
+    are not modules and so are not touched by .eval(). Dropout live during an
+    attribution would be noise wearing the shape of an explanation.
     """
-    import inspect
+    from src.evaluation.integrated_gradients import _attribution_mode
 
-    from src.evaluation import integrated_gradients
+    class Model(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.drop = nn.Dropout(0.5)
+            self.attention = nn.MultiheadAttention(4, 2, dropout=0.3, batch_first=True)
+            self.lstm = nn.LSTM(4, 4, num_layers=2, dropout=0.4, batch_first=True)
 
-    source = inspect.getsource(integrated_gradients.attributions)
-    assert "cudnn.flags(enabled=False)" in source
-    assert "model.eval()" in source          # eval mode is still kept: dropout stays off
+        def forward(self, x):
+            return self.drop(x).sum()
+
+    model = Model()
+    x = torch.ones(1, 3, 4)
+    with _attribution_mode(model, lambda: model(x)) as how:
+        assert "stochastic layers off" in how
+        assert not model.drop.training              # dropout module in eval
+        assert model.attention.dropout == 0.0       # attribute zeroed
+        assert model.lstm.dropout == 0.0
+        assert model.training                       # but the model is in train mode
+    assert model.attention.dropout == 0.3           # restored afterwards
+    assert model.lstm.dropout == 0.4
+
+
+def test_a_model_that_stays_stochastic_falls_back_instead_of_attributing_noise():
+    """If some stochastic component was missed, two forward passes disagree -- and the
+    attribution must not proceed as though they had not."""
+    from src.evaluation.integrated_gradients import _attribution_mode
+
+    class Stubborn(nn.Module):
+        def forward(self, x):
+            return x + torch.rand(())               # random whatever the mode
+
+    model = Stubborn()
+    with _attribution_mode(model, lambda: model(torch.zeros(1))) as how:
+        assert "cuDNN off" in how
 
 
 def test_an_rnn_model_can_actually_be_attributed():

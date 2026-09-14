@@ -174,3 +174,26 @@ def test_it_trains_nothing_and_pins_the_audit_family(cells):
         assert trainer not in joined, f"an analysis notebook must not call {trainer}"
     assert "AUDIT_MODELS = ['coldsite_dti', 'hyperattentiondti', 'moltrans']" in joined
     assert "'--steps', 'audit,positive,summary'" in joined     # Holm runs once, over all
+
+
+def test_stage_one_gives_both_gpus_something_to_do(cells):
+    """One job per (model, seed), not per model.
+
+    Per model, narrowing MODELS to the single model still missing -- which is exactly
+    what the settings cell now does -- produced ONE job, so MolTrans's 85 minutes of
+    faithfulness ran on GPU0 while GPU1 idled (2026-09-14).
+    """
+    import os
+
+    stage = [c for c in cells if "faithfulness,ladder,control" in c][0]
+    scope = {"os": os, "DATASET": "davis", "SEEDS": [1, 2, 3], "MODELS": ["moltrans"],
+             "MAX_PAIRS": 200, "RESULTS": "/tmp/R", "OUT": "/tmp/O", "GT": "gt.json",
+             "SKIP_EXISTING": True, "RUN_STAGE1": False, "N_GPU": 2,
+             "py": lambda m, *a: ["python", "-u", "-m", m, *map(str, a)],
+             "run_parallel": lambda *a, **k: False, "spread": lambda j: {0: j}}
+    exec(stage, scope)
+    jobs = scope["jobs"]
+    assert len(jobs) == 3, "one model must still yield one job per seed"
+    seeds = [cmd[cmd.index("--seeds") + 1] for _n, cmd, _e in jobs]
+    assert sorted(seeds) == ["1", "2", "3"]
+    assert len({tuple(cmd) for _n, cmd, _e in jobs}) == 3      # genuinely different work

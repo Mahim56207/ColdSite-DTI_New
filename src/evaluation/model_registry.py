@@ -59,6 +59,11 @@ def load_variant_plugins(name: str = "") -> None:
     depending on which module happened to be imported already.
     """
     from src.model.checkpoint_naming import VARIANT_BASE
+    # The baseline adapters register on import and every other adapter is a subclass of
+    # one, so they load for ANY lookup. Skipping them for non-variant names made
+    # model_class('moltrans') raise "unknown model 'moltrans'" while the error message
+    # -- which calls available_models() and so triggers the import -- listed it.
+    from src.evaluation import baseline_adapters    # noqa: F401  (registers on import)
     if name and name not in VARIANT_BASE:
         return
     import src.evaluation.integrated_gradients      # noqa: F401  (registers on import)

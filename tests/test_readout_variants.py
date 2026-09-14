@@ -147,3 +147,21 @@ def test_moltrans_refuses_a_layer_it_does_not_have():
         if not -len(layers) <= adapter.attention_layer < len(layers):
             raise ValueError(f"attention_layer {adapter.attention_layer} is outside the "
                              f"{len(layers)} protein-encoder layers")
+
+
+def test_looking_up_a_variant_also_registers_its_base_model():
+    """A variant is a subclass of a baseline adapter, so resolving the variant without
+    the base registered passes the registry check and then dies at construction --
+    which is how a Kaggle run can fail minutes after its own sanity check."""
+    import subprocess
+    import sys
+
+    script = (
+        "from src.evaluation.model_registry import model_class, available_models\n"
+        "cls = model_class('moltrans_ig')\n"
+        "assert 'moltrans' in available_models(), available_models()\n"
+        "assert cls.base_model == 'moltrans'\n"
+        "print('ok')\n")
+    out = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True)
+    assert out.returncode == 0, out.stderr[-600:]
+    assert "ok" in out.stdout

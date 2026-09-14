@@ -312,24 +312,18 @@ carry no device-specific drift.*
 are available in every cell (`audit_davis_binary.md`), so the unstratified table must be
 read with §6's finding in mind.*
 
-*[Waiting on the analysis running 2026-09-14 (`results/analysis_davis_policyA/`):
-HyperAttentionDTI and MolTrans faithfulness, both models' UniProt and KLIFS ladders, the
-non-kinase control for both, then `run_audit` once over the whole family. Structure this
-section will take, so the numbers only have to be dropped in:*
+**How large is the surviving cell, in absolute terms?** Read against the dose curve of §3 —
+recomputed on these protein sets — HyperAttentionDTI's random cell is worth an **equivalent
+dose of 0.007–0.017**: a synthetic explanation would have to rank about 1% of the true
+annotated sites first to score what this model scores
+(`results/analysis_davis_policyA/positive_control_davis_hat_compare.md`). Its cold cells are
+worth 0.014 or less, and five of its nine cold seed-cells are at or below chance. So the one
+cell that survives correction is real, reproducible against every null, and **small**: 1.7×
+chance is a statistically solid effect that still corresponds to recovering a low single-digit
+percentage of the annotated site. The audit reports it as such rather than as a vindication.
 
-1. *One row per (model, level): faithfulness delta (mean ± sd over 3 seeds, "load-bearing"
-   in n/3 cells), precision@10 against UniProt and against KLIFS, each beside its chance
-   and the Holm-corrected p. Three audited models × 4 levels = 12 rows, minus
-   HyperAttentionDTI cold-drug if account 1's last three cells do not arrive.*
-2. *The verdict per model in one sentence each, in the three-way form §4 establishes for
-   ColdSite-DTI: faithful / coarsely plausible / finely plausible, each answered against
-   its own null.*
-3. *Whether the published models (HyperAttentionDTI, MolTrans) behave like ours. If they
-   are finely plausible where ColdSite-DTI is not, the §4 finding is model-specific; if all
-   three are coarse-only, it is a property of attention trained on affinity labels alone —
-   which is the paper's central claim and decides how Discussion §2 is written.*
-4. *Read against the dose curve of §3 (`positive_control --compare`) for every ladder, so
-   each null carries the resolution at which it is a null.*
+*The same reading was not computed for MolTrans, whose cells sit at the uniform control's
+floor; the dose that matches a floor score is not a meaningful quantity.*
 
 ## 5b. Faithfulness, and an intervention that was not the same size in both arms
 

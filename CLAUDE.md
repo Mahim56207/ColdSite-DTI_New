@@ -313,4 +313,14 @@ account on KIBA.**
 - Ground truth (DAVIS and KIBA): fetch/overrides write `data/<dataset>_ground_truth_sites_uniprot.json`;
   only `align_ground_truth --dataset <dataset>` writes `data/<dataset>_ground_truth_sites.json`.
   Re-align after either.
+- **The data path is not a bottleneck; do not add DataLoader workers.** Measured
+  2026-09-14 on DAVIS random with MolTrans: all 1,315 batches of an epoch assemble in
+  **0.24 s** with `num_workers=0` (0.18 ms/batch), because every dataset pre-encodes in
+  `__init__` and `__getitem__` only slices numpy. With `num_workers=2` the same epoch
+  takes **16.7 s** — 70x slower — since the encoded arrays are pickled to each worker.
+  An epoch of MolTrans on a T4 is ~300 s, so loading is under 0.1% of it either way.
+  `--amp` is the only free speedup (T4: HyperAttentionDTI 2.0x, DeepDTA 2.3x, MolTrans
+  1.3x, ColdSite-DTI 1.15x); everything else costs protocol. Raising the *eval* batch
+  size looks free but is not for MolTrans, whose vendored forward reshapes by
+  `self.batch_size` (the bug `_fit_batch_size` exists to contain).
 - Explain in plain language; the user prefers step-by-step instructions.

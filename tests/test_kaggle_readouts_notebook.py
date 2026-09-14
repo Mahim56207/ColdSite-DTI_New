@@ -45,6 +45,7 @@ def _jobs(code_cells, **over):
              "RUN_UNIPROT": True, "RUN_KLIFS": True, "RUN_FAITHFULNESS": False,
              "GT": "gt.json", "GT_KLIFS": "klifs.json",
              "COMMON": ["--checkpoint-dir", "/tmp/R"], "base_model_name": base_model_name,
+             "MODELS": list(PUBLISHED),
              "py": lambda m, *a: ["python", "-u", "-m", m, *map(str, a)],
              "run_parallel": lambda *a, **k: False, "spread": lambda j: {0: j}}
     scope.update(over)
@@ -103,3 +104,20 @@ def test_it_trains_nothing_and_avoids_the_statistics_module(code_cells):
     for trainer in ("train_deepdta", "train_moltrans", "train_hyperattentiondti", "run_grid"):
         assert trainer not in joined
     assert "st.stdev" not in joined and "import statistics" not in joined
+
+
+def test_a_dropped_model_takes_its_readouts_with_it(code_cells):
+    """Section 5 drops a model whose cells are not attached -- MolTrans, while its
+    corrected seeds 2-3 are not on Kaggle. Its readouts have no checkpoint to read, so
+    scoring them would fail job after job for the rest of the run."""
+    jobs = _jobs(code_cells, MODELS=["coldsite_dti", "hyperattentiondti"])
+    scored = {c[5] for _n, c, _e in jobs}
+    assert "moltrans" not in scored
+    assert not [m for m in scored if base_model_name(m) == "moltrans"]
+    assert scored == {"coldsite_dti", "hyperattentiondti", "coldsite_dti_selfattn",
+                      "hyperattentiondti_maxchannel", "hyperattentiondti_receptive"}
+
+
+def test_nothing_attached_at_all_stops_rather_than_running_empty(code_cells):
+    with pytest.raises(AssertionError, match="none of the models being compared"):
+        _jobs(code_cells, MODELS=[])

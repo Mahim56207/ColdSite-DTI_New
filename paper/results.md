@@ -240,7 +240,68 @@ ground-truth resolution, so both are reported. The pattern is the same with and 
 the sequence policy (pre-policy values: `results/positional_control_coldsite_dti_davis_klifs.md`).
 *[Formal statement waits for the audit table (§5), Holm over the whole family.]*
 
-## 5. *[PENDING]* The audit table (all subjects, Holm over the whole family)
+## 5. The audit table: the published model's residue-level claim holds only on the random split
+
+Computed 2026-09-14 on two T4 GPUs (`notebooks/kaggle_analysis_davis.ipynb`), one Holm
+correction over the whole family. MolTrans is **[PENDING]**: the Kaggle dataset attached to
+that run held the pre-fix copies of its seeds 2 and 3, so the notebook's input check
+dropped it rather than analyse them (§1's footnote). Its numbers are computed and waiting
+in `results/analysis_davis_policyA/` from the CPU run; the corrected cells have to reach
+Kaggle before the audit can cover three models.
+
+**Table R4.** precision@10 against UniProt's annotated residues, mean ± sd over seeds
+1–3 (`results/analysis_davis_policyA/audit_davis_binary.md`). `uniform_control` is an
+attention map of equal weight everywhere — the metric's own floor.
+
+| model | random | cold-drug | cold-target | cold-pair |
+|---|---|---|---|---|
+| ColdSite-DTI (ours) | 0.015 ± 0.007 | 0.022 ± 0.009 | 0.017 ± 0.002 | 0.013 ± 0.005 |
+| HyperAttentionDTI (published) | **0.034 ± 0.006** | 0.040 ± 0.031 | 0.024 ± 0.008 | 0.022 ± 0.010 |
+| uniform control | 0.020 ± 0.001 | 0.020 ± 0.001 | 0.018 ± 0.005 | 0.017 ± 0.001 |
+| MolTrans (published) | *[PENDING]* | *[PENDING]* | *[PENDING]* | *[PENDING]* |
+
+**One cell of twelve survives Holm–Bonferroni: HyperAttentionDTI on the random split**
+(p = 0.0020 against a threshold of 0.0042). Its cold-drug cell is the next largest but
+fails (p = 0.050 vs 0.0050) on a seed spread of ±0.031; cold-target (p = 0.11) and
+cold-pair (p = 0.30) are not close. ColdSite-DTI survives nowhere, and its cold-drug cell
+— the one that looked best — fails at p = 0.0060 against a 0.0045 threshold.
+
+**The warm signal is real, not an artefact.** At the random split all three of
+HyperAttentionDTI's seeds beat every null in `positional_control`: a map borrowed from
+another protein (0.021, p = 0.001), attention permuted among residues of the same amino
+acid (0.021, p = 0.001) and permuted within the site-spanning stretch (0.026, p ≤ 0.003 in
+two seeds of three). So on the random split this model's attention carries
+protein-specific, residue-level information about where the annotated residues are —
+1.67× chance — which is exactly the claim the interpretability literature makes, and it is
+supported.
+
+**It does not survive distribution shift.** By cold-target the same model is at 1.26×
+chance and no longer beats a borrowed map in two of three seeds; at cold-pair it is at
+1.18× and beats nothing. The cold cells are also where the seeds disagree most
+(cold-drug 0.019–0.077 across seeds), so single-seed evidence there would be worthless in
+either direction.
+
+**Faithfulness tells the same story in a different currency.** HyperAttentionDTI's
+attention is load-bearing at every level, but the margin over random masking collapses as
+the split hardens: **0.184 ± 0.056** (random), 0.113 ± 0.052 (cold-drug),
+0.063 ± 0.046 (cold-target), 0.056 ± 0.008 (cold-pair). The attention is still used
+under shift; it is simply used for something that no longer coincides with the annotated
+site.
+
+**Against the KLIFS pocket, the coarse signal persists where the fine one does not**
+(`results/analysis_davis_policyA_klifs/`): 0.242 ± 0.038 at random (1.70× its 0.143
+chance, p = 0.001 in every seed) and 1.33–1.37× at all three cold levels. Read beside
+§4, the two audited models differ in kind rather than in degree: ColdSite-DTI is
+coarsely plausible everywhere and finely plausible nowhere, while HyperAttentionDTI is
+both at random and only coarsely so once the split is cold.
+
+*Device check: every cell of this table was also computed on a CPU during the same night.
+The two agree exactly in 11 of 12 cells and by 0.0003 in the twelfth, so the GPU runs
+carry no device-specific drift.*
+
+*The kinase-family confound could not be stratified away: fewer than 20 non-kinase targets
+are available in every cell (`audit_davis_binary.md`), so the unstratified table must be
+read with §6's finding in mind.*
 
 *[Waiting on the analysis running 2026-09-14 (`results/analysis_davis_policyA/`):
 HyperAttentionDTI and MolTrans faithfulness, both models' UniProt and KLIFS ladders, the

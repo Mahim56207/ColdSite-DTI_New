@@ -322,21 +322,125 @@ section will take, so the numbers only have to be dropped in:*
 4. *Read against the dose curve of §3 (`positive_control --compare`) for every ladder, so
    each null carries the resolution at which it is a null.*
 
-## 6. *[PENDING]* Kinase-family control (60 non-kinase proteins, cotransport ions excluded)
+## 5b. Faithfulness, and an intervention that was not the same size in both arms
 
-*[ColdSite-DTI only, 2026-09-13; `results/positional_control_coldsite_dti_davis.md`.]*
-On the 60 non-kinase proteins, precision@10 against UniProt sites is above its own
-chance (0.012) in 7 of 12 cells before correction (e.g. seed 2 random 0.050), while the
-kinase arm sits at chance. It is **not positional**: maps borrowed from other proteins
-score 0.012–0.014. It is **mostly amino-acid preference**: ColdSite-DTI's top-ten
-attention is enriched in histidine (3× in seed 1, 11–15× in seed 2), non-kinase
-binding sites are histidine-rich (8.8×; many are metal sites), kinase ATP sites are not
-(enriched in G, D, K). Shuffling attention among residues of the same amino acid
-recovers most of the non-kinase score (seed 2 random: 0.045 of 0.050, p = 0.28); three
-cells keep a remainder (p = 0.004–0.048 before correction). The non-kinase "signal" is
-the attention's liking for histidine meeting histidine-rich sites, not knowledge of
-where the sites are — the same preference that lets it miss the glycine-rich kinase
-sites. Seed 2, the strongest histidine preference, has the highest non-kinase scores.
+A masking test subtracts a random-masking control from the explanation's
+comprehensiveness, which is only meaningful if both arms change the input by the same
+amount. For a model that reads residues they do: masking k residues changes k input
+positions either way. **MolTrans does not read residues.** It reads ESPF sub-word tokens,
+so replacing a residue with `X` re-segments the protein, and how much of the token
+sequence changes depends on where the masked residues sit. Measured over 20 DAVIS
+proteins (`src/evaluation/mask_comparability.py`): masking MolTrans's ten most-attended
+residues changes **48%** of its tokens, and masking ten random residues changes **95%** —
+for RIPK5, 0.8% against 99%, a factor of 124.
+
+Under that test MolTrans's faithfulness delta was negative in 11 of 12 cells, reproducing
+to 0.005 across a laptop and a T4. Read naively it says its attention points at residues
+that matter *less* than arbitrary ones. It says no such thing: subtracting a larger
+intervention from a smaller one returns a negative number whatever the attention does.
+
+Measured in the space the model reads — the explanation's arm removes the tokens carrying
+its top-10 attention, the control removes **the same number** of tokens at random, so both
+arms change an identical amount of input by construction
+(`src/evaluation/token_faithfulness.py`) — the sign reverses:
+
+**Table R4b.** MolTrans comprehensiveness delta, 200 pairs per level (75 and 76 at the
+cold levels under the sequence policy), mean over seeds 1–3.
+
+| level | residue space (arms unequal) | token space (arms matched) |
+|---|---|---|
+| random | −0.299 | **+0.458** |
+| cold-drug | −0.407 | **+0.362** |
+| cold-target | −0.176 | **+0.347** |
+| cold-pair | −0.087 | **+0.276** |
+
+**MolTrans's attention is load-bearing at every level** — positive in all 12 cells. The
+seed spread is wide (0.125 to 0.766 at random), so the sign is the result and the
+magnitude is not. Its *sufficiency* deltas are mostly negative: keeping only the attended
+tokens preserves the prediction less well than keeping the same number of random ones,
+which is what a thinly spread attention looks like — removing its top tokens matters,
+but they do not carry the prediction alone.
+
+Two consequences beyond this model. Masking-based faithfulness **does not transfer across
+tokenisations**, so any audit of a sub-word protein model that compares k-residue masks is
+measuring its own intervention; and because the unit differs (tokens here, residues for
+the other two models), these deltas are comparable within a model across levels and seeds
+— which is how the audit uses them — and not numerically across models. Methods states
+both.
+
+## 6. Kinase-family control, and why the confound cannot be tested inside DAVIS
+
+Every model here trained on a kinase panel, so a plausibility score could reflect
+knowledge of one protein family rather than of binding sites. The natural test is to
+stratify each cell by family and compare. **That test is impossible on these benchmarks.**
+DAVIS's 6,011 test rows contain 3,307 rows on targets our classifier recognises as
+kinases and **zero** on a non-kinase (`src/evaluation/target_family.py`, measured
+2026-09-14); the remaining 2,704 are kinases its gene-symbol heuristic does not name.
+KIBA is the same kind of object — 229 kinases. No panel size fixes this: the gate counts
+non-kinase targets *in the cell being scored*, and there are none to count. That the two
+standard DTI benchmarks cannot answer the family-confound question is a fact about the
+benchmarks, and belongs beside §1b's leakage finding rather than in a limitations list.
+
+What can be done is to score the same trained attention on proteins from **outside** the
+training family: 60 BindingDB proteins with UniProt-annotated sites, none of them kinases,
+none seen by any model here (`src/data/build_nonkinase_panel.py`; sequences and site
+numbering both from UniProt, never BindingDB's construct chains). Chance differs between
+the arms because the proteins differ — 0.020 for DAVIS's kinases, 0.012 for the panel —
+so each arm is read against its own.
+
+**Table R5.** precision@10, mean ± sd over seeds 1–3, cotransport ions excluded (the
+primary setting; all ligands as sensitivity). `chance` in brackets.
+
+| model | level | kinase arm (n = 349) | non-kinase panel (n = 60) |
+|---|---|---|---|
+| ColdSite-DTI | random | 0.015 ± 0.007 (0.020) | 0.027 ± 0.021 (0.012) |
+| | cold-drug | 0.022 ± 0.009 (0.020) | 0.029 ± 0.014 (0.012) |
+| | cold-target | 0.017 ± 0.002 (0.019) | 0.014 ± 0.008 (0.012) |
+| | cold-pair | 0.013 ± 0.005 (0.019) | **0.044 ± 0.019** (0.012) |
+| HyperAttentionDTI | random | **0.034 ± 0.006** (0.020) | 0.015 ± 0.002 (0.012) |
+| | cold-drug | 0.040 ± 0.031 (0.020) | 0.013 ± 0.004 (0.012) |
+| | cold-target | 0.024 ± 0.008 (0.019) | 0.017 ± 0.004 (0.012) |
+| | cold-pair | 0.022 ± 0.010 (0.019) | 0.007 ± 0.003 (0.012) |
+| MolTrans | random | 0.021 ± 0.003 (0.020) | 0.012 ± 0.007 (0.012) |
+| | cold-drug | 0.027 ± 0.005 (0.020) | 0.012 ± 0.002 (0.012) |
+| | cold-target | 0.028 ± 0.016 (0.019) | 0.014 ± 0.005 (0.012) |
+| | cold-pair | 0.020 ± 0.014 (0.019) | 0.008 ± 0.006 (0.012) |
+
+**The two published models score no better than chance off the training family.**
+HyperAttentionDTI and MolTrans sit within one standard deviation of the panel's 0.012 in
+all eight cells, so whatever HyperAttentionDTI's warm-split signal is (§5), it does not
+travel to proteins outside the family it trained on. That is the answer the confound
+question wanted, obtained without a stratification the data cannot support.
+
+**ColdSite-DTI is the exception, and the exception is an artefact.** It is above the
+panel's chance in three cells, most clearly at cold-pair (0.044 against 0.012) — where
+its kinase arm is at 0.013. A higher score on unseen proteins from another family than on
+the family it trained on is not knowledge, and the nulls of §4 identify what it is.
+
+It is **not positional**: maps borrowed from another protein score 0.012–0.014 on the
+panel, no better than chance. It is **amino-acid preference**. ColdSite-DTI's top-ten
+attention is enriched in histidine (3× in seed 1, 11–15× in seeds 2 and 3); the panel's
+annotated sites are histidine-rich (8.8×, many of them metal sites); kinase ATP sites are
+not (they are enriched in glycine, aspartate and lysine). Permuting the attention among
+residues of the *same amino acid* — which keeps the preference and destroys any knowledge
+of position — recovers most of the panel score (seed 2 random: 0.045 of 0.050, p = 0.28),
+and three of twelve cells keep a remainder significant before correction
+(p = 0.004–0.048). The ordering across seeds follows the preference rather than the
+accuracy: seed 2, with the strongest histidine enrichment, has the highest panel scores.
+
+So the panel's apparent signal is a liking for one amino acid meeting sites that happen to
+be rich in it — the same preference that makes the model *miss* the glycine-rich kinase
+ATP site it was trained on. Read together with §5, the family confound does not rescue any
+model's plausibility: the two published models are at chance off their training family,
+and ours is above chance there for a reason that has nothing to do with binding.
+
+*Sensitivity: with cotransport ions included (`_noions` dropped) the panel's chance level
+rises and the same pattern holds; both settings are in
+`results/analysis_davis_policyA/control_*.json`. The panel's 60 proteins are what limit
+this comparison — a cell of 60 carries a precision@10 interval roughly ±0.03 wide (§8),
+so only the ColdSite-DTI cold-pair cell is resolved as above chance individually; the
+claim that the two published models are at chance rests on eight cells agreeing rather
+than on any one of them.*
 
 ## 7. *[PENDING]* KIBA
 

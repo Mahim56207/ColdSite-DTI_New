@@ -317,3 +317,53 @@ def test_a_batch_with_nothing_to_score_costs_no_forward_pass():
     collect_explanations(model, batches, ["A", "A", "A", "A"], {"A": Sites()},
                          pairs_per_target=1)
     assert model.calls == 1, "the empty batch should have been skipped"
+
+
+def test_the_per_protein_cap_counts_scorable_rows_not_the_first_rows():
+    """The cap must not be spent on a row that has no ground truth.
+
+    With a drug-specific ground truth a protein's first test row is usually a drug it was
+    never crystallised with; consuming the slot there scored 1 protein of 29 at DAVIS
+    random and none at all at the cold levels (Kaggle, 2026-09-14).
+    """
+    from src.evaluation.run_ladder import rows_to_score
+
+    class Sites:
+        usable = True
+        positions = {3}
+
+    # protein P is tested against three drugs; only the last has a co-crystal
+    site_sets = {"d3|P": Sites()}
+    targets = ["P", "P", "P"]
+    drugs = ["d1", "d2", "d3"]
+    assert rows_to_score(targets, site_sets, pairs_per_target=1, drug_ids=drugs) == [2]
+
+
+def test_the_cap_still_keeps_one_row_per_protein_when_several_are_scorable():
+    from src.evaluation.run_ladder import rows_to_score
+
+    class Sites:
+        usable = True
+        positions = {3}
+
+    site_sets = {"d1|P": Sites(), "d2|P": Sites(), "d1|Q": Sites()}
+    targets = ["P", "P", "Q"]
+    drugs = ["d1", "d2", "d1"]
+    assert rows_to_score(targets, site_sets, pairs_per_target=1, drug_ids=drugs) == [0, 2]
+    assert rows_to_score(targets, site_sets, pairs_per_target=0, drug_ids=drugs) == [0, 1, 2]
+
+
+def test_a_protein_keyed_ground_truth_is_unaffected_by_the_order():
+    """Every row of a protein shares its site set, so consulting it before the cap
+    changes nothing -- verified on the real DAVIS ladders, all 60 numbers identical."""
+    from src.evaluation.run_ladder import rows_to_score
+
+    class Sites:
+        def __init__(self, usable=True):
+            self.usable = usable
+            self.positions = {1}
+
+    site_sets = {"A": Sites(), "B": Sites(usable=False)}
+    targets = ["A", "A", "B", "B"]
+    assert rows_to_score(targets, site_sets, pairs_per_target=1) == [0]
+    assert rows_to_score(targets, site_sets, pairs_per_target=0) == [0, 1]

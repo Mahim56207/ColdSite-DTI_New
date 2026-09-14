@@ -70,13 +70,17 @@ def rows_to_score(target_ids, site_sets, pairs_per_target: int = 1, keys=None,
     for index, (target_id, key, drug_id) in enumerate(zip(target_ids, keys, drug_ids)):
         if target_id in exclude:
             continue
+        # The ground truth is consulted BEFORE the per-protein cap, so the cap counts
+        # scorable rows. The other order spends a protein's single slot on its first test
+        # row, which for a drug-specific ground truth is almost never a crystallised pair:
+        # the one-pair-per-protein arm then scored 1 protein at warm and none elsewhere.
+        site_set = lookup(target_id, drug_id)
+        if site_set is None or not site_set.usable:
+            continue
         count = seen.get(key, 0)
         if pairs_per_target and count >= pairs_per_target:
             continue
         seen[key] = count + 1
-        site_set = lookup(target_id, drug_id)
-        if site_set is None or not site_set.usable:
-            continue
         wanted.append(index)
         if max_proteins and len(wanted) >= max_proteins:
             break

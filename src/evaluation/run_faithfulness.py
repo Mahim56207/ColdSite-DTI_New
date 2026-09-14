@@ -58,7 +58,14 @@ from src.model.checkpoint_naming import (
 from src.evaluation.residue_space import SUPPORTED_MODELS as RESIDUE_SPACE_MODELS
 
 LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
-MODELS = (DEFAULT_MODEL, *RESIDUE_SPACE_MODELS)
+# An explanation variant is the same trained model read by a different explainer
+# (src/evaluation/integrated_gradients.py). ColdSite-DTI's attention is read from its own
+# forward pass below, which cannot hand back an attribution, so its IG variant is
+# refused here with a reason rather than scored through the wrong path.
+# The ladder scores every variant (it goes through collect_cell, which builds the
+# variant adapter); only faithfulness has the ColdSite-DTI exception above.
+EXPLANATION_VARIANTS = tuple(f"{m}_ig" for m in (DEFAULT_MODEL, *RESIDUE_SPACE_MODELS))
+MODELS = (DEFAULT_MODEL, *RESIDUE_SPACE_MODELS, *EXPLANATION_VARIANTS)
 LEVEL_LABELS = {"random": "Warm", "cold_drug": "Cold-Drug",
                 "cold_target": "Cold-Target", "cold_pair": "Cold-Pair"}
 
@@ -424,6 +431,12 @@ def main():
     from src.model.coldsite_dti import ColdSiteDTI
     from src.model.dataset import load_split
 
+    if args.model == f"{DEFAULT_MODEL}_ig":
+        parser.error(
+            "faithfulness for ColdSite-DTI's integrated gradients is not wired: its "
+            "attention is read from its own forward pass, and its masking does not go "
+            "through src/evaluation/residue_space.py. Its IG ladder (plausibility) works "
+            "-- use run_ladder --model coldsite_dti_ig.")
     if args.model != DEFAULT_MODEL and args.task != "binary":
         parser.error(f"--model {args.model} only exists as a binary classifier; "
                      f"pass --task binary")

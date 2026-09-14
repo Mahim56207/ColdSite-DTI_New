@@ -52,6 +52,37 @@ LEVEL_LABELS = {
 from src.evaluation.run_faithfulness import MODELS, output_tag  # noqa: E402
 
 
+def rows_to_score(target_ids, site_sets, pairs_per_target: int = 1, keys=None,
+                  exclude=frozenset(), drug_ids=None, max_proteins=None) -> list[int]:
+    """Indices of the test rows an explanation is actually needed for.
+
+    The one place that decides. `collect_explanations` uses it to skip rows, and the
+    runner uses it to build a dataloader over only those rows -- ColdSite-DTI's branch
+    otherwise pushes every test row through the model and throws away all but the ones
+    it scores: 6,011 rows for 349 proteins at one pair each, and 6,011 for the 36 pairs a
+    drug-specific ground truth covers. Same rows either way, so the numbers do not move.
+    """
+    keys = list(target_ids) if keys is None else list(keys)
+    drug_ids = list(drug_ids) if drug_ids is not None else [None] * len(keys)
+    lookup = site_lookup(site_sets)
+    seen: dict = {}
+    wanted = []
+    for index, (target_id, key, drug_id) in enumerate(zip(target_ids, keys, drug_ids)):
+        if target_id in exclude:
+            continue
+        count = seen.get(key, 0)
+        if pairs_per_target and count >= pairs_per_target:
+            continue
+        seen[key] = count + 1
+        site_set = lookup(target_id, drug_id)
+        if site_set is None or not site_set.usable:
+            continue
+        wanted.append(index)
+        if max_proteins and len(wanted) >= max_proteins:
+            break
+    return wanted
+
+
 def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
                          max_proteins=None, pairs_per_target: int = 1,
                          keys=None, exclude=frozenset(), drug_ids=None):
@@ -80,35 +111,27 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
     keys = list(target_ids) if keys is None else list(keys)
     lookup = site_lookup(site_sets)
     drug_ids = list(drug_ids) if drug_ids is not None else [None] * len(list(target_ids))
+    wanted = rows_to_score(target_ids, site_sets, pairs_per_target, keys, exclude,
+                           drug_ids, max_proteins)
+    positions = set(wanted)
     model.eval().to(device)
     weights, sites, used_ids = [], [], []
-    seen: dict = {}
     cursor = 0
 
     with torch.no_grad():
         for drug_batch, protein_batch, _labels in dataloader:
-            batch_ids = target_ids[cursor:cursor + len(drug_batch)]
-            batch_keys = keys[cursor:cursor + len(drug_batch)]
-            batch_drugs = drug_ids[cursor:cursor + len(drug_batch)]
+            batch = range(cursor, cursor + len(drug_batch))
             cursor += len(drug_batch)
+            if positions.isdisjoint(batch):
+                continue                       # nothing here is scored: skip the forward pass
             explanations = model.explain(drug_batch.to(device), protein_batch.to(device))
-
-            for target_id, key, drug_id, explanation in zip(batch_ids, batch_keys,
-                                                            batch_drugs, explanations):
-                if target_id in exclude:
+            for index, explanation in zip(batch, explanations):
+                if index not in positions:
                     continue
-                count = seen.get(key, 0)
-                if pairs_per_target and count >= pairs_per_target:
-                    continue
-                seen[key] = count + 1
-                site_set = lookup(target_id, drug_id)
-                if site_set is None or not site_set.usable:
-                    continue
+                site_set = lookup(target_ids[index], drug_ids[index])
                 weights.append(np.asarray(explanation, dtype=float))
                 sites.append(site_set.positions)
-                used_ids.append(target_id)
-                if max_proteins and len(weights) >= max_proteins:
-                    return weights, sites, used_ids
+                used_ids.append(target_ids[index])
 
     return weights, sites, used_ids
 
@@ -355,12 +378,34 @@ def main():
 
             from src.evaluation.exclusions import excluded_target_ids, protein_key
             policy = not args.no_sequence_policy
+            keys = [protein_key(t, q, policy) for t, q in zip(target_ids, test_df["Target"])]
+            exclude = excluded_target_ids(args.dataset, level, policy)
+            drug_ids = test_df["Drug_ID"].astype(str).tolist()
+
+            # Explain only the rows that are scored. One pair per protein means 349 of
+            # 6,011 rows; a drug-specific ground truth, 36 of them. `rows_to_score` picks
+            # the same rows the collector would have kept, so this is the identical
+            # measurement with the wasted forward passes removed.
+            wanted = rows_to_score(target_ids, site_sets, args.pairs_per_target, keys,
+                                   exclude, drug_ids)
+            if len(wanted) < len(target_ids):
+                from torch.utils.data import DataLoader, Subset
+                print(f"   explaining {len(wanted)} of {len(target_ids)} test rows "
+                      f"(the ones that are scored)")
+                # keep the loader's own collate_fn: the dataset yields variable-length
+                # proteins and the padding lives there, not in the model
+                test_loader = DataLoader(Subset(test_loader.dataset, wanted),
+                                         batch_size=test_loader.batch_size,
+                                         collate_fn=test_loader.collate_fn,
+                                         shuffle=False)
+                target_ids = [target_ids[i] for i in wanted]
+                keys = [keys[i] for i in wanted]
+                drug_ids = [drug_ids[i] for i in wanted]
+
             weights, sites, used = collect_explanations(
                 model, test_loader, target_ids, site_sets,
                 pairs_per_target=args.pairs_per_target,
-                keys=[protein_key(t, q, policy) for t, q in zip(target_ids, test_df["Target"])],
-                exclude=excluded_target_ids(args.dataset, level, policy),
-                drug_ids=test_df["Drug_ID"].astype(str).tolist())
+                keys=keys, exclude=exclude, drug_ids=drug_ids)
         else:
             from src.evaluation.collect import MissingCell, collect_cell
 

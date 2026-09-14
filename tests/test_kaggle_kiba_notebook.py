@@ -334,3 +334,129 @@ def test_the_hour_estimates_match_the_measured_speed_test():
         low, high = (float(x) for x in cell.split("/"))
         assert (low, high) == (at25, at36), (
             f"{model}: notebook says {at25}/{at36} h, speed test says {low}/{high}")
+
+
+# ---------------------------------------------------------------------------
+# the progress report: measured epoch rate, and when this finishes
+# ---------------------------------------------------------------------------
+
+def fresh_state(ns, gpu="0", key="moltrans"):
+    return {"model": "MolTrans", "split": "random", "seed": "1", "epoch": "-", "cell": 1,
+            "total": 2, "gpu": gpu, "key": key, "sec_per_epoch": None,
+            "timed_epochs": 0, "last_epoch": None, "last_epoch_at": None}
+
+
+def test_the_first_epoch_is_not_counted_as_a_rate():
+    """It carries the encoding of 83,000 KIBA rows, so timing it would slow the whole
+    projection down and predict a finish that never comes."""
+    ns = runner_namespace()
+    w = fresh_state(ns)
+    ns["note_epoch"](w, 1, 1000.0)
+    assert w["sec_per_epoch"] is None and w["timed_epochs"] == 0
+    assert ns["eta"](w, 1000.0, 1e12) == [], "no ETA may be claimed from one epoch"
+    ns["note_epoch"](w, 2, 1600.0)
+    assert w["sec_per_epoch"] == 600.0 and w["timed_epochs"] == 1
+
+
+def test_a_repeated_epoch_number_is_not_a_new_boundary():
+    """HyperAttentionDTI and MolTrans print 'epoch 1 train batch 7/10' for every batch."""
+    ns = runner_namespace()
+    w = fresh_state(ns)
+    ns["note_epoch"](w, 1, 1000.0)
+    for t in (1010.0, 1020.0, 1030.0):        # batch lines inside epoch 1
+        ns["note_epoch"](w, 1, t)
+    assert w["timed_epochs"] == 0, "batch lines were mistaken for epochs"
+    ns["note_epoch"](w, 2, 1600.0)
+    assert w["sec_per_epoch"] == 600.0, "the rate must span epoch 1 -> 2, not a batch"
+
+
+def test_the_rate_is_a_mean_over_the_epochs_it_timed():
+    ns = runner_namespace()
+    w = fresh_state(ns)
+    for number, when in ((1, 0.0), (2, 600.0), (3, 1200.0), (4, 2400.0)):
+        ns["note_epoch"](w, number, when)
+    assert w["timed_epochs"] == 3
+    assert w["sec_per_epoch"] == pytest.approx((600 + 600 + 1200) / 3)
+
+
+def test_the_report_names_the_measured_rate_and_the_projection():
+    ns = runner_namespace()
+    w = fresh_state(ns, key="moltrans")
+    ns["note_epoch"](w, 1, 0.0)
+    ns["note_epoch"](w, 2, 15.7 * 60)          # exactly the projected rate
+    lines = "\n".join(ns["eta"](w, 15.7 * 60, 1e12))
+    assert "15.7 min/epoch measured" in lines
+    assert "15.7 projected" in lines
+    assert "x1.00" in lines, lines
+
+
+def test_a_slower_gpu_shows_up_as_drift():
+    ns = runner_namespace()
+    w = fresh_state(ns, key="hyperattentiondti")
+    ns["note_epoch"](w, 1, 0.0)
+    ns["note_epoch"](w, 2, 12.1 * 60 * 1.5)    # 50% slower than the benchmark
+    lines = "\n".join(ns["eta"](w, 0.0, 1e12))
+    assert "x1.50" in lines, lines
+
+
+def test_the_report_says_when_this_cell_ends_at_both_epoch_counts():
+    ns = runner_namespace()
+    w = fresh_state(ns)
+    ns["note_epoch"](w, 1, 0.0)
+    ns["note_epoch"](w, 10, 9 * 600.0)         # 10 epochs done, 600 s each
+    lines = "\n".join(ns["eta"](w, 9 * 600.0, 1e12))
+    assert "this cell ends" in lines
+    assert "min " in lines and "median " in lines
+    # 15 epochs to the floor, 26 to the median, at 600 s
+    assert "+2.5 h" in lines, lines
+    assert "+4.3 h" in lines, lines
+
+
+def test_the_report_counts_the_cells_still_queued_behind_this_one():
+    ns = runner_namespace("A")                 # A: 2 cells per GPU
+    w = fresh_state(ns)
+    w["cell"] = 1                              # on the first of two
+    ns["note_epoch"](w, 1, 0.0)
+    ns["note_epoch"](w, 2, 600.0)
+    lines = "\n".join(ns["eta"](w, 600.0, 1e12))
+    assert "1 cell(s) after this one" in lines, lines
+    w["cell"] = 2                              # on the last
+    lines = "\n".join(ns["eta"](w, 600.0, 1e12))
+    assert "last cell of this queue" in lines, lines
+
+
+def test_it_says_when_another_commit_is_needed():
+    ns = runner_namespace("A")
+    w = fresh_state(ns)
+    w["cell"] = 1
+    ns["note_epoch"](w, 1, 0.0)
+    ns["note_epoch"](w, 2, 600.0)
+    now = 600.0
+    soon = "\n".join(ns["eta"](w, now, now + 600))          # 10 minutes left
+    assert "more commit(s)" in soon, soon
+    plenty = "\n".join(ns["eta"](w, now, now + 100 * 3600))
+    assert "inside this commit" in plenty, plenty
+
+
+def test_every_model_has_a_projected_epoch_rate():
+    ns = run_settings()
+    assert set(ns["MIN_PER_EPOCH"]) == set(ns["HOURS"])
+    for model, (at36, _at25) in ns["HOURS"].items():
+        implied = ns["MIN_PER_EPOCH"][model] * ns["EPOCHS_TYPICAL"] / 60
+        assert abs(implied - at36) < 0.15, (
+            f"{model}: {ns['MIN_PER_EPOCH'][model]} min/epoch over "
+            f"{ns['EPOCHS_TYPICAL']} epochs is {implied:.2f} h, but HOURS says {at36}")
+
+
+def test_the_projected_epoch_rate_is_the_measured_one():
+    ns = run_settings()
+    measured = REPO / "results" / "speed_test_kiba_t4.md"
+    if not measured.exists():
+        pytest.skip("speed test not in this checkout")
+    table = measured.read_text()[measured.read_text().index("## KIBA hours per cell"):]
+    for model, claimed in ns["MIN_PER_EPOCH"].items():
+        row = next(l for l in table.splitlines()
+                   if l.startswith(f"| {model} |") and "amp" in l)
+        assert float(row.split("|")[3]) == claimed, (
+            f"{model}: notebook says {claimed} min/epoch, speed test says "
+            f"{row.split('|')[3].strip()}")

@@ -273,7 +273,7 @@ class MolTransAdapter(ExplainableDTIModel):
     clone_hint = "cd baselines && git clone <MolTrans url> MolTrans"
 
     def __init__(self, checkpoint_path: str = None, device: str = "cpu",
-                 head_reduce: str = "mean"):
+                 head_reduce: str = "mean", attention_layer: int = -1):
         import torch
 
         _vendored("MolTrans", self.clone_hint)
@@ -283,6 +283,10 @@ class MolTransAdapter(ExplainableDTIModel):
         self.device = device
         self.checkpoint_path = checkpoint_path
         self.head_reduce = head_reduce
+        # Which protein-encoder layer the explanation is read from. The last layer is the
+        # published choice and the default; an earlier one is a readout the audit varies
+        # deliberately (src/evaluation/readout_variants.py).
+        self.attention_layer = int(attention_layer)
         self.config = BIN_config_DBPE()
 
         self.model = BIN_Interaction_Flat(**self.config)
@@ -414,7 +418,11 @@ class MolTransAdapter(ExplainableDTIModel):
         dm = _as_batch(drug_mask) if drug_mask is not None else (d != 0).long()
         pm = _as_batch(protein_mask) if protein_mask is not None else (p != 0).long()
 
-        target = self.model.p_encoder.layer[-1].attention.self
+        layers = self.model.p_encoder.layer
+        if not -len(layers) <= self.attention_layer < len(layers):
+            raise ValueError(f"attention_layer {self.attention_layer} is outside the "
+                             f"{len(layers)} protein-encoder layers")
+        target = layers[self.attention_layer].attention.self
         store, handle = capture_moltrans_attention(target)
         try:
             self.model.eval()          # dropout is applied to attention_probs

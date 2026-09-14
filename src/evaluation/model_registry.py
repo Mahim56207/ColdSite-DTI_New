@@ -58,9 +58,11 @@ def load_variant_plugins(name: str = "") -> None:
     path calls this first, so `moltrans_ig` resolves wherever `moltrans` does instead of
     depending on which module happened to be imported already.
     """
-    if name and not name.endswith("_ig"):
+    from src.model.checkpoint_naming import VARIANT_BASE
+    if name and name not in VARIANT_BASE:
         return
     import src.evaluation.integrated_gradients      # noqa: F401  (registers on import)
+    import src.evaluation.readout_variants          # noqa: F401  (same)
 
 
 def available_models() -> list:

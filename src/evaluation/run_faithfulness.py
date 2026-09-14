@@ -64,7 +64,9 @@ LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
 # refused here with a reason rather than scored through the wrong path.
 # The ladder scores every variant (it goes through collect_cell, which builds the
 # variant adapter); only faithfulness has the ColdSite-DTI exception above.
-EXPLANATION_VARIANTS = tuple(f"{m}_ig" for m in (DEFAULT_MODEL, *RESIDUE_SPACE_MODELS))
+from src.model.checkpoint_naming import VARIANT_BASE                    # noqa: E402
+
+EXPLANATION_VARIANTS = tuple(sorted(VARIANT_BASE))
 MODELS = (DEFAULT_MODEL, *RESIDUE_SPACE_MODELS, *EXPLANATION_VARIANTS)
 LEVEL_LABELS = {"random": "Warm", "cold_drug": "Cold-Drug",
                 "cold_target": "Cold-Target", "cold_pair": "Cold-Pair"}

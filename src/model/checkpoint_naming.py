@@ -97,13 +97,34 @@ MODEL_SUFFIX = {
     "coldsite_dti_ig": "",
     "hyperattentiondti_ig": "_hyperattentiondti",
     "moltrans_ig": "_moltrans",
+    # Alternative readouts of the same attention (src/evaluation/readout_variants.py):
+    # one documented choice changed, same weights, same checkpoint.
+    "coldsite_dti_selfattn": "",
+    "hyperattentiondti_maxchannel": "_hyperattentiondti",
+    "hyperattentiondti_receptive": "_hyperattentiondti",
+    "moltrans_maxhead": "_moltrans",
+    "moltrans_firstlayer": "_moltrans",
+}
+
+# Every explanation variant and the trained model it reads. Explicit rather than a suffix
+# rule: a variant whose base is guessed wrongly would silently load another model's
+# weights, and `_ig` is not the only suffix any more.
+VARIANT_BASE = {
+    "coldsite_dti_ig": "coldsite_dti",
+    "hyperattentiondti_ig": "hyperattentiondti",
+    "moltrans_ig": "moltrans",
+    "coldsite_dti_selfattn": "coldsite_dti",
+    "hyperattentiondti_maxchannel": "hyperattentiondti",
+    "hyperattentiondti_receptive": "hyperattentiondti",
+    "moltrans_maxhead": "moltrans",
+    "moltrans_firstlayer": "moltrans",
 }
 IG_SUFFIX = "_ig"
 
 
 def base_model_name(model: str) -> str:
-    """The trained model behind an explanation variant: 'moltrans_ig' -> 'moltrans'."""
-    return model[:-len(IG_SUFFIX)] if model.endswith(IG_SUFFIX) else model
+    """The trained model behind an explanation variant: 'moltrans_maxhead' -> 'moltrans'."""
+    return VARIANT_BASE.get(model, model)
 DEFAULT_MODEL = "coldsite_dti"
 
 

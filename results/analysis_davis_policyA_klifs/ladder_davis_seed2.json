@@ -1,0 +1,158 @@
+{
+  "random": {
+    "n_proteins": 350,
+    "by_k": {
+      "5": {
+        "precision_at_k": 0.23657142857142857,
+        "normalised": 0.23657142857142857,
+        "ceiling": 0.9982857142857142,
+        "chance": 0.1424205714285714,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 350,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "10": {
+        "precision_at_k": 0.22628571428571434,
+        "normalised": 0.22628571428571434,
+        "ceiling": 0.9977142857142857,
+        "chance": 0.1425817142857143,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 350,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "20": {
+        "precision_at_k": 0.19457142857142856,
+        "normalised": 0.19457142857142856,
+        "ceiling": 0.9964285714285714,
+        "chance": 0.14247614285714286,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 350,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      }
+    },
+    "pairs_per_target": 1
+  },
+  "cold_drug": {
+    "n_proteins": 350,
+    "by_k": {
+      "5": {
+        "precision_at_k": 0.30342857142857144,
+        "normalised": 0.30342857142857144,
+        "ceiling": 0.9982857142857142,
+        "chance": 0.14296971428571428,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 350,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "10": {
+        "precision_at_k": 0.25942857142857145,
+        "normalised": 0.25942857142857145,
+        "ceiling": 0.9977142857142857,
+        "chance": 0.1426822857142857,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 350,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "20": {
+        "precision_at_k": 0.227,
+        "normalised": 0.227,
+        "ceiling": 0.9964285714285714,
+        "chance": 0.142476,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 350,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      }
+    },
+    "pairs_per_target": 1
+  },
+  "cold_target": {
+    "n_proteins": 67,
+    "by_k": {
+      "5": {
+        "precision_at_k": 0.2656716417910448,
+        "normalised": 0.2656716417910448,
+        "ceiling": 1.0,
+        "chance": 0.14057910447761193,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 67,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "10": {
+        "precision_at_k": 0.20447761194029854,
+        "normalised": 0.20447761194029854,
+        "ceiling": 1.0,
+        "chance": 0.1396044776119403,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 67,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "20": {
+        "precision_at_k": 0.182089552238806,
+        "normalised": 0.182089552238806,
+        "ceiling": 1.0,
+        "chance": 0.1391865671641791,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 67,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      }
+    },
+    "pairs_per_target": 1
+  },
+  "cold_pair": {
+    "n_proteins": 71,
+    "by_k": {
+      "5": {
+        "precision_at_k": 0.2957746478873239,
+        "normalised": 0.2957746478873239,
+        "ceiling": 1.0,
+        "chance": 0.13535211267605632,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 71,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "10": {
+        "precision_at_k": 0.2591549295774648,
+        "normalised": 0.2591549295774648,
+        "ceiling": 1.0,
+        "chance": 0.13581690140845068,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 71,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      },
+      "20": {
+        "precision_at_k": 0.23098591549295772,
+        "normalised": 0.23098591549295772,
+        "ceiling": 1.0,
+        "chance": 0.13595915492957747,
+        "p_value": 0.000999000999000999,
+        "significant": true,
+        "n_evaluated": 71,
+        "n_skipped_no_sites": 0,
+        "n_skipped_too_short": 0
+      }
+    },
+    "pairs_per_target": 1
+  }
+}

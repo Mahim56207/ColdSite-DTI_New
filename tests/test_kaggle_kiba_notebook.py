@@ -1,0 +1,336 @@
+"""The KIBA notebook's plan and commands, checked before 128 GPU-hours are spent on them.
+
+Every KIBA cell costs 3 to 9 hours on a T4 and the whole grid is ~128 GPU-hours over four
+accounts, so a mistake here is not a re-run of a script -- it is a day of somebody's
+Kaggle quota. What these tests protect:
+
+* the plan trains each of the 24 cells exactly once, and no two accounts share one;
+* both GPUs of every account get the same number of hours (the session lasts as long as
+  the slower queue, so an unbalanced pair wastes quota);
+* every flag in every generated command is one the target trainer actually accepts --
+  the failure mode is `error: unrecognized arguments`, discovered eleven hours in;
+* the recorded split sizes and class balance match the real KIBA files;
+* the settings cell runs before the repo is cloned (it must not import from `src`).
+"""
+import json
+import os
+import pathlib
+import subprocess
+import sys
+
+import pytest
+
+NOTEBOOK = pathlib.Path("notebooks/kaggle_kiba_4accounts.ipynb")
+REPO = pathlib.Path(__file__).resolve().parents[1]
+
+
+def cells():
+    return json.loads((REPO / NOTEBOOK).read_text())["cells"]
+
+
+def source(index):
+    return "".join(cells()[index]["source"])
+
+
+def code_cells():
+    return [(i, "".join(c["source"])) for i, c in enumerate(cells())
+            if c["cell_type"] == "code"]
+
+
+def settings_cell():
+    for index, text in code_cells():
+        if "ACCOUNT = " in text and "ACCOUNTS = {" in text:
+            return index, text
+    raise AssertionError("no settings cell found")
+
+
+def run_settings(account="A"):
+    """Execute the settings cell as Kaggle would, and return its namespace."""
+    _index, text = settings_cell()
+    text = text.replace("ACCOUNT = 'A'", f"ACCOUNT = {account!r}", 1)
+    namespace = {}
+    exec(compile(text, "settings", "exec"), namespace)
+    return namespace
+
+
+# ---------------------------------------------------------------------------
+# the plan
+# ---------------------------------------------------------------------------
+
+def test_the_plan_is_exactly_the_24_cells_once_each():
+    ns = run_settings()
+    flat = [c for queues in ns["ACCOUNTS"].values() for q in queues.values() for c in q]
+    assert len(flat) == 24, f"{len(flat)} cells in the plan"
+    assert len(set(flat)) == 24, "a cell appears twice -- it would be trained twice"
+    assert sorted(flat) == sorted(ns["EVERY_CELL"])
+
+
+def test_every_account_pair_of_gpus_is_balanced():
+    ns = run_settings()
+    hours = ns["HOURS"]
+    for name, queues in ns["ACCOUNTS"].items():
+        loads = [sum(hours[m][0] for m, _lv, _s in q) for q in queues.values()]
+        assert len(loads) == 2, f"account {name} has {len(loads)} queues, expected 2"
+        assert max(loads) - min(loads) <= 0.2, (
+            f"account {name}: GPUs differ by {max(loads) - min(loads):.1f} h")
+
+
+def test_no_two_accounts_train_the_same_cell():
+    ns = run_settings()
+    owned = {name: {c for q in queues.values() for c in q}
+             for name, queues in ns["ACCOUNTS"].items()}
+    names = sorted(owned)
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            assert not owned[a] & owned[b], f"{a} and {b} both train {owned[a] & owned[b]}"
+
+
+def test_no_account_needs_more_than_a_week_of_quota():
+    """Kaggle gives ~30 h a week. The wall time is what a session consumes; report it."""
+    ns = run_settings()
+    hours = ns["HOURS"]
+    for name, queues in ns["ACCOUNTS"].items():
+        wall = max(sum(hours[m][0] for m, _lv, _s in q) for q in queues.values())
+        assert wall <= 20, f"account {name} needs {wall:.1f} h of wall time on one T4"
+
+
+def test_each_account_letter_selects_its_own_cells():
+    for account in "ABCD":
+        ns = run_settings(account)
+        assert ns["ACCOUNT"] == account
+        mine = {c for q in ns["MY_CELLS"].values() for c in q}
+        assert mine == {c for q in ns["ACCOUNTS"][account].values() for c in q}
+        assert ns["TOTAL_CELLS"] == len(mine)
+
+
+def test_an_unknown_account_letter_is_refused():
+    _index, text = settings_cell()
+    text = text.replace("ACCOUNT = 'A'", "ACCOUNT = 'E'", 1)
+    with pytest.raises(AssertionError, match="ACCOUNT must be one of"):
+        exec(compile(text, "settings", "exec"), {})
+
+
+def test_the_settings_are_the_kiba_protocol():
+    ns = run_settings()
+    assert ns["DATASET"] == "kiba"
+    assert ns["TASK"] == "binary"
+    assert ns["AMP"] is True, "KIBA is trained in mixed precision"
+    assert ns["BRANCH"] == "main", "kiba-resume is merged and now behind main"
+    assert ns["LEVELS"] == ["random", "cold_drug"]
+    assert ns["SEEDS"] == [1, 2, 3]
+
+
+# ---------------------------------------------------------------------------
+# cell ordering: nothing may import the repo before it is cloned
+# ---------------------------------------------------------------------------
+
+def imports_src(body):
+    for line in body.splitlines():
+        head = line.split("#", 1)[0].strip()
+        if head.startswith(("from src.", "from src ", "import src")):
+            return True
+    return False
+
+
+def test_nothing_imports_the_repo_before_the_clone():
+    clone = next(i for i, text in code_cells() if "git clone" in text)
+    for index, text in code_cells():
+        if imports_src(text):
+            assert index > clone, (
+                f"cell {index} imports src but the clone is cell {clone}: on Kaggle that "
+                "is ModuleNotFoundError before anything runs")
+
+
+def test_the_settings_cell_runs_with_no_repo_on_the_path():
+    _index, text = settings_cell()
+    proc = subprocess.run([sys.executable, "-c", text], capture_output=True, text=True,
+                          cwd="/tmp")
+    assert proc.returncode == 0, proc.stderr
+    assert "account A" in proc.stdout
+
+
+# ---------------------------------------------------------------------------
+# the commands
+# ---------------------------------------------------------------------------
+
+def runner_namespace(account="A", n_gpu=2):
+    """Execute the runner cell with the globals the earlier cells would have set."""
+    ns = run_settings(account)
+    index = next(i for i, text in code_cells() if "def moltrans_cmd" in text)
+    ns.update({
+        "os": os, "N_GPU": n_gpu, "WORK": "/tmp", "RESULTS": "/tmp/results",
+        "START": 0.0, "COLDSITE_BATCH": 64, "HAT_BATCH": 32, "HAT_ACCUM": 1,
+        "DEEPDTA_BATCH": 256, "MOLTRANS_BATCH": 16,
+    })
+    import time as _time
+    ns["time"] = _time
+    ns["START"] = _time.time()
+    exec(compile(source(index), "runner", "exec"), ns)
+    return ns
+
+
+def test_one_queue_per_gpu_covering_exactly_this_accounts_cells():
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        queues = ns["QUEUES"]
+        assert sorted(queues) == ["0", "1"], queues.keys()
+        built = sum(len(q) for q in queues.values())
+        assert built == ns["TOTAL_CELLS"], (
+            f"account {account}: {built} commands for {ns['TOTAL_CELLS']} cells")
+
+
+def test_one_command_is_one_cell():
+    """ColdSite-DTI goes through run_grid, which can train a whole sub-grid. If it were
+    handed more than one split or seed, one command would silently train cells this
+    account does not own -- and another account would train them too."""
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        for queue in ns["QUEUES"].values():
+            for cmd in queue:
+                if "src.model.run_grid" in cmd:
+                    splits = cmd[cmd.index("--splits") + 1]
+                    seeds = cmd[cmd.index("--seeds") + 1]
+                    assert "," not in splits, f"run_grid given several splits: {splits}"
+                    assert "," not in seeds, f"run_grid given several seeds: {seeds}"
+
+
+def test_every_command_asks_for_mixed_precision_and_kiba():
+    """HyperAttentionDTI and MolTrans are classifiers in their published form and have no
+    --task flag at all; DeepDTA and ColdSite-DTI do regression too, so theirs must say
+    binary explicitly or they would train the wrong objective."""
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        for queue in ns["QUEUES"].values():
+            for cmd in queue:
+                assert "--amp" in cmd, f"no --amp: {cmd}"
+                assert "kiba" in cmd, f"not a KIBA command: {cmd}"
+                if "--task" in cmd:
+                    assert cmd[cmd.index("--task") + 1] == "binary", cmd
+                else:
+                    assert any(m in cmd for m in ("src.model.train_moltrans",
+                                                  "src.model.train_hyperattentiondti")), (
+                        f"no --task, and this trainer is not binary-only: {cmd}")
+
+
+def test_the_two_models_that_can_do_regression_are_told_binary():
+    ns = runner_namespace("D")          # D owns DeepDTA and ColdSite-DTI cells
+    saw = set()
+    for queue in ns["QUEUES"].values():
+        for cmd in queue:
+            for module in ("src.model.train_deepdta", "src.model.run_grid"):
+                if module in cmd:
+                    assert cmd[cmd.index("--task") + 1] == "binary", cmd
+                    saw.add(module)
+    assert saw == {"src.model.train_deepdta", "src.model.run_grid"}, saw
+
+
+def test_the_commands_cover_the_cells_the_plan_lists():
+    """A command's split and seed must match the cell it was built for."""
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        for gpu, cells_ in ns["MY_CELLS"].items():
+            commands = ns["QUEUES"][str(gpu)]
+            for model, split, seed in cells_:
+                def names(cmd):
+                    if "src.model.run_grid" in cmd:
+                        return (cmd[cmd.index("--splits") + 1],
+                                cmd[cmd.index("--seeds") + 1])
+                    return (cmd[cmd.index("--split") + 1], cmd[cmd.index("--seed") + 1])
+                assert any(names(c) == (split, str(seed)) for c in commands), (
+                    f"account {account} GPU{gpu}: no command for {model} {split} s{seed}")
+
+
+MODULE_OF = {
+    "deepdta": "src.model.train_deepdta",
+    "coldsite_dti": "src.model.run_grid",
+    "hyperattentiondti": "src.model.train_hyperattentiondti",
+    "moltrans": "src.model.train_moltrans",
+}
+
+
+@pytest.mark.parametrize("module", sorted(set(MODULE_OF.values())))
+def test_every_flag_is_one_the_trainer_accepts(module):
+    """The bug this prevents: `error: unrecognized arguments`, eleven hours in. Each
+    trainer has its own CLI -- train.py has no --patience, train_deepdta has no
+    --train-subsample -- so the flags are checked against the real parsers."""
+    help_text = subprocess.run([sys.executable, "-m", module, "--help"],
+                               capture_output=True, text=True, cwd=REPO).stdout
+    assert help_text, f"{module} --help printed nothing"
+    used = set()
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        for queue in ns["QUEUES"].values():
+            for cmd in queue:
+                if module in cmd:
+                    used |= {a for a in cmd if a.startswith("--")}
+    assert used, f"no command in any account uses {module}"
+    for flag in sorted(used):
+        assert flag in help_text, f"{module} does not accept {flag}"
+
+
+def test_a_single_gpu_session_is_refused():
+    """On one GPU the account would need twice the wall time and overrun its quota."""
+    with pytest.raises(AssertionError, match="GPU T4 x2"):
+        runner_namespace("A", n_gpu=1)
+
+
+# ---------------------------------------------------------------------------
+# the data the notebook asserts on
+# ---------------------------------------------------------------------------
+
+def split_check_cell():
+    for index, text in code_cells():
+        if "EXPECTED = {" in text and "POSITIVE_RATE" in text:
+            return text
+    raise AssertionError("no split-verification cell")
+
+
+def test_the_recorded_split_sizes_are_the_real_ones():
+    pd = pytest.importorskip("pandas")
+    namespace = {}
+    text = split_check_cell()
+    body = text[text.index("EXPECTED = {"):text.index("POSITIVE_RATE")]
+    exec(compile(body, "sizes", "exec"), namespace)
+    for level, expected in namespace["EXPECTED"].items():
+        directory = REPO / "data" / "splits" / "kiba" / level
+        if not directory.is_dir():
+            pytest.skip(f"no local splits for kiba/{level}")
+        sizes = tuple(len(pd.read_csv(directory / f"{part}.csv"))
+                      for part in ("train", "valid", "test"))
+        assert sizes == expected, f"{level}: real {sizes}, notebook says {expected}"
+
+
+def test_the_recorded_positive_rates_are_the_real_ones():
+    pd = pytest.importorskip("pandas")
+    from src.model.dataset import BINARY_THRESHOLD
+    text = split_check_cell()
+    line = next(l for l in text.splitlines() if l.startswith("POSITIVE_RATE"))
+    rates = eval(line.split("=", 1)[1].split("#")[0].strip())
+    for level, claimed in rates.items():
+        path = REPO / "data" / "splits" / "kiba" / level / "test.csv"
+        if not path.exists():
+            pytest.skip(f"no local splits for kiba/{level}")
+        real = (pd.read_csv(path)["Y"] >= BINARY_THRESHOLD["kiba"]).mean()
+        assert abs(real - claimed) < 0.01, f"{level}: real {real:.3f}, notebook {claimed}"
+
+
+def test_the_hour_estimates_match_the_measured_speed_test():
+    """HOURS drives the whole partition, so it must be the measured table, not a guess."""
+    ns = run_settings()
+    measured = REPO / "results" / "speed_test_kiba_t4.md"
+    if not measured.exists():
+        pytest.skip("speed test not in this checkout")
+    text = measured.read_text()
+    # The file has two tables whose rows both start "| <model> | amp+benchmark |": the
+    # s/batch one and the projected-hours one. Only the second is the cost model.
+    heading = text.index("## KIBA hours per cell")
+    hours_table = text[heading:]
+    for model, (at36, at25) in ns["HOURS"].items():
+        row = next((l for l in hours_table.splitlines()
+                    if l.startswith(f"| {model} |") and "amp" in l), None)
+        assert row, f"no amp row for {model} under the hours table of {measured.name}"
+        # "| model | amp+benchmark | min/epoch | h at 25 / 36 ep | ..."
+        cell = row.split("|")[4]
+        low, high = (float(x) for x in cell.split("/"))
+        assert (low, high) == (at25, at36), (
+            f"{model}: notebook says {at25}/{at36} h, speed test says {low}/{high}")

@@ -204,3 +204,65 @@ def test_batch_emits_the_one_line_verdict(model, pair):
     summary = batch_faithfulness(model, [drug] * 2, [protein] * 2,
                                  [attention] * 2, k=10, n_random_trials=2)
     assert isinstance(summary["explanation_is_load_bearing"], bool)
+
+
+# ---------------------------------------------------------------------------
+# the control has to be the same size of intervention (2026-09-14)
+# ---------------------------------------------------------------------------
+
+def test_the_control_asks_the_model_for_matched_positions_when_it_can():
+    """A sub-word model's k random residues are a bigger intervention than its k attended
+    ones, so the model gets to choose the control's positions."""
+    import numpy as np
+
+    from src.evaluation.faithfulness import random_control
+
+    asked = {"calls": 0, "attended": None}
+
+    class Model:
+        def predict(self, drug, protein):
+            return float(np.asarray(protein).sum())
+
+        def control_positions(self, drug, protein, k, rng, attended):
+            asked["calls"] += 1
+            asked["attended"] = list(attended)
+            return np.arange(k)               # deterministic, so the test can check it
+
+    protein = torch.ones(1, 50)
+    out = random_control(Model(), torch.zeros(1, 1), protein, k=5, n_trials=3,
+                         rng=np.random.default_rng(0), attended=[10, 11, 12, 13, 14])
+    assert asked["calls"] == 3                # once per trial
+    assert asked["attended"] == [10, 11, 12, 13, 14]
+    assert np.isfinite(out)
+
+
+def test_a_model_without_matched_positions_keeps_the_uniform_draw():
+    """Residue-level models must be untouched: their numbers are already in the paper."""
+    import numpy as np
+
+    from src.evaluation.faithfulness import random_control
+
+    class Model:
+        def __init__(self):
+            self.seen = []
+
+        def predict(self, drug, protein):
+            self.seen.append(np.asarray(protein).copy())
+            return float(np.asarray(protein).sum())
+
+    plain, again = Model(), Model()
+    kwargs = dict(k=4, n_trials=3, attended=[0, 1, 2, 3])
+    a = random_control(plain, torch.zeros(1, 1), torch.ones(1, 40),
+                       rng=np.random.default_rng(7), **kwargs)
+    b = random_control(again, torch.zeros(1, 1), torch.ones(1, 40),
+                       rng=np.random.default_rng(7), **kwargs)
+    assert a == b                              # same seed, same draw, unchanged behaviour
+
+
+def test_the_matched_control_is_offered_only_to_subword_models():
+    from src.evaluation.residue_space import SUBWORD_MODELS, ResidueSpaceModel
+
+    assert SUBWORD_MODELS == ("moltrans",)
+    wrapped = ResidueSpaceModel(adapter=object(), model_name="hyperattentiondti")
+    assert wrapped.control_positions(torch.zeros(1, 1), None, 10,
+                                     None, [1, 2, 3]) is None

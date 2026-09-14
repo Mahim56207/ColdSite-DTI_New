@@ -171,3 +171,38 @@ def test_faithfulness_masks_a_variant_like_its_base_model():
     assert wrapped.model_name == "moltrans"
     with pytest.raises(ValueError, match="no residue-space tokenisation"):
         ResidueSpaceModel(adapter=object(), model_name="deepdta_ig")
+
+
+def test_the_attribution_disables_cudnn_so_an_rnn_can_be_differentiated():
+    """ColdSite-DTI's protein tower is a bi-LSTM, and cuDNN refuses an eval-mode RNN
+    backward pass -- it killed all six of its Kaggle jobs while passing on this laptop,
+    which has no cuDNN. The attribution therefore runs with cuDNN off.
+    """
+    import inspect
+
+    from src.evaluation import integrated_gradients
+
+    source = inspect.getsource(integrated_gradients.attributions)
+    assert "cudnn.flags(enabled=False)" in source
+    assert "model.eval()" in source          # eval mode is still kept: dropout stays off
+
+
+def test_an_rnn_model_can_actually_be_attributed():
+    """The case that failed: a recurrent protein tower, differentiated end to end."""
+    class Recurrent(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.protein_encoder = nn.Module()
+            self.protein_encoder.embedding = nn.Embedding(8, 4, padding_idx=0)
+            self.protein_encoder.bilstm = nn.LSTM(4, 3, batch_first=True, bidirectional=True)
+            self.head = nn.Linear(6, 1)
+
+        def forward(self, protein):
+            embedded = self.protein_encoder.embedding(protein)
+            out, _state = self.protein_encoder.bilstm(embedded)
+            return self.head(out.mean(dim=1)).reshape(-1)
+
+    model = Recurrent()
+    weights = _run(model, torch.tensor([[1, 2, 3, 4, 5]]))
+    assert weights.shape == (5,)
+    assert np.all(np.isfinite(weights)) and weights.sum() > 0

@@ -104,7 +104,12 @@ def attributions(predict, model, protein_embedding_path: str, steps: int = DEFAU
     module = embedding_module(model, protein_embedding_path)
     was_training = model.training
     model.eval()
-    with _substituted(module) as state:
+    # cuDNN refuses to backpropagate through an RNN in eval mode ("cudnn RNN backward can
+    # only be called in training mode"), which killed every ColdSite-DTI job on Kaggle
+    # while passing here, because a CPU has no cuDNN. Disabling cuDNN for the attribution
+    # uses PyTorch's own RNN kernels instead: same maths, and eval mode is kept, so
+    # dropout stays off and the attributions still belong to the model as it predicts.
+    with torch.backends.cudnn.flags(enabled=False), _substituted(module) as state:
         with torch.no_grad():                      # pass 1: the real embedding
             predict()
         real = state["captured"]

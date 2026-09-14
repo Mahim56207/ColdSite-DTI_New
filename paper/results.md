@@ -2,9 +2,10 @@
 
 Drafted 2026-09-13 from the cells finished so far. Every number below is read from a
 trained cell's `_results.json` (DAVIS binary grid, Kaggle account 1, commit v1 of
-`kaggle_davis_binary_grid36.ipynb`) or from a file named beside it. *[PENDING]* marks
-what waits for HyperAttentionDTI (10 cells training), MolTrans seeds 2–3 (8 cells to retrain), the
-audit table and KIBA. All values are test-set means ± sample standard deviation over
+`kaggle_davis_binary_grid36.ipynb`) or from a file named beside it. The DAVIS grid is
+complete: 48 of 48 cells (4 models x 4 levels x 3 seeds), verified cell by cell against
+the AUROC each recorded. *[PENDING]* now marks only KIBA, the antiviral case study, and
+the integrated-gradients rows for two models. All values are test-set means ± sample standard deviation over
 three training seeds; a difference smaller than the spread is not reported as one.
 
 ---
@@ -19,7 +20,7 @@ that rate differs.
 |---|---|---|---|---|
 | DeepDTA (anchor) | 0.929 ± 0.002 | 0.907 ± 0.003 | 0.692 ± 0.044 | 0.728 ± 0.035 |
 | ColdSite-DTI (ours) | 0.924 ± 0.001 | 0.857 ± 0.011 | 0.721 ± 0.008 | 0.624 ± 0.099 |
-| HyperAttentionDTI | 0.937 ± 0.005 | 0.915 ± 0.001 | *[PENDING]* | 0.694 ± 0.038 |
+| HyperAttentionDTI | 0.937 ± 0.005 | 0.915 ± 0.001 | **0.760 ± 0.042** | 0.694 ± 0.038 |
 | MolTrans | 0.923 ± 0.002 | 0.874 ± 0.005 | 0.685 ± 0.020 | 0.569 ± 0.021 |
 
 | | random | cold-target | cold-drug | cold-pair |
@@ -29,7 +30,7 @@ that rate differs.
 | positive rate (AUPRC chance) | 0.077 | 0.075 | 0.060 | 0.057 |
 | DeepDTA AUPRC | 0.631 ± 0.013 | 0.615 ± 0.004 | 0.199 ± 0.045 | 0.206 ± 0.012 |
 | ColdSite-DTI AUPRC | 0.612 ± 0.010 | 0.464 ± 0.047 | 0.201 ± 0.035 | 0.132 ± 0.028 |
-| HyperAttentionDTI AUPRC | 0.669 ± 0.021 | 0.644 ± 0.014 | *[PENDING]* | 0.187 ± 0.028 |
+| HyperAttentionDTI AUPRC | 0.669 ± 0.021 | 0.644 ± 0.014 | 0.284 ± 0.032 | 0.187 ± 0.028 |
 | MolTrans AUPRC | 0.616 ± 0.004 | 0.532 ± 0.010 | 0.133 ± 0.021 | 0.098 ± 0.024 |
 
 **Table R1b.** The cold levels on targets **unseen by sequence** (§1b; option A): the same
@@ -80,16 +81,18 @@ immediately. Random ran long by comparison (best epochs 40, 40, 32). Every cold-
 result below is therefore quoted with its spread, never from one seed.
 
 **The two published models do not degrade alike.** HyperAttentionDTI is the most accurate
-model at every level it has (random 0.937, cold-target 0.893 unseen — the best cold-target
-figure in the table) and holds up at cold-pair (0.713 unseen). MolTrans is close to the
+model at every level (random 0.937, cold-target 0.893 unseen — the best cold-target figure
+in the table), holds up at cold-pair (0.713 unseen), and is the only model that does not
+collapse on unseen drugs: **0.760 ± 0.042 at cold-drug**, against 0.692 ± 0.044 for
+DeepDTA, 0.721 ± 0.008 for ColdSite-DTI and 0.685 ± 0.020 for MolTrans. On the axis that
+costs every other model the most, it loses the least. MolTrans is close to the
 others on random (0.923) but loses more at every cold level, and at cold-pair it reaches
 **0.530 ± 0.024 on unseen proteins — chance**, with AUPRC 0.098 against a 0.057 positive
 rate. Whatever its attention means at cold-pair, it is attached to a model that cannot
 predict there; the audit reports that beside its explanation scores, because an
 explanation of a prediction no better than chance is not an explanation of anything.
 
-*HyperAttentionDTI cold-drug (3 cells) is still training. MolTrans's three seeds are the
-retrained ones: the first grid's seeds 2 and 3 trained as seed 1 (the vendored `models.py`
+*MolTrans's three seeds are the retrained ones: the first grid's seeds 2 and 3 trained as seed 1 (the vendored `models.py`
 reseeds torch on import; fixed 2026-09-13), and only the corrected cells are used here.*
 
 ## 1b. DAVIS's sequences: leakage and pseudo-variants
@@ -242,12 +245,9 @@ the sequence policy (pre-policy values: `results/positional_control_coldsite_dti
 
 ## 5. The audit table: the published model's residue-level claim holds only on the random split
 
-Computed 2026-09-14 on two T4 GPUs (`notebooks/kaggle_analysis_davis.ipynb`), one Holm
-correction over the whole family. MolTrans is **[PENDING]**: the Kaggle dataset attached to
-that run held the pre-fix copies of its seeds 2 and 3, so the notebook's input check
-dropped it rather than analyse them (§1's footnote). Its numbers are computed and waiting
-in `results/analysis_davis_policyA/` from the CPU run; the corrected cells have to reach
-Kaggle before the audit can cover three models.
+Computed 2026-09-14 on two T4 GPUs (`notebooks/kaggle_analysis_davis.ipynb`), **one Holm
+correction over all sixteen cells** — three audited models and the uniform control, four
+levels each. Correcting per model would have inflated every claim in the table.
 
 **Table R4.** precision@10 against UniProt's annotated residues, mean ± sd over seeds
 1–3 (`results/analysis_davis_policyA/audit_davis_binary.md`). `uniform_control` is an
@@ -257,14 +257,23 @@ attention map of equal weight everywhere — the metric's own floor.
 |---|---|---|---|---|
 | ColdSite-DTI (ours) | 0.015 ± 0.007 | 0.022 ± 0.009 | 0.017 ± 0.002 | 0.013 ± 0.005 |
 | HyperAttentionDTI (published) | **0.034 ± 0.006** | 0.040 ± 0.031 | 0.024 ± 0.008 | 0.022 ± 0.010 |
+| MolTrans (published) | 0.021 ± 0.003 | 0.027 ± 0.005 | 0.028 ± 0.016 | 0.020 ± 0.014 |
 | uniform control | 0.020 ± 0.001 | 0.020 ± 0.001 | 0.018 ± 0.005 | 0.017 ± 0.001 |
-| MolTrans (published) | *[PENDING]* | *[PENDING]* | *[PENDING]* | *[PENDING]* |
 
-**One cell of twelve survives Holm–Bonferroni: HyperAttentionDTI on the random split**
-(p = 0.0020 against a threshold of 0.0042). Its cold-drug cell is the next largest but
-fails (p = 0.050 vs 0.0050) on a seed spread of ±0.031; cold-target (p = 0.11) and
-cold-pair (p = 0.30) are not close. ColdSite-DTI survives nowhere, and its cold-drug cell
-— the one that looked best — fails at p = 0.0060 against a 0.0045 threshold.
+**One cell of sixteen survives Holm–Bonferroni: HyperAttentionDTI on the random split**
+(p = 0.0020 against a threshold of 0.0031). The next four in the ordering all fail:
+ColdSite-DTI cold-drug (p = 0.0060 vs 0.0033), MolTrans cold-target (p = 0.012 vs 0.0036)
+and cold-drug (p = 0.020 vs 0.0038), and HyperAttentionDTI cold-drug (p = 0.050 vs
+0.0042, on a seed spread of ±0.031). HyperAttentionDTI's cold-target (p = 0.11) and
+cold-pair (p = 0.30) are not close, and ColdSite-DTI survives nowhere.
+
+**MolTrans is at the metric's floor everywhere.** Its four cells (0.020–0.028) sit within
+one standard deviation of the uniform control's (0.017–0.020) — an attention map of equal
+weight everywhere scores the same as its trained attention. Its best cell, cold-target
+0.028 ± 0.016, is also where its accuracy is 0.833 unseen (Table R1b); at cold-pair,
+where it predicts at chance (0.530), its attention scores 0.020 against a 0.017 floor.
+Both of the published models we audit therefore fail the residue-level claim under
+shift, and one of them fails it everywhere.
 
 **The warm signal is real, not an artefact.** At the random split all three of
 HyperAttentionDTI's seeds beat every null in `positional_control`: a map borrowed from

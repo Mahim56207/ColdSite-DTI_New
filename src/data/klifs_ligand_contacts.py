@@ -74,6 +74,7 @@ def out_files(dataset: str = "davis") -> dict:
             "report": f"data/{dataset}_drug_sites_report.json",
             "ligands": f"data/klifs_ligands.json",
             "swapped": f"data/{dataset}_drug_sites_swapped.json",
+            "paired": f"data/{dataset}_drug_sites_paired.json",
             "structures": f"data/klifs_structures.json"}
 
 
@@ -358,7 +359,16 @@ def main():
     swapped = swap_drugs(sites)
     with open(f["swapped"], "w") as handle:
         json.dump(swapped, handle, indent=1)
-    print(f"{len(swapped)} pairs also written as the swapped-drug control")
+    # The swapped arm can only cover proteins with at least two crystallised drugs, so
+    # the full drug arm has more pairs than it does (36 vs 29 at DAVIS random). Comparing
+    # the two then compares different pair sets. This file is the drug arm restricted to
+    # exactly the swappable pairs: same keys, same n, so the difference between the arms
+    # is the drug and nothing else.
+    paired = {key: sites[key] for key in swapped}
+    with open(f["paired"], "w") as handle:
+        json.dump(paired, handle, indent=1)
+    print(f"{len(swapped)} pairs written as the swapped-drug control, and the same "
+          f"{len(paired)} as the paired drug arm")
     text = summary(sites, report,
                    coverage(sites, args.split_root, args.dataset, swapped))
     print("\n" + text)

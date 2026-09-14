@@ -141,13 +141,20 @@ def collect_explanations(model, dataloader, target_ids, site_sets, device="cpu",
 
 
 def evaluate_level(weights, sites, k_values=(5, 10, 20), n_trials=1000, seed=0,
-                   pairs_per_target=None):
+                   pairs_per_target=None, ids=None):
     """One difficulty level -> fidelity at each k, plus a split-level p-value.
 
     `pairs_per_target` is recorded, not used: it says whether `n` counts
     proteins (1) or test pairs (0), which a reader of the JSON cannot tell.
+
+    `ids` (the scored proteins, in order) is recorded with the per-protein scores so a
+    confidence interval can resample proteins -- and resample the SAME protein across
+    seeds (`src/evaluation/bootstrap_ci.py`). A mean alone cannot be given an interval
+    afterwards; keeping the values costs a few kilobytes and saves recomputing everything.
     """
     result = {"n_proteins": len(weights), "by_k": {}}
+    if ids is not None:
+        result["ids"] = [str(i) for i in ids]
     if pairs_per_target is not None:
         result["pairs_per_target"] = pairs_per_target
     for k in k_values:
@@ -165,6 +172,7 @@ def evaluate_level(weights, sites, k_values=(5, 10, 20), n_trials=1000, seed=0,
             "n_evaluated": batch["n_evaluated"],
             "n_skipped_no_sites": batch["n_skipped_no_sites"],
             "n_skipped_too_short": batch["n_skipped_too_short"],
+            "per_protein": [float(x) for x in batch["per_protein"]],
         }
     return result
 
@@ -431,7 +439,8 @@ def main():
         unit = "proteins" if args.pairs_per_target == 1 else "pairs"
         print(f"{level}: {len(used)} {unit} with usable ground truth")
         results[level] = evaluate_level(weights, sites, n_trials=args.n_trials,
-                                        pairs_per_target=args.pairs_per_target)
+                                        pairs_per_target=args.pairs_per_target,
+                                        ids=used)
 
     if not results:
         raise SystemExit(

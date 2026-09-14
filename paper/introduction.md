@@ -77,10 +77,14 @@ an attention map highlights is mostly a property of an unreported reduction choi
 (alternative readouts share 2–12% of their top-ten residues with the published one, and one
 choice moves a pocket-level verdict from below chance to 2.6× chance); a masking-based
 faithfulness test inverts its own sign for a sub-word model, because k residues is not a
-fixed-size intervention; and integrated gradients on the same checkpoints recover the pocket
-about twice as well as the attention does, reaching 3.8× chance exactly where the attention
-fails correction — so attention under-reports what the model uses, and under-reports it
-worst under the shift where interpretability is supposed to earn its keep. Along the way the
+fixed-size intervention; and integrated gradients on the same checkpoints survive correction
+in **seven of twelve cells where the attention survives in one of sixteen**, reaching
+2.3–4.1× chance at levels where the attention is at chance — so for two of the three models
+the attention under-reports a binding site the model does represent, and under-reports it
+worst under the shift where interpretability is supposed to earn its keep. The third model
+is the control for that claim: its gradient matches its attention and both sit at the
+metric's floor, so its failure is the model rather than the report — a distinction no
+attention measurement can draw. Along the way the
 benchmark itself required correction: DAVIS's protein file gives every mutant its wild-type
 sequence, and retraining without that leak accounts for 0.019 of cold-target's 0.038
 apparent difficulty.

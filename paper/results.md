@@ -4,9 +4,9 @@ Drafted 2026-09-13 from the cells finished so far. Every number below is read fr
 trained cell's `_results.json` (DAVIS binary grid, Kaggle account 1, commit v1 of
 `kaggle_davis_binary_grid36.ipynb`) or from a file named beside it. The DAVIS grid is
 complete: 48 of 48 cells (4 models x 4 levels x 3 seeds), verified cell by cell against
-the AUROC each recorded. *[PENDING]* now marks only KIBA, the antiviral case study, and
-the integrated-gradients rows for two models. All values are test-set means ± sample standard deviation over
-three training seeds; a difference smaller than the spread is not reported as one.
+the AUROC each recorded. *[PENDING]* now marks only KIBA and the antiviral case study. All
+values are test-set means ± sample standard deviation over three training seeds; a
+difference smaller than the spread is not reported as one.
 
 ---
 
@@ -586,40 +586,79 @@ and the gradient of the model's own prediction, with no interpretability head
 "no residue here" the masking uses, 32 steps, explaining each model's own `predict`). The
 variants read the *same checkpoints*, so this is two explanations of one model.
 
-**Table R8.** HyperAttentionDTI, precision@10, mean over seeds 1–3.
+**Table R8.** precision@10 against UniProt's annotated residues, all three audited models,
+mean ± sd over seeds 1–3. `attention` is the audit table of §5. Holm is applied over the
+twelve cells of this family, with each cell's p taken as the median of its three seeds —
+the same rule `run_audit` uses for the attention family.
 
-| ground truth | level | attention | integrated gradients | chance |
+| model | level | attention | integrated gradients | IG / attn | × chance | survives Holm |
+|---|---|---|---|---|---|---|
+| ColdSite-DTI | random | 0.015 | 0.021 ± 0.009 | 1.4× | 1.03× | no (p = 0.73) |
+| | cold-drug | 0.022 | **0.055 ± 0.022** | 2.5× | **2.69×** | **yes** (p = 0.0010) |
+| | cold-target | 0.017 | **0.044 ± 0.027** | 2.6× | **2.25×** | **yes** (p = 0.0030) |
+| | cold-pair | 0.013 | 0.014 ± 0.001 | 1.1× | 0.76× | no (p = 0.87) |
+| HyperAttentionDTI | random | 0.034 | **0.055 ± 0.034** | 1.6× | **2.70×** | **yes** (p = 0.0010) |
+| | cold-drug | 0.040 | **0.079 ± 0.005** | 2.0× | **3.88×** | **yes** (p = 0.0010) |
+| | cold-target | 0.025 | **0.079 ± 0.009** | 3.2× | **4.07×** | **yes** (p = 0.0010) |
+| | cold-pair | 0.022 | **0.060 ± 0.028** | 2.7× | **3.20×** | **yes** (p = 0.0010) |
+| MolTrans | random | 0.021 | 0.018 ± 0.001 | 0.9× | 0.90× | no (p = 0.84) |
+| | cold-drug | 0.027 | 0.027 ± 0.003 | 1.0× | 1.32× | yes (p = 0.0050) |
+| | cold-target | 0.028 | 0.029 ± 0.001 | 1.1× | 1.52× | no (p = 0.050) |
+| | cold-pair | 0.020 | 0.021 ± 0.003 | 1.0× | 1.11× | no (p = 0.38) |
+
+**Table R8b.** The same against the 85-residue KLIFS ATP pocket (chance 0.136–0.143).
+Eleven of these twelve cells survive Holm; only MolTrans's cold-pair does not.
+
+| model | random | cold-drug | cold-target | cold-pair |
 |---|---|---|---|---|
-| UniProt residues | random | 0.034 | **0.055** | 0.020 |
-| | cold-drug | 0.040 | **0.079** | 0.020 |
-| | cold-target | 0.025 | **0.079** | 0.019 |
-| | cold-pair | 0.022 | **0.060** | 0.019 |
-| KLIFS pocket | random | 0.242 | **0.427** | 0.143 |
-| | cold-drug | 0.192 | **0.384** | 0.143 |
-| | cold-target | 0.186 | **0.538** | 0.140 |
-| | cold-pair | 0.185 | **0.326** | 0.136 |
+| ColdSite-DTI attention | 0.219 | 0.299 | 0.243 | 0.271 |
+| ColdSite-DTI **IG** | **0.280 ± 0.014** | **0.451 ± 0.159** | **0.325 ± 0.040** | **0.314 ± 0.044** |
+| HyperAttentionDTI attention | 0.242 | 0.193 | 0.186 | 0.185 |
+| HyperAttentionDTI **IG** | **0.427 ± 0.070** | **0.384 ± 0.078** | **0.538 ± 0.068** | **0.326 ± 0.055** |
+| MolTrans attention | 0.157 | 0.154 | 0.176 | 0.136 |
+| MolTrans **IG** | 0.168 ± 0.045 | 0.165 ± 0.025 | 0.162 ± 0.016 | 0.125 ± 0.024 |
 
-**The model represents the site more strongly than its attention reports.** Integrated
-gradients roughly double the pocket-level agreement at every level, and at cold-target —
-where the attention is at 1.3× chance and fails Holm (§5) — the gradient is at **3.8×**.
-Against UniProt's annotated residues the gradient is 2–3× the attention and 2.8–4.2×
-chance, where the attention was at chance everywhere but the random split.
+**Seven of twelve cells survive Holm for the gradient, against one of sixteen for the
+attention.** The comparison is as controlled as it can be made: the same checkpoints, the
+same ground truth, the same protein sets, the same permutation test, the same *k* — only
+the explanation differs. Where the attention of the best-generalising model is at chance
+under shift, its gradient is at 3.2–4.1× chance and survives correction at every level.
 
-That changes what the audit concludes. It is not that these models are ignorant of where
-drugs bind; it is that **attention under-reports what the model uses** — and it
-under-reports it worst exactly where the interpretability claim matters most, under
-distribution shift. A practitioner reading an attention map is therefore seeing less than
-the model knows, and a paper validating a model by its attention map is measuring its
-interpretability head rather than its knowledge.
+**And the gap appears exactly where the attention carries something.** For the two models
+whose attention is at least coarsely plausible, the gradient recovers far more: ColdSite-DTI
+2.5–2.6× its attention at the two cold levels where it clears correction, HyperAttentionDTI
+1.6–3.2× at all four. For **MolTrans the gradient matches its attention to within noise**
+(0.9–1.1× on annotated residues, 0.9–1.1× on the pocket) and both sit at the floor. That is
+the control this section needed. It says the two failures are different in kind:
 
-*[PENDING: ColdSite-DTI and MolTrans. Their first run died on `cudnn RNN backward can only
-be called in training mode` — ColdSite-DTI's protein tower is a bi-LSTM and the
-attribution runs the model in eval mode — and MolTrans's cells were not attached that
-run. Both are fixed (the attribution now runs in train mode with every stochastic
-component switched off, verified deterministic); the re-run is ~1 h. A first look on 6
-proteins put ColdSite-DTI's IG at 0.000 against UniProt residues, so the gap above may be
-specific to HyperAttentionDTI rather than general — which is itself worth reporting, and
-is what the re-run settles.]*
+* HyperAttentionDTI and ColdSite-DTI **do** represent the binding site, and their attention
+  under-reports it — a reporting failure.
+* MolTrans's attention is not under-reporting anything. Its gradient, which has no
+  interpretability head to blame, is at the floor too. Its failure is the **model**.
+
+No attention measurement could have drawn that distinction, which is the argument for
+including a second explanation method in an audit of this kind at all.
+
+Two honest qualifications. **ColdSite-DTI's gradient is noisy where it matters**: its
+cold-target cell is 0.074 / 0.021 / 0.037 across seeds (± 0.027) and its cold-drug pocket
+cell is 0.352 / 0.634 / 0.366 (± 0.159), so the effect is established by the permutation
+test rather than by a precise estimate, and the direction is what we report. **MolTrans's
+three surviving KLIFS cells are significant but tiny** — 1.16–1.18× chance on 350 proteins
+— and are read as the floor, not as a signal; §5's rule of reporting effect size beside p
+is why.
+
+*Reproducibility: this table was computed twice, on two Kaggle accounts with independent T4
+allocations, one on commit `139b103` and one on `3ca50aa`. All 24 cells (2 models × 4 levels
+× 3 seeds × 2 ground truths) agree to **0.0e+00** — bit-identical — which is what the
+attribution's determinism check predicted and is worth recording because the first attempt
+at this analysis crashed on a non-deterministic cuDNN path.*
+
+*The correction family: these twelve cells are Holm-corrected among themselves, not pooled
+with the sixteen attention cells of §5. Integrated gradients were added **after** the
+attention results were seen, so this is a secondary analysis and is labelled one; the
+attention audit remains the pre-specified primary family. Methods states both, and no claim
+in this section rests on comparing a corrected p from one family with a corrected p from the
+other.*
 
 ## 7d. How precisely does a cell of this size measure anything?
 

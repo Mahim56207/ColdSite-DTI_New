@@ -141,15 +141,29 @@ The coarse signal is more robust — pocket-level agreement stays at 1.3–1.4×
 the cold levels for HyperAttentionDTI and ~2× for ColdSite-DTI — which is consistent with
 the region, not the site, being what these models learned.
 
-**And the degradation is a reporting failure more than an ignorance failure.** Integrated
-gradients on the same HyperAttentionDTI checkpoints roughly double pocket agreement at
-every level and reach 3.8× chance at cold-target, exactly where the attention is at 1.3×
-and fails correction. The information is in the weights; the attention head does not
-report it. That is a more useful conclusion for practice than "attention does not work":
-it says an attention map is a lossy summary of what a model uses, and is lossiest where
-interpretability matters most. *[PENDING: whether ColdSite-DTI and MolTrans show the same
-gap. A first look put ColdSite-DTI's gradient at 0.000 against annotated residues, so the
-effect may be specific to the model with the strongest residue-level signal.]*
+**And for two of the three models the degradation is a reporting failure, not an ignorance
+failure.** Integrated gradients on the same checkpoints — same ground truth, same protein
+sets, same test, only the explanation changed — survive Holm in **seven of twelve cells,
+against one of sixteen for the attention**. HyperAttentionDTI's gradient is at 2.7–4.1×
+chance at *all four* levels, including the cold ones where its attention is at 1.2–1.3× and
+fails correction; ColdSite-DTI's is at 2.3–2.7× at cold-drug and cold-target, where its
+attention is at chance. The information is in the weights; the attention head does not
+report it.
+
+**MolTrans is the control that makes this a finding rather than an artefact.** Its gradient
+matches its attention to within noise (0.9–1.1× on annotated residues and on the pocket),
+and both sit at the floor. So the two failures are different in kind: for two models the
+attention under-reports a site the model does represent, and for the third there is nothing
+to report. An audit that measured only attention could not have told those apart, and would
+have filed all three under the same verdict.
+
+The practical form of this is the most useful thing in the paper: **an attention map is a
+lossy summary of what a model uses, and it is lossiest exactly where interpretability is
+supposed to earn its keep** — under distribution shift, where the gradient of the same
+weights recovers three to four times chance and the attention recovers nothing. A
+practitioner reading an attention figure is seeing less than the model knows; a paper
+validating a model by its attention map is measuring its interpretability head rather than
+its knowledge.
 
 Two accuracy caveats belong beside all of this. Cold-target accuracy was inflated for
 every model by sequence leakage — 0.021–0.023 for three models and 0.041 for MolTrans —

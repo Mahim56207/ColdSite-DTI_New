@@ -74,9 +74,15 @@ component switched off (dropout modules to eval, the dropout *attributes* of
 `MultiheadAttention` and `RNNBase` zeroed), verified deterministic and agreeing with the
 eval-mode path to 1.5e-8. A different baseline or step count would give different
 magnitudes. One alternative method is enough to show attention under-reports; it is not a
-survey of attribution methods. *[PENDING: IG is reported for HyperAttentionDTI only; the
-ColdSite-DTI and MolTrans re-run settles whether the gap is general or specific to the model
-with the strongest residue-level signal.]*
+survey of attribution methods, and a different attribution might place the gap differently.
+Two further caveats belong to the result itself: ColdSite-DTI's gradient is **noisy** where
+it matters (cold-target 0.074 / 0.021 / 0.037 across seeds; cold-drug against the pocket
+0.352 / 0.634 / 0.366), so the effect rests on the permutation test rather than on a precise
+estimate; and **integrated gradients were added after the attention results were seen**, so
+they are a secondary analysis, Holm-corrected within their own twelve cells and never pooled
+with the sixteen attention cells. A reader should treat "7 of 12 for the gradient against 1
+of 16 for the attention" as two separately corrected families, which is how Results §7c
+states it.
 
 **One split per level, three training seeds, and two kinds of interval.** Each level has a
 single fixed split, and the three seeds vary initialisation and batch order only, so reported
@@ -170,9 +176,11 @@ and the two arms also differed in PyTorch version (2.10 against 2.11) and in the
 ladder ran on. Because every KIBA cell will use mixed precision, KIBA's models are compared
 under one protocol; only DAVIS-versus-KIBA comparisons carry the caveat. Cells longer than
 one 11-hour compute session continue from their last finished epoch, restoring model,
-optimiser, scheduler, loss scaler and RNG state. *[PENDING: whether the KIBA arm is all four
-levels or random + cold-drug only — a compute decision, and the honest statement of it is
-that the replication's scope was set by available GPU hours, not by the question.]*
+optimiser, scheduler, loss scaler and RNG state. The arm's scope was **decided on compute
+grounds, 2026-09-14**: random and cold-drug only, for HyperAttentionDTI, MolTrans and the
+DeepDTA anchor — 18 cells, ~101 GPU-hours over four accounts. The honest statement is that
+the replication's breadth was set by available GPU hours, not by the question, and the
+paragraph below says exactly what that leaves uncovered.
 
 **One dataset, at the time of writing, and an asymmetric replication.** Every finding above
 is DAVIS. KIBA is the replication and repairs DAVIS's weakest axis (422 held-out drugs at

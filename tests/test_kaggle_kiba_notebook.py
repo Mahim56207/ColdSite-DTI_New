@@ -1,6 +1,6 @@
-"""The KIBA notebook's plan and commands, checked before 128 GPU-hours are spent on them.
+"""The KIBA notebook's plan and commands, checked before 100 GPU-hours are spent on them.
 
-Every KIBA cell costs 3 to 9 hours on a T4 and the whole grid is ~128 GPU-hours over four
+Every KIBA cell costs 5 to 9 hours on a T4 and the whole grid is ~101 GPU-hours over four
 accounts, so a mistake here is not a re-run of a script -- it is a day of somebody's
 Kaggle quota. What these tests protect:
 
@@ -57,12 +57,26 @@ def run_settings(account="A"):
 # the plan
 # ---------------------------------------------------------------------------
 
-def test_the_plan_is_exactly_the_24_cells_once_each():
+def test_the_plan_is_exactly_the_18_cells_once_each():
     ns = run_settings()
     flat = [c for queues in ns["ACCOUNTS"].values() for q in queues.values() for c in q]
-    assert len(flat) == 24, f"{len(flat)} cells in the plan"
-    assert len(set(flat)) == 24, "a cell appears twice -- it would be trained twice"
+    assert len(flat) == 18, f"{len(flat)} cells in the plan"
+    assert len(set(flat)) == 18, "a cell appears twice -- it would be trained twice"
     assert sorted(flat) == sorted(ns["EVERY_CELL"])
+
+
+def test_coldsite_dti_is_deliberately_not_replicated_on_kiba():
+    """Cut to fit the compute (-27 GPU-h). It is our own model and its DAVIS verdict is
+    unambiguous, so the replication is aimed at the two published models. If it ever
+    reappears in the plan, the paper's claim about which models are audited on two
+    datasets changes and Limitations has to change with it."""
+    ns = run_settings()
+    assert "coldsite_dti" not in ns["KIBA_MODELS"]
+    trained = {m for queues in ns["ACCOUNTS"].values() for q in queues.values()
+               for m, _lv, _s in q}
+    assert trained == {"deepdta", "hyperattentiondti", "moltrans"}, trained
+    assert "coldsite_dti" in ns["HOURS"], (
+        "keep its cost so the model stays complete if it is added back")
 
 
 def test_every_account_pair_of_gpus_is_balanced():
@@ -212,16 +226,18 @@ def test_every_command_asks_for_mixed_precision_and_kiba():
                         f"no --task, and this trainer is not binary-only: {cmd}")
 
 
-def test_the_two_models_that_can_do_regression_are_told_binary():
-    ns = runner_namespace("D")          # D owns DeepDTA and ColdSite-DTI cells
-    saw = set()
-    for queue in ns["QUEUES"].values():
-        for cmd in queue:
-            for module in ("src.model.train_deepdta", "src.model.run_grid"):
-                if module in cmd:
+def test_deepdta_is_told_binary():
+    """DeepDTA does regression too, so an omitted --task would train the wrong
+    objective and still produce a plausible-looking results file."""
+    saw = False
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        for queue in ns["QUEUES"].values():
+            for cmd in queue:
+                if "src.model.train_deepdta" in cmd:
                     assert cmd[cmd.index("--task") + 1] == "binary", cmd
-                    saw.add(module)
-    assert saw == {"src.model.train_deepdta", "src.model.run_grid"}, saw
+                    saw = True
+    assert saw, "no DeepDTA command in any account"
 
 
 def test_the_commands_cover_the_cells_the_plan_lists():
@@ -242,7 +258,6 @@ def test_the_commands_cover_the_cells_the_plan_lists():
 
 MODULE_OF = {
     "deepdta": "src.model.train_deepdta",
-    "coldsite_dti": "src.model.run_grid",
     "hyperattentiondti": "src.model.train_hyperattentiondti",
     "moltrans": "src.model.train_moltrans",
 }

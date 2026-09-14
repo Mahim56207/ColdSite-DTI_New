@@ -174,8 +174,17 @@ optimiser, scheduler, loss scaler and RNG state. *[PENDING: whether the KIBA arm
 levels or random + cold-drug only — a compute decision, and the honest statement of it is
 that the replication's scope was set by available GPU hours, not by the question.]*
 
-**One dataset, at the time of writing.** Every finding above is DAVIS. KIBA is the
-replication and repairs DAVIS's weakest axis (422 held-out drugs at cold-drug against 13),
-but it cannot repair the family confound — it is also kinases — and its cold-target level
-holds out only 45 targets (42 with usable sites), fewer than DAVIS's 68. *[PENDING: if the KIBA arm does not land before submission, the audit is a
+**One dataset, at the time of writing, and an asymmetric replication.** Every finding above
+is DAVIS. KIBA is the replication and repairs DAVIS's weakest axis (422 held-out drugs at
+cold-drug against 13), but it cannot repair the family confound — it is also kinases — and
+its cold-target level holds out only 45 targets (42 with usable sites), fewer than DAVIS's
+68. The KIBA arm is also narrower than the DAVIS one in three ways, all decided by
+available GPU hours rather than by the question, and all of which we state rather than
+leave a reader to infer: it trains **random and cold_drug only** (KIBA's cold-target is
+weaker than DAVIS's, and cold_pair would repeat DAVIS's checkpoint-selection instability on
+a 1,334-row validation set); it covers the two **published** models and the accuracy anchor
+but **not ColdSite-DTI**, so our own model is audited on one dataset where the models whose
+claims this paper is about are audited on two; and the explanation-side analyses — readout
+variants, integrated gradients, per-pair drug contacts — are DAVIS-only. Anything the KIBA
+arm does not cover is a DAVIS result, and the Results section says so cell by cell. *[PENDING: if the KIBA arm does not land before submission, the audit is a
 single-dataset result and must say so in the abstract, not only here.]*

@@ -165,18 +165,35 @@ attention-based DTI models is a small sample of a large literature, and the mode
 those whose code we could run faithfully; a claim about attention-based DTI interpretability
 in general rests on the argument that these are representative, not on the sample size.
 
-**Compute-driven choices on KIBA.** *[PENDING: this paragraph describes the planned protocol;
-no KIBA cell is trained yet.]* KIBA is to be trained in mixed precision (float16 autocast
-with loss scaling), which ran 1.3–2.3× faster on the T4s available. On DAVIS
-HyperAttentionDTI cold-pair, three seeds each, mixed precision moved test AUROC by −0.013 and
-precision@10 by +0.001, both inside the full-precision seed spread (0.038 and 0.012;
-`results/amp_validation_davis.md`). Three seeds rule out only a gross effect — they cannot
-show equivalence, and one mixed-precision seed (0.603) sat below every full-precision seed —
-and the two arms also differed in PyTorch version (2.10 against 2.11) and in the device the
-ladder ran on. Because every KIBA cell will use mixed precision, KIBA's models are compared
-under one protocol; only DAVIS-versus-KIBA comparisons carry the caveat. Cells longer than
-one 11-hour compute session continue from their last finished epoch, restoring model,
-optimiser, scheduler, loss scaler and RNG state. The arm's scope was **decided on compute
+**Compute-driven choices on KIBA, and a precision that is not uniform.** *[PENDING: KIBA
+training began 2026-09-14; the DeepDTA cells reported here are the only ones finished.]*
+KIBA uses mixed precision (float16 autocast with loss scaling) for DeepDTA and
+HyperAttentionDTI, which ran 2.3× and 2.0× faster on the T4s available, and **full
+precision for MolTrans**. That asymmetry was forced, not chosen: under autocast on KIBA,
+MolTrans produced NaN losses from batch ~4,040 of its first epoch and could not be trained
+at all. The cause is in the vendored implementation — it defines its own LayerNorm as
+`(x − µ)/sqrt(var + 1e-12)`, and 1e-12 is below float16's smallest subnormal (~6e-8), so a
+zero-variance row yields 0/0; PyTorch's autocast keeps `nn.LayerNorm` in float32 but cannot
+recognise a hand-written one, and a NaN arising in the forward pass is in the weights
+thereafter, which a gradient scaler does not address. We report this because it is a
+reproducibility hazard for anyone applying mixed precision to published DTI baselines, and
+because it means **precision is a per-model property of the KIBA arm** and must be read
+that way. It also has one convenient consequence: MolTrans's KIBA cells are full precision
+like its DAVIS cells, so its cross-dataset comparison carries no precision caveat.
+
+The mixed-precision evidence itself is thinner than the use made of it. It was validated on
+**one model and one cell**: DAVIS HyperAttentionDTI cold-pair, three seeds each, where
+mixed precision moved test AUROC by −0.013 and precision@10 by +0.001, both inside the
+full-precision seed spread (0.038 and 0.012; `results/amp_validation_davis.md`). Three
+seeds rule out only a gross effect, one mixed-precision seed (0.603) sat below every
+full-precision seed, and the two arms also differed in PyTorch version (2.10 against 2.11)
+and in the device the ladder ran on. Extending that validation to every model was the
+assumption that MolTrans falsified. DeepDTA's KIBA cells under autocast train normally
+(test AUROC 0.917 at random), but they inherit the same untested assumption, and a reader
+should treat DAVIS-versus-KIBA accuracy differences for DeepDTA and HyperAttentionDTI as
+carrying a precision caveat that MolTrans's do not. Cells longer than one 11-hour compute
+session continue from their last finished epoch, restoring model, optimiser, scheduler,
+loss scaler and RNG state. The arm's scope was **decided on compute
 grounds, 2026-09-14**: random and cold-drug only, for HyperAttentionDTI, MolTrans and the
 DeepDTA anchor — 18 cells, ~101 GPU-hours over four accounts. The honest statement is that
 the replication's breadth was set by available GPU hours, not by the question, and the

@@ -128,7 +128,8 @@ def test_the_settings_are_the_kiba_protocol():
     ns = run_settings()
     assert ns["DATASET"] == "kiba"
     assert ns["TASK"] == "binary"
-    assert ns["AMP"] is True, "KIBA is trained in mixed precision"
+    assert ns["AMP_BY_MODEL"] == {"deepdta": True, "hyperattentiondti": True,
+                                  "moltrans": False}, ns["AMP_BY_MODEL"]
     assert ns["BRANCH"] == "main", "kiba-resume is merged and now behind main"
     assert ns["LEVELS"] == ["random", "cold_drug"]
     assert ns["SEEDS"] == [1, 2, 3]
@@ -208,7 +209,33 @@ def test_one_command_is_one_cell():
                     assert "," not in seeds, f"run_grid given several seeds: {seeds}"
 
 
-def test_every_command_asks_for_mixed_precision_and_kiba():
+def test_moltrans_never_gets_mixed_precision_and_the_others_always_do():
+    """The 2026-09-14 failure: MolTrans under float16 on KIBA went NaN at batch ~4,040 of
+    epoch 1, because its hand-rolled LayerNorm divides by sqrt(var + 1e-12) and 1e-12
+    underflows in float16. A NaN in the forward pass is in the weights from then on, so
+    six cells would be unusable. This is the test that stops --amp coming back."""
+    seen = set()
+    for account in "ABCD":
+        ns = runner_namespace(account)
+        for gpu, cells_ in ns["MY_CELLS"].items():
+            for model, split, seed in cells_:
+                match = [c for c in ns["QUEUES"][str(gpu)]
+                         if split in c and str(seed) in c
+                         and any(model.replace("coldsite_dti", "run_grid") in part
+                                 or model in part for part in c)]
+                assert match, f"no command for {model} {split} s{seed}"
+                for cmd in match:
+                    if model == "moltrans":
+                        assert "--amp" not in cmd, (
+                            "MolTrans must train in full precision on KIBA: "
+                            f"{' '.join(cmd)}")
+                    else:
+                        assert "--amp" in cmd, f"{model} lost its --amp: {cmd}"
+                seen.add(model)
+    assert seen == {"deepdta", "hyperattentiondti", "moltrans"}, seen
+
+
+def test_every_command_is_a_kiba_binary_command():
     """HyperAttentionDTI and MolTrans are classifiers in their published form and have no
     --task flag at all; DeepDTA and ColdSite-DTI do regression too, so theirs must say
     binary explicitly or they would train the wrong objective."""
@@ -216,7 +243,6 @@ def test_every_command_asks_for_mixed_precision_and_kiba():
         ns = runner_namespace(account)
         for queue in ns["QUEUES"].values():
             for cmd in queue:
-                assert "--amp" in cmd, f"no --amp: {cmd}"
                 assert "kiba" in cmd, f"not a KIBA command: {cmd}"
                 if "--task" in cmd:
                     assert cmd[cmd.index("--task") + 1] == "binary", cmd
@@ -329,21 +355,37 @@ def test_the_recorded_positive_rates_are_the_real_ones():
         assert abs(real - claimed) < 0.01, f"{level}: real {real:.3f}, notebook {claimed}"
 
 
-def test_the_hour_estimates_match_the_measured_speed_test():
-    """HOURS drives the whole partition, so it must be the measured table, not a guess."""
-    ns = run_settings()
+def speed_row(model, amp):
+    """The row of results/speed_test_kiba_t4.md that a model's cost must come from.
+
+    The file has two tables whose rows both start "| <model> | amp+benchmark |" -- the
+    s/batch one and the projected-hours one -- so the search starts at the hours table.
+    Which row applies depends on the precision that model actually trains in: MolTrans
+    is full precision on KIBA, so its costs are the fp32 row, not the amp row.
+    """
     measured = REPO / "results" / "speed_test_kiba_t4.md"
     if not measured.exists():
         pytest.skip("speed test not in this checkout")
     text = measured.read_text()
-    # The file has two tables whose rows both start "| <model> | amp+benchmark |": the
-    # s/batch one and the projected-hours one. Only the second is the cost model.
-    heading = text.index("## KIBA hours per cell")
-    hours_table = text[heading:]
+    table = text[text.index("## KIBA hours per cell"):]
+    want = "amp" if amp else "fp32"
+    for line in table.splitlines():
+        if not line.startswith(f"| {model} |"):
+            continue
+        setting = line.split("|")[2].strip()
+        if (setting.startswith("amp") if amp else setting == "fp32"):
+            return line
+    raise AssertionError(f"no {want} row for {model} in the hours table")
+
+
+def test_the_hour_estimates_match_the_measured_speed_test():
+    """HOURS drives the whole partition, so it must be the measured table, not a guess --
+    and the row it comes from must match the precision that model trains in."""
+    ns = run_settings()
     for model, (at36, at25) in ns["HOURS"].items():
-        row = next((l for l in hours_table.splitlines()
-                    if l.startswith(f"| {model} |") and "amp" in l), None)
-        assert row, f"no amp row for {model} under the hours table of {measured.name}"
+        if model not in ns["AMP_BY_MODEL"]:
+            continue                      # ColdSite-DTI: costed but not trained on KIBA
+        row = speed_row(model, ns["AMP_BY_MODEL"][model])
         # "| model | amp+benchmark | min/epoch | h at 25 / 36 ep | ..."
         cell = row.split("|")[4]
         low, high = (float(x) for x in cell.split("/"))
@@ -397,11 +439,12 @@ def test_the_rate_is_a_mean_over_the_epochs_it_timed():
 def test_the_report_names_the_measured_rate_and_the_projection():
     ns = runner_namespace()
     w = fresh_state(ns, key="moltrans")
+    rate = ns["MIN_PER_EPOCH"]["moltrans"] * 60      # fp32 on KIBA: 20.7 min
     ns["note_epoch"](w, 1, 0.0)
-    ns["note_epoch"](w, 2, 15.7 * 60)          # exactly the projected rate
-    lines = "\n".join(ns["eta"](w, 15.7 * 60, 1e12))
-    assert "15.7 min/epoch measured" in lines
-    assert "15.7 projected" in lines
+    ns["note_epoch"](w, 2, rate)                     # exactly the projected rate
+    lines = "\n".join(ns["eta"](w, rate, 1e12))
+    assert f"{rate / 60:.1f} min/epoch measured" in lines
+    assert f"{rate / 60:.1f} projected" in lines
     assert "x1.00" in lines, lines
 
 
@@ -465,13 +508,10 @@ def test_every_model_has_a_projected_epoch_rate():
 
 def test_the_projected_epoch_rate_is_the_measured_one():
     ns = run_settings()
-    measured = REPO / "results" / "speed_test_kiba_t4.md"
-    if not measured.exists():
-        pytest.skip("speed test not in this checkout")
-    table = measured.read_text()[measured.read_text().index("## KIBA hours per cell"):]
     for model, claimed in ns["MIN_PER_EPOCH"].items():
-        row = next(l for l in table.splitlines()
-                   if l.startswith(f"| {model} |") and "amp" in l)
+        if model not in ns["AMP_BY_MODEL"]:
+            continue
+        row = speed_row(model, ns["AMP_BY_MODEL"][model])
         assert float(row.split("|")[3]) == claimed, (
             f"{model}: notebook says {claimed} min/epoch, speed test says "
             f"{row.split('|')[3].strip()}")

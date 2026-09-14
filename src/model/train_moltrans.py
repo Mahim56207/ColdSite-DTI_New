@@ -189,7 +189,24 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None,
             # Same clipping as train.py and train_deepdta.py.
             precision.step(optimizer, scaler, model.parameters(), clip=5.0)
 
-        total += float(loss.item()) * len(y)
+        batch_loss = float(loss.item())
+        # Stop the instant the cell diverges. A GradScaler skips a step whose GRADIENTS
+        # overflow, but nothing recovers a NaN produced inside the forward pass: it is in
+        # the weights from then on. Measured 2026-09-14 on KIBA under --amp -- this
+        # model's hand-rolled LayerNorm divides by sqrt(var + 1e-12), and 1e-12 is below
+        # float16's smallest subnormal, so a zero-variance row gives 0/0. Without this
+        # check the run finished the epoch and 740 validation batches before dying inside
+        # sklearn: seventeen wasted minutes and an error naming neither cause nor model.
+        if batch_loss != batch_loss or batch_loss in (float("inf"), float("-inf")):
+            raise ValueError(
+                f"loss is {batch_loss} at {label} batch {batch_index}/{n_batches}: this "
+                "cell has diverged and cannot recover, because a NaN in the forward pass "
+                "is already in the weights. Under --amp the usual cause is float16 "
+                "underflow in this model's hand-written LayerNorm (epsilon 1e-12); "
+                "MolTrans is therefore trained in FULL PRECISION on KIBA. Re-run this "
+                "cell without --amp."
+            )
+        total += batch_loss * len(y)
         n += len(y)
         logits.append(out.detach().float().cpu().numpy())
         trues.append(y.detach().cpu().numpy())

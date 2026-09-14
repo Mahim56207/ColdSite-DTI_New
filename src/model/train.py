@@ -80,6 +80,24 @@ def accuracy_metric_for(task: str) -> str:
 
 def compute_metrics(y_true, y_pred, task: str) -> dict:
     y_true, y_pred = np.asarray(y_true, float), np.asarray(y_pred, float)
+
+    # A diverged cell must say so, here, rather than 500 lines later inside sklearn.
+    # 2026-09-14: MolTrans on KIBA under --amp produced NaN from batch ~4,040 of epoch 1
+    # (its hand-rolled LayerNorm divides by sqrt(var + 1e-12), and 1e-12 underflows to
+    # zero in float16, so a zero-variance row gives 0/0). The run then wasted seventeen
+    # minutes finishing the epoch before dying in roc_auc_score with "Input contains NaN",
+    # which names neither the model nor the cause. Predictions are checked before they
+    # reach a metric, so the message arrives in the log that can act on it.
+    n_bad = int((~np.isfinite(y_pred)).sum())
+    if n_bad:
+        raise ValueError(
+            f"{n_bad} of {y_pred.size} predictions are not finite: this cell has "
+            "diverged and its metrics would be meaningless. If it is running under "
+            "--amp, the usual cause is float16 overflow or underflow inside the model "
+            "(a hand-written normalisation with a tiny epsilon, or an attention mask "
+            "constant outside float16's range) -- re-run this model in full precision. "
+            "Nothing is salvageable from a NaN checkpoint."
+        )
     if task == "binary":
         probs = 1.0 / (1.0 + np.exp(-y_pred))     # pred is a logit, not a probability
         if len(np.unique(y_true)) < 2:

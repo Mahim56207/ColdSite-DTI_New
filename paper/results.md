@@ -451,6 +451,180 @@ so only the ColdSite-DTI cold-pair cell is resolved as above chance individually
 claim that the two published models are at chance rests on eight cells agreeing rather
 than on any one of them.*
 
-## 7. *[PENDING]* KIBA
+## 7. Does attention know *which* drug binds? A per-pair ground truth
 
-## 8. *[PENDING]* Antiviral case study
+Both ground truths so far are per protein, and the model is asked about a **pair**. A
+reviewer is entitled to ask whether attention marks the site of *this* binding event, and
+neither UniProt's annotations nor the KLIFS pocket can answer that.
+
+KLIFS publishes, for every co-crystal structure, an **interaction fingerprint**: 85 pocket
+positions × 7 interaction types, recording which pocket residues touch the bound ligand.
+Where a DAVIS drug is that ligand, the residues it actually touches are *measured* rather
+than annotated. `src/data/klifs_ligand_contacts.py` matches DAVIS drugs to KLIFS ligands
+by InChIKey (RDKit, from the SMILES the models trained on) and places the contacts through
+the same steps as the pocket ground truth — same KLIFS entry by UniProt accession, same
+placement, same remapping — so both ground truths share one coordinate frame. A position
+counts when it is contacted in at least half of the pair's structures; imatinib has 18
+ABL1 structures and they do not agree residue for residue (the agreed set is 93% of the
+union). **217 pairs, 101 proteins, 28 drugs**, median 19 contacted residues per pair. Two
+checks: every contact lies inside its protein, and every contact lies inside the KLIFS
+pocket of the same protein. ABL1–imatinib (2hyy) contacts 24 of 85 positions, and the
+contacted residues include the VAIK lysine and the DFG motif.
+
+**What DAVIS can support.** A pair is scorable only where that exact drug has been
+crystallised with that exact kinase:
+
+| level | test rows | scorable pairs | proteins | drugs |
+|---|---|---|---|---|
+| random | 6,011 | 38 | 29 | 17 |
+| cold-drug | 5,746 | 60 | 57 | 6 |
+| cold-target | 5,984 | 39 | 20 | 19 |
+| cold-pair | 1,144 | **12** | 12 | 5 |
+
+**The control that makes it interpretable.** A drug's contacts sit inside one pocket, so a
+model that merely finds the pocket scores well against *any* drug's contacts there. The
+comparison therefore holds the protein and the number of sites fixed and changes only
+*which drug the contacts belong to*: each pair is scored against another drug's contacts on
+the same protein (`swap_drugs`, a rotation by sorted drug id). Only proteins with at least
+two crystallised drugs can be swapped, so both arms are restricted to exactly those pairs
+— identical keys, identical n — and the difference between the columns is the drug and
+nothing else.
+
+**Table R6.** precision@10 against crystallographic contacts, mean over seeds 1–3 with
+95% intervals from resampling proteins (§8). Chance is higher than against UniProt's
+annotations because a drug touches ~19 residues rather than ~12.
+
+| model | level | n | chance | the pair's own drug | another drug, same pocket |
+|---|---|---|---|---|---|
+| ColdSite-DTI | random | 20 | 0.025 | 0.032 [0.010–0.062] | 0.025 [0.005–0.053] |
+| | cold-drug | 36 | 0.023 | 0.030 [0.019–0.043] | 0.032 [0.020–0.046] |
+| | cold-target | 4 | 0.025 | 0.046 [0.008–0.096] | 0.038 [0.007–0.082] |
+| HyperAttentionDTI | random | 29 | 0.025 | 0.036 [0.028–0.045] | 0.033 [0.025–0.041] |
+| | cold-drug | 39 | 0.023 | 0.025 [0.015–0.036] | 0.015 [0.005–0.027] |
+| | cold-target | 14 | 0.025 | 0.060 [0.040–0.079] | 0.060 [0.043–0.076] |
+| MolTrans | random | 29 | 0.025 | 0.011 [0.005–0.021] | 0.009 [0.002–0.021] |
+| | cold-drug | 39 | 0.023 | 0.036 [0.025–0.048] | **0.056** [0.042–0.072] |
+| | cold-target | 14 | 0.025 | 0.048 [0.036–0.060] | 0.045 [0.033–0.057] |
+
+**Attention does not know which drug binds.** In every row the two intervals overlap
+almost entirely; the largest gain from using the correct drug is +0.011, and in two rows
+the *wrong* drug scores higher — MolTrans's cold-drug cell by 0.021, outside the paired
+arm's interval. Whatever agreement exists with crystallographic contacts is agreement with
+the pocket those contacts lie in, not with the binding event the model was asked about.
+
+Cold-pair is omitted from the table: three scorable pairs after the sequence policy, where
+two models score 0.000 and the third's interval spans a third of the scale. Twelve pairs
+before the policy is the honest ceiling DAVIS offers at that level, and it is not enough
+to say anything.
+
+## 7b. Is the verdict the model's, or the readout's?
+
+Between the tensor inside a network and the one weight per residue that precision@k scores,
+somebody chooses: which axis to reduce, which layer to read, how to spread a convolution
+position or a sub-word token over the residues it covers. Every number above rests on
+choices made once. `src/evaluation/readout_variants.py` scores the same checkpoints through
+readouts another author could reasonably have picked, each changing exactly one documented
+choice, with the published readouts re-scored in the same run so nothing is compared across
+devices or code states.
+
+**Table R7.** precision@10, mean ± sd over seeds 1–3. Chance is 0.020 against UniProt's
+annotated residues and 0.143 against the KLIFS pocket.
+
+| model | readout | UniProt: random / cold-target | KLIFS: random / cold-target |
+|---|---|---|---|
+| ColdSite-DTI | cross-attention *(published)* | 0.015 / 0.017 | 0.219 / 0.243 |
+| | protein self-attention | 0.010 / 0.022 | 0.238 / 0.268 |
+| HyperAttentionDTI | channel mean, centre *(published)* | 0.034 / 0.025 | 0.242 / 0.186 |
+| | **channel max** | 0.038 / 0.034 | **0.335 / 0.367** |
+| | **receptive-field spread** | 0.027 / 0.012 | **0.157 / 0.081** |
+| MolTrans | head mean, last layer *(published)* | 0.021 / 0.026 | 0.157 / 0.176 |
+| | head max | 0.021 / 0.029 | 0.155 / 0.177 |
+| | first layer | 0.023 / 0.023 | 0.173 / 0.189 |
+
+Three findings, in order of how much they should worry a reader of the literature.
+
+**The residues a readout points at are largely a property of the readout.** Across 25
+proteins, the top-ten residues of an alternative readout overlap the published readout's
+by **2–12%** — HyperAttentionDTI's channel-max and receptive-field readouts share 2% and
+4% of their top ten with the published one — with MolTrans's head-max the single exception
+at 90%. Two defensible readouts of one checkpoint therefore highlight almost disjoint sets
+of residues. A published attention figure is, to that extent, a picture of a reduction
+choice.
+
+**A readout choice can move a verdict across chance.** HyperAttentionDTI against the KLIFS
+pocket reads 0.367 at cold-target under channel-max (2.6× chance) and **0.081** under the
+receptive-field projection (*below* the 0.143 chance level), against 0.186 as published.
+The claim "this model's attention finds the ATP pocket under distribution shift" is true,
+false, or unsupported depending on a choice no paper reports.
+
+**But the audit's own verdicts survive.** Every readout of every model stays at chance
+against UniProt's annotated residues (0.010–0.057 against 0.020, all within the seed
+spread bar HyperAttentionDTI's channel-max cold-drug cell at 0.057 ± 0.018), and no
+readout lifts MolTrans above the pocket's chance level (0.120–0.189 against 0.143). The
+residue-level null of §5 and the floor of §6 are therefore not artefacts of how we read
+attention; what the readout choice changes is the *size* of the coarse, pocket-level
+signal, not the existence of the fine-grained one.
+
+**A readout that cannot see the drug does as well as one that can.** ColdSite-DTI's
+protein-tower self-attention — computed by its forward pass and discarded, and
+independent of the drug by construction — scores **0.238** against the KLIFS pocket at
+random where its drug-conditioned cross-attention scores 0.219, and 0.268 against 0.243 at
+cold-target. Its reported explanation owes nothing to the pair. Read with §7, where using
+the correct drug's contacts buys at most +0.011 over another drug's, two independent
+measurements say the same thing: the drug is not doing work in these explanations.
+
+## 7c. Attention versus the gradient: is it the explanation or the model?
+
+Every measurement so far scores **attention**. When attention misses the site, two
+opposite things could be true — the attention is a poor report of a model that does
+represent the site, or the model never learned it — and no attention measurement
+separates them. Integrated gradients do: the attribution comes from the trained weights
+and the gradient of the model's own prediction, with no interpretability head
+(`src/evaluation/integrated_gradients.py`; path from the padding embedding, the same
+"no residue here" the masking uses, 32 steps, explaining each model's own `predict`). The
+variants read the *same checkpoints*, so this is two explanations of one model.
+
+**Table R8.** HyperAttentionDTI, precision@10, mean over seeds 1–3.
+
+| ground truth | level | attention | integrated gradients | chance |
+|---|---|---|---|---|
+| UniProt residues | random | 0.034 | **0.055** | 0.020 |
+| | cold-drug | 0.040 | **0.079** | 0.020 |
+| | cold-target | 0.025 | **0.079** | 0.019 |
+| | cold-pair | 0.022 | **0.060** | 0.019 |
+| KLIFS pocket | random | 0.242 | **0.427** | 0.143 |
+| | cold-drug | 0.192 | **0.384** | 0.143 |
+| | cold-target | 0.186 | **0.538** | 0.140 |
+| | cold-pair | 0.185 | **0.326** | 0.136 |
+
+**The model represents the site more strongly than its attention reports.** Integrated
+gradients roughly double the pocket-level agreement at every level, and at cold-target —
+where the attention is at 1.3× chance and fails Holm (§5) — the gradient is at **3.8×**.
+Against UniProt's annotated residues the gradient is 2–3× the attention and 2.8–4.2×
+chance, where the attention was at chance everywhere but the random split.
+
+That changes what the audit concludes. It is not that these models are ignorant of where
+drugs bind; it is that **attention under-reports what the model uses** — and it
+under-reports it worst exactly where the interpretability claim matters most, under
+distribution shift. A practitioner reading an attention map is therefore seeing less than
+the model knows, and a paper validating a model by its attention map is measuring its
+interpretability head rather than its knowledge.
+
+*[PENDING: ColdSite-DTI and MolTrans. Their first run died on `cudnn RNN backward can only
+be called in training mode` — ColdSite-DTI's protein tower is a bi-LSTM and the
+attribution runs the model in eval mode — and MolTrans's cells were not attached that
+run. Both are fixed (the attribution now runs in train mode with every stochastic
+component switched off, verified deterministic); the re-run is ~1 h. A first look on 6
+proteins put ColdSite-DTI's IG at 0.000 against UniProt residues, so the gap above may be
+specific to HyperAttentionDTI rather than general — which is itself worth reporting, and
+is what the re-run settles.]*
+
+## 8. *[PENDING]* KIBA
+
+## 9. *[PENDING]* Antiviral case study
+
+*[Recommend cutting. The subset is three distinct proteins (HIV-1 protease, HIV-1 RT,
+influenza neuraminidase) after the 2026-07-31 BindingDB release put all 18,149 SARS-CoV-2
+rows under one 7,096-residue polyprotein; §6's 60-protein panel supersedes it as a
+non-kinase arm, and a case study on three proteins invites the objection it cannot
+answer.]*

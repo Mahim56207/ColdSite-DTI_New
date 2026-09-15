@@ -318,6 +318,8 @@ def test_a_split_with_no_crystallised_pair_says_so(cell, tmp_path):
                      pairs_per_target=0, verbose=False)
 
 
+@pytest.mark.skipif(not os.path.exists("data/splits/davis/random/test.csv"),
+                    reason="needs the built DAVIS splits (not in CI)")
 def test_the_rows_carry_their_drug_id_only_when_asked():
     """_read_test_rows' tuple shape is the alignment seam for the pair lookup."""
     from src.evaluation.collect import _read_test_rows

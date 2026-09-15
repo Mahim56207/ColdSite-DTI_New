@@ -90,8 +90,9 @@ def test_a_pocket_that_does_not_fit_the_sequence_is_rejected():
     assert fields["rejected"][0]["klifs"] == "TEST"
 
 
-@pytest.mark.skipif(not os.path.exists("data/davis_drug_sites.json"),
-                    reason="needs the fetched drug sites")
+@pytest.mark.skipif(not os.path.exists("data/davis_drug_sites.json")
+                    or not os.path.exists("src/data/baselines/deepdta/data/davis/proteins.txt"),
+                    reason="needs the fetched drug sites and DeepDTA's protein file")
 def test_the_built_pairs_are_inside_their_protein_and_look_like_a_pocket():
     sites = json.load(open("data/davis_drug_sites.json"))
     report = json.load(open("data/davis_drug_sites_report.json"))

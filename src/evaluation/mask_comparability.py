@@ -39,6 +39,36 @@ DEFAULT_K = 10
 TOLERANCE = 0.10          # |attended - control| fraction of tokens changed
 
 
+def protein_token_encoder(adapter_cls):
+    """An `encode` for `token_change_fraction` that computes only what it reads.
+
+    `token_change_fraction` uses the protein tokens and mask and nothing else, and it
+    encodes the unmasked protein afresh on every call -- 201 times per matched control,
+    ten controls per pair. Measured on KIBA (2026-09-16), a protein whose control never
+    matches cost 100-300 s per pair that way, and MolTrans's faithfulness would have
+    taken ~30 h of CPU. This returns the same arrays (the adapter's `encode_protein` is
+    the call its `encode` makes) and remembers the last few sequences, so the unmasked
+    one is encoded once. The random draws are untouched, so the control is identical.
+    Falls back to the adapter's full `encode` if it has no protein-only path.
+    """
+    from functools import lru_cache
+
+    encode_protein = getattr(adapter_cls, "encode_protein", None)
+    if encode_protein is None:
+        return adapter_cls.encode
+
+    @lru_cache(maxsize=4)          # the unmasked sequence is every other call: it stays
+    def protein(sequence: str):
+        tokens, mask = encode_protein(sequence)
+        return np.asarray(tokens), np.asarray(mask)
+
+    def encode(_smiles, sequence):
+        tokens, mask = protein(sequence)
+        return None, None, tokens, mask, None
+
+    return encode
+
+
 def token_change_fraction(encode, sequence: str, positions, smiles: str = "C") -> float:
     """Fraction of protein tokens that differ once `positions` are masked to X.
 

@@ -368,6 +368,25 @@ class MolTransAdapter(ExplainableDTIModel):
         return (to_tensor(d), to_tensor(d_mask),
                 to_tensor(p), to_tensor(p_mask), tokens)
 
+    @staticmethod
+    def encode_protein(sequence: str):
+        """The protein half of `encode` alone: (protein, protein_mask), numpy.
+
+        The same `protein2emb_encoder` call `encode` makes, so the arrays are identical
+        to encode's third and fourth outputs. It exists for the token-matched masking
+        control (mask_comparability.token_matched_control), which re-encodes a protein
+        up to 200 times per control and reads nothing else: `encode` would also encode
+        the drug and build a fresh BPE table from disk for its token list on every call.
+        """
+        repo = _vendored("MolTrans", MolTransAdapter.clone_hint)
+        previous = os.getcwd()
+        os.chdir(repo)                     # stream.py reads './ESPF/...' on import
+        try:
+            from stream import protein2emb_encoder  # noqa: E402
+            return protein2emb_encoder(str(sequence))
+        finally:
+            os.chdir(previous)
+
     def predict(self, drug, protein, drug_mask=None, protein_mask=None) -> float:
         import torch
 

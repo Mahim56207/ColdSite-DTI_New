@@ -117,3 +117,97 @@ def test_the_report_states_the_ratio_and_the_consequence():
     assert "2.0%" in text and "95.0%" in text and "47.5x" in text
     assert "token-matched control" in text
     assert "not as an anti-faithful explanation" in text
+
+
+# ---------------------------------------------------------------------------
+# protein_token_encoder: the fast path must be the same control, only cheaper
+# ---------------------------------------------------------------------------
+
+class _CountingAdapter:
+    """An adapter with both paths, counting how often each protein is encoded."""
+    calls = []
+
+    @staticmethod
+    def _tokens(sequence):
+        first = sequence.find("X")                       # the cascading encoder again
+        return [0] * len(sequence) if first < 0 else [0] * first + [9] * (len(sequence) - first)
+
+    @staticmethod
+    def encode(_smiles, sequence):
+        arr = np.asarray(_CountingAdapter._tokens(sequence))
+        return "drug", "drug_mask", arr, np.ones_like(arr), ["tok"]
+
+    @staticmethod
+    def encode_protein(sequence):
+        _CountingAdapter.calls.append(sequence)
+        arr = np.asarray(_CountingAdapter._tokens(sequence))
+        return arr, np.ones_like(arr)
+
+
+def test_the_fast_encoder_gives_the_same_control_draw_for_draw():
+    """Same fractions, same positions, same number of tries -- from the same seed. That is
+    what makes the 2026-09-16 speed-up safe to use on KIBA after DAVIS ran without it."""
+    from src.evaluation.mask_comparability import protein_token_encoder
+    sequence = "A" * 300
+    target = token_change_fraction(_CountingAdapter.encode, sequence, [250, 260, 270])
+    slow = token_matched_control(_CountingAdapter.encode, sequence, 3, target,
+                                 np.random.default_rng(7), max_tries=50)
+    fast = token_matched_control(protein_token_encoder(_CountingAdapter), sequence, 3,
+                                 target, np.random.default_rng(7), max_tries=50)
+    assert list(slow[0]) == list(fast[0])
+    assert slow[1] == fast[1] and slow[2] == fast[2]
+
+
+def test_the_fast_encoder_encodes_the_unmasked_protein_once():
+    from src.evaluation.mask_comparability import protein_token_encoder
+
+    class OnePerResidue(_CountingAdapter):
+        @staticmethod
+        def _tokens(sequence):                     # 3 masked residues = 1% of 300 tokens,
+            return [ord(c) for c in sequence]      # so a target of 99% is unreachable
+
+        @staticmethod
+        def encode_protein(sequence):
+            _CountingAdapter.calls.append(sequence)
+            arr = np.asarray(OnePerResidue._tokens(sequence))
+            return arr, np.ones_like(arr)
+
+    _CountingAdapter.calls = []
+    sequence = "A" * 300
+    _pos, _frac, tries = token_matched_control(protein_token_encoder(OnePerResidue),
+                                               sequence, 3, 0.99,
+                                               np.random.default_rng(0), max_tries=40)
+    assert tries == 40
+    assert _CountingAdapter.calls.count(sequence) == 1, "the unmasked protein was re-encoded"
+    assert len(_CountingAdapter.calls) == 41                           # 1 + one per try
+
+
+def test_an_adapter_without_a_protein_path_falls_back_to_its_encode():
+    from src.evaluation.mask_comparability import protein_token_encoder
+
+    class Plain:
+        @staticmethod
+        def encode(_smiles, sequence):
+            return None, None, np.zeros(3), np.ones(3), []
+
+    assert protein_token_encoder(Plain) is Plain.encode
+
+
+def test_moltrans_protein_path_is_its_encode_on_real_sequences():
+    """The real tokeniser: encode_protein must return encode's protein arrays exactly,
+    masked or not. Skipped where the vendored MolTrans or subword_nmt is absent."""
+    pytest.importorskip("subword_nmt")
+    from src.evaluation.baseline_adapters import MolTransAdapter
+    try:
+        MolTransAdapter.encode("C", "MKV")
+    except Exception as exc:                                  # vendored repo missing
+        pytest.skip(f"MolTrans not available: {exc}")
+    sequence = "MSGPRAGFYRQELNKTVWEVPQRLQGLRPVGSGAYGSVCSAYDARLRQKVAVKKLSRPFQSLIHARRTYRELRLLKHLKHENVIGLLDVFTPATSIEDFSEVYLVTTLMGADLNNIVKCQALSDEHVQFLVYQLLRGLKYIHSAGIIHRDLKPSNVAVNEDCELRILDFGLARQADEEMTGYVATRWYRAPEIMLNWMHYNQTVDIWSVGCIMAELLQGKALFPGSDYIDQLKRIMEVVGTPSPEVLAKISSEHARTYIQSLPPMPQKDLSSIFRGANPLAIDLLGRMLVLDSDQRVSAAEALAHAYFSQYHDPEDEPEAEPYDESVEAKERTLEEWKELTYQEVLSFKPPEPPKPPGSLEIEQ"
+    masked = list(sequence)
+    for i in (3, 40, 41, 150, 299):
+        masked[i] = "X"
+    for seq in (sequence, "".join(masked)):
+        _d, _dm, p, pm, _t = MolTransAdapter.encode("CCO", seq)
+        fp, fpm = MolTransAdapter.encode_protein(seq)
+        assert np.array_equal(np.asarray(p), np.asarray(fp))
+        assert np.array_equal(np.asarray(pm), np.asarray(fpm))

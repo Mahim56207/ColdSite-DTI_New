@@ -6,6 +6,14 @@ drafts. Rebuild after any re-analysis.
 
 ---
 
+**Figure 0 — `fig0_design`. The audit in one picture.**
+Datasets and their split levels, the models retrained on identical splits with three seeds,
+the three ways each explanation is read (attention as published, integrated gradients on the
+same weights, a uniform map as the floor), the two measurement axes with their ground truths
+and nulls, and where the multiplicity correction is applied. Hand-laid rather than
+data-driven: it describes the protocol, so its counts must be updated with Methods.
+*Cited in:* Methods §1, Introduction ¶5.
+
 **Figure 1 — `fig1_plausibility`. Does attention mark the binding site?**
 precision@10 for every model, level and dataset against two ground truths. Bars are means
 over three training seeds, open circles are the seeds themselves, and the dashed segment

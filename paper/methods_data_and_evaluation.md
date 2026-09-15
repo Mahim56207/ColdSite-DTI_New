@@ -15,6 +15,10 @@ results. Citations are by model name and year until the venue's style is fixed.
 
 ## 1. Data
 
+***Figure 0*** (`results/figures/fig0_design.pdf`) is this section and the next eight in
+one picture: what was trained, how each explanation is read, what it is scored against,
+and where the correction is applied.
+
 ### 1.1 Datasets
 
 DAVIS and KIBA are loaded directly from the files published with DeepDTA (2018),

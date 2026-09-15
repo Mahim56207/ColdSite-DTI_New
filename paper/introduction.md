@@ -62,7 +62,7 @@ on KIBA); a panel of 60
 non-kinase proteins stands in for a family stratification the benchmarks cannot support;
 alternative attention readouts test whether a verdict belongs to the model or to the
 reduction; and integrated gradients on the same checkpoints separate a poor explanation from
-a model that never learned the site.
+a model that never learned the site. **Figure 0** shows the design in one picture.
 
 **¶6 — What we find.** One of sixteen cells supports the residue-level interpretability
 claim after correction: HyperAttentionDTI on the random split, at 1.7× chance

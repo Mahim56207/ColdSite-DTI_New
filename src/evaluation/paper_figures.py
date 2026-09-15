@@ -362,6 +362,8 @@ def main():
             return
         fn(*fn_args, args.out_dir)
 
+    if not wanted or "0" in wanted:
+        figure_design(args.out_dir)
     run("1", figure_plausibility, paths)
     run("2", figure_seeds, paths)
     ig_paths = {"uniprot": args.ig_uniprot, "klifs": args.ig_klifs}
@@ -371,6 +373,79 @@ def main():
         print(f"[skip] figure 3: no IG ladders at {ig_paths}")
     run("4", figure_faithfulness, paths)
 
+
+
+
+# ---------------------------------------------------------------------------
+# The design schematic: what was trained, explained, measured and corrected
+# ---------------------------------------------------------------------------
+
+def figure_design(out_dir: str) -> str:
+    """One picture of the audit, so a reader knows what is being compared before any bar.
+
+    Hand-laid rather than data-driven -- it describes the protocol, not a result -- so the
+    counts in it are the ones Methods states and must be updated with them.
+    """
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+
+    fig, ax = plt.subplots(figsize=(7.4, 6.4))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 11.4)
+    ax.axis("off")
+
+    def box(x, y, w, h, title, body, colour="#F2F4F8", edge="#4C4C4C"):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.10",
+                                    linewidth=0.9, edgecolor=edge, facecolor=colour))
+        ax.text(x + w / 2, y + h - 0.26, title, ha="center", va="top", fontsize=8.4,
+                fontweight="bold")
+        ax.text(x + w / 2, y + h - 0.60, body, ha="center", va="top", fontsize=6.9,
+                linespacing=1.45)
+
+    def arrow(x, y0, y1):
+        ax.add_patch(FancyArrowPatch((x, y0), (x, y1), arrowstyle="-|>", mutation_scale=9,
+                                     linewidth=0.9, color="#4C4C4C"))
+
+    box(0.2, 9.7, 4.6, 1.4, "DAVIS  (primary)",
+        "30,056 pairs · 68 drugs · 442 targets\n"
+        "4 levels: random, cold-drug,\ncold-target, cold-pair", colour="#E8EEF7")
+    box(5.2, 9.7, 4.6, 1.4, "KIBA  (replication)",
+        "118,254 pairs · 2,111 drugs · 229 targets\n"
+        "2 levels: random, cold-drug\n(422 held-out drugs vs DAVIS's 13)", colour="#EDF5EC")
+
+    arrow(2.5, 9.6, 9.05)
+    arrow(7.5, 9.6, 9.05)
+    box(0.2, 7.5, 9.6, 1.5, "Retrained on identical splits — 3 seeds per cell",
+        "ColdSite-DTI (ours) · HyperAttentionDTI · MolTrans      +  DeepDTA (accuracy anchor, no attention)\n"
+        "48 DAVIS cells  ·  18 KIBA cells  ·  every cell scored by AUROC before its explanation is read",
+        colour="#FAF4E8")
+
+    arrow(5.0, 7.4, 6.85)
+    box(0.2, 5.3, 9.6, 1.5, "The explanation, read three ways",
+        "attention (as published)   ·   integrated gradients on the same weights   ·   uniform map = the floor\n"
+        "alternative attention readouts test whether a verdict belongs to the model or to the reduction",
+        colour="#F7EDF3")
+
+    arrow(2.7, 5.2, 4.60)
+    arrow(7.3, 5.2, 4.60)
+    box(0.2, 2.35, 4.6, 2.15, "PLAUSIBILITY — does it point there?",
+        "precision@10 against\n· UniProt annotated residues\n· KLIFS 85-residue ATP pocket\n"
+        "· the drug's own crystal contacts\nnulls: borrowed map, same amino acid,\n"
+        "within the site-spanning stretch,\n60 unseen non-kinase proteins", colour="#EDF1F7")
+    box(5.2, 2.35, 4.6, 2.15, "FAITHFULNESS — is it used?",
+        "mask the top-10 and re-predict,\nagainst a control of the same size\nin the space each model reads\n"
+        "(residues; tokens for MolTrans)\n\ndelta > 0  =  load-bearing", colour="#EDF7F1")
+
+    arrow(5.0, 2.30, 1.85)
+    box(0.2, 0.25, 9.6, 1.5, "One correction per arm, and a control for the metric itself",
+        "Holm–Bonferroni once over the whole family: 16 DAVIS cells, 6 KIBA cells, 12 for the gradient\n"
+        "positive control: a planted explanation of known dose is detectable at 2% — so a null is a null, not a weak test\n"
+        "bootstrap CIs over proteins · every cell reported with its three seeds",
+        colour="#F2F2F2")
+
+    ax.text(5.0, 11.25, "The audit", ha="center", fontsize=11, fontweight="bold")
+    fig.tight_layout()
+    return _save(fig, out_dir, "fig0_design")
 
 if __name__ == "__main__":
     main()

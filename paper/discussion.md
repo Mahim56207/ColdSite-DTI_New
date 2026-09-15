@@ -207,6 +207,9 @@ three did not exist in our plan until a number forced them.
 
 ## 5b. Does the verdict replicate? KIBA
 
+*See **Figure 2** (`results/figures/fig2_seeds.pdf`): each cell as three seed dots against
+its chance level, which is the evidence for the seed-dependence argument below.*
+
 The audit's one positive residue-level result was a single cell of sixteen, so the
 replication was aimed at it. KIBA repeats the two published models at random and cold-drug,
 three seeds, with every DAVIS decision unchanged and nothing tuned on KIBA (Results §8).

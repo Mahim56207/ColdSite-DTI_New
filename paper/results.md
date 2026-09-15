@@ -249,6 +249,10 @@ the sequence policy (pre-policy values: `results/positional_control_coldsite_dti
 
 ## 5. The audit table: the published model's residue-level claim holds only on the random split
 
+*See **Figure 1** (`results/figures/fig1_plausibility.pdf`), top-left panel: every DAVIS
+cell against UniProt with its three seeds, and **Figure 2** for the same cells one seed at
+a time.*
+
 Computed 2026-09-14 on two T4 GPUs (`notebooks/kaggle_analysis_davis.ipynb`), **one Holm
 correction over all sixteen cells** — three audited models and the uniform control, four
 levels each. Correcting per model would have inflated every claim in the table.
@@ -331,6 +335,9 @@ percentage of the annotated site. The audit reports it as such rather than as a 
 floor; the dose that matches a floor score is not a meaningful quantity.*
 
 ## 5b. Faithfulness, and an intervention that was not the same size in both arms
+
+*See **Figure 4** (`results/figures/fig4_faithfulness.pdf`): the residue-space panels and
+MolTrans's token-space panel, which is why the two are never plotted on one axis.*
 
 A masking test subtracts a random-masking control from the explanation's
 comprehensiveness, which is only meaningful if both arms change the input by the same
@@ -576,6 +583,9 @@ measurements say the same thing: the drug is not doing work in these explanation
 
 ## 7c. Attention versus the gradient: is it the explanation or the model?
 
+*See **Figure 3** (`results/figures/fig3_attention_vs_ig.pdf`): all twelve cells, both
+ground truths, attention beside the gradient on identical weights.*
+
 Every measurement so far scores **attention**. When attention misses the site, two
 opposite things could be true — the attention is a poor report of a model that does
 represent the site, or the model never learned it — and no attention measurement
@@ -706,6 +716,9 @@ analogue is a 68-protein UniProt cell at ±0.005–0.009, which is why §6's cla
 eight cells agreeing rather than on any one of them.
 
 ## 8. KIBA: the replication
+
+*See **Figure 1** (right-hand panels) for KIBA beside DAVIS, and **Figure 2** for the
+per-seed strip that this section's central claim rests on.*
 
 KIBA was trained and analysed after every DAVIS result above was fixed, as a replication
 rather than a second exploration: the same trainers, the same analysis code, the same
@@ -886,3 +899,21 @@ influenza neuraminidase) after the 2026-07-31 BindingDB release put all 18,149 S
 rows under one 7,096-residue polyprotein; §6's 60-protein panel supersedes it as a
 non-kinase arm, and a case study on three proteins invites the objection it cannot
 answer.]*
+
+---
+
+## Figures
+
+Built by `python -m src.evaluation.paper_figures` from the files each section cites; full
+captions and sources in `results/figures/CAPTIONS.md`. Rebuild after any re-analysis.
+
+| # | file | shows | cited in |
+|---|---|---|---|
+| 0 | `fig0_design` | the audit's design: datasets, splits, models, the three readings of the explanation, both measurement axes, and the correction | Methods §1, Introduction ¶5 |
+| 1 | `fig1_plausibility` | precision@10 for every model × level × dataset against UniProt residues and the KLIFS pocket, seeds as dots, per-level chance | §4, §5, §8.1, §8.2 |
+| 2 | `fig2_seeds` | every UniProt cell as three seed dots against chance — the seed-dependence finding | §5, §8.1, Discussion §5b |
+| 3 | `fig3_attention_vs_ig` | attention against integrated gradients on identical checkpoints, DAVIS, both ground truths | §7c |
+| 4 | `fig4_faithfulness` | comprehensiveness delta over a size-matched control; MolTrans's token-space panel kept separate | §5b, §8.3 |
+
+**Figure 1 is the one to keep** if the venue limits the count: it carries the headline on
+its own. Figure 2 can fold into its caption, and Figures 3 and 4 into supplementary.

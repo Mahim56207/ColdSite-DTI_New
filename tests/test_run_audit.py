@@ -239,3 +239,68 @@ def test_faithfulness_figure_plots_observed_beside_control(tmp_path):
                      "comprehensiveness_random": 0.05} for l in LEVELS}
     plot_faithfulness(summaries, save_path=str(tmp_path / "faith.png"))
     assert (tmp_path / "faith.png").exists()
+
+
+# ---------------------------------------------------------------------------
+# The checkpoint-free control follows the levels that were actually trained
+# ---------------------------------------------------------------------------
+
+def _trained_at(levels):
+    """A collector with checkpoints only at `levels`; the control is free everywhere."""
+    def collect(model, dataset, level, seed):
+        if model != "uniform_control" and level not in levels:
+            return None
+        return [perfect()] * 5, [SITES] * 5, ["ABL1"] * 5
+    return collect
+
+
+def test_the_control_is_not_scored_where_nothing_was_trained():
+    """KIBA, 2026-09-16: two audited models trained at random and cold_drug only. The
+    control used to be scored at all four levels, making the Holm family 8 cells
+    instead of the designed 6."""
+    results = build_grid(_trained_at({"random", "cold_drug"}),
+                         ["hyperattentiondti", "moltrans", "uniform_control"],
+                         ["kiba"], [1, 2, 3], k=10, n_trials=30)
+    assert len(results["p_values_corrected"]) == 6
+    assert set(results["grid"]["uniform_control"]) == {"random", "cold_drug"}
+    # a level no model was trained at is by design, not a missing control cell
+    assert not any(c.startswith("uniform_control/") for c in results["missing_cells"])
+
+
+def test_a_fully_trained_grid_is_unchanged():
+    """DAVIS: every level trained, so the control is scored at all four, as before."""
+    results = build_grid(_trained_at(set(LEVELS)), ["coldsite_dti", "uniform_control"],
+                         ["davis"], [1, 2, 3], k=10, n_trials=30)
+    assert len(results["p_values_corrected"]) == 8
+    assert set(results["grid"]["uniform_control"]) == set(LEVELS)
+
+
+def test_one_trained_model_is_enough_to_open_a_level_for_the_control():
+    def collect(model, dataset, level, seed):
+        if model == "moltrans" and level != "random":
+            return None
+        if model == "hyperattentiondti" and level not in ("random", "cold_pair"):
+            return None
+        return [perfect()] * 5, [SITES] * 5, ["ABL1"] * 5
+
+    results = build_grid(collect, ["hyperattentiondti", "moltrans", "uniform_control"],
+                         ["kiba"], [1, 2, 3], k=10, n_trials=30)
+    assert set(results["grid"]["uniform_control"]) == {"random", "cold_pair"}
+
+
+def test_a_control_only_run_still_scores_every_level():
+    results = build_grid(_trained_at(set()), ["uniform_control"], ["davis"], [1, 2, 3],
+                         k=10, n_trials=30)
+    assert set(results["grid"]["uniform_control"]) == set(LEVELS)
+
+
+def test_a_control_failing_at_a_measured_level_is_still_reported_missing():
+    def collect(model, dataset, level, seed):
+        if model == "uniform_control" and level == "random":
+            return None
+        return [perfect()] * 5, [SITES] * 5, ["ABL1"] * 5
+
+    results = build_grid(collect, ["coldsite_dti", "uniform_control"], ["davis"],
+                         [1, 2, 3], k=10, n_trials=30)
+    assert sum(c.startswith("uniform_control/davis/random/") for c in
+               results["missing_cells"]) == 3

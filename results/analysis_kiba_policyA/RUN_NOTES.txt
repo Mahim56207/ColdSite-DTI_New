@@ -16,6 +16,12 @@ How this run differs from one plain `run_all`, and why each difference changes n
    protein encoded once). Bit-identical on 5 real KIBA pairs incl. never-matching ones;
    pinned by tests/test_mask_comparability.py. HAT faithfulness ran before the change and
    does not use this control.
+   CORRECTION to 93b723b's message: DAVIS's residue-space MolTrans files
+   (results/analysis_davis_policyA/faithfulness_moltrans_davis_seed*.json, random mean
+   -0.30 = Table R4b "arms unequal") were computed BEFORE the matched control existed. So
+   KIBA's residue-space MolTrans deltas here (matched) are NOT comparable with DAVIS's.
+   The like-for-like MolTrans faithfulness on both datasets is TOKEN space
+   (token_faithfulness_moltrans_*), which Table R4b already reports for DAVIS.
 
 3. audit_kiba_binary.*: re-run with --split-root holding only random + cold_drug, so the
    Holm family is the designed 6 cells (HAT, MolTrans, uniform x 2 trained levels).
@@ -28,3 +34,12 @@ How this run differs from one plain `run_all`, and why each difference changes n
 
 Known, not an error: HAT precision@10 differs by 0.001-0.002 per seed between the ladder
 and the audit (the audit averages 500 random tie-breaks); DAVIS shows the same.
+
+5. MolTrans token-space faithfulness (the measure Table R4b reports for DAVIS), 03:12-03:23,
+   same settings as DAVIS (200 pairs, k=10, 5 random trials):
+     python -m src.evaluation.token_faithfulness --model moltrans --dataset kiba --seed S
+       --split-root data/splits --checkpoint-dir ~/ColdSite-results/kiba_binary --device cpu
+   random +0.453/+0.107/+0.622, cold_drug +0.378/+0.250/+0.245 -- 6/6 positive.
+   The residue-space matched deltas (faithfulness_moltrans_*) are near zero; they answer a
+   different question (residues masked via the attention's projection onto residues) and are
+   a sensitivity result, not the headline.

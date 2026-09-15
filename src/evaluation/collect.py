@@ -56,15 +56,17 @@ import re
 
 import numpy as np
 
-from src.data.ground_truth import load_site_sets
+from src.data.ground_truth import load_site_sets, site_lookup
 
 # Imported for its registration side-effect: @register runs at import time, so
 # without this the registry holds only coldsite_dti and uniform_control and
 # every baseline reads as "unknown model" -- with an error telling you to write
 # an adapter that already exists and already passes validate_adapter.
 from src.evaluation import baseline_adapters  # noqa: F401
-from src.evaluation.model_registry import _REGISTRY, get_model
-from src.model.checkpoint_naming import MODEL_SUFFIX, checkpoint_path
+from src.evaluation.model_registry import (_REGISTRY, get_model,
+                                           load_variant_plugins)
+from src.model.checkpoint_naming import (MODEL_SUFFIX, base_model_name,
+                                         checkpoint_path)
 
 # Models that need no checkpoint: the control is flat by construction, so
 # "untrained" is not a defect and a missing file must not skip the cell.
@@ -101,10 +103,14 @@ class MissingCell(Exception):
 
 
 def _read_test_rows(split_dir: str, pairs_per_target: int,
-                    rows_csv: str | None = None, policy: bool = True):
+                    rows_csv: str | None = None, policy: bool = True,
+                    with_drug: bool = False):
     """One row per (target, drug) pair from the test split, capped per target.
 
-    Returns a list of (target_id, smiles, sequence). Rows keep the file's own
+    Returns a list of (target_id, smiles, sequence), or of
+    (target_id, drug_id, smiles, sequence) when `with_drug` -- which a drug-specific
+    ground truth needs, since its sites belong to the pair and not to the protein.
+    Rows keep the file's own
     order so a cap of 1 is deterministic rather than whichever pair pandas
     happened to group first.
 
@@ -138,9 +144,11 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
                 else excluded_target_ids(*dataset_level_from_split_dir(split_dir), policy))
     seen: dict = {}
     rows = []
-    for target_id, smiles, sequence in zip(frame[TARGET_ID_COLUMN],
-                                           frame[SMILES_COLUMN],
-                                           frame[SEQUENCE_COLUMN]):
+    drug_column = frame["Drug_ID"] if "Drug_ID" in frame.columns else frame[SMILES_COLUMN]
+    for target_id, drug_id, smiles, sequence in zip(frame[TARGET_ID_COLUMN],
+                                                    drug_column,
+                                                    frame[SMILES_COLUMN],
+                                                    frame[SEQUENCE_COLUMN]):
         if str(target_id) in excluded:
             continue
         # Before the per-target cap, so a protein's first READABLE pair is
@@ -153,7 +161,8 @@ def _read_test_rows(split_dir: str, pairs_per_target: int,
         if pairs_per_target and count >= pairs_per_target:
             continue
         seen[key] = count + 1
-        rows.append((str(target_id), str(smiles), str(sequence).upper()))
+        row = (str(target_id), str(smiles), str(sequence).upper())
+        rows.append((row[0], str(drug_id)) + row[1:] if with_drug else row)
     return rows
 
 
@@ -166,8 +175,11 @@ def _build_adapter(model_name: str, checkpoint: str | None, split_dir: str,
     size differs per cell. Rebuilt here the same way the trainer built it --
     train rows only, never valid or test, or the cold splits leak the drugs
     they exist to hold out.
+
+    An explanation variant is built exactly like the model it explains: it IS that model,
+    with a different explainer on top (`src/evaluation/integrated_gradients.py`).
     """
-    if model_name == "coldsite_dti":
+    if base_model_name(model_name) == "coldsite_dti":
         import pandas as pd
 
         from src.model.dataset import SMILES_COLUMNS, find_column
@@ -200,9 +212,14 @@ def _build_adapter(model_name: str, checkpoint: str | None, split_dir: str,
 
 def _explain_row(model_name: str, adapter, vocabs, smiles: str, sequence: str,
                  max_protein_len: int) -> np.ndarray:
-    """One explanation, tokenised the way that model's own authors tokenise."""
+    """One explanation, tokenised the way that model's own authors tokenise.
+
+    An explanation variant is tokenised like the model it explains: `type(adapter).encode`
+    below is the base adapter's, reached through the variant's own class.
+    """
     import torch
 
+    model_name = base_model_name(model_name)
     if model_name in ("coldsite_dti", "uniform_control"):
         from src.model.drug_encoder import encode_smiles
         from src.model.protein_encoder import encode_protein
@@ -248,6 +265,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
     A protein with no usable ground truth is skipped rather than scored against
     an empty site set, which would count as a zero and drag every mean down.
     """
+    load_variant_plugins(model_name)
     adapter_cls = _REGISTRY.get(model_name)
     if adapter_cls is None:
         raise MissingCell(
@@ -271,14 +289,18 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         if not os.path.exists(checkpoint):
             raise MissingCell(f"no checkpoint at {checkpoint}")
 
-    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv, policy=policy)
+    lookup = site_lookup(site_sets)
+    rows = _read_test_rows(split_dir, pairs_per_target, rows_csv, policy=policy,
+                           with_drug=lookup.pair_keyed)
     adapter, vocabs = _build_adapter(model_name, checkpoint, split_dir, device,
                                      max_protein_len)
 
     weights, sites, used_ids = [], [], []
     skipped_no_sites = 0
-    for target_id, smiles, sequence in rows:
-        site_set = site_sets.get(target_id)
+    for row in rows:
+        target_id, drug_id, smiles, sequence = (
+            row if lookup.pair_keyed else (row[0], None, row[1], row[2]))
+        site_set = lookup(target_id, drug_id)
         if site_set is None or not site_set.usable:
             skipped_no_sites += 1
             continue
@@ -290,7 +312,7 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         weights.append(_explain_row(model_name, adapter, vocabs, smiles,
                                     sequence, max_protein_len)[:max_protein_len])
         sites.append(site_set.positions)
-        used_ids.append(target_id)
+        used_ids.append(f"{drug_id}|{target_id}" if lookup.pair_keyed else target_id)
         if max_proteins and len(weights) >= max_proteins:
             break
 
@@ -298,11 +320,15 @@ def collect_cell(model_name: str, dataset: str, level: str, seed: int, *,
         raise MissingCell(
             f"{len(rows)} test rows, none with usable ground truth "
             f"(skipped {skipped_no_sites}) — check that the ground-truth file "
-            f"matches this dataset's Target_ID spelling")
+            + ("has pairs from this split: a drug-specific ground truth only covers "
+               "pairs with a co-crystal structure, and a cold split may hold none"
+               if lookup.pair_keyed else
+               "matches this dataset's Target_ID spelling"))
 
     if verbose:
+        unit = "drug-protein pairs" if lookup.pair_keyed else "proteins"
         print(f"  {model_name}/{dataset}/{level}/seed{seed}: "
-              f"{len(weights)} proteins ({skipped_no_sites} without usable sites)")
+              f"{len(weights)} {unit} ({skipped_no_sites} without usable sites)")
     return weights, sites, used_ids
 
 

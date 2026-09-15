@@ -2,6 +2,8 @@
 
 Option A (2026-09-13): each cell re-scored by its own trainer's test pass; AUROC on every test row and on the rows whose target is unseen by sequence (`src/evaluation/clean_accuracy.py`, `results/sequence_audit_davis.md`).
 
+MolTrans keeps dropout on at inference (as published): its re-scores are the mean of 5 passes and count as reproduced when the recorded value lies within their range.
+
 | model | level | seed | recorded | re-scored, all rows | reproduces? | unseen by sequence | change | rows kept |
 |---|---|---|---|---|---|---|---|---|
 | deepdta | cold_target | 1 | 0.9039 | 0.9039 | yes | 0.8801 | -0.0238 | 5168 of 5984 |
@@ -18,3 +20,13 @@ Option A (2026-09-13): each cell re-scored by its own trainer's test pass; AUROC
 | coldsite_dti | cold_pair | 3 | 0.5765 | 0.5765 | yes | 0.5590 | -0.0175 | 1001 of 1144 |
 | hyperattentiondti | cold_target | 1 | 0.9152 | 0.9152 | yes | 0.8938 | -0.0214 | 5168 of 5984 |
 | hyperattentiondti | cold_target | 2 | 0.9161 | 0.9161 | yes | 0.8947 | -0.0214 | 5168 of 5984 |
+| hyperattentiondti | cold_target | 3 | 0.9132 | 0.9132 | yes | 0.8919 | -0.0213 | 5168 of 5984 |
+| hyperattentiondti | cold_pair | 1 | 0.6964 | 0.6964 | yes | 0.7159 | +0.0195 | 1001 of 1144 |
+| hyperattentiondti | cold_pair | 2 | 0.6552 | 0.6552 | yes | 0.6610 | +0.0058 | 1001 of 1144 |
+| hyperattentiondti | cold_pair | 3 | 0.7301 | 0.7301 | yes | 0.7614 | +0.0312 | 1001 of 1144 |
+| moltrans | cold_target | 1 | 0.8680 | 0.8674 | yes | 0.8244 | -0.0430 | 5168 of 5984 |
+| moltrans | cold_target | 2 | 0.8785 | 0.8785 | yes | 0.8393 | -0.0392 | 5168 of 5984 |
+| moltrans | cold_target | 3 | 0.8756 | 0.8756 | yes | 0.8346 | -0.0410 | 5168 of 5984 |
+| moltrans | cold_pair | 1 | 0.5899 | 0.5905 | yes | 0.5453 | -0.0452 | 1001 of 1144 |
+| moltrans | cold_pair | 2 | 0.5674 | 0.5605 | yes | 0.5020 | -0.0585 | 1001 of 1144 |
+| moltrans | cold_pair | 3 | 0.5483 | 0.5481 | yes | 0.5414 | -0.0067 | 1001 of 1144 |

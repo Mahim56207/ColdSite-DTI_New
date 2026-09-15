@@ -125,7 +125,7 @@ def sufficiency(model, drug, protein, attention, k: int = 10, rng=None) -> float
 
 
 def random_control(model, drug, protein, k: int = 10, mode: str = "comprehensiveness",
-                   n_trials: int = 10, rng=None) -> float:
+                   n_trials: int = 10, rng=None, attended=None) -> float:
     """The same intervention on k RANDOM residues.
 
     This is the number that makes the others interpretable. Masking always
@@ -146,9 +146,17 @@ def random_control(model, drug, protein, k: int = 10, mode: str = "comprehensive
         return float("nan")
 
     baseline = _predict(model, drug, protein)
+    # A model may know that k random residues are not the same intervention as the
+    # explanation's k -- true for sub-word tokenisation, where the control has to be
+    # matched on tokens changed (`residue_space.ResidueSpaceModel.control_positions`).
+    matched = getattr(model, "control_positions", None)
     deltas = []
     for _ in range(n_trials):
-        positions = rng.choice(length, size=k, replace=False)
+        positions = None
+        if matched is not None and attended is not None:
+            positions = matched(drug, protein, k, rng, attended)
+        if positions is None:
+            positions = rng.choice(length, size=k, replace=False)
         keep = mode == "sufficiency"
         perturbed = _predict(model, drug,
                              mask_positions(protein, positions, keep=keep))
@@ -194,10 +202,12 @@ def evaluate_faithfulness(model, drug, protein, attention, k: int = 10,
 
     comp = comprehensiveness(model, drug, protein, attention, k, rng=rng)
     suff = sufficiency(model, drug, protein, attention, k, rng=rng)
+    # the same top-k the two metrics above ablate, so a matched control matches THAT set
+    attended = top_k_positions(attention, k, rng=np.random.default_rng(seed))
     comp_random = random_control(model, drug, protein, k, "comprehensiveness",
-                                 n_random_trials, rng=rng)
+                                 n_random_trials, rng=rng, attended=attended)
     suff_random = random_control(model, drug, protein, k, "sufficiency",
-                                 n_random_trials, rng=rng)
+                                 n_random_trials, rng=rng, attended=attended)
 
     return {
         "comprehensiveness": comp,

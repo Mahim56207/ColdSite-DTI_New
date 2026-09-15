@@ -1,0 +1,45 @@
+KIBA analysis, 2026-09-15/16, local CPU (MacBook), code at 93b723b.
+18 cells: DeepDTA, HyperAttentionDTI, MolTrans x {random, cold_drug} x seeds 1-3
+(~/ColdSite-results/kiba_binary; 18 checkpoints, 18 results files, no orphans).
+
+How this run differs from one plain `run_all`, and why each difference changes no number:
+
+1. MolTrans faithfulness ran as six parallel jobs (3 seeds x 2 levels), each with a
+   --split-root holding one level, then merged per seed through run_faithfulness's own
+   write_results (scratch script merge_faith_parts.py: refuses unless metadata and the
+   accuracy block agree and each level has 200 pairs). Proof that a single-level run equals
+   that level of a full run: HAT seed 1 random re-run this way matched the full-run file in
+   every metric to the last digit. Reason: MolTrans's token-matched control made it ~30 h
+   serial.
+
+2. The token-matched control was sped up 3-4x in 93b723b (protein-only encoder, unmasked
+   protein encoded once). Bit-identical on 5 real KIBA pairs incl. never-matching ones;
+   pinned by tests/test_mask_comparability.py. HAT faithfulness ran before the change and
+   does not use this control.
+   CORRECTION to 93b723b's message: DAVIS's residue-space MolTrans files
+   (results/analysis_davis_policyA/faithfulness_moltrans_davis_seed*.json, random mean
+   -0.30 = Table R4b "arms unequal") were computed BEFORE the matched control existed. So
+   KIBA's residue-space MolTrans deltas here (matched) are NOT comparable with DAVIS's.
+   The like-for-like MolTrans faithfulness on both datasets is TOKEN space
+   (token_faithfulness_moltrans_*), which Table R4b already reports for DAVIS.
+
+3. audit_kiba_binary.*: re-run with --split-root holding only random + cold_drug, so the
+   Holm family is the designed 6 cells (HAT, MolTrans, uniform x 2 trained levels).
+   run_all's audit had also scored uniform_control at cold_target/cold_pair (it needs no
+   checkpoint) = 8 cells. Per-cell p identical; 0 survive either way. The 8-cell files are
+   kept locally as *.superseded_8cell_family.
+
+4. KLIFS-pocket ladders are in ../analysis_kiba_policyA_klifs (run_ladder --ground-truth
+   data/kiba_klifs_pocket_sites.json); positional controls on both ground truths are here.
+
+Known, not an error: HAT precision@10 differs by 0.001-0.002 per seed between the ladder
+and the audit (the audit averages 500 random tie-breaks); DAVIS shows the same.
+
+5. MolTrans token-space faithfulness (the measure Table R4b reports for DAVIS), 03:12-03:23,
+   same settings as DAVIS (200 pairs, k=10, 5 random trials):
+     python -m src.evaluation.token_faithfulness --model moltrans --dataset kiba --seed S
+       --split-root data/splits --checkpoint-dir ~/ColdSite-results/kiba_binary --device cpu
+   random +0.453/+0.107/+0.622, cold_drug +0.378/+0.250/+0.245 -- 6/6 positive.
+   The residue-space matched deltas (faithfulness_moltrans_*) are near zero; they answer a
+   different question (residues masked via the attention's projection onto residues) and are
+   a sensitivity result, not the headline.

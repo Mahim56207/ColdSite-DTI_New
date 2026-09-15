@@ -68,6 +68,9 @@ _RESIDUE_OF = {code: residue for residue, code in _CODE_OF.items()}
 PREDICT_SEED = 0
 
 SUPPORTED_MODELS = ("hyperattentiondti", "moltrans")
+# Models whose input is sub-word tokens rather than residues, so that masking k residues
+# is not a fixed-size intervention -- see control_positions below.
+SUBWORD_MODELS = ("moltrans",)
 
 
 def encode_residues(sequence: str) -> torch.Tensor:
@@ -101,6 +104,10 @@ class ResidueSpaceModel:
     """
 
     def __init__(self, adapter, model_name: str, device: str = "cpu"):
+        # An explanation variant is the same trained model with a different explainer,
+        # so it is tokenised and masked exactly like its base.
+        from src.model.checkpoint_naming import base_model_name
+        model_name = base_model_name(model_name)
         if model_name not in SUPPORTED_MODELS:
             raise ValueError(
                 f"{model_name!r} has no residue-space tokenisation. Supported: "
@@ -185,6 +192,28 @@ class ResidueSpaceModel:
         self.pairs.append(_Pair(str(smiles), sequence, n_seen))
         drug = torch.tensor([[index]], dtype=torch.long)
         return drug, encode_residues(sequence[:n_seen]), attention
+
+    def control_positions(self, drug, protein, k: int, rng, attended):
+        """Random positions whose masking changes about as many TOKENS as `attended`.
+
+        Only for a model whose input is sub-word tokens. Masking a residue there
+        re-segments the protein, so k scattered residues are a far larger intervention
+        than k attended ones (48% of MolTrans's tokens versus 95%, measured over 20 DAVIS
+        proteins) and the faithfulness delta ends up measuring the intervention. Returns
+        None for a residue-level model, where k residues is k tokens either way and the
+        caller's uniform draw is already the right control.
+        """
+        if self.model_name not in SUBWORD_MODELS:
+            return None
+        from src.evaluation.mask_comparability import (protein_token_encoder,
+                                                       token_change_fraction,
+                                                       token_matched_control)
+        pair = self.pairs[int(torch.as_tensor(drug).reshape(-1)[0])]
+        encode = protein_token_encoder(type(self.adapter))
+        target = token_change_fraction(encode, pair.sequence, attended, pair.smiles)
+        positions, _fraction, _tries = token_matched_control(
+            encode, pair.sequence, k, target, rng, pair.smiles)
+        return positions
 
     def predict(self, drug, protein) -> float:
         pair = self.pairs[int(torch.as_tensor(drug).reshape(-1)[0])]

@@ -302,7 +302,39 @@ account on KIBA.**
   Claude Code → New → Local · folder ColdSite-DTI · branch **main** · worktree off.
 - Confirm with the user before any `git push`.
 - Do not change training code while a grid is mid-run (cells must share one code state).
+- **The same applies to `src/evaluation/` while `run_all` is running.** It shells out to
+  each runner as that step starts, so a file edited mid-run is loaded by the later steps
+  only: the faithfulness numbers would come from one code state and the ladders from
+  another. Wait for the run to end (or work on a copy of the repo).
+- A checkpoint with no `_results.json` beside it is an interrupted cell, not a result.
+  `run_all` refuses to analyse one (2026-09-14, after a cut-off HyperAttentionDTI
+  cold-drug seed-1 checkpoint was scored); keep such files out of the merged results
+  folder — `~/ColdSite-results/partial_do_not_use/` is where they go.
 - Ground truth (DAVIS and KIBA): fetch/overrides write `data/<dataset>_ground_truth_sites_uniprot.json`;
   only `align_ground_truth --dataset <dataset>` writes `data/<dataset>_ground_truth_sites.json`.
   Re-align after either.
+- **Never run `run_all` on a partial grid into the real output folder.** It skips any
+  job whose output file already exists, and one ladder/faithfulness file covers *all*
+  levels of a (model, seed). Run it while a seed has only `random` trained and the file is
+  written with `random` alone; when `cold_drug` lands later, `run_all` skips that file and
+  the level is never scored — silently. Probe partial grids into a scratch folder only;
+  the paper's numbers come from one run over the complete grid (or `--no-skip-existing`).
+  Found 2026-09-15 before it bit: KIBA had 8 of 18 cells when the analysis was first tried.
+- **KIBA's analysis runs locally, not on Kaggle** (decided 2026-09-15): ladder 14 s and
+  faithfulness 2:49 per cell on the Mac's CPU, ~1–1.5 h in total, against a ~1.5 GB
+  MolTrans-checkpoint upload for a Kaggle run. The pipeline needs no KIBA changes: untrained
+  levels skip cleanly, ColdSite-DTI is dropped automatically (`has_cells`), the Holm family
+  self-sizes to the cells measured (6 on KIBA: HAT, MolTrans, uniform × 2 levels), the
+  sequence policy excludes 0 KIBA targets, and `clean_accuracy` is skipped because
+  `leaks("kiba", level)` is False everywhere.
+- **The data path is not a bottleneck; do not add DataLoader workers.** Measured
+  2026-09-14 on DAVIS random with MolTrans: all 1,315 batches of an epoch assemble in
+  **0.24 s** with `num_workers=0` (0.18 ms/batch), because every dataset pre-encodes in
+  `__init__` and `__getitem__` only slices numpy. With `num_workers=2` the same epoch
+  takes **16.7 s** — 70x slower — since the encoded arrays are pickled to each worker.
+  An epoch of MolTrans on a T4 is ~300 s, so loading is under 0.1% of it either way.
+  `--amp` is the only free speedup (T4: HyperAttentionDTI 2.0x, DeepDTA 2.3x, MolTrans
+  1.3x, ColdSite-DTI 1.15x); everything else costs protocol. Raising the *eval* batch
+  size looks free but is not for MolTrans, whose vendored forward reshapes by
+  `self.batch_size` (the bug `_fit_batch_size` exists to contain).
 - Explain in plain language; the user prefers step-by-step instructions.

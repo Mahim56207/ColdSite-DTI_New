@@ -262,3 +262,70 @@ def test_davis_and_kiba_rows_are_untouched_by_the_cleaning():
         for smiles in json.load(open(path)).values():
             assert clean_smiles(smiles) == smiles
             assert not UNREADABLE_SMILES.search(smiles)
+
+
+# ----------------------------------------------------------------------------
+# drug-specific ground truth (src/data/klifs_ligand_contacts.py)
+# ----------------------------------------------------------------------------
+
+def _pair_ground_truth(path, pairs):
+    """Keys are "<drug>|<target>": the sites belong to the pair, not the protein."""
+    payload = {key: [{"start": 10, "end": 14, "type": "Binding site", "description": ""}]
+               for key in pairs}
+    path.write_text(json.dumps(payload))
+    return str(path)
+
+
+def test_a_drug_specific_ground_truth_scores_pairs_not_proteins(cell, tmp_path):
+    """Only pairs with a co-crystal are scorable, and the id says which pair it was."""
+    gt = _pair_ground_truth(tmp_path / "pairs.json", ["D0|AAA1", "D2|CCC3"])
+    weights, sites, ids = collect_cell(
+        "coldsite_dti", "davis", "random", 1,
+        site_sets=load_site_sets(gt, max_len=1000), task="binary",
+        split_root=cell["split_root"], checkpoint_dir=cell["checkpoint_dir"],
+        pairs_per_target=0, verbose=False)
+    assert ids == ["D0|AAA1", "D2|CCC3"]            # BBB2's pair has no structure
+    assert len(weights) == len(sites) == 2
+    assert len(weights[0]) == len(SEQUENCES["AAA1"])
+
+
+def test_the_same_protein_with_another_drug_is_another_measurement(tmp_path):
+    """Two drugs against one protein are two rows of the drug-specific table, where the
+    per-protein ground truth would have counted the protein once."""
+    rows = [("AAA1", "CCO", SEQUENCES["AAA1"], 1.0),
+            ("AAA1", "CCN", SEQUENCES["AAA1"], 0.0)]
+    split_root = tmp_path / "splits"
+    split_dir = write_split(str(split_root / "davis" / "random"), rows)
+    checkpoints = str(tmp_path / "results")
+    write_coldsite_checkpoint(checkpoints, "davis", "random", "binary", 1, split_dir)
+    gt = _pair_ground_truth(tmp_path / "pairs.json", ["D0|AAA1", "D1|AAA1"])
+    _w, _s, ids = collect_cell(
+        "coldsite_dti", "davis", "random", 1,
+        site_sets=load_site_sets(gt, max_len=1000), task="binary",
+        split_root=str(split_root), checkpoint_dir=checkpoints,
+        pairs_per_target=0, verbose=False)
+    assert ids == ["D0|AAA1", "D1|AAA1"]
+
+
+def test_a_split_with_no_crystallised_pair_says_so(cell, tmp_path):
+    """A cold split may hold no co-crystal pair at all: that must read as 'no pairs
+    here', not as a ground truth that fails to match the dataset's spelling."""
+    gt = _pair_ground_truth(tmp_path / "pairs.json", ["D9|ZZZ9"])
+    with pytest.raises(MissingCell, match="co-crystal"):
+        collect_cell("coldsite_dti", "davis", "random", 1,
+                     site_sets=load_site_sets(gt, max_len=1000), task="binary",
+                     split_root=cell["split_root"], checkpoint_dir=cell["checkpoint_dir"],
+                     pairs_per_target=0, verbose=False)
+
+
+@pytest.mark.skipif(not os.path.exists("data/splits/davis/random/test.csv"),
+                    reason="needs the built DAVIS splits (not in CI)")
+def test_the_rows_carry_their_drug_id_only_when_asked():
+    """_read_test_rows' tuple shape is the alignment seam for the pair lookup."""
+    from src.evaluation.collect import _read_test_rows
+    plain = _read_test_rows("data/splits/davis/random", 1, policy=False)
+    withdrug = _read_test_rows("data/splits/davis/random", 1, policy=False, with_drug=True)
+    assert len(plain[0]) == 3 and len(withdrug[0]) == 4
+    assert [r[0] for r in plain] == [r[0] for r in withdrug]        # same rows, same order
+    assert withdrug[0][2:] == plain[0][1:]                          # drug id inserted at 1
+    assert all(r[1] for r in withdrug)

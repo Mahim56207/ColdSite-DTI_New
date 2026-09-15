@@ -21,6 +21,7 @@ import torch
 import torch.nn as nn
 from sklearn.metrics import average_precision_score, roc_auc_score
 
+from src.model import precision, resume
 from src.model.early_stopping import DEFAULT_MIN_EPOCHS, CheckpointSelector
 from src.model.checkpoint_naming import (
     checkpoint_path as build_checkpoint_path,
@@ -79,6 +80,24 @@ def accuracy_metric_for(task: str) -> str:
 
 def compute_metrics(y_true, y_pred, task: str) -> dict:
     y_true, y_pred = np.asarray(y_true, float), np.asarray(y_pred, float)
+
+    # A diverged cell must say so, here, rather than 500 lines later inside sklearn.
+    # 2026-09-14: MolTrans on KIBA under --amp produced NaN from batch ~4,040 of epoch 1
+    # (its hand-rolled LayerNorm divides by sqrt(var + 1e-12), and 1e-12 underflows to
+    # zero in float16, so a zero-variance row gives 0/0). The run then wasted seventeen
+    # minutes finishing the epoch before dying in roc_auc_score with "Input contains NaN",
+    # which names neither the model nor the cause. Predictions are checked before they
+    # reach a metric, so the message arrives in the log that can act on it.
+    n_bad = int((~np.isfinite(y_pred)).sum())
+    if n_bad:
+        raise ValueError(
+            f"{n_bad} of {y_pred.size} predictions are not finite: this cell has "
+            "diverged and its metrics would be meaningless. If it is running under "
+            "--amp, the usual cause is float16 overflow or underflow inside the model "
+            "(a hand-written normalisation with a tiny epsilon, or an attention mask "
+            "constant outside float16's range) -- re-run this model in full precision. "
+            "Nothing is salvageable from a NaN checkpoint."
+        )
     if task == "binary":
         probs = 1.0 / (1.0 + np.exp(-y_pred))     # pred is a logit, not a probability
         if len(np.unique(y_true)) < 2:
@@ -119,9 +138,12 @@ def _bar(fraction, width=BAR_WIDTH):
     return "█" * filled + "░" * (width - filled)
 
 
-def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
+def train_one_epoch(model, dataloader, optimizer, loss_fn, device, scaler=None,
+                    amp=False):
     model.train()
     total_loss = 0.0
+    if scaler is None:
+        scaler = precision.make_scaler(device, False)
 
     for drug_batch, protein_batch, label_batch in dataloader:
         drug_batch = drug_batch.to(device)
@@ -129,14 +151,14 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
         label_batch = label_batch.to(device)
 
         optimizer.zero_grad()
-        pred, _attn = model(drug_batch, protein_batch)
-        loss = loss_fn(pred.squeeze(-1), label_batch.float())
-        loss.backward()
+        with precision.autocast(device, amp):
+            pred, _attn = model(drug_batch, protein_batch)
+            loss = loss_fn(pred.squeeze(-1), label_batch.float())
+        scaler.scale(loss).backward()
         # The BiLSTM plus attention will occasionally spike the gradient norm in
         # the first few hundred steps; clipping stops a long run from silently
         # turning into NaNs overnight.
-        nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
-        optimizer.step()
+        precision.step(optimizer, scaler, model.parameters(), clip=5.0)
 
         total_loss += loss.item() * drug_batch.size(0)
 
@@ -144,7 +166,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
 
 
 @torch.no_grad()
-def evaluate(model, dataloader, loss_fn, device, task="regression"):
+def evaluate(model, dataloader, loss_fn, device, task="regression", amp=False):
     """Returns (mean loss, metrics dict)."""
     model.eval()
     total_loss = 0.0
@@ -154,12 +176,13 @@ def evaluate(model, dataloader, loss_fn, device, task="regression"):
         protein_batch = protein_batch.to(device)
         label_batch = label_batch.to(device)
 
-        pred, _attn = model(drug_batch, protein_batch)
-        pred = pred.squeeze(-1)
-        loss = loss_fn(pred, label_batch.float())
+        with precision.autocast(device, amp):
+            pred, _attn = model(drug_batch, protein_batch)
+            pred = pred.squeeze(-1)
+            loss = loss_fn(pred, label_batch.float())
 
         total_loss += loss.item() * drug_batch.size(0)
-        preds.append(pred.cpu().numpy())
+        preds.append(pred.float().cpu().numpy())
         targets.append(label_batch.cpu().numpy())
 
     return (total_loss / len(dataloader.dataset),
@@ -169,7 +192,8 @@ def evaluate(model, dataloader, loss_fn, device, task="regression"):
 def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
                  n_epochs=30, lr=1e-3, task="regression",
                  checkpoint_path="results/coldsite_dti_best.pt", patience=15,
-                 min_epochs=DEFAULT_MIN_EPOCHS):
+                 min_epochs=DEFAULT_MIN_EPOCHS, amp=False, resume_settings=None,
+                 stop_after_epoch=None):
     """Train one model on one split.
 
     checkpoint_path should always name the dataset, the split and the seed --
@@ -178,6 +202,12 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
     cold-target number that was actually produced by a model trained on
     cold-drug; the second most expensive is reporting a three-seed mean
     produced by three runs that overwrote each other.
+
+    Returns (model, selection summary, resume.Resumable). model is None when
+    --stop-after-epoch interrupted the run. A `<checkpoint>_resume.pt` left by
+    an interrupted run is continued (src/model/resume.py); resume_settings
+    adds the caller's own settings (batch size, ...) to the ones a resumed run
+    must share with the run it continues.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
     # Says the size of the job before the first epoch line, which does not
@@ -197,18 +227,26 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
         optimizer, mode="min", factor=0.5, patience=5)
 
     os.makedirs(os.path.dirname(checkpoint_path) or ".", exist_ok=True)
-    history = []
     # CheckpointSelector counts epochs from 1; this loop counts from 0.
     selector = CheckpointSelector(patience=patience, min_epochs=min_epochs,
                                   n_epochs=n_epochs)
+    scaler = precision.make_scaler(device, amp)
+    settings = {"amp": amp, "task": task, "lr": lr, "epochs": n_epochs,
+                "patience": patience, "min_epochs": min_epochs, **(resume_settings or {})}
+    run = resume.Resumable(checkpoint_path, device, settings, tuple(settings),
+                           stop_after_epoch)
+    start = run.begin(model, optimizer, selector, scheduler=scheduler, scaler=scaler)
+    history = run.extra.get("history", [])
 
     epoch_durations = []
 
-    for epoch in range(n_epochs):
-        epoch_1indexed = epoch + 1
+    for epoch_1indexed in (range(start, n_epochs + 1) if start else ()):
+        epoch = epoch_1indexed - 1
         epoch_started = time.perf_counter()
-        train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
-        val_loss, val_metrics = evaluate(model, val_loader, loss_fn, device, task)
+        train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device,
+                                     scaler=scaler, amp=amp)
+        val_loss, val_metrics = evaluate(model, val_loader, loss_fn, device, task,
+                                         amp=amp)
         scheduler.step(val_loss)
 
         took = time.perf_counter() - epoch_started
@@ -229,22 +267,29 @@ def run_training(drug_vocab_size, protein_vocab_size, train_loader, val_loader,
               f"[{_format_duration(took)}/epoch, avg {_format_duration(mean_epoch)}, "
               f"<={_format_duration(worst_case)} left]", flush=True)
 
+        best = None
         if selector.consider(epoch_1indexed, val_loss):
-            torch.save({"model_state": model.state_dict(), "epoch": epoch,
-                        "task": task, "val_metrics": val_metrics}, checkpoint_path)
+            best = {"model_state": model.state_dict(), "epoch": epoch,
+                    "task": task, "val_metrics": val_metrics}
             print(f"  -> saved new best checkpoint to {checkpoint_path}")
 
         history.append({"epoch": epoch_1indexed, "train_loss": train_loss,
                         "val_loss": val_loss, **val_metrics})
 
-        if selector.should_stop(epoch_1indexed):
+        stopping = selector.should_stop(epoch_1indexed)
+        # end_epoch writes the checkpoint as well, after the resume file
+        run.end_epoch(epoch_1indexed, finished=stopping or epoch_1indexed == n_epochs,
+                      best_checkpoint=best, history=history)
+        if stopping:
             print(f"No improvement for {patience} epochs, stopping early "
                   f"(best epoch {selector.best_epoch})")
             break
+        if run.interrupt_now(epoch_1indexed):
+            return None, selector.summary(), run
 
     with open(history_path(checkpoint_path), "w") as f:
         json.dump(history, f, indent=2)
-    return model, selector.summary()
+    return model, selector.summary(), run
 
 
 if __name__ == "__main__":
@@ -275,6 +320,11 @@ if __name__ == "__main__":
                              "confused with the run it controls for.")
     parser.add_argument("--dummy", action="store_true",
                         help="run on random data, no real splits needed")
+    parser.add_argument("--amp", action="store_true",
+                        help="mixed precision; see src/model/precision.py. Off "
+                             "reproduces the DAVIS grid exactly")
+    parser.add_argument("--stop-after-epoch", type=int,
+                        help="testing only: stop after this epoch as if killed")
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -316,13 +366,19 @@ if __name__ == "__main__":
     checkpoint_path = build_checkpoint_path(
         args.results_dir, args.dataset, args.split, args.task, args.seed)
 
-    model, selection = run_training(
+    model, selection, run = run_training(
         drug_vocab_size=len(drug_vocab) + 2,        # +2 for PAD and UNK
         protein_vocab_size=len(protein_vocab) + 2,
         train_loader=train_loader, val_loader=val_loader,
         n_epochs=args.epochs, lr=args.lr, task=args.task,
         checkpoint_path=checkpoint_path, min_epochs=args.min_epochs,
+        amp=args.amp, stop_after_epoch=args.stop_after_epoch,
+        resume_settings={"batch_size": args.batch_size,
+                         "max_protein_len": args.max_protein_len,
+                         "train_subsample": args.train_subsample},
     )
+    if model is None:          # --stop-after-epoch
+        raise SystemExit(0)
 
     # The final epoch is usually not the best one, so reload before testing.
     state = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
@@ -330,7 +386,7 @@ if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
     loss_fn = nn.MSELoss() if args.task == "regression" else nn.BCEWithLogitsLoss()
     _test_loss, test_metrics = evaluate(model.to(device), test_loader, loss_fn,
-                                        device, args.task)
+                                        device, args.task, amp=args.amp)
 
     metrics_path = results_path(args.results_dir, tag)
     with open(metrics_path, "w") as f:
@@ -343,8 +399,10 @@ if __name__ == "__main__":
                    # which epoch the audited weights are from, and the floor
                    # that constrained it -- both belong in Methods
                    "selection": selection,
+                   "amp": args.amp, "resumed_after_epoch": run.resumed_from,
                    "train_subsample": args.train_subsample,
                    "n_train_rows": len(train_loader.dataset),
                    "test_metrics": test_metrics}, f, indent=2)
+    run.clear()
     print("\nTest metrics:", json.dumps(test_metrics, indent=2))
     print(f"Saved -> {metrics_path}")

@@ -39,6 +39,11 @@ LEVELS = ("cold_target", "cold_pair")
 # Recorded (GPU) vs re-scored (CPU) AUROC. Floating-point order differs between the two;
 # anything past this is not arithmetic and means the re-score is not the same test pass.
 REPRODUCE_TOLERANCE = 0.005
+# MolTrans keeps dropout on at inference, as published, so one test pass is one draw:
+# re-scoring DAVIS cold-pair seed 2 six times gave 0.562-0.575 AUROC (sd 0.005) around a
+# recorded 0.567 (2026-09-13). Its cells are scored as the mean of this many passes, and
+# count as reproduced when the recorded value lies within the passes' range.
+DROPOUT_DRAWS = {"moltrans": 5}
 
 
 def seen_by_sequence(dataset: str, level: str) -> frozenset:
@@ -145,22 +150,53 @@ def evaluate_cell(model_name: str, dataset: str, level: str, seed: int, checkpoi
         return None
     recorded = json.load(open(res))
     split_dir = os.path.join("data/splits", dataset, level)
-    labels, scores = _scores(model_name, split_dir, dataset, ckpt, recorded, seed, device)
-
     test = pd.read_csv(os.path.join(split_dir, "test.csv"))
-    if len(test) != len(labels):
-        raise RuntimeError(f"{model_name} {level} s{seed}: {len(labels)} scores for "
-                           f"{len(test)} test rows -- rows and scores are not aligned")
     leaked = seen_by_sequence(dataset, level)
     keep = ~test.Target_ID.astype(str).isin(leaked).to_numpy()
 
-    every = _metrics(labels, scores)
-    unseen = _metrics(labels[keep], scores[keep])
+    draws = []
+    for draw in range(DROPOUT_DRAWS.get(model_name, 1)):
+        labels, scores = _scores(model_name, split_dir, dataset, ckpt, recorded,
+                                 seed * 100 + draw if draw else seed, device)
+        if len(test) != len(labels):
+            raise RuntimeError(f"{model_name} {level} s{seed}: {len(labels)} scores for "
+                               f"{len(test)} test rows -- rows and scores are not aligned")
+        draws.append((_metrics(labels, scores), _metrics(labels[keep], scores[keep])))
+    every, unseen = combine_draws(draws)
     recorded_auroc = recorded["test_metrics"]["auroc"]
     return {"model": model_name, "dataset": dataset, "level": level, "seed": seed,
             "recorded_auroc": recorded_auroc, "all_rows": every, "unseen_by_sequence": unseen,
-            "reproduces_recorded": abs(every["auroc"] - recorded_auroc) <= REPRODUCE_TOLERANCE,
+            "reproduces_recorded": reproduces(recorded_auroc, [d[0]["auroc"] for d in draws]),
+            "dropout_draws": len(draws),
             "leaked_targets": sorted(leaked), "rows_dropped": int((~keep).sum())}
+
+
+def combine_draws(draws: list) -> tuple:
+    """Mean over test passes; with one pass the metrics pass through unchanged."""
+    out = []
+    for part in (0, 1):
+        runs = [d[part] for d in draws]
+        merged = dict(runs[0])
+        for key in ("auroc", "auprc"):
+            values = [r[key] for r in runs]
+            merged[key] = float(np.mean(values))
+            if len(values) > 1:
+                merged[f"{key}_draws"] = [float(v) for v in values]
+        out.append(merged)
+    return out[0], out[1]
+
+
+def reproduces(recorded: float, rescored: list) -> bool:
+    """One pass: within REPRODUCE_TOLERANCE. Several: the recorded value lies in their range."""
+    return (min(rescored) - REPRODUCE_TOLERANCE <= recorded
+            <= max(rescored) + REPRODUCE_TOLERANCE)
+
+
+def merge_cells(existing: list, new: list) -> list:
+    """New cells replace old ones for the same (model, dataset, level, seed); others stay."""
+    key = lambda c: (c["model"], c["dataset"], c["level"], c["seed"])
+    fresh = {key(c) for c in new}
+    return [c for c in existing if key(c) not in fresh] + list(new)
 
 
 def report(cells: list) -> str:
@@ -168,6 +204,9 @@ def report(cells: list) -> str:
              "Option A (2026-09-13): each cell re-scored by its own trainer's test pass; AUROC "
              "on every test row and on the rows whose target is unseen by sequence "
              "(`src/evaluation/clean_accuracy.py`, `results/sequence_audit_davis.md`).\n",
+             "MolTrans keeps dropout on at inference (as published): its re-scores are the mean of "
+             f"{DROPOUT_DRAWS['moltrans']} passes and count as reproduced when the recorded value "
+             "lies within their range.\n",
              "| model | level | seed | recorded | re-scored, all rows | reproduces? | "
              "unseen by sequence | change | rows kept |",
              "|---|---|---|---|---|---|---|---|---|"]
@@ -208,6 +247,12 @@ def main():
                       f"unseen {cell['unseen_by_sequence']['auroc']:.4f}", flush=True)
     os.makedirs(args.out_dir, exist_ok=True)
     stem = os.path.join(args.out_dir, f"clean_accuracy_{args.dataset}")
+    # A run over some models updates their rows and keeps every other model's.
+    if os.path.exists(stem + ".json"):
+        cells = merge_cells(json.load(open(stem + ".json")), cells)
+    order = ["deepdta", "coldsite_dti", "hyperattentiondti", "moltrans"]
+    cells.sort(key=lambda c: (order.index(c["model"]) if c["model"] in order else 9,
+                              c["level"] != "cold_target", c["seed"]))
     with open(stem + ".json", "w") as f:
         json.dump(cells, f, indent=2)
     with open(stem + ".md", "w") as f:

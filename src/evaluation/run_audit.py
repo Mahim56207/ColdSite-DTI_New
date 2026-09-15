@@ -75,53 +75,82 @@ def stratified_cell(weights, sites, target_ids, k=10, seed=0) -> dict:
     return out
 
 
-def build_grid(collect_fn, models, datasets, seeds, k=10, n_trials=1000) -> dict:
+def build_grid(collect_fn, models, datasets, seeds, k=10, n_trials=1000,
+               checkpoint_free=None) -> dict:
     """Run every cell.
 
     collect_fn(model_name, dataset, level, seed) must return
     (weights, sites, target_ids) or None when that cell has no checkpoint yet.
     Missing cells are skipped and reported, not silently treated as zero.
-    """
-    raw, p_values, stratified, missing = {}, {}, {}, []
 
-    for model_name in models:
-        raw[model_name] = {}
-        stratified[model_name] = {}
+    A checkpoint-free arm (the uniform control is flat by construction) can be scored at
+    a level nothing was trained at, and doing so puts cells in the Holm family for levels
+    the audit never measured. On KIBA, where only random and cold_drug are trained, that
+    made the family 8 cells instead of the designed 6 and every threshold stricter
+    (found 2026-09-16; the verdict did not change, but the correction was not the one the
+    protocol specified). Such arms are therefore scored only where a model that does need
+    a checkpoint produced a cell. A run with no such model scores every level, because
+    then there is nothing for the control to follow.
+    """
+    if checkpoint_free is None:
+        from src.evaluation.collect import CHECKPOINT_FREE as checkpoint_free
+    free = [m for m in models if m in set(checkpoint_free)]
+    trained = [m for m in models if m not in set(free)]
+
+    raw = {model_name: {} for model_name in models}
+    stratified = {model_name: {} for model_name in models}
+    p_values, missing = {}, []
+    measured = set()                       # (dataset, level) a trained model reached
+
+    def score(model_name, dataset, level):
+        per_seed, per_seed_p, per_seed_strat = [], [], []
+
+        for seed in seeds:
+            collected = collect_fn(model_name, dataset, level, seed)
+            if collected is None:
+                missing.append(f"{model_name}/{dataset}/{level}/seed{seed}")
+                continue
+            weights, sites, target_ids = collected
+            cell = evaluate_cell(weights, sites, k=k,
+                                 n_trials=n_trials, seed=seed)
+            per_seed.append(cell["precision_at_k"])
+            per_seed_p.append(cell["p_value"])
+            per_seed_strat.append(
+                stratified_cell(weights, sites, target_ids, k=k, seed=seed))
+
+        if not per_seed:
+            return False
+
+        key = f"{model_name}|{dataset}|{level}"
+        raw[model_name].setdefault(level, {})["precision_at_k"] = \
+            aggregate_seeds(per_seed, label=key)
+        # median across seeds, not min: taking the smallest p of three
+        # runs is cherry-picking dressed as aggregation
+        p_values[key] = float(np.median(
+            [p for p in per_seed_p if p is not None and np.isfinite(p)]
+        )) if any(p is not None for p in per_seed_p) else float("nan")
+
+        for family in (KINASE, NON_KINASE):
+            values = [s[family] for s in per_seed_strat
+                      if s.get(family) is not None]
+            if values:
+                stratified[model_name].setdefault(level, {})[family] = \
+                    aggregate_seeds(values, label=f"{key}|{family}")
+        return True
+
+    for model_name in trained:
         for dataset in datasets:
             for level in LEVELS:
-                per_seed, per_seed_p, per_seed_strat = [], [], []
+                if score(model_name, dataset, level):
+                    measured.add((dataset, level))
 
-                for seed in seeds:
-                    collected = collect_fn(model_name, dataset, level, seed)
-                    if collected is None:
-                        missing.append(f"{model_name}/{dataset}/{level}/seed{seed}")
-                        continue
-                    weights, sites, target_ids = collected
-                    cell = evaluate_cell(weights, sites, k=k,
-                                         n_trials=n_trials, seed=seed)
-                    per_seed.append(cell["precision_at_k"])
-                    per_seed_p.append(cell["p_value"])
-                    per_seed_strat.append(
-                        stratified_cell(weights, sites, target_ids, k=k, seed=seed))
-
-                if not per_seed:
+    for model_name in free:
+        for dataset in datasets:
+            for level in LEVELS:
+                if trained and (dataset, level) not in measured:
+                    # by design, not a missing checkpoint: nothing to compare against
                     continue
-
-                key = f"{model_name}|{dataset}|{level}"
-                raw[model_name].setdefault(level, {})["precision_at_k"] = \
-                    aggregate_seeds(per_seed, label=key)
-                # median across seeds, not min: taking the smallest p of three
-                # runs is cherry-picking dressed as aggregation
-                p_values[key] = float(np.median(
-                    [p for p in per_seed_p if p is not None and np.isfinite(p)]
-                )) if any(p is not None for p in per_seed_p) else float("nan")
-
-                for family in (KINASE, NON_KINASE):
-                    values = [s[family] for s in per_seed_strat
-                              if s.get(family) is not None]
-                    if values:
-                        stratified[model_name].setdefault(level, {})[family] = \
-                            aggregate_seeds(values, label=f"{key}|{family}")
+                score(model_name, dataset, level)
 
     return {
         "grid": raw,

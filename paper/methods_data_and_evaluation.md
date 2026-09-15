@@ -384,7 +384,13 @@ A cell's p-value is the median over its seeds, not the smallest.
 **Multiple comparisons.** Holm–Bonferroni is applied once, over the whole audit family
 (every model × dataset × level), after every cell's raw p-value has been collected.
 Correcting within each model and pooling would define the family after seeing the
-results.
+results. Each dataset's arm is its own family, sized by the cells that arm measures: **16
+on DAVIS** (three audited models and the uniform control × four levels) and **6 on KIBA**
+(two audited models and the uniform control × two levels, §11). The control is scored only
+at levels the arm trains, so an untrained level cannot enlarge a family and make every
+threshold stricter than the design specifies. DAVIS's sixteen attention cells and the
+twelve integrated-gradient cells of Results §7c are separate families, and no claim
+compares a corrected p from one with a corrected p from another.
 
 **Effect size.** With a thousand or more evaluations per level almost any difference is
 significant, so precision@k is always reported beside its chance level and ceiling, and
@@ -455,3 +461,34 @@ These were open in the first draft; each is now settled and applied in the code.
 5. **Truncation figures.** Recomputed on the re-numbered ground truth
    (`methods_track_b.md` §4.1): 3.8% (DAVIS) and 4.1% (KIBA) deflation under the
    retaining policy, level-dependent from 2.3% to 7.1%; ceilings within 0.8%.
+
+## 11. The KIBA replication arm
+
+KIBA is a replication, not a second exploration, and its scope was fixed before any KIBA
+number existed (2026-09-14, on compute grounds; Limitations states that honestly). It
+reuses every decision above unchanged — splits, binary threshold, ground-truth
+re-numbering, the 1,000-residue window, one pair per protein, 200 faithfulness pairs, three
+seeds, the same nulls and the same positive control — and nothing in it was tuned on KIBA.
+
+**Scope.** Two levels, **random and cold-drug**, for the two audited published models
+(HyperAttentionDTI, MolTrans) and the DeepDTA accuracy anchor: 18 cells. Cold-drug is the
+level KIBA can support and DAVIS cannot (422 held-out drugs against 13); cold-target and
+cold-pair are weaker on KIBA than on DAVIS (45 held-out targets against 88) and are not
+trained. ColdSite-DTI is not included, so our own model is audited on one dataset and the
+published ones on two. The explanation-side analyses of Results §7–§7c (readout variants,
+integrated gradients, per-pair drug contacts) are DAVIS-only.
+
+**Numerical precision is per model.** DeepDTA and HyperAttentionDTI train under float16
+autocast with loss scaling; MolTrans trains in full precision, because its vendored
+hand-written LayerNorm divides by `sqrt(var + 1e-12)` and 1e-12 underflows in float16,
+producing NaN weights from the first epoch. MolTrans's KIBA cells are therefore full
+precision like its DAVIS cells; the other two carry the precision caveat Limitations
+states.
+
+**Sequence policy.** None of DAVIS's three sequence problems (§2.4) occurs in KIBA: no
+target is seen by sequence in training at either level, and no target lacks the kinase
+pocket. The policy therefore excludes no KIBA target, and `clean_accuracy` is not needed.
+
+**Cells longer than one compute session** continue from their last finished epoch,
+restoring model, optimiser, scheduler, loss scaler and every random-number generator, so a
+cell interrupted by a session limit is not restarted and not partially scored.

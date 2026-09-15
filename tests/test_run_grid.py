@@ -6,6 +6,7 @@ artefact checks that decide whether a finished run can be attributed to a cell
 at all.
 """
 import json
+import os
 
 import pytest
 
@@ -297,6 +298,64 @@ def test_the_validation_cell_is_the_first_unfinished_one(tmp_path, monkeypatch):
     assert done not in trained, (
         "the finished cell was retrained as the validation cell")
     assert trained == [todo], f"expected only the unfinished cell, got {trained}"
+
+
+@pytest.mark.slow
+def test_an_interrupted_cell_with_a_resume_file_is_continued(tmp_path, monkeypatch, capsys):
+    """train.py continues from `_resume.pt`; the grid says so instead of 'retrain'."""
+    import torch
+    from src.model import resume
+
+    cell = {"dataset": "davis", "split": "random", "seed": 1}
+    results = tmp_path / "r"
+    results.mkdir()
+    ckpt = results / checkpoint_name("davis", "random", TASK, 1)
+    torch.save({"model_state": {"w": torch.zeros(2)}, "epoch": 0}, ckpt)
+    resume.save(resume.resume_path(str(ckpt)), {"epoch": 3})
+
+    trained = _run_grid_over_one_cell(tmp_path, monkeypatch, cell)
+
+    assert trained == [cell]
+    assert "[resume] davis/random/seed1" in capsys.readouterr().out
+
+
+@pytest.mark.slow
+def test_overwrite_discards_the_resume_file(tmp_path, monkeypatch):
+    """--overwrite means from scratch; a leftover resume file would continue the old run."""
+    import src.model.run_grid as run_grid
+    from src.model import resume
+
+    results = tmp_path / "r"
+    results.mkdir()
+    stale = resume.resume_path(str(results / checkpoint_name("davis", "random", TASK, 1)))
+    resume.save(stale, {"epoch": 3})
+
+    monkeypatch.setattr(run_grid, "run_cell", lambda cell, *a, **k: (
+        _finish_cell(results, cell) or {"cell": cell, "status": "ok", "accuracy": 0.5}))
+    monkeypatch.setattr("sys.argv", [
+        "run_grid", "--datasets", "davis", "--splits", "random", "--seeds", "1",
+        "--split-root", str(_make_splits(tmp_path / "s")),
+        "--results-dir", str(results), "--skip-validation-cell", "--overwrite"])
+    main()
+
+    assert not os.path.exists(stale)
+
+
+def test_amp_is_passed_to_every_cell(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr("sys.argv", [
+        "run_grid", "--plan", "--amp", "--datasets", "davis",
+        "--split-root", str(tmp_path), "--results-dir", str(tmp_path)])
+    main()
+    lines = [l for l in capsys.readouterr().out.splitlines() if "src.model.train" in l]
+    assert len(lines) == 12 and all(l.rstrip().endswith("--amp") for l in lines)
+
+
+def test_amp_is_off_unless_asked_for(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr("sys.argv", [
+        "run_grid", "--plan", "--datasets", "davis",
+        "--split-root", str(tmp_path), "--results-dir", str(tmp_path)])
+    main()
+    assert "--amp" not in capsys.readouterr().out
 
 
 @pytest.mark.slow

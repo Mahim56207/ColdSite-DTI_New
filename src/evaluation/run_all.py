@@ -283,7 +283,8 @@ def summary(cfg: dict, state: dict) -> str:
                 if res:
                     # cold levels on targets unseen by sequence where re-scored
                     # (src/evaluation/clean_accuracy.py)
-                    clean = unseen_auroc(d, m, lv, s) if leaks(d, lv) else None
+                    clean = (unseen_auroc(d, m, lv, s, cfg["clean_accuracy"])
+                             if leaks(d, lv) else None)
                     values.append(clean if clean is not None
                                   else res.get("test_metrics", {}).get("auroc"))
             auroc[(m, lv)] = _agg(values)
@@ -444,6 +445,12 @@ def main():
                         help="default: cuda if available, else cpu")
     parser.add_argument("--no-skip-existing", action="store_true",
                         help="recompute outputs that already exist")
+    parser.add_argument("--clean-accuracy", default=None,
+                        help="re-scored cold-level accuracy (default "
+                             "results/clean_accuracy_<dataset>.json)")
+    parser.add_argument("--allow-interrupted", action="store_true",
+                        help="analyse even if some checkpoints have no results file "
+                             "(unfinished cells); refused by default")
     parser.add_argument("--dry-run", action="store_true",
                         help="print the inventory and the commands, run nothing")
     args = parser.parse_args()
@@ -465,7 +472,9 @@ def main():
            or f"data/{args.dataset}_ground_truth_sites.json",
            "out_dir": args.out_dir or os.path.join("results", f"analysis_{args.dataset}"),
            "max_pairs": args.max_pairs, "device": args.device,
-           "volume_control_dir": args.volume_control_dir}
+           "volume_control_dir": args.volume_control_dir,
+           "clean_accuracy": args.clean_accuracy
+           or f"results/clean_accuracy_{args.dataset}.json"}
     steps = [s.strip() for s in args.steps.split(",") if s.strip()]
     unknown = set(steps) - set(STEPS)
     if unknown:
@@ -481,6 +490,16 @@ def main():
     for (m, lv, s), v in sorted(state.items()):
         if v != "complete":
             print(f"   {v:11s} {m} {lv} seed {s}")
+    # A checkpoint without its results file is a cell that never finished (a commit cut
+    # off mid-training). The analysis tools look only for the checkpoint, so they would
+    # score a half-trained model -- which happened on 2026-09-14 with HyperAttentionDTI
+    # cold-drug seed 1. Refuse, unless told otherwise.
+    interrupted = sorted(k for k, v in state.items() if v == "interrupted")
+    if interrupted and not args.allow_interrupted and not args.dry_run:
+        raise SystemExit(
+            f"{len(interrupted)} checkpoint(s) have no results file -- unfinished cells the "
+            f"analysis would silently score: {interrupted}. Move them out of "
+            f"{cfg['checkpoint_dir']} (or pass --allow-interrupted).")
 
     outcomes = {}
     for step in steps:

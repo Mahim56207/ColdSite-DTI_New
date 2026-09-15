@@ -348,3 +348,32 @@ def test_the_committed_davis_ground_truth_is_untouched_by_the_filter():
     filtered = load_site_sets(path, max_len=1000, exclude_ligands=COTRANSPORT_IONS)
     assert (sum(len(s) for s in plain.values())
             == sum(len(s) for s in filtered.values()))
+
+
+# ----------------------------------------------------------------------------
+# per-protein vs per-pair ground truth (src/data/klifs_ligand_contacts.py)
+# ----------------------------------------------------------------------------
+
+def test_a_protein_keyed_ground_truth_is_looked_up_by_protein():
+    from src.data.ground_truth import site_lookup
+    lookup = site_lookup({"ABL1": "sites"})
+    assert not lookup.pair_keyed
+    assert lookup("ABL1") == "sites"
+    assert lookup("ABL1", "5291") == "sites"        # a drug id is simply ignored
+    assert lookup("EGFR") is None
+
+
+def test_a_pair_keyed_ground_truth_is_looked_up_by_pair():
+    from src.data.ground_truth import site_lookup
+    lookup = site_lookup({"5291|ABL1": "imatinib sites", "5291|ABL2": "other"})
+    assert lookup.pair_keyed
+    assert lookup("ABL1", "5291") == "imatinib sites"
+    assert lookup("ABL1", "999") is None            # this drug has no co-crystal here
+
+
+def test_scoring_pair_sites_without_a_drug_id_raises_rather_than_returning_nothing():
+    """Silently returning None would read as 'this model has no measurable pairs'."""
+    from src.data.ground_truth import site_lookup
+    lookup = site_lookup({"5291|ABL1": "sites"})
+    with pytest.raises(ValueError, match="drug-specific"):
+        lookup("ABL1")

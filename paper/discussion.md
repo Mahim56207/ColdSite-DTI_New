@@ -3,8 +3,8 @@
 Drafted 2026-09-13, rewritten 2026-09-14 once the DAVIS audit was complete (three models,
 four levels, three seeds, Holm over all sixteen cells). Every number here is in
 `paper/results.md` with its source file; nothing states a result for a model whose numbers
-are not there. *[PENDING]* now marks only what KIBA has to settle. Limitations are in
-`paper/limitations.md`.
+are not there. Extended 2026-09-16 with §5b, the KIBA replication (Results §8); no *[PENDING]*
+marks remain. Limitations are in `paper/limitations.md`.
 
 ---
 
@@ -18,7 +18,10 @@ away: a map borrowed from another protein and attention permuted among residues 
 amino acid in every seed (both 0.021, p = 0.001), and attention permuted within the
 site-spanning stretch in two seeds of three. On the split that published work reports, for
 the model that generalises best, the interpretability claim holds — and that is the only
-place it holds.
+place it holds. **On KIBA it does not hold even there** (§5b): the same model at the same
+level is above chance in one seed of three, and none of KIBA's six cells survives
+correction. Across both datasets, then, the residue-level claim survives nowhere that a
+replication confirms.
 
 The same model is at 1.26× chance on unseen targets and 1.18× on unseen pairs, neither
 distinguishable from chance. MolTrans sits at the metric's floor at every level: its four
@@ -202,6 +205,40 @@ three did not exist in our plan until a number forced them.
   wider than every difference that table reports. A seed spread and an interval over
   proteins answer different questions, and a cell of 68 needs both.
 
+## 5b. Does the verdict replicate? KIBA
+
+The audit's one positive residue-level result was a single cell of sixteen, so the
+replication was aimed at it. KIBA repeats the two published models at random and cold-drug,
+three seeds, with every DAVIS decision unchanged and nothing tuned on KIBA (Results §8).
+
+**The surviving cell does not replicate.** None of KIBA's six cells survives Holm, and
+HyperAttentionDTI at random — DAVIS's one survivor — reads p = 0.48 across seeds, with one
+seed of three above chance (0.053, 2.3× chance and beating every null) and two at chance.
+The honest reading is not "the effect is absent on KIBA" but something more uncomfortable
+for the literature: **an effect of this size is not stable across training seeds**, and a
+paper reporting one seed would have called it either a confirmation or a refutation
+depending on which seed it drew. MolTrans shows the same instability from the other
+direction: at the uniform floor in every DAVIS cell, it produces a kinase-specific signal
+in KIBA seed 2 at both levels (0.053 and 0.063, beating every null) and nothing in seeds 1
+and 3. Three seeds are enough to see that the variance is there; they are not enough to
+estimate it, which is why we report per-seed values throughout rather than means alone.
+
+**What replicates is the coarse signal and the faithfulness.** HyperAttentionDTI's
+attention points into the KLIFS pocket in all three KIBA seeds at random (1.32–1.46×
+chance, every null beaten) and in two of three on unseen drugs, where KIBA holds out 422
+drugs against DAVIS's 13 — so the "coarsely plausible under shift" finding survives on the
+axis DAVIS could not support. Both models' attention is load-bearing in all twelve KIBA
+cells, at magnitudes inside the DAVIS seed spreads. The dissociation of §2 is therefore a
+property of these models rather than of one benchmark: the attention is used, it is in the
+right neighbourhood, and it does not mark the residues.
+
+**And one DAVIS finding turns out to be a property of DAVIS.** Cold-drug costs 0.18–0.24
+AUROC on DAVIS and 0.09–0.11 on KIBA. With 13 held-out drugs, DAVIS's cold-drug level
+measures which 13 were drawn as much as it measures unseen chemistry. The model ordering
+holds on both (HyperAttentionDTI loses least), but the severity does not, and any paper
+quoting DAVIS cold-drug as evidence about unseen compounds — ours included, before this
+replication — was quoting a 13-drug sample.
+
 ## 6. Benchmark hygiene
 
 **DAVIS leaks, and the leak is worth about half of its cold-target difficulty.** Every
@@ -237,12 +274,15 @@ resolutions, a positive control for the metric, and nulls for position, amino-ac
 preference and drug identity.
 
 One of sixteen cells supports the residue-level interpretability claim: the
-best-generalising model, on the random split, at 1.7× chance. Under distribution shift no
-model's attention marks annotated residues better than chance, none distinguishes the
+best-generalising model, on the random split, at 1.7× chance. On a second dataset that cell
+does not replicate — it is above chance in one training seed of three — so the claim
+survives nowhere that a replication confirms. Under distribution shift no model's attention
+marks annotated residues better than chance, none distinguishes the
 drug's own crystallographic contacts from another drug's in the same pocket, and one
-model's attention is indistinguishable from a uniform map everywhere. What survives at
-every level is coarser: attention that is load-bearing, and that concentrates on the
-right region.
+model's attention is indistinguishable from a uniform map everywhere on DAVIS and in two of
+three KIBA seeds. What survives at every level, on both datasets, is coarser: attention
+that is load-bearing, and that concentrates on the right region — including on a cold-drug
+level with 422 held-out drugs.
 
 The measurement lessons may outlast the verdict. The residues an attention map highlights
 depend mostly on an unreported reduction choice; a masking-based faithfulness test can
@@ -254,6 +294,10 @@ should be tested at the resolution they are made at, against nulls that can expl
 away, under the shift the model will meet, and with more than one way of reading the
 attention out.
 
-*[PENDING: one paragraph on KIBA once plan A finishes — whether the single surviving cell
-replicates on a second dataset, and whether the cold-drug result changes when 422 drugs are
-held out instead of 13.]*
+A fourth lesson came from the replication itself, and it is the one we would most like the
+field to take up: **an interpretability verdict of this size is seed-dependent**. In both
+published models, one KIBA training seed of three landed on the other side of chance from
+the other two — for HyperAttentionDTI the one seed that agrees with its DAVIS verdict of
+support, for MolTrans the one seed that contradicts its DAVIS verdict of none — so a
+single-seed attention figure, which is what published work almost always shows, cannot
+establish or refute the claim it illustrates. Report every seed, or report none.

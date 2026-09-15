@@ -4,9 +4,11 @@ Draft for the Limitations part of the Discussion. Rewritten 2026-09-14 once the 
 was complete: the earlier version was written before the results and four of its items had
 gone stale — it declared gradient attributions out of scope, expected the readout choice not
 to matter, described the ground truth as protein-level only, and spoke of KIBA as trained.
-Each is corrected below. Numbers come from `paper/results.md` and
-`paper/methods_data_and_evaluation.md`, where each is sourced; *[PENDING]* marks what a
-run still has to settle.
+Each is corrected below. Extended 2026-09-16 once the KIBA replication landed (Results §8):
+the KIBA items are no longer conditional, and two new ones state what the replication
+exposed — seed dependence that three seeds cannot quantify, and MolTrans's
+masking-space-dependent faithfulness. Numbers come from `paper/results.md` and
+`paper/methods_data_and_evaluation.md`, where each is sourced. No *[PENDING]* marks remain.
 
 ---
 
@@ -165,9 +167,8 @@ attention-based DTI models is a small sample of a large literature, and the mode
 those whose code we could run faithfully; a claim about attention-based DTI interpretability
 in general rests on the argument that these are representative, not on the sample size.
 
-**Compute-driven choices on KIBA, and a precision that is not uniform.** *[PENDING: KIBA
-training began 2026-09-14; the DeepDTA cells reported here are the only ones finished.]*
-KIBA uses mixed precision (float16 autocast with loss scaling) for DeepDTA and
+**Compute-driven choices on KIBA, and a precision that is not uniform.** KIBA trained
+2026-09-14 to 09-15, 18 of 18 cells (Results §8). It uses mixed precision (float16 autocast with loss scaling) for DeepDTA and
 HyperAttentionDTI, which ran 2.3× and 2.0× faster on the T4s available, and **full
 precision for MolTrans**. That asymmetry was forced, not chosen: under autocast on KIBA,
 MolTrans produced NaN losses from batch ~4,040 of its first epoch and could not be trained
@@ -189,7 +190,7 @@ seeds rule out only a gross effect, one mixed-precision seed (0.603) sat below e
 full-precision seed, and the two arms also differed in PyTorch version (2.10 against 2.11)
 and in the device the ladder ran on. Extending that validation to every model was the
 assumption that MolTrans falsified. DeepDTA's KIBA cells under autocast train normally
-(test AUROC 0.917 at random), but they inherit the same untested assumption, and a reader
+(test AUROC 0.918 ± 0.001 at random, 0.832 ± 0.001 at cold-drug), but they inherit the same untested assumption, and a reader
 should treat DAVIS-versus-KIBA accuracy differences for DeepDTA and HyperAttentionDTI as
 carrying a precision caveat that MolTrans's do not. Cells longer than one 11-hour compute
 session continue from their last finished epoch, restoring model, optimiser, scheduler,
@@ -199,8 +200,7 @@ DeepDTA anchor — 18 cells, ~101 GPU-hours over four accounts. The honest state
 the replication's breadth was set by available GPU hours, not by the question, and the
 paragraph below says exactly what that leaves uncovered.
 
-**One dataset, at the time of writing, and an asymmetric replication.** Every finding above
-is DAVIS. KIBA is the replication and repairs DAVIS's weakest axis (422 held-out drugs at
+**An asymmetric replication.** KIBA is the replication (Results §8) and repairs DAVIS's weakest axis (422 held-out drugs at
 cold-drug against 13), but it cannot repair the family confound — it is also kinases — and
 its cold-target level holds out only 45 targets (42 with usable sites), fewer than DAVIS's
 68. The KIBA arm is also narrower than the DAVIS one in three ways, all decided by
@@ -211,5 +211,31 @@ a 1,334-row validation set); it covers the two **published** models and the accu
 but **not ColdSite-DTI**, so our own model is audited on one dataset where the models whose
 claims this paper is about are audited on two; and the explanation-side analyses — readout
 variants, integrated gradients, per-pair drug contacts — are DAVIS-only. Anything the KIBA
-arm does not cover is a DAVIS result, and the Results section says so cell by cell. *[PENDING: if the KIBA arm does not land before submission, the audit is a
-single-dataset result and must say so in the abstract, not only here.]*
+arm does not cover is a DAVIS result, and the Results section says so cell by cell. In
+particular, the finding that integrated gradients recover what the attention misses (§7c)
+is **unreplicated**; it rests on DAVIS alone.
+
+**Three seeds detect seed dependence; they cannot measure it.** The replication's central
+result is that a residue-level verdict moves across chance between training seeds of the
+same cell: HyperAttentionDTI's KIBA random cell reads 0.017, 0.022 and 0.053 against a
+chance of 0.023, and MolTrans's cells are at the floor in two seeds and well above it in
+the third. Three seeds are enough to establish that this variance exists and to stop a
+single-seed claim; they are far too few to estimate its distribution, to say how often a
+seed would clear a Holm threshold, or to distinguish a bimodal outcome from a wide
+unimodal one. The per-seed values are reported for every cell so that a reader can see the
+spread rather than infer it from a ±, but the paper cannot say what fraction of training
+runs would support the published claim. Ten or more seeds on the two random-split cells is
+the obvious follow-up and was beyond the compute available here.
+
+**MolTrans's faithfulness depends on which space the masking happens in, and the two
+spaces were not measured on both datasets.** The audit's MolTrans faithfulness is measured
+in token space, fixed on DAVIS before KIBA ran, where the explanation's arm and the control
+remove the same number of tokens by construction. On KIBA the residue-space variant with a
+token-matched control — masking the residues its token attention projects onto, against
+random residues chosen to disturb the same fraction of tokens — gives deltas near zero
+(−0.045 ± 0.112 at random, −0.005 ± 0.032 at cold-drug) where the token-space test gives
++0.394 and +0.291. Both are reported (Results §8.3). The disagreement is informative
+rather than contradictory — it is the non-transferability of masking across tokenisations
+again — but it means a single number cannot be quoted for "MolTrans's faithfulness", and
+the matched residue-space control did not exist when DAVIS's MolTrans cells were measured,
+so DAVIS has no counterpart for that column.

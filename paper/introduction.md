@@ -1,9 +1,9 @@
 # Introduction (draft)
 
 Paragraph-by-paragraph, with the results filled in from `paper/results.md` (2026-09-14).
-Every number here is one this paper reports; *[PENDING]* marks the two that a run still has
-to settle. Citations are by model name and year until the venue's style is chosen;
-`paper/references.md` holds the verified entries.
+Every number here is one this paper reports; the KIBA replication was folded into ¶5-¶7 on
+2026-09-16 and no *[PENDING]* marks remain. Citations are by model name and year until the
+venue's style is chosen; `paper/references.md` holds the verified entries.
 
 ---
 
@@ -44,9 +44,11 @@ compare published models, test against a floor, or correct for multiple comparis
 **¶5 — This work: an audit.** We audit the interpretability claims of published
 attention-based DTI models — HyperAttentionDTI and MolTrans, with our own ColdSite-DTI held
 to the same standard and DeepDTA as an accuracy anchor — across four levels of distribution
-shift on DAVIS *[PENDING: and KIBA, scope set by available compute]*: random, unseen drug,
-unseen target and both. Each model is retrained on identical splits with its authors'
-recipe, three seeds per cell. We measure plausibility as precision@k against three ground
+shift on DAVIS — random, unseen drug, unseen target and both — and replicate the audit of
+the two published models on KIBA at the random and unseen-drug levels, the latter holding
+out 422 drugs where DAVIS holds out 13. Each model is retrained on identical splits with its
+authors' recipe, three seeds per cell, and the KIBA arm reuses every DAVIS decision
+unchanged. We measure plausibility as precision@k against three ground
 truths at different resolutions — UniProt's annotated residues, the 85-residue KLIFS ATP
 pocket, and the residues a drug is measured to contact in its own co-crystal structure —
 each read against its own chance level and achievable ceiling. We measure faithfulness as
@@ -55,7 +57,8 @@ control, in the input space each model actually reads. A uniform attention map p
 floor; a positive control establishes that the pipeline recognises a genuinely good
 explanation, and at what resolution; nulls for position, amino-acid preference and drug
 identity test the explanations that would otherwise be read as binding-site recovery;
-significance is corrected once across all sixteen cells of the family; a panel of 60
+significance is corrected once across each arm's whole family (sixteen cells on DAVIS, six
+on KIBA); a panel of 60
 non-kinase proteins stands in for a family stratification the benchmarks cannot support;
 alternative attention readouts test whether a verdict belongs to the model or to the
 reduction; and integrated gradients on the same checkpoints separate a poor explanation from
@@ -64,21 +67,27 @@ a model that never learned the site.
 **¶6 — What we find.** One of sixteen cells supports the residue-level interpretability
 claim after correction: HyperAttentionDTI on the random split, at 1.7× chance
 (precision@10 0.034 [0.030–0.038] against 0.020), where it also beats a borrowed attention
-map and an amino-acid-preserving permutation. Under distribution shift no model's attention
-marks the annotated residues better than chance, MolTrans is indistinguishable from a
-uniform map at every level, and no model's attention distinguishes a drug's own
-crystallographic contacts from another drug's in the same pocket. What survives everywhere
-is coarser: attention that is load-bearing — masking the attended residues moves the
-prediction more than masking random ones, at every level of every model — and that
-concentrates on the kinase domain at 1.3–2.1× chance for the two models that clear the
-pocket floor at all. Three findings concern the
-measurement rather than the models, and we expect them to matter beyond DTI: which residues
+map and an amino-acid-preserving permutation. **That cell does not replicate on KIBA**: none
+of KIBA's six cells survives correction, and the same model at the same level is above
+chance in one training seed of three — so across two datasets no residue-level attention
+claim survives, and the one that did is seed-dependent. Under distribution shift no model's
+attention marks the annotated residues better than chance, MolTrans is indistinguishable
+from a uniform map at every DAVIS level (and in two KIBA seeds of three), and no model's
+attention distinguishes a drug's own crystallographic contacts from another drug's in the
+same pocket. What survives everywhere, and replicates, is coarser: attention that is
+load-bearing — masking the attended residues moves the prediction more than masking random
+ones, at every level of every model on both datasets — and that concentrates on the kinase
+domain at 1.3–2.1× chance for the two models that clear the pocket floor at all, with
+HyperAttentionDTI's attention still pointing into the ATP pocket on KIBA's 422 unseen
+drugs. Three findings concern the measurement rather than the models, and we expect them
+to matter beyond DTI: which residues
 an attention map highlights is mostly a property of an unreported reduction choice
 (alternative readouts share 2–12% of their top-ten residues with the published one, and one
 choice moves a pocket-level verdict from below chance to 2.6× chance); a masking-based
 faithfulness test inverts its own sign for a sub-word model, because k residues is not a
 fixed-size intervention; and integrated gradients on the same checkpoints survive correction
-in **seven of twelve cells where the attention survives in one of sixteen**, reaching
+in **seven of twelve cells where the attention survives in one of sixteen** (DAVIS only;
+this comparison is not replicated on KIBA), reaching
 2.3–4.1× chance at levels where the attention is at chance — so for two of the three models
 the attention under-reports a binding site the model does represent, and under-reports it
 worst under the shift where interpretability is supposed to earn its keep. The third model
@@ -90,9 +99,11 @@ sequence, and retraining without that leak accounts for 0.019 of cold-target's 0
 apparent difficulty.
 
 **¶7 — Contributions.**
-1. An audit, not a model: three published attention-based DTI models, one measurement
-   suite, four levels of distribution shift, three seeds, and family-wise error control
-   applied once across the whole family rather than per model.
+1. An audit, not a model: three attention-based DTI models (two published, one ours), one
+   measurement suite, four levels of distribution shift, three seeds, and family-wise error
+   control applied once across the whole family rather than per model — with the published
+   models' audit repeated on a second dataset, where the only cell that survived correction
+   fails to replicate.
 2. Two axes, each against its own control: plausibility against a uniform floor, three
    ground-truth resolutions and a validated positive control that says at what dose a real
    signal would be visible; faithfulness against random masking, matched in size to the
@@ -112,6 +123,7 @@ apparent difficulty.
    nowhere, and its one above-chance result off the training family is traced to an
    amino-acid preference rather than to knowledge of binding.
 
-*[Before submission: cut ¶3 if Related Work carries it in full. ¶6's KIBA sentence is
-missing and its absence is a limitation the abstract must state if the replication does not
-land.]*
+*[Before submission: cut ¶3 if Related Work carries it in full. The KIBA replication landed
+2026-09-16 (Results §8) and ¶5/¶6 now state it; the abstract must carry both halves — the
+non-replication of the surviving cell and the replication of the pocket-level and
+faithfulness results.]*

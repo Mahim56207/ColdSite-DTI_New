@@ -3,8 +3,8 @@
 Drafted 2026-09-13, rewritten 2026-09-14 once the DAVIS audit was complete (three models,
 four levels, three seeds, Holm over all sixteen cells). Every number here is in
 `paper/results.md` with its source file; nothing states a result for a model whose numbers
-are not there. Extended 2026-09-16 with §5b, the KIBA replication (Results §8); no *[PENDING]*
-marks remain. Limitations are in `paper/limitations.md`.
+are not there. Extended 2026-09-16 with §5b, the KIBA replication (Results §8), and 2026-09-18 with its
+integrated-gradient arm (Results §8.4); no *[PENDING]* marks remain. Limitations are in `paper/limitations.md`.
 
 ---
 
@@ -146,16 +146,18 @@ the region, not the site, being what these models learned.
 
 **And for two of the three models the degradation is a reporting failure, not an ignorance
 failure.** Integrated gradients on the same checkpoints — same ground truth, same protein
-sets, same test, only the explanation changed — survive Holm in **seven of twelve cells,
-against one of sixteen for the attention**. HyperAttentionDTI's gradient is at 2.7–4.1×
+sets, same test, only the explanation changed — survive Holm in **seven of twelve DAVIS cells,
+against one of sixteen for the attention**, and in **three of four KIBA cells against none
+of six** — the one comparison in this paper that replicates in the direction that rescues
+the models rather than indicting them. HyperAttentionDTI's gradient is at 2.7–4.1×
 chance at *all four* levels, including the cold ones where its attention is at 1.2–1.3× and
 fails correction; ColdSite-DTI's is at 2.3–2.7× at cold-drug and cold-target, where its
 attention is at chance. The information is in the weights; the attention head does not
 report it.
 
 **MolTrans is the control that makes this a finding rather than an artefact.** Its gradient
-matches its attention to within noise (0.9–1.1× on annotated residues and on the pocket),
-and both sit at the floor. So the two failures are different in kind: for two models the
+matches its attention to within noise (0.9–1.1× on annotated residues and on the pocket on
+DAVIS; 0.9–1.2× on KIBA), and both sit at the floor. So the two failures are different in kind: for two models the
 attention under-reports a site the model does represent, and for the third there is nothing
 to report. An audit that measured only attention could not have told those apart, and would
 have filed all three under the same verdict.

@@ -81,10 +81,13 @@ Two further caveats belong to the result itself: ColdSite-DTI's gradient is **no
 it matters (cold-target 0.074 / 0.021 / 0.037 across seeds; cold-drug against the pocket
 0.352 / 0.634 / 0.366), so the effect rests on the permutation test rather than on a precise
 estimate; and **integrated gradients were added after the attention results were seen**, so
-they are a secondary analysis, Holm-corrected within their own twelve cells and never pooled
-with the sixteen attention cells. A reader should treat "7 of 12 for the gradient against 1
-of 16 for the attention" as two separately corrected families, which is how Results §7c
-states it.
+they are a secondary analysis, Holm-corrected within their own family and never pooled
+with the attention cells. A reader should treat "7 of 12 for the gradient against 1
+of 16 for the attention" on DAVIS, and "3 of 4 against 0 of 6" on KIBA, as separately
+corrected families, which is how Results §7c and §8.4 state it. Being decided in advance is
+what KIBA's arm adds: its four cells were run after DAVIS's result was known, but with the
+protocol, the step count and the family fixed by that earlier run rather than chosen to suit
+the outcome.
 
 **One split per level, three training seeds, and two kinds of interval.** Each level has a
 single fixed split, and the three seeds vary initialisation and batch order only, so reported
@@ -209,11 +212,13 @@ leave a reader to infer: it trains **random and cold_drug only** (KIBA's cold-ta
 weaker than DAVIS's, and cold_pair would repeat DAVIS's checkpoint-selection instability on
 a 1,334-row validation set); it covers the two **published** models and the accuracy anchor
 but **not ColdSite-DTI**, so our own model is audited on one dataset where the models whose
-claims this paper is about are audited on two; and the explanation-side analyses — readout
-variants, integrated gradients, per-pair drug contacts — are DAVIS-only. Anything the KIBA
-arm does not cover is a DAVIS result, and the Results section says so cell by cell. In
-particular, the finding that integrated gradients recover what the attention misses (§7c)
-is **unreplicated**; it rests on DAVIS alone.
+claims this paper is about are audited on two; and two explanation-side analyses — readout
+variants and per-pair drug contacts — remain DAVIS-only. Anything the KIBA arm does not
+cover is a DAVIS result, and the Results section says so cell by cell. Integrated gradients
+are no longer in that list: §8.4 replicates them on KIBA for both audited models, which
+leaves the readout-dependence result (§7b) as the largest unreplicated claim — and it is a
+claim about the instrument, so a reader should ask whether it holds for KIBA's proteins
+before relying on its magnitude.
 
 **Three seeds detect seed dependence; they cannot measure it.** The replication's central
 result is that a residue-level verdict moves across chance between training seeds of the

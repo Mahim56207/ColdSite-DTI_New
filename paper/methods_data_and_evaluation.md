@@ -480,7 +480,9 @@ level KIBA can support and DAVIS cannot (422 held-out drugs against 13); cold-ta
 cold-pair are weaker on KIBA than on DAVIS (45 held-out targets against 88) and are not
 trained. ColdSite-DTI is not included, so our own model is audited on one dataset and the
 published ones on two. The explanation-side analyses of Results §7–§7c (readout variants,
-integrated gradients, per-pair drug contacts) are DAVIS-only.
+per-pair drug contacts) are DAVIS-only. Integrated gradients run on both: KIBA uses the
+identical implementation and settings (32 steps, the padding-embedding baseline), over the
+two audited models at both trained levels, three seeds each.
 
 **Numerical precision is per model.** DeepDTA and HyperAttentionDTI train under float16
 autocast with loss scaling; MolTrans trains in full precision, because its vendored

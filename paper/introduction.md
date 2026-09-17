@@ -86,8 +86,8 @@ an attention map highlights is mostly a property of an unreported reduction choi
 choice moves a pocket-level verdict from below chance to 2.6× chance); a masking-based
 faithfulness test inverts its own sign for a sub-word model, because k residues is not a
 fixed-size intervention; and integrated gradients on the same checkpoints survive correction
-in **seven of twelve cells where the attention survives in one of sixteen** (DAVIS only;
-this comparison is not replicated on KIBA), reaching
+in **seven of twelve cells where the attention survives in one of sixteen**, and on KIBA in
+**three of four where the attention survives in none of six**, reaching
 2.3–4.1× chance at levels where the attention is at chance — so for two of the three models
 the attention under-reports a binding site the model does represent, and under-reports it
 worst under the shift where interpretability is supposed to earn its keep. The third model

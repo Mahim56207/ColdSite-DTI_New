@@ -11,27 +11,27 @@ before submission.
 
 ## A. Unstructured (Briefings in Bioinformatics)
 
-Attention-based drug–target interaction (DTI) models routinely present their attention over
-the protein as evidence of where the drug binds. We audit that claim rather than make it.
+Attention-based drug–target interaction (DTI) models routinely present attention over the
+protein as evidence of where the drug binds. We audit that claim rather than make it.
 Three attention-based models (two published, one ours) and a no-attention accuracy anchor
-were retrained on identical splits at four levels of distribution shift — random, unseen
-drug, unseen target, both — three seeds per cell, on DAVIS (48 cells) and, for the published
+were retrained on identical splits at four levels of shift — random, unseen drug,
+unseen target, both — three seeds per cell, on DAVIS (48 cells) and, for the published
 models at two levels, on KIBA (18 cells). Explanations were scored for plausibility against
 UniProt's annotated residues, the 85-residue KLIFS ATP pocket and crystallographic per-pair
-contacts, each against its own chance level, a uniform-attention floor, a validated positive
-control and nulls for position, amino-acid preference and drug identity; and for
-faithfulness by masking, size-matched in the space each model reads. Of sixteen DAVIS cells,
-one supported the residue-level claim after Holm correction — the best-generalising model on
-the random split, at 1.7× chance — and it did not replicate on KIBA, where no cell survived
-and the same cell was above chance in one training seed of three. What replicated was
-coarser: attention that is load-bearing everywhere, and that localises the ATP pocket at
-1.3–1.5× chance, including with 422 held-out drugs. Three measurement findings generalise
+contacts — each against its own chance level, a uniform-attention floor, a validated positive
+control and nulls for position, amino-acid preference and drug identity — and for
+faithfulness by masking, size-matched in the space each model reads. One of sixteen DAVIS cells
+supported the residue-level claim after Holm correction — the best-generalising model on the
+random split, at 1.7× chance — and it did not replicate on KIBA, where no cell survived and
+that cell was above chance in one seed of three. What replicated was
+coarser: attention that is load-bearing everywhere and localises the ATP pocket at 1.3–1.5×
+chance, including with 422 unseen drugs. Three measurement findings generalise
 beyond DTI: attention plausibility is largely a property of an unreported readout choice
-(2–12% top-ten overlap between defensible readouts), masking faithfulness does not transfer
-across tokenisations, and integrated gradients on the same weights survive correction in
-seven of twelve DAVIS cells where attention survives in one of sixteen.
+(2–12% top-ten overlap), masking faithfulness does not transfer
+across tokenisations, and integrated gradients on the same weights survive correction where
+attention does not (7 of 12 DAVIS cells against 1 of 16; 3 of 4 on KIBA against 0 of 6).
 
-*(249 words)*
+*(250 words)*
 
 ### Key Points
 
@@ -48,8 +48,8 @@ seven of twelve DAVIS cells where attention survives in one of sixteen.
   readout choice, and one such choice moves a pocket-level verdict from 2.6× chance to
   below chance.
 * Integrated gradients on the same checkpoints recover the site where attention does not
-  (7 of 12 DAVIS cells), so a weak attention map often indicts the report rather than the
-  model.
+  (7 of 12 DAVIS cells, 3 of 4 on KIBA; 1.9× chance on unseen drugs where the attention is
+  at chance), so a weak attention map often indicts the report rather than the model.
 
 ---
 
@@ -73,8 +73,9 @@ and it failed to replicate on KIBA, where the same cell was above chance in one 
 three. Attention was load-bearing in every cell and localised the ATP pocket at 1.3–1.5×
 chance, including with 422 held-out drugs. Attention plausibility proved largely a property
 of an unreported readout choice (2–12% top-ten overlap), masking faithfulness did not
-transfer across tokenisations, and integrated gradients survived correction in seven of
-twelve DAVIS cells.
+transfer across tokenisations, and integrated gradients on the same weights survived
+correction where attention did not (7 of 12 DAVIS cells against 1 of 16; 3 of 4 on KIBA
+against 0 of 6).
 
 **Availability:** Code, splits, ground truth and all per-cell outputs: *[repository URL]*.
 

@@ -5,7 +5,8 @@ trained cell's `_results.json` (DAVIS binary grid, Kaggle account 1, commit v1 o
 `kaggle_davis_binary_grid36.ipynb`) or from a file named beside it. The DAVIS grid is
 complete: 48 of 48 cells (4 models x 4 levels x 3 seeds), verified cell by cell against
 the AUROC each recorded. KIBA, the replication, is complete (18 of 18 cells; §8, added
-2026-09-16). *[PENDING]* now marks only the antiviral case study. All
+2026-09-16), and its integrated-gradient arm with it (§8.4, added 2026-09-18).
+*[PENDING]* now marks only the antiviral case study. All
 values are test-set means ± sample standard deviation over three training seeds; a
 difference smaller than the spread is not reported as one.
 
@@ -862,7 +863,51 @@ fixed on DAVIS before KIBA was run, is the one the audit uses. This matched resi
 control did not exist when DAVIS's MolTrans cells were measured, so DAVIS has no
 counterpart to compare it with.*
 
-### 8.4 Controls
+### 8.4 The gradient recovers the residues the attention misses — on KIBA too
+
+§7c's result was DAVIS-only until now: read the same trained weights with integrated
+gradients instead of attention and the residue-level signal appears. KIBA was run with the
+same code and the same settings DAVIS used — 32 steps, the path from the padding
+embedding — over both audited models, both levels and three seeds — twelve ladders, the correction over the four cells the family
+contains (`results/analysis_kiba_policyA/ig_family_kiba.md`,
+`src/evaluation/ladder_family.py`).
+
+**Table R11.** KIBA, precision@10 at k = 10, mean ± sd over seeds 1–3, one test pair per
+protein. `attention` is §8.1–8.2's audit readout; `IG` is the gradient of the same
+checkpoint. p is the median over seeds.
+
+| ground truth | model | level | attention | integrated gradients | chance | IG / attn |
+|---|---|---|---|---|---|---|
+| UniProt residues | HyperAttentionDTI | random | 0.030 ± 0.019 (p = 0.65) | **0.042 ± 0.020** (p = 0.001) | 0.023 | 1.36× |
+| | | cold-drug | 0.021 ± 0.003 (p = 0.80) | **0.043 ± 0.034** (p = 0.002) | 0.023 | **2.02×** |
+| | MolTrans | random | 0.032 ± 0.018 (p = 0.65) | 0.031 ± 0.017 (p = 0.53) | 0.023 | 0.97× |
+| | | cold-drug | 0.036 ± 0.024 (p = 0.068) | 0.031 ± 0.007 (p = 0.005) | 0.023 | 0.88× |
+| KLIFS pocket | HyperAttentionDTI | random | 0.207 ± 0.011 | **0.272 ± 0.026** | 0.151 | 1.31× |
+| | | cold-drug | 0.189 ± 0.024 | **0.257 ± 0.069** | 0.151 | 1.36× |
+| | MolTrans | random | 0.161 ± 0.049 | 0.190 ± 0.050 | 0.151 | 1.18× |
+| | | cold-drug | 0.188 ± 0.040 | 0.174 ± 0.011 | 0.151 | 0.93× |
+
+**Three of the four IG cells survive Holm, where none of the six attention cells did**
+(thresholds 0.0125 to 0.05): HyperAttentionDTI at random (p = 0.0010) and cold-drug
+(p = 0.0020), and MolTrans at cold-drug (p = 0.0050). Only MolTrans at random fails
+(p = 0.53).
+
+**The cell that carries the claim is cold-drug against annotated residues.** There
+HyperAttentionDTI's attention is at chance — 0.021 against 0.023, the audit's clearest
+null — while the gradient of those same weights is at 0.043, **1.9× chance**, over 422
+held-out drugs. The information about which residues matter is in the model; the attention
+map does not report it. That is §7c's conclusion, reproduced on the replication dataset at
+the level DAVIS could not test.
+
+**MolTrans behaves as the control it was on DAVIS.** Its gradient tracks its attention
+(0.88–1.18×) rather than beating it, which is what should happen for a model whose
+explanation is at the floor either way: the gradient is not a better readout in general,
+it is a better readout of a model that has something to report. Its cold-drug cell does
+survive where its attention did not, on equal precision (0.031 against 0.036) but a third
+of the seed spread (± 0.007 against ± 0.024) — a difference in stability, not in signal,
+and too small to carry a claim.
+
+### 8.5 Controls
 
 **Non-kinase transfer panel** (60 unseen BindingDB proteins, primary analysis excluding
 cotransport ions; `control_*_kiba_seed*_noions.md`): HyperAttentionDTI 0.014 ± 0.001
@@ -876,7 +921,7 @@ kinases, so, as on DAVIS, the confound cannot be stratified inside the dataset
 splits and re-numbered ground truth, and a 2% dose is detected at every level, so the null
 results of §8.1 are not a failure of the metric to see a signal of the size DAVIS found.
 
-### 8.5 What KIBA changes
+### 8.6 What KIBA changes
 
 | DAVIS finding | on KIBA |
 |---|---|
@@ -885,12 +930,14 @@ results of §8.1 are not a failure of the metric to see a signal of the size DAV
 | The attention is load-bearing at every level | **replicates** for both models (12 / 12 cells) |
 | MolTrans's attention sits at the uniform floor | holds in 2 seeds of 3; seed 2 carries a kinase-only signal |
 | Cold-drug collapses accuracy | **does not replicate**: a property of DAVIS's 13-drug split |
+| The gradient beats the attention on the same weights (7 of 12 cells) | **replicates** (3 of 4 cells; 1.9× chance where the attention is at chance) |
 
 The claim the two datasets support together is narrower and firmer than either alone:
 the published models' attention is **used** and points **into the binding pocket**, but
 does not mark **binding residues** — and the one exception on one dataset depends on the
 training seed on the other. §7c's finding that integrated gradients recover the residues the
-attention misses was measured on DAVIS only and is not replicated here.
+attention misses **replicates** (§8.4): on KIBA's 422-drug cold level the same weights
+score 1.9× chance through the gradient and at chance through the attention.
 
 ## 9. *[PENDING]* Antiviral case study
 

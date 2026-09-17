@@ -116,6 +116,15 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None,
     if training and scaler is None:
         scaler = precision.make_scaler(device, False)
 
+    if n_batches == 0:
+        raise ValueError(
+            f"{label or 'this loader'} has no batches: {len(loader.dataset)} rows at "
+            f"batch size {loader.batch_size} with drop_last="
+            f"{bool(getattr(loader, 'drop_last', False))}. A training split smaller than "
+            f"one batch drops its only batch and the epoch sees nothing -- lower "
+            f"--batch-size for this cell. (DAVIS's smallest split is cold_pair's 15,190 "
+            f"rows, so this only bites on a subset.)")
+
     for batch_index, (bg_d, v_p, y) in enumerate(loader, start=1):
         bg_d, v_p, y = bg_d.to(device), v_p.to(device), y.to(device)
         with torch.set_grad_enabled(training), precision.autocast(device, amp):

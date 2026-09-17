@@ -139,3 +139,29 @@ def test_the_explanation_changes_with_the_drug():
     second = model.explain(*type(model).encode("c1ccccc1C(=O)Nc1ccccc1", sequence))
     assert first.shape == second.shape == (len(sequence),)
     assert not np.allclose(first, second), "attention did not move with the drug"
+
+
+def test_an_empty_training_epoch_says_why_rather_than_failing_inside_numpy():
+    """drop_last on a split smaller than one batch leaves zero batches, and the epoch
+    used to die in np.concatenate with 'need at least one array to concatenate' --
+    which names neither the split, the batch size, nor the fix. Found 2026-09-18 while
+    validating the Kaggle notebook's command line against a 60-row split at batch 64."""
+    from src.model.train_drugban import run_epoch
+
+    class EmptyLoader:
+        dataset = range(60)
+        batch_size = 64
+        drop_last = True
+
+        def __len__(self):
+            return 0
+
+        def __iter__(self):
+            return iter(())
+
+    class Model:
+        def train(self, mode=True):
+            return self
+
+    with pytest.raises(ValueError, match="no batches"):
+        run_epoch(Model(), EmptyLoader(), None, "cpu", label="epoch 1 train")

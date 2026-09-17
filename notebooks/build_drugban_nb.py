@@ -1,0 +1,344 @@
+"""Build notebooks/kaggle_drugban_davis.ipynb.
+
+The runner is the KIBA notebook's, reused rather than rewritten: it is the code that
+survived four accounts and a dozen commits. What changes is the plan (one model, four
+levels, three seeds, one account) and the install (DGL, which the other subjects do not
+need).
+"""
+import json, os
+
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from runner_patch import RUNNER as runner_src
+
+def md(text):
+    return {"cell_type": "markdown", "metadata": {}, "source": text.splitlines(keepends=True)}
+
+def code(text):
+    return {"cell_type": "code", "execution_count": None, "metadata": {},
+            "outputs": [], "source": text.splitlines(keepends=True)}
+
+cells = []
+
+cells.append(md('''# DrugBAN on DAVIS — the current-generation subject
+
+The audit's three subjects are from 2020-2022, and the first question a reviewer asks is
+whether its verdict binds on what people build now. **DrugBAN** (Bai et al., *Nature
+Machine Intelligence* 2023) is the answer: its title claims interpretability, it reports
+cross-domain generalisation, and its code is maintained and MIT-licensed.
+
+This notebook trains its **12 DAVIS cells** — four levels, three seeds — on two T4s.
+Nothing else: KIBA, the ladders and the faithfulness runs happen elsewhere.
+
+| | |
+|---|---|
+| model | DrugBAN, their architecture from their own `configs.py`, unmodified |
+| recipe | Adam 5e-5, batch 64, up to 100 epochs — **theirs** |
+| what we change | early stopping on validation loss (patience 15, floor 10) and `BCEWithLogitsLoss` on their single logit, so this cell is selected and scored like every other cell in the audit; domain adaptation off, their own default for in-domain runs |
+| cost | ~0.3-0.7 h per cell at the DAVIS median, so **12 cells ≈ 2-4 h per GPU**: one commit |
+
+**Why it needs an install step the other notebooks do not.** DrugBAN featurises a drug as
+a DGL graph. DGL is not on Kaggle's image and its wheels are pinned to a torch/CUDA
+build, so section 4 installs it and then *proves* it works by running the real model
+forward once. If that check fails, stop: every cell would fail the same way an hour later.
+
+## What to do
+
+1. **Settings** (right panel): Accelerator **GPU T4 x2**, Internet **On**.
+2. Run all. Nothing to edit unless you are resuming — see section 6.
+3. **Save Version -> Save & Run All (Commit)**.
+'''))
+
+cells.append(md('## 1. Settings — normally nothing to change'))
+cells.append(code('''# ============================================================================
+# SETTINGS
+# ============================================================================
+
+RESTORE_FROM = None      # second commit onward: '/kaggle/input' (searches every input)
+
+# ============================================================================
+# Everything below is the plan. Read it; do not edit it.
+# ============================================================================
+
+DATASET = 'davis'
+TASK = 'binary'
+BRANCH = 'main'
+MODEL = 'drugban'
+LEVELS = ['random', 'cold_drug', 'cold_target', 'cold_pair']
+SEEDS = [1, 2, 3]
+
+# Their SOLVER block (baselines/DrugBAN/configs.py): batch 64, lr 5e-5, 100 epochs.
+# Passed explicitly so this notebook's log records what was trained rather than
+# whatever a future edit to their config would silently change.
+BATCH_SIZE = 64
+LR = 5e-5
+EPOCHS = 100
+
+# Full precision. DrugBAN has not been validated under --amp here, and the one model in
+# this audit that was left unvalidated under float16 (MolTrans on KIBA) produced NaN from
+# batch ~4,040 of epoch 1. Twelve cells at ~0.5 h do not need the speed-up badly enough
+# to risk a silent divergence.
+AMP = False
+
+# 12 cells over two GPUs, most expensive first. cold_pair is the cheapest (15,190 train
+# rows against 21,658), so it goes last on both queues; the two queues are equal in rows.
+CELLS = [(level, seed) for level in LEVELS for seed in SEEDS]
+QUEUE0 = [c for i, c in enumerate(CELLS) if i % 2 == 0]
+QUEUE1 = [c for i, c in enumerate(CELLS) if i % 2 == 1]
+TOTAL_CELLS = len(CELLS)
+
+print(f'{TOTAL_CELLS} cells: {MODEL} x {len(LEVELS)} levels x {len(SEEDS)} seeds')
+print('GPU 0:', QUEUE0)
+print('GPU 1:', QUEUE1)
+print(f'precision: {"mixed" if AMP else "full (fp32)"} | batch {BATCH_SIZE} | lr {LR}')
+'''))
+
+cells.append(md('## 2. Check the GPU(s)'))
+cells.append(code('''import time
+START = time.time()          # the 11-hour self-stop is measured from here
+
+import torch
+
+assert torch.cuda.is_available(), 'No CUDA. Settings -> Accelerator -> GPU.'
+N_GPU = torch.cuda.device_count()
+for i in range(N_GPU):
+    p = torch.cuda.get_device_properties(i)
+    print(f'GPU {i}: {p.name}, {p.total_memory/1e9:.1f} GB')
+print('torch  :', torch.__version__)
+print('cuda   :', torch.version.cuda)
+
+assert N_GPU >= 2, (
+    f'Kaggle gave {N_GPU} GPU(s). Settings -> Accelerator -> GPU T4 x2. On one GPU this '
+    'notebook still finishes, but in twice the wall time -- re-run this cell after '
+    'switching, or accept it knowingly.')
+'''))
+
+cells.append(md('''## 3. Clone the repo
+
+DrugBAN itself is vendored in the repo (`baselines/DrugBAN`, MIT, unmodified), so there
+is nothing to fetch from GitHub for the model.'''))
+cells.append(code('''import os
+
+REPO = 'https://github.com/Mahim56207/ColdSite-DTI_New.git'
+WORK = '/kaggle/working'
+SRC  = f'{WORK}/ColdSite-DTI_New'
+
+if not os.path.exists(SRC):
+    !git clone --branch {BRANCH} {REPO} {SRC}
+os.chdir(SRC)
+!git checkout {BRANCH}
+!git pull origin {BRANCH}
+!pip install -q tabulate
+
+for _needed in ('src/model/train_drugban.py', 'src/evaluation/drugban_adapter.py',
+                'baselines/DrugBAN/models.py', 'src/model/resume.py'):
+    assert os.path.exists(_needed), (
+        f'{_needed} is missing from branch {BRANCH!r}. Push the DrugBAN commit to '
+        'origin/main before running this notebook, then re-run this cell.')
+
+RESULTS = f'{WORK}/results'
+os.makedirs(RESULTS, exist_ok=True)
+print()
+!git log --oneline -1
+print('results ->', RESULTS)
+'''))
+
+cells.append(md('''## 4. Install DGL — and prove it works
+
+DGL's wheels are built against one torch/CUDA pair, so the index URL is derived from the
+torch Kaggle actually gave us rather than hard-coded. `torchdata` must be 0.7.x: DGL 2.x
+imports `torchdata.datapipes`, which later versions removed.
+
+The last cell here builds the real DrugBAN and runs one forward pass. A green tick means
+the model, the featuriser and the graph library agree; anything else means stop.'''))
+cells.append(code('''import os, re, subprocess, sys, torch
+
+torch_mm = '.'.join(torch.__version__.split('.')[:2])          # e.g. '2.6'
+cuda_tag = 'cu' + (torch.version.cuda or '121').replace('.', '')
+urls = [f'https://data.dgl.ai/wheels/torch-{torch_mm}/{cuda_tag}/repo.html',
+        f'https://data.dgl.ai/wheels/torch-{torch_mm}/repo.html',
+        'https://data.dgl.ai/wheels/repo.html']
+
+!pip install -q "torchdata==0.7.1" dgllife rdkit yacs prettytable
+
+installed = False
+for url in urls:
+    print(f'-> trying {url}')
+    code_ = subprocess.call([sys.executable, '-m', 'pip', 'install', '-q', 'dgl', '-f', url])
+    if code_ == 0:
+        try:
+            subprocess.check_call([sys.executable, '-c', 'import dgl'],
+                                  env={**os.environ, 'DGLBACKEND': 'pytorch'})
+            installed = True
+            print(f'   installed from {url}')
+            break
+        except subprocess.CalledProcessError:
+            print('   installed but will not import; trying the next index')
+assert installed, (
+    'DGL would not install for this torch/CUDA build. Pin the environment to a version '
+    'that worked (Settings -> Environment -> pin to original), or install a matching '
+    'torch first. Every DrugBAN cell would fail without it.')
+
+os.environ['DGLBACKEND'] = 'pytorch'
+'''))
+cells.append(code('''# The proof: build their model and run one real pair through it.
+import os
+os.environ['DGLBACKEND'] = 'pytorch'
+
+import dgl, torch
+from src.evaluation.drugban_adapter import DrugBANAdapter, _config
+import sys
+sys.path.insert(0, 'baselines/DrugBAN')
+from models import DrugBAN
+
+seq = ('MKKFFDSRREQGGSGLGSGSSGGGGSTSGLGSGYIGRVFGIGRQQVTVDEVLAEGGFAIVFLVRTSNGMKCALKRMF'
+       'VNNEHDLQVCKREIQIMRDLSGHKNIVGYIDSSINNVSSGDVWEVLILM')
+graph, protein = DrugBANAdapter.encode('CC(=O)Oc1ccccc1C(=O)O', seq)
+model = DrugBAN(**_config()).eval()
+with torch.no_grad():
+    _v_d, _v_p, score, att = model(dgl.batch([graph]), protein.unsqueeze(0), mode='eval')
+print('dgl', dgl.__version__, '| score', float(score.reshape(-1)[0]))
+print('attention map', tuple(att.shape), '= (batch, heads, drug atoms, protein positions)')
+assert att.shape[1] == 2 and att.shape[2] == 290, att.shape
+print('\\nDGL, the featuriser and DrugBAN all agree. Safe to train.')
+'''))
+
+cells.append(md('## 5. Build the splits — and verify they match'))
+cells.append(code('''!python -m src.data.build_splits 2>&1 | grep -E 'davis|leakage'
+
+import pandas as pd
+from src.model.dataset import BINARY_THRESHOLD
+
+# Recorded from data/splits/davis on the Mac, 2026-09-18. A split that does not match
+# these numbers is not the split the other three models were trained on, and the whole
+# point of adding this model is that it faces the identical test.
+EXPECTED = {
+    'random':      (21039, 3006, 6011),
+    'cold_drug':   (21658, 2652, 5746),
+    'cold_target': (21080, 2992, 5984),
+    'cold_pair':   (15190,  264, 1144),
+}
+assert BINARY_THRESHOLD['davis'] == 7.0, BINARY_THRESHOLD
+print(f"binary threshold: DAVIS pKd >= {BINARY_THRESHOLD['davis']}")
+
+ok = True
+for level, expected in EXPECTED.items():
+    sizes = tuple(len(pd.read_csv(f'data/splits/{DATASET}/{level}/{part}.csv'))
+                  for part in ('train', 'valid', 'test'))
+    mark = 'OK' if sizes == expected else f'MISMATCH, expected {expected}'
+    ok &= sizes == expected
+    print(f'{level:12s} {str(sizes):28s} {mark}')
+assert ok, 'splits differ from the recorded ones -- stop and find out why'
+print('\\nsplits match the record.')
+'''))
+
+cells.append(md('''## 6. Restore from a previous commit
+
+Only needed if a commit was cut short. Set `RESTORE_FROM = '/kaggle/input'` in section 1,
+having attached this account's own output as a private dataset. Finished cells are then
+skipped and an interrupted one continues from its last finished epoch.'''))
+cells.append(code('''import shutil, glob
+
+if RESTORE_FROM:
+    assert os.path.isdir(RESTORE_FROM), f'not a directory: {RESTORE_FROM}'
+    copied = skipped = 0
+    for src in glob.glob(f'{RESTORE_FROM}/**/*', recursive=True):
+        name = os.path.basename(src)
+        if not name.endswith(('.pt', '_results.json', '_history.json')):
+            continue
+        dst = os.path.join(RESULTS, name)
+        if os.path.exists(dst):
+            skipped += 1
+            continue
+        shutil.copy2(src, dst)
+        copied += 1
+    print(f'restored {copied} file(s), left {skipped} already present')
+else:
+    print('RESTORE_FROM is None -- starting from an empty results folder.')
+'''))
+
+cells.append(md('''## 7. The runner
+
+Two queues, one per GPU, each cell a separate process so a crash cannot take the other
+GPU with it. A STATUS line every 10 minutes carries the measured minutes-per-epoch and
+when each queue expects to finish. The whole thing self-stops at 11 hours, an hour inside
+Kaggle's limit, so the commit has time to save its output.'''))
+cells.append(code(runner_src))
+
+cells.append(md('## 8. Launch'))
+cells.append(code('''if hours_left() < 0.5:
+    raise SystemExit('less than 30 minutes before the self-stop -- not worth starting')
+
+cut = run_parallel(QUEUES, f'drugban_{DATASET}')
+print()
+print(f'{cells_done()}/{TOTAL_CELLS} cells complete')
+if cut:
+    print('CUT SHORT by the 11-hour stop. Download the output, make it a dataset, attach '
+          "it, set RESTORE_FROM = '/kaggle/input' in section 1, and run again: finished "
+          'cells are skipped and an interrupted cell continues from its last epoch.')
+else:
+    print('every cell finished')
+'''))
+
+cells.append(md('''## 9. What landed
+
+One row per cell. `AUROC` should be believable for DAVIS: ~0.85-0.95 at random, lower at
+the cold levels. A value at 0.5 means the cell never learned; above 0.98 means look for
+leakage before celebrating.'''))
+cells.append(code('''import glob, json
+
+rows = []
+for path in sorted(glob.glob(f'{RESULTS}/*_{MODEL}_results.json')):
+    r = json.load(open(path))
+    rows.append((r['split'], r['seed'], r['test_metrics']['auroc'],
+                 r['test_metrics']['auprc'], r['best_epoch'],
+                 r.get('resumed_after_epoch') or '-'))
+
+print(f'{"level":12s} {"seed":>4s} {"AUROC":>7s} {"AUPRC":>7s} {"best":>5s} {"resumed":>8s}')
+for level, seed, auroc, auprc, best, resumed in sorted(rows):
+    print(f'{level:12s} {seed:>4} {auroc:>7.4f} {auprc:>7.4f} {best:>5} {str(resumed):>8s}')
+print(f'\\n{len(rows)}/{TOTAL_CELLS} cells')
+
+seen = {}
+for level, seed, auroc, *_ in rows:
+    if (level, round(auroc, 6)) in seen:
+        print(f'!! {level} seed {seed} has the same AUROC as seed {seen[(level, round(auroc, 6))]}'
+              ' -- is --seed reaching training? Do not merge these.')
+    seen[(level, round(auroc, 6))] = seed
+'''))
+
+cells.append(md('''## 10. Take the results with you
+
+`drugban_davis_results.zip` is what the analysis needs. Download it from the Output panel.
+Its checkpoints are small (a few MB each), unlike MolTrans's.'''))
+cells.append(code('''import subprocess
+
+RES_ZIP = f'{WORK}/drugban_{DATASET}_results.zip'
+finished = [p for p in glob.glob(f'{RESULTS}/*')
+            if not os.path.basename(p).endswith('_resume.pt')]
+resumes = glob.glob(f'{RESULTS}/*_resume.pt')
+
+if os.path.exists(RES_ZIP):
+    os.remove(RES_ZIP)
+subprocess.run(['zip', '-q', '-j', RES_ZIP, *finished], check=True)
+print(f'{os.path.basename(RES_ZIP)}: {len(finished)} file(s), '
+      f'{os.path.getsize(RES_ZIP)/1e6:.0f} MB')
+
+if resumes:
+    RESUME_ZIP = f'{WORK}/drugban_{DATASET}_resume.zip'
+    if os.path.exists(RESUME_ZIP):
+        os.remove(RESUME_ZIP)
+    subprocess.run(['zip', '-q', '-j', RESUME_ZIP, *resumes], check=True)
+    print(f'{os.path.basename(RESUME_ZIP)}: {len(resumes)} unfinished cell(s) -- upload '
+          'this one too if you need another commit.')
+'''))
+
+nb = {"cells": cells,
+      "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python",
+                                  "name": "python3"},
+                   "language_info": {"name": "python"},
+                   "accelerator": "GPU"},
+      "nbformat": 4, "nbformat_minor": 5}
+os.makedirs('notebooks', exist_ok=True)
+json.dump(nb, open('notebooks/kaggle_drugban_davis.ipynb', 'w'), indent=1)
+print('wrote notebooks/kaggle_drugban_davis.ipynb with', len(cells), 'cells')

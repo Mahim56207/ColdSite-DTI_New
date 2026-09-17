@@ -225,15 +225,58 @@ assert done.returncode == 0 and done.stdout.strip().endswith('OK'), (
 print('DGL, the featuriser and DrugBAN all agree, on the GPU. Safe to train.')
 '''))
 
-cells.append(md('## 5. Build the splits — and verify they match'))
-cells.append(code('''!python -m src.data.build_splits 2>&1 | grep -E 'davis|leakage'
+cells.append(md('''## 5. Fetch the DAVIS source files
+
+`build_splits` reads DeepDTA's published DAVIS files, which are not in the repo
+(`.gitignore` excludes `src/data/baselines/*`). Both datasets are fetched because
+`load_data` reads both; this notebook then builds DAVIS only.
+
+Omitting this step is what made the first run fail: `build_splits` died with
+`No such file or directory: ligands_can.txt`, and the next cell reported the confusing
+consequence (`data/splits/davis/random/train.csv` missing) rather than the cause.'''))
+cells.append(code('''BASE = 'https://raw.githubusercontent.com/hkmztrk/DeepDTA/master/data'
+for ds in ('davis', 'kiba'):
+    os.makedirs(f'src/data/baselines/deepdta/data/{ds}', exist_ok=True)
+    for fname in ('ligands_can.txt', 'proteins.txt', 'Y'):
+        target = f'src/data/baselines/deepdta/data/{ds}/{fname}'
+        if not os.path.exists(target):
+            !curl -sL {BASE}/{ds}/{fname} -o {target}
+
+missing = [f'src/data/baselines/deepdta/data/{ds}/{f}'
+           for ds in ('davis', 'kiba')
+           for f in ('ligands_can.txt', 'proteins.txt', 'Y')
+           if not os.path.exists(f'src/data/baselines/deepdta/data/{ds}/{f}')
+           or os.path.getsize(f'src/data/baselines/deepdta/data/{ds}/{f}') == 0]
+assert not missing, (
+    f'these source files did not download: {missing}. Internet must be ON '
+    '(Settings -> Internet), or GitHub raw is unreachable from this session.')
+print('DeepDTA source files present')
+
+!python -m src.data.load_data
+'''))
+
+cells.append(md('''## 6. Build the splits — and verify they match
+
+The sizes are checked against the ones the other three models were trained on. A split
+that does not match is not the same test, and the whole point of adding this model is
+that it faces the identical one.'''))
+cells.append(code('''import subprocess, sys
 
 import pandas as pd
 from src.model.dataset import BINARY_THRESHOLD
 
-# Recorded from data/splits/davis on the Mac, 2026-09-18. A split that does not match
-# these numbers is not the split the other three models were trained on, and the whole
-# point of adding this model is that it faces the identical test.
+# Run it as a subprocess and CHECK: `!python ...` reports a failure only in the output,
+# so the first run sailed past a crashed build_splits and failed later on a missing CSV.
+built = subprocess.run([sys.executable, '-m', 'src.data.build_splits'],
+                       capture_output=True, text=True)
+for line in built.stdout.splitlines():
+    if 'davis' in line or 'leakage' in line:
+        print(line)
+assert built.returncode == 0, (
+    'build_splits failed:\\n' + (built.stderr or built.stdout)[-1500:] +
+    '\\n\\nIf it says a source file is missing, section 5 did not download it.')
+
+# Recorded from data/splits/davis on the Mac, 2026-09-18.
 EXPECTED = {
     'random':      (21039, 3006, 6011),
     'cold_drug':   (21658, 2652, 5746),
@@ -241,7 +284,7 @@ EXPECTED = {
     'cold_pair':   (15190,  264, 1144),
 }
 assert BINARY_THRESHOLD['davis'] == 7.0, BINARY_THRESHOLD
-print(f"binary threshold: DAVIS pKd >= {BINARY_THRESHOLD['davis']}")
+print(f"\\nbinary threshold: DAVIS pKd >= {BINARY_THRESHOLD['davis']}")
 
 ok = True
 for level, expected in EXPECTED.items():
@@ -254,7 +297,7 @@ assert ok, 'splits differ from the recorded ones -- stop and find out why'
 print('\\nsplits match the record.')
 '''))
 
-cells.append(md('''## 6. Restore from a previous commit
+cells.append(md('''## 7. Restore from a previous commit
 
 Only needed if a commit was cut short. Set `RESTORE_FROM = '/kaggle/input'` in section 1,
 having attached this account's own output as a private dataset. Finished cells are then
@@ -279,7 +322,7 @@ else:
     print('RESTORE_FROM is None -- starting from an empty results folder.')
 '''))
 
-cells.append(md('''## 7. The runner
+cells.append(md('''## 8. The runner
 
 Two queues, one per GPU, each cell a separate process so a crash cannot take the other
 GPU with it. A STATUS line every 10 minutes carries the measured minutes-per-epoch and
@@ -287,7 +330,7 @@ when each queue expects to finish. The whole thing self-stops at 11 hours, an ho
 Kaggle's limit, so the commit has time to save its output.'''))
 cells.append(code(runner_src))
 
-cells.append(md('## 8. Launch'))
+cells.append(md('## 9. Launch'))
 cells.append(code('''if hours_left() < 0.5:
     raise SystemExit('less than 30 minutes before the self-stop -- not worth starting')
 
@@ -302,7 +345,7 @@ else:
     print('every cell finished')
 '''))
 
-cells.append(md('''## 9. What landed
+cells.append(md('''## 10. What landed
 
 One row per cell. `AUROC` should be believable for DAVIS: ~0.85-0.95 at random, lower at
 the cold levels. A value at 0.5 means the cell never learned; above 0.98 means look for
@@ -329,7 +372,7 @@ for level, seed, auroc, *_ in rows:
     seen[(level, round(auroc, 6))] = seed
 '''))
 
-cells.append(md('''## 10. Take the results with you
+cells.append(md('''## 11. Take the results with you
 
 `drugban_davis_results.zip` is what the analysis needs. Download it from the Output panel.
 Its checkpoints are small (a few MB each), unlike MolTrans's.'''))

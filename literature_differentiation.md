@@ -168,6 +168,36 @@ for this paper's design:
   back: the claim depends on what "explanation" is taken to mean, and under
   reasonable definitions attention can be faithful.
 
+**What that literature could not settle, and what this paper adds.** A reviewer will ask
+whether "attention is not explanation" was established in 2019 and this is its application
+to a new domain. The honest answer names what was missing there. Those results argue from
+*internal* evidence — adversarial attention distributions, erasure, correlation with
+gradients — because in sentiment or NLI there is no external fact about which token is the
+true evidence. A protein has one: annotated binding residues, a structurally defined
+pocket, and the contacts a specific ligand makes in a crystal. That external ground truth
+is what turns "attention may not be explanation" into a measurable quantity with a chance
+level, a ceiling, a positive control and a p-value, and it is what makes the two axes
+separable rather than conflated: this audit finds explanations that are **faithful and not
+plausible**, a cell the 2019 methodology cannot name because it has no notion of
+plausibility to place against faithfulness.
+
+Three further things have no precedent in that work, and each cost this paper a control
+rather than an argument. (i) The verdict is measured **as a function of distribution
+shift**, which is the setting these models are sold for and where no attention study of
+either field reports interpretability. (ii) The **readout** between a network's tensor and
+a per-residue weight is shown to carry most of the apparent signal (2-12% top-ten overlap
+between defensible reductions) — a degree of freedom that does not arise for one attention
+weight per token in NLP, and is undocumented in every DTI paper we read. (iii) Masking
+faithfulness is shown **not to transfer across tokenisations**, inverting its own sign for
+a sub-word model; the 2019 erasure results assume, correctly for their setting and
+incorrectly here, that erasing k units is the same intervention in both arms.
+
+So the debt is real and the differentiation is narrow: they asked whether attention is
+explanation, without a way to check where the explanation should point. We ask whether it
+survives *correction, shift, replication and its own readout* against a ground truth that
+says where it should point — and answer for the models a reader of the DTI literature is
+actually being asked to trust.
+
 **Why this determines our methodology.** Plausibility and faithfulness are
 independent properties:
 

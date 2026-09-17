@@ -6,7 +6,10 @@ trained cell's `_results.json` (DAVIS binary grid, Kaggle account 1, commit v1 o
 complete: 48 of 48 cells (4 models x 4 levels x 3 seeds), verified cell by cell against
 the AUROC each recorded. KIBA, the replication, is complete (18 of 18 cells; §8, added
 2026-09-16), and its integrated-gradient arm with it (§8.4, added 2026-09-18).
-*[PENDING]* now marks only the antiviral case study. All
+No *[PENDING]* marks remain: the antiviral case study was cut on 2026-09-18, because
+after the 2026-07-31 BindingDB release put all 18,149 SARS-CoV-2 rows under one
+7,096-residue polyprotein it was three proteins, and §6's 60-protein panel is the
+non-kinase arm it was meant to be. All
 values are test-set means ± sample standard deviation over three training seeds; a
 difference smaller than the spread is not reported as one.
 
@@ -97,7 +100,7 @@ rate. Whatever its attention means at cold-pair, it is attached to a model that 
 predict there; the audit reports that beside its explanation scores, because an
 explanation of a prediction no better than chance is not an explanation of anything.
 
-*MolTrans's three seeds are the retrained ones: the first grid's seeds 2 and 3 trained as seed 1 (the vendored `models.py`
+*MolTrans's three seeds are the retrained ones: the first grid's seeds 2 and 3 trained as seed 1 (the vendored `baselines/MolTrans/models.py`
 reseeds torch on import; fixed 2026-09-13), and only the corrected cells are used here.*
 
 ## 1b. DAVIS's sequences: leakage and pseudo-variants
@@ -1007,14 +1010,6 @@ training seed on the other. §7c's finding that integrated gradients recover the
 attention misses **replicates** (§8.4): on KIBA's 422-drug cold level the same weights
 score 1.9× chance through the gradient and at chance through the attention.
 
-## 9. *[PENDING]* Antiviral case study
-
-*[Recommend cutting. The subset is three distinct proteins (HIV-1 protease, HIV-1 RT,
-influenza neuraminidase) after the 2026-07-31 BindingDB release put all 18,149 SARS-CoV-2
-rows under one 7,096-residue polyprotein; §6's 60-protein panel supersedes it as a
-non-kinase arm, and a case study on three proteins invites the objection it cannot
-answer.]*
-
 ---
 
 ## Figures
@@ -1027,7 +1022,7 @@ captions and sources in `results/figures/CAPTIONS.md`. Rebuild after any re-anal
 | 0 | `fig0_design` | the audit's design: datasets, splits, models, the three readings of the explanation, both measurement axes, and the correction | Methods §1, Introduction ¶5 |
 | 1 | `fig1_plausibility` | precision@10 for every model × level × dataset against UniProt residues and the KLIFS pocket, seeds as dots, per-level chance | §4, §5, §8.1, §8.2 |
 | 2 | `fig2_seeds` | every UniProt cell as three seed dots against chance — the seed-dependence finding | §5, §8.1, Discussion §5b |
-| 3 | `fig3_attention_vs_ig` | attention against integrated gradients on identical checkpoints, DAVIS, both ground truths | §7c |
+| 3 | `fig3_attention_vs_ig` | attention against integrated gradients on identical checkpoints, both datasets, both ground truths | §7c, §8.4 |
 | 4 | `fig4_faithfulness` | comprehensiveness delta over a size-matched control; MolTrans's token-space panel kept separate | §5b, §8.3 |
 
 **Figure 1 is the one to keep** if the venue limits the count: it carries the headline on

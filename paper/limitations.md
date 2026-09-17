@@ -22,6 +22,21 @@ is strictly harder than cold-target: protein, family and drugs all change at onc
 difference between the arms therefore bounds the family effect rather than isolating it,
 and rests on 60 proteins whose affinities come from different assays.
 
+**What that does and does not limit.** It limits the *generality* of the verdict, not its
+*validity*. The claims this paper audits were made on DAVIS and KIBA — they are the
+benchmarks on which DTI interpretability is reported — so testing them there is testing
+them where they live; a null found on some other family would leave the published claims
+untouched. Two things follow, and the paper needs both stated. Nothing here licenses
+"attention fails for drug-target interaction in general": it licenses "attention fails for
+these models, on the benchmarks their claims are made on, at four levels of shift, on two
+datasets". And the evidence that the failure is not merely a kinase artefact is the
+transfer panel rather than a stratification: every audited model is at chance on 60 unseen
+non-kinase proteins (§6), and the few above-chance non-kinase cells trace to an amino-acid
+preference — histidine, 3-15x enriched in the top ten — meeting histidine-rich metal
+sites, which is a property of the attention rather than of the family. A reader who wants
+the kinase-free version of this audit needs a kinase-free benchmark carrying residue-level
+ground truth, and building one is a paper of its own.
+
 **Three ground truths, none of them per-pair at a usable scale.** UniProt annotations
 (binding, active and nucleotide-binding sites) and the 85-residue KLIFS ATP pocket are both
 defined per protein, so every drug measured against a protein is scored against the same

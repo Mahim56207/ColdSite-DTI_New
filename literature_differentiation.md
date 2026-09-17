@@ -35,10 +35,19 @@ than an interpretability analysis reported alongside a generalization result.
 
 Computes a binding-site hit ratio for high-attention residues *and* evaluates robustness
 on novel, unseen drug–target pairs — but, as far as the abstract and tables show, as two
-independent experiments *(confirm in the full text)*. Interpretive fidelity is never expressed as a
+independent experiments. Interpretive fidelity is never expressed as a
 function of generalization difficulty. **What we add:** the connection. The
 two axes are measured on the same splits, the same proteins and the same
 checkpoints, so a change in one can be read against the other.
+
+*Read in full, with the released code, 2026-09-18.* Its Figure 6 shows per-residue
+attention for four drug–target complexes and concludes that high-attention residues
+coincide with the binding site. That attention is computed from the protein's ProtTrans
+embedding alone — no drug tensor reaches it, and the model has no cross-attention — so for
+a fixed protein it is the same map whatever the drug binds (Results §7e;
+`results/evidti_code_audit.md`). This is stated as a structural fact about the released
+model, not as a failure of its uncertainty quantification, which is its contribution and
+which this audit does not test.
 
 ### 1.3 ColdDTI (Zhang et al., 2025, arXiv preprint)
 

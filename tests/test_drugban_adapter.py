@@ -129,7 +129,7 @@ def test_registered_and_satisfies_the_adapter_contract():
 
 @requires_dgl
 def test_the_explanation_changes_with_the_drug():
-    """The property EviDTI's published map lacks by construction (Results 8.7): a
+    """The property EviDTI's published map lacks by construction (Results 7e): a
     drug-target explanation must depend on the drug. DrugBAN's bilinear map does."""
     from src.evaluation.model_registry import get_model
 

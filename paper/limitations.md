@@ -220,6 +220,19 @@ leaves the readout-dependence result (§7b) as the largest unreplicated claim �
 claim about the instrument, so a reader should ask whether it holds for KIBA's proteins
 before relying on its magnitude.
 
+**The EviDTI result is a reading of source code, not a measurement.** Results §7e states
+that a 2025 published model's residue attention cannot depend on the drug. That claim
+rests on its released code (CC-BY-4.0, read 2026-09-18, recorded with line references in
+`results/evidti_code_audit.md`), not on retraining it: its two drug encoders need
+TensorFlow and PaddlePaddle, and the 3D encoder's pretrained weights are not in the
+repository, so it is not one of this audit's trained subjects. Two consequences belong in
+the paper rather than in a reader's inference. We report **no** precision@k, no
+faithfulness and no accuracy for EviDTI, and nothing here says its predictions are poor or
+its uncertainty quantification unsound — that is its actual contribution and we did not
+test it. And the claim is only as current as the code we read: if the authors release a
+version whose attention takes the drug as an input, §7e describes the version we read and
+should be re-checked against theirs, which takes a minute.
+
 **Three seeds detect seed dependence; they cannot measure it.** The replication's central
 result is that a residue-level verdict moves across chance between training seeds of the
 same cell: HyperAttentionDTI's KIBA random cell reads 0.017, 0.022 and 0.053 against a

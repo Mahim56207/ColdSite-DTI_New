@@ -716,6 +716,74 @@ from a different population, so the bootstrap would need its own run. The closes
 analogue is a 68-protein UniProt cell at ±0.005–0.009, which is why §6's claim rests on
 eight cells agreeing rather than on any one of them.
 
+## 7e. An explanation that cannot depend on the drug
+
+§7 asked whether attention knows *which* drug binds, and answered it by measurement: the
+correct drug's own contacts buy at most +0.011 precision@10 over another drug's contacts
+in the same pocket, and in two of nine cells the wrong drug scores higher. §7b found the
+same thing from the other side: ColdSite-DTI's protein-tower self-attention — computed by
+its forward pass, discarded, and **independent of the drug by construction** — agrees with
+the KLIFS pocket *better* than its drug-conditioned cross-attention (0.238 against 0.219
+at random, 0.268 against 0.243 at cold-target).
+
+Both are our own models measured. This section is about a published one, and the finding
+is not statistical but structural.
+
+**EviDTI** (Zhao et al., *Nature Communications* 16:6915, 2025) predicts drug–target
+interaction with evidential uncertainty and reports an interpretability analysis: its
+Figure 6 shows "attention scores of all the residues in the four randomly selected
+drug–target complexes", and the text concludes that "residues with high attention values
+coincide with the binding site, underscoring ... the attention mechanism's efficacy". It
+is a current model — its protein tower is a protein language model (ProtTrans) — and the
+claim is the one this audit exists to test.
+
+Its residue attention is computed, in each of its three model files, as
+
+```python
+attention = self.attention_convolution(t_1D)    # t_1D: the protein's ProtTrans embedding
+att_AA    = torch.mean(attention, dim=1)        # the per-residue map the figure plots
+```
+
+and the drug branches are first used afterwards, at `cat_v = torch.cat((t_o, d_o,
+atom_h), 1)`. There is no cross-attention between drug and protein anywhere in the model.
+**No drug tensor reaches `att_AA`.** The consequence needs no experiment and holds for any
+weights: for a fixed protein, every drug produces the identical residue map. Two of the
+four complexes in that figure would carry the same highlighted residues if they shared a
+target. The full record, with line references and a one-minute recipe for re-checking it,
+is `results/evidti_code_audit.md`.
+
+This does not say the model is wrong, and it says nothing about its uncertainty
+quantification, which is its contribution. It says the evidence offered for the
+interpretability claim cannot support it: a map that cannot vary with the ligand can
+agree with a binding site — an ATP pocket is a property of the kinase, not of the drug —
+while carrying no information about *this* pair. We did not retrain EviDTI (its two drug
+encoders need TensorFlow and PaddlePaddle, and the 3D encoder's pretrained weights are
+not in its repository), so we report no precision@k for it and make no claim about how
+well its map agrees with annotated residues. The claim here is about what the explanation
+is a function of, which is visible in the source and independent of training.
+
+**Three observations follow, and the third is the one for the field.**
+
+*The measured and the structural cases agree.* Our subjects' explanations are weakly
+drug-dependent where they are drug-dependent at all (§7); EviDTI's cannot be. The same
+pattern appears whether one measures it or reads it off the architecture.
+
+*A figure of drug–target complexes is the wrong evidence for a protein-only map.* Nothing
+in Figure 6 is incorrect. What makes it misleading is the pairing: showing per-complex
+pictures implies the map is per-complex. The honest version of that figure is one map per
+protein, captioned as protein saliency, and it would support a much weaker claim.
+
+*This is checkable before it is published, by anyone, in a minute.* Whether an
+explanation can depend on the drug is a property of the computation graph, not an
+empirical question — and a referee, an author or a reader can settle it with `grep`. We
+propose it as a routine check for interpretability claims in this field: **state which
+inputs the explanation is a function of.** DrugBAN passes it: its bilinear map is indexed by
+drug atom and protein position, so the drug is in the explanation by construction, and
+the adapter's tests assert that its map moves when the drug changes
+(`tests/test_drugban_adapter.py`; its trained cells are not in this draft yet).
+ColdSite-DTI passes it formally and fails it in practice, which is why §7b's comparison
+is in the paper. EviDTI does not pass it.
+
 ## 8. KIBA: the replication
 
 *See **Figure 1** (right-hand panels) for KIBA beside DAVIS, and **Figure 2** for the

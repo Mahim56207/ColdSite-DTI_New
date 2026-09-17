@@ -97,8 +97,9 @@ the pocket, 0.025 for drug contacts, 0.020 for annotations.
 
 ## 3b. What the measurement depends on
 
-Two results here are about the instrument, and both would have produced a wrong published
-claim if we had not checked.
+Three results here are about the instrument, and the first two would have produced a
+wrong published claim of our own if we had not checked. The third is about somebody
+else's, and it needed no measurement at all.
 
 **The residues a readout points at are mostly a property of the readout.** Between the
 tensor inside a network and one weight per residue, somebody chooses which axis to reduce,
@@ -112,6 +113,18 @@ audit's own verdicts do survive this: every readout of every model stays at chan
 annotated residues (0.010–0.057 against 0.020, all inside the seed spread bar one cell),
 and none lifts MolTrans above the pocket's chance level (0.120–0.189 against 0.143). What
 the choice changes is the size of the coarse signal, not the existence of the fine one.
+
+**An explanation can be incapable of the claim made for it, and the source says so.**
+A 2025 *Nature Communications* model (EviDTI) presents per-residue attention for four
+drug–target complexes and concludes that high-attention residues coincide with the binding
+site. Its attention is computed from the protein's language-model embedding alone; no drug
+tensor reaches it, and there is no cross-attention in the model. For a fixed protein,
+every drug therefore yields the identical map, for any weights (Results §7e). The claim is
+not refuted by a better measurement — it is refuted by the computation graph, which anyone
+can read before the figure is drawn. That suggests a cheap, general check for this
+literature: **state which inputs the explanation is a function of.** Our own audit's
+per-pair result (§7 of Results: the correct drug buys at most +0.011 precision@10) is the
+measured version of the same problem, and the two agree.
 
 **A masking-based faithfulness test can invert its own conclusion.** Faithfulness
 subtracts a random-masking control from the explanation's comprehensiveness, which assumes

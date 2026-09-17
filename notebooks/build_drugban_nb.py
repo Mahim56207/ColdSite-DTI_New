@@ -143,64 +143,86 @@ print()
 print('results ->', RESULTS)
 '''))
 
-cells.append(md('''## 4. Install DGL — and prove it works
+cells.append(md('''## 4. Install DGL — by pinning torch to a version it builds for
 
-DGL's wheels are built against one torch/CUDA pair, so the index URL is derived from the
-torch Kaggle actually gave us rather than hard-coded. `torchdata` must be 0.7.x: DGL 2.x
-imports `torchdata.datapipes`, which later versions removed.
+**This is the fragile step, and it fails fast on purpose.** DGL ships a compiled library
+per torch version (`libgraphbolt_pytorch_<version>.so`). Kaggle's image is currently torch
+**2.10**, for which DGL publishes nothing: the wheel installs and then cannot import
+(seen 2026-09-18, three index URLs, same `FileNotFoundError`). DGL's newest build (2.5.0)
+targets **torch 2.6 / cu124**, and that is what this section installs — torch first, then
+the matching DGL.
 
-The last cell here builds the real DrugBAN and runs one forward pass. A green tick means
-the model, the featuriser and the graph library agree; anything else means stop.'''))
-cells.append(code('''import os, re, subprocess, sys, torch
+Two consequences worth knowing:
 
-torch_mm = '.'.join(torch.__version__.split('.')[:2])          # e.g. '2.6'
-cuda_tag = 'cu' + (torch.version.cuda or '121').replace('.', '')
-urls = [f'https://data.dgl.ai/wheels/torch-{torch_mm}/{cuda_tag}/repo.html',
-        f'https://data.dgl.ai/wheels/torch-{torch_mm}/repo.html',
-        'https://data.dgl.ai/wheels/repo.html']
+* This downgrades torch **inside the session only**, and takes a few minutes. Training
+  runs in subprocesses, which pick up the new torch; the kernel keeps the one it imported
+  in section 2, which is why the check below runs in a subprocess too.
+* A T4 is compute 7.5 and cu124 supports it, so the GPUs stay usable. The check proves
+  that rather than assuming it.
 
-!pip install -q "torchdata==0.7.1" dgllife rdkit yacs prettytable
+If DGL ever publishes for Kaggle's torch, delete the pin and this section gets shorter.'''))
+cells.append(code('''# Torch that DGL builds for, then DGL. ~3 minutes, mostly the torch download.
+import subprocess, sys
 
-installed = False
-for url in urls:
-    print(f'-> trying {url}')
-    code_ = subprocess.call([sys.executable, '-m', 'pip', 'install', '-q', 'dgl', '-f', url])
-    if code_ == 0:
-        try:
-            subprocess.check_call([sys.executable, '-c', 'import dgl'],
-                                  env={**os.environ, 'DGLBACKEND': 'pytorch'})
-            installed = True
-            print(f'   installed from {url}')
-            break
-        except subprocess.CalledProcessError:
-            print('   installed but will not import; trying the next index')
-assert installed, (
-    'DGL would not install for this torch/CUDA build. Pin the environment to a version '
-    'that worked (Settings -> Environment -> pin to original), or install a matching '
-    'torch first. Every DrugBAN cell would fail without it.')
+TORCH_PIN = 'torch==2.6.0'
+TORCHVISION_PIN = 'torchvision==0.21.0'
+DGL_INDEX = 'https://data.dgl.ai/wheels/torch-2.6/cu124/repo.html'
 
-os.environ['DGLBACKEND'] = 'pytorch'
+!pip install -q {TORCH_PIN} {TORCHVISION_PIN} --index-url https://download.pytorch.org/whl/cu124
+!pip install -q dgl -f {DGL_INDEX}
+!pip install -q dgllife rdkit yacs prettytable
+
+# dgl 2.x imports torchdata.datapipes, which torchdata >= 0.10 removed. Only pinned if
+# the import actually asks for it -- an unnecessary downgrade is its own risk.
+probe = subprocess.run([sys.executable, '-c', 'import dgl'],
+                       capture_output=True, text=True,
+                       env={**os.environ, 'DGLBACKEND': 'pytorch'})
+if 'torchdata.datapipes' in probe.stderr:
+    print('-> dgl wants torchdata.datapipes; pinning torchdata==0.7.1')
+    !pip install -q "torchdata==0.7.1"
+print(probe.stderr.strip().splitlines()[-1] if probe.returncode else 'dgl imports cleanly')
 '''))
-cells.append(code('''# The proof: build their model and run one real pair through it.
-import os
-os.environ['DGLBACKEND'] = 'pytorch'
+cells.append(code('''# The proof, in a subprocess so it uses the torch we just installed:
+# versions, both GPUs, and one real pair through the real model.
+import os, subprocess, sys, textwrap
 
-import dgl, torch
-from src.evaluation.drugban_adapter import DrugBANAdapter, _config
-import sys
-sys.path.insert(0, 'baselines/DrugBAN')
-from models import DrugBAN
+CHECK = textwrap.dedent(\'\'\'
+    import sys
+    sys.path.insert(0, 'baselines/DrugBAN')
+    import dgl, torch
+    from src.evaluation.drugban_adapter import DrugBANAdapter, _config
+    from models import DrugBAN
 
-seq = ('MKKFFDSRREQGGSGLGSGSSGGGGSTSGLGSGYIGRVFGIGRQQVTVDEVLAEGGFAIVFLVRTSNGMKCALKRMF'
-       'VNNEHDLQVCKREIQIMRDLSGHKNIVGYIDSSINNVSSGDVWEVLILM')
-graph, protein = DrugBANAdapter.encode('CC(=O)Oc1ccccc1C(=O)O', seq)
-model = DrugBAN(**_config()).eval()
-with torch.no_grad():
-    _v_d, _v_p, score, att = model(dgl.batch([graph]), protein.unsqueeze(0), mode='eval')
-print('dgl', dgl.__version__, '| score', float(score.reshape(-1)[0]))
-print('attention map', tuple(att.shape), '= (batch, heads, drug atoms, protein positions)')
-assert att.shape[1] == 2 and att.shape[2] == 290, att.shape
-print('\\nDGL, the featuriser and DrugBAN all agree. Safe to train.')
+    print('torch', torch.__version__, '| dgl', dgl.__version__)
+    assert torch.cuda.is_available(), 'torch sees no GPU after the pin'
+    print('GPUs visible:', torch.cuda.device_count(),
+          '|', torch.cuda.get_device_name(0))
+    # a real kernel launch: a wheel built for the wrong CUDA fails here, not later
+    print('cuda matmul ok:',
+          float((torch.ones(8, 8, device='cuda') @ torch.ones(8, 8, device='cuda'))[0, 0]))
+
+    seq = ('MKKFFDSRREQGGSGLGSGSSGGGGSTSGLGSGYIGRVFGIGRQQVTVDEVLAEGGFAIVFLVRTSNGMKCALKRMF'
+           'VNNEHDLQVCKREIQIMRDLSGHKNIVGYIDSSINNVSSGDVWEVLILM')
+    graph, protein = DrugBANAdapter.encode('CC(=O)Oc1ccccc1C(=O)O', seq)
+    model = DrugBAN(**_config()).eval()
+    with torch.no_grad():
+        _d, _p, score, att = model(dgl.batch([graph]), protein.unsqueeze(0), mode='eval')
+    print('score', float(score.reshape(-1)[0]))
+    print('attention map', tuple(att.shape), '= (batch, heads, drug atoms, positions)')
+    assert att.shape[1] == 2 and att.shape[2] == 290, att.shape
+    print('OK')
+\'\'\')
+
+done = subprocess.run([sys.executable, '-c', CHECK], text=True, capture_output=True,
+                      env={**os.environ, 'DGLBACKEND': 'pytorch'})
+print(done.stdout)
+assert done.returncode == 0 and done.stdout.strip().endswith('OK'), (
+    'DGL/DrugBAN did not come up:\\n' + done.stderr[-2000:] +
+    '\\n\\nDo not train: every cell would fail the same way. If the error names a missing '
+    'libgraphbolt_pytorch_<version>.so, Kaggle moved torch again -- check '
+    'https://data.dgl.ai/wheels/ for the newest torch DGL builds for and change '
+    "TORCH_PIN and DGL_INDEX above to match.")
+print('DGL, the featuriser and DrugBAN all agree, on the GPU. Safe to train.')
 '''))
 
 cells.append(md('## 5. Build the splits — and verify they match'))

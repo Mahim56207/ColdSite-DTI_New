@@ -240,7 +240,7 @@ direction: at the uniform floor in every DAVIS cell, it produces a kinase-specif
 in KIBA seed 2 at both levels (0.053 and 0.063, beating every null) and nothing in seeds 1
 and 3. Three seeds are enough to see that the variance is there; they are not enough to
 estimate it, which is why we report per-seed values throughout rather than means alone —
-and why §7f counts the disagreement across every cell instead of leaving it as two
+and why Results §7f counts the disagreement across every cell instead of leaving it as two
 anecdotes.
 
 **What replicates is the coarse signal and the faithfulness.** HyperAttentionDTI's

@@ -86,7 +86,8 @@ against 0 of 6).
 
 ## Notes for finalising
 
-1. **Numbers to re-check against Results when the draft is frozen:** 1.7× chance (§5),
+1. **Numbers to re-check when the draft is frozen** (all section numbers are Results'):
+   1.7× chance (§5),
    1.3–1.5× pocket on KIBA (§8.2: 0.199–0.220 against 0.151), 2–12% readout overlap (§7b),
    7 of 12 IG cells (§7c), cell counts 48 DAVIS / 18 KIBA (§1, §8).
 2. **Both versions state the non-replication explicitly.** Introduction's closing note

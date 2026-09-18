@@ -31,7 +31,7 @@ untouched. Two things follow, and the paper needs both stated. Nothing here lice
 these models, on the benchmarks their claims are made on, at four levels of shift, on two
 datasets". And the evidence that the failure is not merely a kinase artefact is the
 transfer panel rather than a stratification: every audited model is at chance on 60 unseen
-non-kinase proteins (§6), and the few above-chance non-kinase cells trace to an amino-acid
+non-kinase proteins (Results §6), and the few above-chance non-kinase cells trace to an amino-acid
 preference — histidine, 3-15x enriched in the top ten — meeting histidine-rich metal
 sites, which is a property of the attention rather than of the family. A reader who wants
 the kinase-free version of this audit needs a kinase-free benchmark carrying residue-level
@@ -230,7 +230,7 @@ but **not ColdSite-DTI**, so our own model is audited on one dataset where the m
 claims this paper is about are audited on two; and two explanation-side analyses — readout
 variants and per-pair drug contacts — remain DAVIS-only. Anything the KIBA arm does not
 cover is a DAVIS result, and the Results section says so cell by cell. Integrated gradients
-are no longer in that list: §8.4 replicates them on KIBA for both audited models, which
+are no longer in that list: Results §8.4 replicates them on KIBA for both audited models, which
 leaves the readout-dependence result (§7b) as the largest unreplicated claim — and it is a
 claim about the instrument, so a reader should ask whether it holds for KIBA's proteins
 before relying on its magnitude.
@@ -245,7 +245,7 @@ the paper rather than in a reader's inference. We report **no** precision@k, no
 faithfulness and no accuracy for EviDTI, and nothing here says its predictions are poor or
 its uncertainty quantification unsound — that is its actual contribution and we did not
 test it. And the claim is only as current as the code we read: if the authors release a
-version whose attention takes the drug as an input, §7e describes the version we read and
+version whose attention takes the drug as an input, Results §7e describes the version we read and
 should be re-checked against theirs, which takes a minute.
 
 **Three seeds detect seed dependence; they cannot measure it.** The replication's central

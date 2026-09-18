@@ -125,7 +125,7 @@ apparent difficulty.
    Whether an explanation *can* depend on the drug is a property of the computation graph,
    not an empirical question. A 2025 *Nature Communications* model presents per-residue
    attention for four drug–target complexes; that map is computed from the protein
-   embedding alone, so for a fixed protein every drug yields the same figure (§7e). We
+   embedding alone, so for a fixed protein every drug yields the same figure (Results §7e). We
    propose the check as routine: **state which inputs the explanation is a function of.**
 5. **A data-quality audit of DAVIS as the field uses it** — sequence-identical mutants,
    pocketless sequences, the leak quantified by retraining (0.019 of cold-target's 0.038

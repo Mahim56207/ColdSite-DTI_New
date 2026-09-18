@@ -27,17 +27,19 @@ whether its verdict binds on what people build now. **DrugBAN** (Bai et al., *Na
 Machine Intelligence* 2023) is the answer: its title claims interpretability, it reports
 cross-domain generalisation, and its code is maintained and MIT-licensed.
 
-This notebook trains its **6 DAVIS cells** — random and cold-drug, three seeds — on two
-T4s. Nothing else: KIBA, the ladders and the faithfulness runs happen elsewhere.
+This notebook trains its **12 DAVIS cells** — four levels, three seeds — on two T4s.
+Nothing else: KIBA, the ladders and the faithfulness runs happen elsewhere.
 
-**Why two levels and not four.** The first attempt trained all four. Measured on a T4 it
-was far slower than projected: DrugBAN pads every drug to 290 atoms and every protein to
-1,200 residues and then builds a bilinear map of 290 × 1,185 per pair per head, so its
-per-epoch cost has little to do with its row count. Four levels needed several 11-hour
-commits. Two levels is the same scope the KIBA arm has, and it keeps the level where the
-audit's claim actually bites: **cold-drug**, where a model meets a molecule it has never
-seen. Cold-target and cold-pair for this model are left undone and the paper says so,
-rather than being quietly reported from one commit's worth of luck.
+**Measured, 2026-09-18: all twelve cells in 5.5 h on two T4s**, inside one commit. The
+constant this notebook shipped with projected 0.6 min/epoch and was wrong by roughly
+fourfold — DrugBAN pads every drug to 290 atoms and every protein to 1,200 residues and
+then builds a bilinear map of 290 × 1,185 per pair per head, so its epoch cost has little
+to do with its row count. The queue listing therefore prints no per-cell hours at all;
+the STATUS lines report the measured rate.
+
+**Budget the wall clock, not the training.** That run showed 6.3 h in Kaggle's timer
+against 5.5 h of training: the difference is Kaggle rendering a 20,000-line log to HTML
+afterwards. It is not stuck when it says `[NbConvertApp] Converting notebook`.
 
 | | |
 |---|---|
@@ -73,7 +75,7 @@ DATASET = 'davis'
 TASK = 'binary'
 BRANCH = 'main'
 MODEL = 'drugban'
-LEVELS = ['random', 'cold_drug']   # cut from four on 2026-09-18; see the header
+LEVELS = ['random', 'cold_drug', 'cold_target', 'cold_pair']
 SEEDS = [1, 2, 3]
 
 # Their SOLVER block (baselines/DrugBAN/configs.py): batch 64, lr 5e-5, 100 epochs.

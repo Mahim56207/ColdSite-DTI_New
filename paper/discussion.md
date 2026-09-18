@@ -239,7 +239,9 @@ depending on which seed it drew. MolTrans shows the same instability from the ot
 direction: at the uniform floor in every DAVIS cell, it produces a kinase-specific signal
 in KIBA seed 2 at both levels (0.053 and 0.063, beating every null) and nothing in seeds 1
 and 3. Three seeds are enough to see that the variance is there; they are not enough to
-estimate it, which is why we report per-seed values throughout rather than means alone.
+estimate it, which is why we report per-seed values throughout rather than means alone —
+and why §7f counts the disagreement across every cell instead of leaving it as two
+anecdotes.
 
 **What replicates is the coarse signal and the faithfulness.** HyperAttentionDTI's
 attention points into the KLIFS pocket in all three KIBA seeds at random (1.32–1.46×
@@ -313,9 +315,19 @@ away, under the shift the model will meet, and with more than one way of reading
 attention out.
 
 A fourth lesson came from the replication itself, and it is the one we would most like the
-field to take up: **an interpretability verdict of this size is seed-dependent**. In both
-published models, one KIBA training seed of three landed on the other side of chance from
-the other two — for HyperAttentionDTI the one seed that agrees with its DAVIS verdict of
-support, for MolTrans the one seed that contradicts its DAVIS verdict of none — so a
-single-seed attention figure, which is what published work almost always shows, cannot
-establish or refute the claim it illustrates. Report every seed, or report none.
+field to take up: **an interpretability verdict of this size is seed-dependent**. Counted
+over every cell rather than anecdotally (Results §7f, Table R12), the three seeds disagree
+about their own verdict in **11 of 16 cells**, and in **15 of 16 the spread across seeds is
+larger than the cell's distance from chance**. A paper reporting one training run would
+therefore have had an above-chance result available in eleven of these sixteen cells —
+including cells this audit reports as null, and including the model whose attention is
+otherwise indistinguishable from a uniform map. A single-seed attention figure, which is
+what published work almost always shows, cannot establish or refute the claim it
+illustrates. Report every seed, or report none.
+
+There is a reassurance inside that number, and it belongs to the method rather than to the
+models. Exactly one cell of the sixteen has all three seeds above α on their own, and it is
+the same cell — HyperAttentionDTI at DAVIS random — that survives Holm correction over the
+whole family. Agreement among replicate runs and family-wise error control were computed
+independently and select the same cell, so the correction is not discarding real effects:
+what it discards is what does not reproduce when the model is retrained.

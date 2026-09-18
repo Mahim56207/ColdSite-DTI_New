@@ -31,9 +31,11 @@ MODEL_KEY = {'src.model.train_deepdta': 'deepdta', 'src.model.run_grid': 'coldsi
 NEW_NAMES = """MODEL_NAME = {'src.model.train_drugban': 'DrugBAN'}
 MODEL_KEY = {'src.model.train_drugban': 'drugban'}
 
-# A projection, not a measurement: DrugBAN has never been timed on a T4. The STATUS line
-# prints the measured rate beside it with their ratio, so the first cell replaces the
-# guess with a fact -- if the drift factor is far from 1, believe the measurement.
+# A placeholder, and known to be wrong. The 2026-09-18 run measured DrugBAN far slower
+# than this 0.6 min/epoch guess -- it pads every drug to 290 atoms and every protein to
+# 1,200 residues, so its epoch cost has little to do with its row count. The STATUS line
+# prints the measured rate beside this one with their ratio; believe the measurement, and
+# replace this constant once a run has reported it.
 MIN_PER_EPOCH = {'drugban': 0.6}
 EPOCHS_MIN, EPOCHS_TYPICAL = 25, 36        # the early-stopping floor, and the DAVIS median"""
 assert OLD_NAMES in head
@@ -71,8 +73,10 @@ MY_CELLS = ORDERED
 for gpu, cells in sorted(ORDERED.items()):
     print(f'GPU {gpu}: in this order')
     for _model, level, seed in cells:
-        print(f'   drugban  {level:12s} seed {seed}   {TRAIN_ROWS[level]:,} train rows  '
-              f'~{HOURS["drugban"][1]:.1f}-{HOURS["drugban"][0]:.1f} h')
+        print(f'   drugban  {level:12s} seed {seed}   {TRAIN_ROWS[level]:,} train rows')
+print('Per-cell hours are deliberately not printed: the projection this notebook shipped '
+      'with was wrong by a wide margin on the 2026-09-18 run. The STATUS lines below '
+      'report the MEASURED minutes per epoch and what is left; believe those.')
 print(f'{hours_left():.1f} h left before the self-stop')
 '''
 

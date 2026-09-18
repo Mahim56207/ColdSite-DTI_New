@@ -27,15 +27,24 @@ whether its verdict binds on what people build now. **DrugBAN** (Bai et al., *Na
 Machine Intelligence* 2023) is the answer: its title claims interpretability, it reports
 cross-domain generalisation, and its code is maintained and MIT-licensed.
 
-This notebook trains its **12 DAVIS cells** — four levels, three seeds — on two T4s.
-Nothing else: KIBA, the ladders and the faithfulness runs happen elsewhere.
+This notebook trains its **6 DAVIS cells** — random and cold-drug, three seeds — on two
+T4s. Nothing else: KIBA, the ladders and the faithfulness runs happen elsewhere.
+
+**Why two levels and not four.** The first attempt trained all four. Measured on a T4 it
+was far slower than projected: DrugBAN pads every drug to 290 atoms and every protein to
+1,200 residues and then builds a bilinear map of 290 × 1,185 per pair per head, so its
+per-epoch cost has little to do with its row count. Four levels needed several 11-hour
+commits. Two levels is the same scope the KIBA arm has, and it keeps the level where the
+audit's claim actually bites: **cold-drug**, where a model meets a molecule it has never
+seen. Cold-target and cold-pair for this model are left undone and the paper says so,
+rather than being quietly reported from one commit's worth of luck.
 
 | | |
 |---|---|
 | model | DrugBAN, their architecture from their own `configs.py`, unmodified |
 | recipe | Adam 5e-5, batch 64, up to 100 epochs — **theirs** |
 | what we change | early stopping on validation loss (patience 15, floor 10) and `BCEWithLogitsLoss` on their single logit, so this cell is selected and scored like every other cell in the audit; domain adaptation off, their own default for in-domain runs |
-| cost | ~0.3-0.7 h per cell at the DAVIS median, so **12 cells ≈ 2-4 h per GPU**: one commit |
+| cost | **measured, not projected** — read the first STATUS line; 6 cells, 3 per GPU |
 
 **Why it needs an install step the other notebooks do not.** DrugBAN featurises a drug as
 a DGL graph. DGL is not on Kaggle's image and its wheels are pinned to a torch/CUDA
@@ -64,7 +73,7 @@ DATASET = 'davis'
 TASK = 'binary'
 BRANCH = 'main'
 MODEL = 'drugban'
-LEVELS = ['random', 'cold_drug', 'cold_target', 'cold_pair']
+LEVELS = ['random', 'cold_drug']   # cut from four on 2026-09-18; see the header
 SEEDS = [1, 2, 3]
 
 # Their SOLVER block (baselines/DrugBAN/configs.py): batch 64, lr 5e-5, 100 epochs.

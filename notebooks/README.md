@@ -7,12 +7,16 @@
 | `kaggle_drugban_davis.ipynb` | DrugBAN, 12 DAVIS cells (4 levels × 3 seeds) |
 | `kaggle_coldsite_kiba.ipynb` | ColdSite-DTI, 6 KIBA cells (random + cold-drug × 3 seeds) |
 
-One-click import (opens the notebook as a new Kaggle notebook):
+**How to import — upload the file.** Kaggle → **Create → New Notebook → File → Import
+Notebook → Upload**, and choose the `.ipynb` from this folder.
 
-    https://www.kaggle.com/kernels/welcome?src=https://raw.githubusercontent.com/Mahim56207/ColdSite-DTI_New/main/notebooks/<name>.ipynb
+Do **not** use `kaggle.com/kernels/welcome?src=<url>`. On 2026-09-18 it imported HTML
+instead of the notebook with a `github.com/.../blob/...` URL *and* with a
+`raw.githubusercontent.com` URL, although the raw file itself is a valid 21-cell notebook.
+The link is broken; uploading is not.
 
-Use the **raw** URL, as above. A `github.com/.../blob/...` URL is a web page, and Kaggle
-imports the page's HTML instead of the notebook.
+Kaggle's GitHub tab (File → Import Notebook → GitHub) also works, but lists the builder
+`.py` files beside the notebooks — pick the `.ipynb`.
 
 **You have the right file** if the first cell is a formatted markdown heading and the
 table of contents on the right lists numbered sections. If you see one red code cell

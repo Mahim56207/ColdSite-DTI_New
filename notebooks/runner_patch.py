@@ -49,6 +49,7 @@ TAIL = '''def drugban_cmd(level, seed):
             '--split', level, '--seed', str(seed),
             '--batch-size', str(BATCH_SIZE), '--lr', str(LR),
             '--min-epochs', '10', '--epochs', str(EPOCHS), '--patience', '15',
+            '--log-every', str(LOG_EVERY),
             '--checkpoint-dir', RESULTS, '--results-dir', RESULTS,
             '--skip-if-done'] + (['--amp'] if AMP else [])
 

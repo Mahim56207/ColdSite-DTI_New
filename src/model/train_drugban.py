@@ -176,6 +176,11 @@ def main():
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--skip-if-done", action="store_true")
     parser.add_argument("--amp", action="store_true")
+    parser.add_argument("--log-every", type=int, default=20,
+                        help="batches between progress lines; 0 prints none. Kaggle "
+                             "renders the whole log to HTML when a commit ends, and a "
+                             "20,000-line log took longer to render than the twelve cells "
+                             "took to train (2026-09-18). Raise this for long grids.")
     parser.add_argument("--stop-after-epoch", type=int,
                         help="testing only: behave as if killed after this epoch")
     args = parser.parse_args()
@@ -232,10 +237,10 @@ def main():
     for epoch in (range(start, args.epochs + 1) if start else ()):
         train_loss, _, _ = run_epoch(model, loaders["train"], loss_fn, device, optimizer,
                                      label=f"epoch {epoch} train", scaler=scaler,
-                                     amp=args.amp)
+                                     amp=args.amp, log_every=args.log_every)
         val_loss, val_true, val_score = run_epoch(model, loaders["valid"], loss_fn,
                                                   device, label=f"epoch {epoch} valid",
-                                                  amp=args.amp)
+                                                  amp=args.amp, log_every=args.log_every)
         metrics = compute_metrics(val_true, val_score, "binary")
         print(f"  epoch {epoch:>3} train {train_loss:.4f} val {val_loss:.4f} "
               + " ".join(f"{k} {v:.4f}" for k, v in metrics.items()))
@@ -254,7 +259,8 @@ def main():
     model.load_state_dict(torch.load(ckpt, map_location=device,
                                      weights_only=False)["model_state"])
     _loss, test_true, test_score = run_epoch(model, loaders["test"], loss_fn, device,
-                                             label="test", amp=args.amp)
+                                             label="test", amp=args.amp,
+                                             log_every=args.log_every)
     test_metrics = compute_metrics(test_true, test_score, "binary")
 
     with open(out_path, "w") as handle:

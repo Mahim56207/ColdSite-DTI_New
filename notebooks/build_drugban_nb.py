@@ -85,6 +85,12 @@ BATCH_SIZE = 64
 LR = 5e-5
 EPOCHS = 100
 
+# One progress line every 100 batches, not every 20. Kaggle renders the entire log to
+# HTML when a commit ends, and on 2026-09-18 a 20,000-line log took longer to render than
+# the twelve cells took to train. Four lines per epoch is enough to see a cell is alive;
+# the STATUS block carries the rate.
+LOG_EVERY = 100
+
 # Full precision. DrugBAN has not been validated under --amp here, and the one model in
 # this audit that was left unvalidated under float16 (MolTrans on KIBA) produced NaN from
 # batch ~4,040 of epoch 1. Twelve cells at ~0.5 h do not need the speed-up badly enough

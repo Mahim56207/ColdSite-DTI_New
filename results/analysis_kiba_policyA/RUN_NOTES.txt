@@ -27,7 +27,7 @@ How this run differs from one plain `run_all`, and why each difference changes n
    Holm family is the designed 6 cells (HAT, MolTrans, uniform x 2 trained levels).
    run_all's audit had also scored uniform_control at cold_target/cold_pair (it needs no
    checkpoint) = 8 cells. Per-cell p identical; 0 survive either way. The 8-cell files are
-   kept locally as *.superseded_8cell_family.
+   kept as audit_kiba_binary.superseded_uniform_at_4_levels.*.
 
 4. KLIFS-pocket ladders are in ../analysis_kiba_policyA_klifs (run_ladder --ground-truth
    data/kiba_klifs_pocket_sites.json); positional controls on both ground truths are here.

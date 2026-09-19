@@ -98,7 +98,7 @@ it matters (cold-target 0.074 / 0.021 / 0.037 across seeds; cold-drug against th
 estimate; and **integrated gradients were added after the attention results were seen**, so
 they are a secondary analysis, Holm-corrected within their own family and never pooled
 with the attention cells. A reader should treat "7 of 12 for the gradient against 1
-of 16 for the attention" on DAVIS, and "3 of 4 against 0 of 6" on KIBA, as separately
+of 20 for the attention" on DAVIS, and "3 of 4 against 0 of 8" on KIBA, as separately
 corrected families, which is how Results §7c and §8.4 state it. Being decided in advance is
 what KIBA's arm adds: its four cells were run after DAVIS's result was known, but with the
 protocol, the step count and the family fixed by that earlier run rather than chosen to suit
@@ -216,24 +216,61 @@ loss scaler and RNG state. The arm's scope was **decided on compute
 grounds, 2026-09-14**: random and cold-drug only, for HyperAttentionDTI, MolTrans and the
 DeepDTA anchor — 18 cells, ~101 GPU-hours over four accounts. The honest statement is that
 the replication's breadth was set by available GPU hours, not by the question, and the
-paragraph below says exactly what that leaves uncovered.
+paragraph below says exactly what that leaves uncovered. ColdSite-DTI's six KIBA cells were
+added on 2026-09-19, after the rest of the arm had been analysed; they use the DAVIS recipe
+unchanged and enlarge the family from 6 to 8, and the verdict does not depend on them
+(Results §8.1).
 
-**An asymmetric replication.** KIBA is the replication (Results §8) and repairs DAVIS's weakest axis (422 held-out drugs at
+**A narrower replication.** KIBA is the replication (Results §8) and repairs DAVIS's weakest axis (422 held-out drugs at
 cold-drug against 13), but it cannot repair the family confound — it is also kinases — and
 its cold-target level holds out only 45 targets (42 with usable sites), fewer than DAVIS's
 68. The KIBA arm is also narrower than the DAVIS one in three ways, all decided by
 available GPU hours rather than by the question, and all of which we state rather than
 leave a reader to infer: it trains **random and cold_drug only** (KIBA's cold-target is
 weaker than DAVIS's, and cold_pair would repeat DAVIS's checkpoint-selection instability on
-a 1,334-row validation set); it covers the two **published** models and the accuracy anchor
-but **not ColdSite-DTI**, so our own model is audited on one dataset where the models whose
-claims this paper is about are audited on two; and two explanation-side analyses — readout
-variants and per-pair drug contacts — remain DAVIS-only. Anything the KIBA arm does not
+a 1,334-row validation set); **DrugBAN is DAVIS-only** (Results §9), so the one current
+model is audited on one dataset; and two explanation-side analyses — readout variants and
+per-pair drug contacts — remain DAVIS-only. ColdSite-DTI, previously the model missing
+from KIBA, is now in it (Results §8), and its pocket-level signal did not replicate
+cleanly there — a result against our own model, reported in §8.2. Anything the KIBA arm does not
 cover is a DAVIS result, and the Results section says so cell by cell. Integrated gradients
 are no longer in that list: Results §8.4 replicates them on KIBA for both audited models, which
 leaves the readout-dependence result (§7b) as the largest unreplicated claim — and it is a
 claim about the instrument, so a reader should ask whether it holds for KIBA's proteins
 before relying on its magnitude.
+
+**MolTrans's audited map is protein-only.** The MolTrans explanation scored throughout is
+its protein encoder's self-attention (Methods §5), computed before drug and protein meet in
+its interaction map; across 150 drug pairs on 25 proteins its top-10 residues never change
+with the drug (Results §7e). Its verdicts are therefore verdicts about a protein saliency
+map — the kind of map §7e criticises in EviDTI — and do not cover MolTrans's
+drug-conditioned interaction map, which we did not score. Whether that map is the one
+MolTrans's authors offered as interpretation should be checked against their paper before
+submission; if it is, it should be added as a readout variant.
+
+**DrugBAN: one dataset, one readout family, and a faithfulness test of uncertain power.**
+DrugBAN (Results §9) was trained on DAVIS only, with domain adaptation off (its authors'
+setting for in-domain evaluation; its cross-domain mode is a different model and is not
+audited). Its explanation is its own bilinear map reduced to residues by our adapter; the
+alternative reductions leave its top residues almost unchanged (§9), but a reduction its
+authors used in a figure and we did not try cannot be excluded; one of ours (the
+receptive-field projection) moves its cold-pair residue-level cell above chance in two
+seeds of three.
+
+**"Load-bearing" is a statement at k = 10.** The faithfulness verdicts use the ten
+top-attended residues, fixed before any result. At k = 50 (Results §5, §9) HyperAttentionDTI's
+margin survives only at random, and DrugBAN — whose ten-residue test lacked power — stays
+at zero at three levels with a small effect on unseen drugs. The older models' claim is
+therefore that their top ten residues are load-bearing, not that their attention as a whole
+is; we did not sweep k further.
+
+**Permutation resolution limits how large a Holm family can be.** The audit grid uses 500
+permutations per seed (Methods §7), so the smallest p it can return is 1/501 ≈ 0.0020 —
+exactly the surviving cell's p. At that resolution a family of 26 or more cells could not
+have produced a survivor however strong the effect, and the survivor's margin (0.0020
+against 0.0025) is a statement about the resolution as much as the effect. Re-run at
+10,000 permutations (Results §5) the survivor's p is 0.0001 and every verdict in both
+families is unchanged, so the resolution limited the reported margin, not the result.
 
 **The EviDTI result is a reading of source code, not a measurement.** Results §7e states
 that a 2025 published model's residue attention cannot depend on the drug. That claim

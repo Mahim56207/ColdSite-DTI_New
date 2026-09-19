@@ -65,7 +65,7 @@ def test_the_report_states_both_counts_and_marks_each_seed(tmp_path):
 
 
 def test_the_published_counts_reproduce_from_the_committed_ladders():
-    """Results §7f: 11 of 16 disagree, 15 of 16 have a spread wider than their signal,
+    """Results §7f: 12 of 22 disagree, 21 of 22 have a spread wider than their signal,
     and exactly one cell -- the one that survives Holm -- has all three seeds above α."""
     from src.evaluation.seed_agreement import default_sources
 
@@ -75,9 +75,9 @@ def test_the_published_counts_reproduce_from_the_committed_ladders():
         pytest.skip("committed ladder folders not present")
     table = cells(default_sources(davis, kiba))
     stats = summarise(table)
-    assert stats["cells"] == 16, stats
-    assert stats["seeds_disagree"] == 11, stats
-    assert stats["spread_exceeds_signal"] == 15, stats
+    assert stats["cells"] == 22, stats
+    assert stats["seeds_disagree"] == 12, stats
+    assert stats["spread_exceeds_signal"] == 21, stats
     assert stats["all_three"] == 1, stats
     unanimous = [key for key, seeds in table.items()
                  if all(p < 0.05 for _precision, p, _chance in seeds)]

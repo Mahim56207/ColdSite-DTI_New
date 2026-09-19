@@ -4,8 +4,10 @@ Drafted 2026-09-13 from the cells finished so far. Every number below is read fr
 trained cell's `_results.json` (DAVIS binary grid, Kaggle account 1, commit v1 of
 `kaggle_davis_binary_grid36.ipynb`) or from a file named beside it. The DAVIS grid is
 complete: 48 of 48 cells (4 models x 4 levels x 3 seeds), verified cell by cell against
-the AUROC each recorded. KIBA, the replication, is complete (18 of 18 cells; §8, added
-2026-09-16), and its integrated-gradient arm with it (§8.4, added 2026-09-18).
+the AUROC each recorded, plus **DrugBAN's 12 cells** (§9, added 2026-09-19; the
+current-generation subject). KIBA, the replication, is complete (24 of 24 cells: the 18 of
+§8, added 2026-09-16, and ColdSite-DTI's 6, added 2026-09-19), and its integrated-gradient
+arm with it (§8.4, added 2026-09-18).
 No *[PENDING]* marks remain: the antiviral case study was cut on 2026-09-18, because
 after the 2026-07-31 BindingDB release put all 18,149 SARS-CoV-2 rows under one
 7,096-residue polyprotein it was three proteins, and §6's 60-protein panel is the
@@ -27,6 +29,7 @@ that rate differs.
 | ColdSite-DTI (ours) | 0.924 ± 0.001 | 0.857 ± 0.011 | 0.721 ± 0.008 | 0.624 ± 0.099 |
 | HyperAttentionDTI | 0.937 ± 0.005 | 0.915 ± 0.001 | **0.760 ± 0.042** | 0.694 ± 0.038 |
 | MolTrans | 0.923 ± 0.002 | 0.874 ± 0.005 | 0.685 ± 0.020 | 0.569 ± 0.021 |
+| DrugBAN (2023) | 0.891 ± 0.006 | 0.846 ± 0.010 | 0.695 ± 0.033 | 0.620 ± 0.031 |
 
 | | random | cold-target | cold-drug | cold-pair |
 |---|---|---|---|---|
@@ -37,9 +40,10 @@ that rate differs.
 | ColdSite-DTI AUPRC | 0.612 ± 0.010 | 0.464 ± 0.047 | 0.201 ± 0.035 | 0.132 ± 0.028 |
 | HyperAttentionDTI AUPRC | 0.669 ± 0.021 | 0.644 ± 0.014 | 0.284 ± 0.032 | 0.187 ± 0.028 |
 | MolTrans AUPRC | 0.616 ± 0.004 | 0.532 ± 0.010 | 0.133 ± 0.021 | 0.098 ± 0.024 |
+| DrugBAN AUPRC | 0.567 ± 0.022 | 0.471 ± 0.008 | 0.161 ± 0.023 | 0.139 ± 0.027 |
 
 **Table R1b.** The cold levels on targets **unseen by sequence** (§1b; option A): the same
-checkpoints re-scored by their own trainers' test passes, which reproduce all 24 recorded
+checkpoints re-scored by their own trainers' test passes, which reproduce all 30 recorded
 AUROCs (`results/clean_accuracy_davis.md`; to four decimals for the three deterministic
 models, within the range of five passes for MolTrans, which keeps dropout on at inference
 as published). Cold-target keeps 5,168 of 5,984 test rows, cold-pair 1,001 of 1,144.
@@ -50,19 +54,22 @@ as published). Cold-target keeps 5,168 of 5,984 test rows, cold-pair 1,001 of 1,
 | ColdSite-DTI | 0.857 ± 0.011 | **0.835 ± 0.015** | 0.624 ± 0.099 | **0.607 ± 0.128** |
 | HyperAttentionDTI | 0.915 ± 0.001 | **0.893 ± 0.001** | 0.694 ± 0.038 | **0.713 ± 0.050** |
 | MolTrans | 0.874 ± 0.006 | **0.833 ± 0.008** | 0.566 ± 0.022 | **0.530 ± 0.024** |
+| DrugBAN | 0.846 ± 0.010 | **0.801 ± 0.012** | 0.620 ± 0.031 | **0.559 ± 0.040** |
 
-Leakage inflated cold-target for **every one of the four models**, by 0.021–0.023 for
-DeepDTA, ColdSite-DTI and HyperAttentionDTI and by **0.041 for MolTrans** — 11 of the 12
-seeds move down (ColdSite-DTI seed 2, −0.002, is the exception). At cold-pair there is no
-consistent effect: the 11 leaked targets were the harder ones for DeepDTA (+0.021) and
-HyperAttentionDTI (+0.019) and the easier ones for MolTrans (−0.037) and ColdSite-DTI
-(−0.017, its seed 2 falling to 0.510 — chance — on unseen proteins). The
+Leakage inflated cold-target for **every one of the five models**, by 0.021–0.023 for
+DeepDTA, ColdSite-DTI and HyperAttentionDTI, by **0.041 for MolTrans** and by **0.046 for
+DrugBAN** — 14 of the 15 seeds move down (ColdSite-DTI seed 2, −0.002, is the exception).
+At cold-pair there is no consistent effect: the 11 leaked targets were the harder ones for
+DeepDTA (+0.021) and HyperAttentionDTI (+0.019) and the easier ones for MolTrans (−0.037),
+DrugBAN (−0.061, all three seeds) and ColdSite-DTI (−0.017, its seed 2 falling to
+0.510 — chance — on unseen proteins). The
 unseen-by-sequence values are the ones the paper reports for the cold levels; the all-rows
 values are kept for comparison with work that uses the same DAVIS files.
 
-That the effect is largest for MolTrans, the model with by far the most parameters here,
-is what memorising a training sequence would predict, but four models is not a sample:
-we report it as an observation, not a trend.
+An earlier draft read MolTrans's larger inflation as what memorising a training sequence
+would predict of the model with by far the most parameters. DrugBAN contradicts that
+reading: its inflation is the largest of the five with checkpoints ~60× smaller than
+MolTrans's. We report the size of the effect per model and no explanation of it.
 
 **The levels are not a ladder of increasing difficulty.** On DAVIS an unseen target costs
 little (DeepDTA 0.929 → 0.884 on targets unseen by sequence) and an unseen drug costs a
@@ -257,9 +264,12 @@ the sequence policy (pre-policy values: `results/positional_control_coldsite_dti
 cell against UniProt with its three seeds, and **Figure 2** for the same cells one seed at
 a time.*
 
-Computed 2026-09-14 on two T4 GPUs (`notebooks/kaggle_analysis_davis.ipynb`), **one Holm
-correction over all sixteen cells** — three audited models and the uniform control, four
-levels each. Correcting per model would have inflated every claim in the table.
+Computed 2026-09-14 on two T4 GPUs (`notebooks/kaggle_analysis_davis.ipynb`) and
+recomputed 2026-09-19 on a CPU with DrugBAN added, **one Holm correction over all twenty
+cells** — four audited models and the uniform control, four levels each. The sixteen cells
+computed before reproduce exactly (every p-value to the last digit); only the family, and
+with it every threshold, changed. Correcting per model would have inflated every claim in
+the table.
 
 **Table R4.** precision@10 against UniProt's annotated residues, mean ± sd over seeds
 1–3 (`results/analysis_davis_policyA/audit_davis_binary.md`). `uniform_control` is an
@@ -270,23 +280,36 @@ attention map of equal weight everywhere — the metric's own floor.
 | ColdSite-DTI (ours) | 0.015 ± 0.007 | 0.022 ± 0.009 | 0.017 ± 0.002 | 0.013 ± 0.005 |
 | HyperAttentionDTI (published) | **0.034 ± 0.006** | 0.040 ± 0.031 | 0.024 ± 0.008 | 0.022 ± 0.010 |
 | MolTrans (published) | 0.021 ± 0.003 | 0.027 ± 0.005 | 0.028 ± 0.016 | 0.020 ± 0.014 |
+| DrugBAN (published, 2023) | 0.018 ± 0.003 | 0.021 ± 0.001 | 0.023 ± 0.005 | 0.027 ± 0.008 |
 | uniform control | 0.020 ± 0.001 | 0.020 ± 0.001 | 0.018 ± 0.005 | 0.017 ± 0.001 |
 
-**One cell of sixteen survives Holm–Bonferroni: HyperAttentionDTI on the random split**
-(p = 0.0020 against a threshold of 0.0031; *it does not replicate on KIBA — §8.1, p = 0.48,
-one seed of three above chance*). The next four in the ordering all fail:
-ColdSite-DTI cold-drug (p = 0.0060 vs 0.0033), MolTrans cold-target (p = 0.012 vs 0.0036)
-and cold-drug (p = 0.020 vs 0.0038), and HyperAttentionDTI cold-drug (p = 0.050 vs
-0.0042, on a seed spread of ±0.031). HyperAttentionDTI's cold-target (p = 0.11) and
-cold-pair (p = 0.30) are not close, and ColdSite-DTI survives nowhere.
+**One cell of twenty survives Holm–Bonferroni: HyperAttentionDTI on the random split**
+(p = 0.0020 against a threshold of 0.0025; *it does not replicate on KIBA — §8.1, p = 0.48,
+one seed of three above chance*). The margin is thin and we state it: the cell's p is the
+median of three permutation p-values at 500 permutations, and 0.0020 = 1/501 is the
+smallest value 500 permutations can return — no permuted map matched the real one in at
+least two of the three seeds (the 1,000-permutation ladders give p = 0.001, their own
+floor, in seeds 1 and 2, and 0.004 in seed 3). At that resolution a family of 26 or more could not have produced a survivor
+however strong the effect. Re-run at 10,000 permutations
+(`audit_davis_binary_10k_permutations.md`; precision@10 identical, only the null finer),
+the cell's p is 0.0001 — again the smallest the test can return — so it survives with a
+25-fold margin, not a thin one, and every other cell's verdict is unchanged (next smallest
+0.0066 against 0.0026). KIBA's family at 10,000 permutations is likewise 0 of 8
+(`audit_kiba_binary_10k_permutations.md`). The 500-permutation run remains the
+pre-specified analysis; the finer one removes the resolution question from it. The next four
+in the ordering all fail: ColdSite-DTI cold-drug (p = 0.0060 vs 0.0026), MolTrans
+cold-target (p = 0.012 vs 0.0028) and cold-drug (p = 0.020 vs 0.0029), and
+HyperAttentionDTI cold-drug (p = 0.050 vs 0.0031, on a seed spread of ±0.031).
+HyperAttentionDTI's cold-target (p = 0.11) and cold-pair (p = 0.30) are not close,
+ColdSite-DTI survives nowhere, and DrugBAN's four cells are at p = 0.21–0.67 (§9).
 
 **MolTrans is at the metric's floor everywhere.** Its four cells (0.020–0.028) sit within
 one standard deviation of the uniform control's (0.017–0.020) — an attention map of equal
 weight everywhere scores the same as its trained attention. Its best cell, cold-target
 0.028 ± 0.016, is also where its accuracy is 0.833 unseen (Table R1b); at cold-pair,
 where it predicts at chance (0.530), its attention scores 0.020 against a 0.017 floor.
-Both of the published models we audit therefore fail the residue-level claim under
-shift, and one of them fails it everywhere.
+All three published models we audit therefore fail the residue-level claim under
+shift, and two of them — MolTrans here, DrugBAN in §9 — fail it everywhere.
 
 **The warm signal is real, not an artefact.** At the random split all three of
 HyperAttentionDTI's seeds beat every null in `positional_control`: a map borrowed from
@@ -308,7 +331,13 @@ attention is load-bearing at every level, but the margin over random masking col
 the split hardens: **0.184 ± 0.056** (random), 0.113 ± 0.052 (cold-drug),
 0.063 ± 0.046 (cold-target), 0.056 ± 0.008 (cold-pair). The attention is still used
 under shift; it is simply used for something that no longer coincides with the annotated
-site.
+site. **That margin depends on how many residues are masked.** At k = 50
+(`results/faithfulness_k50_davis/`, a sensitivity analysis added 2026-09-19) it holds at
+random (+0.144, three seeds of three) and all but vanishes at the cold levels (+0.011,
++0.013 and +0.003; positive in 2, 2 and 1 seeds of three): fifty random residues already
+remove as much as fifty attended ones. What is load-bearing under shift is the attention's
+top ten, not its top fifty — which is what an attention concentrated on a few residues
+predicts, and a reason the audit's "load-bearing" is always stated at k = 10.
 
 **Against the KLIFS pocket, the coarse signal persists where the fine one does not**
 (`results/analysis_davis_policyA_klifs/`): 0.242 ± 0.038 at random (1.70× its 0.143
@@ -783,9 +812,28 @@ propose it as a routine check for interpretability claims in this field: **state
 inputs the explanation is a function of.** DrugBAN passes it: its bilinear map is indexed by
 drug atom and protein position, so the drug is in the explanation by construction, and
 the adapter's tests assert that its map moves when the drug changes
-(`tests/test_drugban_adapter.py`; its trained cells are not in this draft yet).
-ColdSite-DTI passes it formally and fails it in practice, which is why §7b's comparison
-is in the paper. EviDTI does not pass it.
+(`tests/test_drugban_adapter.py`). ColdSite-DTI passes it formally and fails it in
+practice, which is why §7b's comparison is in the paper. EviDTI does not pass it.
+
+**Applied to our own subjects, by measurement** (`src/evaluation/drug_dependence.py`,
+`results/drug_dependence/`): 25 DAVIS proteins, four drugs each, the top-10 residues
+compared between every pair of drugs on the same protein (150 pairs; random split, seed 1).
+
+| model | top-10 overlap between drugs | identical top-10 |
+|---|---|---|
+| DrugBAN | 4.5 / 10 | 0% of pairs |
+| HyperAttentionDTI | 9.7 / 10 | 72% |
+| MolTrans (as audited) | 10.0 / 10 | 100% |
+
+**The check applies to this audit too, and MolTrans fails it as we read it.** Its audited
+explanation is the protein encoder's self-attention (Methods §5), which is computed before
+the drug and protein meet in the interaction map, so like EviDTI's it is a function of the
+protein alone — by construction, and the measurement confirms it. MolTrans's verdicts in
+§5, §5b and §8 are therefore verdicts about a protein saliency map, and are stated as such;
+its drug-conditioned object, the interaction map, is not scored here. HyperAttentionDTI's
+attention is drug-conditioned by construction and nearly drug-independent in practice —
+ColdSite-DTI's case again. DrugBAN's is the only map in the audit that genuinely moves
+with the drug, and §9 shows where it moves to.
 
 ## 7f. What would a single-seed paper have concluded?
 
@@ -796,8 +844,8 @@ one seed would have bought. The table is generated by
 seed's own permutation p, **uncorrected**, because an uncorrected per-seed p is exactly
 what a single-seed report quotes.
 
-**Table R12.** Sixteen attention cells with three seeds each — three models at four DAVIS
-levels, two models at KIBA's two. `*` marks a seed that on its own clears α = 0.05;
+**Table R10.** Twenty-two attention cells with three seeds each — four models at four
+DAVIS levels, three models at KIBA's two. `*` marks a seed that on its own clears α = 0.05;
 `spread` is the largest minus the smallest precision@10 in the cell
 (`results/seed_agreement.md`).
 
@@ -807,6 +855,12 @@ levels, two models at KIBA's two. `*` marks a seed that on its own clears α = 0
 | ColdSite-DTI | DAVIS | cold-pair | 0.018 | 0.013 | 0.008 | 0.019 | 0.010 | `...` |
 | ColdSite-DTI | DAVIS | cold-target | 0.015 | 0.019 | 0.018 | 0.019 | 0.004 | `...` |
 | ColdSite-DTI | DAVIS | warm | 0.023 | 0.009 | 0.013 | 0.020 | 0.013 | `...` |
+| ColdSite-DTI | KIBA | cold-drug | 0.025 | 0.020 | 0.015 | 0.023 | 0.009 | `...` |
+| ColdSite-DTI | KIBA | warm | 0.018 | 0.011 | 0.026 | 0.023 | 0.015 | `...` |
+| DrugBAN | DAVIS | cold-drug | 0.022 | 0.021 | 0.021 | 0.020 | 0.001 | `...` |
+| DrugBAN | DAVIS | cold-pair | 0.036 | 0.022 | 0.024 | 0.019 | 0.014 | `*..` |
+| DrugBAN | DAVIS | cold-target | 0.018 | 0.028 | 0.022 | 0.019 | 0.010 | `...` |
+| DrugBAN | DAVIS | warm | 0.019 | 0.015 | 0.019 | 0.020 | 0.005 | `...` |
 | HyperAttentionDTI | DAVIS | cold-drug | 0.025 | 0.077 | 0.019 | 0.020 | 0.057 | `**.` |
 | HyperAttentionDTI | DAVIS | cold-pair | 0.013 | 0.022 | 0.032 | 0.019 | 0.019 | `..*` |
 | HyperAttentionDTI | DAVIS | cold-target | 0.018 | 0.031 | 0.025 | 0.019 | 0.013 | `.*.` |
@@ -820,31 +874,33 @@ levels, two models at KIBA's two. `*` marks a seed that on its own clears α = 0
 | MolTrans | KIBA | cold-drug | 0.028 | 0.063 | 0.017 | 0.023 | 0.046 | `.*.` |
 | MolTrans | KIBA | warm | 0.020 | 0.053 | 0.022 | 0.023 | 0.032 | `.*.` |
 
-**In 11 of the 16 cells the three seeds disagree about their own verdict**, and in **15 of
-16 the spread across seeds is larger than the cell's distance from chance**. A paper
+**In 12 of the 22 cells the three seeds disagree about their own verdict**, and in **21 of
+22 the spread across seeds is larger than the cell's distance from chance**. A paper
 reporting one training run would therefore have had an above-chance, uncorrected result
-available in eleven of these sixteen cells — including cells this audit reports as null,
+available in twelve of these twenty-two cells — including cells this audit reports as null,
 and including MolTrans, whose attention is otherwise indistinguishable from a uniform map.
 Which seed was drawn decides the claim.
 
 **One cell behaves differently, and it is the one that survives.** HyperAttentionDTI at
 DAVIS random is the only cell in the table where all three seeds clear α individually
-(`***`), and it is also the only cell of sixteen that survives Holm correction over the
-whole family (§5). The two criteria were computed independently — one is agreement among
+(`***`), and it is also the only cell of either family — twenty on DAVIS, eight on KIBA —
+that survives Holm correction (§5, §8.1). The two criteria were computed independently — one is agreement among
 replicate runs, the other family-wise error control over a grid — and they select the same
 cell. That is the reassurance the audit's method needs: the correction is not discarding
 real effects, because the effects it discards are the ones that do not reproduce across
 retraining, and the effect it keeps is the one that does.
 
-Four cells have no seed above α at all: three of ColdSite-DTI's four DAVIS cells (warm,
-cold-target, cold-pair) and HyperAttentionDTI's cold-drug on KIBA. Those are the audit's
+Nine cells have no seed above α at all: three of ColdSite-DTI's four DAVIS cells (warm,
+cold-target, cold-pair) and both of its KIBA cells, three of DrugBAN's four (warm,
+cold-drug, cold-target; its fourth has one seed of three), and HyperAttentionDTI's
+cold-drug on KIBA. Those are the audit's
 unambiguous nulls — the cells where no draw of the dice would have produced a claim.
 
 **What this does not say.** It is not a claim that these models are unusually unstable —
 we have no comparison against a field norm, because single-seed reporting is the field
 norm and there is nothing published to compare against. Nor does it apply to the
 accuracy axis: on KIBA the same three seeds give test AUROC standard deviations of
-0.001–0.009 (§8), against explanation spreads of 0.006–0.046 on precision@10 whose own
+0.001–0.011 (§8), against explanation spreads of 0.006–0.046 on precision@10 whose own
 chance level is 0.023 — the accuracy is reproducible at a scale the explanation is not. The
 instability is specific to the explanation, which is the quantity the literature reports
 from one run and a figure.
@@ -860,8 +916,12 @@ decisions, and no parameter chosen by looking at KIBA. Its scope was set in adva
 (Methods §11): **random** and **cold-drug** only, for the two published models and the
 DeepDTA anchor, three seeds each — 18 cells. Cold-drug is the level KIBA can test and
 DAVIS cannot (422 held-out drugs against DAVIS's 13); cold-target and cold-pair would have
-added a weaker copy of levels DAVIS covers with twice KIBA's held-out targets. ColdSite-DTI
-was not retrained, so our own model is audited on one dataset and the published ones on two.
+added a weaker copy of levels DAVIS covers with twice KIBA's held-out targets. **ColdSite-DTI
+was added afterwards** (2026-09-19; 6 cells, same two levels and seeds, full precision as on
+DAVIS, `notebooks/kaggle_coldsite_kiba.ipynb`), to remove an asymmetry in which our own model
+was audited on one dataset and the published ones on two. It is reported as an addition, not
+as part of the pre-specified scope; its recipe and analysis are the DAVIS ones unchanged, and
+it enlarges the KIBA Holm family from 6 to 8 cells.
 HyperAttentionDTI and DeepDTA trained under mixed precision (validated on DAVIS,
 `results/amp_validation_davis.md`); MolTrans in full precision, because its hand-written
 LayerNorm produces NaN in float16 on KIBA. Every number below is read from
@@ -869,13 +929,14 @@ LayerNorm produces NaN in float16 on KIBA. Every number below is read from
 `RUN_NOTES.txt` there records how the run was executed. KIBA needs no sequence policy: none
 of DAVIS's three sequence problems occurs in it (§1b).
 
-**Table R10.** KIBA test AUROC and AUPRC, mean ± sd over seeds 1–3, beside DAVIS (Table R1).
+**Table R11.** KIBA test AUROC and AUPRC, mean ± sd over seeds 1–3, beside DAVIS (Table R1).
 
 | model | random | cold-drug | AUPRC random | AUPRC cold-drug | DAVIS random | DAVIS cold-drug |
 |---|---|---|---|---|---|---|
 | DeepDTA (anchor) | 0.918 ± 0.001 | 0.832 ± 0.001 | 0.793 ± 0.003 | 0.619 ± 0.008 | 0.929 | 0.692 |
 | HyperAttentionDTI | **0.933 ± 0.001** | **0.844 ± 0.004** | 0.829 ± 0.001 | 0.648 ± 0.006 | 0.937 | 0.760 |
 | MolTrans | 0.919 ± 0.004 | 0.812 ± 0.009 | 0.795 ± 0.011 | 0.594 ± 0.011 | 0.923 | 0.685 |
+| ColdSite-DTI (ours) | 0.894 ± 0.011 | 0.807 ± 0.009 | 0.737 ± 0.036 | 0.583 ± 0.016 | 0.924 | 0.721 |
 
 | | random | cold-drug |
 |---|---|---|
@@ -883,33 +944,38 @@ of DAVIS's three sequence problems occurs in it (§1b).
 | test drugs / targets | 2,057 / 228 | 422 / 229 |
 | positive rate (AUPRC chance) | 0.209 | 0.219 |
 
-**Accuracy replicates at random and corrects DAVIS at cold-drug.** Every model's random AUROC
-is within 0.011 of its DAVIS value, and the ordering holds (HyperAttentionDTI first). At
+**Accuracy replicates at random and corrects DAVIS at cold-drug.** Every published model's
+random AUROC is within 0.011 of its DAVIS value, and the ordering holds (HyperAttentionDTI
+first); ColdSite-DTI loses 0.030 and is the least accurate of the four on KIBA. At
 cold-drug the ordering holds too — HyperAttentionDTI is again the model that loses least on
 unseen drugs — but nothing collapses: the drop from random is 0.086–0.107 on KIBA against
 0.177–0.238 on DAVIS. DAVIS's cold-drug level tests 13 drugs, so its severity says as much
 about which 13 were drawn as about unseen chemistry; §1's "collapse" is a property of
-DAVIS's cold-drug split, not of the task, and is stated as such. The seed spreads are also
-an order of magnitude tighter (±0.001–0.009 against ±0.020–0.044), which is what a
-4× larger test set with 32× as many held-out drugs should give.
+DAVIS's cold-drug split, not of the task, and is stated as such. The cold-drug seed spreads of DeepDTA and the two published models are also an order of magnitude tighter
+(±0.001–0.009 against ±0.020–0.044), which is what a 4× larger test set with 32× as many held-out
+drugs should give; ColdSite-DTI's were already tight on DAVIS (±0.008) and stay so (±0.009).
 
 ### 8.1 Residue-level plausibility: the one DAVIS survivor does not replicate
 
-**Table R11.** Precision@10 against UniProt's annotated binding residues, one test pair per
+**Table R12.** Precision@10 against UniProt's annotated binding residues, one test pair per
 protein, mean ± sd over seeds (audit grid, `audit_kiba_binary.md`); chance 0.023, ceiling
-0.995, n = 211 (random) and 212 (cold-drug) proteins. Holm over the pre-specified KIBA
-family of 6 cells (two audited models and the uniform control × two levels), on the median
-p over seeds.
+0.995, n = 211 (random) and 212 (cold-drug) proteins. Holm over the KIBA family of 8 cells
+(three audited models and the uniform control × two levels; 6 before ColdSite-DTI was
+added, and the six p-values reproduce exactly in the larger run), on the median p over
+seeds.
 
 | model | random | p (median) | cold-drug | p (median) |
 |---|---|---|---|---|
 | HyperAttentionDTI | 0.032 ± 0.020 | 0.477 | 0.025 ± 0.002 | 0.275 |
 | MolTrans | 0.032 ± 0.018 | 0.537 | 0.036 ± 0.024 | 0.068 |
+| ColdSite-DTI (ours) | 0.019 ± 0.007 | 0.936 | 0.020 ± 0.005 | 0.810 |
 | uniform control | 0.023 ± 0.004 | 0.301 | 0.025 ± 0.001 | 0.232 |
 
-**None of the six cells survives correction**; the smallest p, MolTrans cold-drug's 0.068,
-is eight times its threshold of 0.0083. In particular **HyperAttentionDTI at random — the
-only one of DAVIS's sixteen cells to survive Holm (§5) — does not replicate** (p = 0.48).
+**None of the eight cells survives correction**; the smallest p, MolTrans cold-drug's 0.068,
+is eleven times its threshold of 0.0063 (eight times the 0.0083 of the six-cell family, so
+the verdict does not depend on ColdSite-DTI's addition). In particular **HyperAttentionDTI
+at random — the only one of DAVIS's twenty cells to survive Holm (§5) — does not
+replicate** (p = 0.48).
 Its three seeds read 0.017, 0.022 and 0.053 (ladder, p = 0.98, 0.65 and 0.001): one seed
 carries an effect larger than DAVIS's (2.3× chance against DAVIS's 1.67×, beating every
 positional and residue-identity null in
@@ -940,7 +1006,7 @@ corresponds to ranking a low single-digit percentage of the annotated sites firs
 
 ### 8.2 Pocket-level plausibility replicates, and holds on unseen drugs
 
-**Table R12.** Precision@10 against the KLIFS 85-residue ATP pocket (ladder), chance 0.151,
+**Table R13.** Precision@10 against the KLIFS 85-residue ATP pocket (ladder), chance 0.151,
 ceiling 0.996, n = 210 / 211; per-seed values with their p in brackets.
 
 | model | level | mean ± sd | seed 1 | seed 2 | seed 3 | DAVIS (Table R9) |
@@ -949,6 +1015,8 @@ ceiling 0.996, n = 210 / 211; per-seed values with their p in brackets.
 | | cold-drug | **0.189 ± 0.024** | 0.164 (0.073) | 0.191 (0.001) | 0.211 (0.001) | 0.193 |
 | MolTrans | random | 0.161 ± 0.049 | 0.122 (1.000) | 0.216 (0.001) | 0.146 (0.747) | 0.157 |
 | | cold-drug | 0.188 ± 0.040 | 0.171 (0.006) | 0.233 (0.001) | 0.158 (0.200) | 0.154 |
+| ColdSite-DTI (ours) | random | 0.166 ± 0.016 | 0.173 (0.004) | 0.177 (0.002) | 0.147 (0.697) | 0.219 |
+| | cold-drug | 0.152 ± 0.038 | 0.195 (0.001) | 0.140 (0.926) | 0.121 (1.000) | 0.299 |
 
 **HyperAttentionDTI finds the pocket region on both datasets.** At random all three seeds
 are at 1.32–1.46× chance and beat all four nulls — a map borrowed from another protein
@@ -968,9 +1036,23 @@ nulls; seed 1 at random (0.122) and seed 3 at both levels beat none. Its DAVIS v
 reproducible pocket information, and adds that it can carry some in a particular training
 run.
 
-### 8.3 Faithfulness replicates for both models
+**ColdSite-DTI's pocket signal does not replicate cleanly — the result that most weakens our
+own model's standing.** On DAVIS it was the one model above chance against the pocket in
+all twelve cells (1.5–2.1×, §4). On KIBA two seeds of three are above chance at random
+(1.15× and 1.17×) and one of three at cold-drug (1.29×); the other three seed-cells are at
+or below chance (0.80–0.97×), and the means (1.10× and 1.01×) are within their spreads of
+chance. Where the signal exists it is genuine
+(`positional_control_coldsite_dti_kiba_klifs_policyA.md`): seed 1 beats all four nulls at
+both levels, and seed 2 at random beats three of four (not the within-span shuffle); the
+other three seed-cells beat none. §4's verdict for our model — coarsely plausible, not finely — therefore holds on
+DAVIS and is seed-dependent on KIBA, which is the same pattern §7f finds for every
+residue-level claim in the audit. It is reported as such; we do not read it as a
+difference between datasets, since HyperAttentionDTI's pocket signal carries over between
+the same two datasets with a 0.035 drop.
 
-**Table R13.** Comprehensiveness delta over a size-matched random control, 200 pairs per
+### 8.3 Faithfulness replicates for all three models
+
+**Table R14.** Comprehensiveness delta over a size-matched random control, 200 pairs per
 level, mean ± sd over seeds; HyperAttentionDTI in residue space, MolTrans in token space
 (§5b; the unit differs, so the two rows are comparable within a model, not across).
 
@@ -978,10 +1060,13 @@ level, mean ± sd over seeds; HyperAttentionDTI in residue space, MolTrans in to
 |---|---|---|---|---|---|
 | HyperAttentionDTI (residues) | 0.132 ± 0.078 | 0.095 ± 0.066 | 6 / 6 | 0.184 ± 0.056 | 0.113 ± 0.052 |
 | MolTrans (tokens) | 0.394 ± 0.263 | 0.291 ± 0.075 | 6 / 6 | 0.458 | 0.362 |
+| ColdSite-DTI (residues) | 0.388 ± 0.156 | 0.333 ± 0.215 | 6 / 6 | 1.188 ± 0.697 | 1.179 ± 0.547 |
 
-**Both models' attention is load-bearing in every KIBA cell**, at magnitudes within the DAVIS
-seed spreads, and for both the margin is smaller on unseen drugs than at random — the
-direction DAVIS showed. Faithfulness is the half of the interpretability claim that
+**All three models' attention is load-bearing in every KIBA cell**, and for all three the
+margin is smaller on unseen drugs than at random — the direction DAVIS showed. The two
+published models' magnitudes are within their DAVIS seed spreads; ColdSite-DTI's are a
+third of its DAVIS values (0.39 and 0.33 against 1.19 and 1.18) and still about three
+times HyperAttentionDTI's residue-space margins on KIBA (0.13 and 0.10). Faithfulness is the half of the interpretability claim that
 replicates cleanly: the attention is used; §8.1 is what it is not used *for*.
 
 *A sensitivity result that must be reported with it: masking MolTrans's top-attended
@@ -1005,7 +1090,7 @@ embedding — over both audited models, both levels and three seeds — twelve l
 contains (`results/analysis_kiba_policyA/ig_family_kiba.md`,
 `src/evaluation/ladder_family.py`).
 
-**Table R11.** KIBA, precision@10 at k = 10, mean ± sd over seeds 1–3, one test pair per
+**Table R15.** KIBA, precision@10 at k = 10, mean ± sd over seeds 1–3, one test pair per
 protein. `attention` is §8.1–8.2's audit readout; `IG` is the gradient of the same
 checkpoint. p is the median over seeds.
 
@@ -1046,7 +1131,11 @@ and too small to carry a claim.
 cotransport ions; `control_*_kiba_seed*_noions.md`): HyperAttentionDTI 0.014 ± 0.001
 (random) and 0.016 ± 0.004 (cold-drug), MolTrans 0.013 ± 0.008 and 0.016 ± 0.001 — at or
 below the kinase cells and at the DAVIS panel's level. Whatever signal the kinase cells
-carry does not transfer to non-kinases, for either model, in any seed. KIBA is 229
+carry does not transfer to non-kinases, for either model, in any seed. ColdSite-DTI, added
+later, reads 0.017 ± 0.007 and 0.016 ± 0.005, with one seed-cell above chance (seed 2 at
+random, 0.025) — the single non-kinase exception on KIBA, and the model whose DAVIS
+non-kinase exceptions were traced to its histidine preference (§6); we did not repeat that
+tracing on KIBA. KIBA is 229
 kinases, so, as on DAVIS, the confound cannot be stratified inside the dataset
 (`audit_kiba_binary.md`); the panel is the test.
 
@@ -1058,19 +1147,102 @@ results of §8.1 are not a failure of the metric to see a signal of the size DAV
 
 | DAVIS finding | on KIBA |
 |---|---|
-| HyperAttentionDTI's residue-level claim holds at random (1 of 16 cells survives Holm) | **does not replicate** (0 of 6; one seed of three) |
-| The attention finds the pocket region, including under shift | **replicates** for HyperAttentionDTI, at a 422-drug cold level |
-| The attention is load-bearing at every level | **replicates** for both models (12 / 12 cells) |
+| HyperAttentionDTI's residue-level claim holds at random (1 of 20 cells survives Holm) | **does not replicate** (0 of 8; one seed of three) |
+| The attention finds the pocket region, including under shift | **replicates** for HyperAttentionDTI, at a 422-drug cold level; **seed-dependent** for ColdSite-DTI (3 of 6 seed-cells above chance, against 12 of 12 on DAVIS) |
+| The attention is load-bearing at every level | **replicates** for all three models (18 / 18 cells); ColdSite-DTI's margin is a third of its DAVIS value |
+| ColdSite-DTI misses the annotated residues | **replicates** (0 of 6 seed-cells above chance; audit p = 0.94 at random, 0.81 at cold-drug) |
 | MolTrans's attention sits at the uniform floor | holds in 2 seeds of 3; seed 2 carries a kinase-only signal |
 | Cold-drug collapses accuracy | **does not replicate**: a property of DAVIS's 13-drug split |
 | The gradient beats the attention on the same weights (7 of 12 cells) | **replicates** (3 of 4 cells; 1.9× chance where the attention is at chance) |
 
 The claim the two datasets support together is narrower and firmer than either alone:
-the published models' attention is **used** and points **into the binding pocket**, but
-does not mark **binding residues** — and the one exception on one dataset depends on the
+HyperAttentionDTI's attention is **used** and points **into the binding pocket**, but
+does not mark **binding residues**; MolTrans's and our own model's pocket signals are
+present in some training runs and absent in others — and the one exception on one dataset depends on the
 training seed on the other. §7c's finding that integrated gradients recover the residues the
 attention misses **replicates** (§8.4): on KIBA's 422-drug cold level the same weights
 score 1.9× chance through the gradient and at chance through the attention.
+
+
+## 9. DrugBAN: does the verdict bind on a current model?
+
+The three subjects above date from 2020–2022. **DrugBAN** (Bai et al., *Nature Machine
+Intelligence* 5:126–136, 2023) is the obvious current one: interpretability is in its
+title, its bilinear attention is indexed by drug atom and protein position, and its code
+is maintained and MIT-licensed. It was trained on the identical DAVIS splits with its
+authors' recipe (Adam 5×10⁻⁵, batch 64, up to 100 epochs; domain adaptation off, their
+default for in-domain runs), selected by validation loss with the same patience and floor
+as every other cell (Methods §5), three seeds × four levels, 12 cells
+(`notebooks/kaggle_drugban_davis.ipynb`). Its explanation is its own bilinear map,
+normalised as its code does (softmax per head), summed over drug atoms, averaged over
+heads and projected from convolution positions to residues (`src/evaluation/drugban_adapter.py`).
+It enters §5's Holm family, which grows from 16 to 20 cells.
+
+**Table R16.** DrugBAN on DAVIS, mean ± sd over seeds 1–3. Accuracy is Table R1/R1b's;
+precision@10 one pair per protein; faithfulness 200 pairs per level, k = 10, residue space.
+
+| | random | cold-drug | cold-target | cold-pair |
+|---|---|---|---|---|
+| AUROC (cold levels: unseen by sequence) | 0.891 ± 0.006 | 0.695 ± 0.033 | 0.801 ± 0.012 | 0.559 ± 0.040 |
+| UniProt p@10 (chance) | 0.018 ± 0.003 (0.020) | 0.021 ± 0.001 (0.020) | 0.023 ± 0.005 (0.019) | 0.027 ± 0.008 (0.019) |
+| audit p (Holm family of 20) | 0.675 | 0.443 | 0.309 | 0.212 |
+| seeds above α, UniProt | 0 / 3 | 0 / 3 | 0 / 3 | 1 / 3 |
+| KLIFS pocket p@10 (chance) | 0.139 ± 0.005 (0.143) | 0.146 ± 0.011 (0.143) | 0.145 ± 0.000 (0.140) | 0.138 ± 0.005 (0.136) |
+| seeds above α, KLIFS | 0 / 3 | 0 / 3 | 0 / 3 | 0 / 3 |
+| faithfulness delta | +0.002 ± 0.004 | +0.001 ± 0.011 | −0.001 ± 0.002 | −0.002 ± 0.004 |
+| comprehensiveness (both arms) | 0.092 | 0.097 | 0.061 | 0.110 |
+
+**Accuracy.** DrugBAN is competitive at random (0.891) and below HyperAttentionDTI at
+every level; at cold-pair on unseen proteins it is near chance (0.559), and leakage had
+inflated its cold-target AUROC by 0.046, the most of any model (§1).
+
+**Plausibility: at chance against both ground truths, in every cell.** One seed-cell of
+twelve clears α against UniProt uncorrected (cold-pair seed 1), none against the KLIFS
+pocket, and none of its four cells approaches Holm (p = 0.21–0.67). It is the only
+subject without even §4's coarse signal: HyperAttentionDTI is above chance against the
+pocket in 9 of 12 seed-cells and ColdSite-DTI in 12 of 12, DrugBAN in 0 of 12.
+
+**The map moves with the drug — just not toward the site.** DrugBAN is the only subject
+whose top-10 residues genuinely change with the ligand (4.5 of 10 shared between drugs on
+the same protein, against 9.7 for HyperAttentionDTI and 10.0 for MolTrans; §7e). The
+architecture that most clearly passes §7e's structural check is the one whose map agrees
+least with where drugs bind: being a function of the drug is necessary for a per-pair
+explanation, and not sufficient.
+
+**The verdict is not a readout choice.** Its two heads have learned the same map (head max
+against mean: maps equal to 10⁻⁵), and taking the strongest atom instead of the sum
+leaves 9.9 of 10 top residues unchanged over 30 proteins
+(`src/evaluation/readout_variants.py`: `drugban_maxhead`, `drugban_maxatom`,
+`drugban_receptive`). Scored on the full ladders (`results/readouts_drugban_davis/`), the
+atom-max readout reproduces the default to the third decimal at every level against both
+ground truths. Spreading each convolution position over its receptive field — the one
+reduction that changes the map materially — leaves the pocket verdict unchanged (0.126–0.144
+against 0.136–0.143 chance; 2 of 12 seed-cells above α, uncorrected) and moves two
+UniProt cells slightly above chance (cold-target 0.027 and cold-pair 0.029 against 0.019,
+two seeds of three each, uncorrected). The cold-pair cell is the one to watch: its seeds
+read p = 0.001, 0.001 and 0.998 — §7f's seed-dependence again — and its median would be
+small enough to matter had this readout been in the pre-specified family; it is a
+sensitivity analysis and is not. So for DrugBAN the residue-level verdict at cold-pair is
+readout-dependent in two seeds of three, in the same way §7b found for the older models,
+while the pocket verdict is not: no readout we tried gives DrugBAN the coarse pocket signal
+the older models have.
+
+**Faithfulness: not load-bearing at k = 10.** The deltas are within ±0.002 of zero and
+change sign between seeds (6 of 12 positive). Masking ten residues also moves DrugBAN
+little in *either* arm (comprehensiveness 0.06–0.11, against 0.17–0.45 for
+HyperAttentionDTI), so the null could be a test too weak for this model rather than a
+property of its attention. The k = 50 sensitivity answers it (`results/faithfulness_k50_davis/`,
+same 200 pairs and five random trials): masking fifty residues moves DrugBAN two to three
+times as much (comprehensiveness 0.13–0.28), so the test now has the power it lacked, and
+the deltas stay at zero at three levels, changing sign between seeds (random +0.003 ± 0.011,
+cold-target +0.004 ± 0.008, cold-pair −0.007 ± 0.012). At cold-drug alone the attended
+residues matter slightly more than random ones in all three seeds (+0.024 ± 0.010, about a
+tenth of the comprehensiveness). DrugBAN's attention is therefore not load-bearing at
+three of four levels at either k, and weakly load-bearing on unseen drugs at k = 50 only.
+
+**What DrugBAN adds.** The audit's verdict was not an artefact of older architectures. The
+2023 model, with the strongest structural case for a per-pair explanation of the four,
+has the weakest agreement with binding sites of the four, at every level of shift.
 
 ---
 

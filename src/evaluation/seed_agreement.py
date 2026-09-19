@@ -81,6 +81,8 @@ def default_sources(davis_dir: str, kiba_dir: str) -> dict:
         ("ColdSite-DTI", "davis"): f"{davis_dir}/ladder_davis_seed*.json",
         ("HyperAttentionDTI", "davis"): f"{davis_dir}/ladder_hyperattentiondti_davis_seed*.json",
         ("MolTrans", "davis"): f"{davis_dir}/ladder_moltrans_davis_seed*.json",
+        ("DrugBAN", "davis"): f"{davis_dir}/ladder_drugban_davis_seed*.json",
+        ("ColdSite-DTI", "kiba"): f"{kiba_dir}/ladder_kiba_seed*.json",
         ("HyperAttentionDTI", "kiba"): f"{kiba_dir}/ladder_hyperattentiondti_kiba_seed*.json",
         ("MolTrans", "kiba"): f"{kiba_dir}/ladder_moltrans_kiba_seed*.json",
     }

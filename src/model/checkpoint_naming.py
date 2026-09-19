@@ -104,6 +104,9 @@ MODEL_SUFFIX = {
     "hyperattentiondti_maxchannel": "_hyperattentiondti",
     "hyperattentiondti_receptive": "_hyperattentiondti",
     "moltrans_maxhead": "_moltrans",
+    "drugban_maxhead": "_drugban",
+    "drugban_maxatom": "_drugban",
+    "drugban_receptive": "_drugban",
     "moltrans_firstlayer": "_moltrans",
 }
 
@@ -119,6 +122,9 @@ VARIANT_BASE = {
     "hyperattentiondti_receptive": "hyperattentiondti",
     "moltrans_maxhead": "moltrans",
     "moltrans_firstlayer": "moltrans",
+    "drugban_maxhead": "drugban",
+    "drugban_maxatom": "drugban",
+    "drugban_receptive": "drugban",
 }
 IG_SUFFIX = "_ig"
 

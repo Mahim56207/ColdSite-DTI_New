@@ -10,6 +10,12 @@ single-seed report would have quoted.
 | ColdSite-DTI | DAVIS | cold-pair | 0.018 | 0.013 | 0.008 | 0.019 | 0.010 | `...` |
 | ColdSite-DTI | DAVIS | cold-target | 0.015 | 0.019 | 0.018 | 0.019 | 0.004 | `...` |
 | ColdSite-DTI | DAVIS | warm | 0.023 | 0.009 | 0.013 | 0.020 | 0.013 | `...` |
+| ColdSite-DTI | KIBA | cold-drug | 0.025 | 0.020 | 0.015 | 0.023 | 0.009 | `...` |
+| ColdSite-DTI | KIBA | warm | 0.018 | 0.011 | 0.026 | 0.023 | 0.015 | `...` |
+| DrugBAN | DAVIS | cold-drug | 0.022 | 0.021 | 0.021 | 0.020 | 0.001 | `...` |
+| DrugBAN | DAVIS | cold-pair | 0.036 | 0.022 | 0.024 | 0.019 | 0.014 | `*..` |
+| DrugBAN | DAVIS | cold-target | 0.018 | 0.028 | 0.022 | 0.019 | 0.010 | `...` |
+| DrugBAN | DAVIS | warm | 0.019 | 0.015 | 0.019 | 0.020 | 0.005 | `...` |
 | HyperAttentionDTI | DAVIS | cold-drug | 0.025 | 0.077 | 0.019 | 0.020 | 0.057 | `**.` |
 | HyperAttentionDTI | DAVIS | cold-pair | 0.013 | 0.022 | 0.032 | 0.019 | 0.019 | `..*` |
 | HyperAttentionDTI | DAVIS | cold-target | 0.018 | 0.031 | 0.025 | 0.019 | 0.013 | `.*.` |
@@ -25,4 +31,4 @@ single-seed report would have quoted.
 
 `*` = that seed alone clears alpha; `.` = it does not.
 
-**11 of 16 cells have seeds that disagree** about their own verdict. In **15 of 16** the spread across seeds is larger than the cell's distance from chance. **1** cell has all three seeds above alpha; **4** have none.
+**12 of 22 cells have seeds that disagree** about their own verdict. In **21 of 22** the spread across seeds is larger than the cell's distance from chance. **1** cell has all three seeds above alpha; **9** have none.

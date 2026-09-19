@@ -1,7 +1,8 @@
 # Discussion (draft)
 
 Drafted 2026-09-13, rewritten 2026-09-14 once the DAVIS audit was complete (three models,
-four levels, three seeds, Holm over all sixteen cells). Every number here is in
+four levels, three seeds, Holm over sixteen cells; twenty since DrugBAN was added on
+2026-09-19). Every number here is in
 `paper/results.md` with its source file; nothing states a result for a model whose numbers
 are not there. Extended 2026-09-16 with §5b, the KIBA replication (Results §8), and 2026-09-18 with its
 integrated-gradient arm (Results §8.4); no *[PENDING]* marks remain. Limitations are in `paper/limitations.md`.
@@ -10,10 +11,10 @@ integrated-gradient arm (Results §8.4); no *[PENDING]* marks remain. Limitation
 
 ## 1. What the audit found
 
-Of sixteen cells — three attention-based models and a uniform-attention control, at four
+Of twenty cells — four attention-based models and a uniform-attention control, at four
 levels of distribution shift — **one supports the residue-level claim after correction**:
 HyperAttentionDTI on the random split, at 1.7× chance (precision@10 0.034 against 0.020,
-p = 0.0020 against a Holm threshold of 0.0031). It beats the nulls that could explain it
+p = 0.0020 against a Holm threshold of 0.0025). It beats the nulls that could explain it
 away: a map borrowed from another protein and attention permuted among residues of the same
 amino acid in every seed (both 0.021, p = 0.001), and attention permuted within the
 site-spanning stretch in two seeds of three. On the split that published work reports, for
@@ -147,7 +148,7 @@ per level.
 
 The fine-grained signal is what degrades. HyperAttentionDTI's residue-level agreement goes
 1.7× chance → 1.26× → 1.18× from random to cold-target to cold-pair, crossing from
-"survives Holm over sixteen cells" to "not distinguishable from chance". Faithfulness
+"survives Holm over twenty cells" to "not distinguishable from chance". Faithfulness
 degrades the same way without vanishing: its margin over random masking falls from
 0.184 ± 0.056 at random to 0.056 ± 0.008 at cold-pair. The attention is still load-bearing
 under shift; it is simply load-bearing for something that no longer coincides with the
@@ -157,11 +158,11 @@ The coarse signal is more robust — pocket-level agreement stays at 1.3–1.4×
 the cold levels for HyperAttentionDTI and ~2× for ColdSite-DTI — which is consistent with
 the region, not the site, being what these models learned.
 
-**And for two of the three models the degradation is a reporting failure, not an ignorance
+**And for two of the three models with a gradient arm the degradation is a reporting failure, not an ignorance
 failure.** Integrated gradients on the same checkpoints — same ground truth, same protein
 sets, same test, only the explanation changed — survive Holm in **seven of twelve DAVIS cells,
-against one of sixteen for the attention**, and in **three of four KIBA cells against none
-of six** — the one comparison in this paper that replicates in the direction that rescues
+against one of twenty for the attention**, and in **three of four KIBA cells against none
+of eight** — the one comparison in this paper that replicates in the direction that rescues
 the models rather than indicting them. HyperAttentionDTI's gradient is at 2.7–4.1×
 chance at *all four* levels, including the cold ones where its attention is at 1.2–1.3× and
 fails correction; ColdSite-DTI's is at 2.3–2.7× at cold-drug and cold-target, where its
@@ -225,11 +226,12 @@ three did not exist in our plan until a number forced them.
 *See **Figure 2** (`results/figures/fig2_seeds.pdf`): each cell as three seed dots against
 its chance level, which is the evidence for the seed-dependence argument below.*
 
-The audit's one positive residue-level result was a single cell of sixteen, so the
-replication was aimed at it. KIBA repeats the two published models at random and cold-drug,
-three seeds, with every DAVIS decision unchanged and nothing tuned on KIBA (Results §8).
+The audit's one positive residue-level result was a single cell of twenty, so the
+replication was aimed at it. KIBA repeats the two older published models at random and cold-drug,
+three seeds, with every DAVIS decision unchanged and nothing tuned on KIBA (Results §8);
+ColdSite-DTI was added to it afterwards, and DrugBAN was not trained on it.
 
-**The surviving cell does not replicate.** None of KIBA's six cells survives Holm, and
+**The surviving cell does not replicate.** None of KIBA's eight cells survives Holm, and
 HyperAttentionDTI at random — DAVIS's one survivor — reads p = 0.48 across seeds, with one
 seed of three above chance (0.053, 2.3× chance and beating every null) and two at chance.
 The honest reading is not "the effect is absent on KIBA" but something more uncomfortable
@@ -288,21 +290,26 @@ benchmarks whose held-out drug set is large enough to support a cold-drug claim.
 
 ## 7. Conclusion
 
-We audited three attention-based DTI models under four levels of distribution shift, with
+We audited four attention-based DTI models, from 2021 to 2023, under four levels of
+distribution shift, with
 one multiplicity correction across the whole family, three ground truths at different
 resolutions, a positive control for the metric, and nulls for position, amino-acid
 preference and drug identity.
 
-One of sixteen cells supports the residue-level interpretability claim: the
+One of twenty cells supports the residue-level interpretability claim: the
 best-generalising model, on the random split, at 1.7× chance. On a second dataset that cell
 does not replicate — it is above chance in one training seed of three — so the claim
 survives nowhere that a replication confirms. Under distribution shift no model's attention
 marks annotated residues better than chance, none distinguishes the
 drug's own crystallographic contacts from another drug's in the same pocket, and one
 model's attention is indistinguishable from a uniform map everywhere on DAVIS and in two of
-three KIBA seeds. What survives at every level, on both datasets, is coarser: attention
-that is load-bearing, and that concentrates on the right region — including on a cold-drug
-level with 422 held-out drugs.
+three KIBA seeds. What survives for the three older models, on both datasets, is coarser:
+attention that is load-bearing, and — for HyperAttentionDTI robustly, for the others in
+some seeds — concentrates on the right region, including on a cold-drug level with 422
+held-out drugs. The newest model reverses the pattern: DrugBAN's map is the only one that
+moves with the drug, and it moves to residues no closer to the binding site than chance, at
+every level — being conditioned on the drug is necessary for a per-pair explanation and
+not sufficient.
 
 The measurement lessons may outlast the verdict. The residues an attention map highlights
 depend mostly on an unreported reduction choice; a masking-based faithfulness test can
@@ -316,17 +323,17 @@ attention out.
 
 A fourth lesson came from the replication itself, and it is the one we would most like the
 field to take up: **an interpretability verdict of this size is seed-dependent**. Counted
-over every cell rather than anecdotally (Results §7f, Table R12), the three seeds disagree
-about their own verdict in **11 of 16 cells**, and in **15 of 16 the spread across seeds is
+over every cell rather than anecdotally (Results §7f, Table R10), the three seeds disagree
+about their own verdict in **12 of 22 cells**, and in **21 of 22 the spread across seeds is
 larger than the cell's distance from chance**. A paper reporting one training run would
-therefore have had an above-chance result available in eleven of these sixteen cells —
+therefore have had an above-chance result available in twelve of these twenty-two cells —
 including cells this audit reports as null, and including the model whose attention is
 otherwise indistinguishable from a uniform map. A single-seed attention figure, which is
 what published work almost always shows, cannot establish or refute the claim it
 illustrates. Report every seed, or report none.
 
 There is a reassurance inside that number, and it belongs to the method rather than to the
-models. Exactly one cell of the sixteen has all three seeds above α on their own, and it is
+models. Exactly one cell of the twenty-two has all three seeds above α on their own, and it is
 the same cell — HyperAttentionDTI at DAVIS random — that survives Holm correction over the
 whole family. Agreement among replicate runs and family-wise error control were computed
 independently and select the same cell, so the correction is not discarding real effects:

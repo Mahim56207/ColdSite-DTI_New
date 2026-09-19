@@ -287,7 +287,8 @@ proteins — too few to carry a claim, and already covered by the panel.
 | DeepDTA (2018) | accuracy anchor | none; never audited |
 | ColdSite-DTI (this work) | subject | single-query cross-attention (`methods_track_b.md` §1) |
 | HyperAttentionDTI (2022) | subject | attention over convolution positions, projected to residues |
-| MolTrans (2021) | subject | attention over ESPF subword tokens, projected to residues |
+| MolTrans (2021) | subject | protein-encoder self-attention over ESPF subword tokens, projected to residues (drug-independent by construction; Results §7e) |
+| DrugBAN (2023) | subject | bilinear attention (drug atom × protein position), softmax per head as in its code, summed over atoms, mean over heads, projected from convolution positions to residues |
 
 DeepDTA has no attention and is not given one: a saliency map computed for it would put
 a different method's output in a table read as DeepDTA's. It is present so a reader can
@@ -327,6 +328,20 @@ licence, access date and a re-check recipe, is `results/evidti_code_audit.md`.
   (`_fit_batch_size`). And its interaction map calls dropout without the training flag,
   so dropout stays on at inference and test predictions carry that noise, as in the
   published model.
+- **DrugBAN**: Adam, learning rate 5×10⁻⁵, batch 64, up to 100 epochs, its architecture
+  from its own `configs.py` unmodified (`src/model/train_drugban.py`, vendored repository
+  under `baselines/DrugBAN/` with `PROVENANCE.md`). Domain adaptation is off, the authors'
+  setting for in-domain evaluation. Two changes align it with the audit's other cells: the
+  checkpoint is selected by validation loss with the shared patience and floor, instead of
+  their fixed 100 epochs with the best-validation-AUROC epoch kept; and the decoder emits
+  one logit (`DECODER.BINARY = 1`) trained with `BCEWithLogitsLoss`, instead of
+  cross-entropy over a two-way head, so that faithfulness and AUROC read the same
+  quantity. Drugs are DGL graphs padded to
+  290 nodes and proteins integer-encoded to 1,200 positions, as in their data loader;
+  full precision; 12 DAVIS cells on two T4 GPUs
+  (`notebooks/kaggle_drugban_davis.ipynb`). Its vendored `models.py` shares a module name
+  with MolTrans's, so the adapter loads DrugBAN's modules in isolation
+  (`tests/test_drugban_import_isolation.py`).
 
 All four share one checkpoint-selection rule (`src/model/early_stopping.py`): up to 100
 epochs; the checkpoint is the lowest validation loss **among epochs ≥ 10**; early
@@ -403,11 +418,13 @@ A cell's p-value is the median over its seeds, not the smallest.
 **Multiple comparisons.** Holm–Bonferroni is applied once, over the whole audit family
 (every model × dataset × level), after every cell's raw p-value has been collected.
 Correcting within each model and pooling would define the family after seeing the
-results. Each dataset's arm is its own family, sized by the cells that arm measures: **16
-on DAVIS** (three audited models and the uniform control × four levels) and **6 on KIBA**
-(two audited models and the uniform control × two levels, §11). The control is scored only
+results. Each dataset's arm is its own family, sized by the cells that arm measures: **20
+on DAVIS** (four audited models and the uniform control × four levels; 16 before DrugBAN
+was added on 2026-09-19, and those sixteen p-values are unchanged in the larger run) and
+**8 on KIBA** (three audited models and the uniform control × two levels, §11; 6 before
+ColdSite-DTI's KIBA cells were added the same day). The control is scored only
 at levels the arm trains, so an untrained level cannot enlarge a family and make every
-threshold stricter than the design specifies. DAVIS's sixteen attention cells and the
+threshold stricter than the design specifies. DAVIS's twenty attention cells and the
 twelve integrated-gradient cells of Results §7c are separate families, and no claim
 compares a corrected p from one with a corrected p from another.
 
@@ -493,8 +510,10 @@ seeds, the same nulls and the same positive control — and nothing in it was tu
 (HyperAttentionDTI, MolTrans) and the DeepDTA accuracy anchor: 18 cells. Cold-drug is the
 level KIBA can support and DAVIS cannot (422 held-out drugs against 13); cold-target and
 cold-pair are weaker on KIBA than on DAVIS (45 held-out targets against 88) and are not
-trained. ColdSite-DTI is not included, so our own model is audited on one dataset and the
-published ones on two. The explanation-side analyses of Results §7–§7c (readout variants,
+trained. ColdSite-DTI's six cells at the same two levels were added on 2026-09-19, trained
+with its DAVIS recipe in full precision (`notebooks/kaggle_coldsite_kiba.ipynb`), after the
+other 18 had been analysed; they are reported as an addition to the pre-specified scope
+(24 cells, Holm family of 8). DrugBAN is DAVIS-only. The explanation-side analyses of Results §7–§7c (readout variants,
 per-pair drug contacts) are DAVIS-only. Integrated gradients run on both: KIBA uses the
 identical implementation and settings (32 steps, the padding-embedding baseline), over the
 two audited models at both trained levels, three seeds each.

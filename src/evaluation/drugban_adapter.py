@@ -59,10 +59,43 @@ DRUGBAN_MAX_PROTEIN_LEN = 1200
 DRUGBAN_MAX_DRUG_NODES = 290
 
 
+# DrugBAN's repo and MolTrans's both have a top-level `models.py`, and DrugBAN's `utils.py`
+# and `configs.py` are equally generic names. `from models import DrugBAN` in a process that
+# has already imported MolTrans's adapter returns MolTrans's cached `models` module, which
+# is exactly how the first DAVIS audit with both models failed (2026-09-19). These modules
+# are therefore loaded from DrugBAN's directory with whatever another repo cached set
+# aside, kept under private names, and the other repo's modules and sys.path are put back
+# exactly as they were -- so the next MolTrans import still gets MolTrans's files.
+_DRUGBAN_OWN_MODULES = ("models", "utils", "configs", "ban", "dataloader")
+
+
+def _drugban_import(name: str):
+    import importlib
+    import sys
+
+    private = f"_drugban_vendored_{name}"
+    if private in sys.modules:
+        return sys.modules[private]
+    saved_path = list(sys.path)          # before _vendored puts DrugBAN's folder first
+    path = _vendored("DrugBAN", DrugBANAdapter.clone_hint)
+    set_aside = {m: sys.modules.pop(m) for m in _DRUGBAN_OWN_MODULES if m in sys.modules}
+    sys.path[:] = [path] + [p for p in saved_path if p != path]
+    try:
+        module = importlib.import_module(name)
+    finally:
+        for m in _DRUGBAN_OWN_MODULES:
+            loaded = sys.modules.pop(m, None)
+            if loaded is not None and os.path.dirname(
+                    os.path.abspath(getattr(loaded, "__file__", "") or "")) == path:
+                sys.modules.setdefault(f"_drugban_vendored_{m}", loaded)
+        sys.modules.update(set_aside)
+        sys.path[:] = saved_path
+    return module
+
+
 def _config():
     """Their default config object, so the architecture is theirs, not ours."""
-    _vendored("DrugBAN", DrugBANAdapter.clone_hint)
-    from configs import get_cfg_defaults  # noqa: E402
+    get_cfg_defaults = _drugban_import("configs").get_cfg_defaults
 
     cfg = get_cfg_defaults()
     cfg.DECODER.BINARY = 1
@@ -84,8 +117,7 @@ class DrugBANAdapter(ExplainableDTIModel):
                  projection_mode: str = "centre"):
         import torch
 
-        _vendored("DrugBAN", self.clone_hint)
-        from models import DrugBAN  # noqa: E402
+        DrugBAN = _drugban_import("models").DrugBAN
 
         self.device = device
         self.checkpoint_path = checkpoint_path
@@ -116,8 +148,7 @@ class DrugBANAdapter(ExplainableDTIModel):
         import torch
         from dgllife.utils import CanonicalAtomFeaturizer, smiles_to_bigraph
 
-        _vendored("DrugBAN", DrugBANAdapter.clone_hint)
-        from utils import integer_label_protein  # noqa: E402
+        integer_label_protein = _drugban_import("utils").integer_label_protein
 
         graph = smiles_to_bigraph(smiles=smiles, node_featurizer=CanonicalAtomFeaturizer(),
                                   add_self_loop=True)

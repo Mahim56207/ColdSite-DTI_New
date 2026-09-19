@@ -204,6 +204,8 @@ if RESTORE_FROM:
         name = os.path.basename(src)
         if not name.endswith(('.pt', '_results.json', '_history.json')):
             continue
+        if not (name.startswith(f'{DATASET}_') or f'_{DATASET}_' in name):
+            continue          # the repo clone in a previous output holds DAVIS files too
         dst = os.path.join(RESULTS, name)
         if os.path.exists(dst):
             skipped += 1

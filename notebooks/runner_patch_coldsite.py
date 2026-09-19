@@ -71,4 +71,26 @@ for gpu, cells in sorted(ORDERED.items()):
 print(f'{hours_left():.1f} h left before the self-stop')
 '''
 
+# The 11-hour stop must reach the trainer, not only run_grid. run_grid runs train.py as a
+# child process; terminating run_grid alone left that child training and holding the log
+# pipe open, so the runner never returned and Kaggle killed the commit at 12 h before the
+# zip cell could run (ColdSite KIBA version 1, 2026-09-19). Each cell now gets its own
+# process group, and the stop signals the whole group.
+OLD_POPEN = """proc = subprocess.Popen(cmd, env=env, stdout=subprocess.PIPE,
+                                        stderr=subprocess.STDOUT, text=True, bufsize=1)"""
+NEW_POPEN = """proc = subprocess.Popen(cmd, env=env, stdout=subprocess.PIPE,
+                                        stderr=subprocess.STDOUT, text=True, bufsize=1,
+                                        start_new_session=True)   # its own process group"""
+OLD_STOP = """                if proc.poll() is None:
+                    proc.terminate()"""
+NEW_STOP = """                if proc.poll() is None:
+                    # the whole group: run_grid AND the train.py it started
+                    os.killpg(proc.pid, signal.SIGTERM)"""
+for old, new_ in ((OLD_POPEN, NEW_POPEN), (OLD_STOP, NEW_STOP)):
+    assert head.count(old) == 1, f'runner changed shape; cannot patch:\n{old}'
+    head = head.replace(old, new_)
+head = head.replace('import glob, json, os, re, subprocess, threading, time',
+                    'import glob, json, os, re, signal, subprocess, threading, time')
+assert 'signal, subprocess' in head
+
 RUNNER = head + TAIL

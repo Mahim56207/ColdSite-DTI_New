@@ -239,14 +239,19 @@ leaves the readout-dependence result (§7b) as the largest unreplicated claim �
 claim about the instrument, so a reader should ask whether it holds for KIBA's proteins
 before relying on its magnitude.
 
-**MolTrans's audited map is protein-only.** The MolTrans explanation scored throughout is
-its protein encoder's self-attention (Methods §5), computed before drug and protein meet in
-its interaction map; across 150 drug pairs on 25 proteins its top-10 residues never change
-with the drug (Results §7e). Its verdicts are therefore verdicts about a protein saliency
-map — the kind of map §7e criticises in EviDTI — and do not cover MolTrans's
-drug-conditioned interaction map, which we did not score. Whether that map is the one
-MolTrans's authors offered as interpretation should be checked against their paper before
-submission; if it is, it should be added as a readout variant.
+**MolTrans is scored through two readouts, and neither is privileged.** The explanation
+this audit reads by default is its protein encoder's self-attention, which is computed
+before drug and protein meet and never changes with the drug (Results §7e). Its paper's
+interpretation figure is instead a heat map of the drug × protein interaction map, so that
+map is scored too (`moltrans_interaction`, Results §7b, §8.1) and both are reported: on
+DAVIS and KIBA, against both ground truths, the published map is at chance in every cell,
+as the default readout is. The verdict does not depend on the choice. What the pair does
+show is that two defensible readouts of one checkpoint can highlight almost disjoint
+residues (1.1 of 10 shared between drugs for one, 10 of 10 for the other), which is §7b's
+finding rather than a limitation of this audit. Two gaps remain: faithfulness and the
+per-pair contact analysis were run for the default readout only, so "MolTrans's attention
+is load-bearing" (§5b, token space) is a statement about the encoder readout, not about the
+interaction map.
 
 **DrugBAN: one dataset, one readout family, and a faithfulness test of uncertain power.**
 DrugBAN (Results §9) was trained on DAVIS only, with domain adaptation off (its authors'

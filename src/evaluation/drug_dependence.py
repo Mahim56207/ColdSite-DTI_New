@@ -23,7 +23,7 @@ for _, r in proteins.iterrows():
     maps = []
     for smi in rng.choice(drugs, 4, replace=False):
         enc = type(m).encode(smi, r.Target)
-        if model == 'moltrans':
+        if model.startswith('moltrans'):
             d, dm, p, pm, t = enc; maps.append(top(m.explain(d, p, protein_tokens=t, drug_mask=dm, protein_mask=pm)))
         else:
             maps.append(top(m.explain(*enc)))

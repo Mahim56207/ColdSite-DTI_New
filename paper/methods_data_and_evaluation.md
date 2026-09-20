@@ -287,7 +287,7 @@ proteins — too few to carry a claim, and already covered by the panel.
 | DeepDTA (2018) | accuracy anchor | none; never audited |
 | ColdSite-DTI (this work) | subject | single-query cross-attention (`methods_track_b.md` §1) |
 | HyperAttentionDTI (2022) | subject | attention over convolution positions, projected to residues |
-| MolTrans (2021) | subject | protein-encoder self-attention over ESPF subword tokens, projected to residues (drug-independent by construction; Results §7e) |
+| MolTrans (2021) | subject | two readouts, both reported: protein-encoder self-attention over ESPF subword tokens, projected to residues (the default; drug-independent by construction, Results §7e), and the drug × protein interaction map its own paper visualises (`moltrans_interaction`, max over drug substructures, Results §7b) |
 | DrugBAN (2023) | subject | bilinear attention (drug atom × protein position), softmax per head as in its code, summed over atoms, mean over heads, projected from convolution positions to residues |
 
 DeepDTA has no attention and is not given one: a saliency map computed for it would put
@@ -401,6 +401,18 @@ proteins with usable sites: 402 on DAVIS random and cold-drug, 79 on cold-target
 cold-pair (KIBA 211, 212, 42, 41).
 
 ## 7. Significance and aggregation
+
+**MolTrans's two readouts.** Its paper's interpretability figure is a heat map of the
+interaction map `i = d_aug * p_aug` summed to drug × protein and fed to its CNN, so that
+map is scored alongside the protein encoder's self-attention the adapter reads by default.
+It is rebuilt exactly as `BIN_Interaction_Flat.forward` builds it, including the
+`view(B, -1, max_d, max_p)` whose sum mixes hidden-axis elements — the published
+computation, not a corrected one — with its inference-time dropout omitted so the
+explanation is the same on every call. Real tokens only on both axes; the drug axis is
+reduced by max (`sum` is registered as the alternative); the result is shifted so its
+minimum is zero, since the map is a product of embeddings and can be negative while every
+metric here reads only the ranking. Faithfulness and the per-pair contact analysis use the
+default readout.
 
 **Split-level permutation test** (`src/evaluation/significance_test.py`). The null draws
 *k* uniformly random positions for every protein in the split and takes the mean,

@@ -303,8 +303,9 @@ HyperAttentionDTI cold-drug (p = 0.050 vs 0.0031, on a seed spread of ±0.031).
 HyperAttentionDTI's cold-target (p = 0.11) and cold-pair (p = 0.30) are not close,
 ColdSite-DTI survives nowhere, and DrugBAN's four cells are at p = 0.21–0.67 (§9).
 
-**MolTrans is at the metric's floor everywhere.** Its four cells (0.020–0.028) sit within
-one standard deviation of the uniform control's (0.017–0.020) — an attention map of equal
+**MolTrans is at the metric's floor everywhere, under either of its two readouts.** Its
+four cells (0.020–0.028) sit within one standard deviation of the uniform control's
+(0.017–0.020), and its paper's own interaction map (§7b) is no better (0.017–0.023) — an attention map of equal
 weight everywhere scores the same as its trained attention. Its best cell, cold-target
 0.028 ± 0.016, is also where its accuracy is 0.833 unseen (Table R1b); at cold-pair,
 where it predicts at chance (0.530), its attention scores 0.020 against a 0.017 floor.
@@ -578,9 +579,10 @@ annotated residues and 0.143 against the KLIFS pocket.
 | HyperAttentionDTI | channel mean, centre *(published)* | 0.034 / 0.025 | 0.242 / 0.186 |
 | | **channel max** | 0.038 / 0.034 | **0.335 / 0.367** |
 | | **receptive-field spread** | 0.027 / 0.012 | **0.157 / 0.081** |
-| MolTrans | head mean, last layer *(published)* | 0.021 / 0.026 | 0.157 / 0.176 |
+| MolTrans | head mean, last layer *(audited by default)* | 0.021 / 0.026 | 0.157 / 0.176 |
 | | head max | 0.021 / 0.029 | 0.155 / 0.177 |
 | | first layer | 0.023 / 0.023 | 0.173 / 0.189 |
+| | **interaction map** *(published, its Fig. 3)* | 0.023 / 0.021 | 0.138 / 0.144 |
 
 Three findings, in order of how much they should worry a reader of the literature.
 
@@ -597,6 +599,18 @@ pocket reads 0.367 at cold-target under channel-max (2.6× chance) and **0.081**
 receptive-field projection (*below* the 0.143 chance level), against 0.186 as published.
 The claim "this model's attention finds the ATP pocket under distribution shift" is true,
 false, or unsupported depending on a choice no paper reports.
+
+**MolTrans's own published artefact is the weakest of its readouts.** Its paper's
+interpretation figure is a heat map of the drug × protein *interaction map*, not of the
+protein encoder's self-attention the audit reads by default — "we can later visualize the
+strength of individual sub-structural interaction pair from the interaction map". Scored
+as `moltrans_interaction` (the map rebuilt as its forward pass builds it, reduced over drug
+substructures by max, `results/readouts_moltrans_interaction/`), it is at chance in every
+cell of both datasets and both ground truths: DAVIS 0.017–0.023 against 0.019–0.020
+(UniProt) and 0.128–0.154 against 0.136–0.143 (pocket); KIBA 0.020–0.022 against 0.023 and
+0.146–0.157 against 0.151. Two of twenty-four seed-cells clear α uncorrected. So MolTrans's
+verdict does not depend on which of its two maps is scored — the published one is, if
+anything, slightly weaker — and the audit reports both rather than choosing.
 
 **But the audit's own verdicts survive.** Every readout of every model stays at chance
 against UniProt's annotated residues (0.010–0.057 against 0.020, all within the seed
@@ -821,19 +835,30 @@ compared between every pair of drugs on the same protein (150 pairs; random spli
 
 | model | top-10 overlap between drugs | identical top-10 |
 |---|---|---|
-| DrugBAN | 4.5 / 10 | 0% of pairs |
+| MolTrans, interaction map *(its published artefact)* | **1.1 / 10** | 0% of pairs |
+| DrugBAN | 4.5 / 10 | 0% |
 | HyperAttentionDTI | 9.7 / 10 | 72% |
-| MolTrans (as audited) | 10.0 / 10 | 100% |
+| MolTrans, encoder self-attention *(audited by default)* | 10.0 / 10 | 100% |
 
-**The check applies to this audit too, and MolTrans fails it as we read it.** Its audited
-explanation is the protein encoder's self-attention (Methods §5), which is computed before
-the drug and protein meet in the interaction map, so like EviDTI's it is a function of the
-protein alone — by construction, and the measurement confirms it. MolTrans's verdicts in
-§5, §5b and §8 are therefore verdicts about a protein saliency map, and are stated as such;
-its drug-conditioned object, the interaction map, is not scored here. HyperAttentionDTI's
-attention is drug-conditioned by construction and nearly drug-independent in practice —
-ColdSite-DTI's case again. DrugBAN's is the only map in the audit that genuinely moves
-with the drug, and §9 shows where it moves to.
+**The check applies to this audit too, and it changed what we scored.** MolTrans's
+default audited explanation is the protein encoder's self-attention (Methods §5), computed
+before the drug and protein meet, so like EviDTI's it is a function of the protein alone —
+by construction, and the measurement confirms it exactly (10.0/10). That is *not* the
+artefact its paper offers: MolTrans visualises the drug × protein interaction map, which
+the same check ranks as the most drug-dependent explanation in the audit (1.1/10 — two
+drugs on one protein share barely one of ten residues). Both are therefore scored and both
+are reported (§7b, §8.1): the published map is at chance in every cell of both datasets, so
+MolTrans's verdict holds whichever map is read, and the two readouts of one checkpoint
+disagree about almost every residue they highlight. HyperAttentionDTI's attention is
+drug-conditioned by construction and nearly drug-independent in practice — ColdSite-DTI's
+case again. DrugBAN's moves with the drug and moves nowhere near the site (§9).
+
+Read together with §9, the ordering is the paper's sharpest single result about
+architecture: the two explanations that vary most with the drug (MolTrans's interaction
+map at 1.1/10, DrugBAN's at 4.5/10) are the two that agree *least* with where drugs
+actually bind, while the map that never varies at all (MolTrans's encoder attention) scores
+no worse. Conditioning an explanation on the drug is necessary for a per-pair claim and
+buys nothing by itself.
 
 ## 7f. What would a single-seed paper have concluded?
 
@@ -983,6 +1008,12 @@ positional and residue-identity null in
 and same-residue nulls (§5). Across the two
 datasets, therefore, no residue-level attention claim of either published model survives
 correction, and the one that survived on one dataset is seed-dependent on the other.
+
+**MolTrans's published readout on KIBA.** Its interaction map (§7b) is at chance at both
+levels and in all three seeds — 0.022 ± 0.003 (random) and 0.020 ± 0.002 (cold-drug)
+against 0.023, and 0.146–0.157 against the pocket's 0.151 — so the seed-2 effect below
+belongs to the encoder readout and does not appear in the artefact MolTrans's paper shows
+(`results/readouts_moltrans_interaction/kiba/`).
 
 *The audit and the ladder differ by 0.001–0.002 per seed for HyperAttentionDTI (0.018 /
 0.023 / 0.055 against 0.017 / 0.023 / 0.053): the audit averages 500 random tie-breaks

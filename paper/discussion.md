@@ -115,6 +115,16 @@ annotated residues (0.010–0.057 against 0.020, all inside the seed spread bar 
 and none lifts MolTrans above the pocket's chance level (0.120–0.189 against 0.143). What
 the choice changes is the size of the coarse signal, not the existence of the fine one.
 
+The same check caught an error of ours before a reviewer could. The MolTrans explanation we
+scored by default is its protein encoder's self-attention; the artefact its paper
+visualises is the drug × protein interaction map. We therefore scored that too. It is at
+chance in every cell of both datasets and both ground truths, so the verdict is unchanged —
+but the two readouts of one checkpoint are as unlike each other as any pair in the study:
+one never changes with the drug (10 of 10 top residues shared between drugs), the other
+almost always does (1.1 of 10). An audit of published claims has to score the published
+artefact, and establishing which artefact that is belongs in the protocol, not in the
+discussion of results.
+
 **An explanation can be incapable of the claim made for it, and the source says so.**
 A 2025 *Nature Communications* model (EviDTI) presents per-residue attention for four
 drug–target complexes and concludes that high-attention residues coincide with the binding

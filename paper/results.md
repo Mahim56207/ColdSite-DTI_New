@@ -1271,6 +1271,20 @@ residues matter slightly more than random ones in all three seeds (+0.024 ± 0.0
 tenth of the comprehensiveness). DrugBAN's attention is therefore not load-bearing at
 three of four levels at either k, and weakly load-bearing on unseen drugs at k = 50 only.
 
+**Controls.** Its non-kinase transfer panel reads 0.010–0.012 against its own kinase cells'
+0.018–0.027 at every level and in every seed — no transfer off kinases, as for every other
+model (`control_drugban_davis_seed*_noions.md`). DrugBAN is scored on **59 of the panel's 60
+proteins**: one BindingDB ligand has 322 atoms and its authors' own data loader caps a drug
+at `DRUG.MAX_NODES = 290`, so that row is dropped and reported rather than silently scored
+(`src/evaluation/collect.py`; the same guard fails a cell that would lose more than 1% of
+its rows). Its positional nulls (`positional_control_drugban_davis{,_klifs}_policyA.md`)
+say the one interesting thing the means hide: DrugBAN's single above-chance seed-cell —
+cold-pair, seed 1, 0.036 — beats all four nulls (borrowed map absolute and relative,
+same-residue shuffle, within-span shuffle; p = 0.002–0.015), while seeds 2 and 3 of the
+same cell beat none. The audit's seed-dependence finding (§7f) therefore reaches even the
+model that is otherwise at chance everywhere: one training run of three would have
+supported a claim that the other two refuse.
+
 **What DrugBAN adds.** The audit's verdict was not an artefact of older architectures. The
 2023 model, with the strongest structural case for a per-pair explanation of the four,
 has the weakest agreement with binding sites of the four, at every level of shift.
@@ -1285,10 +1299,10 @@ captions and sources in `results/figures/CAPTIONS.md`. Rebuild after any re-anal
 | # | file | shows | cited in |
 |---|---|---|---|
 | 0 | `fig0_design` | the audit's design: datasets, splits, models, the three readings of the explanation, both measurement axes, and the correction | Methods §1, Introduction ¶5 |
-| 1 | `fig1_plausibility` | precision@10 for every model × level × dataset against UniProt residues and the KLIFS pocket, seeds as dots, per-level chance | §4, §5, §8.1, §8.2 |
-| 2 | `fig2_seeds` | every UniProt cell as three seed dots against chance — the seed-dependence finding | §5, §8.1, Discussion §5b |
-| 3 | `fig3_attention_vs_ig` | attention against integrated gradients on identical checkpoints, both datasets, both ground truths | §7c, §8.4 |
-| 4 | `fig4_faithfulness` | comprehensiveness delta over a size-matched control; MolTrans's token-space panel kept separate | §5b, §8.3 |
+| 1 | `fig1_plausibility` | precision@10 for every model × level × dataset against UniProt residues and the KLIFS pocket, seeds as dots, per-level chance (four models on DAVIS, three on KIBA) | §4, §5, §8.1, §8.2, §9 |
+| 2 | `fig2_seeds` | all 22 three-seed UniProt cells as seed dots against chance — Table R10 as a picture | §5, §7f, §8.1, Discussion §5b |
+| 3 | `fig3_attention_vs_ig` | attention against integrated gradients on identical checkpoints, both datasets, both ground truths (the three models with an IG arm; DrugBAN has none) | §7c, §8.4 |
+| 4 | `fig4_faithfulness` | comprehensiveness delta over a size-matched control at k = 10; DrugBAN's bars flat at this scale; MolTrans's token-space panel kept separate | §5b, §8.3, §9 |
 
 **Figure 1 is the one to keep** if the venue limits the count: it carries the headline on
 its own. Figure 2 can fold into its caption, and Figures 3 and 4 into supplementary.

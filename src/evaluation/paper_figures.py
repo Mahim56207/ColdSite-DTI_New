@@ -34,12 +34,16 @@ import numpy as np
 LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
 LEVEL_LABEL = {"random": "warm", "cold_drug": "cold-drug",
                "cold_target": "cold-target", "cold_pair": "cold-pair"}
-MODELS = ("coldsite_dti", "hyperattentiondti", "moltrans")
+MODELS = ("coldsite_dti", "hyperattentiondti", "moltrans", "drugban")
+# Integrated gradients exist for the three 2021-2022 models only; DrugBAN's drug side is a
+# graph and has no IG adapter, so figure 3 keeps its own list rather than filtering MODELS
+# and silently leaving a gap where a reader would expect a bar.
+IG_MODELS = ("coldsite_dti", "hyperattentiondti", "moltrans")
 MODEL_LABEL = {"coldsite_dti": "ColdSite-DTI (ours)",
                "hyperattentiondti": "HyperAttentionDTI", "moltrans": "MolTrans",
-               "uniform_control": "uniform control"}
+               "drugban": "DrugBAN (2023)", "uniform_control": "uniform control"}
 COLOUR = {"coldsite_dti": "#4C72B0", "hyperattentiondti": "#C44E52",
-          "moltrans": "#55A868", "uniform_control": "#999999"}
+          "moltrans": "#55A868", "drugban": "#8172B2", "uniform_control": "#999999"}
 SEEDS = (1, 2, 3)
 
 
@@ -181,7 +185,7 @@ def figure_seeds(paths: dict, out_dir: str) -> str:
 
     rows, labels, chances = [], [], []
     for dataset, folder in (("DAVIS", paths["davis_uniprot"]), ("KIBA", paths["kiba_uniprot"])):
-        for model in ("hyperattentiondti", "moltrans"):
+        for model in MODELS:
             cells = read_ladder_cells(folder, model, dataset.lower())
             for level in LEVELS:
                 if level not in cells:
@@ -222,8 +226,8 @@ def figure_attention_vs_ig(ig_paths: dict, attn_paths: dict, out_dir: str) -> st
     """
     import matplotlib.pyplot as plt
 
-    rows = [("davis", "DAVIS", MODELS),
-            ("kiba", "KIBA", [m for m in MODELS if m != "coldsite_dti"])]
+    rows = [("davis", "DAVIS", IG_MODELS),
+            ("kiba", "KIBA", [m for m in IG_MODELS if m != "coldsite_dti"])]
     fig, axes = plt.subplots(2, 2, figsize=(7.4, 6.0))
     for row, (dataset, dataset_label, models) in enumerate(rows):
         for col, truth in enumerate(("uniprot", "klifs")):
@@ -276,10 +280,19 @@ def figure_faithfulness(paths: dict, out_dir: str) -> str:
 
     fig, axes = plt.subplots(1, 3, figsize=(7.6, 3.1))
     _panel(axes[0], {m: read_faithfulness(paths["davis_uniprot"], m, "davis")
-                     for m in ("coldsite_dti", "hyperattentiondti")},
+                     for m in ("coldsite_dti", "hyperattentiondti", "drugban")},
            "residues masked — DAVIS", "comprehensiveness delta")
-    _panel(axes[1], {"hyperattentiondti": read_faithfulness(paths["kiba_uniprot"],
-                                                            "hyperattentiondti", "kiba")},
+    # DrugBAN's deltas are ~0.002 beside ColdSite-DTI's ~1.2, so its bars are a flat line
+    # at this scale. Saying so is better than a legend entry a reader cannot find.
+    drugban = read_faithfulness(paths["davis_uniprot"], "drugban", "davis")
+    if drugban:
+        worst = max(abs(v) for cell in drugban.values() for v in cell["values"])
+        axes[0].annotate(f"DrugBAN: |delta| ≤ {worst:.3f} at every level —\nnot visible at "
+                         "this scale (Results §9)", xy=(0.975, 0.975),
+                         xycoords="axes fraction", fontsize=6, va="top", ha="right",
+                         color="#444444")
+    _panel(axes[1], {m: read_faithfulness(paths["kiba_uniprot"], m, "kiba")
+                     for m in ("coldsite_dti", "hyperattentiondti")},
            "residues masked — KIBA", "")
     token = {"davis": read_faithfulness(paths["davis_uniprot"], "moltrans", "davis",
                                         token=True),

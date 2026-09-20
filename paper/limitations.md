@@ -260,7 +260,9 @@ audited). Its explanation is its own bilinear map reduced to residues by our ada
 alternative reductions leave its top residues almost unchanged (§9), but a reduction its
 authors used in a figure and we did not try cannot be excluded; one of ours (the
 receptive-field projection) moves its cold-pair residue-level cell above chance in two
-seeds of three.
+seeds of three. Its non-kinase panel covers 59 of 60 proteins: one ligand exceeds the
+290-atom cap of DrugBAN's own data loader, and that row is dropped and reported rather than
+scored (Results §9).
 
 **"Load-bearing" is a statement at k = 10.** The faithfulness verdicts use the ten
 top-attended residues, fixed before any result. At k = 50 (Results §5, §9) HyperAttentionDTI's

@@ -12,7 +12,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
 | T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
-| T05 | Effect sizes & CIs | **PARTIAL** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table and original-verdict reproduction DONE; faithfulness-delta CIs need a ~3 h re-run of 15 (model, dataset, seed) files on the Mac — recorder written and verified on one real cell, run **awaiting the user's yes**; DrugBAN faithfulness cannot be re-run here (no DGL); 8 HyperAttentionDTI-IG cells have no per-protein scores |
+| T05 | Effect sizes & CIs | **PARTIAL** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) DONE; two declared gaps remain: DrugBAN faithfulness CIs (no DGL here) and 8 HyperAttentionDTI-IG cells (no per-protein scores); the re-run does not reproduce MolTrans's committed faithfulness means exactly (see "Faithfulness re-run" below) |
 | T06 | Conservation null + intermediate rung | PENDING | | |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
 | T08 | Explanation panel | PENDING | | |
@@ -665,3 +665,52 @@ The last line reads `results/effects_v2/faithfulness/`, writes `faithfulness_eff
 the committed file of the same name (`max_abs_diff_vs_committed`). `run_faithfulness` also writes an `accuracy_*.json` and a
 `.png` into that folder; both are harmless (the png is git-ignored).
 
+
+### Faithfulness re-run (2026-09-25, after the user's go-ahead)
+
+**Run:** the 15 (model, dataset, seed) files of "To finish T05", exactly as written above (CPU, `caffeinate -i`, `--max-pairs 200
+--record-pairs`), output `results/effects_v2/faithfulness/`. Driver and log were in the session scratchpad
+(`run15.sh`, `run15.log`), not the repo. 15 of 15 `rc=0`; started 02:03:10, ended 04:04:16 (**2 h 1 min**, against the 3–3.5 h estimate).
+KIBA HyperAttentionDTI seed 2 took 20 min 39 s (03:14:51–03:35:30) against ~5.5 min for seed 1 and ~3 min for seed 3; the cause was
+not investigated (nothing else was using the CPU; the process showed 258 % CPU with 6 min 43 s CPU time at 17 min wall). A first
+launch was killed after ~30 s and relaunched detached with the output folder cleared, so every file is from the second launch.
+Then `python3 -m src.evaluation.effects_v2 --out-dir results/effects_v2` → `faithfulness_effects.{csv,md}` (16 rows = 4 levels
+ColdSite-DTI, HyperAttentionDTI and MolTrans on DAVIS; 2 levels HyperAttentionDTI and MolTrans on KIBA).
+
+**Result (comprehensiveness delta over the random-masking control, mean over seeds by target, 95 % percentile CI, 10,000 resamples,
+`faithfulness_effects.csv`):** every one of the 16 intervals lies above 0 (`load_bearing_ci` True in all 16, and the sign test agrees).
+ColdSite-DTI DAVIS 1.210 [1.054, 1.378] random, 1.179 [1.054, 1.306] cold-drug, 0.516 [0.442, 0.599] cold-target, 0.661 [0.576, 0.756]
+cold-pair; HyperAttentionDTI DAVIS 0.189 [0.149, 0.233], 0.114 [0.087, 0.140], 0.065 [0.046, 0.084], 0.054 [0.036, 0.073], KIBA 0.135
+[0.105, 0.166], 0.087 [0.067, 0.110]; MolTrans DAVIS 0.461 [0.409, 0.516], 0.356 [0.316, 0.396], 0.336 [0.274, 0.410], 0.258 [0.212,
+0.307], KIBA 0.392 [0.347, 0.441], 0.302 [0.268, 0.339]. Targets resampled: 162 / 200 / 76 / 76 for ColdSite-DTI and HyperAttentionDTI DAVIS,
+114 / 112 for HyperAttentionDTI KIBA, 200 / 200 / 75 / 76 and 200 / 200 for MolTrans. Descriptive intervals, not tests.
+
+**Reproduction of the committed faithfulness files (`max_abs_diff_vs_committed`, worst seed):**
+| model, dataset | worst difference | reading |
+|---|---|---|
+| ColdSite-DTI, DAVIS (12 seed-levels) | **0.0** at all four levels | exact, as in the earlier one-cell probe |
+| HyperAttentionDTI, KIBA (6) | **0.0** | exact |
+| HyperAttentionDTI, DAVIS (12) | 1.2e-7 – 2.6e-3 | not bit-identical; cause not investigated |
+| MolTrans, DAVIS (12) | 1.2e-2 – 4.0e-2 | differs in both directions (per seed-level −0.040 to +0.018 against recorded deltas of 0.09–0.77) |
+| MolTrans, KIBA (6) | 1.9e-2 – 2.3e-2 | differs in both directions |
+
+Every re-run's own per-pair mean equals its own summary delta (`max_abs_diff_vs_summary` ≤ 2.2e-16 in all 16 rows), so the recorder is
+consistent; the difference is between the re-run and the committed file. **Verdicts:** the sign of the delta is the same as the committed
+file in all 48 seed-levels compared (0 changes). **Likely cause for MolTrans, not tested here:** the vendored model's functional
+dropout (`baselines/MolTrans/models.py:103`) is live at inference (T04 investigation), so each run is a different draw; that would
+explain differences that are small, signed both ways and confined to the one model with the quirk. It is not shown that this is the
+whole explanation, and the HyperAttentionDTI-DAVIS differences are unexplained. The intervals above are therefore for **this re-run's draw**;
+the committed means (`results/analysis_*_policyA/`) stay the primary record and were not changed. The two sets should be reported
+together, or the MolTrans row footnoted, until this is settled.
+
+**Checks:** no file outside `results/effects_v2/` is newer than the run start (`find results -newermt '2026-09-25 01:50:00' -not -path
+'results/effects_v2/*'` empty); `git diff --stat -- results` shows only `results/effects_v2/inputs_sha256.json` (regenerated: it now also
+lists the 15 re-run files). `python3 -m pytest -p no:warnings` → `1070 passed, 5 skipped in 134.61s (0:02:14)`, unchanged from the
+earlier T05 run.
+
+**Still open (why T05 stays PARTIAL):** (1) DrugBAN faithfulness CIs — needs DGL (T02/T04 question, unanswered); (2) the 8
+HyperAttentionDTI-IG cells; (3) whether to report the MolTrans/HyperAttentionDTI-DAVIS faithfulness intervals as they are, with the
+non-reproduction stated, or to investigate first (e.g. a fixed-seed or dropout-off re-run of one MolTrans cell, ~4 min, as T04 did).
+
+**Files added:** `results/effects_v2/faithfulness/` (15 `faithfulness_*`/`token_faithfulness_*` JSON + MD, 4+ `accuracy_*.json`; PNGs are
+git-ignored), `results/effects_v2/faithfulness_effects.{csv,md}`.

@@ -9,7 +9,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 |---|---|---|---|---|
 | T00 | Bootstrap | **DONE** (2026-09-24) | remediation/T00 | plan + ledger written; suite run; layout verified; 5 discrepancies recorded below |
 | T01 | Inventory | **DONE** (2026-09-24) | remediation/T01 | `docs/inventory.md` written; checkpoint dir `~/ColdSite-results/` confirmed by the user; 15 gaps recorded below |
-| T02 | Integrity guards | PENDING | | `data/splits/MANIFEST.json` absent (D2) **and the splits are gitignored**; no vendored commit hashes exist to hash against; no RNG/initial-weight record can be recovered for the existing 84 cells |
+| T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | PENDING | | user sign-off required before T05 or any new analysis |
 | T04 | Predictive accuracy table | PENDING | | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
 | T05 | Effect sizes & CIs | PENDING | | requires T03 approval. `src/evaluation/bootstrap_ci.py` + `results/ci_davis.json` already give protein-resampled 10,000-draw CIs for 24 DAVIS cells — T05 extends this, it is not new work |
@@ -183,3 +183,123 @@ environment. Unchanged from T00's `937 passed, 4 skipped in 93.42s`; T01 added n
 15. Much of `results/` is gitignored, so verification criterion 3 ("git diff shows no change
     to original results") cannot detect a change to an untracked output → T02 should extend
     the manifest to the primary analysis outputs.
+
+
+---
+
+## T02 — Integrity guards (DONE, 2026-09-24)
+
+**Branch:** `remediation/T02`, from `remediation/T01` at `390cd15`, working tree clean at start.
+
+**Tests:** `1027 passed, 5 skipped in 124.82s (0:02:04)` — verbatim summary line, default
+environment. Before: `937 passed, 4 skipped` (941 collected). After: 1032 collected = 941 + **91 new**
+(`test_data_manifest` 10, `test_integrity_grid` 21, `test_integrity_masking` 12,
+`test_integrity_permutations` 33, `test_integrity_rng_seeds` 11, `test_integrity_row_loss` 4). Passed
+rose by 90 and skipped by 1 (the new DGL-dependent DrugBAN tokeniser test); no existing test changed
+outcome.
+
+**Files changed**
+
+| file | kind | what |
+|---|---|---|
+| `src/evaluation/integrity.py` | new | permutation floor (`MIN_PERMUTATIONS = 10000`, `check_permutations`, `min_achievable_p`, `permutations_needed`), grid fingerprint + `check_grid_unchanged`, `check_extension_dir`, `is_scratch_dir` |
+| `src/model/integrity.py` | new | `rng_state`, `rng_fingerprint`, `rng_delta`, `initial_weight_hash`, `preserve_rng` |
+| `src/data/manifest.py` | new | manifest writer/checker (`--write`, `--check`); `--write` refuses to overwrite an existing manifest |
+| `data/splits/MANIFEST.json` | new | SHA-256 + size of 64 files: 36 split CSVs, 26 `data/*.json`, 2 `data/processed/*.csv` |
+| `.gitignore` | edit | `!data/splits/MANIFEST.json` (splits stay ignored; the manifest is tracked) |
+| `src/evaluation/{run_audit,run_ladder,run_control,positional_control,positive_control}.py` | edit | `--n-trials` default 500/1000 → 10,000; `check_permutations` right after `parse_args`; `--allow-low-permutations` escape hatch; `run_audit` also checks its own family size and now **records** `n_trials` and `min_achievable_p` in its JSON |
+| `src/evaluation/run_all.py` | edit | writes `grid_state.json` beside outputs; refuses to skip-existing over a changed grid outside a scratch dir (`--allow-partial` overrides); `--extension` refuses an out-dir that already holds outputs |
+| `src/model/train_moltrans.py`, `src/evaluation/baseline_adapters.py` | edit | the vendored `from models import BIN_Interaction_Flat` wrapped in `preserve_rng()` (see deviation 1) |
+| 6 test files | new | listed above |
+| `docs/REMEDIATION_LEDGER.md` | edit | this section |
+
+**Commands run:** `git checkout -b remediation/T02`; `python3 -m pytest -p no:warnings` (full suite);
+`python3 -m src.data.manifest --write` → `wrote data/splits/MANIFEST.json: 64 files {'ground_truth': 26,
+'processed': 2, 'splits': 36}`, then `--check` → `manifest OK`; `python3 -m src.evaluation.<runner>
+--n-trials 500` for each of the five runners (all refuse with "below the floor of 10000"); RNG probe of
+each vendored import; MolTrans matched-control probe on 6 real DAVIS proteins; a script reading
+`n_train_rows` from all 84 `_results.json` against their split's `train.csv` row count; `git diff --stat
+-- results` (empty).
+
+### Verification against T02's own criteria
+
+| criterion | result |
+|---|---|
+| (a) vendored imports leave RNG unchanged, both orders | pinned for both trainers' `_import_vendored` in both orders, plus "a seed set before the MolTrans import survives it". **Mutation check:** with the two `preserve_rng` wrappers reverted, 4 tests fail (2 order cases, the seed-survives test, the MolTrans initial-weight test); restored, all pass |
+| (b) distinct seeds → distinct initial-weight hashes; same seed → same hash | one **fresh interpreter per (model, seed)** for `coldsite_dti`, `hyperattentiondti`, `moltrans`, `deepdta`; a warm process cannot show this because the vendored import has already run. DrugBAN has no such test (needs DGL, see risks) |
+| (c) masking arms size-matched in token space per adapter | residue-level: k masked = exactly k tokens changed, attended-shaped and scattered arms, ColdSite-DTI and HyperAttentionDTI on real DAVIS sequences; MolTrans: control lands within `TOLERANCE` on a reachable target, is never farther than a blind draw, and **reports itself unmatched** on an unreachable one; every audited model must have a masking decision. DrugBAN's tokeniser test **skips here** |
+| (d) `n_permutations >= 10000` enforced in config; min p < smallest Holm threshold | all five runners default to 10,000 and refuse lower; `run_audit` also refuses a count whose floor is not below `alpha/m` for its own family; DAVIS (20) and KIBA (8) primary families checked, and the committed `*_10k_permutations.json` audits are read as data. **Mutation check:** ladder default reverted to 1000 → `test_every_runner_defaults_to_the_floor…[run_ladder]` fails |
+| (e) `run_all` refuses partial grids outside scratch; extensions never target existing dirs | grid fingerprint, refusal, sanctioned `--no-skip-existing` route, scratch exemption, `--allow-partial`, `--extension` refusal, and all five primary analysis dirs refused as extension targets. **Mutation check:** guard call removed → `test_run_all_refuses_to_top_up_a_partial_grid…` fails |
+| (f) atom-cap row-loss guard still fails loudly | exactly the limit tolerated, limit + 1 raises `MissingCell` naming the reason; constants pinned. **See D6: the rule is not "≤1%"** |
+| manifest + test | 64 files; hash test, coverage test, unlisted-file test, changed/missing/unlisted detection on a toy tree, re-bless refusal |
+| full suite passes; count rises only by new tests | 941 → 1032 collected = +91; 937 → 1027 passed, no outcome changed |
+| no analysis output changed | no analysis was run; `git diff --stat -- results` empty; the primary 500/1000-permutation outputs are untouched |
+
+### Discrepancy (repo wins)
+
+| id | plan | repo | impact |
+|---|---|---|---|
+| D6 | (f) "the DrugBAN atom-cap row-loss threshold (<=1%)" and project fact (10) "fails if more than 1% are lost" | `UNENCODABLE_LIMIT_FRACTION = 0.01` but the limit is `max(UNENCODABLE_LIMIT_MIN = 3, int(0.01 × rows))`. Explanation cells hold one row per protein, so the floor of 3 dominates. Measured with `collect._read_test_rows(..., pairs_per_target=1, policy=True)`: **DAVIS random 372 rows → limit 3 = 0.8%; DAVIS cold-target 75 → 3 = 4.0%; KIBA random 228 → 3 = 1.3%; non-kinase panel 60 proteins → 3 = 5.0%** | not a wrong number: no cell is known to have lost more than a row or two (one BindingDB ligand of 322 atoms, per `collect.py`). But the stated protection is weaker than the plan's wording on small cells. Not changed here (existing DrugBAN analyses ran under this rule); the tests pin it as it is |
+
+### Deviations from the task as written
+
+1. **Two small code edits outside "tests + guards".** `train_moltrans.py` and `baseline_adapters.py`
+   now wrap the vendored MolTrans import in `preserve_rng()`, because (a) as literally written cannot
+   pass otherwise — MolTrans's `models.py` calls `torch.manual_seed(1)` / `np.random.seed(1)` at import
+   and the probe showed the trainer path moving both. Effect on numbers: none expected — the trainer
+   seeds *after* the import (unchanged), and a grep of `src/evaluation`/`src/data` for global-RNG use
+   found only `torch.randint` in `--dummy` paths (`run_ladder.py:291`, `run_faithfulness.py:360`,
+   `run_audit.py:243`). Not re-verified by retraining or re-running an analysis.
+2. **`--n-trials` defaults changed**, which is the plan's requirement but is a behaviour change:
+   `run_all` passes no `--n-trials`, so a fresh `run_all` now runs 10× the permutations of the ladder,
+   control and positional steps (and 20× for the audit). Existing outputs are untouched; reproducing them
+   now needs `--allow-low-permutations`.
+
+### Risks / limits
+
+* **DrugBAN cannot be tested on this machine.** No conda environment with DGL exists here
+  (`conda env list` shows only `amazon_ml`), so the 5 skips are all DGL-gated: two in
+  `test_drugban_adapter.py`, two in `test_drugban_import_isolation.py`, and the new DrugBAN tokeniser
+  test. DrugBAN's `utils.py` imports `dgl` at the top, so even its pure-numpy tokeniser cannot be
+  reached. Guards (a)–(c) for DrugBAN are therefore **unverified locally**; they run wherever DGL is
+  installed.
+* **The manifest fixes files as they are now.** It cannot show they are the files the 84 cells trained
+  on. Indirect corroboration: all **84 of 84** `_results.json` have `n_train_rows` equal to their split's
+  `train.csv` row count (checked in this session). That is row counts, not content.
+* **The permutation floor cannot be applied retroactively.** The primary DAVIS audit is the
+  500-permutation file; it now cannot be regenerated without `--allow-low-permutations`. Which run is
+  primary is still T03's decision (ledger D5).
+* **The RNG/weight-hash instruments are not yet used by the trainers.** `src/model/integrity.py`
+  provides them, and the tests measure with them, but no trainer records a hash, so cells trained from
+  now on would still carry no initial-weight record. Wiring that into the trainers is a training-code
+  change; not done here.
+
+### Discovered (work belonging to other tasks — not started)
+
+1. **MolTrans's token-matched control fails to match when attention sits at the end of a sequence.**
+   Measured on 6 real DAVIS proteins with a synthetic 10-residue block at the sequence end: the
+   explanation's arm changes 1.2–3.0% of tokens; the closest random draw after `MAX_TRIES = 200` changes
+   38–64% — outside `TOLERANCE = 0.10` in all 6. A mid-sequence block was matched in 4 of 6. This is
+   inherent to the tokeniser, not a bug, and `token_matched_control` does report it (`tries == 200`) —
+   **but the committed faithfulness JSONs record no match quality at all** (their keys are
+   `comprehensiveness*`, `sufficiency*`, `aopc`, `n_pairs`, `k`, `explanation_is_load_bearing`). How many
+   real MolTrans cells were unmatched is therefore unknown → T08 / T03 (a per-cell `matched_fraction`
+   record, or a stated exclusion). The 6-protein probe used synthetic positions, not MolTrans's attention.
+2. `run_faithfulness --n-random-trials` (default 5) and `token_faithfulness` average a masking control;
+   they produce no p-value and are outside the permutation floor.
+3. Vendored-repo commit hashes and the two missing licences (T01 gaps 2) are still open → T09 / T23.
+4. T01 gap 15 (much of `results/` is gitignored, so `git diff` cannot detect a change to an untracked
+   output) is **not** addressed: the manifest covers inputs (splits, ground truth), not the primary
+   analysis outputs → decision below.
+
+### Decisions needed from the user
+
+1. **D6:** tighten the row-loss limit to a true 1% (which on a 60-protein panel means zero tolerated
+   rows, so the one 322-atom BindingDB ligand would fail DrugBAN's control), keep it as is and reword
+   the plan, or leave it for T18?
+2. Extend the manifest to hash the primary analysis outputs under `results/analysis_*_policyA*` (they
+   are untracked, so this is the only way a change to them becomes detectable)? Small, but outside T02's
+   written scope.
+3. Is there a machine with DGL where the DrugBAN tests can be run before T09, or should they wait for
+   the cloud canary?
+

@@ -44,6 +44,10 @@ results/*
 # the predictions themselves stay untracked.
 !results/accuracy_v2/
 results/accuracy_v2/predictions/
+# T05: the effect-size tables and the per-pair faithfulness JSONs they are computed from
+# (small; figures stay untracked)
+!results/effects_v2/
+results/effects_v2/**/*.png
 # ...but never a synthetic run. This rule comes last so it wins: a
 # DUMMY_PLACEHOLDER file committed by accident is a placeholder number sitting
 # in the repo looking like a finding.

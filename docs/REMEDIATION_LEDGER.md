@@ -12,7 +12,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
 | T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
-| T05 | Effect sizes & CIs | PENDING | | requires T03 approval. `src/evaluation/bootstrap_ci.py` + `results/ci_davis.json` already give protein-resampled 10,000-draw CIs for 24 DAVIS cells — T05 extends this, it is not new work |
+| T05 | Effect sizes & CIs | **PARTIAL** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table and original-verdict reproduction DONE; faithfulness-delta CIs need a ~3 h re-run of 15 (model, dataset, seed) files on the Mac — recorder written and verified on one real cell, run **awaiting the user's yes**; DrugBAN faithfulness cannot be re-run here (no DGL); 8 HyperAttentionDTI-IG cells have no per-protein scores |
 | T06 | Conservation null + intermediate rung | PENDING | | |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
 | T08 | Explanation panel | PENDING | | |
@@ -553,3 +553,115 @@ metrics, the two flagged cold-pair cells) is to be stated in the paper text inst
 
 **Not done / open:** DrugBAN MCC/F1 (no DGL; user declined). Paper text on MolTrans's inference dropout is still to be
 written (Methods, `paper/methods_data_and_evaluation.md`, and a note under the accuracy table).
+
+
+---
+
+## T05 — Effect sizes & confidence intervals (PARTIAL, 2026-09-25)
+
+**Branch:** `remediation/T05`, from `remediation/T04` at `a936019`, clean at start. **Gate:** T03 amendment approved
+(`docs/PROTOCOL_AMENDMENT_v2.md` §12, 2026-09-24); every method below is the amendment's §5.
+
+**Status:** the enrichment CIs, the seed-spread table and the reproduction of the original verdicts are done. The
+faithfulness-delta CIs (amendment §5, gap G2) need per-pair values that no file holds, so the faithfulness step must be
+re-run; the recorder is written, tested and validated on one real cell, but the run itself is ~3 h on the user's Mac
+(`ask-before-long-jobs`) and has **not** been started beyond the probes below.
+
+**Files changed**
+
+| file | kind | what |
+|---|---|---|
+| `src/evaluation/effects_v2.py` | new | enrichment-over-chance CIs, seed spread, faithfulness-delta CIs by target, and the reproduction checks; writes only to `results/effects_v2/` |
+| `tests/test_effects_v2.py` | new | 26 tests (planted enrichment, planted null, planted signal, resampling = `bootstrap_ci`'s, grouping by target, recorder leaves means untouched, verdict reproduction catches a forged flag) |
+| `src/evaluation/faithfulness.py`, `run_faithfulness.py`, `token_faithfulness.py` | edit | opt-in `--record-pairs`: adds `per_pair` (target id + deltas) to the JSON. Off by default; with it on, every mean and the verdict are identical (tested, and measured on a real cell below) |
+| `.gitignore` | edit | `!results/effects_v2/` (figures stay ignored) |
+| `results/effects_v2/` | new | `enrichment.{csv,md}`, `seed_spread.{csv,md}`, `reproduction.json`, `inputs_sha256.json` (SHA-256 of every ladder read), `problems.txt` |
+
+**Method (all from amendment §5):** resampling unit = target; 10,000 resamples (the CLI refuses fewer); 95 % percentile;
+`default_rng(0)`; a resampled protein carries all its seeds, averaged. Enrichment = mean precision@10 ÷ mean chance over the
+**same** resampled proteins. Per-protein chance = (annotated sites inside the window) ÷ (window = min(sequence length, 1000)),
+the exact expectation of the permutation null (`significance_test._chance_precision_sample`; tested). Rebuilt because the
+ladders store only the cell mean.
+
+### Verification against T05's own criteria
+
+| criterion | result (source) |
+|---|---|
+| CIs are computed via the amendment's method | the precision interval reproduces the committed `results/ci_davis.json` for **24 of 24** cells to 1e-12 in n, mean, low and high (script comparison run this session); the resampling is `bootstrap_ci`'s, and a test pins that |
+| the rebuilt per-protein chance is right | for **68 of 68** cells the mean of the rebuilt chance is within 5 Monte-Carlo standard errors of the recorded cell chance (tolerance built for 500 permutations, the smallest count any ladder used); largest difference 0.00076 (`enrichment.csv`, `chance_check_*`) |
+| original verdicts reproduce exactly | `results/effects_v2/reproduction.json`: **(1)** `seed_agreement.py` regenerated from the ladders is **byte-identical** to `results/seed_agreement.md` — 12 of 22 cells disagree, 21 of 22 spread > signal; my own spread table gives the same 21 of 22 (15 of 16 DAVIS, 6 of 6 KIBA); **(2)** Holm re-applied to the recorded raw p-values of all four audit files (500- and 10,000-permutation, DAVIS 20 cells and KIBA 8) gives the recorded verdicts exactly — one significant cell, `hyperattentiondti|davis|random`, in both DAVIS files, none on KIBA; **(3)** all 84 faithfulness level summaries: recorded `load_bearing` equals the sign of the recorded delta, 63 load-bearing, 0 disagreements |
+| no original result changed | SHA-256 of all 774 non-checkpoint files under `results/` (excluding `effects_v2/`) taken before and after: identical (`diff` empty); `git diff --stat -- results` empty |
+| permutations ≥ 10,000 / Holm families | no permutation test or Holm family was created; the amendment's P1/S1–S3 are unchanged; nothing here is a p-value |
+| tests | `1070 passed, 5 skipped in 131.50s` — before `1044 passed, 5 skipped`; +26 passed = the 26 new tests; skips unchanged (DGL-gated) |
+
+**Mutation checks** (each reverted): independent draws for the chance mean → the exact-2× test fails; grouping by pair instead
+of target → the grouping test fails; dropping `abs` in the spread rule → a below-chance test case fails (that case was added
+after the first mutation slipped through).
+
+### What the enrichment table says (descriptive; `results/effects_v2/enrichment.md`)
+
+Cells whose 95 % enrichment interval lies entirely above 1 / covers 1 / lies entirely below 1 — P1 (UniProt, DAVIS, 16 model
+cells): 4 / 10 / 2; P2 (UniProt, KIBA, 6): 3 / 2 / 1; S3-D (KLIFS pocket, DAVIS, 16): 11 / 5 / 0; S3-K (KIBA, 6): 4 / 2 / 0.
+These are counts of intervals, not tests, and no threshold is applied (amendment §5). ColdSite-DTI against the KLIFS pocket:
+1.54 [1.48, 1.59] warm, 2.10 [2.02, 2.18] cold-drug, 1.74 [1.58, 1.90] cold-target, 1.99 [1.78, 2.21] cold-pair; DrugBAN's
+KLIFS intervals all include 1 (0.98–1.04 point values). Ceiling is ≈ 0.99 (UniProt) and ≈ 1.0 (KLIFS) throughout.
+
+### Faithfulness-delta CIs — what was done and what is needed
+
+* **Recorder.** `--record-pairs` on `run_faithfulness` and `token_faithfulness` stores each scored pair's target id and deltas.
+* **Real-cell validation (probe, scratch dir, not in `results/`).** ColdSite-DTI, DAVIS, seed 1, all four levels, CPU: the
+  re-run reproduced the committed `faithfulness_davis_seed1.json` with a **difference of exactly 0.0** in all five means at all
+  four levels, and the mean of the recorded pairs equals the summary delta exactly. Wall time **15 min 31 s** (1678.7 s user
+  CPU; the machine was also running the test suite). HyperAttentionDTI (MPS) and MolTrans token space (MPS) were run on 4
+  pairs only, to confirm the ids come through; their reproduction of the committed means is **not yet checked** — the
+  effects table records `max_abs_diff_vs_committed` per cell so it will be visible.
+* **Grouping matters.** The 200 first pairs cover only 162 / 200 / 76 / 76 distinct targets (warm / cold-drug / cold-target /
+  cold-pair, ColdSite-DTI seed 1), so a pair-level interval would be too narrow; the CI resamples targets and reports the
+  pair-level mean beside the target-level one (e.g. warm 0.8014 by pair, 0.8513 by target, CI 0.6239–1.1038).
+* **Estimated cost of the rest (estimate, not measured here):** file-time gaps between the committed outputs put the DAVIS
+  ColdSite-DTI runs at 18–20 min each, MolTrans token space at ≈ 4 min, and the analogous MolTrans residue-space run at
+  27–33 min; HyperAttentionDTI's own time is not recoverable (its three files share one timestamp). For 15 files —
+  ColdSite-DTI DAVIS ×3, HyperAttentionDTI DAVIS ×3 and KIBA ×3, MolTrans token DAVIS ×3 and KIBA ×3 — that is **≈ 3–3.5 h
+  on CPU**, dominated by HyperAttentionDTI. Device would be `cpu`, the device of the original DAVIS run (`run_all.log`).
+
+### Gaps and deviations (repo wins)
+
+1. **DrugBAN faithfulness cannot be re-run here** (no DGL, as in T02/T04): its 12 DAVIS cells get enrichment CIs but no
+   faithfulness CI until a machine with DGL runs `run_faithfulness --model drugban --record-pairs`.
+2. **The uniform-control arm has no ladder**, so the 20-cell P1 family gives 16 enrichment rows (KIBA 8 → 6). The control's
+   enrichment is 1 by construction and is not tabulated.
+3. **8 of the 12 S1 integrated-gradient cells (HyperAttentionDTI-IG, DAVIS, UniProt and KLIFS ladders) have no CI:** those
+   ladder files predate per-protein scores (`problems.txt`, 24 file-level lines). Re-scoring them means re-running that IG ladder, which is not a T05 step; noted, not done. S1 has 12 declared cells, 8 appear in the table.
+4. **MolTrans's faithfulness is taken in token space** (size-matched arms), as `paper/results.md` does; its residue-space arm
+   (48 % vs 95 % of tokens changed) is not resampled.
+5. The seed-spread `exact` column repeats rule 1.13 with the rebuilt chance; the two agree cell by cell on all 22 UniProt cells (0 differ, `seed_spread.csv`).
+6. The faithfulness verdict by interval ("lower bound > 0") is implemented and tested but has **no real value yet** — no file
+   contains one until the re-run finishes.
+
+### Commands run
+
+`git checkout -b remediation/T05`; `python3 -m src.evaluation.effects_v2 --out-dir results/effects_v2`; the ci_davis
+comparison script; `python3 -m src.evaluation.run_faithfulness --model coldsite_dti --task binary --dataset davis --seed 1 ...
+--out-dir <scratch> --device cpu --record-pairs` (15:31); the same for `--model hyperattentiondti --device mps --max-pairs 4`
+and `python3 -m src.evaluation.token_faithfulness --model moltrans ... --max-pairs 4 --device mps --record-pairs`; SHA-256
+snapshots of `results/` before and after; `python3 -m pytest -p no:warnings`.
+
+### To finish T05 (needs the user's yes — multi-hour on the Mac, ~3–3.5 h estimated)
+
+```bash
+cd ~/Documents/ColdSite-DTI && caffeinate -i bash -c '
+OUT=results/effects_v2/faithfulness; D=~/ColdSite-results/davis_binary; K=~/ColdSite-results/kiba_binary
+for s in 1 2 3; do
+  python3 -u -m src.evaluation.run_faithfulness --model coldsite_dti --task binary --dataset davis --seed $s --split-root data/splits --checkpoint-dir $D --results-dir $D --out-dir $OUT --max-pairs 200 --device cpu --record-pairs
+  python3 -u -m src.evaluation.run_faithfulness --model hyperattentiondti --task binary --dataset davis --seed $s --split-root data/splits --checkpoint-dir $D --results-dir $D --out-dir $OUT --max-pairs 200 --device cpu --record-pairs
+  python3 -u -m src.evaluation.token_faithfulness --model moltrans --dataset davis --seed $s --checkpoint-dir $D --out-dir $OUT --max-pairs 200 --device cpu --record-pairs
+  python3 -u -m src.evaluation.run_faithfulness --model hyperattentiondti --task binary --dataset kiba --seed $s --split-root data/splits --checkpoint-dir $K --results-dir $K --out-dir $OUT --max-pairs 200 --device cpu --record-pairs
+  python3 -u -m src.evaluation.token_faithfulness --model moltrans --dataset kiba --seed $s --checkpoint-dir $K --out-dir $OUT --max-pairs 200 --device cpu --record-pairs
+done'
+python3 -m src.evaluation.effects_v2 --out-dir results/effects_v2
+```
+
+The last line reads `results/effects_v2/faithfulness/`, writes `faithfulness_effects.{csv,md}` and compares every re-run with
+the committed file of the same name (`max_abs_diff_vs_committed`). `run_faithfulness` also writes an `accuracy_*.json` and a
+`.png` into that folder; both are harmless (the png is git-ignored).
+

@@ -1,0 +1,55 @@
+[
+ {
+  "check": "seed_agreement.md regenerated from the ladders",
+  "identical_to_committed": true,
+  "cells": 22,
+  "seeds_disagree": 12,
+  "spread_exceeds_signal": 21,
+  "effects_v2_cells": 22,
+  "effects_v2_spread_exceeds_signal": 21,
+  "ok": true
+ },
+ {
+  "check": "Holm over audit_davis_binary.json",
+  "cells": 20,
+  "significant_recorded": [
+   "hyperattentiondti|davis|random"
+  ],
+  "significant_redone": [
+   "hyperattentiondti|davis|random"
+  ],
+  "ok": true
+ },
+ {
+  "check": "Holm over audit_davis_binary_10k_permutations.json",
+  "cells": 20,
+  "significant_recorded": [
+   "hyperattentiondti|davis|random"
+  ],
+  "significant_redone": [
+   "hyperattentiondti|davis|random"
+  ],
+  "ok": true
+ },
+ {
+  "check": "Holm over audit_kiba_binary.json",
+  "cells": 8,
+  "significant_recorded": [],
+  "significant_redone": [],
+  "ok": true
+ },
+ {
+  "check": "Holm over audit_kiba_binary_10k_permutations.json",
+  "cells": 8,
+  "significant_recorded": [],
+  "significant_redone": [],
+  "ok": true
+ },
+ {
+  "check": "faithfulness verdict = sign of the recorded delta",
+  "level_summaries": 84,
+  "load_bearing": 63,
+  "disagree": 0,
+  "ok": true
+ }
+]

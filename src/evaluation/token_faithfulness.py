@@ -142,8 +142,8 @@ def pair_faithfulness(adapter, encoded, weights, k: int = K,
 
 
 def level(adapter, rows, k: int = K, n_random_trials: int = N_RANDOM_TRIALS,
-          seed: int = 0, max_pairs: int | None = None) -> dict:
-    records = []
+          seed: int = 0, max_pairs: int | None = None, record_pairs: bool = False) -> dict:
+    records, pair_ids = [], []
     for index, (_i, row) in enumerate(rows.iterrows()):
         if max_pairs and index >= max_pairs:
             break
@@ -151,6 +151,7 @@ def level(adapter, rows, k: int = K, n_random_trials: int = N_RANDOM_TRIALS,
                                            str(row["Target"])[:1000])
         records.append(pair_faithfulness(adapter, encoded, weights, k,
                                          n_random_trials, seed + index))
+        pair_ids.append(str(row["Target_ID"]) if "Target_ID" in row else None)
     if not records:
         return {"n": 0}
     out = {"n": len(records), "k": k}
@@ -159,6 +160,10 @@ def level(adapter, rows, k: int = K, n_random_trials: int = N_RANDOM_TRIALS,
         out[field] = float(np.mean([r[field] for r in records]))
     out["load_bearing"] = out["comprehensiveness_delta"] > 0
     out["median_tokens"] = int(np.median([r["n_tokens"] for r in records]))
+    if record_pairs:
+        out["per_pair"] = [{"id": i, "comprehensiveness_delta": r["comprehensiveness_delta"],
+                            "sufficiency_delta": r["sufficiency_delta"]}
+                           for i, r in zip(pair_ids, records)]
     return out
 
 
@@ -204,6 +209,9 @@ def main():
     parser.add_argument("--max-pairs", type=int, default=200)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--no-sequence-policy", action="store_true")
+    parser.add_argument("--record-pairs", action="store_true",
+                        help="keep each pair's target id and deltas (`per_pair`) for a "
+                             "confidence interval over targets; means are unchanged")
     args = parser.parse_args()
 
     import pandas as pd
@@ -228,7 +236,7 @@ def main():
         print(f"{name}: {min(len(rows), args.max_pairs)} pairs, "
               f"{2 + 2 * args.n_random_trials} forward passes each")
         results[name] = level(adapter, rows, args.k, args.n_random_trials,
-                              args.seed, args.max_pairs)
+                              args.seed, args.max_pairs, record_pairs=args.record_pairs)
     if not results:
         raise SystemExit("no level had a checkpoint -- check --checkpoint-dir")
     text = report(results, args.model, args.dataset, args.seed)

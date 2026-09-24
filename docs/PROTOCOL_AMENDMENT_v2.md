@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | **DRAFT — not in force.** It takes effect only when the user replies "approved" in chat. |
+| **Status** | **APPROVED — in force from 2026-09-24** (user reply "approved" in chat, recorded in §12). Drafted as a draft; rules unchanged by approval. |
 | **Drafted** | 2026-09-24T03:42:16Z (UTC), branch `remediation/T03`, on top of `299f11b` |
 | **Authoritative timestamp** | the timestamp of the git commit that adds this file; a later edit is a new commit and, after approval, an addendum (§10) |
 | **Written by** | the remediation engineer (Claude), from the repository as it stands at `299f11b`; nothing in it comes from a new analysis |
@@ -277,6 +277,7 @@ Any change requested is made and the document is re-issued for a fresh "approved
 
 | | |
 |---|---|
-| Approved by | *(user)* |
-| Date | |
-| Reply recorded in | `docs/REMEDIATION_LEDGER.md` § T03 |
+| Approved by | the user (Mahim), in chat: "I have reviewed the T03 protocol amendment: approved. You are cleared to run the `localize` stage." |
+| Date | 2026-09-24 |
+| Scope of approval | the document as written, **including the defaults in §11 (D1–D8)** — the user's reply named no change to any of them |
+| Reply recorded in | `docs/REMEDIATION_LEDGER.md` § T03 and § T04 |

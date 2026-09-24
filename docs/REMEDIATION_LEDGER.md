@@ -13,7 +13,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
 | T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
 | T05 | Effect sizes & CIs | **DONE-with-declared-gaps** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) done; three gaps deferred by the user to the Kaggle Wave A compute phase: DrugBAN faithfulness CIs, 8 HyperAttentionDTI-IG cells, uniform-control arm; MolTrans non-reproduction accepted as known variance (user, 2026-09-25) |
-| T06 | Conservation null + intermediate rung | PENDING | | |
+| T06 | Conservation null + intermediate rung | **DONE-with-declared-gaps** (2026-09-25) | remediation/T06 | conservation rung (E4-D / E4-K) and KLIFS sub-pocket rung deferred to Wave A by the user's 4-day-deadline decision; no code, no data, no placeholder written |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
 | T08 | Explanation panel | PENDING | | |
 | T09 | Cloud harness hardening | PENDING | | |
@@ -729,3 +729,34 @@ git-ignored), `results/effects_v2/faithfulness_effects.{csv,md}`.
    (S1 / S1-klifs, DAVIS); (c) the uniform-control arm's enrichment (no ladder exists; equals 1 by construction). Until they are
    filled, every table and sentence drawn from `results/effects_v2/` must say DrugBAN has no faithfulness interval and S1 shows 4 of 12
    integrated-gradient cells. T10 must budget (a) and (b); (c) needs a ladder for the uniform control, which is an analysis step, not GPU work.
+
+
+---
+
+## T06 — Conservation null + intermediate rung (DONE-with-declared-gaps, 2026-09-25)
+
+**Branch:** `remediation/T06`, from `remediation/T05` at `16f5d89`.
+
+**User decision (2026-09-25, accelerated 4-day instructor deadline):** do not source or download external conservation data; skip the
+conservation rung; log it as a deferred dependency for Wave A; mark T06 DONE. A synthetic uniform placeholder was permitted only if the
+code strictly required one.
+
+**What was done:** nothing computed. Checked whether a placeholder is needed: no module in `src/` reads a conservation profile
+(`grep -rn -i conservation src/` finds no consumer) and `docs/PROTOCOL_AMENDMENT_v2.md` §3 row E4 declares the family as a *future* one
+whose source is sealed by addendum A1 (§10, decision D6) before any conservation value is computed. So **no placeholder was created**:
+a uniform profile would make the conservation-matched null equal the plain positional null, which is already reported, and would risk
+being read as a result. No file other than this ledger changed; `git diff --stat -- results` is empty.
+
+**Declared gaps (deferred, not done)**
+1. **E4-D (DAVIS, 16 cells) and E4-K (KIBA, 6 cells): the conservation null of the pocket enrichment.** Needs a user-approved conservation
+   source and bin definition (amendment D6 / addendum A1). Until then the paper may **not** claim the KLIFS-pocket enrichment survives
+   (or fails) a conservation control; `paper/limitations.md` must say the control was not run. The 1.3–2.1× enrichment stays
+   "coarse pocket enrichment, conservation not controlled" (problem P15 unresolved).
+2. **Intermediate KLIFS sub-pocket / motif rung (P14).** Not attempted: the repo's `data/*_klifs_pocket_sites.json` holds the 85-residue
+   pocket as one set; region-level labels would need a derivation step that was outside the "lean" scope. Unresolved.
+
+**Wave A dependency (for T10):** CPU only, no GPU budget. Trigger: the user names a conservation source (e.g. a kinase MSA the user
+supplies) → addendum A1 → run E4 with 10,000 permutations, Holm within E4-D and E4-K separately.
+
+**Tests:** not run for this task (no code touched); the last full-suite line stands: `1070 passed, 5 skipped in 134.61s (0:02:14)` (T05).
+

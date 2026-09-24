@@ -40,6 +40,10 @@ results/*
 # Checkpoints, per-run JSON and figures stay ignored -- these are tables only.
 !results/*.md
 !results/*.csv
+# T04: the accuracy tables and the predictions manifest (SHA-256 of every predictions file);
+# the predictions themselves stay untracked.
+!results/accuracy_v2/
+results/accuracy_v2/predictions/
 # ...but never a synthetic run. This rule comes last so it wins: a
 # DUMMY_PLACEHOLDER file committed by accident is a placeholder number sitting
 # in the repo looking like a finding.

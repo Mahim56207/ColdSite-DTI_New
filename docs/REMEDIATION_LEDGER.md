@@ -442,7 +442,7 @@ draws would be ≈ 5× its share.
 3. **The plan's "84 cells" split is 18 DeepDTA + 66 others** (12 of which are the DrugBAN cells above).
 
 ### Decisions needed from the user
-1. How to run the 48 ColdSite-DTI / HyperAttentionDTI / MolTrans cells' inference — see the HALT REPORT.
+1. How to run the 54 ColdSite-DTI / HyperAttentionDTI / MolTrans cells' inference — see the HALT REPORT.
 2. Where DrugBAN's 12 cells can be scored (a machine with DGL — the T02 question, still open).
 3. MolTrans: one seeded pass per cell (default here; reproduces the recorded value to ~0.001) or the
    5-draw mean `clean_accuracy` used.

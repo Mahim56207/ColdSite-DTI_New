@@ -15,7 +15,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T05 | Effect sizes & CIs | **DONE-with-declared-gaps** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) done; three gaps deferred by the user to the Kaggle Wave A compute phase: DrugBAN faithfulness CIs, 8 HyperAttentionDTI-IG cells, uniform-control arm; MolTrans non-reproduction accepted as known variance (user, 2026-09-25) |
 | T06 | Conservation null + intermediate rung | **DONE-with-declared-gaps** (2026-09-25) | remediation/T06 | conservation rung (E4-D / E4-K) and KLIFS sub-pocket rung deferred to Wave A by the user's 4-day-deadline decision; no code, no data, no placeholder written |
 | T07 | Readout primacy | **BLOCKED on user input** (2026-09-25) | remediation/T07 | plan rule: figure references must be user-supplied; none were. Scaffold `docs/readout_sources.md` written from repo facts only; no code, no analysis. Wave A does not depend on it |
-| T08 | Explanation panel | PENDING | | |
+| T08 | Explanation panel | **DONE-with-declared-gaps** (2026-09-25) | remediation/T08 | 7 methods implemented and planted-case tested (occlusion ×4, attention×gradient ×2, rollout ×1), applicability doc committed before any score, top-k IoU module; **no E3 cell scored** (needs addendum A2 signed + compute); DrugBAN occlusion untested (no DGL); 1093 passed, 5 skipped |
 | T09 | Cloud harness hardening | PENDING | | |
 | T10 | Budget & partition plan | PENDING | | needs quota and session limit from the user |
 | T11 | Wave A notebooks | PENDING | | gated on the T09 canary passing |
@@ -784,4 +784,59 @@ says the paper visualises the drug × protein interaction map. If the user confi
 later session; CPU only, no GPU.
 
 **Tests:** not run (no code touched); last full-suite line: `1070 passed, 5 skipped in 134.61s (0:02:14)` (T05).
+
+
+---
+
+## T08 — Explanation panel (DONE-with-declared-gaps, 2026-09-25)
+
+**Branch:** `remediation/T08`, from `remediation/T07`.
+
+**Scope decision (lean, per the user's instruction):** build and verify the methods, the applicability document and the agreement
+tool; **do not score the E3 families**. Scoring 28 + 12 cells needs the amendment's addendum A2 (applicability list and sizes,
+approved by the user) and hours of compute, and `docs/method_applicability.md` had to be committed first (amendment §3, row E3).
+
+**Files added/changed:** `src/evaluation/explanation_methods.py` (new), `src/evaluation/explanation_agreement.py` (new),
+`docs/method_applicability.md` (new), `tests/test_explanation_methods.py` (new, 23 tests), `src/model/checkpoint_naming.py`
+(7 names in `MODEL_SUFFIX` and `VARIANT_BASE`), `src/evaluation/model_registry.py` (imports the new module so the names resolve).
+No result, data or vendored file touched; `git diff --stat -- results` empty.
+
+**What exists (each is a registered model reading its base checkpoint, so `run_ladder`, `run_faithfulness`, `run_audit` accept it by
+name):** `coldsite_dti_occlusion`, `hyperattentiondti_occlusion`, `moltrans_occlusion`, `drugban_occlusion`,
+`hyperattentiondti_attngrad`, `moltrans_attngrad`, `moltrans_rollout`. N/A with written reasons (`docs/method_applicability.md`):
+attention×gradient for ColdSite-DTI (returned weights are a head-averaged copy off the gradient path) and DrugBAN (needs DGL,
+deferred); rollout for ColdSite-DTI, HyperAttentionDTI, DrugBAN (no attention stack).
+
+**Declared choices that change numbers (fixed before any score; sealed by A2 once signed):** occlusion window 5, stride 2, magnitude
+of the drop, masking to each model's own `X`/UNK; MolTrans forward passes under one fixed RNG seed (its live dropout,
+`models.py:103`); heads/queries averaged as the plain readout does; rollout `0.5·A + 0.5·I` row-normalised.
+
+**Verification (planted cases, all pass):** occlusion recovers a planted residue / pair of residues through each model's real
+masking path (ColdSite-DTI and HyperAttentionDTI with planted models; X ≠ alanine checked); attention×gradient — the captured tensor
+equals the one the plain readout reads (HyperAttentionDTI gate, MolTrans last-layer probabilities) and its gradient matches a finite
+difference on the real vendored architectures; rollout matches hand-computed layers and loses the two-step path if multiplied the
+wrong way; MolTrans methods are identical across repeated calls (dropout held); chance top-k IoU is exact and matches a 20,000-draw
+simulation to 0.004; every method reads the same checkpoint suffix as its base.
+
+**Real-checkpoint smoke (scratch, 3 proteins, DAVIS random seed 1 — proof the pipeline runs, NOT a result, nothing kept):**
+`explanation_agreement` completed for `hyperattentiondti` (2:06), `coldsite_dti` (1:36) and `moltrans` (1:58) wall time including the
+32-step IG. Example of the output shape: HyperAttentionDTI attention vs IG top-10 IoU 0.113 against chance 0.0063 on those 3 proteins.
+
+**Tests:** `python3 -m pytest -p no:warnings` → `1093 passed, 5 skipped in 135.04s (0:02:15)` (was 1070 passed, 5 skipped; +23 = the
+new file, no other change).
+
+### Declared gaps
+1. **E3-D (28 cells) and E3-K (12 cells) not scored.** Needs: the user's approval of addendum A2 (list and sizes are in
+   `docs/method_applicability.md`), then a run. Cost not measured per method; the smoke above includes IG, so it cannot be used as an
+   estimate. Occlusion is ~L/2 forward passes per protein (window 5, stride 2), the dominant cost.
+2. **`drugban_occlusion` untested** (no DGL here, as T02/T04); its shared machinery is tested. Run its contract test on a DGL machine
+   before scoring it; until then it counts as a missing cell at the design *m*.
+3. **Top-k IoU agreement not produced for the full grid** (tool ready, `python -m src.evaluation.explanation_agreement`, outputs go to
+   `results/methods_v2/`).
+4. **`attention × gradient` for ColdSite-DTI (the authors' own model) is N/A**; a re-implementation of its attention forward would fill
+   it, verified against the plain forward to numerical tolerance — a follow-up, not attempted.
+
+### Discovered (work belonging to other tasks — not started)
+* `run_faithfulness`'s `EXPLANATION_VARIANTS` is `tuple(sorted(VARIANT_BASE))`, so the 7 new names are now accepted there too; no faithfulness
+  was run for them.
 

@@ -79,6 +79,8 @@ import os
 
 import numpy as np
 
+from src.evaluation.integrity import MIN_PERMUTATIONS, check_permutations
+
 LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
 DOSES = (0.0, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
 ALPHA = 0.05
@@ -426,7 +428,11 @@ def main():
     parser.add_argument("--levels", default=",".join(LEVELS))
     parser.add_argument("--doses", default=",".join(f"{d:g}" for d in DOSES))
     parser.add_argument("--k", type=int, default=10)
-    parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--n-trials", type=int, default=MIN_PERMUTATIONS)
+    parser.add_argument("--allow-low-permutations", action="store_true",
+                        help="reproduce an output computed before the "
+                             "10000-permutation floor existed; never for "
+                             "a new result")
     parser.add_argument("--max-protein-len", type=int, default=1000)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--compare", action="append", default=[],
@@ -434,6 +440,8 @@ def main():
                         help="read a run_ladder output against the curve; repeatable")
     parser.add_argument("--out-dir", default="results")
     args = parser.parse_args()
+    check_permutations(args.n_trials, allow_low=args.allow_low_permutations,
+                       context="positive control")
 
     doses = sorted({float(d) for d in args.doses.split(",") if d.strip()})
     if 0.0 not in doses or 1.0 not in doses:

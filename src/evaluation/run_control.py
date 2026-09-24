@@ -52,6 +52,7 @@ import os
 import numpy as np
 
 from src.data.ground_truth import COTRANSPORT_IONS, load_site_sets
+from src.evaluation.integrity import MIN_PERMUTATIONS, check_permutations
 from src.evaluation.collect import MissingCell, collect_cell
 from src.evaluation.precision_at_k import batch_precision_at_k
 from src.evaluation.significance_test import permutation_test_batch
@@ -238,7 +239,11 @@ def main():
     parser.add_argument("--ground-truth")
     parser.add_argument("--out-dir", default="results")
     parser.add_argument("--k", type=int, default=10)
-    parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--n-trials", type=int, default=MIN_PERMUTATIONS)
+    parser.add_argument("--allow-low-permutations", action="store_true",
+                        help="reproduce an output computed before the "
+                             "10000-permutation floor existed; never for "
+                             "a new result")
     parser.add_argument("--pairs-per-target", type=int, default=1)
     parser.add_argument(
         "--exclude-cotransport-ions", action="store_true",
@@ -252,6 +257,8 @@ def main():
                         help="check the panel and its gate, train nothing, "
                              "read no checkpoint")
     args = parser.parse_args()
+    check_permutations(args.n_trials, allow_low=args.allow_low_permutations,
+                       context="non-kinase control")
 
     for path in (PANEL_ROWS, PANEL_SITES, PANEL_FAMILIES):
         if not os.path.exists(path):

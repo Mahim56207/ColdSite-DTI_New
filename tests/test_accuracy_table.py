@@ -140,3 +140,88 @@ def test_spearman_bootstrap_planted_signal_and_reproducibility():
 def test_spearman_constant_input_is_nan_not_a_crash():
     r = at.spearman_bootstrap(np.ones(10), np.arange(10.0), n_resamples=50)
     assert np.isnan(r["rho"]) and r["n_degenerate_resamples"] == 50
+
+
+def _fake_recorded(tmp_path, monkeypatch, level="cold_target", seed=1):
+    """A checkpoint dir with one DrugBAN `_results.json`, a clean-accuracy file, and a 5-row split."""
+    from src.model.checkpoint_naming import results_path, run_tag
+    ck = tmp_path / "ck"
+    (ck / "davis_binary").mkdir(parents=True)
+    res = results_path(str(ck / "davis_binary"), run_tag("davis", level, "binary", seed), model="drugban")
+    json.dump({"test_metrics": {"auroc": 0.85, "auprc": 0.47, "accuracy": 0.93}}, open(res, "w"))
+    split = tmp_path / "data" / "splits" / "davis" / level
+    split.mkdir(parents=True)
+    pd.DataFrame({"Drug_ID": range(5)}).to_csv(split / "test.csv", index=False)
+    clean = [{"model": "drugban", "dataset": "davis", "level": level, "seed": seed,
+              "unseen_by_sequence": {"auroc": 0.81, "auprc": 0.27, "rows": 4, "positive_rate": 0.06},
+              "rows_dropped": 1}]
+    json.dump(clean, open(tmp_path / "clean.json", "w"))
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(at, "CLEAN_ACCURACY", str(tmp_path / "clean.json"))
+    return str(ck)
+
+
+def test_recorded_only_cell_has_recorded_metrics_and_empty_mcc_f1(tmp_path, monkeypatch):
+    ck = _fake_recorded(tmp_path, monkeypatch)
+    rows, man = at.recorded_cell_rows("davis", "drugban", "cold_target", 1, ck)
+    assert [r["view"] for r in rows] == ["uncorrected", "unseen_by_sequence"]
+    a, b = rows
+    assert (a["auroc"], a["auprc"], a["accuracy"], a["rows"]) == (0.85, 0.47, 0.93, 5)
+    assert (b["auroc"], b["auprc"], b["rows"], b["rows_dropped"]) == (0.81, 0.27, 4, 1)
+    for r in rows:
+        assert r["source"] == "recorded"
+        assert all(np.isnan(r[k]) for k in ("mcc", "f1", "precision", "recall"))
+    assert np.isnan(b["accuracy"])                      # not held by any file for the unseen view
+    assert man["device"] == "recorded" and len(man["checkpoint_sha256"]) == 64
+
+
+def test_recorded_only_cell_with_no_clean_entry_gets_no_unseen_view(tmp_path, monkeypatch):
+    ck = _fake_recorded(tmp_path, monkeypatch, level="random")
+    assert [r["view"] for r in at.recorded_cell_rows("davis", "drugban", "random", 1, ck)[0]] == ["uncorrected"]
+
+
+def test_scope_names_a_dataset_table_so_it_cannot_pass_for_the_full_one():
+    cells, tag = at._scope(type("A", (), {"datasets": "davis"})())
+    assert len(cells) == 60 and tag == "_davis"
+    cells, tag = at._scope(type("A", (), {})())
+    assert len(cells) == 84 and tag == ""
+
+
+def test_dataset_scoped_tabulate_mixes_predicted_and_recorded_cells(tmp_path, monkeypatch, capsys):
+    """A full DAVIS table: 48 predicted cells + DrugBAN from recorded files, MCC/F1 empty for DrugBAN only."""
+    out = tmp_path / "out"
+    davis = [c for c in at.expected_cells() if c[0] == "davis"]
+    for d, m, l, s in davis:
+        if m != "drugban":
+            _fake_cell(str(out), d, m, l, s, leaked=(l in ("cold_target", "cold_pair")))
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(at, "CLEAN_ACCURACY", str(tmp_path / "clean.json"))
+    (tmp_path / "ck" / "davis_binary").mkdir(parents=True)
+    from src.model.checkpoint_naming import results_path, run_tag
+    clean = []
+    for l in at.LEVELS["davis"]:
+        split = tmp_path / "data" / "splits" / "davis" / l
+        split.mkdir(parents=True)
+        pd.DataFrame({"Drug_ID": range(5)}).to_csv(split / "test.csv", index=False)
+        for s in at.SEEDS:
+            res = results_path(str(tmp_path / "ck" / "davis_binary"), run_tag("davis", l, "binary", s),
+                               model="drugban")
+            json.dump({"test_metrics": {"auroc": .8, "auprc": .3, "accuracy": .9}}, open(res, "w"))
+            if l in ("cold_target", "cold_pair"):
+                clean.append({"model": "drugban", "dataset": "davis", "level": l, "seed": s,
+                              "unseen_by_sequence": {"auroc": .7, "auprc": .2, "rows": 4, "positive_rate": .1},
+                              "rows_dropped": 1})
+    json.dump(clean, open(tmp_path / "clean.json", "w"))
+    args = type("A", (), {"out_dir": str(out), "allow_partial": False, "datasets": "davis",
+                          "checkpoint_dir": str(tmp_path / "ck")})()
+    at.cmd_tabulate(args)
+    cells = pd.read_csv(out / "cells_davis.csv")
+    assert cells[["model", "level", "seed"]].drop_duplicates().shape[0] == 60
+    assert not (out / "cells.csv").exists()
+    db, other = cells[cells.model == "drugban"], cells[cells.model != "drugban"]
+    assert db.mcc.isna().all() and db.f1.isna().all() and (db.source == "recorded").all()
+    assert other.mcc.notna().all() and (other.source == "predictions").all()
+    by = pd.read_csv(out / "by_model_davis.csv")
+    assert by[by.model == "drugban"].auroc_mean.notna().all()
+    assert (by.n_seeds == 3).all()
+    assert "; 18 rows are recorded-only" in capsys.readouterr().out       # 12 uncorrected + 6 unseen

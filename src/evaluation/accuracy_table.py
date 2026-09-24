@@ -24,6 +24,11 @@ Decision rule for MCC / F1 / accuracy: the trainers' own (`src/model/train.py`,
 reproduced by it (`reproduces_recorded`). The binary label threshold is the dataset's
 (`BINARY_THRESHOLD`), already applied when the test rows were read.
 
+DrugBAN cannot be scored on this machine (`import dgl` fails), so its 12 DAVIS cells are not predicted:
+`tabulate` takes their AUROC / AUPR / accuracy from the recorded `_results.json` (and, for the
+unseen-by-sequence view of cold-target / cold-pair, AUROC / AUPR from `results/clean_accuracy_davis.json`)
+and leaves MCC, F1, precision and recall EMPTY (NaN). Those rows carry `source = recorded`.
+
 DeepDTA was trained on the binary task in all 36 cells here, so it is scored like the other
 classifiers; regression metrics (MSE, CI, Pearson, Spearman) describe no checkpoint on disk.
 """
@@ -54,6 +59,8 @@ LEVELS = {"davis": ("random", "cold_drug", "cold_target", "cold_pair"),
 SEEDS = (1, 2, 3)
 ATTENTION_MODELS = ("coldsite_dti", "hyperattentiondti", "moltrans", "drugban")
 LOGIT_THRESHOLD = 0.0                    # sigmoid(logit) >= 0.5, `train.compute_metrics`
+RECORDED_ONLY = ("drugban",)             # no predictions file possible here (no DGL)
+CLEAN_ACCURACY = "results/clean_accuracy_{dataset}.json"
 K = "10"                                 # the pre-specified k (amendment §4)
 N_RESAMPLES = 10000
 CONFIDENCE = 0.95
@@ -187,7 +194,7 @@ def cell_rows(dataset, model, level, seed, frame: pd.DataFrame, meta: dict) -> l
         m = binary_metrics(part.label, part.logit)
         row = {"dataset": dataset, "model": model, "level": level, "seed": seed, "view": view,
                **m, "rows_dropped": int(len(frame) - len(part)),
-               "predictions_file": meta["cell"] + ".csv.gz"}
+               "predictions_file": meta["cell"] + ".csv.gz", "source": "predictions"}
         if view == "uncorrected":
             row.update({"recorded_auroc": rec["auroc"], "recorded_auprc": rec["auprc"],
                         "recorded_accuracy": rec["accuracy"],
@@ -196,6 +203,52 @@ def cell_rows(dataset, model, level, seed, frame: pd.DataFrame, meta: dict) -> l
                             for k in ("auroc", "auprc", "accuracy"))})
         out.append(row)
     return out
+
+
+def recorded_cell_rows(dataset, model, level, seed, checkpoint_dir: str) -> tuple:
+    """Rows for a cell with no predictions file: only what the recorded files hold. Returns
+    (rows, manifest_entry). MCC / F1 / precision / recall / predicted_positive_rate stay NaN."""
+    ck_dir = _dirs(checkpoint_dir, dataset)
+    res = results_path(ck_dir, run_tag(dataset, level, "binary", seed), model=model)
+    rec = json.load(open(res))["test_metrics"]
+    test_rows = len(pd.read_csv(os.path.join("data/splits", dataset, level, "test.csv"),
+                                usecols=["Drug_ID"]))
+    nan = float("nan")
+    empty = {k: nan for k in ("positives", "positive_rate", "mcc", "f1", "precision", "recall",
+                              "predicted_positive_rate")}
+    cid = cell_id(dataset, model, level, seed)
+    rows = [{"dataset": dataset, "model": model, "level": level, "seed": seed,
+             "view": "uncorrected", "rows": test_rows, **empty,
+             "auroc": rec["auroc"], "auprc": rec["auprc"], "accuracy": rec["accuracy"],
+             "rows_dropped": 0, "predictions_file": "", "source": "recorded",
+             "recorded_auroc": rec["auroc"], "recorded_auprc": rec["auprc"],
+             "recorded_accuracy": rec["accuracy"], "reproduces_recorded": nan}]
+    clean_path = CLEAN_ACCURACY.format(dataset=dataset)
+    if level in ("cold_target", "cold_pair") and os.path.exists(clean_path):
+        hit = [c for c in json.load(open(clean_path)) if (c["model"], c["dataset"], c["level"],
+               c["seed"]) == (model, dataset, level, seed)]
+        if hit:
+            u = hit[0]["unseen_by_sequence"]
+            rows.append({**rows[0], "view": "unseen_by_sequence", "rows": u["rows"],
+                         "positive_rate": u["positive_rate"], "auroc": u["auroc"],
+                         "auprc": u["auprc"], "accuracy": nan,
+                         "rows_dropped": hit[0]["rows_dropped"],
+                         "recorded_auroc": nan, "recorded_auprc": nan, "recorded_accuracy": nan,
+                         "reproduces_recorded": nan})
+    manifest = {"cell": cid, "predictions_file": "", "predictions_sha256": "", "rows": test_rows,
+                "checkpoint_file": os.path.basename(res), "checkpoint_sha256": sha256_file(res),
+                "device": "recorded", "torch": ""}
+    return rows, manifest
+
+
+def _scope(args) -> tuple:
+    """(cells in scope, file suffix). A dataset-scoped table is named `_<dataset>` so it can never be
+    mistaken for the full 84-cell one."""
+    ds = getattr(args, "datasets", None)
+    if not ds:
+        return expected_cells(), ""
+    keep = set(ds.split(","))
+    return [c for c in expected_cells() if c[0] in keep], "_" + "_".join(sorted(keep))
 
 
 METRICS = ("auroc", "auprc", "accuracy", "mcc", "f1", "precision", "recall")
@@ -215,8 +268,23 @@ def summarise(cells: pd.DataFrame) -> pd.DataFrame:
 
 def cmd_tabulate(args) -> None:
     out, rows, missing, manifest = args.out_dir, [], [], []
-    for d, m, l, s in expected_cells():
+    cells_in_scope, tag = _scope(args)
+    ck_dir = getattr(args, "checkpoint_dir", None)
+    for d, m, l, s in cells_in_scope:
         cid = cell_id(d, m, l, s)
+        if m in RECORDED_ONLY and not os.path.exists(
+                os.path.join(out, "predictions", cid + ".meta.json")):
+            # no predictions file (DGL missing): fall back to the recorded files, if they are reachable
+            try:
+                r, man = recorded_cell_rows(d, m, l, s, ck_dir) if ck_dir else (None, None)
+            except FileNotFoundError:
+                r = None
+            if r is None:
+                missing.append(cid)
+                continue
+            rows += r
+            manifest.append(man)
+            continue
         try:
             frame, meta = load_cell(out, cid)
         except FileNotFoundError:
@@ -229,23 +297,25 @@ def cmd_tabulate(args) -> None:
                          "checkpoint_sha256": meta["checkpoint_sha256"],
                          "device": meta["device"], "torch": meta["torch"]})
     if missing and not args.allow_partial:
-        raise SystemExit(f"{len(missing)} of {len(expected_cells())} cells have no predictions "
+        raise SystemExit(f"{len(missing)} of {len(cells_in_scope)} cells have no predictions "
                          f"(first: {missing[:3]}); refusing to write a partial table. "
                          f"--allow-partial writes it under a _partial suffix.")
-    suffix = "_partial" if missing else ""
+    suffix = tag + ("_partial" if missing else "")
     cells = pd.DataFrame(rows)
     n_cells = cells[["dataset", "model", "level", "seed"]].drop_duplicates().shape[0]
-    if not missing and n_cells != len(expected_cells()):
-        raise SystemExit(f"row-count check failed: {n_cells} cells, expected {len(expected_cells())}")
+    if not missing and n_cells != len(cells_in_scope):
+        raise SystemExit(f"row-count check failed: {n_cells} cells, expected {len(cells_in_scope)}")
     cells.to_csv(os.path.join(out, f"cells{suffix}.csv"), index=False, float_format="%.6f")
     summarise(cells).to_csv(os.path.join(out, f"by_model{suffix}.csv"), index=False,
                             float_format="%.6f")
     pd.DataFrame(manifest).to_csv(os.path.join(out, f"predictions_manifest{suffix}.csv"), index=False)
     bad = cells[cells.reproduces_recorded == False]          # noqa: E712  (NaN rows are views)
+    n_rec = int((cells.source == "recorded").sum())
     print(f"{n_cells} cells ({len(missing)} missing); "
           f"{int((cells.reproduces_recorded == True).sum())} reproduce their recorded "  # noqa: E712
           f"AUROC/AUPR/accuracy, {len(bad)} do not"
-          + (f": {list(bad.model + ' ' + bad.level + ' s' + bad.seed.astype(str))}" if len(bad) else ""))
+          + (f": {list(bad.model + ' ' + bad.level + ' s' + bad.seed.astype(str))}" if len(bad) else "")
+          + f"; {n_rec} rows are recorded-only (no MCC/F1)")
 
 
 # -- stage 3: accuracy vs localization -------------------------------------------------
@@ -285,7 +355,8 @@ def ladder_cell(ladder_dir: str, model: str, dataset: str, level: str, seed: int
 
 
 def cmd_localize(args) -> None:
-    cells = pd.read_csv(os.path.join(args.out_dir, "cells.csv"))
+    _, tag = _scope(args)
+    cells = pd.read_csv(os.path.join(args.out_dir, f"cells{tag}.csv"))
     # accuracy on the same target policy the explanation metrics use (drop seen-by-sequence)
     key = ["dataset", "model", "level", "seed"]
     clean = cells[cells.view == "unseen_by_sequence"].set_index(key)
@@ -302,7 +373,7 @@ def cmd_localize(args) -> None:
                      "auroc_uncorrected": row.auroc, **lad,
                      "enrichment": lad["precision_at_10"] / lad["chance"] if lad["chance"] else np.nan})
     table = pd.DataFrame(rows)
-    table.to_csv(os.path.join(args.out_dir, "localization_cells.csv"), index=False, float_format="%.6f")
+    table.to_csv(os.path.join(args.out_dir, f"localization_cells{tag}.csv"), index=False, float_format="%.6f")
     summary = []
     for d, g in table.groupby("dataset"):
         groups = [("all attention models", g)] + [(m, gm) for m, gm in g.groupby("model")]
@@ -311,9 +382,9 @@ def cmd_localize(args) -> None:
                 ok = gg[[yname]].notna().all(axis=1)
                 summary.append({"dataset": d, "group": name, "y": yname,
                                 **spearman_bootstrap(gg.auroc[ok], gg[yname][ok])})
-    pd.DataFrame(summary).to_csv(os.path.join(args.out_dir, "localization_spearman.csv"),
+    pd.DataFrame(summary).to_csv(os.path.join(args.out_dir, f"localization_spearman{tag}.csv"),
                                  index=False, float_format="%.6f")
-    print(f"{len(table)} cells with a ladder; wrote localization_cells.csv, localization_spearman.csv")
+    print(f"{len(table)} cells with a ladder; wrote localization_cells{tag}.csv, localization_spearman{tag}.csv")
 
 
 def main() -> None:
@@ -326,7 +397,11 @@ def main() -> None:
     a.add_argument("--models", help="comma list; default all")
     b = sub.add_parser("tabulate")
     b.add_argument("--allow-partial", action="store_true")
+    b.add_argument("--checkpoint-dir", default=os.path.expanduser("~/ColdSite-results"),
+                   help="where the recorded _results.json of the no-predictions cells (DrugBAN) live")
     sub.add_parser("localize")
+    for s in (b, sub.choices["localize"]):
+        s.add_argument("--datasets", help="comma list; a scoped table is written with a _<dataset> suffix")
     for s in (a, b, sub.choices["localize"]):
         s.add_argument("--out-dir", default=OUT_DIR)
     args = p.parse_args()

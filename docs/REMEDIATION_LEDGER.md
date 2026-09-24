@@ -14,7 +14,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
 | T05 | Effect sizes & CIs | **DONE-with-declared-gaps** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) done; three gaps deferred by the user to the Kaggle Wave A compute phase: DrugBAN faithfulness CIs, 8 HyperAttentionDTI-IG cells, uniform-control arm; MolTrans non-reproduction accepted as known variance (user, 2026-09-25) |
 | T06 | Conservation null + intermediate rung | **DONE-with-declared-gaps** (2026-09-25) | remediation/T06 | conservation rung (E4-D / E4-K) and KLIFS sub-pocket rung deferred to Wave A by the user's 4-day-deadline decision; no code, no data, no placeholder written |
-| T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
+| T07 | Readout primacy | **BLOCKED on user input** (2026-09-25) | remediation/T07 | plan rule: figure references must be user-supplied; none were. Scaffold `docs/readout_sources.md` written from repo facts only; no code, no analysis. Wave A does not depend on it |
 | T08 | Explanation panel | PENDING | | |
 | T09 | Cloud harness hardening | PENDING | | |
 | T10 | Budget & partition plan | PENDING | | needs quota and session limit from the user |
@@ -759,4 +759,29 @@ being read as a result. No file other than this ledger changed; `git diff --stat
 supplies) → addendum A1 → run E4 with 10,000 permutations, Holm within E4-D and E4-K separately.
 
 **Tests:** not run for this task (no code touched); the last full-suite line stands: `1070 passed, 5 skipped in 134.61s (0:02:14)` (T05).
+
+
+---
+
+## T07 — Readout primacy (BLOCKED on user input, 2026-09-25)
+
+**Branch:** `remediation/T07`, from `remediation/T06`.
+
+The plan says T07 is BLOCKED if the user has not supplied, per model, the paper figure/section showing its binding-site map. The
+2026-09-25 task message did not supply them and the repo does not hold them (grep of `paper/`, `docs/inventory.md` and the vendored
+READMEs finds one note, the `readout_variants.py` docstring's "Fig. 3" for MolTrans, which is unverified). Inventing references is
+forbidden, so the task was **not** completed; the instruction to "execute as planned, lean" was followed as far as the rules allow:
+
+* `docs/readout_sources.md` (new) — a table of what P1/P2 scored per model, what the repo says each paper displays, and empty
+  user-supplied columns; the list of readouts already run (reuse) and the two registered but never run.
+* No code, test, result or data change. `git diff --stat -- results` empty.
+
+**Finding worth acting on:** for MolTrans the primary families scored the protein-encoder self-attention, while the repo's own docstring
+says the paper visualises the drug × protein interaction map. If the user confirms that, MolTrans's primary readout is
+`moltrans_interaction` and E8 becomes a new declared family (amendment §3 row E8); P1 is not rewritten.
+
+**To finish (user):** one line per model (MolTrans, HyperAttentionDTI, DrugBAN): paper + figure/section. Then "Proceed with T07" on a
+later session; CPU only, no GPU.
+
+**Tests:** not run (no code touched); last full-suite line: `1070 passed, 5 skipped in 134.61s (0:02:14)` (T05).
 

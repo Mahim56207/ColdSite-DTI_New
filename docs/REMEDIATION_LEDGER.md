@@ -11,7 +11,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T01 | Inventory | **DONE** (2026-09-24) | remediation/T01 | `docs/inventory.md` written; checkpoint dir `~/ColdSite-results/` confirmed by the user; 15 gaps recorded below |
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
-| T04 | Predictive accuracy table | PENDING | | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
+| T04 | Predictive accuracy table | **PARTIAL — awaiting user decision** (2026-09-24) | remediation/T04 | generator + 12 tests done and validated on real cells; 18 of 84 cells (all DeepDTA) predicted; the other 66 need a multi-hour run (question below) — | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
 | T05 | Effect sizes & CIs | PENDING | | requires T03 approval. `src/evaluation/bootstrap_ci.py` + `results/ci_davis.json` already give protein-resampled 10,000-draw CIs for 24 DAVIS cells — T05 extends this, it is not new work |
 | T06 | Conservation null + intermediate rung | PENDING | | |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
@@ -379,3 +379,70 @@ methods. Full table in the amendment §11.
 3. The DAVIS IG Holm table is still uncommitted (T01 #7) → `ladder_family.py` over S1's 12 cells, T05/T08.
 4. `CLAUDE.md` still says the KIBA Holm family is 6 and describes the older state → documentation, not touched.
 
+
+
+---
+
+## T04 — Predictive accuracy table (PARTIAL, 2026-09-24)
+
+**Branch:** `remediation/T04`, from `remediation/T03` at `01712f1`, clean at start.
+
+**Status:** the generator is written, tested and validated against real cells; only 18 of the 84 cells
+(DeepDTA) have been predicted. The other 66 need inference that measured out at hours on this Mac, which
+`ask-before-long-jobs` requires the user to approve, and 12 of them (DrugBAN) cannot run here at all.
+No amendment sign-off gate applies to the accuracy table itself (T05 is the gated task); the
+accuracy-vs-localization stage is described in the still-unsigned amendment §5, so it is written but **not
+run** until the user replies "approved".
+
+**Files changed:** `src/evaluation/accuracy_table.py` (new), `tests/test_accuracy_table.py` (new, 12 tests),
+`.gitignore` (`!results/accuracy_v2/`, predictions dir stays ignored), this file. Uncommitted, untracked
+outputs: `results/accuracy_v2/{cells_partial,by_model_partial,predictions_manifest_partial}.csv` and
+`results/accuracy_v2/predictions/` (18 files, 2.5 MB) — the `_partial` suffix is deliberate; do not
+commit them as the table.
+
+**Design:** three stages. `predict` = one test pass per cell through `clean_accuracy._scores` (each
+trainer's own dataset, encoding and `run_epoch`), writing per-row logits + a sidecar with the checkpoint
+SHA-256; resumable. `tabulate` reads only the predictions files, verifies each against its recorded
+SHA-256, refuses unless all 84 cells are present (`--allow-partial` writes `_partial` files), and writes
+`cells.csv`, `by_model.csv` (mean ± sample SD, ddof=1, over 3 seeds), `predictions_manifest.csv`.
+`localize` = Spearman(AUROC, precision@10 from the committed ladders) with a 10,000-resample percentile
+bootstrap over cells (amendment §5). Cold-target and cold-pair on DAVIS get two rows: `uncorrected` and
+`unseen_by_sequence`.
+
+**Validation on real data**
+* Decision rule for accuracy/MCC/F1 is the trainers' own (`train.py:107`, probability ≥ 0.5 = logit ≥ 0).
+  Probed on DAVIS cold-pair seed 1, four models, accuracy vs recorded `_results.json`: DeepDTA 0.9423/0.9423,
+  ColdSite-DTI 0.9371/0.9371, HyperAttentionDTI 0.9449/0.9449, MolTrans 0.9379 (CPU) and 0.9371 (MPS) /
+  0.9379 — MolTrans differs by dropout, as `clean_accuracy.py:DROPOUT_DRAWS` documents.
+* All 18 DeepDTA cells: AUROC, AUPR and accuracy reproduce the recorded values within 0.005
+  (`tabulate` output: `18 cells (66 missing); 18 reproduce their recorded AUROC/AUPR/accuracy, 0 do not`).
+* DeepDTA's unseen-by-sequence view matches `results/clean_accuracy_davis.md` exactly (cold-target seed 1:
+  0.8801, 5168 of 5984 rows; cold-pair seed 1: 0.7989, 1001 of 1144).
+* DeepDTA seed means (`by_model_partial.csv`): DAVIS random 0.9290, cold-drug 0.6915, cold-target 0.9074,
+  cold-pair 0.7277 — consistent with the figures in CLAUDE.md §3.
+
+**Tests:** `1039 passed, 5 skipped in 124.52s (0:02:04)` — verbatim. T03: `1027 passed, 5 skipped`;
++12 passed = the 12 new tests; skipped unchanged (DGL-gated).
+
+### Measured cost of the remaining 66 cells (this Mac, MPS; CPU is 2–3× slower)
+Per-row rates from two probes (DAVIS cold-pair, 1,144 rows; DAVIS random, 6,011 rows), fixed load time
+subtracted: ColdSite-DTI ≈ 0.027, HyperAttentionDTI ≈ 0.025, MolTrans ≈ 0.026 s/row for **one** pass.
+Rows to score per model across all its cells: DAVIS 3 × 18,885 = 56,655; KIBA 3 × 46,025 = 138,075 →
+194,730 (`wc -l` of the test CSVs). ⇒ **≈ 4 h per model, ≈ 12–13 h for the three, one pass each** (an
+extrapolation from those two probes, not a measured full run). MolTrans with `clean_accuracy`'s 5 dropout
+draws would be ≈ 5× its share.
+
+### Findings / deviations (repo wins)
+1. **DeepDTA has no regression checkpoint.** All 18 DeepDTA cells are binary, so MSE / CI / Pearson /
+   Spearman cannot be computed from any file on disk (T01 finding 5). They are reported as classifiers.
+   The regression table at `results.md:3–18` remains without a per-cell file.
+2. **DrugBAN's 12 DAVIS cells cannot be predicted here** — `import dgl` fails
+   (`ModuleNotFoundError: No module named 'dgl'`), as in T02. Their AUROC/AUPR/accuracy exist in
+   `_results.json`, but MCC/F1 do not, and no predictions file can be produced without DGL.
+3. **The plan's "84 cells" split is 18 DeepDTA + 66 others** (12 of which are the DrugBAN cells above).
+
+### Decisions needed from the user
+1. How to run the 48 ColdSite-DTI / HyperAttentionDTI / MolTrans cells' inference — see the HALT REPORT.
+2. Where DrugBAN's 12 cells can be scored (a machine with DGL — the T02 question, still open).
+3. MolTrans: one seeded pass per cell (default here; reproduces the recorded value to ~0.001) or the
+   5-draw mean `clean_accuracy` used.

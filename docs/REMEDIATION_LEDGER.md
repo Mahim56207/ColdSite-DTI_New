@@ -11,7 +11,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T01 | Inventory | **DONE** (2026-09-24) | remediation/T01 | `docs/inventory.md` written; checkpoint dir `~/ColdSite-results/` confirmed by the user; 15 gaps recorded below |
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
-| T04 | Predictive accuracy table | **PARTIAL — awaiting user decision** (2026-09-24) | remediation/T04 | generator + 12 tests done and validated on real cells; 18 of 84 cells (all DeepDTA) predicted; the other 66 need a multi-hour run (question below) — | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
+| T04 | Predictive accuracy table | **DAVIS DONE; KIBA PENDING** (2026-09-24) | remediation/T04 | DAVIS: 60 cells tabulated (48 predicted on MPS + 12 DrugBAN from recorded files, MCC/F1 empty); localize run on 48 cells. KIBA's 24 cells not run (user: later) — see § T04 addendum | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
 | T05 | Effect sizes & CIs | PENDING | | requires T03 approval. `src/evaluation/bootstrap_ci.py` + `results/ci_davis.json` already give protein-resampled 10,000-draw CIs for 24 DAVIS cells — T05 extends this, it is not new work |
 | T06 | Conservation null + intermediate rung | PENDING | | |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
@@ -446,3 +446,33 @@ draws would be ≈ 5× its share.
 2. Where DrugBAN's 12 cells can be scored (a machine with DGL — the T02 question, still open).
 3. MolTrans: one seeded pass per cell (default here; reproduces the recorded value to ~0.001) or the
    5-draw mean `clean_accuracy` used.
+
+
+### T04 addendum — DAVIS run (2026-09-24, after the user's decisions)
+
+**User decisions:** (1) DAVIS only, on this Mac's GPU (MPS); KIBA later. (2) DrugBAN: no DGL install; AUROC / AUPR /
+accuracy from the recorded files, MCC and F1 empty for those 12 cells. (3) MolTrans: one pass per cell. (4) T03
+amendment approved (`docs/PROTOCOL_AMENDMENT_v2.md` §12) and `localize` cleared.
+
+**Run:** `predict --datasets davis --models coldsite_dti,hyperattentiondti,moltrans --device mps` → 36/36 `ok`, 0 FAIL
+(`results/accuracy_v2/predict_davis.log`). `tabulate --datasets davis` → `60 cells (0 missing); 46 reproduce their
+recorded AUROC/AUPR/accuracy, 2 do not: ['moltrans cold_pair s1', 'moltrans cold_pair s2']; 18 rows are recorded-only
+(no MCC/F1)`. (The 12 DeepDTA cells were predicted earlier; DrugBAN rows have no `reproduces_recorded` — they *are* the
+recorded values.)
+
+**The 2 non-reproductions:** MolTrans cold-pair seed 1 (AUROC +0.0064) and seed 2 (−0.0076) against a tolerance of 0.005.
+All other MolTrans cells are within 0.0007; ColdSite-DTI, HyperAttentionDTI and DeepDTA reproduce to ≤ 1e-4. Cause
+consistent with the vendored MolTrans keeping dropout on at inference (`clean_accuracy.py:DROPOUT_DRAWS`) and cold-pair
+having only 1,144 test rows: one draw is noisy. This is an interpretation, not a test — the 5-draw mean was not run.
+The MolTrans cold-pair figures in the table are therefore one dropout draw, as decided.
+
+**Localize (amendment §5, description only, 10,000 resamples; 48 cells with a ladder, 12 per attention model):**
+Spearman ρ between a cell's AUROC and its precision@10 — pooled 0.033 [−0.276, 0.322]; ColdSite-DTI 0.119
+[−0.607, 0.701]; HyperAttentionDTI 0.462 [−0.219, 0.884]; MolTrans −0.081 [−0.663, 0.568]; DrugBAN −0.690
+[−0.863, −0.177] (`localization_spearman_davis.csv`). Every interval but DrugBAN's contains 0. Caveats: cells pool the four
+levels and three seeds, so the cells are not independent; DrugBAN's AUROC for cold-target/cold-pair is the
+unseen-by-sequence value from `clean_accuracy_davis.json`, the others' from their predictions. Not a significance claim.
+
+**Still open:** KIBA's 24 cells (`predict --datasets kiba`; ~3.9× the DAVIS rows); the full 84-cell `cells.csv`;
+DrugBAN MCC/F1 (needs DGL; user declined); MolTrans 5-draw check if the two misses matter for the paper.
+`_partial` files from the earlier 18-cell probe remain untracked and superseded.

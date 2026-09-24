@@ -1,0 +1,62 @@
+/opt/anaconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py:380: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /Users/runner/work/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1102.)
+  return F.conv1d(
+[1/36] ok   davis_random_coldsite_dti_seed1
+[2/36] ok   davis_random_coldsite_dti_seed2
+[3/36] ok   davis_random_coldsite_dti_seed3
+[4/36] ok   davis_cold_drug_coldsite_dti_seed1
+[5/36] ok   davis_cold_drug_coldsite_dti_seed2
+[6/36] ok   davis_cold_drug_coldsite_dti_seed3
+[7/36] ok   davis_cold_target_coldsite_dti_seed1
+[8/36] ok   davis_cold_target_coldsite_dti_seed2
+[9/36] ok   davis_cold_target_coldsite_dti_seed3
+[10/36] ok   davis_cold_pair_coldsite_dti_seed1
+[11/36] ok   davis_cold_pair_coldsite_dti_seed2
+[12/36] ok   davis_cold_pair_coldsite_dti_seed3
+    test batch 20/188 loss 0.1533    test batch 40/188 loss 0.1463    test batch 60/188 loss 0.1665    test batch 80/188 loss 0.1548    test batch 100/188 loss 0.1521    test batch 120/188 loss 0.1575    test batch 140/188 loss 0.1592    test batch 160/188 loss 0.1543    test batch 180/188 loss 0.1544    test batch 188/188 loss 0.1533
+[13/36] ok   davis_random_hyperattentiondti_seed1
+    test batch 20/188 loss 0.1762    test batch 40/188 loss 0.1591    test batch 60/188 loss 0.1733    test batch 80/188 loss 0.1582    test batch 100/188 loss 0.1569    test batch 120/188 loss 0.1589    test batch 140/188 loss 0.1618    test batch 160/188 loss 0.1539    test batch 180/188 loss 0.1522    test batch 188/188 loss 0.1515
+[14/36] ok   davis_random_hyperattentiondti_seed2
+    test batch 20/188 loss 0.1600    test batch 40/188 loss 0.1496    test batch 60/188 loss 0.1650    test batch 80/188 loss 0.1568    test batch 100/188 loss 0.1550    test batch 120/188 loss 0.1573    test batch 140/188 loss 0.1586    test batch 160/188 loss 0.1526    test batch 180/188 loss 0.1513    test batch 188/188 loss 0.1508
+[15/36] ok   davis_random_hyperattentiondti_seed3
+    test batch 20/180 loss 0.1456    test batch 40/180 loss 0.2970    test batch 60/180 loss 0.2751    test batch 80/180 loss 0.2367    test batch 100/180 loss 0.2616    test batch 120/180 loss 0.2358    test batch 140/180 loss 0.2541    test batch 160/180 loss 0.2523    test batch 180/180 loss 0.2473
+[16/36] ok   davis_cold_drug_hyperattentiondti_seed1
+    test batch 20/180 loss 0.0773    test batch 40/180 loss 0.2271    test batch 60/180 loss 0.2220    test batch 80/180 loss 0.1860    test batch 100/180 loss 0.2129    test batch 120/180 loss 0.1951    test batch 140/180 loss 0.2258    test batch 160/180 loss 0.2281    test batch 180/180 loss 0.2292
+[17/36] ok   davis_cold_drug_hyperattentiondti_seed2
+    test batch 20/180 loss 0.1193    test batch 40/180 loss 0.2043    test batch 60/180 loss 0.2022    test batch 80/180 loss 0.1785    test batch 100/180 loss 0.1891    test batch 120/180 loss 0.1722    test batch 140/180 loss 0.1955    test batch 160/180 loss 0.1992    test batch 180/180 loss 0.1992
+[18/36] ok   davis_cold_drug_hyperattentiondti_seed3
+    test batch 20/187 loss 0.1348    test batch 40/187 loss 0.1089    test batch 60/187 loss 0.1111    test batch 80/187 loss 0.1199    test batch 100/187 loss 0.1264    test batch 120/187 loss 0.1389    test batch 140/187 loss 0.1411    test batch 160/187 loss 0.1487    test batch 180/187 loss 0.1529    test batch 187/187 loss 0.1563
+[19/36] ok   davis_cold_target_hyperattentiondti_seed1
+    test batch 20/187 loss 0.1514    test batch 40/187 loss 0.1180    test batch 60/187 loss 0.1187    test batch 80/187 loss 0.1287    test batch 100/187 loss 0.1313    test batch 120/187 loss 0.1397    test batch 140/187 loss 0.1419    test batch 160/187 loss 0.1486    test batch 180/187 loss 0.1536    test batch 187/187 loss 0.1565
+[20/36] ok   davis_cold_target_hyperattentiondti_seed2
+    test batch 20/187 loss 0.1413    test batch 40/187 loss 0.1161    test batch 60/187 loss 0.1159    test batch 80/187 loss 0.1274    test batch 100/187 loss 0.1341    test batch 120/187 loss 0.1448    test batch 140/187 loss 0.1460    test batch 160/187 loss 0.1534    test batch 180/187 loss 0.1562    test batch 187/187 loss 0.1586
+[21/36] ok   davis_cold_target_hyperattentiondti_seed3
+    test batch 20/36 loss 0.1877    test batch 36/36 loss 0.2343
+[22/36] ok   davis_cold_pair_hyperattentiondti_seed1
+    test batch 20/36 loss 0.1868    test batch 36/36 loss 0.2260
+[23/36] ok   davis_cold_pair_hyperattentiondti_seed2
+    test batch 20/36 loss 0.2089    test batch 36/36 loss 0.2284
+[24/36] ok   davis_cold_pair_hyperattentiondti_seed3
+    test batch 20/376 loss 0.1237    test batch 40/376 loss 0.1672    test batch 60/376 loss 0.1712    test batch 80/376 loss 0.1707    test batch 100/376 loss 0.1714    test batch 120/376 loss 0.1808    test batch 140/376 loss 0.1759    test batch 160/376 loss 0.1784    test batch 180/376 loss 0.1783    test batch 200/376 loss 0.1748    test batch 220/376 loss 0.1703    test batch 240/376 loss 0.1758    test batch 260/376 loss 0.1768    test batch 280/376 loss 0.1800    test batch 300/376 loss 0.1752    test batch 320/376 loss 0.1715    test batch 340/376 loss 0.1696    test batch 360/376 loss 0.1693    test batch 376/376 loss 0.1687
+[25/36] ok   davis_random_moltrans_seed1
+    test batch 20/376 loss 0.1241    test batch 40/376 loss 0.1736    test batch 60/376 loss 0.1701    test batch 80/376 loss 0.1630    test batch 100/376 loss 0.1670    test batch 120/376 loss 0.1721    test batch 140/376 loss 0.1670    test batch 160/376 loss 0.1666    test batch 180/376 loss 0.1684    test batch 200/376 loss 0.1639    test batch 220/376 loss 0.1606    test batch 240/376 loss 0.1665    test batch 260/376 loss 0.1684    test batch 280/376 loss 0.1706    test batch 300/376 loss 0.1668    test batch 320/376 loss 0.1637    test batch 340/376 loss 0.1638    test batch 360/376 loss 0.1661    test batch 376/376 loss 0.1643
+[26/36] ok   davis_random_moltrans_seed2
+    test batch 20/376 loss 0.1626    test batch 40/376 loss 0.2154    test batch 60/376 loss 0.1908    test batch 80/376 loss 0.1827    test batch 100/376 loss 0.1833    test batch 120/376 loss 0.1883    test batch 140/376 loss 0.1810    test batch 160/376 loss 0.1785    test batch 180/376 loss 0.1796    test batch 200/376 loss 0.1777    test batch 220/376 loss 0.1775    test batch 240/376 loss 0.1798    test batch 260/376 loss 0.1790    test batch 280/376 loss 0.1779    test batch 300/376 loss 0.1739    test batch 320/376 loss 0.1704    test batch 340/376 loss 0.1680    test batch 360/376 loss 0.1704    test batch 376/376 loss 0.1698
+[27/36] ok   davis_random_moltrans_seed3
+    test batch 20/360 loss 0.2935    test batch 40/360 loss 0.2232    test batch 60/360 loss 0.2741    test batch 80/360 loss 0.3672    test batch 100/360 loss 0.3397    test batch 120/360 loss 0.3344    test batch 140/360 loss 0.2929    test batch 160/360 loss 0.2606    test batch 180/360 loss 0.2420    test batch 200/360 loss 0.2777    test batch 220/360 loss 0.2673    test batch 240/360 loss 0.2554    test batch 260/360 loss 0.3006    test batch 280/360 loss 0.3210    test batch 300/360 loss 0.3169    test batch 320/360 loss 0.3505    test batch 340/360 loss 0.3705    test batch 360/360 loss 0.3545
+[28/36] ok   davis_cold_drug_moltrans_seed1
+    test batch 20/360 loss 0.1409    test batch 40/360 loss 0.1038    test batch 60/360 loss 0.1844    test batch 80/360 loss 0.3031    test batch 100/360 loss 0.2914    test batch 120/360 loss 0.2899    test batch 140/360 loss 0.2559    test batch 160/360 loss 0.2293    test batch 180/360 loss 0.2084    test batch 200/360 loss 0.2466    test batch 220/360 loss 0.2469    test batch 240/360 loss 0.2346    test batch 260/360 loss 0.2693    test batch 280/360 loss 0.2790    test batch 300/360 loss 0.2681    test batch 320/360 loss 0.3154    test batch 340/360 loss 0.3395    test batch 360/360 loss 0.3288
+[29/36] ok   davis_cold_drug_moltrans_seed2
+    test batch 20/360 loss 0.2536    test batch 40/360 loss 0.1580    test batch 60/360 loss 0.2347    test batch 80/360 loss 0.3533    test batch 100/360 loss 0.3379    test batch 120/360 loss 0.3040    test batch 140/360 loss 0.2639    test batch 160/360 loss 0.2350    test batch 180/360 loss 0.2173    test batch 200/360 loss 0.2368    test batch 220/360 loss 0.2292    test batch 240/360 loss 0.2197    test batch 260/360 loss 0.2512    test batch 280/360 loss 0.2672    test batch 300/360 loss 0.2580    test batch 320/360 loss 0.2954    test batch 340/360 loss 0.3160    test batch 360/360 loss 0.3041
+[30/36] ok   davis_cold_drug_moltrans_seed3
+    test batch 20/374 loss 0.2511    test batch 40/374 loss 0.2333    test batch 60/374 loss 0.1784    test batch 80/374 loss 0.1686    test batch 100/374 loss 0.1933    test batch 120/374 loss 0.1677    test batch 140/374 loss 0.1752    test batch 160/374 loss 0.1686    test batch 180/374 loss 0.1959    test batch 200/374 loss 0.1808    test batch 220/374 loss 0.1860    test batch 240/374 loss 0.1951    test batch 260/374 loss 0.1913    test batch 280/374 loss 0.1951    test batch 300/374 loss 0.1928    test batch 320/374 loss 0.2127    test batch 340/374 loss 0.2168    test batch 360/374 loss 0.2148    test batch 374/374 loss 0.2199
+[31/36] ok   davis_cold_target_moltrans_seed1
+    test batch 20/374 loss 0.2034    test batch 40/374 loss 0.2150    test batch 60/374 loss 0.1847    test batch 80/374 loss 0.1724    test batch 100/374 loss 0.1898    test batch 120/374 loss 0.1673    test batch 140/374 loss 0.1768    test batch 160/374 loss 0.1662    test batch 180/374 loss 0.1962    test batch 200/374 loss 0.1827    test batch 220/374 loss 0.1863    test batch 240/374 loss 0.1947    test batch 260/374 loss 0.1898    test batch 280/374 loss 0.1910    test batch 300/374 loss 0.1870    test batch 320/374 loss 0.2017    test batch 340/374 loss 0.2041    test batch 360/374 loss 0.2020    test batch 374/374 loss 0.2054
+[32/36] ok   davis_cold_target_moltrans_seed2
+    test batch 20/374 loss 0.2224    test batch 40/374 loss 0.2094    test batch 60/374 loss 0.1656    test batch 80/374 loss 0.1502    test batch 100/374 loss 0.1790    test batch 120/374 loss 0.1574    test batch 140/374 loss 0.1695    test batch 160/374 loss 0.1618    test batch 180/374 loss 0.1802    test batch 200/374 loss 0.1686    test batch 220/374 loss 0.1706    test batch 240/374 loss 0.1818    test batch 260/374 loss 0.1798    test batch 280/374 loss 0.1798    test batch 300/374 loss 0.1769    test batch 320/374 loss 0.1955    test batch 340/374 loss 0.1995    test batch 360/374 loss 0.1973    test batch 374/374 loss 0.2004
+[33/36] ok   davis_cold_target_moltrans_seed3
+    test batch 20/72 loss 0.2429    test batch 40/72 loss 0.2077    test batch 60/72 loss 0.2462    test batch 72/72 loss 0.3088
+[34/36] ok   davis_cold_pair_moltrans_seed1
+    test batch 20/72 loss 0.2442    test batch 40/72 loss 0.2180    test batch 60/72 loss 0.2595    test batch 72/72 loss 0.3188
+[35/36] ok   davis_cold_pair_moltrans_seed2
+    test batch 20/72 loss 0.3285    test batch 40/72 loss 0.2589    test batch 60/72 loss 0.2693    test batch 72/72 loss 0.3055
+[36/36] ok   davis_cold_pair_moltrans_seed3

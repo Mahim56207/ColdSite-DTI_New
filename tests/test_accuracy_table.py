@@ -225,3 +225,15 @@ def test_dataset_scoped_tabulate_mixes_predicted_and_recorded_cells(tmp_path, mo
     assert by[by.model == "drugban"].auroc_mean.notna().all()
     assert (by.n_seeds == 3).all()
     assert "; 18 rows are recorded-only" in capsys.readouterr().out       # 12 uncorrected + 6 unseen
+
+
+def test_spearman_bootstrap_ci_is_finite_when_a_resample_repeats_one_inexact_float():
+    """Regression, found on MolTrans/KIBA (6 cells, seed 0, 10,000 resamples): one resample drew the same cell
+    six times. Its std() is 1.1e-16 > 0 although the values are identical, so the old `std() > 0` guard let it
+    through, spearmanr returned NaN, and the percentile CI came out NaN. The guard is now the exact range."""
+    x = np.array([0.916780, 0.915991, 0.923356, 0.802837, 0.812213, 0.820903])
+    y = np.array([0.020379, 0.052607, 0.021801, 0.027830, 0.062736, 0.016509])
+    assert np.std(np.full(6, x[3])) > 0 and np.ptp(np.full(6, x[3])) == 0      # the trap itself
+    r = at.spearman_bootstrap(x, y, n_resamples=10000, seed=0)
+    assert np.isfinite(r["low"]) and np.isfinite(r["high"])
+    assert r["n_degenerate_resamples"] >= 1                                     # counted, not used

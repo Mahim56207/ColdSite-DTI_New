@@ -1,0 +1,9 @@
+dataset,group,y,n_cells,rho,low,high,n_resamples,n_degenerate_resamples
+kiba,all attention models,precision_at_10,18,0.064050,-0.465683,0.557414,10000,0
+kiba,all attention models,enrichment,18,0.064050,-0.465683,0.557414,10000,0
+kiba,coldsite_dti,precision_at_10,6,0.257143,-1.000000,1.000000,10000,1
+kiba,coldsite_dti,enrichment,6,0.257143,-1.000000,1.000000,10000,1
+kiba,hyperattentiondti,precision_at_10,6,-0.371429,-1.000000,0.800000,10000,1
+kiba,hyperattentiondti,enrichment,6,-0.371429,-1.000000,0.800000,10000,1
+kiba,moltrans,precision_at_10,6,-0.371429,-1.000000,0.806452,10000,1
+kiba,moltrans,enrichment,6,-0.371429,-1.000000,0.806452,10000,1

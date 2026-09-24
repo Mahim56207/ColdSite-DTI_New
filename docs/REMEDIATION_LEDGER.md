@@ -11,7 +11,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T01 | Inventory | **DONE** (2026-09-24) | remediation/T01 | `docs/inventory.md` written; checkpoint dir `~/ColdSite-results/` confirmed by the user; 15 gaps recorded below |
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
-| T04 | Predictive accuracy table | **DAVIS DONE; KIBA PENDING** (2026-09-24) | remediation/T04 | DAVIS: 60 cells tabulated (48 predicted on MPS + 12 DrugBAN from recorded files, MCC/F1 empty); localize run on 48 cells. KIBA's 24 cells not run (user: later) — see § T04 addendum | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
+| T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
 | T05 | Effect sizes & CIs | PENDING | | requires T03 approval. `src/evaluation/bootstrap_ci.py` + `results/ci_davis.json` already give protein-resampled 10,000-draw CIs for 24 DAVIS cells — T05 extends this, it is not new work |
 | T06 | Conservation null + intermediate rung | PENDING | | |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
@@ -514,3 +514,38 @@ sd ≈ 0.004–0.007; treat differences of that size between MolTrans cells (or 
 `reproduces_recorded` flag uses a fixed 0.005 tolerance, which is tighter than this model's own draw-to-draw noise on
 1,144 rows; it stays as is (flag = 2 `False` cells, documented here). **No code was changed**; a range-based flag for
 MolTrans is a possible later refinement, not made.
+
+
+### T04 addendum — KIBA run and completion (2026-09-24/25)
+
+**Run:** `predict --datasets kiba --models coldsite_dti,hyperattentiondti,moltrans --device mps` → 18/18 `ok`, 0 FAIL
+(`results/accuracy_v2/predict_kiba.log`); DeepDTA's 6 KIBA cells were predicted earlier. Protocol unchanged (one pass per
+cell, MolTrans included). The Mac slept between checks (86 min CPU in 6.4 h wall), so wall-clock gaps in the log are not
+per-cell costs; `caffeinate -w <pid>` was attached for the last cell.
+`tabulate --datasets kiba` → `24 cells (0 missing); 24 reproduce their recorded AUROC/AUPR/accuracy, 0 do not`. Full
+`tabulate` → `84 cells (0 missing); 70 reproduce ..., 2 do not: ['moltrans cold_pair s1', 'moltrans cold_pair s2']; 18 rows
+are recorded-only (no MCC/F1)` — the same 2 DAVIS cells explained in the MolTrans investigation above; the other 12 of the
+84 are the DrugBAN cells, which have no reproduction flag. The DAVIS rows of `cells.csv` equal `cells_davis.csv` exactly.
+
+**KIBA seed means (AUROC ± SD, n = 3):** random — ColdSite-DTI 0.8945 ± 0.0113, HyperAttentionDTI 0.9331 ± 0.0006,
+MolTrans 0.9187 ± 0.0040, DeepDTA 0.9178 ± 0.0006; cold-drug — 0.8069 ± 0.0087, 0.8444 ± 0.0039, 0.8120 ± 0.0090,
+0.8324 ± 0.0015 (`by_model_kiba.csv`, which also holds AUPR, accuracy, MCC, F1).
+
+**Localize, KIBA (18 cells, 6 per attention model):** Spearman ρ(AUROC, precision@10) pooled 0.064 [−0.466, 0.557];
+ColdSite-DTI 0.257 [−1.000, 1.000]; HyperAttentionDTI −0.371 [−1.000, 0.800]; MolTrans −0.371 [−1.000, 0.806]. With 6
+cells per model these intervals span nearly the whole range and say nothing about a relationship; only the pooled row is
+informative, and it contains 0. Same caveats as DAVIS (levels and seeds pooled, not independent; a description, not a test).
+Pooled over both datasets: 66 cells with a ladder (`localization_spearman.csv`).
+
+**Bug found and fixed in `spearman_bootstrap` (`accuracy_table.py`):** the constant-resample guard was `std() > 0`. A
+resample that draws one cell six times has a float `std` of 1.1e-16 although its values are identical, so it passed the
+guard, `spearmanr` returned NaN, and MolTrans/KIBA's precision@10 interval came out `NaN`. The guard is now the exact range
+`np.ptp() > 0`. Regression test `test_spearman_bootstrap_ci_is_finite_when_a_resample_repeats_one_inexact_float` uses the
+six real MolTrans/KIBA values and **fails on the old code** (`isfinite(nan)`), passes on the fix. Effect of the fix, checked
+by diff against the pre-fix outputs: exactly one number changed (MolTrans KIBA precision@10: NaN → [−1.000, 0.806], one
+degenerate resample now counted); `localization_spearman_davis.csv` is byte-identical, and the pooled file has no NaN.
+
+**Tests:** `python3 -m pytest -p no:warnings` → `1044 passed, 5 skipped in 65.22s` (verbatim; the 5 skips are DGL-gated).
+
+**Not done / open:** DrugBAN MCC/F1 (no DGL; user declined); a range-based reproduction flag for MolTrans (optional);
+three superseded `*_partial.csv` files from the 18-cell probe remain untracked (not deleted, awaiting the user).

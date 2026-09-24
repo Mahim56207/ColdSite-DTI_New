@@ -327,13 +327,15 @@ def spearman_bootstrap(x, y, n_resamples: int = N_RESAMPLES, seed: int = 0,
     from scipy.stats import spearmanr
     x, y = np.asarray(x, float), np.asarray(y, float)
     n = len(x)
-    rho = float(spearmanr(x, y)[0]) if n > 2 and x.std() > 0 and y.std() > 0 else float("nan")
+    rho = float(spearmanr(x, y)[0]) if n > 2 and np.ptp(x) > 0 and np.ptp(y) > 0 else float("nan")
     rng = np.random.default_rng(seed)
     draws = rng.integers(0, n, size=(n_resamples, n))
     rhos = []
     for idx in draws:
         xs, ys = x[idx], y[idx]
-        if xs.std() > 0 and ys.std() > 0:
+        # exact range, not std(): a resample of one repeated float can have std ~1e-17 > 0, and
+        # spearmanr of a constant is NaN, which would turn the whole percentile NaN
+        if np.ptp(xs) > 0 and np.ptp(ys) > 0:
             rhos.append(spearmanr(xs, ys)[0])
     alpha = (1 - confidence) / 2
     low, high = (float(np.quantile(rhos, alpha)), float(np.quantile(rhos, 1 - alpha))) \

@@ -10,7 +10,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T00 | Bootstrap | **DONE** (2026-09-24) | remediation/T00 | plan + ledger written; suite run; layout verified; 5 discrepancies recorded below |
 | T01 | Inventory | **DONE** (2026-09-24) | remediation/T01 | `docs/inventory.md` written; checkpoint dir `~/ColdSite-results/` confirmed by the user; 15 gaps recorded below |
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
-| T03 | Protocol amendment | PENDING | | user sign-off required before T05 or any new analysis |
+| T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
 | T04 | Predictive accuracy table | PENDING | | no saved predictions and no MCC/F1 anywhere — inference over all 84 checkpoints is required; DeepDTA was trained **binary**, so the task's regression-metric list needs a user decision |
 | T05 | Effect sizes & CIs | PENDING | | requires T03 approval. `src/evaluation/bootstrap_ci.py` + `results/ci_davis.json` already give protein-resampled 10,000-draw CIs for 24 DAVIS cells — T05 extends this, it is not new work |
 | T06 | Conservation null + intermediate rung | PENDING | | |
@@ -302,4 +302,80 @@ each vendored import; MolTrans matched-control probe on 6 real DAVIS proteins; a
    written scope.
 3. Is there a machine with DGL where the DrugBAN tests can be run before T09, or should they wait for
    the cloud canary?
+
+
+---
+
+## T03 — Protocol amendment (DRAFTED, 2026-09-24; sign-off pending)
+
+**Branch:** `remediation/T03`, from `remediation/T02` at `299f11b`, working tree clean at start.
+
+**Status:** the document is written and committed but is **not in force**. The task's own gate is
+the user's reply "approved"; until then T05 and every analysis that produces a new number stay
+blocked. Not marked DONE for that reason.
+
+**Files changed:** `docs/PROTOCOL_AMENDMENT_v2.md` (new), `docs/REMEDIATION_LEDGER.md` (this file).
+No code, test, result or data file touched; `git diff --stat -- results` empty.
+
+**Commands run** (read-only apart from writing the two documents): `git checkout -b remediation/T03`;
+`cat`/`sed`/`grep -n` over `src/evaluation/{seed_agreement,run_audit,aggregate,significance_test,
+bootstrap_ci,ladder_family,faithfulness,token_faithfulness,mask_comparability,run_all,run_ladder,
+run_faithfulness,integrity,exclusions,positional_control,run_control}.py`; `python3 -c json.load` over
+the primary audit JSONs (cell counts, seeds, k, significant cells, smallest p), one faithfulness JSON and
+one control JSON (key structure only); a path-existence check over every path cited in the document;
+`python3 -m pytest -p no:warnings`.
+
+**Tests:** `1027 passed, 5 skipped in 125.50s (0:02:05)` — verbatim, default environment. Identical
+to T02's `1027 passed, 5 skipped`; T03 adds no tests.
+
+**Verification against T03's own criteria**
+
+| criterion | result |
+|---|---|
+| declares primary families (unchanged originals) | P1 (DAVIS, 20 cells) and P2 (KIBA, 8), counts read from the committed JSON in this session; S1/S2 (IG, 12 and 4) declared as post-hoc secondary; S3 (KLIFS pocket, 16 and 6) declared |
+| each extension family declared | E1 seeds 4–5; E2 DrugBAN-KIBA; E3 new methods; E4 conservation null; E5 modern model; E6 new splits; E7 non-kinase; E8 readouts (via addendum) |
+| Holm scope per family | table in §3, every family alone, design `m` fixed |
+| pre-specified k | k = 10, with the evidence it predates results (`docs/03_GUIDE_124AD0067.md:44,57,67`, first commit 2026-07-31) |
+| effect-size / CI method | §5: 10,000 resamples, unit = target, 95 % percentile, `default_rng(0)`, from `bootstrap_ci.py:43–71` |
+| canary tolerance | §6: ± one committed-seed SD, both metrics, same seed (the `amp_validation_davis.md` standard); inconclusive if SD = 0 |
+| decision rules copied from code, path cited | §1 table (14 rules with `path:line`), §7 for extension seeds |
+| references a code path for every rule | yes; a script confirmed every cited file exists (only the future `docs/method_applicability.md`, `docs/readout_sources.md`, `results/effects_v2/` are absent, by design) |
+| committed with a timestamp | drafted 2026-09-24T03:42:16Z; the commit's own time is authoritative |
+| no analysis run | none; only descriptive reads of committed outputs |
+
+### Findings recorded in the amendment (repo wins)
+
+* **G1 — `seed_agreement` returns nothing for 5 seeds.** `seed_agreement.py:38` keeps only cells with
+  exactly 3 seeds and hard-codes 3 at `:47, :50`; feeding it seeds 1–5 would drop every cell silently.
+  T12 must generalise it and reproduce `results/seed_agreement.md` exactly at n = 3 first.
+* **G2 — no per-pair faithfulness values exist.** The faithfulness JSONs hold split-level means only, so a
+  bootstrap CI for a faithfulness delta needs the faithfulness step re-run into `results/effects_v2/`.
+  Pairs are also not one per protein (first 200 from the dataloader), so the CI must group by target.
+* **G3 — KLIFS-pocket ladders, positional nulls and the non-kinase control were reported with uncorrected
+  `p < 0.05`.** The amendment declares Holm families for the first and third (S3, E7) and keeps the
+  positional nulls descriptive.
+* **G4 — the "original" primary families grew after results were seen** (DAVIS 16 → 20, KIBA 6 → 8, on
+  2026-09-19, superseded files on disk). The amendment freezes 20 and 8.
+* **The "load-bearing" verdict is a sign test on a point estimate** (`faithfulness.py:251–253`): no
+  interval, no p-value. A CI-qualified verdict is added beside it, not instead of it (D4).
+* **No cell-level verdict beyond Holm significance is coded.** "Coarsely plausible" / "about 2× chance"
+  are prose; the amendment says they are not decision rules.
+* **No conservation data exists in the repo** (`grep` over `src/`, `data/*.json`), so E4 cannot start
+  without a user-approved source (D6).
+* **`CLAUDE.md`'s "KIBA family of 6" is superseded**; the committed KIBA audit has 8 cells.
+
+### Decisions needed from the user
+
+D1 permutation count of the primary record (default: the 10,000-permutation re-runs, originals kept);
+D2 DrugBAN seeds 4–5 in E1 (default: decided by the T10 wave plan before any seed-4/5 result);
+D3 Holm on S3 and E7; D4 CI-qualified faithfulness verdict; D5 extend the T02 manifest to primary
+outputs (still open from T02); D6 conservation source; D7 canary rule; D8 one joint family for new
+methods. Full table in the amendment §11.
+
+### Discovered (work belonging to other tasks — not started)
+
+1. `seed_agreement.py` generalisation to n seeds (G1) → T12.
+2. Faithfulness re-run with per-pair values (G2) → T05.
+3. The DAVIS IG Holm table is still uncommitted (T01 #7) → `ladder_family.py` over S1's 12 cells, T05/T08.
+4. `CLAUDE.md` still says the KIBA Holm family is 6 and describes the older state → documentation, not touched.
 

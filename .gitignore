@@ -13,6 +13,9 @@ data/raw/*
 data/splits/*
 !data/raw/.gitkeep
 !data/splits/.gitkeep
+# The hash record for the split and ground-truth files (src/data/manifest.py): the splits
+# themselves are regenerated, the record of what they must hash to is not.
+!data/splits/MANIFEST.json
 
 # Cloned baseline repos (each has its own git history/license - don't nest them)
 src/data/baselines/*

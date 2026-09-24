@@ -1,0 +1,329 @@
+{
+ "note": "SHA-256 of the local files at the time this was written (remediation task T02). It cannot show these are the files the pre-existing cells trained on; see src/data/manifest.py.",
+ "excluded": {
+  "data/klifs_structures.json": "raw KLIFS API cache; gitignored, re-fetchable",
+  "data/klifs_ligands.json": "raw KLIFS API cache; gitignored, re-fetchable"
+ },
+ "files": {
+  "data/davis_drug_sites.json": {
+   "section": "ground_truth",
+   "sha256": "2f846963594f401990281164ad9c47635f8bd325e209774bc558b2d7c3d59523",
+   "bytes": 392666
+  },
+  "data/davis_drug_sites_paired.json": {
+   "section": "ground_truth",
+   "sha256": "47ffa32ea2b32ca3d003bdf1a9f4043cdb12105bdb414106960b14b9a4b49106",
+   "bytes": 288456
+  },
+  "data/davis_drug_sites_report.json": {
+   "section": "ground_truth",
+   "sha256": "eaf13ea4066c3f1211a00dfc7c376778d134db93a15406637d3b81e023a38652",
+   "bytes": 157037
+  },
+  "data/davis_drug_sites_swapped.json": {
+   "section": "ground_truth",
+   "sha256": "0e76b461c4d4bca07d4f0b399cf8a74bdcbcfd9038f6dbcfa02b298310ed8664",
+   "bytes": 288456
+  },
+  "data/davis_ground_truth_alignment.json": {
+   "section": "ground_truth",
+   "sha256": "205a221b0132cb60b730b96b8fd8734ebc8003ec1397eea1eb08708e1123a554",
+   "bytes": 66336
+  },
+  "data/davis_ground_truth_sites.json": {
+   "section": "ground_truth",
+   "sha256": "0662e94659aa915a165711c7ba4571182d18a91047bd5547304f543bcad49048",
+   "bytes": 178334
+  },
+  "data/davis_ground_truth_sites_provenance.json": {
+   "section": "ground_truth",
+   "sha256": "d484281214eded2ecf91856072cb5578097ce419d3326f744a48b14def4b6d9d",
+   "bytes": 128405
+  },
+  "data/davis_ground_truth_sites_uniprot.json": {
+   "section": "ground_truth",
+   "sha256": "87247a8516e1b49720fbb96421fd3eb1e2400a9879cdb8729c0e78c9fb2542a5",
+   "bytes": 200843
+  },
+  "data/davis_klifs_pocket_report.json": {
+   "section": "ground_truth",
+   "sha256": "dcfea0a76e4884e6b5dfc9ec09ff26fc2f69c54a98a37c47414208d1ffe9b272",
+   "bytes": 117929
+  },
+  "data/davis_klifs_pocket_sites.json": {
+   "section": "ground_truth",
+   "sha256": "b4e451503620b020b220a67b162b589d6fb7e3987a19930ac71bf520061771db",
+   "bytes": 385793
+  },
+  "data/davis_target_overrides.json": {
+   "section": "ground_truth",
+   "sha256": "b692687523a18f70a99a6929c063cd0ffbf656e7c3d7b1c2aa5d88a8bfc1922c",
+   "bytes": 10221
+  },
+  "data/davis_uniprot_sequences.json": {
+   "section": "ground_truth",
+   "sha256": "2bfd2760c0315874d8c5192c71d779a16806cf4b96d6a52e011e422da4939607",
+   "bytes": 296349
+  },
+  "data/davis_uniprot_to_gene.json": {
+   "section": "ground_truth",
+   "sha256": "7e4e59bc04d5bc729ca55f21cd7340ea1803cbefe93a4435e46b41c9656a8b4e",
+   "bytes": 47264
+  },
+  "data/kiba_ground_truth_alignment.json": {
+   "section": "ground_truth",
+   "sha256": "bfaed5540342e215ad43d39b0e86a981e674ab50ea15f14acae9754a2f659863",
+   "bytes": 32152
+  },
+  "data/kiba_ground_truth_sites.json": {
+   "section": "ground_truth",
+   "sha256": "47f8677b0834ba2e002357aea7619fc7b7d81f2b9828f0b9c5b52b4c36078a39",
+   "bytes": 100731
+  },
+  "data/kiba_ground_truth_sites_provenance.json": {
+   "section": "ground_truth",
+   "sha256": "ec71c4793f1dc8ff1b5811040710e557d939088f67eae11e74a33a593e921dfd",
+   "bytes": 65860
+  },
+  "data/kiba_ground_truth_sites_uniprot.json": {
+   "section": "ground_truth",
+   "sha256": "d98a3bca2655f353b725867e7092bb84ee2dfe9aba22f8e26273c2e4ae705fa3",
+   "bytes": 122926
+  },
+  "data/kiba_klifs_pocket_report.json": {
+   "section": "ground_truth",
+   "sha256": "8ac0b23bc904ba3822921d21d82c355ac033e3f59e287a890d3841b24228edd4",
+   "bytes": 60379
+  },
+  "data/kiba_klifs_pocket_sites.json": {
+   "section": "ground_truth",
+   "sha256": "de2e3f1e5ca259de7845c146b7518f47bdacbd2c5e4dc8b823e0af6c6a0763d3",
+   "bytes": 206457
+  },
+  "data/kiba_uniprot_sequences.json": {
+   "section": "ground_truth",
+   "sha256": "fc0877afa3669a16594e8e95af831e9e193cc713bb254dfebba1f361f5a45687",
+   "bytes": 170217
+  },
+  "data/kiba_uniprot_to_gene.json": {
+   "section": "ground_truth",
+   "sha256": "2f62ceabb71ced1cfbe556e13d2adc09eea405e2610f67d3b0064785b6baa674",
+   "bytes": 25266
+  },
+  "data/klifs_human_kinases.json": {
+   "section": "ground_truth",
+   "sha256": "d28a704d0b51357a5333969352207cfc3afb5b6c5201c4ccc5dfcb2802c4ef16",
+   "bytes": 122676
+  },
+  "data/nonkinase_ground_truth_sites.json": {
+   "section": "ground_truth",
+   "sha256": "2b2edef351752b7ce9498153bc28b93505bfaa2aebaf31ef47f96a9824d7fcea",
+   "bytes": 59175
+  },
+  "data/nonkinase_ground_truth_sites_provenance.json": {
+   "section": "ground_truth",
+   "sha256": "b6bd1bb5b486ba0cebe7bd562b76b5ed857ebb9f14f8e623228478b751a8da6c",
+   "bytes": 16832
+  },
+  "data/nonkinase_panel_families.json": {
+   "section": "ground_truth",
+   "sha256": "98a141ddbc2cf662fab7b7929a0727a192a32aa11c7c3788326dcd96f55ff8b3",
+   "bytes": 1623
+  },
+  "data/nonkinase_panel_targets.json": {
+   "section": "ground_truth",
+   "sha256": "3f817d8477656590e1e09103cac4c5b8c27fa997240c006a38920248d4f4ff31",
+   "bytes": 123251
+  },
+  "data/processed/antiviral_clean.csv": {
+   "section": "processed",
+   "sha256": "12d2dd0794d5317057076e78840c3fc06f5537d52ae16ad496efb15af632a865",
+   "bytes": 6512907
+  },
+  "data/processed/nonkinase_panel.csv": {
+   "section": "processed",
+   "sha256": "f27efcd6daf769df3b306286ccf0f1832066853bc4698746a8350daa6a96c13c",
+   "bytes": 14673218
+  },
+  "data/splits/davis/cold_drug/test.csv": {
+   "section": "splits",
+   "sha256": "fe9c24f59f540506d609bea599452d68e0cadf15b9382435008209c0ef71c709",
+   "bytes": 5038347
+  },
+  "data/splits/davis/cold_drug/train.csv": {
+   "section": "splits",
+   "sha256": "54f4b4e0da846ecf62bfb377bce78fab8b5562062deee1719eb7b2c6e711d106",
+   "bytes": 19049044
+  },
+  "data/splits/davis/cold_drug/valid.csv": {
+   "section": "splits",
+   "sha256": "6e6ff45b30ffeaec18cd82ff156802506eadf3ad5c33fc1ee382a0d3d965b77f",
+   "bytes": 2297771
+  },
+  "data/splits/davis/cold_pair/test.csv": {
+   "section": "splits",
+   "sha256": "4a1c859764ecc9fcef0732852166c23aa8603daf9be8a2fa2854df14f6b4dbba",
+   "bytes": 995937
+  },
+  "data/splits/davis/cold_pair/train.csv": {
+   "section": "splits",
+   "sha256": "ffb6c57f3992edd6b2322760f3c57ba2ce4e857a9b2609d15a1112398f4b13dc",
+   "bytes": 13322187
+  },
+  "data/splits/davis/cold_pair/valid.csv": {
+   "section": "splits",
+   "sha256": "a8b4f3ff74dc9f5a3431cb674e5a458a37ce1510c4b10eb578c7cbda8211f1fd",
+   "bytes": 236663
+  },
+  "data/splits/davis/cold_pair_seqclean/test.csv": {
+   "section": "splits",
+   "sha256": "8ddef27d2c031c565c9aa39e2b376a542bf6c75fb8cb9fd43a6c3ac2a59bae78",
+   "bytes": 995931
+  },
+  "data/splits/davis/cold_pair_seqclean/train.csv": {
+   "section": "splits",
+   "sha256": "bb303ee07ef3fc0e1c39162b1d9f79babc7a57a1d4979e6f4e4340751aa2bcc7",
+   "bytes": 10688239
+  },
+  "data/splits/davis/cold_pair_seqclean/valid.csv": {
+   "section": "splits",
+   "sha256": "09040d6be0bcffad4d7eaa694ed4fac8500f1512eb0c4b6a995ae27e4ce836c0",
+   "bytes": 192536
+  },
+  "data/splits/davis/cold_pair_seqmatched/test.csv": {
+   "section": "splits",
+   "sha256": "8ddef27d2c031c565c9aa39e2b376a542bf6c75fb8cb9fd43a6c3ac2a59bae78",
+   "bytes": 995931
+  },
+  "data/splits/davis/cold_pair_seqmatched/train.csv": {
+   "section": "splits",
+   "sha256": "146001b643c9631c36a7683ddcd298ce8779ce16ea22173ce96fa3071a02d0d5",
+   "bytes": 11440076
+  },
+  "data/splits/davis/cold_pair_seqmatched/valid.csv": {
+   "section": "splits",
+   "sha256": "bdd72fcee1957ddc2cee26c02ca16baf23fec4d8d855dfff934a9aade586c129",
+   "bytes": 203640
+  },
+  "data/splits/davis/cold_target/test.csv": {
+   "section": "splits",
+   "sha256": "ab7ba68cb38bde7b8729c2494da774bd20fc5fb0032a39eb62810222ff61fd94",
+   "bytes": 5575114
+  },
+  "data/splits/davis/cold_target/train.csv": {
+   "section": "splits",
+   "sha256": "b82bfd9c4632c056c7d8bb3c09ce2fd6a29a5610deb691cbd0f49e340130ae33",
+   "bytes": 18492080
+  },
+  "data/splits/davis/cold_target/valid.csv": {
+   "section": "splits",
+   "sha256": "86e407a411a86cf3d76bed4da160cceff3f8c677d0f2f1fb9fe0463381807f26",
+   "bytes": 2317968
+  },
+  "data/splits/davis/cold_target_seqclean/test.csv": {
+   "section": "splits",
+   "sha256": "ebdc7e5ee4bab11e8dd412c55771d1ce661e4a121398c467e9e1f1f2e0c01c99",
+   "bytes": 5575077
+  },
+  "data/splits/davis/cold_target_seqclean/train.csv": {
+   "section": "splits",
+   "sha256": "bd07bab0fbb8244d41fea8ea4c2b196746e240136797c22e66b482ac63f2aced",
+   "bytes": 14582274
+  },
+  "data/splits/davis/cold_target_seqclean/valid.csv": {
+   "section": "splits",
+   "sha256": "6a6bc126bd248a7ef94410645d74238816a3a04ff49a518163f7d62b5630d65b",
+   "bytes": 2159083
+  },
+  "data/splits/davis/cold_target_seqmatched/test.csv": {
+   "section": "splits",
+   "sha256": "ebdc7e5ee4bab11e8dd412c55771d1ce661e4a121398c467e9e1f1f2e0c01c99",
+   "bytes": 5575077
+  },
+  "data/splits/davis/cold_target_seqmatched/train.csv": {
+   "section": "splits",
+   "sha256": "e53b7436dd1d4f3a3647a21d5e5ab0395b2c493f83d00cc0fd63c22b942281a1",
+   "bytes": 15736403
+  },
+  "data/splits/davis/cold_target_seqmatched/valid.csv": {
+   "section": "splits",
+   "sha256": "473c928d3f28acd659c63d80285f12b0f06c6ddd33f7611e6019f9658591709d",
+   "bytes": 2212648
+  },
+  "data/splits/davis/random/test.csv": {
+   "section": "splits",
+   "sha256": "ad04c8b46e3719a896b751201736f45e1a8848a9b81056edd57d831a67de902b",
+   "bytes": 5323400
+  },
+  "data/splits/davis/random/train.csv": {
+   "section": "splits",
+   "sha256": "c23ff50761065e3cd01c390b6a905ca7710004022e1b32d915b5bcc81535a0eb",
+   "bytes": 18403043
+  },
+  "data/splits/davis/random/valid.csv": {
+   "section": "splits",
+   "sha256": "cc64ac8a363816473333db193a5b17e7b4b0c567ac4e3e9a4e7d9ead49d0689a",
+   "bytes": 2658719
+  },
+  "data/splits/kiba/cold_drug/test.csv": {
+   "section": "splits",
+   "sha256": "ed87d4cbcc0f6978cdba509710d6927f946931becc829612c23f59def2d8d5b5",
+   "bytes": 18396280
+  },
+  "data/splits/kiba/cold_drug/train.csv": {
+   "section": "splits",
+   "sha256": "fe0152e512ed7cb75ede201d9b14c15cc414b6653afe918d94087d5354867f3e",
+   "bytes": 68736412
+  },
+  "data/splits/kiba/cold_drug/valid.csv": {
+   "section": "splits",
+   "sha256": "b5982677de0810444c0123fbf9385dedb78744bfa3681657f1b4281cc1a45f8b",
+   "bytes": 9939463
+  },
+  "data/splits/kiba/cold_pair/test.csv": {
+   "section": "splits",
+   "sha256": "248c3a7472518ded123ef9b7bd542b7ed1d3d1ebc4ea293653fc797cfe088bc3",
+   "bytes": 3670942
+  },
+  "data/splits/kiba/cold_pair/train.csv": {
+   "section": "splits",
+   "sha256": "150b10b2856937d4c0acf32fd032fbb7d12076951d69dcb5780ffa15e3810185",
+   "bytes": 47428401
+  },
+  "data/splits/kiba/cold_pair/valid.csv": {
+   "section": "splits",
+   "sha256": "f2e36c1284a1a6e99f3ff253293f500b92d7a8993c428cdc7070ae96f83e190d",
+   "bytes": 1077251
+  },
+  "data/splits/kiba/cold_target/test.csv": {
+   "section": "splits",
+   "sha256": "fe7d564d1511e56417c77f75b1581569c26f53f683909f7d47a6678b89fcb1c2",
+   "bytes": 18988683
+  },
+  "data/splits/kiba/cold_target/train.csv": {
+   "section": "splits",
+   "sha256": "78b9e7f3afe44c05da880e39090929b25c7293289a8a439ad01da86484a53d6d",
+   "bytes": 69142206
+  },
+  "data/splits/kiba/cold_target/valid.csv": {
+   "section": "splits",
+   "sha256": "68a6d95e077788a7e4788215f5f83b5decb5b1687bb7c671c3d478df5f959bca",
+   "bytes": 8941266
+  },
+  "data/splits/kiba/random/test.csv": {
+   "section": "splits",
+   "sha256": "3232e6fc95d7e1c6396fce825d9a842f30b46131eb08f551e490e04d6477ef25",
+   "bytes": 19391045
+  },
+  "data/splits/kiba/random/train.csv": {
+   "section": "splits",
+   "sha256": "d3910d581fd380cb5cc80d9d978fe31fe2a53a79a9d468620a591aea2f1733a6",
+   "bytes": 68042308
+  },
+  "data/splits/kiba/random/valid.csv": {
+   "section": "splits",
+   "sha256": "0dea8f58614275c0ac4160b2e1378a5f5603c91de40a4602defdf1456069798a",
+   "bytes": 9638802
+  }
+ }
+}

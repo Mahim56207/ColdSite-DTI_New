@@ -462,9 +462,7 @@ recorded values.)
 
 **The 2 non-reproductions:** MolTrans cold-pair seed 1 (AUROC +0.0064) and seed 2 (−0.0076) against a tolerance of 0.005.
 All other MolTrans cells are within 0.0007; ColdSite-DTI, HyperAttentionDTI and DeepDTA reproduce to ≤ 1e-4. Cause
-consistent with the vendored MolTrans keeping dropout on at inference (`clean_accuracy.py:DROPOUT_DRAWS`) and cold-pair
-having only 1,144 test rows: one draw is noisy. This is an interpretation, not a test — the 5-draw mean was not run.
-The MolTrans cold-pair figures in the table are therefore one dropout draw, as decided.
+established below (§ "MolTrans cold-pair investigation"); the earlier "consistent with dropout" wording is superseded.
 
 **Localize (amendment §5, description only, 10,000 resamples; 48 cells with a ladder, 12 per attention model):**
 Spearman ρ between a cell's AUROC and its precision@10 — pooled 0.033 [−0.276, 0.322]; ColdSite-DTI 0.119
@@ -476,3 +474,43 @@ unseen-by-sequence value from `clean_accuracy_davis.json`, the others' from thei
 **Still open:** KIBA's 24 cells (`predict --datasets kiba`; ~3.9× the DAVIS rows); the full 84-cell `cells.csv`;
 DrugBAN MCC/F1 (needs DGL; user declined); MolTrans 5-draw check if the two misses matter for the paper.
 `_partial` files from the earlier 18-cell probe remain untracked and superseded.
+
+
+### T04 addendum — MolTrans cold-pair investigation (2026-09-24)
+
+**Question:** why do DAVIS cold-pair seeds 1 and 2 of MolTrans miss their recorded AUROC by 0.0064 / −0.0076?
+**Nothing recorded was changed.** Script `results/accuracy_v2/investigate_moltrans_coldpair.py`, raw output
+`moltrans_coldpair_investigation.{json,log}`; it scores through the pipeline's own `clean_accuracy._scores`.
+
+**Code facts (read, then checked on a built model):** `train_moltrans.run_epoch` calls `model.train(False)` for any
+pass without an optimizer, so eval mode is on for the recorded test pass and for ours: all 14 `nn.Dropout` modules
+inactive, both `BatchNorm1d` on running statistics. The one exception is `baselines/MolTrans/models.py:103`,
+`F.dropout(i_v, p=self.dropout_rate)` (p = 0.1) — the functional call has no `training=` argument, defaults to
+`True`, and is live in eval. The checkpoint config equals the trainer's (`BIN_config_DBPE`, batch 16); test rows are
+in file order, no `drop_last`. The trainer does not seed before its test pass, so the recorded draw depends on the RNG
+state (Kaggle CUDA) after training and cannot be regenerated from `--seed`.
+
+**Experiment (MPS unless stated; 1,144 test rows; `Δ` = value − recorded):**
+
+| arm | passes | seed 1 AUROC (recorded 0.58988) | seed 2 AUROC (recorded 0.56739) |
+|---|---|---|---|
+| current pipeline (`manual_seed(cell seed)`) | 2 | 0.59625 both (Δ +0.0064) | 0.55975 both (Δ −0.0076) |
+| every dropout forced off (`F.dropout(training=False)`) | 2 MPS + 1 CPU | 0.59247 ×3 (Δ +0.0026) | 0.56320 ×3 (Δ −0.0042) |
+| dropout on, seeds 1000–1005 | 6 | 0.5862–0.5954, mean 0.5912, sd 0.0042 | 0.5513–0.5712, mean 0.5616, sd 0.0068 |
+
+* **Determinism / MPS:** the current arm repeats exactly, and matches the saved predictions to |Δlogit| = 5e-9. With dropout
+  off, MPS and CPU agree to 1e-6 in logit and to six decimals in AUROC, AUPR and accuracy. So MPS non-determinism, device
+  numerics, preprocessing and checkpoint loading are **not** sources here.
+* **Dropout:** with the one live `F.dropout` on, AUROC moves by sd 0.004–0.007 between seeds (accuracy by ≤ 0.002); with it
+  off there is no variation. The recorded value lies inside the 6-draw range for both cells, which is the repo's own
+  reproduction criterion (`clean_accuracy.py`: recorded within the passes' range). The recorded values are 0.3 (seed 1) and
+  0.8 (seed 2) sd from the 6-draw means; our two flagged single draws are 1.2 and 0.3 sd from them.
+* **Not shown:** which draw the Kaggle run made cannot be reproduced; that the *only* live stochastic op is `models.py:103`
+  rests on the code read and the module check, not on an ablation of each layer separately.
+
+**Verdict:** the discrepancy is single-draw dropout noise from MolTrans's functional dropout, as published; there is no
+inference bug. **No change to the DAVIS table is required.** Its MolTrans cold-pair AUROCs are single draws with
+sd ≈ 0.004–0.007; treat differences of that size between MolTrans cells (or against its recorded value) as noise. The
+`reproduces_recorded` flag uses a fixed 0.005 tolerance, which is tighter than this model's own draw-to-draw noise on
+1,144 rows; it stays as is (flag = 2 `False` cells, documented here). **No code was changed**; a range-based flag for
+MolTrans is a possible later refinement, not made.

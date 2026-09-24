@@ -712,5 +712,5 @@ earlier T05 run.
 HyperAttentionDTI-IG cells; (3) whether to report the MolTrans/HyperAttentionDTI-DAVIS faithfulness intervals as they are, with the
 non-reproduction stated, or to investigate first (e.g. a fixed-seed or dropout-off re-run of one MolTrans cell, ~4 min, as T04 did).
 
-**Files added:** `results/effects_v2/faithfulness/` (15 `faithfulness_*`/`token_faithfulness_*` JSON + MD, 4+ `accuracy_*.json`; PNGs are
+**Files added:** `results/effects_v2/faithfulness/` (15 `faithfulness_*`/`token_faithfulness_*` JSON + MD, 9 `accuracy_*.json`; PNGs are
 git-ignored), `results/effects_v2/faithfulness_effects.{csv,md}`.

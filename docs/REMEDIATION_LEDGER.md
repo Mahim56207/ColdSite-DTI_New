@@ -547,5 +547,9 @@ degenerate resample now counted); `localization_spearman_davis.csv` is byte-iden
 
 **Tests:** `python3 -m pytest -p no:warnings` → `1044 passed, 5 skipped in 65.22s` (verbatim; the 5 skips are DGL-gated).
 
-**Not done / open:** DrugBAN MCC/F1 (no DGL; user declined); a range-based reproduction flag for MolTrans (optional);
-three superseded `*_partial.csv` files from the 18-cell probe remain untracked (not deleted, awaiting the user).
+**Decisions (user, 2026-09-25):** the three superseded `*_partial.csv` files were deleted (untracked; regenerable). No
+range-based reproduction flag for MolTrans will be built; the inference-dropout quirk (`models.py:103`, single-draw test
+metrics, the two flagged cold-pair cells) is to be stated in the paper text instead.
+
+**Not done / open:** DrugBAN MCC/F1 (no DGL; user declined). Paper text on MolTrans's inference dropout is still to be
+written (Methods, `paper/methods_data_and_evaluation.md`, and a note under the accuracy table).

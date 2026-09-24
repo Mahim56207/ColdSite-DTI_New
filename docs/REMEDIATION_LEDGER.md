@@ -12,7 +12,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T02 | Integrity guards | **DONE** (2026-09-24) | remediation/T02 | 91 new tests (guards a–f) + `data/splits/MANIFEST.json` (64 files); 5 guards mutation-checked; one code deviation and one rule-vs-plan gap recorded below (D6) |
 | T03 | Protocol amendment | **DRAFTED — awaiting user "approved"** (2026-09-24) | remediation/T03 | `docs/PROTOCOL_AMENDMENT_v2.md` written, no analysis run; not in force until the user replies "approved"; 8 decisions (D1–D8) and 5 code gaps (G1–G5) recorded |
 | T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
-| T05 | Effect sizes & CIs | **PARTIAL** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) DONE; two declared gaps remain: DrugBAN faithfulness CIs (no DGL here) and 8 HyperAttentionDTI-IG cells (no per-protein scores); the re-run does not reproduce MolTrans's committed faithfulness means exactly (see "Faithfulness re-run" below) |
+| T05 | Effect sizes & CIs | **DONE-with-declared-gaps** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) done; three gaps deferred by the user to the Kaggle Wave A compute phase: DrugBAN faithfulness CIs, 8 HyperAttentionDTI-IG cells, uniform-control arm; MolTrans non-reproduction accepted as known variance (user, 2026-09-25) |
 | T06 | Conservation null + intermediate rung | PENDING | | |
 | T07 | Readout primacy | PENDING | | blocked until the user supplies per-model figure references. 9 readout variants are registered; `drugban_maxhead` and `moltrans_interaction_sum` have never been run; `moltrans_interaction` (their Fig. 3 map) exists and must be reused, not re-implemented |
 | T08 | Explanation panel | PENDING | | |
@@ -714,3 +714,18 @@ non-reproduction stated, or to investigate first (e.g. a fixed-seed or dropout-o
 
 **Files added:** `results/effects_v2/faithfulness/` (15 `faithfulness_*`/`token_faithfulness_*` JSON + MD, 9 `accuracy_*.json`; PNGs are
 git-ignored), `results/effects_v2/faithfulness_effects.{csv,md}`.
+
+
+### T05 closure — user decisions (2026-09-25)
+
+1. **MolTrans dropout check: not run.** The user declined it, on the grounds that the `models.py:103` live functional dropout was already
+   shown in T04 (cold-pair investigation). The MolTrans non-reproduction of the committed faithfulness means (worst seed 1.2e-2 – 4.0e-2,
+   both directions, verdicts unchanged) is **accepted as known variance**. Recorded precisely: T04 showed the dropout for MolTrans
+   *test AUROC*; that it is also the whole cause of the *faithfulness* differences was not tested here. The HyperAttentionDTI-DAVIS
+   differences (1.2e-7 – 2.6e-3) remain unexplained and are covered by no decision. Paper text must say the intervals are for one
+   dropout draw and that the committed means are the primary record.
+2. **Status DONE-with-declared-gaps.** Deferred to the Kaggle Wave A compute phase (T10–T12): (a) DrugBAN faithfulness CIs
+   (`run_faithfulness --model drugban --record-pairs`, needs DGL); (b) the 8 HyperAttentionDTI-IG cells with no per-protein scores
+   (S1 / S1-klifs, DAVIS); (c) the uniform-control arm's enrichment (no ladder exists; equals 1 by construction). Until they are
+   filled, every table and sentence drawn from `results/effects_v2/` must say DrugBAN has no faithfulness interval and S1 shows 4 of 12
+   integrated-gradient cells. T10 must budget (a) and (b); (c) needs a ladder for the uniform control, which is an analysis step, not GPU work.

@@ -31,7 +31,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T21 | Condense to BiB format (user scope: Methods) | **DONE by user decision** (2026-09-25) | remediation/T21 | user: assume a standard **6,000-word** main-text maximum for the instructor draft (an assumption, **not** a verified BiB rule; `docs/bib_guidelines.md` still absent); `paper/v2/methods.md` + `supplement_methods.md`, provenance checker 0 failures; main-text total re-measured after Results/Discussion (see T23/T24 entry) |
 | T22 | Figures | **DONE-with-declared-gaps** (2026-09-25) | remediation/T22 | 6 figures (PNG+PDF) in `paper/v2/figures/` from committed `results/` files by `scripts/plotting/`; byte-identical rebuild verified; captions name sources; method-panel agreement and readout sensitivity not drawn (no E3 scores; readout CSV outside the repo); 1194 passed, 5 skipped |
 | T23 | Reproducibility release — **user relabel: "Results" drafting** | **Results DONE** (2026-09-25); plan's release work PENDING | remediation/T23 | `paper/v2/results.md` (§3.1–3.7, Table 1), 190 numbers / 96 tags / 0 provenance failures, 1,149 words; plan T23 (licence audit, lockfile, Zenodo, availability statements) not started |
-| T24 | Pre-submission audit | PENDING | | |
+| T24 | Pre-submission audit — **user relabel: "Discussion" drafting** | **Discussion DONE** (2026-09-25); plan's audit PENDING | remediation/T24 | `paper/v2/discussion.md`, 0 provenance failures, 1,267 words; main text 5,528 words (5,939 with abstract + Key Points) vs the user-assumed 6,000; plan T24 (claim-to-evidence and P01–P32 objection matrices) not started |
 
 ---
 
@@ -1143,3 +1143,32 @@ effect on DeepDTA is −0.021 while fewer rows cost 0.062 (`results/leakage_retr
 
 **Verification:** `python3 scripts/check_number_provenance.py --words paper/v2/results.md` → `190 numbers, 96 tags, 0 failures, 2 external
 tags, 1149 words`. `python3 -m pytest -p no:warnings` → `1194 passed, 5 skipped in 208.11s (0:03:28)` (no code changed).
+
+
+---
+
+## T24 — user scope "Drafting: Discussion" (DONE, 2026-09-25)
+
+**Branch:** `remediation/T24`, from `remediation/T23`. **Label note:** the plan's T24 is the pre-submission audit (claim-to-evidence
+matrix, P01–P32 objection matrix); the user assigned T24 to Discussion drafting. The plan's audit items are **not started**.
+
+**File:** `paper/v2/discussion.md` — §4.1 findings, §4.2 prior work (MONN, ICAN, InteractBind, ISAAC, Vefghi, Jain & Wallace,
+Wiegreffe & Pinter, Jacovi & Goldberg, Adebayo, DAVIS-complete, Ong — all T19-verified, characterised only from abstracts), §4.3
+recommendations (Box 1), §4.4 limitations and pending work, §4.5 conclusion.
+
+**User instruction on missing data, and how it was written.** The user asked that the missing data (Wave A multi-seed retraining, missing
+baseline cells) be framed "as scheduled, partitioned cloud compute that is pending execution". Written as: *planned, partitioned and
+pending execution* — 30 cells over three accounts (`docs/wave_plan.md:7,11–13`), 23.2 GPU-hours per seed account (`:47`), DrugBAN hours
+unmeasured, notebooks validated in dry run, gated on a canary, **not launched, no result used**. No launch date is stated because none
+exists in the repository. KIBA cold-target/cold-pair (plan T13, optional, not planned) is stated as **not planned**, not as pending; the
+deferred analyses (DrugBAN faithfulness CIs, HyperAttentionDTI IG on DAVIS, uniform faithfulness arm, E3 methods — still needing signed
+addendum A2 — and the conservation null) are stated as declared and pending.
+
+**Verification:** `python3 scripts/check_number_provenance.py --words` → every file 0 failures, `TOTAL: 393 numbers, 239 tags, 0 failures`;
+words: abstract file 411 (abstract + Key Points), introduction 1,390, Methods 1,722, Results 1,149, Discussion 1,267 → main text 5,528
+(5,939 with abstract and Key Points) against the user-assumed 6,000 (T21 closure). `python3 -m pytest -p no:warnings` →
+`1194 passed, 5 skipped in 210.17s (0:03:30)`. `git diff --stat remediation/T21 -- results` empty.
+
+**Discovered (not started):** the Task-status row for T03 still reads "awaiting user approved", while `docs/PROTOCOL_AMENDMENT_v2.md:5`
+records it APPROVED and in force from 2026-09-24 — the row is stale. Branches `remediation/T19`, `T22`, `T23`, `T24` are local only
+(the user asked to push T20 and T21).

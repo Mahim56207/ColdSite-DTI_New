@@ -28,7 +28,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T18 | Non-kinase scope | **SKIPPED by the user** (2026-09-25) | | not needed for the instructor draft; every claim is scoped to kinases in the text |
 | T19 | Citation verification & delta table | PENDING | | |
 | T20 | Reframing (user scope: Abstract & Intro) | **DONE-with-declared-gaps** (2026-09-25) | remediation/T20 | `paper/v2/abstract.md`, `paper/v2/introduction.md` (Box 1 checklist); every digit source-tagged, provenance checker 0 failures; T19 not run, so prior-work and leakage-precedent citations are `[CITE-T19: …]` markers; results section not reordered (not drafted) |
-| T21 | Condense to BiB format (user scope: Methods) | **PARTIAL** (2026-09-25) | remediation/T21 | `paper/v2/methods.md` + `paper/v2/supplement_methods.md` (Tables S1–S3, threats subsection), `scripts/check_number_provenance.py` 0 failures; **`docs/bib_guidelines.md` absent → no word limit applied or verified**; only abstract/intro/methods condensed |
+| T21 | Condense to BiB format (user scope: Methods) | **DONE by user decision** (2026-09-25) | remediation/T21 | user: assume a standard **6,000-word** main-text maximum for the instructor draft (an assumption, **not** a verified BiB rule; `docs/bib_guidelines.md` still absent); `paper/v2/methods.md` + `supplement_methods.md`, provenance checker 0 failures; main-text total re-measured after Results/Discussion (see T23/T24 entry) |
 | T22 | Figures | PENDING | | |
 | T23 | Reproducibility release | PENDING | | |
 | T24 | Pre-submission audit | PENDING | | |
@@ -1045,3 +1045,14 @@ Tests: `python3 -m pytest -p no:warnings` → `1191 passed, 5 skipped in 205.58s
 
 **Discovered (not started):** `results/readouts_*` and the readout-comparison CSV live partly outside the repository (T23);
 `CLAUDE.md` still describes XAttn-Ref as "ColdSite-DTI (ours)" and the KIBA family as 6 (documentation).
+
+### T21 closure — user decision (2026-09-25)
+
+The user instructed: "For the instructor draft, assume a standard 6,000-word maximum. Do not block on external formatting rules.
+Mark T21 as DONE." Recorded as the user's assumption. **The 6,000-word figure is not read from BiB's author guidelines**
+(`docs/bib_guidelines.md` does not exist); venue-required elements (Key Points count, structured abstract, figure limits) remain
+unverified and must be checked against the real guidelines before any submission. Measured at closure (checker `--words`):
+abstract 254, introduction 1,371, Methods 1,722 → 3,347 of the assumed 6,000 before Results and Discussion.
+
+The same message said to ignore the mock `config/canary_verdict.json` entirely; it was not created (see decision 3 above) and the
+Wave A gate is unchanged.

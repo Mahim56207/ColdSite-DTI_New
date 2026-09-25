@@ -16,10 +16,10 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T06 | Conservation null + intermediate rung | **DONE-with-declared-gaps** (2026-09-25) | remediation/T06 | conservation rung (E4-D / E4-K) and KLIFS sub-pocket rung deferred to Wave A by the user's 4-day-deadline decision; no code, no data, no placeholder written |
 | T07 | Readout primacy | **BLOCKED on user input** (2026-09-25) | remediation/T07 | plan rule: figure references must be user-supplied; none were. Scaffold `docs/readout_sources.md` written from repo facts only; no code, no analysis. Wave A does not depend on it |
 | T08 | Explanation panel | **DONE-with-declared-gaps** (2026-09-25) | remediation/T08 | 7 methods implemented and planted-case tested (occlusion ×4, attention×gradient ×2, rollout ×1), applicability doc committed before any score, top-k IoU module; **no E3 cell scored** (needs addendum A2 signed + compute); DrugBAN occlusion untested (no DGL); 1093 passed, 5 skipped |
-| T09 | Cloud harness hardening | **DONE** (2026-09-25); canary not yet run (user launches) | remediation/T09 | `src/cloud/` (pre-flight, self-stop, restore, status, markers, runner, canary rule), inert hooks in `src/model/resume.py`, `docs/cloud_harness.md`, canary notebook pinned to `46db1e0`; 1146 passed, 5 skipped. **T11 gate: the canary must PASS first** |
+| T09 | Cloud harness hardening | **DONE** (2026-09-25); canary not yet run (user launches) | remediation/T09 | `src/cloud/` (pre-flight, self-stop, restore, status, markers, runner, canary rule), inert hooks in `src/model/resume.py`, `docs/cloud_harness.md`, canary notebook pinned to `46db1e0` (superseded in T11: regenerated at `526e9c3` after the gate changed harness files); 1146 passed, 5 skipped. **T11 gate: the canary must PASS first** |
 | T10 | Budget & partition plan | **DONE-with-declared-gaps** (2026-09-25) | remediation/T10 | 30 cells over THREE accounts, hours derived from measured inputs (`docs/wave_plan.md`, `config/waves.json`, `config/wave_budget.json`); **quota fit not verifiable** (no quota/unit/session limit stated) and **DrugBAN hours unmeasured** (smoke run specified); D2 taken: DrugBAN seeds 4–5 not in E1; 1159 passed, 5 skipped |
-| T11 | Wave A notebooks | PENDING | | gated on the T09 canary passing |
-| T12 | Wave A ingest | PENDING | | |
+| T11 | Wave A notebooks | **DONE per user instruction; plan gate NOT met** (2026-09-25) | remediation/T11 | 3 notebooks generated from `config/waves.json` + launch steps; dry-run pre-flights pass; the canary has not passed, so a **hard gate** refuses any real run until `config/canary_verdict.json` (pass, this exact harness) is committed; 1174 passed, 5 skipped |
+| T12 | Wave A ingest | **SKIPPED by the user** (2026-09-25) | | Wave A not launched; instructor-draft focus |
 | T13 | Wave B (optional) | PENDING | | user decides |
 | T14 | Modern model feasibility spike | PENDING | | |
 | T15 | Modern model integration | PENDING | | |
@@ -929,4 +929,31 @@ with GPU skipped (and, for ACC3, the DrugBAN RNG-import check skipped: no DGL) �
 * Each account's weekly quota **and its unit** (GPU-hours vs session hours), and session limit.
 * Mixed precision for DrugBAN on KIBA (default: on, like the other KIBA cells; unvalidated for DrugBAN — the smoke run gives the evidence).
 * Approve A6 (DrugBAN seeds 4–5 excluded), or ask for them once the smoke run has priced them.
+
+
+---
+
+## T11 — Wave A notebooks (generation and validation; DONE per instruction, plan gate unmet — 2026-09-25)
+
+**Branch:** `remediation/T11`, from `remediation/T10`. Commit `526e9c3` (gate) then the notebooks.
+
+**Plan gate not met.** T11 says: the canary (T09) must have PASSED first, otherwise BLOCKED. It has not run. The user instructed generation anyway (and T12 skipped), so the
+notebooks were generated — and made **unable to train** until the gate is met: `preflight.check_canary` refuses any non-canary wave unless `config/canary_verdict.json` says
+`pass` for the canaried cell **and** its `harness_sha256` equals the hash of the harness files now (`canary.HARNESS_FILES`, nine files). A dry run prints it as `SKIPPED … a real
+run would be REFUSED`, never as passed. Consequence for T09: the canary notebook pinned to `46db1e0` was superseded — the canary must run on the harness that includes this gate
+and the verdict's hash — and was **regenerated pinned to `526e9c3`**; any later change to a harness file needs a new canary notebook and a new canary run.
+
+**Files:** `notebooks/kaggle_wave_a_acc1.ipynb`, `_acc2`, `_acc3` (generated, pinned to `526e9c3`), `notebooks/kaggle_canary.ipynb` (regenerated), `docs/wave_a_launch.md`,
+`tests/test_wave_notebooks.py` (10 tests), 5 canary-gate tests in `tests/test_cloud_harness.py`; `src/cloud/{canary,preflight}.py` (gate). `git diff --stat -- results` empty.
+
+**Verification**
+* Dry-run pre-flights (each notebook's own runner command, extracted from its cells and executed): CANARY, ACC1, ACC2, ACC3 all `RESULT: OK`; skipped in dry run: `gpus`
+  (all), `canary` (ACC1–3, "a real run would be REFUSED: no config/canary_verdict.json"), `rng_import` (ACC3 only: no DGL here). No notebook contains a credential
+  string (`kaggle.json`, key/username/password/secret patterns: none found), each ships `DRY_RUN = True`, pins a 40-hex commit, and drives `src.cloud.runner` only.
+* Notebooks equal the builder's output for `config/waves.json` (test); every one of the 30 cells is named by exactly one notebook (test); only ACC3 installs DGL / pins `torch==2.6.0`.
+* A real run (GPU check faked to two T4s) without a verdict is refused with exit 2 before any trainer starts (test).
+* Tests: `python3 -m pytest -p no:warnings` → `1174 passed, 5 skipped in 189.87s (0:03:09)` (was 1146 at T09, 1159 at T10; +15 = 5 gate + 10 notebook tests).
+
+### Decisions needed from the user
+Launch the canary; state the quotas; then follow `docs/wave_a_launch.md`.
 

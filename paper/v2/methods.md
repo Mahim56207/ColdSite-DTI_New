@@ -86,12 +86,12 @@ expectation of k uniformly random residues, and its ceiling is min(sites, k) ÷ 
 policy, DAVIS contributes 349, 349, 68 and 72 proteins at the random, cold-drug, cold-target and
 cold-pair levels against UniProt, and KIBA 211 and 212 at its two levels.
 <!-- src: docs/PROTOCOL_AMENDMENT_v2.md:163 = 10 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=random->n = 349 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->n = 349 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_target->n = 68 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_pair->n = 72 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P2&model=hyperattentiondti&level=random->n = 211 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->n = 212 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->n = 349 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->n = 349 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_target->n = 68 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_pair->n = 72 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=random->n = 211 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->n = 212 -->
 
 ## 2.4 The calibrated battery
 
@@ -154,13 +154,17 @@ its spread *exceeds its signal* if the range of the seeds' precision@10 is large
 their mean from chance (`src/evaluation/seed_agreement.py`).
 <!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
 
-Effect sizes carry 95% percentile bootstrap intervals from 10,000 resamples of targets, each resampled
-target carrying the mean of its seeds. Enrichment over chance is the ratio of mean precision@10 to
-mean chance over the same resampled proteins, and faithfulness intervals group pairs by target.
-Because a target-level bootstrap averages the seeds first, these intervals do not include
-seed-to-seed variance; the seed analysis above is reported beside them for that reason.
+Effect sizes carry 95% percentile intervals from a two-way bootstrap with 10,000 resamples: each
+resample draws the targets with replacement and, independently, the three seeds with replacement, and
+averages over the drawn target–seed grid, so an interval carries seed-to-seed variance as well as the
+sampling of targets. Enrichment over chance is the ratio of mean precision@10 to mean chance over the
+same resampled targets, and faithfulness intervals first group pairs by target. With three seeds the
+seed draw is coarse and the intervals are conservative. The protocol amendment specified a bootstrap
+over targets only, each target carrying the mean of its seeds; those intervals, which omit seed
+variance, are kept for comparison (Supplementary Section S4) and are quoted only where the contrast is
+the point.
+<!-- src: results/effects_v2_2d/enrichment.md:3 = 95, 10000 -->
 <!-- src: docs/PROTOCOL_AMENDMENT_v2.md:183 = 10000 -->
-<!-- src: docs/PROTOCOL_AMENDMENT_v2.md:184 = 95 -->
 
 Accuracy is reported per cell as AUROC, AUPRC, MCC and F1 (the last two at the trainers' own 0.5
 probability threshold), as mean ± sample SD over three seeds; each value was recomputed from saved
@@ -187,7 +191,7 @@ tokenisation in masking (token-matched arms); benchmark leakage (sequence policy
 retraining in §2.6); insufficient test resolution (positive control); multiple comparisons (Holm over
 declared families); and post-hoc family growth (disclosed, frozen by amendment). Threats that remain
 open are stated as limitations: families were not pre-registered; no conservation control for the
-pocket enrichment; kinase-only data; DrugBAN's faithfulness not re-run; MolTrans's test metrics carry
+pocket enrichment; kinase-only data; DrugBAN's faithfulness has point estimates but no interval; MolTrans's test metrics carry
 one draw of its inference-time dropout; and the extension experiments declared in the amendment were
 not run. Supplementary Table S3 lists every problem found during the project, its effect and its fix.
 

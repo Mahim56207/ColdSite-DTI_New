@@ -1,6 +1,6 @@
 """Figure 5 — faithfulness: attended masking minus size-matched random masking, 95% intervals.
 
-Source: results/effects_v2/faithfulness_effects.csv (targets resampled, 10,000 resamples).
+Source: results/effects_v2_2d/faithfulness_effects.csv (seeds and targets resampled, 10,000 resamples).
 MolTrans is measured in token space and the others in residue space, so the panels do not share an axis.
 """
 import pandas as pd
@@ -8,7 +8,7 @@ import pandas as pd
 from _style import (LEVEL_NAMES, LEVELS, MODEL_COLORS, MODEL_MARKERS, MODEL_NAMES, REFERENCE, RESULTS,
                     plt, save)
 
-SRC = RESULTS / "effects_v2" / "faithfulness_effects.csv"
+SRC = RESULTS / "effects_v2_2d" / "faithfulness_effects.csv"
 MODELS = ["moltrans", "hyperattentiondti", "coldsite_dti"]
 
 

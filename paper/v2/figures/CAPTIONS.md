@@ -14,10 +14,11 @@ the paper reports. y-axes differ between panels. *Source:* `results/effects_v2/s
 
 **Figure 2 — `fig2_enrichment_forest`. Enrichment over chance with 95% bootstrap intervals.**
 precision@10 ÷ chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues
-(left) and the KLIFS pocket (right). Intervals resample targets (10,000 resamples); log scale; dashed line
+(left) and the KLIFS pocket (right). Intervals come from a two-way bootstrap that resamples both targets and
+seeds (10,000 resamples); log scale; dashed line
 = chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation (T06 deferred).
-*Source:* `results/effects_v2/enrichment.csv` (families P1, S3-D, P2, S3-K). *Script:* `scripts/plotting/fig2_enrichment_forest.py`.
-<!-- src: results/effects_v2/enrichment.md:3 = 95, 10000 -->
+*Source:* `results/effects_v2_2d/enrichment.csv` (families P1, S3-D, P2, S3-K). *Script:* `scripts/plotting/fig2_enrichment_forest.py`.
+<!-- src: results/effects_v2_2d/enrichment.md:3 = 95, 10000 -->
 
 **Figure 3 — `fig3_accuracy`. Predictive accuracy per training seed.**
 Test AUROC of every cell (points, one per seed; bar = mean) on the uncorrected test sets. DeepDTA has no
@@ -34,11 +35,12 @@ over cells. *Sources:* `results/accuracy_v2/localization_cells.csv`, `results/ac
 
 **Figure 5 — `fig5_faithfulness`. Masking the attended residues matters more than masking random ones.**
 Faithfulness delta (attended masking minus a size-matched random-masking control), mean over targets
-with 95% bootstrap intervals (targets resampled, 10,000 resamples). MolTrans is measured in its own
-token space, the others in residue space, so the three panels do not share a scale. No DrugBAN or KIBA
-XAttn-Ref rows exist (deferred; see Discussion). *Source:* `results/effects_v2/faithfulness_effects.csv`.
+with 95% two-way bootstrap intervals (targets and seeds resampled, 10,000 resamples). MolTrans is measured
+in its own token space, the others in residue space, so the three panels do not share a scale. DrugBAN is
+not drawn: its committed per-seed deltas exist (Section 3.4) but carry no interval, because its per-pair
+values were not recorded. No KIBA XAttn-Ref cell exists. *Source:* `results/effects_v2_2d/faithfulness_effects.csv`.
 *Script:* `scripts/plotting/fig5_faithfulness.py`.
-<!-- src: results/effects_v2/faithfulness_effects.md:3 = 95, 10000 -->
+<!-- src: results/effects_v2_2d/faithfulness_effects.md:3 = 95, 10000 -->
 
 **Figure 6 — `fig6_leakage`. What DAVIS's sequence leakage is worth to the accuracy anchor.**
 DeepDTA test AUROC (mean ± sd over three seeds) at cold-target and cold-pair, retrained on three training
@@ -51,7 +53,7 @@ committed). *Script:* `scripts/plotting/fig6_leakage.py`.
 ## Figures in the plan not produced (declared)
 
 * **Method-panel agreement** (plan T22): no E3 cell has been scored (T08: addendum A2 unsigned, compute not run).
-* **Readout sensitivity** (plan T22): its source, `~/ColdSite-results/readouts/readout_comparison.csv`, is outside the
-  repository; figures are built from committed files only (the plan's rule). Enters with the release (T23).
-* **Seed-verdict forest, primary vs extension**: the extension (seeds 4–5, Wave A) has not been run, so Figure 1 shows
-  the primary seeds 1–3 only.
+* **Readout sensitivity** (plan T22): its source is now committed as `results/readout_comparison.csv`, but the figure
+  has not been drawn yet.
+* **Seed-verdict forest, primary vs extension**: the extension (seeds four and five, Wave A) has not been run, so
+  Figure 1 shows the primary seeds one to three only.

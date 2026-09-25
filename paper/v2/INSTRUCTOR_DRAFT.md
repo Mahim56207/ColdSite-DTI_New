@@ -14,21 +14,27 @@ Explanations were scored with a calibrated battery: chance and ceiling for every
 floor, a positive control, positional and residue-identity nulls, a size-matched random-masking
 control for faithfulness, and Holm correction over declared families.
 
-The dominant finding is instability. In 12 of 22 model–dataset–level cells the three seeds disagree
-about their own verdict, and in 21 of 22 the spread across seeds exceeds the cell's distance from
-chance. <!-- src: results/seed_agreement.md:34 = 12, 22, 21, 22 -->
+The dominant finding is instability: in 12 of 22 model–dataset–level cells the three seeds disagree
+about their own verdict. <!-- src: results/seed_agreement.md:34 = 12, 22 -->
 After correction, 1 of 20 DAVIS cells supports residue-level binding-site recovery (HyperAttentionDTI,
-random split, 1.66× chance) and 0 of 8 KIBA cells do.
+random split, 1.66× chance) and 0 of 8 KIBA cells do; a bootstrap that resamples seeds as well as
+targets agrees, leaving only that cell's interval above chance.
 <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15 = 1, 20 -->
 <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14 = 0, 8 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=random->enrichment = 1.66 -->
-What does replicate is coarser: the attention of the three models tested for faithfulness is
-load-bearing at every level, and two of the four maps are enriched in the ATP pocket at every DAVIS
-level, at 1.33–2.10× chance with conservation not controlled.
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment = 1.33 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment = 2.10 -->
-<!-- claim "load-bearing at every level": results/effects_v2/faithfulness_effects.csv, load_bearing_ci True in all 16 rows (XAttn-Ref, HyperAttentionDTI, MolTrans); DrugBAN has no interval (no DGL, ledger T05) -->
-<!-- claim "two of the four maps ... every DAVIS level": S3-D rows of enrichment.csv, enrichment_low > 1 at all four levels for coldsite_dti and hyperattentiondti only -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->enrichment = 1.66 -->
+<!-- claim "only that cell's interval above chance": results/effects_v2_2d/enrichment.csv, families P1 and P2 (22 rows), enrichment_low > 1 only for P1 hyperattentiondti random -->
+What does replicate is coarser. The attention of HyperAttentionDTI, MolTrans and XAttn-Ref is
+load-bearing at every level; DrugBAN's is not, its masking effect sitting near zero and changing sign
+between seeds (−0.0073 at cold-drug and −0.0037 at cold-pair for the first seed). XAttn-Ref's map is
+enriched in the ATP pocket at every DAVIS level and HyperAttentionDTI's at three of four, at 1.33–2.10×
+chance with conservation not controlled.
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:6 = -0.0073 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:8 = -0.0037 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment = 1.33 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment = 2.10 -->
+<!-- claim "load-bearing at every level": results/effects_v2_2d/faithfulness_effects.csv, load_bearing_ci True in all 16 rows (XAttn-Ref, HyperAttentionDTI, MolTrans; seeds and targets resampled) -->
+<!-- claim "DrugBAN's is not ... changing sign": results/analysis_davis_policyA/faithfulness_drugban_davis_seed{1,2,3}.md, 6 of 12 seed-level deltas negative (seed 1 cold-drug, cold-pair; seed 2 warm, cold-drug, cold-pair; seed 3 cold-target); no interval (per-pair values not recorded) -->
+<!-- claim "XAttn-Ref every DAVIS level, HyperAttentionDTI three of four": S3-D rows of results/effects_v2_2d/enrichment.csv, enrichment_low > 1 at all four levels for coldsite_dti and at random, cold_target, cold_pair for hyperattentiondti (cold_drug 0.94) -->
 Which residues a map highlights also depends on an unreported readout choice, and DAVIS's
 wild-type-sequence duplication inflated a baseline's cold-target AUROC by 0.019.
 <!-- src: results/leakage_retrain_davis.md:22 = 0.019 -->
@@ -36,21 +42,22 @@ A single-seed attention figure cannot carry a binding-site claim for these model
 
 ## Key Points
 
-* Binding-site verdicts from attention are not self-consistent across training seeds: the seeds
-  disagree in 12 of 22 cells, and the spread across seeds exceeds the distance from chance in 21 of 22.
-  <!-- src: results/seed_agreement.md:34 = 12, 22, 21, 22 -->
+* Binding-site verdicts from attention are not self-consistent across training seeds: the three seeds
+  of a cell disagree about their own verdict in 12 of 22 cells.
+  <!-- src: results/seed_agreement.md:34 = 12, 22 -->
 * A calibrated battery — chance, ceiling, uniform floor, a positive control that detects a dose of
   0.02 of the true sites at every DAVIS level, nulls and Holm correction — is needed before a verdict
   can be read. <!-- src: results/positive_control_davis.md:11 = 0.02 -->
 * Under that battery, residue-level recovery survives in 1 of 20 DAVIS cells and 0 of 8 KIBA cells;
-  what replicates is coarser: load-bearing attention and pocket-level enrichment.
+  what replicates is coarser: load-bearing attention in three of four models (not DrugBAN) and
+  pocket-level enrichment.
   <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15 = 1, 20 -->
   <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14 = 0, 8 -->
 * The verdict depends on the readout: two defensible reductions of the same HyperAttentionDTI weights
   place 0.367 and 0.081 of their top-ten residues in the ATP pocket at the cold-target level, against a
   chance of 0.140.
-  <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10 = 0.367 -->
-  <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 -->
+  <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10 = 0.367 -->
+  <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 -->
 * Benchmark leakage is quantified rather than only reported: 54 DAVIS mutants carry exactly the
   wild-type sequence, and removing the leak changes a baseline's cold-target AUROC by 0.019.
   <!-- src: results/sequence_audit_davis.md:9 = 54 -->
@@ -102,9 +109,9 @@ in prediction when the attended residues are masked, against a random-masking co
 in the space each model reads. <!-- src: src/data/klifs_pocket.py:54 = 85 -->
 
 **Seed instability is the headline.** Across the 22 model–dataset–level cells for which three seeds
-were scored against UniProt residues, the seeds disagree about their own verdict in 12, and in 21 the
-spread across seeds exceeds the cell's distance from chance.
-<!-- src: results/seed_agreement.md:34 = 12, 22, 21, 22 -->
+were scored against UniProt residues, the seeds disagree about their own verdict in 12: some seeds of
+the same recipe pass an uncorrected permutation test and others do not.
+<!-- src: results/seed_agreement.md:34 = 12, 22 -->
 HyperAttentionDTI on DAVIS's unseen-drug split illustrates the problem: its three seeds place 0.025,
 0.077 and 0.019 of their top-ten residues on annotated sites against a chance of 0.020; two of the
 runs clear an uncorrected permutation test and the third does not, and the best run is four times the
@@ -112,9 +119,11 @@ worst.
 <!-- src: results/seed_agreement.md:19 = 0.025, 0.077, 0.019, 0.020 -->
 <!-- claim "two of the runs clear an uncorrected test": results/seed_agreement.md:19 column "seeds above alpha" = `**.` -->
 <!-- "four times": 0.077 / 0.019 = 4.05 (spelled as a word, not checked by the tool) -->
-A target-level bootstrap does not see this variance: the same cell's interval for enrichment over
-chance, 1.98 [1.81, 2.15], lies entirely above parity, while its family-wise test does not survive correction.
+A bootstrap over targets alone does not see this variance: it gives the same cell an enrichment over
+chance of 1.98 [1.81, 2.15], entirely above parity. Resampling the seeds as well widens the interval
+to [0.94, 3.65], which includes parity, in agreement with the family-wise test, which the cell fails.
 <!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.98, 1.81, 2.15 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment_low,enrichment_high = 0.94, 3.65 -->
 The instability is not confined to explanations. On DAVIS the seed-to-seed standard deviation of test
 AUROC is 0.001–0.006 at the random level, depending on the model, but 0.025–0.099 at the cold-pair
 level.
@@ -130,34 +139,42 @@ DAVIS level, so a null here is not a weak test.
 <!-- src: results/positive_control_davis.md:11 = 0.02 -->
 Against that resolution, 1 of 20 DAVIS cells supports residue-level recovery after Holm correction
 (HyperAttentionDTI, random split: precision@10 0.034 against a chance of 0.020, enrichment 1.66
-[1.49, 1.84]) and 0 of 8 KIBA cells do.
+[1.33, 2.00]) and 0 of 8 KIBA cells do.
 <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15 = 1, 20 -->
 <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14 = 0, 8 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=random->precision,chance,enrichment,enrichment_low,enrichment_high = 0.034, 0.020, 1.66, 1.49, 1.84 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->precision,chance,enrichment,enrichment_low,enrichment_high = 0.034, 0.020, 1.66, 1.33, 2.00 -->
 Nor is localization explained by accuracy: across the 48 DAVIS attention-model cells, Spearman's ρ
 between AUROC and precision@10 is 0.033 [−0.276, 0.322], an interval that includes no association.
 <!-- src: results/accuracy_v2/localization_spearman.csv#dataset=davis&group=all attention models&y=precision_at_10->n_cells,rho,low,high = 48, 0.033, -0.276, 0.322 -->
 What survives is coarser. The attention of HyperAttentionDTI, MolTrans and XAttn-Ref is load-bearing
 at every level, with every faithfulness interval above zero (for example HyperAttentionDTI on DAVIS's
-cold-pair split, the smallest, 0.054 [0.036, 0.073]); DrugBAN's could not be re-run here.
-<!-- src: results/effects_v2/faithfulness_effects.csv#model=hyperattentiondti&dataset=davis&level=cold_pair->delta,delta_low,delta_high = 0.054, 0.036, 0.073 -->
-Two maps are enriched in the ATP pocket at every DAVIS level — HyperAttentionDTI at 1.33–1.70× chance
-and XAttn-Ref at 1.54–2.10× — while DrugBAN's is not (0.98–1.04×). Kinase ATP pockets are conserved,
+cold-pair split, the smallest, 0.054 [0.030, 0.080]). DrugBAN's is not: its masking effect sits near
+zero and changes sign between seeds — −0.0073 at the unseen-drug level and −0.0037 at the unseen-pair
+level for the first seed, 0.0128 and 0.0027 for the third.
+<!-- src: results/effects_v2_2d/faithfulness_effects.csv#model=hyperattentiondti&dataset=davis&level=cold_pair->delta,delta_low,delta_high = 0.054, 0.030, 0.080 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:6 = -0.0073 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:8 = -0.0037 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:6 = 0.0128 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:8 = 0.0027 -->
+XAttn-Ref's map is enriched in the ATP pocket at every DAVIS level (1.54–2.10× chance) and
+HyperAttentionDTI's at three of the four (1.33–1.70×; at the unseen-drug level its interval includes
+parity once seeds are resampled), while DrugBAN's is not (0.98–1.04×).
+<!-- claim "every level / three of the four": S3-D rows of results/effects_v2_2d/enrichment.csv, enrichment_low > 1 at all four levels for coldsite_dti; for hyperattentiondti at random, cold_target, cold_pair, not cold_drug --> Kinase ATP pockets are conserved,
 and no conservation control was run, so this enrichment is a coarse statement about the domain, not
 evidence that the model has learned a ligand's contacts.
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment = 1.33 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=random->enrichment = 1.70 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->enrichment = 1.54 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment = 2.10 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=drugban&level=random->enrichment = 0.98 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=drugban&level=cold_target->enrichment = 1.04 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment = 1.33 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=random->enrichment = 1.70 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->enrichment = 1.54 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment = 2.10 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=random->enrichment = 0.98 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=cold_target->enrichment = 1.04 -->
 
 **The verdict depends on the readout and on what the map is a function of.** Two defensible reductions
 of the same HyperAttentionDTI weights place 0.367 and 0.081 of their top-ten residues in the ATP
 pocket at the unseen-target level, against a chance of 0.140 — one reduction reports 2.6× chance, the
 other less than chance.
-<!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10 = 0.367 -->
-<!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 -->
+<!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10 = 0.367 -->
+<!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 -->
 <!-- src: derived: 0.367 / 0.140 = 2.6 -->
 Whether a map can depend on the drug is a property of the computation graph: the MolTrans readout
 scored here is identical for every drug on the same protein (the same top ten in 100% of 150 drug
@@ -175,11 +192,11 @@ cold-target AUROC to the leak on all rows and 0.116 on the leaked rows.
 <!-- src: results/leakage_retrain_davis.md:22 = 0.019, 0.116 -->
 
 As a confirmatory check, integrated gradients on the same checkpoints localise better than the
-attention in several cells — for HyperAttentionDTI on KIBA's unseen-drug split, 1.90 [1.58, 2.22]×
-chance against the attention's 0.94 [0.79, 1.09]× — consistent with the view that a weak attention
+attention in some cells — for XAttn-Ref on DAVIS's unseen-drug split, 3.16 [2.40, 4.40]× chance in the
+ATP pocket against the attention's 2.10 [1.83, 2.36]× — consistent with the view that a weak attention
 map can under-report what a model represents. We treat this as supporting evidence, not a headline.
-<!-- src: results/effects_v2/enrichment.csv#family=S2&model=hyperattentiondti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.90, 1.58, 2.22 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 0.94, 0.79, 1.09 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S1-klifs&model=coldsite_dti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high = 3.16, 2.40, 4.40 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 2.10, 1.83, 2.36 -->
 
 **Scope.** Every claim in this paper concerns kinase targets: DAVIS and KIBA are kinase panels, and
 the non-kinase transfer panel we assembled is not analysed here. Training seeds four and five, DrugBAN on KIBA, the
@@ -199,7 +216,8 @@ Our contributions are:
 
 > **Box 1. Reporting checklist for DTI explanation claims** (derived only from the findings above)
 >
-> 1. Report the explanation from several training seeds, and the agreement between them, not one run.
+> 1. Report the explanation from several training seeds, the agreement between them, and intervals
+>    that resample seeds as well as targets — not one run.
 > 2. Read every hit rate against the protein's chance level and the ground truth's ceiling.
 > 3. Include a uniform-map floor and a positive control that states the smallest detectable effect.
 > 4. Correct for multiple comparisons across the whole family of cells shown.
@@ -293,12 +311,12 @@ expectation of k uniformly random residues, and its ceiling is min(sites, k) ÷ 
 policy, DAVIS contributes 349, 349, 68 and 72 proteins at the random, cold-drug, cold-target and
 cold-pair levels against UniProt, and KIBA 211 and 212 at its two levels.
 <!-- src: docs/PROTOCOL_AMENDMENT_v2.md:163 = 10 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=random->n = 349 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->n = 349 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_target->n = 68 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_pair->n = 72 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P2&model=hyperattentiondti&level=random->n = 211 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->n = 212 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->n = 349 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->n = 349 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_target->n = 68 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_pair->n = 72 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=random->n = 211 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->n = 212 -->
 
 ### 2.4 The calibrated battery
 
@@ -361,13 +379,17 @@ its spread *exceeds its signal* if the range of the seeds' precision@10 is large
 their mean from chance (`src/evaluation/seed_agreement.py`).
 <!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
 
-Effect sizes carry 95% percentile bootstrap intervals from 10,000 resamples of targets, each resampled
-target carrying the mean of its seeds. Enrichment over chance is the ratio of mean precision@10 to
-mean chance over the same resampled proteins, and faithfulness intervals group pairs by target.
-Because a target-level bootstrap averages the seeds first, these intervals do not include
-seed-to-seed variance; the seed analysis above is reported beside them for that reason.
+Effect sizes carry 95% percentile intervals from a two-way bootstrap with 10,000 resamples: each
+resample draws the targets with replacement and, independently, the three seeds with replacement, and
+averages over the drawn target–seed grid, so an interval carries seed-to-seed variance as well as the
+sampling of targets. Enrichment over chance is the ratio of mean precision@10 to mean chance over the
+same resampled targets, and faithfulness intervals first group pairs by target. With three seeds the
+seed draw is coarse and the intervals are conservative. The protocol amendment specified a bootstrap
+over targets only, each target carrying the mean of its seeds; those intervals, which omit seed
+variance, are kept for comparison (Supplementary Section S4) and are quoted only where the contrast is
+the point.
+<!-- src: results/effects_v2_2d/enrichment.md:3 = 95, 10000 -->
 <!-- src: docs/PROTOCOL_AMENDMENT_v2.md:183 = 10000 -->
-<!-- src: docs/PROTOCOL_AMENDMENT_v2.md:184 = 95 -->
 
 Accuracy is reported per cell as AUROC, AUPRC, MCC and F1 (the last two at the trainers' own 0.5
 probability threshold), as mean ± sample SD over three seeds; each value was recomputed from saved
@@ -394,7 +416,7 @@ tokenisation in masking (token-matched arms); benchmark leakage (sequence policy
 retraining in §2.6); insufficient test resolution (positive control); multiple comparisons (Holm over
 declared families); and post-hoc family growth (disclosed, frozen by amendment). Threats that remain
 open are stated as limitations: families were not pre-registered; no conservation control for the
-pocket enrichment; kinase-only data; DrugBAN's faithfulness not re-run; MolTrans's test metrics carry
+pocket enrichment; kinase-only data; DrugBAN's faithfulness has point estimates but no interval; MolTrans's test metrics carry
 one draw of its inference-time dropout; and the extension experiments declared in the amendment were
 not run. Supplementary Table S3 lists every problem found during the project, its effect and its fix.
 
@@ -444,21 +466,26 @@ only test targets whose sequence does not occur in training (Section 3.6). DrugB
 
 Scored against UniProt's annotated residues, the three seeds of a cell disagree about their own verdict
 (an uncorrected per-seed permutation test, as a single-run report would quote it) in 12 of 22
-model–dataset–level cells, and in 21 of 22 the spread across seeds exceeds the cell's distance from
-chance. Only 1 cell has all three seeds above the threshold; 9 have none (Figure 1).
-<!-- src: results/seed_agreement.md:34 = 12, 22, 21, 22, 1, 9 -->
+model–dataset–level cells. Only 1 cell has all three seeds above the threshold; 9 have none (Figure 1).
+<!-- src: results/seed_agreement.md:34 = 12, 22, 1, 9 -->
 The disagreement is not marginal. HyperAttentionDTI at DAVIS cold-drug places 0.025, 0.077 and 0.019 of
 its top-ten residues on annotated sites against a chance of 0.020; MolTrans at DAVIS cold-pair places
 0.004, 0.032 and 0.024 against 0.019, so one seed sits well below chance and another well above.
 <!-- src: results/seed_agreement.md:19 = 0.025, 0.077, 0.019, 0.020 -->
 <!-- src: results/seed_agreement.md:26 = 0.004, 0.032, 0.024, 0.019 -->
-The coarser pocket-level target behaves the same way: against the KLIFS pocket the seed spread exceeds
-the distance from chance in fifteen of the twenty-two cells.
+A weaker, descriptive criterion — the range of the three seeds' precision@10 exceeding the cell's
+distance from chance — holds in 21 of 22 UniProt cells, and in fifteen of the twenty-two KLIFS-pocket
+cells. We do not use it as a headline: any cell whose mean sits near chance meets it almost by
+construction, so it overstates instability where there is little signal to be unstable about.
+<!-- src: results/seed_agreement.md:34 = 21, 22 -->
 <!-- claim "fifteen of the twenty-two": results/effects_v2/seed_spread.csv, column spread_exceeds_signal_exact_chance True in 10 of 16 S3-D rows and 5 of 6 S3-K rows -->
 A bootstrap over targets, the usual way to attach an interval to such a score, does not see this
 variance: for HyperAttentionDTI at DAVIS cold-drug it gives an enrichment of 1.98 [1.81, 2.15] over
 chance, an interval far from parity, for a cell whose seeds disagree and whose family-wise test fails.
+A two-way bootstrap that resamples seeds as well as targets, which we use for every interval below,
+gives the same cell [0.94, 3.65].
 <!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.98, 1.81, 2.15 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment_low,enrichment_high = 0.94, 3.65 -->
 
 ### 3.3 Under the calibrated battery, residue-level recovery rarely survives
 
@@ -470,41 +497,49 @@ recovery and 0 of 8 KIBA cells do.
 <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15 = 1, 20 -->
 <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14 = 0, 8 -->
 The surviving cell is HyperAttentionDTI at the random level (precision@10 0.034 against a chance of
-0.020; enrichment 1.66 [1.49, 1.84]), at p = 0.0001, the smallest value 10,000 permutations can give.
-<!-- src: results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=random->precision,chance,enrichment,enrichment_low,enrichment_high = 0.034, 0.020, 1.66, 1.49, 1.84 -->
+0.020; enrichment 1.66 [1.33, 2.00]), at p = 0.0001, the smallest value 10,000 permutations can give.
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->precision,chance,enrichment,enrichment_low,enrichment_high = 0.034, 0.020, 1.66, 1.33, 2.00 -->
 <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:17 = 0.0001 -->
 <!-- src: docs/PROTOCOL_AMENDMENT_v2.md:54 = 10000 -->
 The uniform map, passed through the same grid, never approaches significance (p of 0.4462 or more on
 DAVIS, 0.2251 or more on KIBA), which confirms that the test does not reward a map for being flat.
 <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:27 = 0.4462 -->
 <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:17 = 0.2251 -->
-Figure 2 shows why the correction matters. Several cells have a target-level interval above parity —
-MolTrans at KIBA cold-drug, 1.57 [1.32, 1.82] — yet their split-level test, the median over seeds, does
-not survive (p = 0.07279 against a threshold of 0.00625).
+Once seeds are resampled, the intervals agree with the correction: of the 22 UniProt cells, only
+this one has an interval above parity (Figure 2). With targets alone resampled, several more would —
+MolTrans at KIBA cold-drug, 1.57 [1.32, 1.82] — but resampling seeds widens that interval to
+[0.70, 2.70], and its split-level test, the median over seeds, does not survive (p = 0.07279 against
+a threshold of 0.00625).
+<!-- src: results/seed_agreement.md:34 = 22 -->
+<!-- claim "only this one": results/effects_v2_2d/enrichment.csv, families P1 (16 rows) and P2 (6 rows), enrichment_low > 1 only for P1 hyperattentiondti random -->
 <!-- src: results/effects_v2/enrichment.csv#family=P2&model=moltrans&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.57, 1.32, 1.82 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P2&model=moltrans&level=cold_drug->enrichment_low,enrichment_high = 0.70, 2.70 -->
 <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:16 = 0.07279, 0.00625 -->
 
 ### 3.4 What replicates is coarse: pocket enrichment and load-bearing attention
 
-Against the 85-residue KLIFS pocket, where chance is 0.137–0.143 on DAVIS, two maps are enriched at
-every DAVIS level: HyperAttentionDTI at 1.33–1.70× chance and XAttn-Ref at 1.54–2.10×. MolTrans's
-interval clears parity at three levels but not at cold-pair (0.99 [0.86, 1.13]), and DrugBAN's map sits
-on chance throughout (0.98–1.04×) (Figure 2).
+Against the 85-residue KLIFS pocket, where chance is 0.137–0.143 on DAVIS, XAttn-Ref's map is
+enriched at every DAVIS level (1.54–2.10× chance) and HyperAttentionDTI's at three of the four
+(1.33–1.70×); at cold-drug HyperAttentionDTI's interval, 1.35 [0.94, 1.73], includes parity once seeds
+are resampled. MolTrans's intervals include parity at every level (at cold-pair 0.99 [0.67, 1.32]), and
+DrugBAN's map sits on chance throughout (0.98–1.04×) (Figure 2).
+<!-- claim "every level / three of the four / MolTrans every level": S3-D rows of results/effects_v2_2d/enrichment.csv; enrichment_low > 1 at all four levels for coldsite_dti, at random, cold_target, cold_pair for hyperattentiondti; enrichment_low < 1 at all four levels for moltrans and drugban -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.35, 0.94, 1.73 -->
 <!-- src: src/data/klifs_pocket.py:54 = 85 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_pair->chance = 0.137 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->chance = 0.143 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment = 1.33 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=random->enrichment = 1.70 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->enrichment = 1.54 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment = 2.10 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=moltrans&level=cold_pair->enrichment,enrichment_low,enrichment_high = 0.99, 0.86, 1.13 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=drugban&level=random->enrichment = 0.98 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=drugban&level=cold_target->enrichment = 1.04 -->
-On KIBA, HyperAttentionDTI is enriched at both levels (1.37 [1.29, 1.44] random; 1.25 [1.17, 1.32]
-cold-drug), while XAttn-Ref's cold-drug map is at chance (1.00 [0.94, 1.06]).
-<!-- src: results/effects_v2/enrichment.csv#family=S3-K&model=hyperattentiondti&level=random->enrichment,enrichment_low,enrichment_high = 1.37, 1.29, 1.44 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-K&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.25, 1.17, 1.32 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-K&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.00, 0.94, 1.06 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_pair->chance = 0.137 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->chance = 0.143 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment = 1.33 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=random->enrichment = 1.70 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->enrichment = 1.54 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment = 2.10 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=moltrans&level=cold_pair->enrichment,enrichment_low,enrichment_high = 0.99, 0.67, 1.32 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=random->enrichment = 0.98 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=cold_target->enrichment = 1.04 -->
+On KIBA, HyperAttentionDTI is enriched at both levels (1.37 [1.26, 1.49] random; 1.25 [1.07, 1.41]
+cold-drug), while XAttn-Ref's cold-drug map is at chance (1.00 [0.79, 1.27]).
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-K&model=hyperattentiondti&level=random->enrichment,enrichment_low,enrichment_high = 1.37, 1.26, 1.49 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-K&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.25, 1.07, 1.41 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-K&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.00, 0.79, 1.27 -->
 The positional nulls rule out the simplest artefact for HyperAttentionDTI: its pocket hits beat a
 shuffle of the same attention within the kinase domain in eight of its twelve seed-level cells
 (uncorrected), so the map prefers the pocket within the domain, not only the domain. Kinase ATP pockets
@@ -512,19 +547,34 @@ are conserved and no conservation control was run, so this remains a statement a
 region, not evidence that a ligand's contacts were learned.
 <!-- claim "eight of its twelve": results/analysis_davis_policyA/positional_control_hyperattentiondti_davis_klifs_policyA.md, kinase rows, in-span shuffle p < 0.05 on lines 7, 9, 13, 15, 17, 19, 23, 27; not on lines 11, 21, 25, 29 -->
 
-Faithfulness is the most stable property measured. In all 16 cells where it could be computed —
-HyperAttentionDTI, MolTrans and XAttn-Ref — masking the attended residues changes the prediction more
-than masking the same number of random ones, with every 95% interval above zero (Figure 5). The effect
-ranges from 0.054 [0.036, 0.073] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [1.05, 1.38] (XAttn-Ref,
-DAVIS random); MolTrans is measured in its own token space and is not on the same scale.
-<!-- src: results/effects_v2/faithfulness_effects.csv#rows = 16 -->
-<!-- src: results/effects_v2/faithfulness_effects.csv#model=hyperattentiondti&dataset=davis&level=cold_pair->delta,delta_low,delta_high = 0.054, 0.036, 0.073 -->
-<!-- src: results/effects_v2/faithfulness_effects.csv#model=coldsite_dti&dataset=davis&level=random->delta,delta_low,delta_high = 1.21, 1.05, 1.38 -->
-<!-- src: results/effects_v2/faithfulness_effects.md:3 = 95 -->
+Faithfulness is the most stable property measured for three of the four models. In all 16 cells of
+HyperAttentionDTI, MolTrans and XAttn-Ref, masking the attended residues changes the prediction more
+than masking the same number of random ones, with every 95% interval above zero even when seeds are
+resampled (Figure 5). The effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair)
+to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random); MolTrans is measured in its own token space and is not
+on the same scale.
+<!-- src: results/effects_v2_2d/faithfulness_effects.csv#rows = 16 -->
+<!-- src: results/effects_v2_2d/faithfulness_effects.csv#model=hyperattentiondti&dataset=davis&level=cold_pair->delta,delta_low,delta_high = 0.054, 0.030, 0.080 -->
+<!-- src: results/effects_v2_2d/faithfulness_effects.csv#model=coldsite_dti&dataset=davis&level=random->delta,delta_low,delta_high = 1.21, 0.68, 1.92 -->
+<!-- src: results/effects_v2_2d/faithfulness_effects.md:3 = 95 -->
 The sign holds in every seed, but its size does not: within a cell the per-seed deltas differ
-several-fold. DrugBAN's faithfulness could not be recomputed here, and XAttn-Ref has no KIBA
-faithfulness cell.
-<!-- claim "sign holds in every seed ... several-fold": results/effects_v2/faithfulness_effects.csv, column per_seed_pair_mean — all 48 per-seed values positive; e.g. the XAttn-Ref DAVIS cold_target row lists 0.162975;0.890800;0.496076 -->
+several-fold. XAttn-Ref has no KIBA faithfulness cell.
+<!-- claim "sign holds in every seed ... several-fold": results/effects_v2_2d/faithfulness_effects.csv, column per_seed_pair_mean — all 48 per-seed values positive; e.g. the XAttn-Ref DAVIS cold_target row lists 0.162975;0.890800;0.496076 -->
+
+DrugBAN's attention is not load-bearing. Its committed faithfulness deltas, computed with the same k,
+pairs and random-masking control as the other models, sit near zero and change sign between seeds: at
+cold-drug −0.0073, −0.0036 and 0.0128 for seeds one to three, and at cold-pair −0.0037, −0.0038 and
+0.0027. Six of its twelve seed-level deltas are negative, so by the sign rule its map is load-bearing in
+some runs and not others, and no level is load-bearing in all three seeds. DrugBAN has point estimates
+only: its committed run did not record per-pair values, so no interval can be attached, and a re-run
+needs a graph library that was not available on the analysis machine.
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:6 = -0.0073 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed2.md:6 = -0.0036 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:6 = 0.0128 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:8 = -0.0037 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed2.md:8 = -0.0038 -->
+<!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:8 = 0.0027 -->
+<!-- claim "six of its twelve ... no level load-bearing in all three seeds": faithfulness_drugban_davis_seed{1,2,3}.md lines 5-8, delta column: seed 1 0.0011, -0.0073, 0.0005, -0.0037; seed 2 -0.0018, -0.0036, 0.0002, -0.0038; seed 3 0.0064, 0.0128, -0.0034, 0.0027 -->
 
 Accuracy does not predict localisation. Across the 48 DAVIS attention-model cells, Spearman's ρ between
 AUROC and enrichment over chance is 0.003 [−0.309, 0.294]; across the 18 KIBA cells it is 0.064
@@ -538,8 +588,8 @@ A multi-channel attention tensor must be reduced to one weight per residue, and 
 verdict. Two defensible reductions of the same HyperAttentionDTI weights place 0.367 and 0.081 of their
 top-ten residues in the ATP pocket at the cold-target level, against a chance of 0.140
 (Supplementary Section S3).
-<!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10 = 0.367 -->
-<!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 -->
+<!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10 = 0.367 -->
+<!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 -->
 Whether a map can depend on the drug is a property of the computation graph. For 25 proteins each
 paired with four drugs, the MolTrans readout scored here gives the same top ten for every drug (100% of
 150 drug pairs), HyperAttentionDTI's in 72%, and DrugBAN's in 0%; MolTrans's interaction map, a
@@ -568,16 +618,17 @@ Explanation metrics therefore exclude seen-by-sequence targets throughout (Metho
 
 ### 3.7 Confirmatory: integrated gradients on the same weights
 
-Integrated gradients on the same checkpoints localise better than the attention in several cells, not
-all. For HyperAttentionDTI at KIBA cold-drug, IG reaches 1.90 [1.58, 2.22]× chance against UniProt
-residues where the attention is at 0.94 [0.79, 1.09]×; for XAttn-Ref at DAVIS cold-drug, IG reaches
-3.16 [3.00, 3.33]× in the pocket against the attention's 2.10 [2.02, 2.18]×. IG coverage is partial
+Integrated gradients on the same checkpoints localise better than the attention in some cells, not
+all. For XAttn-Ref at DAVIS cold-drug, IG reaches 3.16 [2.40, 4.40]× chance in the pocket against the
+attention's 2.10 [1.83, 2.36]×. For HyperAttentionDTI at KIBA cold-drug, IG's point estimate against
+UniProt residues, 1.90×, is above the attention's 0.94 [0.71, 1.19]×, but with seeds resampled its
+interval, [0.63, 3.39], includes parity. IG coverage is partial
 (Supplementary Section S4), and we read it only as evidence that a weak attention map can under-report
 what a model represents.
-<!-- src: results/effects_v2/enrichment.csv#family=S2&model=hyperattentiondti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.90, 1.58, 2.22 -->
-<!-- src: results/effects_v2/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 0.94, 0.79, 1.09 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S1-klifs&model=coldsite_dti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high = 3.16, 3.00, 3.33 -->
-<!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 2.10, 2.02, 2.18 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S2&model=hyperattentiondti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high = 1.90, 0.63, 3.39 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 0.94, 0.71, 1.19 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S1-klifs&model=coldsite_dti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high = 3.16, 2.40, 4.40 -->
+<!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high = 2.10, 1.83, 2.36 -->
 
 Every result in this section concerns kinase targets; the non-kinase transfer panel is not analysed here.
 
@@ -590,14 +641,16 @@ The central result is that an attention-based binding-site verdict, as usually r
 stable property of a model recipe. Three runs of the same recipe on the same split frequently disagree
 about whether the map finds annotated residues, and the disagreement is usually larger than the effect
 being claimed (Section 3.2). A single-run figure therefore samples one draw from a wide distribution,
-and an interval computed over targets within that run does not reflect it. Once chance, ceiling, a
+and an interval computed over targets alone does not reflect it; resampling seeds as well does. Once chance, ceiling, a
 uniform floor, a positive control and family-wise correction are applied, residue-level recovery
 survives in one DAVIS cell and in no KIBA cell (Section 3.3).
 
-What does replicate is coarser and consistent across seeds: the attention of every model we could test
-is load-bearing, and two of the four maps concentrate in the kinase ATP pocket at every DAVIS level.
-In the vocabulary of Jacovi & Goldberg (2020), these models are faithful without being plausible at the
-residue level: their predictions depend on the residues they attend to, but those residues are rarely
+What does replicate is coarser: the attention of three of the four models is load-bearing in every
+seed, and XAttn-Ref's map concentrates in the kinase ATP pocket at every DAVIS level, HyperAttentionDTI's
+at three of four. DrugBAN is the exception on both counts — its map is neither enriched in the pocket nor
+consistently load-bearing, its masking effect changing sign between seeds (Section 3.4).
+In the vocabulary of Jacovi & Goldberg (2020), the other three models are faithful without being
+plausible at the residue level: their predictions depend on the residues they attend to, but those residues are rarely
 the annotated ones. Pocket enrichment is also the weakest kind of plausibility, because the pocket is
 conserved across kinases; without a conservation control it cannot be read as learned chemistry.
 
@@ -668,8 +721,9 @@ its recorded metrics within the amendment's declared tolerance. The wave has not
 and none of its cells contributes to any number in this paper. The seeds 4–5 results will be analysed as a separately declared extension family
 and reported beside, not merged into, the primary seeds 1–3 analysis.
 
-**Analyses declared but not yet run.** Faithfulness intervals for DrugBAN (which needs a graph library
-unavailable on the analysis machine), integrated gradients for HyperAttentionDTI on DAVIS, a faithfulness
+**Analyses declared but not yet run.** Faithfulness intervals for DrugBAN (its committed point
+estimates are reported, but a re-run that records per-pair values needs a graph library unavailable on
+the analysis machine), integrated gradients for HyperAttentionDTI on DAVIS, a faithfulness
 arm for the uniform map, the additional explanation methods, and the conservation null for the pocket
 enrichment are declared in the protocol amendment and are pending; the explanation-method family also
 awaits a signed addendum before any of its cells may be scored. Until the conservation null is
@@ -698,7 +752,8 @@ unfavourable results, including chance-level residue localisation, are reported.
 For the four attention-based DTI models audited here, a single-seed attention figure cannot carry a
 residue-level binding-site claim: the verdict changes between seeds, rarely survives a calibrated test,
 and depends on an often unstated readout. What these maps do show reliably is coarser — they are
-load-bearing and, for two models, concentrated in the kinase pocket. We recommend that explanation claims
+load-bearing for three of the four models and, for two, concentrated in the kinase pocket at most
+DAVIS levels. We recommend that explanation claims
 in DTI be reported across seeds, against chance and a positive control, with correction and a stated
 readout, on splits checked for sequence identity.
 
@@ -718,10 +773,11 @@ the paper reports. y-axes differ between panels. *Source:* `results/effects_v2/s
 
 **Figure 2. Enrichment over chance with 95% bootstrap intervals.**
 precision@10 ÷ chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues
-(left) and the KLIFS pocket (right). Intervals resample targets (10,000 resamples); log scale; dashed line
+(left) and the KLIFS pocket (right). Intervals come from a two-way bootstrap that resamples both targets and
+seeds (10,000 resamples); log scale; dashed line
 = chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation (T06 deferred).
-*Source:* `results/effects_v2/enrichment.csv` (families P1, S3-D, P2, S3-K). *Script:* `scripts/plotting/fig2_enrichment_forest.py`.
-<!-- src: results/effects_v2/enrichment.md:3 = 95, 10000 -->
+*Source:* `results/effects_v2_2d/enrichment.csv` (families P1, S3-D, P2, S3-K). *Script:* `scripts/plotting/fig2_enrichment_forest.py`.
+<!-- src: results/effects_v2_2d/enrichment.md:3 = 95, 10000 -->
 
 ![Figure 3](figures/fig3_accuracy.png)
 
@@ -744,11 +800,12 @@ over cells. *Sources:* `results/accuracy_v2/localization_cells.csv`, `results/ac
 
 **Figure 5. Masking the attended residues matters more than masking random ones.**
 Faithfulness delta (attended masking minus a size-matched random-masking control), mean over targets
-with 95% bootstrap intervals (targets resampled, 10,000 resamples). MolTrans is measured in its own
-token space, the others in residue space, so the three panels do not share a scale. No DrugBAN or KIBA
-XAttn-Ref rows exist (deferred; see Discussion). *Source:* `results/effects_v2/faithfulness_effects.csv`.
+with 95% two-way bootstrap intervals (targets and seeds resampled, 10,000 resamples). MolTrans is measured
+in its own token space, the others in residue space, so the three panels do not share a scale. DrugBAN is
+not drawn: its committed per-seed deltas exist (Section 3.4) but carry no interval, because its per-pair
+values were not recorded. No KIBA XAttn-Ref cell exists. *Source:* `results/effects_v2_2d/faithfulness_effects.csv`.
 *Script:* `scripts/plotting/fig5_faithfulness.py`.
-<!-- src: results/effects_v2/faithfulness_effects.md:3 = 95, 10000 -->
+<!-- src: results/effects_v2_2d/faithfulness_effects.md:3 = 95, 10000 -->
 
 ![Figure 6](figures/fig6_leakage.png)
 
@@ -821,13 +878,12 @@ HyperAttentionDTI against the KLIFS pocket at the cold-target level:
 
 | readout | precision@10 (mean ± SD over seeds) | chance |
 |---|---|---|
-| primary (channel mean) | 0.186 ± 0.032 | 0.140 | <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=published&level=cold_target->precision@10,chance = 0.186, 0.140 --> <!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->precision = 0.186 --> <!-- sd: readout_comparison.csv cell "0.186 ± 0.032" --> <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv:40 = 0.032 -->
-| maximum over channels | 0.367 ± 0.104 | 0.140 | <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10,chance = 0.367, 0.140 --> <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv:52 = 0.104 -->
-| receptive-field spread | 0.081 ± 0.046 | 0.140 | <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 --> <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv:56 = 0.046 -->
+| primary (channel mean) | 0.186 ± 0.032 | 0.140 | <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=published&level=cold_target->precision@10,chance = 0.186, 0.140 --> <!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->precision = 0.186 --> <!-- sd: readout_comparison.csv cell "0.186 ± 0.032" --> <!-- src: results/readout_comparison.csv:40 = 0.032 -->
+| maximum over channels | 0.367 ± 0.104 | 0.140 | <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10,chance = 0.367, 0.140 --> <!-- src: results/readout_comparison.csv:52 = 0.104 -->
+| receptive-field spread | 0.081 ± 0.046 | 0.140 | <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 --> <!-- src: results/readout_comparison.csv:56 = 0.046 -->
 
-The readout-comparison file is written by the readout runs to the checkpoint-side results folder
-(`~/ColdSite-results/readouts/readout_comparison.csv`), outside the repository; it must be copied into
-the release before submission. Drug dependence of each readout was measured on 25 proteins with four
+The readout-comparison table is written by the readout runs to the checkpoint-side results folder
+and is versioned in the repository as `results/readout_comparison.csv` (a byte-identical copy). Drug dependence of each readout was measured on 25 proteins with four
 drugs each: the top ten residues are identical across drugs in 100% of drug pairs for MolTrans's
 primary readout, in 72% for HyperAttentionDTI's and in 0% for DrugBAN's.
 <!-- src: results/drug_dependence/moltrans.txt:1 = 25, 100 -->
@@ -840,7 +896,9 @@ primary readout, in 72% for HyperAttentionDTI's and in 0% for DrugBAN's.
 |---|---|---|
 | audit with Holm (primary record) | `src/evaluation/run_audit.py` | `results/analysis_{davis,kiba}_policyA/audit_*_10k_permutations.*` |
 | UniProt and KLIFS ladders | `src/evaluation/run_ladder.py` | `results/analysis_*_policyA*/` |
-| enrichment and faithfulness intervals | `src/evaluation/effects_v2.py` | `results/effects_v2/` |
+| enrichment and faithfulness intervals (two-way: seeds and targets resampled; quoted in the text) | `src/evaluation/effects_v2.py --resample seeds_and_targets` | `results/effects_v2_2d/` |
+| enrichment and faithfulness intervals (targets only, as the amendment specified; comparison) | `src/evaluation/effects_v2.py` | `results/effects_v2/` |
+| readout comparison | readout runs (checkpoint-side), copied byte-identical | `results/readout_comparison.csv` |
 | seed agreement | `src/evaluation/seed_agreement.py` | `results/seed_agreement.md` |
 | positive control | `src/evaluation/positive_control.py` | `results/positive_control_{davis,kiba}.md` |
 | positional and residue nulls | `src/evaluation/positional_control.py` | all four attention models on DAVIS, UniProt and KLIFS (`results/analysis_davis_policyA/positional_control_*`); HyperAttentionDTI and MolTrans on KIBA against both ground truths, XAttn-Ref on KIBA against KLIFS only (`results/analysis_kiba_policyA/positional_control_*`) |

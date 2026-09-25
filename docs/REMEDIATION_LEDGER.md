@@ -1200,3 +1200,43 @@ Methods and captions); `TOTAL: 792 numbers, 482 tags, 0 failures`. `python3 -m p
 
 **Still open (unchanged by this closure):** the T03 status row is stale (the amendment is APPROVED, `docs/PROTOCOL_AMENDMENT_v2.md:5`);
 no reference list in the manuscript (citations are name + year, per CLAUDE.md §5); Wave A, E3 and the deferred analyses as stated in §4.4.
+
+
+---
+
+## Rigor fixes — five CPU-only / text items (DONE, 2026-09-25)
+
+**Branch:** `remediation/rigor-fixes`, from `remediation/T24` at `ba91ba1`, clean at start. User-directed; not a plan task.
+
+1. **DrugBAN faithfulness restored.** The committed deltas exist (`results/analysis_davis_policyA/faithfulness_drugban_davis_seed{1,2,3}.md`,
+   k = 10, 200 pairs, 5 random trials). The requested −0.0073 (cold-drug) and −0.0037 (cold-pair) are **seed 1 only**; seed 3 gives
+   +0.0128 and +0.0027 at the same levels, and 6 of 12 seed-level deltas are negative, with no level positive in all three seeds. The text
+   therefore quotes the seed-1 values beside the other seeds (CLAUDE.md §5: never one seed) and says DrugBAN's map is **not load-bearing**;
+   "could not be re-run" is replaced by "point estimates, no interval (per-pair values not recorded; re-run needs DGL)". Abstract, Intro,
+   Results §3.4, Discussion §4.1/§4.4/§4.5, Methods §2.7, Fig. 5 caption.
+2. **Readout provenance.** `~/ColdSite-results/readouts/readout_comparison.csv` copied to `results/readout_comparison.csv` (SHA-256
+   `bd12fa6d…5d862`, identical; tracked by the existing `!results/*.csv` rule). Every tag and path mention re-pointed (abstract 2, intro 2,
+   results 2, supplement 6 tags + 1 prose path; CAPTIONS note). Checker: **0 external tags** (was 12 in the master).
+3. **"21 of 22" demoted.** Removed from Abstract, Key Points and Intro; the headline is "12 of 22 cells disagree across seeds". Results §3.2
+   keeps 21/22 (and the KLIFS 15/22) as a weaker descriptive criterion, stating that near-chance cells meet it almost by construction.
+4. **Two-way bootstrap.** The bootstrap lives in `src/evaluation/effects_v2.py` (nothing in `scripts/` bootstraps). Added
+   `--resample seeds_and_targets` (`bootstrap_effect_2d`, `bootstrap_delta_2d`): each resample draws targets and, independently, seeds with
+   replacement and averages over the drawn grid. Default stays `targets`, so `results/effects_v2/` and the `ci_davis.json` reproduction test
+   are unchanged; the CLI refuses to write the two-way mode into `results/effects_v2`. Output `results/effects_v2_2d/` (`.gitignore`
+   exception added). Run: `python3 -m src.evaluation.effects_v2 --resample seeds_and_targets --out-dir results/effects_v2_2d
+   --faithfulness-dir results/effects_v2/faithfulness` (10.7 s; same 68 cells, same 24 IG gaps, all reproduction checks OK).
+   Point values identical (max diff 0.0); intervals wider in every cell (median width ×2.20, none narrower). 6 tests added
+   (equal to target-only when seeds agree; sees seed-only variance; point values unchanged; missing seed; delta; refuses overwrite);
+   mutation (seed draws ignored) caught by 2 of them.
+   **Verdict changes carried into the text:** UniProt cells with interval above 1: P1 4→1, P2 3→0 (only the Holm survivor,
+   HyperAttentionDTI DAVIS random, 1.66 [1.33, 2.00]); KLIFS DAVIS: XAttn-Ref 4/4, HyperAttentionDTI **3/4** (cold-drug 1.35 [0.94, 1.73]),
+   MolTrans **0/4** (was 3/4); HyperAttentionDTI-IG KIBA cold-drug 1.90 [0.63, 3.39] now covers 1, so the confirmatory IG example is
+   XAttn-Ref pocket 3.16 [2.40, 4.40] vs 2.10 [1.83, 2.36]. Faithfulness: all 16 intervals still above 0. Figs 2 and 5 now read `_2d`.
+   **Deviation from amendment §5** (targets-only resampling), user-directed; Methods §2.5 states it and keeps the target-only intervals for comparison.
+   Caveat: with 3 seeds the seed draw is coarse (1 in 9 resamples use a single seed three times), so the intervals are conservative.
+5. **Rebuild.** `build_instructor_draft.py` → `--check` up to date; `check_number_provenance.py --words` → `TOTAL: 826 numbers, 518 tags,
+   0 failures`, 0 external. `python3 -m pytest -p no:warnings` → `1202 passed, 5 skipped in 213.76s (0:03:33)` (+6). `git diff -- results`
+   empty (only new files). Figures byte-identical on rebuild.
+
+**Open:** main text is now 5,925 words, **6,364 with abstract + Key Points**, above the user-assumed 6,000 (was 5,939). The pre-existing
+untagged numbers in CAPTIONS.md's "not produced" notes (not part of the draft) were reworded to words.

@@ -302,3 +302,70 @@ def test_a_rerun_is_compared_with_the_committed_file_of_the_same_name(tmp_path):
     assert rows[0]["max_abs_diff_vs_committed"] == pytest.approx(1e-3)
     rows, _h, _p = fx.faithfulness_cells(str(new), n_resamples=100)
     assert np.isnan(rows[0]["max_abs_diff_vs_committed"])
+
+
+# --------------------------------------------------------------------------
+# two-way bootstrap (targets AND seeds resampled)
+# --------------------------------------------------------------------------
+
+def _by_seed(precision: dict) -> dict:
+    return {p: {s + 1: v for s, v in enumerate(values)} for p, values in precision.items()}
+
+
+def test_two_way_equals_target_only_when_every_seed_agrees():
+    """Identical seeds carry no seed variance: the target draws come first and match exactly."""
+    rng = np.random.default_rng(11)
+    base = {f"P{i}": float(rng.uniform(0, 0.1)) for i in range(40)}
+    precision = {p: [v, v, v] for p, v in base.items()}
+    chance = {p: 0.02 for p in base}
+    one = fx.bootstrap_effect(precision, chance, n_resamples=3000)
+    two = fx.bootstrap_effect_2d(_by_seed(precision), chance, n_resamples=3000)
+    for key in ("precision", "precision_low", "precision_high", "enrichment",
+                "enrichment_low", "enrichment_high"):
+        assert two[key] == pytest.approx(one[key], abs=1e-12)
+
+
+def test_two_way_sees_seed_variance_that_the_target_bootstrap_hides():
+    """Every protein identical within a seed, seeds far apart: target-only is degenerate."""
+    precision = {f"P{i}": [0.02, 0.06, 0.10] for i in range(30)}
+    chance = {p: 0.02 for p in precision}
+    one = fx.bootstrap_effect(precision, chance, n_resamples=3000)
+    two = fx.bootstrap_effect_2d(_by_seed(precision), chance, n_resamples=3000)
+    assert one["enrichment_low"] == pytest.approx(one["enrichment_high"])
+    assert two["enrichment"] == pytest.approx(one["enrichment"])
+    assert two["enrichment_low"] < one["enrichment_low"] < two["enrichment_high"]
+    assert two["enrichment_low"] <= 1.0 + 1e-9                      # all three drawn as seed 1
+
+
+def test_two_way_point_values_match_the_target_only_ones_on_real_shaped_data():
+    precision, chance = _cell(n=60, enrich=1.5, noise=0.03, seeds=3, seed=5)
+    one = fx.bootstrap_effect(precision, chance, n_resamples=2000)
+    two = fx.bootstrap_effect_2d(_by_seed(precision), chance, n_resamples=2000)
+    assert two["precision"] == pytest.approx(one["precision"])
+    assert two["enrichment"] == pytest.approx(one["enrichment"])
+    assert two["enrichment_high"] - two["enrichment_low"] >= \
+        one["enrichment_high"] - one["enrichment_low"] - 1e-9
+
+
+def test_two_way_skips_a_seed_a_protein_lacks():
+    by_seed = {"A": {1: 0.1, 2: 0.1, 3: 0.1}, "B": {1: 0.3, 3: 0.3}}
+    row = fx.bootstrap_effect_2d(by_seed, {"A": 0.1, "B": 0.1}, n_resamples=500)
+    assert row["precision"] == pytest.approx(0.2)
+    assert np.isfinite(row["precision_low"]) and np.isfinite(row["enrichment_high"])
+
+
+def test_two_way_delta_sees_seed_variance():
+    by_seed = {f"T{i}": {1: 0.0, 2: 0.5, 3: 1.0} for i in range(30)}
+    flat = {t: list(v.values()) for t, v in by_seed.items()}
+    one = fx.bootstrap_delta(flat, n_resamples=3000)
+    two = fx.bootstrap_delta_2d(by_seed, n_resamples=3000)
+    assert one["delta_low"] == pytest.approx(one["delta_high"]) == pytest.approx(0.5)
+    assert two["delta"] == pytest.approx(0.5)
+    assert two["delta_low"] < 0.5 < two["delta_high"] and not two["load_bearing_ci"]
+
+
+def test_the_two_way_mode_refuses_to_overwrite_the_committed_tables(monkeypatch):
+    monkeypatch.setattr("sys.argv", ["effects_v2", "--resample", "seeds_and_targets",
+                                     "--out-dir", "results/effects_v2"])
+    with pytest.raises(SystemExit):
+        fx.main()

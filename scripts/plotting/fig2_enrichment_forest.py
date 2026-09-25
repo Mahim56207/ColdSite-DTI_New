@@ -1,7 +1,7 @@
 """Figure 2 — enrichment over chance (precision@10 / chance) with 95% bootstrap intervals.
 
-Source: results/effects_v2/enrichment.csv (families P1, P2 = UniProt; S3-D, S3-K = KLIFS pocket).
-Intervals resample targets (10,000 resamples; column n_resamples). 1 = chance.
+Source: results/effects_v2_2d/enrichment.csv (two-way bootstrap: seeds and targets resampled; families P1, P2 = UniProt; S3-D, S3-K = KLIFS pocket).
+Intervals resample seeds and targets (10,000 resamples; column n_resamples). 1 = chance.
 """
 import pandas as pd
 from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
@@ -9,7 +9,7 @@ from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 from _style import (LEVEL_NAMES, LEVELS, MODEL_COLORS, MODEL_MARKERS, MODEL_NAMES, REFERENCE, RESULTS,
                     plt, save)
 
-SRC = RESULTS / "effects_v2" / "enrichment.csv"
+SRC = RESULTS / "effects_v2_2d" / "enrichment.csv"
 PANELS = [("P1", "DAVIS · UniProt residues"), ("S3-D", "DAVIS · KLIFS pocket"),
           ("P2", "KIBA · UniProt residues"), ("S3-K", "KIBA · KLIFS pocket")]
 TICKS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3]

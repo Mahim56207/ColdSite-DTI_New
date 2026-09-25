@@ -11,14 +11,16 @@ The central result is that an attention-based binding-site verdict, as usually r
 stable property of a model recipe. Three runs of the same recipe on the same split frequently disagree
 about whether the map finds annotated residues, and the disagreement is usually larger than the effect
 being claimed (Section 3.2). A single-run figure therefore samples one draw from a wide distribution,
-and an interval computed over targets within that run does not reflect it. Once chance, ceiling, a
+and an interval computed over targets alone does not reflect it; resampling seeds as well does. Once chance, ceiling, a
 uniform floor, a positive control and family-wise correction are applied, residue-level recovery
 survives in one DAVIS cell and in no KIBA cell (Section 3.3).
 
-What does replicate is coarser and consistent across seeds: the attention of every model we could test
-is load-bearing, and two of the four maps concentrate in the kinase ATP pocket at every DAVIS level.
-In the vocabulary of Jacovi & Goldberg (2020), these models are faithful without being plausible at the
-residue level: their predictions depend on the residues they attend to, but those residues are rarely
+What does replicate is coarser: the attention of three of the four models is load-bearing in every
+seed, and XAttn-Ref's map concentrates in the kinase ATP pocket at every DAVIS level, HyperAttentionDTI's
+at three of four. DrugBAN is the exception on both counts — its map is neither enriched in the pocket nor
+consistently load-bearing, its masking effect changing sign between seeds (Section 3.4).
+In the vocabulary of Jacovi & Goldberg (2020), the other three models are faithful without being
+plausible at the residue level: their predictions depend on the residues they attend to, but those residues are rarely
 the annotated ones. Pocket enrichment is also the weakest kind of plausibility, because the pocket is
 conserved across kinases; without a conservation control it cannot be read as learned chemistry.
 
@@ -89,8 +91,9 @@ its recorded metrics within the amendment's declared tolerance. The wave has not
 and none of its cells contributes to any number in this paper. The seeds 4–5 results will be analysed as a separately declared extension family
 and reported beside, not merged into, the primary seeds 1–3 analysis.
 
-**Analyses declared but not yet run.** Faithfulness intervals for DrugBAN (which needs a graph library
-unavailable on the analysis machine), integrated gradients for HyperAttentionDTI on DAVIS, a faithfulness
+**Analyses declared but not yet run.** Faithfulness intervals for DrugBAN (its committed point
+estimates are reported, but a re-run that records per-pair values needs a graph library unavailable on
+the analysis machine), integrated gradients for HyperAttentionDTI on DAVIS, a faithfulness
 arm for the uniform map, the additional explanation methods, and the conservation null for the pocket
 enrichment are declared in the protocol amendment and are pending; the explanation-method family also
 awaits a signed addendum before any of its cells may be scored. Until the conservation null is
@@ -119,6 +122,7 @@ unfavourable results, including chance-level residue localisation, are reported.
 For the four attention-based DTI models audited here, a single-seed attention figure cannot carry a
 residue-level binding-site claim: the verdict changes between seeds, rarely survives a calibrated test,
 and depends on an often unstated readout. What these maps do show reliably is coarser — they are
-load-bearing and, for two models, concentrated in the kinase pocket. We recommend that explanation claims
+load-bearing for three of the four models and, for two, concentrated in the kinase pocket at most
+DAVIS levels. We recommend that explanation claims
 in DTI be reported across seeds, against chance and a positive control, with correction and a stated
 readout, on splits checked for sequence identity.

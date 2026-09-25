@@ -34,6 +34,7 @@ import hashlib
 import json
 import os
 import re
+import warnings
 
 import numpy as np
 
@@ -146,6 +147,79 @@ def bootstrap_effect(precision: dict, chance: dict, n_resamples: int = N_RESAMPL
     return row
 
 
+RESAMPLING = ("targets", "seeds_and_targets")
+
+
+def _seed_matrix(by_seed: dict) -> tuple:
+    """(ids, seeds, matrix) with matrix[i, j] = protein i's value under seed j, nan if absent."""
+    ids = sorted(by_seed)
+    seeds = sorted({s for values in by_seed.values() for s in values})
+    matrix = np.full((len(ids), len(seeds)), np.nan)
+    for i, protein in enumerate(ids):
+        for j, s in enumerate(seeds):
+            if s in by_seed[protein]:
+                matrix[i, j] = by_seed[protein][s]
+    return ids, seeds, matrix
+
+
+def _two_way_means(matrix, target_draws, seed_draws) -> np.ndarray:
+    """Per-resample mean over the drawn targets of each target's mean over the drawn seeds.
+
+    `target_draws` is (B, n), `seed_draws` (B, S). A seed a protein lacks is skipped (nanmean),
+    as the target-only bootstrap averages each protein over the seeds it has.
+    """
+    with np.errstate(invalid="ignore"), warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)              # all-nan slices -> nan
+        per_target = np.nanmean(matrix[:, seed_draws], axis=2).T          # (B, n)
+        picked = np.take_along_axis(per_target, target_draws, axis=1)      # (B, n)
+        return np.nanmean(picked, axis=1)
+
+
+def bootstrap_effect_2d(by_seed: dict, chance: dict, n_resamples: int = N_RESAMPLES,
+                        seed: int = 0, confidence: float = CONFIDENCE) -> dict:
+    """`bootstrap_effect` with seeds resampled as well as targets (a two-way bootstrap).
+
+    `by_seed` is {protein: {seed: precision}}. Each resample draws n targets with replacement
+    AND S seeds with replacement from the cell's S seeds, independently, and averages over the
+    drawn (target, seed) grid; chance, which does not depend on the seed, is averaged over the
+    same drawn targets. The target draws are generated first and exactly as in
+    `bootstrap_effect`, so a cell whose seeds all agree gets the same interval from both.
+    The point values are unchanged: mean over proteins of each protein's mean over its seeds.
+    """
+    ids, seeds, matrix = _seed_matrix(by_seed)
+    n = len(ids)
+    if n == 0:
+        return {"n": 0}
+    prec = np.nanmean(matrix, axis=1)
+    chan = np.array([float(chance[i]) for i in ids])
+    rng = np.random.default_rng(seed)
+    target_draws = rng.integers(0, n, size=(n_resamples, n))
+    seed_draws = rng.integers(0, len(seeds), size=(n_resamples, len(seeds)))
+    prec_means = _two_way_means(matrix, target_draws, seed_draws)
+    chan_means = chan[target_draws].mean(axis=1)
+    keep = np.isfinite(prec_means)
+    p_low, p_high = percentile_ci(prec_means[keep], confidence)
+    row = {"n": n, "precision": float(prec.mean()), "precision_low": p_low,
+           "precision_high": p_high, "chance": float(chan.mean()),
+           "n_resamples": n_resamples, "resampling": "seeds_and_targets",
+           "n_seeds_resampled": len(seeds)}
+    d_low, d_high = percentile_ci((prec_means - chan_means)[keep], confidence)
+    row.update({"excess": float(prec.mean() - chan.mean()),
+                "excess_low": d_low, "excess_high": d_high})
+    if chan.mean() > 0:
+        with np.errstate(divide="ignore", invalid="ignore"):
+            ratios = np.where(chan_means > 0, prec_means / chan_means, np.nan)
+        ratios = ratios[np.isfinite(ratios)]
+        e_low, e_high = percentile_ci(ratios, confidence)
+        row.update({"enrichment": float(prec.mean() / chan.mean()),
+                    "enrichment_low": e_low, "enrichment_high": e_high,
+                    "n_resamples_with_ratio": int(ratios.size)})
+    else:
+        row.update({"enrichment": float("nan"), "enrichment_low": float("nan"),
+                    "enrichment_high": float("nan"), "n_resamples_with_ratio": 0})
+    return row
+
+
 def seed_spread(precisions: list, chance: float) -> dict:
     """Rule 1.13 for one cell: does the spread across seeds exceed the distance from chance?"""
     mean = float(np.mean(precisions))
@@ -182,7 +256,8 @@ def discover(folder: str) -> dict:
 
 
 def cell_rows(folder: str, ground_truth: str, family: str, ground_truth_label: str,
-              split_root: str = "data/splits", n_resamples: int = N_RESAMPLES) -> tuple:
+              split_root: str = "data/splits", n_resamples: int = N_RESAMPLES,
+              resampling: str = "targets") -> tuple:
     """(enrichment rows, seed rows, input hashes, problems) for every ladder in `folder`."""
     from src.data.ground_truth import load_site_sets
 
@@ -199,6 +274,7 @@ def cell_rows(folder: str, ground_truth: str, family: str, ground_truth_label: s
             if not entries:
                 continue
             precision: dict = {}
+            by_seed: dict = {}
             recorded, ceilings, per_seed = [], [], []
             ids_seen: set = set()
             for seed, entry in sorted(entries.items()):
@@ -211,6 +287,7 @@ def cell_rows(folder: str, ground_truth: str, family: str, ground_truth_label: s
                     continue
                 for protein, score in zip(ids, scores):
                     precision.setdefault(protein, []).append(float(score))
+                    by_seed.setdefault(protein, {})[seed] = float(score)
                 ids_seen |= set(ids)
                 recorded.append(cell["chance"])
                 ceilings.append(cell["ceiling"])
@@ -237,7 +314,8 @@ def cell_rows(folder: str, ground_truth: str, family: str, ground_truth_label: s
                    "chance_check_max_abs_diff": float(check),
                    "chance_check_mc_se": se,
                    "chance_check_ok": bool(check <= MC_SIGMAS * se)}
-            row.update(bootstrap_effect(precision, chance, n_resamples))
+            row.update(bootstrap_effect(precision, chance, n_resamples) if resampling == "targets"
+                       else bootstrap_effect_2d(by_seed, chance, n_resamples))
             enrichment.append(row)
             # rule 1.13 reads the first seed's recorded chance (`seed_agreement.cells`)
             spread = seed_spread(per_seed, recorded[0])
@@ -283,8 +361,31 @@ def bootstrap_delta(per_target: dict, n_resamples: int = N_RESAMPLES, seed: int 
             "n_resamples": n_resamples}
 
 
+def bootstrap_delta_2d(by_seed: dict, n_resamples: int = N_RESAMPLES, seed: int = 0,
+                       confidence: float = CONFIDENCE) -> dict:
+    """`bootstrap_delta` with seeds resampled as well as targets (see `bootstrap_effect_2d`).
+
+    `by_seed` is {target: {seed: delta}} (each value already the mean of that target's pairs
+    in that seed). The point value is unchanged; only the interval widens by the seed term.
+    """
+    ids, seeds, matrix = _seed_matrix(by_seed)
+    if not ids:
+        return {"n_targets": 0}
+    rng = np.random.default_rng(seed)
+    target_draws = rng.integers(0, len(ids), size=(n_resamples, len(ids)))
+    seed_draws = rng.integers(0, len(seeds), size=(n_resamples, len(seeds)))
+    means = _two_way_means(matrix, target_draws, seed_draws)
+    low, high = percentile_ci(means[np.isfinite(means)], confidence)
+    mean = float(np.nanmean(matrix, axis=1).mean())
+    return {"n_targets": len(ids), "delta": mean, "delta_low": low, "delta_high": high,
+            "load_bearing_sign": bool(mean > 0), "load_bearing_ci": bool(low > 0),
+            "n_resamples": n_resamples, "resampling": "seeds_and_targets",
+            "n_seeds_resampled": len(seeds)}
+
+
 def faithfulness_cells(folder: str, n_resamples: int = N_RESAMPLES,
-                       committed_dirs: tuple = ()) -> tuple:
+                       committed_dirs: tuple = (),
+                       resampling: str = "targets") -> tuple:
     """(rows, hashes, problems) for the per-pair faithfulness files of one folder.
 
     Reads `faithfulness_*` and `token_faithfulness_*` JSONs written with `--record-pairs`.
@@ -320,6 +421,7 @@ def faithfulness_cells(folder: str, n_resamples: int = N_RESAMPLES,
             hashes[path] = sha256(path)
         for level in LEVELS:
             per_target: dict = {}
+            by_seed: dict = {}
             pair_means, sign_flags, n_pairs, versus_committed = [], [], [], []
             for seed, payload in sorted(payloads.items()):
                 entry = (payload.get("levels", payload)).get(level)
@@ -337,6 +439,7 @@ def faithfulness_cells(folder: str, n_resamples: int = N_RESAMPLES,
                         grouped.setdefault(pair["id"], []).append(value)
                 for target, values in grouped.items():
                     per_target.setdefault(target, []).append(float(np.mean(values)))
+                    by_seed.setdefault(target, {})[seed] = float(np.mean(values))
                 finite = [v for g in grouped.values() for v in g]
                 pair_means.append(float(np.mean(finite)) if finite else float("nan"))
                 n_pairs.append(len(finite))
@@ -356,12 +459,13 @@ def faithfulness_cells(folder: str, n_resamples: int = N_RESAMPLES,
                    if any(b is not None for _a, b in sign_flags) else float("nan"),
                    "max_abs_diff_vs_committed": max(versus_committed) if versus_committed
                    else float("nan")}
-            row.update(bootstrap_delta(per_target, n_resamples))
+            row.update(bootstrap_delta(per_target, n_resamples) if resampling == "targets"
+                       else bootstrap_delta_2d(by_seed, n_resamples))
             rows.append(row)
     return rows, hashes, problems
 
 
-def faithfulness_report(rows: list) -> str:
+def faithfulness_report(rows: list, resampling: str = "targets") -> str:
     out = ["# Faithfulness delta with confidence intervals", "",
            "Mean `comprehensiveness_delta` (attended masking minus the size-matched random "
            f"control), pairs grouped by target, targets resampled ({N_RESAMPLES:,} resamples, "
@@ -372,6 +476,11 @@ def faithfulness_report(rows: list) -> str:
            "| model | space | dataset | level | targets | pairs/seed | mean delta (pairs) | "
            "mean delta (targets) | 95% CI | sign | CI | max diff vs committed |",
            "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    if resampling != "targets":
+        out[2] = ("Mean `comprehensiveness_delta` (attended masking minus the size-matched random "
+                  "control), pairs grouped by target within each seed. " + TWO_WAY_NOTE +
+                  " `sign` is the original verdict (mean > 0); `CI` is the added one (lower bound > 0). "
+                  "MolTrans is in token space (size-matched arms), as in the paper.")
     for r in rows:
         space = "token" if r["kind"] == "token_faithfulness" else "residue"
         out.append(f"| {r['model']} | {space} | {r['dataset'].upper()} | {r['level'].replace('_', '-')} | "
@@ -471,7 +580,15 @@ def fmt(value, digits=3):
         else f"{value:.{digits}f}"
 
 
-def enrichment_report(rows: list) -> str:
+TWO_WAY_NOTE = ("TWO-WAY bootstrap (`--resample seeds_and_targets`), " + f"{N_RESAMPLES:,}" +
+                " resamples, 95% percentile intervals, `default_rng(0)`: each resample draws the targets "
+                "with replacement and, independently, the seeds with replacement from the cell's seeds, "
+                "and averages over the drawn (target, seed) grid, so an interval carries seed-to-seed "
+                "variance as well as target sampling. Point values are identical to the target-only "
+                "tables of `results/effects_v2/` (amendment section 5); only the intervals differ.")
+
+
+def enrichment_report(rows: list, resampling: str = "targets") -> str:
     out = ["# Enrichment over chance, with confidence intervals", "",
            "Mean precision@10 divided by mean chance over the same resampled proteins; 95% "
            f"percentile intervals, {N_RESAMPLES:,} resamples, unit = target, each protein carried in "
@@ -481,6 +598,10 @@ def enrichment_report(rows: list) -> str:
            "| family | ground truth | dataset | model | level | n | precision@10 | 95% CI | chance | "
            "ceiling | enrichment | 95% CI | excess | 95% CI |",
            "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    if resampling != "targets":
+        out[2] = ("Mean precision@10 divided by mean chance over the same resampled targets. "
+                  + TWO_WAY_NOTE + " Effect sizes only: no threshold is applied. `excess` is precision "
+                  "minus chance. Ceiling is the recorded mean ceiling.")
     for r in rows:
         out.append(
             f"| {r['family']} | {r['ground_truth']} | {r['dataset'].upper()} | {r['model']} | "
@@ -535,7 +656,14 @@ def main():
                              "(default: results/effects_v2/faithfulness if it exists)")
     parser.add_argument("--families", default=None,
                         help="comma-separated subset of family ids (default: all)")
+    parser.add_argument("--resample", choices=RESAMPLING, default="targets",
+                        help="'targets' (amendment section 5; each target carried in with its seeds "
+                             "averaged) or 'seeds_and_targets' (two-way bootstrap: targets and seeds "
+                             "drawn with replacement, independently). The two-way mode must write to "
+                             "its own --out-dir, never over the committed target-only tables.")
     args = parser.parse_args()
+    if args.resample != "targets" and os.path.abspath(args.out_dir) == os.path.abspath("results/effects_v2"):
+        parser.error("--resample seeds_and_targets must not write into results/effects_v2")
     if args.n_resamples < N_RESAMPLES:
         parser.error(f"amendment section 5 fixes {N_RESAMPLES} resamples")
     os.makedirs(args.out_dir, exist_ok=True)
@@ -549,7 +677,7 @@ def main():
             problems.append(f"{family}: folder {folder} not found")
             continue
         e, s, h, p = cell_rows(folder, ground_truth, family, label, args.split_root,
-                               args.n_resamples)
+                               args.n_resamples, args.resample)
         print(f"{family:9s} {folder}: {len(e)} cells")
         enrichment += e
         spreads += s
@@ -561,11 +689,11 @@ def main():
     if os.path.isdir(faith_dir):
         f_rows, f_hashes, f_problems = faithfulness_cells(
             faith_dir, args.n_resamples,
-            ("results/analysis_davis_policyA", "results/analysis_kiba_policyA"))
+            ("results/analysis_davis_policyA", "results/analysis_kiba_policyA"), args.resample)
         if f_rows:
             write_csv(os.path.join(args.out_dir, "faithfulness_effects.csv"), f_rows)
             open(os.path.join(args.out_dir, "faithfulness_effects.md"), "w").write(
-                faithfulness_report(f_rows))
+                faithfulness_report(f_rows, args.resample))
         hashes.update(f_hashes)
         problems += f_problems
         print(f"faithfulness: {len(f_rows)} cells from {faith_dir}")
@@ -573,7 +701,7 @@ def main():
         handle.write("\n".join(problems) + ("\n" if problems else ""))
     write_csv(os.path.join(args.out_dir, "enrichment.csv"), enrichment)
     write_csv(os.path.join(args.out_dir, "seed_spread.csv"), spreads)
-    open(os.path.join(args.out_dir, "enrichment.md"), "w").write(enrichment_report(enrichment))
+    open(os.path.join(args.out_dir, "enrichment.md"), "w").write(enrichment_report(enrichment, args.resample))
     open(os.path.join(args.out_dir, "seed_spread.md"), "w").write(spread_report(spreads))
     with open(os.path.join(args.out_dir, "inputs_sha256.json"), "w") as handle:
         json.dump(dict(sorted(hashes.items())), handle, indent=1)

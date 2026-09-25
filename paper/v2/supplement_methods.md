@@ -62,13 +62,12 @@ HyperAttentionDTI against the KLIFS pocket at the cold-target level:
 
 | readout | precision@10 (mean ± SD over seeds) | chance |
 |---|---|---|
-| primary (channel mean) | 0.186 ± 0.032 | 0.140 | <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=published&level=cold_target->precision@10,chance = 0.186, 0.140 --> <!-- src: results/effects_v2/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->precision = 0.186 --> <!-- sd: readout_comparison.csv cell "0.186 ± 0.032" --> <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv:40 = 0.032 -->
-| maximum over channels | 0.367 ± 0.104 | 0.140 | <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10,chance = 0.367, 0.140 --> <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv:52 = 0.104 -->
-| receptive-field spread | 0.081 ± 0.046 | 0.140 | <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 --> <!-- src: ~/ColdSite-results/readouts/readout_comparison.csv:56 = 0.046 -->
+| primary (channel mean) | 0.186 ± 0.032 | 0.140 | <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=published&level=cold_target->precision@10,chance = 0.186, 0.140 --> <!-- src: results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->precision = 0.186 --> <!-- sd: readout_comparison.csv cell "0.186 ± 0.032" --> <!-- src: results/readout_comparison.csv:40 = 0.032 -->
+| maximum over channels | 0.367 ± 0.104 | 0.140 | <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10,chance = 0.367, 0.140 --> <!-- src: results/readout_comparison.csv:52 = 0.104 -->
+| receptive-field spread | 0.081 ± 0.046 | 0.140 | <!-- src: results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance = 0.081, 0.140 --> <!-- src: results/readout_comparison.csv:56 = 0.046 -->
 
-The readout-comparison file is written by the readout runs to the checkpoint-side results folder
-(`~/ColdSite-results/readouts/readout_comparison.csv`), outside the repository; it must be copied into
-the release before submission. Drug dependence of each readout was measured on 25 proteins with four
+The readout-comparison table is written by the readout runs to the checkpoint-side results folder
+and is versioned in the repository as `results/readout_comparison.csv` (a byte-identical copy). Drug dependence of each readout was measured on 25 proteins with four
 drugs each: the top ten residues are identical across drugs in 100% of drug pairs for MolTrans's
 primary readout, in 72% for HyperAttentionDTI's and in 0% for DrugBAN's.
 <!-- src: results/drug_dependence/moltrans.txt:1 = 25, 100 -->
@@ -81,7 +80,9 @@ primary readout, in 72% for HyperAttentionDTI's and in 0% for DrugBAN's.
 |---|---|---|
 | audit with Holm (primary record) | `src/evaluation/run_audit.py` | `results/analysis_{davis,kiba}_policyA/audit_*_10k_permutations.*` |
 | UniProt and KLIFS ladders | `src/evaluation/run_ladder.py` | `results/analysis_*_policyA*/` |
-| enrichment and faithfulness intervals | `src/evaluation/effects_v2.py` | `results/effects_v2/` |
+| enrichment and faithfulness intervals (two-way: seeds and targets resampled; quoted in the text) | `src/evaluation/effects_v2.py --resample seeds_and_targets` | `results/effects_v2_2d/` |
+| enrichment and faithfulness intervals (targets only, as the amendment specified; comparison) | `src/evaluation/effects_v2.py` | `results/effects_v2/` |
+| readout comparison | readout runs (checkpoint-side), copied byte-identical | `results/readout_comparison.csv` |
 | seed agreement | `src/evaluation/seed_agreement.py` | `results/seed_agreement.md` |
 | positive control | `src/evaluation/positive_control.py` | `results/positive_control_{davis,kiba}.md` |
 | positional and residue nulls | `src/evaluation/positional_control.py` | all four attention models on DAVIS, UniProt and KLIFS (`results/analysis_davis_policyA/positional_control_*`); HyperAttentionDTI and MolTrans on KIBA against both ground truths, XAttn-Ref on KIBA against KLIFS only (`results/analysis_kiba_policyA/positional_control_*`) |

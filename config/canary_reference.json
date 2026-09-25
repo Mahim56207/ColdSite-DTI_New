@@ -1,0 +1,26 @@
+{
+ "dataset": "davis",
+ "level": "cold_target",
+ "model": "coldsite_dti",
+ "seeds": {
+  "1": {
+   "auroc": 0.8501119700273534,
+   "auprc": 0.41513364853609214,
+   "source_file": "davis_cold_target_binary_seed1_results.json",
+   "source_sha256": "49be2d7d18ec13cc7ad32f03cb06dd5a0180f7c574d02bbfacac955678e95634"
+  },
+  "2": {
+   "auroc": 0.8512502177306979,
+   "auprc": 0.507803237144029,
+   "source_file": "davis_cold_target_binary_seed2_results.json",
+   "source_sha256": "06e206239d20097691eaee09b07ed809324f3623400eb2690a848efdf5934e3c"
+  },
+  "3": {
+   "auroc": 0.8696141892676507,
+   "auprc": 0.4695966220992653,
+   "source_file": "davis_cold_target_binary_seed3_results.json",
+   "source_sha256": "b74c697e5e94bca6aaaa47ccfe77b1a049742c5bb87d944c7326c9ce7e7d2fab"
+  }
+ },
+ "rule": "docs/PROTOCOL_AMENDMENT_v2.md section 6"
+}

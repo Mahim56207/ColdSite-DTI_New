@@ -1,0 +1,17 @@
+{
+ "note": "Content hashes of the vendored baselines and the raw dataset files, written by `python -m src.cloud.preflight --write-manifest`. Like data/splits/MANIFEST.json it fixes the files as they were then; it cannot show they are what the 84 existing cells trained on.",
+ "vendored": {
+  "MolTrans": "c931a617e6477f384714c5cd3376d1e1b64f02ec41ee01c6ed17b598ad802dc1",
+  "HyperAttentionDTI": "8983ed49d4fd9aeae2b83ed9c87d561c76041ae890e5368f3251ded4d11c3e3d",
+  "DrugBAN": "b442bfdd587d30b6979e6dd4e484ed8eb0bcc2fbbefae908214c27cc3bba1d37",
+  "DeepDTA": "a0a3f3a9b4229c15f4dccd317f760eba56a389751f8da6ff47cc60eac941784b"
+ },
+ "raw_dataset": {
+  "src/data/baselines/deepdta/data/davis/ligands_can.txt": "141094d99510a52091d2ea1b05be7c1f66b2c5fcaeeeb261eaf4cbf2128bde6d",
+  "src/data/baselines/deepdta/data/davis/proteins.txt": "187cedeee10cd3b58af915a2861a5ed0c4ff42a2d728f4dea5e0b47e3d75b291",
+  "src/data/baselines/deepdta/data/davis/Y": "9855c4f234ec6dd18295b0e0cd6ee54214cafa908c6eb1d447b47d454fc0294a",
+  "src/data/baselines/deepdta/data/kiba/ligands_can.txt": "a95797abaf31b17bd2471dbf3e3476f588d5a79797903cc156528f66e55c963b",
+  "src/data/baselines/deepdta/data/kiba/proteins.txt": "2ba9dbc2959d88b0740aaf28828c4c611c2dbd1c2019547eb2ec1c3daa192604",
+  "src/data/baselines/deepdta/data/kiba/Y": "53857b84218ba3d60293c70ab79e2abd83d615d06218c73c150f6dfb4c7134a6"
+ }
+}

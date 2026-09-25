@@ -16,7 +16,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T06 | Conservation null + intermediate rung | **DONE-with-declared-gaps** (2026-09-25) | remediation/T06 | conservation rung (E4-D / E4-K) and KLIFS sub-pocket rung deferred to Wave A by the user's 4-day-deadline decision; no code, no data, no placeholder written |
 | T07 | Readout primacy | **BLOCKED on user input** (2026-09-25) | remediation/T07 | plan rule: figure references must be user-supplied; none were. Scaffold `docs/readout_sources.md` written from repo facts only; no code, no analysis. Wave A does not depend on it |
 | T08 | Explanation panel | **DONE-with-declared-gaps** (2026-09-25) | remediation/T08 | 7 methods implemented and planted-case tested (occlusion ×4, attention×gradient ×2, rollout ×1), applicability doc committed before any score, top-k IoU module; **no E3 cell scored** (needs addendum A2 signed + compute); DrugBAN occlusion untested (no DGL); 1093 passed, 5 skipped |
-| T09 | Cloud harness hardening | PENDING | | |
+| T09 | Cloud harness hardening | **DONE** (2026-09-25); canary not yet run (user launches) | remediation/T09 | `src/cloud/` (pre-flight, self-stop, restore, status, markers, runner, canary rule), inert hooks in `src/model/resume.py`, `docs/cloud_harness.md`, canary notebook pinned to `46db1e0`; 1146 passed, 5 skipped. **T11 gate: the canary must PASS first** |
 | T10 | Budget & partition plan | PENDING | | needs quota and session limit from the user |
 | T11 | Wave A notebooks | PENDING | | gated on the T09 canary passing |
 | T12 | Wave A ingest | PENDING | | |
@@ -839,4 +839,56 @@ new file, no other change).
 ### Discovered (work belonging to other tasks — not started)
 * `run_faithfulness`'s `EXPLANATION_VARIANTS` is `tuple(sorted(VARIANT_BASE))`, so the 7 new names are now accepted there too; no faithfulness
   was run for them.
+
+
+---
+
+## T09 — Cloud harness hardening (DONE, 2026-09-25; canary awaiting the user)
+
+**Branch:** `remediation/T09`, from `remediation/T08` at `304d8c6`. Commits `46db1e0` (harness) and `c765ed0` (canary notebook, generated
+after the first so that it can pin the first's hash).
+
+**Files:** new `src/cloud/{__init__,config,recipes,markers,preflight,restore,runner,canary,tiny_trainer}.py`, `config/harness.json`,
+`config/cloud_manifest.json`, `config/canary_wave.json`, `config/canary_reference.json`, `notebooks/build_harness_notebook.py`,
+`notebooks/kaggle_canary.ipynb`, `docs/cloud_harness.md`, `tests/test_cloud_harness.py` (53 tests). Changed: `src/model/resume.py` (+130 lines of
+harness hooks; inert unless `COLDSITE_HARNESS=1`). `git diff --stat -- results` empty. The rule-by-rule map, the four declared deviations and the
+launch steps are in `docs/cloud_harness.md`; not repeated here.
+
+**Design decision:** the harness is a wrapper. The four existing trainers already checkpoint atomically each epoch and resume
+(`src/model/resume.py`), so re-implementing them would have changed the recipes behind the 84 cells. The runner builds each cell's command
+exactly as the notebooks did (`recipes.py`, compared with the notebook's flags by test), gives each GPU its own process and
+`CUDA_VISIBLE_DEVICES`, and the trainers stop themselves.
+
+**Verification**
+* Tests: `python3 -m pytest -p no:warnings` → `1146 passed, 5 skipped in 183.64s (0:03:03)` (was 1093 passed; +53 = the new file).
+* Four guards mutation-checked (deadline ignored, signal ignored, split check disabled, marker tamper ignored): each turns a named test red.
+* Resume equivalence through the harness (CPU, tiny trainer using the same `Resumable` as the real ones): a cell cut by the session deadline
+  after part of its epochs, resumed by the next session, ends with parameters identical to an uninterrupted run; also SIGTERM mid-cell, a
+  status file with checkpoint/resume SHA-256, distinct initial-weight hashes for seeds 1–3, an unchanged start record across a resume.
+* Real trainers under the hook (scratch, tiny split, CPU, 2 epochs each): DeepDTA, HyperAttentionDTI and MolTrans wrote a start record with seed 7
+  and an initial-weight hash, a status file and a resume file (not a result; a smoke test of the hooks).
+* Dry-run of the canary wave, verbatim: `PRE-FLIGHT for CANARY [dry run] … PASS wave, SKIPPED gpus (dry run: needs 2 x T4; saw none), PASS splits (31
+  files), PASS raw_dataset (6), PASS vendored, PASS rng_import, PASS cells, PASS disk … RESULT: OK (skipped in dry run: gpus) / dry run: exiting
+  before any GPU work.`, exit 0. The notebook's own runner command (extracted and executed by a test) does the same.
+* Splits: regenerating them with `build_splits` in a scratch copy reproduced all 24 base split files **byte for byte** against `MANIFEST.json`
+  (0 changed); the 12 derived `*_seqclean`/`*_seqmatched` files are built by a different step, so the split check is scoped to the levels a plan trains.
+  That is one machine; the first Kaggle dry-run is the test of the cloud's pandas/numpy (a mismatch refuses, which is the right failure).
+* Vendored hashes: the files hashed per vendored directory equal the git-tracked files exactly, so a fresh clone gives the same hashes.
+
+**Findings / risks (repo wins)**
+1. **The canary has not run.** It needs the user (~1 h on one T4, estimated from the 2 min 15 s/epoch in `CLAUDE.md` × the 26 epochs of the committed seed-1
+   cell); until it passes, T11's gate is not met. The chosen cell (DAVIS ColdSite-DTI cold_target seed 1) was picked **after** reading the committed seed SDs
+   (0.0109 AUROC vs 0.0012 at random and 0.0991 at cold_pair) — disclosed in `config/canary_wave.json`. The user may choose another level; the rule
+   (amendment §6) is unchanged.
+2. **`session_limit_hours = 11` is the notebooks' self-stop, not a Kaggle fact** — set from the user's answer in T10.
+3. **Pre-existing metric name:** the trainers write `auprc`, the amendment says "AUPR"; `canary.py` reads `auprc` (same quantity).
+4. **The DrugBAN branch of the harness (DGL install cell, RNG-import check, predictions step) is untested here** (no DGL); the dry-run reports it as skipped, not passed,
+   and the first DrugBAN pre-flight on Kaggle will exercise it. A DrugBAN account must not share a notebook with another model: the DGL cell pins `torch==2.6.0`.
+5. **Predictions hash** costs one extra test pass per finished cell (`predict_cell`, on the worker's GPU); MolTrans is the slow one. It is what makes the marker
+   satisfy rule (f); a cell whose predictions fail is left `needs_finalize` and is never retrained.
+6. Pre-existing `results/` naming: the harness uses the `~/ColdSite-results` layout (`results/<dataset>_binary/`), so T12's ingest and T04's `predict` read it unchanged.
+
+### Decisions needed from the user
+* Launch the canary (steps in `docs/cloud_harness.md`), or name a different level/cell.
+* State each account's session limit (sets `config/harness.json`) — T10.
 

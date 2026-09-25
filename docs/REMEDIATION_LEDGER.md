@@ -30,7 +30,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T20 | Reframing (user scope: Abstract & Intro) | **DONE-with-declared-gaps** (2026-09-25) | remediation/T20 | `paper/v2/abstract.md`, `paper/v2/introduction.md` (Box 1 checklist); every digit source-tagged, provenance checker 0 failures; T19 not run, so prior-work and leakage-precedent citations are `[CITE-T19: …]` markers; results section not reordered (not drafted) |
 | T21 | Condense to BiB format (user scope: Methods) | **DONE by user decision** (2026-09-25) | remediation/T21 | user: assume a standard **6,000-word** main-text maximum for the instructor draft (an assumption, **not** a verified BiB rule; `docs/bib_guidelines.md` still absent); `paper/v2/methods.md` + `supplement_methods.md`, provenance checker 0 failures; main-text total re-measured after Results/Discussion (see T23/T24 entry) |
 | T22 | Figures | **DONE-with-declared-gaps** (2026-09-25) | remediation/T22 | 6 figures (PNG+PDF) in `paper/v2/figures/` from committed `results/` files by `scripts/plotting/`; byte-identical rebuild verified; captions name sources; method-panel agreement and readout sensitivity not drawn (no E3 scores; readout CSV outside the repo); 1194 passed, 5 skipped |
-| T23 | Reproducibility release | PENDING | | |
+| T23 | Reproducibility release — **user relabel: "Results" drafting** | **Results DONE** (2026-09-25); plan's release work PENDING | remediation/T23 | `paper/v2/results.md` (§3.1–3.7, Table 1), 190 numbers / 96 tags / 0 provenance failures, 1,149 words; plan T23 (licence audit, lockfile, Zenodo, availability statements) not started |
 | T24 | Pre-submission audit | PENDING | | |
 
 ---
@@ -1118,3 +1118,28 @@ caption. `git diff --stat -- results` empty. `python3 -m pytest -p no:warnings` 
 **Declared gaps (plan T22 list):** method-panel agreement (no E3 cell scored); readout sensitivity (source CSV outside the repository);
 seed-verdict forest "primary vs extension" shows primary seeds 1–3 only (Wave A not run); leakage impact drawn for DeepDTA only (the only
 model retrained without the leak).
+
+
+---
+
+## T23 — user scope "Drafting: Results" (DONE, 2026-09-25)
+
+**Branch:** `remediation/T23`, from `remediation/T22`. **Label note:** the plan's T23 is the reproducibility release; the user assigned
+T23 to Results drafting (as T20/T21 were relabelled). The plan's release items (licence audit, lockfile, hosting plan, Zenodo metadata,
+availability statements) are **not started** and remain open.
+
+**File:** `paper/v2/results.md` — §3.1 accuracy (Table 1, generated from `results/accuracy_v2/by_model.csv` with a tag per cell),
+§3.2 seed instability (headline a), §3.3 battery verdicts (b), §3.4 pocket enrichment, positional null, faithfulness, accuracy-vs-
+localisation, §3.5 readout and drug dependence (c), §3.6 leakage (d), §3.7 IG (confirmatory). Figure references to `paper/v2/figures/`.
+
+**Rules kept:** only committed local results; no Wave A number; every digit tagged; three counts spelled as words ("fifteen of the
+twenty-two", "eight of its twelve", "several-fold") carry `claim` comments naming the rows counted (the checker does not check words — a
+declared limit). Two readout numbers keep the intro's EXTERNAL tags (`~/ColdSite-results/readouts/readout_comparison.csv`, outside the repo).
+
+**Caught by the checker before commit:** two rounding errors made by re-rounding a 3-decimal display (1.33 → 1.32, KIBA HyperAttentionDTI
+pocket upper bound; 3.17 → 3.16, XAttn-Ref IG pocket). **New findings stated (from existing files, not new analysis):** at cold-pair the leak's
+effect on DeepDTA is −0.021 while fewer rows cost 0.062 (`results/leakage_retrain_davis.md:50,59`); the uniform map's smallest p is 0.4462
+(DAVIS) / 0.2251 (KIBA); faithfulness is positive in all 48 per-seed values but varies several-fold within a cell.
+
+**Verification:** `python3 scripts/check_number_provenance.py --words paper/v2/results.md` → `190 numbers, 96 tags, 0 failures, 2 external
+tags, 1149 words`. `python3 -m pytest -p no:warnings` → `1194 passed, 5 skipped in 208.11s (0:03:28)` (no code changed).

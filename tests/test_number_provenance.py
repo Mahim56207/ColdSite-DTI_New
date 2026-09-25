@@ -103,3 +103,14 @@ def test_the_manuscript_passes():
     if not os.path.exists(external):
         pytest.skip("the manuscript cites a checkpoint-side file outside the repository")
     assert cnp.main([]) == 0
+
+
+def test_row_count_tag(src):
+    assert run(src, f"3 rows. <!-- src: {src}/t.csv#rows = 3 -->\n") == []
+    assert any("data rows" in f for f in run(src, f"4 rows. <!-- src: {src}/t.csv#rows = 4 -->\n"))
+
+
+def test_text_tag_reads_scientific_and_underscore_notation_by_value(src):
+    (src / "c.py").write_text("lr = 5e-5  # and\nMIN = 10_000\n")
+    assert run(src, f"0.00005 and 10000. <!-- src: {src}/c.py:1 = 0.00005 --> <!-- src: {src}/c.py:2 = 10000 -->\n") == []
+    assert run(src, f"0.0005 <!-- src: {src}/c.py:1 = 0.0005 -->\n") != []

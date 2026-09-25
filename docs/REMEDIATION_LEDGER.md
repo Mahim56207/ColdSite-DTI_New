@@ -27,8 +27,8 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T17 | Stricter splits (optional) | PENDING | | |
 | T18 | Non-kinase scope | **SKIPPED by the user** (2026-09-25) | | not needed for the instructor draft; every claim is scoped to kinases in the text |
 | T19 | Citation verification & delta table | PENDING | | |
-| T20 | Reframing | PENDING | | |
-| T21 | Condense to BiB format | PENDING | | blocked until `docs/bib_guidelines.md` exists |
+| T20 | Reframing (user scope: Abstract & Intro) | **DONE-with-declared-gaps** (2026-09-25) | remediation/T20 | `paper/v2/abstract.md`, `paper/v2/introduction.md` (Box 1 checklist); every digit source-tagged, provenance checker 0 failures; T19 not run, so prior-work and leakage-precedent citations are `[CITE-T19: …]` markers; results section not reordered (not drafted) |
+| T21 | Condense to BiB format (user scope: Methods) | **PARTIAL** (2026-09-25) | remediation/T21 | `paper/v2/methods.md` + `paper/v2/supplement_methods.md` (Tables S1–S3, threats subsection), `scripts/check_number_provenance.py` 0 failures; **`docs/bib_guidelines.md` absent → no word limit applied or verified**; only abstract/intro/methods condensed |
 | T22 | Figures | PENDING | | |
 | T23 | Reproducibility release | PENDING | | |
 | T24 | Pre-submission audit | PENDING | | |
@@ -979,3 +979,69 @@ keys, so even if written it would **not** have unlocked a real run (a dry run wo
 Nothing in T20/T21 reads the gate, so the drafting does not depend on the file. If the user writes it by hand,
 `tests/test_wave_notebooks.py::test_a_real_run_without_a_passing_canary_is_refused…` turns from pass to skip (it skips whenever
 the file exists).
+
+
+---
+
+## T20 — Reframing, user scope "Drafting: Abstract & Intro" (DONE-with-declared-gaps, 2026-09-25)
+
+**Branch:** `remediation/T20`, from `remediation/T11` at `b0ee019`. Commits `b23504e` (user decisions) and `ea7f5bc` (drafts + checker).
+
+**User instruction:** after closing the blockers, "proceed immediately to T20 (Drafting: Abstract & Intro) and T21 (Drafting:
+Methods)", framed as a methodological audit focused on baseline instability, using only local data. The user's task labels differ
+from the plan's (T20 = Reframing, T21 = Condense to BiB); the user's scope was followed and the difference is recorded here.
+
+**Files:** `paper/v2/abstract.md` (title, abstract, Key Points), `paper/v2/introduction.md` (introduction, contributions (a)–(d),
+Box 1 "Reporting checklist for DTI explanation claims"), `scripts/check_number_provenance.py`, `tests/test_number_provenance.py`.
+Earlier drafts under `paper/*.md` are untouched.
+
+**What the text does (plan T20 items):** title/abstract/intro lead with seed instability (a), then the battery (b), readout (c),
+leakage (d); IG and pocket enrichment written as confirmatory; ColdSite-DTI renamed **XAttn-Ref** and disclosed as the authors' own;
+pocket enrichment given with intervals and "conservation not controlled"; leakage framed as quantification; every claim scoped to
+kinases (T18 skipped: the non-kinase panel is "not analysed here").
+
+**Errors caught in my own draft before commit:** (1) "one run supports a binding-site claim and two do not" for HyperAttentionDTI
+DAVIS cold-drug — `results/seed_agreement.md:19` shows `**.`, i.e. two seeds clear α; corrected. (2) a tag pointing at a
+non-existent file for the derived ratio 2.6 — replaced by a `derived:` tag whose operands must be sourced in the same paragraph.
+(3) "Holm correction over pre-specified families" — the families grew after results (amendment G4); changed to "declared".
+
+**Verification:** `python3 scripts/check_number_provenance.py` → abstract 27 numbers / 0 failures, introduction 62 / 0 failures.
+No unverified citation: every citation is an entry of `paper/references.md`; the prior attention-vs-binding-site work and the DAVIS
+precedent (P01, P04) appear only as `[CITE-T19: …]` markers, uncharacterised.
+
+**Declared gaps:** T19 not run (prior-work delta, precedent citations, `paper/citation_verification/` absent); the Results section was
+not reordered or drafted (outside the user's scope); 4 source tags point outside the repository
+(`~/ColdSite-results/readouts/readout_comparison.csv`), reported as EXTERNAL by the checker — the file must enter the release (T23);
+numbers spelled as words are not checked by the tool; figure references are the T07 placeholders.
+
+
+---
+
+## T21 — Condense to BiB format, user scope "Drafting: Methods" (PARTIAL, 2026-09-25)
+
+**Branch:** `remediation/T21`, from `remediation/T20`.
+
+**Files:** `paper/v2/methods.md` (main-text Methods §2.1–2.8, incl. "Threats to validity and controls"),
+`paper/v2/supplement_methods.md` (S1 split sizes = Table S1, S2 recipes = Table S2, S3 readout sensitivity, S4 instrument coverage,
+S5 problem log = Table S3, 20 rows), checker extensions (`#rows` row counts, scientific/underscore notation in text tags) with tests.
+
+**Why PARTIAL:** the plan's T21 requires `docs/bib_guidelines.md` (the venue's author guidelines); it does not exist and was not
+supplied, so **no word limit was applied or verified** and no venue-required element (e.g. Key Points count) is confirmed. Only
+the abstract, introduction and Methods exist in condensed form; Results and Discussion were not condensed.
+
+**Word counts (measured by the checker's `word_count`: prose only, headings, tables and comments excluded):** abstract 254,
+Key Points 157, introduction 1,371, Methods 1,722, Supplementary Methods prose 424. For comparison, the
+three earlier drafts they replace (`paper/introduction.md`, `methods_data_and_evaluation.md`, `methods_track_b.md`) measure 9,599
+by the same function.
+
+**Corrections made while checking claims against the repo:** XAttn-Ref's KIBA cells are full precision
+(`notebooks/kaggle_coldsite_kiba.ipynb`: `AMP = False`), not mixed as `recipes.uses_amp` would schedule for future waves; positional
+nulls were run for all four models on DAVIS and three on KIBA (first draft said XAttn-Ref only); DrugBAN accuracy values are recorded,
+not re-scored; MolTrans token matching is "within 10 % where such a draw exists", match quality unrecorded. The checker caught three
+off-by-one line tags into the readout CSV (header line) before commit.
+
+**Verification:** `python3 scripts/check_number_provenance.py` → `TOTAL: 191 numbers, 138 tags, 0 failures` (6 + 4 EXTERNAL tags).
+Tests: `python3 -m pytest -p no:warnings` → `1191 passed, 5 skipped in 205.58s (0:03:25)` (T11: 1174 passed, 5 skipped; +17 = the 17 tests of `tests/test_number_provenance.py`; the 5 skips are the DGL-gated DrugBAN tests).
+
+**Discovered (not started):** `results/readouts_*` and the readout-comparison CSV live partly outside the repository (T23);
+`CLAUDE.md` still describes XAttn-Ref as "ColdSite-DTI (ours)" and the KIBA family as 6 (documentation).

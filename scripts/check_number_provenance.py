@@ -14,6 +14,7 @@ EXTERNAL, i.e. outside the repository, but still checked). LOCATOR selects the v
 
 * CSV   ``#col=val&col=val->colA[,colB]``  exactly one row must match every ``col=val``; the stated
                                           values are compared, in order, with ``colA``, ``colB``...
+* rows  ``#rows``                         the number of data rows (header excluded) of a CSV file.
 * JSON  ``#$.key.key[0].key``             one value (dotted path, integer indices in brackets).
 * text  ``:N``                            line N (1-based) of any other file; each stated value must
                                           appear on that line as a number token.
@@ -27,7 +28,8 @@ by a sourced tag in the same block, and EXPR must round to V at V's stated decim
 
 A CSV/JSON value matches when the source value rounds to the stated value at the stated number of
 decimals (|source - stated| <= half a unit in the last stated decimal). A text value matches when
-the same number token appears on the line (thousands separators and the sign character normalised).
+the same number token appears on the line (thousands separators and the sign character normalised),
+or a token in scientific or underscore notation (``5e-5``, ``10_000``) on the line equals it by value.
 
 What is exempt from the coverage rule (and why): numbers inside inline code or HTML comments
 (identifiers, paths, the tags themselves); numbers glued to a letter, ``@``, ``_``, ``/`` or ``-``
@@ -156,7 +158,7 @@ def parse_tag(body: str):
     vals = [v.strip() for v in values.split(",") if v.strip()]
     if "#" in ref:
         path, loc = ref.split("#", 1)
-        kind = "json" if loc.startswith("$") else "csv"
+        kind = "json" if loc.startswith("$") else "rows" if loc == "rows" else "csv"
     elif re.search(r":\d+$", ref):
         path, loc = ref.rsplit(":", 1)
         kind = "text"
@@ -228,6 +230,11 @@ def check_tag(body: str) -> tuple:
             for s, v in zip(src, vals):
                 if not numeric_match(s, v):
                     problems.append(f"stated {v} but {path} has {s}")
+        elif kind == "rows":
+            with open(full, newline="") as fh:
+                n = sum(1 for _ in csv.reader(fh)) - 1
+            if len(vals) != 1 or not numeric_match(n, vals[0]):
+                problems.append(f"stated {vals} but {path} has {n} data rows")
         elif kind == "json":
             if len(vals) != 1:
                 problems.append("a JSON tag states exactly one value")
@@ -242,8 +249,12 @@ def check_tag(body: str) -> tuple:
             else:
                 on_line = {normalise(m.group(0)) for m in NUM_RE.finditer(lines[n - 1])}
                 on_line |= {x.lstrip("-") for x in on_line}
+                # scientific notation in code ("lr=5e-5", "10_000") is compared by value
+                sci = [float(t.replace("_", "")) for t in
+                       re.findall(r"\d[\d_]*(?:\.\d+)?e[-+]?\d+|\d{1,3}(?:_\d{3})+", lines[n - 1])]
                 for v in vals:
-                    if normalise(v) not in on_line and normalise(v).lstrip("-") not in on_line:
+                    if normalise(v) not in on_line and normalise(v).lstrip("-") not in on_line \
+                            and not any(numeric_match(x, v) for x in sci):
                         problems.append(f"{v} not on {path}:{n}")
     except (ValueError, KeyError, IndexError, TypeError) as exc:
         problems.append(f"{path}: {exc}")

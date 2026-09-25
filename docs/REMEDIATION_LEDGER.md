@@ -29,7 +29,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T19 | Citation verification & delta table | **DONE-with-declared-gap** (2026-09-25) | remediation/T19 | 16 records fetched (Crossref / DataCite for arXiv DOIs; arXiv API returned 406) into `paper/citation_verification/`; 12 new entries in `paper/references.md`; `docs/delta_table.md` from abstracts only; both `[CITE-T19]` markers replaced with verified citations; the "2026 JCIM gradient-XAI benchmark" has no identifier — one candidate recorded, match unconfirmed, not cited; 1191 passed, 5 skipped |
 | T20 | Reframing (user scope: Abstract & Intro) | **DONE-with-declared-gaps** (2026-09-25) | remediation/T20 | `paper/v2/abstract.md`, `paper/v2/introduction.md` (Box 1 checklist); every digit source-tagged, provenance checker 0 failures; T19 not run, so prior-work and leakage-precedent citations are `[CITE-T19: …]` markers; results section not reordered (not drafted) |
 | T21 | Condense to BiB format (user scope: Methods) | **DONE by user decision** (2026-09-25) | remediation/T21 | user: assume a standard **6,000-word** main-text maximum for the instructor draft (an assumption, **not** a verified BiB rule; `docs/bib_guidelines.md` still absent); `paper/v2/methods.md` + `supplement_methods.md`, provenance checker 0 failures; main-text total re-measured after Results/Discussion (see T23/T24 entry) |
-| T22 | Figures | PENDING | | |
+| T22 | Figures | **DONE-with-declared-gaps** (2026-09-25) | remediation/T22 | 6 figures (PNG+PDF) in `paper/v2/figures/` from committed `results/` files by `scripts/plotting/`; byte-identical rebuild verified; captions name sources; method-panel agreement and readout sensitivity not drawn (no E3 scores; readout CSV outside the repo); 1194 passed, 5 skipped |
 | T23 | Reproducibility release | PENDING | | |
 | T24 | Pre-submission audit | PENDING | | |
 
@@ -1089,3 +1089,32 @@ supply the DOI if another paper was meant.
 
 **Risk:** three of the five prior DTI works are **preprints** (InteractBind, DAVIS-complete, Ong et al.) and are marked so in the text.
 Only abstracts were read; the delta table says so and characterises nothing beyond them.
+
+
+---
+
+## T22 — Figures (DONE-with-declared-gaps, 2026-09-25)
+
+**Branch:** `remediation/T22`, from `remediation/T19`. **User instruction:** simple Python scripts in `scripts/plotting/` producing
+basic charts (baseline instability, confidence intervals) from the CSVs in `results/`, output to `paper/v2/figures/`.
+
+**Files:** `scripts/plotting/{_style,fig1_seed_instability,fig2_enrichment_forest,fig3_accuracy,fig4_accuracy_vs_localization,
+fig5_faithfulness,fig6_leakage,make_all}.py`; `paper/v2/figures/fig1–fig6 .png/.pdf` and `CAPTIONS.md`; `tests/test_plotting.py` (3 tests).
+
+**Inputs (all git-tracked):** `results/effects_v2/{seed_spread,enrichment,faithfulness_effects}.csv`,
+`results/accuracy_v2/{cells,localization_cells,localization_spearman}.csv`, `results/leakage_retrain_davis.md`.
+`results/leakage_retrain_davis.json` is git-ignored (`.gitignore:34`), so Figure 6 parses the committed Markdown table (parser tested on
+the real file and a planted table).
+
+**Choices:** per-seed dot plots rather than boxplots — with three seeds per cell a box's quartiles are not meaningful, and the dots show the
+instability directly. Palette: the dataviz reference categorical slots 1–5, fixed per model, validated with `validate_palette.js --mode light`
+(all hard checks pass; three slots below 3:1 contrast → every figure also has a legend and a marker shape per model).
+
+**Verification:** `python3 scripts/plotting/make_all.py --check` → `byte-identical on rebuild: yes` (12 files). Each PNG inspected; two
+layout faults fixed (log-2 tick labels on Fig 2; the ρ label covering a point on Fig 4; hidden overlapping seeds on Fig 3). Fig 4's AUROC
+is on sequence-unseen targets for DAVIS cold-target/cold-pair (`src/evaluation/accuracy_table.py:362–372`), stated on the axis and in the
+caption. `git diff --stat -- results` empty. `python3 -m pytest -p no:warnings` → `1194 passed, 5 skipped in 208.32s (0:03:28)` (+3).
+
+**Declared gaps (plan T22 list):** method-panel agreement (no E3 cell scored); readout sensitivity (source CSV outside the repository);
+seed-verdict forest "primary vs extension" shows primary seeds 1–3 only (Wave A not run); leakage impact drawn for DeepDTA only (the only
+model retrained without the leak).

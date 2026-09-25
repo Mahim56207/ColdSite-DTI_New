@@ -1,0 +1,24 @@
+{
+ "key": "JacoviGoldberg2020",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.18653/v1/2020.acl-main.386",
+ "DOI": "10.18653/v1/2020.acl-main.386",
+ "title": "Towards Faithfully Interpretable NLP Systems: How Should We Define and Evaluate Faithfulness?",
+ "authors": [
+  "Jacovi, Alon",
+  "Goldberg, Yoav"
+ ],
+ "container": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+ "volume": null,
+ "issue": null,
+ "page": "4198-4205",
+ "article_number": null,
+ "issued": [
+  [
+   2020
+  ]
+ ],
+ "type": "proceedings-article",
+ "abstract": ""
+}

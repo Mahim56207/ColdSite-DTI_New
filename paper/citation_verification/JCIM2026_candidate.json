@@ -1,0 +1,30 @@
+{
+ "key": "JCIM2026_candidate",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.1021/acs.jcim.6c00037",
+ "DOI": "10.1021/acs.jcim.6c00037",
+ "title": "Explainability Methods from Machine Learning Detect Important Drugs’ Atoms in Drug-Target Interactions",
+ "authors": [
+  "Mahindran, Mrinal",
+  "Liu, Qingyuan",
+  "Kadambalithaya, Vishak Madhwaraj",
+  "Kalinina, Olga V."
+ ],
+ "container": "Journal of Chemical Information and Modeling",
+ "volume": "66",
+ "issue": "8",
+ "page": "4947-4961",
+ "article_number": null,
+ "issued": [
+  [
+   2026,
+   4,
+   15
+  ]
+ ],
+ "type": "journal-article",
+ "abstract": "Predicting drug-target interactions (DTI) with graph neural networks (GNNs) is hindered by their lack of interpretability. To address this, we benchmark four explainable artificial intelligence (XAI) attribution methods on GNN models trained for kinase and G-protein-coupled receptors (GPCR) targets. We assess the methods' consistency through atom-level intersection over union (IoU) and validate their biological relevance by mapping attributed atoms to three-dimensional (3D) protein-ligand structures. While consistency across methods was modest, consensus attributions were highly enriched for atoms directly contacting the binding pocket─up to 76% within 2 Å in the kinase-inhibitor complexes. Notably, these attributed atoms were frequently found contacting experimentally important regulatory residues such as those in the DFG motif. This indicates that XAI methods, despite their disagreements, can identify chemically meaningful ligand features, providing a foundation for developing more interpretable GNNs in drug discovery.",
+ "abstract_source": "Europe PMC",
+ "match_note": "Candidate for the plan's '2026 JCIM gradient-XAI DTI cold-split benchmark' (no identifier given). Its abstract describes four XAI attribution methods on GNN DTI models for kinase and GPCR targets, scored at ligand-atom level; it does not mention gradient methods by name or cold splits. Whether this is the intended paper is UNCONFIRMED."
+}

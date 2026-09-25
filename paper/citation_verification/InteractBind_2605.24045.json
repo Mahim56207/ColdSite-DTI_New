@@ -1,0 +1,21 @@
+{
+ "key": "InteractBind_2605.24045",
+ "registry": "DataCite (arXiv-registered DOI; arXiv API returned HTTP 406 from this machine)",
+ "fetched": "2026-09-25",
+ "url": "https://api.datacite.org/dois/10.48550/arxiv.2605.24045",
+ "DOI": "10.48550/arxiv.2605.24045",
+ "arXiv": "2605.24045",
+ "title": "A Large-Scale Dataset and Benchmark: Do Protein-Ligand Models Learn Binding Sites or Just Binding Likelihood?",
+ "authors": [
+  "Meng, Zhaohan",
+  "Bai, Zhen",
+  "Yuan, Ke",
+  "Ounis, Iadh",
+  "Meng, Zaiqiao",
+  "Xu, Hao",
+  "Loscalzo, Joseph"
+ ],
+ "issued": 2026,
+ "type": "preprint",
+ "abstract": "Protein-ligand modeling underpins computational drug discovery and molecular design. Existing protein-ligand benchmarks typically evaluate whether a protein and ligand interact and how strongly they bind, through tasks such as binary binding prediction and affinity regression. However, these evaluations provide limited evidence of whether models can localize binding sites or identify the non-covalent interactions underlying molecular recognition. To address this gap, we introduce InteractBind, a large-scale protein-ligand dataset comprising approximately 100k protein-ligand pairs, together with a benchmark for fine-grained evaluation. The core fine-grained task is that of binding-site localization, which uses protein-residue and ligand-atom interaction maps spanning six major types of non-covalent interactions to assess whether model-derived interaction maps localize binding sites. InteractBind further includes binding affinity and protein similarity-controlled splits to support realistic generalization assessment. Using InteractBind, we evaluate eight existing sequence-based and interaction-aware models, assessing binary binding prediction and binding-site localization. Results reveal limited binding-site localization despite strong binary binding prediction, with marked variation across non-covalent interaction types. Overall, InteractBind establishes a benchmark paradigm that encourages the development of more interpretable and physically grounded protein-ligand models."
+}

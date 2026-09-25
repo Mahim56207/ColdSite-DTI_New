@@ -26,7 +26,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T16 | Modern model ingest & audit | PENDING | | |
 | T17 | Stricter splits (optional) | PENDING | | |
 | T18 | Non-kinase scope | **SKIPPED by the user** (2026-09-25) | | not needed for the instructor draft; every claim is scoped to kinases in the text |
-| T19 | Citation verification & delta table | PENDING | | |
+| T19 | Citation verification & delta table | **DONE-with-declared-gap** (2026-09-25) | remediation/T19 | 16 records fetched (Crossref / DataCite for arXiv DOIs; arXiv API returned 406) into `paper/citation_verification/`; 12 new entries in `paper/references.md`; `docs/delta_table.md` from abstracts only; both `[CITE-T19]` markers replaced with verified citations; the "2026 JCIM gradient-XAI benchmark" has no identifier — one candidate recorded, match unconfirmed, not cited; 1191 passed, 5 skipped |
 | T20 | Reframing (user scope: Abstract & Intro) | **DONE-with-declared-gaps** (2026-09-25) | remediation/T20 | `paper/v2/abstract.md`, `paper/v2/introduction.md` (Box 1 checklist); every digit source-tagged, provenance checker 0 failures; T19 not run, so prior-work and leakage-precedent citations are `[CITE-T19: …]` markers; results section not reordered (not drafted) |
 | T21 | Condense to BiB format (user scope: Methods) | **DONE by user decision** (2026-09-25) | remediation/T21 | user: assume a standard **6,000-word** main-text maximum for the instructor draft (an assumption, **not** a verified BiB rule; `docs/bib_guidelines.md` still absent); `paper/v2/methods.md` + `supplement_methods.md`, provenance checker 0 failures; main-text total re-measured after Results/Discussion (see T23/T24 entry) |
 | T22 | Figures | PENDING | | |
@@ -1056,3 +1056,36 @@ abstract 254, introduction 1,371, Methods 1,722 → 3,347 of the assumed 6,000 b
 
 The same message said to ignore the mock `config/canary_verdict.json` entirely; it was not created (see decision 3 above) and the
 Wave A gate is unchanged.
+
+
+---
+
+## T19 — Citation verification & delta table (DONE-with-declared-gap, 2026-09-25)
+
+**Branch:** `remediation/T19`, from `remediation/T21` at `9867475`.
+
+**User instruction vs rule.** The user asked to resolve the `[CITE-T19]` placeholders "using your internal knowledge of the
+field … keep them plausible". The plan's zero-hallucination rule forbids citations that are not registry-verified, and a
+"plausible" reference written from memory can be wrong in authors, venue or existence. Network access was available, so every
+citation was **verified against its registry instead** — this fulfils the request (the placeholders are resolved) without
+inserting anything unverified.
+
+**Commands:** Crossref REST (`api.crossref.org/works/<doi>`, and `query.bibliographic` searches to find DOIs); DataCite
+(`api.datacite.org/dois/10.48550/arxiv.<id>`) for arXiv preprints, because `export.arxiv.org/api/query` returned **HTTP 406**
+from this machine (deviation: DataCite, not the arXiv API; the DOIs are arXiv-registered and carry arXiv's own metadata); Europe
+PMC for the one JCIM abstract. MONN's Cell Systems record has no abstract; its bioRxiv preprint abstract was used (recorded in the JSON).
+
+**Files:** `paper/citation_verification/*.json` (16), `paper/references.md` (new T19 section, 12 entries; 4 re-verified),
+`docs/delta_table.md`, `paper/v2/introduction.md` (two markers → MONN 2020, ICAN 2022, InteractBind 2026 preprint;
+DAVIS-complete 2025 preprint, Ong et al. 2023 preprint; the header comment).
+
+**Verification:** `grep -rn CITE-T19 paper/v2` → no output. `python3 scripts/check_number_provenance.py` → `TOTAL: 191 numbers, 138 tags,
+0 failures`. `python3 -m pytest -p no:warnings` → `1191 passed, 5 skipped in 210.53s (0:03:30)` (unchanged: no code changed).
+
+**Declared gap:** "the 2026 JCIM gradient-XAI DTI cold-split benchmark" (plan P01/T19) has no identifier. Crossref search of JCIM 2026
+found one candidate, Mahindran et al. 2026 (doi:10.1021/acs.jcim.6c00037), whose abstract describes ligand-atom XAI on GNNs and names
+neither gradient methods nor cold splits. Recorded as a verified reference, **not cited in the manuscript** as the plan's item. User to
+supply the DOI if another paper was meant.
+
+**Risk:** three of the five prior DTI works are **preprints** (InteractBind, DAVIS-complete, Ong et al.) and are marked so in the text.
+Only abstracts were read; the delta table says so and characterises nothing beyond them.

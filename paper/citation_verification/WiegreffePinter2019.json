@@ -1,0 +1,24 @@
+{
+ "key": "WiegreffePinter2019",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.18653/v1/D19-1002",
+ "DOI": "10.18653/v1/d19-1002",
+ "title": "Attention is not not Explanation",
+ "authors": [
+  "Wiegreffe, Sarah",
+  "Pinter, Yuval"
+ ],
+ "container": "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)",
+ "volume": null,
+ "issue": null,
+ "page": "11-20",
+ "article_number": null,
+ "issued": [
+  [
+   2019
+  ]
+ ],
+ "type": "proceedings-article",
+ "abstract": ""
+}

@@ -1,0 +1,18 @@
+{
+ "key": "ISAAC_2605.02962",
+ "registry": "DataCite (arXiv-registered DOI; arXiv API returned HTTP 406 from this machine)",
+ "fetched": "2026-09-25",
+ "url": "https://api.datacite.org/dois/10.48550/arxiv.2605.02962",
+ "DOI": "10.48550/arxiv.2605.02962",
+ "arXiv": "2605.02962",
+ "title": "ISAAC: Auditing Causal Reasoning in Deep Models for Drug-Target Interaction",
+ "authors": [
+  "Tarantino, Barbara",
+  "Kim, Sun",
+  "Lu, Yijingxiu",
+  "Giudici, Paolo"
+ ],
+ "issued": 2026,
+ "type": "preprint",
+ "abstract": "Deep learning models for drug--target interaction (DTI) prediction often achieve strong benchmark performance without necessarily relying on mechanistically meaningful molecular features, a limitation that standard accuracy-based evaluation cannot detect. We introduce ISAAC (Intervention-based Structural Auditing Approach for Causal Reasoning), a post-hoc framework that evaluates prior-relative structural sensitivity by probing frozen models through matched mechanistic and spurious input-level interventions, independently of predictive accuracy. Applied to three sequence-based DTI architectures on the Davis benchmark, ISAAC reveals approximately 25\\% relative differences in reasoning scores across models with comparable AUROC (within around 3\\%), stable across training and intervention seeds and two distinct perturbation operators. These discrepancies, undetectable under conventional accuracy metrics, motivate the use of post-hoc structural auditing as a complement to standard performance evaluation in scientific machine learning for molecular modeling."
+}

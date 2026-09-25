@@ -1,0 +1,28 @@
+{
+ "key": "Bai2023_DrugBAN",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.1038/s42256-022-00605-1",
+ "DOI": "10.1038/s42256-022-00605-1",
+ "title": "Interpretable bilinear attention network with domain adaptation improves drug–target prediction",
+ "authors": [
+  "Bai, Peizhen",
+  "Miljković, Filip",
+  "John, Bino",
+  "Lu, Haiping"
+ ],
+ "container": "Nature Machine Intelligence",
+ "volume": "5",
+ "issue": "2",
+ "page": "126-136",
+ "article_number": null,
+ "issued": [
+  [
+   2023,
+   2,
+   2
+  ]
+ ],
+ "type": "journal-article",
+ "abstract": ""
+}

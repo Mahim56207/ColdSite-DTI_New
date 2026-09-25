@@ -1,0 +1,29 @@
+{
+ "key": "DeYoung2020_ERASER",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.18653/v1/2020.acl-main.408",
+ "DOI": "10.18653/v1/2020.acl-main.408",
+ "title": "ERASER: A Benchmark to Evaluate Rationalized NLP Models",
+ "authors": [
+  "DeYoung, Jay",
+  "Jain, Sarthak",
+  "Rajani, Nazneen Fatema",
+  "Lehman, Eric",
+  "Xiong, Caiming",
+  "Socher, Richard",
+  "Wallace, Byron C."
+ ],
+ "container": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+ "volume": null,
+ "issue": null,
+ "page": "4443-4458",
+ "article_number": null,
+ "issued": [
+  [
+   2020
+  ]
+ ],
+ "type": "proceedings-article",
+ "abstract": ""
+}

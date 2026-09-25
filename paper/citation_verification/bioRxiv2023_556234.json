@@ -1,0 +1,27 @@
+{
+ "key": "bioRxiv2023_556234",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.1101/2023.09.04.556234",
+ "DOI": "10.1101/2023.09.04.556234",
+ "title": "Poor Generalization by Current Deep Learning Models for Predicting Binding Affinities of Kinase Inhibitors",
+ "authors": [
+  "Ong, Wern Juin Gabriel",
+  "Kirubakaran, Palani",
+  "Karanicolas, John"
+ ],
+ "container": "bioRxiv",
+ "volume": null,
+ "issue": null,
+ "page": null,
+ "article_number": null,
+ "issued": [
+  [
+   2023,
+   9,
+   6
+  ]
+ ],
+ "type": "posted-content",
+ "abstract": "Abstract The extreme surge of interest over the past decade surrounding the use of neural networks has inspired many groups to deploy them for predicting binding affinities of drug-like molecules to their receptors. A model that can accurately make such predictions has the potential to screen large chemical libraries and help streamline the drug discovery process. However, despite reports of models that accurately predict quantitative inhibition using protein kinase sequences and inhibitors’ SMILES strings, it is still unclear whether these models can generalize to previously unseen data. Here, we build a Convolutional Neural Network (CNN) analogous to those previously reported and evaluate the model over four datasets commonly used for inhibitor/kinase predictions. We find that the model performs comparably to those previously reported, provided that the individual data points are randomly split between the training set and the test set. However, model performance is dramatically deteriorated when all data for a given inhibitor is placed together in the same training/testing fold, implying that information leakage underlies the models’ performance. Through comparison to simple models in which the SMILES strings are tokenized, or in which test set predictions are simply copied from the closest training set data points, we demonstrate that there is essentially no generalization whatsoever in this model. In other words, the model has not learned anything about molecular interactions, and does not provide any benefit over much simpler and more transparent models. These observations strongly point to the need for richer structure-based encodings, to obtain useful prospective predictions of not-yet-synthesized candidate inhibitors."
+}

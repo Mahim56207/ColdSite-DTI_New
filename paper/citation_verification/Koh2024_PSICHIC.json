@@ -1,0 +1,29 @@
+{
+ "key": "Koh2024_PSICHIC",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.1038/s42256-024-00847-1",
+ "DOI": "10.1038/s42256-024-00847-1",
+ "title": "Physicochemical graph neural network for learning protein–ligand interaction fingerprints from sequence data",
+ "authors": [
+  "Koh, Huan Yee",
+  "Nguyen, Anh T. N.",
+  "Pan, Shirui",
+  "May, Lauren T.",
+  "Webb, Geoffrey I."
+ ],
+ "container": "Nature Machine Intelligence",
+ "volume": "6",
+ "issue": "6",
+ "page": "673-687",
+ "article_number": null,
+ "issued": [
+  [
+   2024,
+   6,
+   17
+  ]
+ ],
+ "type": "journal-article",
+ "abstract": ""
+}

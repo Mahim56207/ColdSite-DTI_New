@@ -4,8 +4,8 @@
 instability, (b) the calibrated battery, (c) readout dependence, (d) quantified leakage; integrated
 gradients and pocket enrichment are confirmatory. Every digit carries a hidden source tag
 (`python scripts/check_number_provenance.py`). Citations: only entries verified in
-paper/references.md; works the plan names for the delta table (T19, not yet run) appear as
-[CITE-T19: …] markers and are not characterised. Readout figure references are the user-chosen
+paper/references.md; the T19 prior-work citations (2026-09-25) are characterised only from their
+verified abstracts (docs/delta_table.md, paper/citation_verification/). Readout figure references are the user-chosen
 placeholders of T07. -->
 
 Sequence-based drug–target interaction (DTI) models increasingly present an explanation beside the
@@ -23,7 +23,7 @@ and the conditions under which they can serve as explanations were debated (Wieg
 Two properties must be kept apart: *plausibility*, whether the highlighted residues are the ones an
 expert would name, and *faithfulness*, whether the model's prediction depends on them (ERASER, 2020).
 In DTI, attention has been compared with binding-site annotations before
-[CITE-T19: prior attention-versus-binding-site evaluations in DTI, to be verified], so our
+(MONN, 2020; ICAN, 2022; InteractBind, 2026, preprint), so our
 contribution is not the comparison itself. It is the question of whether such comparisons, as usually
 reported, are *stable and calibrated enough to support a verdict at all*.
 
@@ -34,7 +34,9 @@ a uniform map, or a planted explanation of known quality, and many such comparis
 family-wise correction. Third, "the attention map" is not a single object: a multi-head,
 multi-channel model must be reduced to one weight per residue, and that reduction is seldom stated.
 Behind all three sits the benchmark: DAVIS's cold-start splits are defined by target identifiers,
-and identifiers are not sequences [CITE-T19: precedent for DAVIS sequence redundancy, to be verified].
+and identifiers are not sequences: the standard DAVIS release omits the modifications of its mutant
+kinases (DAVIS-complete, 2025, preprint), and kinase-affinity benchmarks are known to reward leakage
+under permissive splits (Ong et al., 2023, preprint).
 
 We therefore present a methodological audit rather than a new model. Three published attention-based
 models — MolTrans, HyperAttentionDTI and DrugBAN — and XAttn-Ref, an in-house drug-conditioned

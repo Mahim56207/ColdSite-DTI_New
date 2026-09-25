@@ -257,6 +257,13 @@ source and bins (E4); A2 method-applicability list and E3 sizes (E3); A3 readout
 A4 the chosen modern model (E5); A5 new-split definitions (E6); A6 wave plan's DrugBAN decision
 (E1 size); A7 anything discovered. None exists yet.
 
+### A6 — DrugBAN seeds 4–5 in E1 (PROPOSED 2026-09-25 by T10; not in force until the user replies "approved")
+
+Fills decision D2 (§11) and the E1 row of §3. **DrugBAN seeds 4–5 are not part of E1**: the plan (`docs/wave_plan.md`) has no measured
+DrugBAN training time to budget them against. E1 therefore has design m = 16 (HyperAttentionDTI, MolTrans, ColdSite-DTI × 4 levels + the uniform
+control × 4 levels). Committed before any seed-4 or seed-5 result exists (none does). Reversible only by a further addendum, dated and signed,
+that adds the eight cells before their results are seen.
+
 ## 11. Decisions the user is asked to take by signing
 
 Replying **"approved"** approves this document **as written, including the defaults below**.

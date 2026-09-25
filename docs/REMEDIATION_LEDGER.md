@@ -17,7 +17,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T07 | Readout primacy | **BLOCKED on user input** (2026-09-25) | remediation/T07 | plan rule: figure references must be user-supplied; none were. Scaffold `docs/readout_sources.md` written from repo facts only; no code, no analysis. Wave A does not depend on it |
 | T08 | Explanation panel | **DONE-with-declared-gaps** (2026-09-25) | remediation/T08 | 7 methods implemented and planted-case tested (occlusion ×4, attention×gradient ×2, rollout ×1), applicability doc committed before any score, top-k IoU module; **no E3 cell scored** (needs addendum A2 signed + compute); DrugBAN occlusion untested (no DGL); 1093 passed, 5 skipped |
 | T09 | Cloud harness hardening | **DONE** (2026-09-25); canary not yet run (user launches) | remediation/T09 | `src/cloud/` (pre-flight, self-stop, restore, status, markers, runner, canary rule), inert hooks in `src/model/resume.py`, `docs/cloud_harness.md`, canary notebook pinned to `46db1e0`; 1146 passed, 5 skipped. **T11 gate: the canary must PASS first** |
-| T10 | Budget & partition plan | PENDING | | needs quota and session limit from the user |
+| T10 | Budget & partition plan | **DONE-with-declared-gaps** (2026-09-25) | remediation/T10 | 30 cells over THREE accounts, hours derived from measured inputs (`docs/wave_plan.md`, `config/waves.json`, `config/wave_budget.json`); **quota fit not verifiable** (no quota/unit/session limit stated) and **DrugBAN hours unmeasured** (smoke run specified); D2 taken: DrugBAN seeds 4–5 not in E1; 1159 passed, 5 skipped |
 | T11 | Wave A notebooks | PENDING | | gated on the T09 canary passing |
 | T12 | Wave A ingest | PENDING | | |
 | T13 | Wave B (optional) | PENDING | | user decides |
@@ -891,4 +891,42 @@ exactly as the notebooks did (`recipes.py`, compared with the notebook's flags b
 ### Decisions needed from the user
 * Launch the canary (steps in `docs/cloud_harness.md`), or name a different level/cell.
 * State each account's session limit (sets `config/harness.json`) — T10.
+
+
+---
+
+## T10 — Budget & partition plan (DONE-with-declared-gaps, 2026-09-25)
+
+**Branch:** `remediation/T10`, from `remediation/T09`.
+
+**User instruction:** partition the workload across **three** Kaggle accounts. The plan's default was two (ACC1/ACC2); it is now ACC1 = DAVIS seed 4
+(12 cells), ACC2 = DAVIS seed 5 (12 cells), ACC3 = DrugBAN × KIBA {random, cold_drug} × seeds 1–3 (6 cells). DrugBAN sits alone because its DGL
+environment pins `torch==2.6.0`. 30 cells, each exactly once (test).
+
+**Files:** `src/cloud/budget.py`, `config/waves.json`, `config/wave_budget.json`, `docs/wave_plan.md`, `tests/test_wave_plan.py` (13 tests),
+`docs/PROTOCOL_AMENDMENT_v2.md` (§10: proposed addendum A6, appended, unsigned).
+
+**Numbers (all from `config/wave_budget.json`, regenerated and compared by a test):** ACC1 and ACC2 each 23.2 GPU-hours mean (21.8–24.7), 11.6 per GPU,
+two commits each; a commit gives an account 20.5 GPU-hours (`config/harness.json`). ACC3: none. Method cross-check on the 24 KIBA cells actually trained:
+107.5 GPU-hours against the report's ~101 (+6.5 %; the 101 figure itself is a claim the repo cannot verify, `docs/inventory.md`).
+
+**Tests:** `python3 -m pytest -p no:warnings` → `1159 passed, 5 skipped in 183.25s (0:03:03)` (was 1146; +13). Dry-run pre-flights, all three accounts: `RESULT: OK`
+with GPU skipped (and, for ACC3, the DrugBAN RNG-import check skipped: no DGL) — printed as skipped, not passed.
+
+### Deviations from T10's verification rule (declared)
+1. **"Totals fit the declared quota with ≥ 15 % reserve" cannot be verified.** No quota, unit, or session limit was stated and the plan forbids assuming them. The plan
+   instead states what each account needs (ACC1/ACC2: 29.1 GPU-hours, or 14.6 session hours, in the high case, i.e. hours / 0.85). `session_limit_hours` in
+   `config/harness.json` (11) is the notebooks' own self-stop, not a Kaggle fact.
+2. **DrugBAN's hours are unmeasured** (no wall-clock record exists), so ACC3's total and required quota are absent, not estimated. A timed smoke run (fp32 and `--amp`,
+   scratch folder, exact commands in `docs/wave_plan.md`) is the first thing to run on ACC3.
+3. **The analysis jobs deferred from T05** (DrugBAN faithfulness CIs, 8 HyperAttentionDTI-IG cells) are listed with "time the first one"; they are not in `waves.json`
+   (the harness trains cells) and were not budgeted for lack of measured cost.
+4. **HyperAttentionDTI/MolTrans epochs = `best_epoch` + 15** is read from `early_stopping.py`; only ColdSite-DTI's +16 is confirmed by histories (18/18). If a baseline stops
+   later than the rule says, its hours rise by that fraction.
+5. **Scope of E1:** D2 was decided here (DrugBAN seeds 4–5 excluded, m = 16), as addendum A6 — proposed, not in force until the user says "approved".
+
+### Decisions needed from the user
+* Each account's weekly quota **and its unit** (GPU-hours vs session hours), and session limit.
+* Mixed precision for DrugBAN on KIBA (default: on, like the other KIBA cells; unvalidated for DrugBAN — the smoke run gives the evidence).
+* Approve A6 (DrugBAN seeds 4–5 excluded), or ask for them once the smoke run has priced them.
 

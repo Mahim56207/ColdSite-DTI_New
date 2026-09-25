@@ -1,0 +1,368 @@
+{
+ "schema": 1,
+ "reserve": 0.15,
+ "inputs": {
+  "seconds_per_batch_fp32": {
+   "coldsite_dti": 0.387,
+   "hyperattentiondti": 0.552,
+   "moltrans": 0.228
+  },
+  "batch": {
+   "coldsite_dti": 64,
+   "hyperattentiondti": 32,
+   "moltrans": 16
+  },
+  "overhead": {
+   "coldsite_dti": 1.06,
+   "hyperattentiondti": 1.0,
+   "moltrans": 1.001
+  },
+  "patience_offset": {
+   "coldsite_dti": 16,
+   "hyperattentiondti": 15,
+   "moltrans": 15
+  },
+  "kaggle_epoch_seconds": {
+   "coldsite_dti": 135.0,
+   "hyperattentiondti": 360.0,
+   "moltrans": 300.0
+  },
+  "session_limit_hours": 11,
+  "safety_margin_minutes": 45
+ },
+ "gpu_hours_per_commit_per_account": 20.5,
+ "crosscheck_kiba": {
+  "method_gpu_hours": 107.5,
+  "per_model": {
+   "deepdta": 0.4,
+   "coldsite_dti": 23.1,
+   "hyperattentiondti": 32.0,
+   "moltrans": 52.1
+  },
+  "report_gpu_hours": 101.0,
+  "difference_percent": 6.5,
+  "note": "training batches x fp32/amp s-per-batch x (best_epoch + patience), no validation-overhead factor; the 101 figure is the report's, unverified in the repository"
+ },
+ "per_account": {
+  "ACC1": {
+   "cells": 12,
+   "measured_cells": 12,
+   "unmeasured_cells": 0,
+   "gpu_hours_mean": 23.2,
+   "gpu_hours_low": 21.8,
+   "gpu_hours_high": 24.7,
+   "gpu0_cells": 6,
+   "gpu1_cells": 6,
+   "gpu_hours_mean_by_gpu": {
+    "gpu0": 11.6,
+    "gpu1": 11.6
+   },
+   "required_weekly_quota_gpu_h_for_mean": 27.3,
+   "required_weekly_quota_gpu_h_for_high": 29.1
+  },
+  "ACC2": {
+   "cells": 12,
+   "measured_cells": 12,
+   "unmeasured_cells": 0,
+   "gpu_hours_mean": 23.2,
+   "gpu_hours_low": 21.8,
+   "gpu_hours_high": 24.7,
+   "gpu0_cells": 6,
+   "gpu1_cells": 6,
+   "gpu_hours_mean_by_gpu": {
+    "gpu0": 11.6,
+    "gpu1": 11.6
+   },
+   "required_weekly_quota_gpu_h_for_mean": 27.3,
+   "required_weekly_quota_gpu_h_for_high": 29.1
+  },
+  "ACC3": {
+   "cells": 6,
+   "measured_cells": 0,
+   "unmeasured_cells": 6,
+   "gpu_hours_mean": 0,
+   "gpu_hours_low": 0,
+   "gpu_hours_high": 0,
+   "gpu0_cells": 3,
+   "gpu1_cells": 3
+  }
+ },
+ "cells": {
+  "davis_random_coldsite_dti_seed4": {
+   "rows": 21039,
+   "epoch_seconds": 135.0,
+   "epochs_mean": 52.3,
+   "epochs_min": 47,
+   "epochs_max": 55,
+   "hours_mean": 1.96,
+   "hours_low": 1.76,
+   "hours_high": 2.06
+  },
+  "davis_cold_drug_coldsite_dti_seed4": {
+   "rows": 21658,
+   "epoch_seconds": 139.1,
+   "epochs_mean": 28.7,
+   "epochs_min": 26,
+   "epochs_max": 31,
+   "hours_mean": 1.11,
+   "hours_low": 1.0,
+   "hours_high": 1.2
+  },
+  "davis_cold_target_coldsite_dti_seed4": {
+   "rows": 21080,
+   "epoch_seconds": 135.4,
+   "epochs_mean": 28.7,
+   "epochs_min": 26,
+   "epochs_max": 30,
+   "hours_mean": 1.08,
+   "hours_low": 0.98,
+   "hours_high": 1.13
+  },
+  "davis_cold_pair_coldsite_dti_seed4": {
+   "rows": 15190,
+   "epoch_seconds": 97.7,
+   "epochs_mean": 26.0,
+   "epochs_min": 26,
+   "epochs_max": 26,
+   "hours_mean": 0.71,
+   "hours_low": 0.71,
+   "hours_high": 0.71
+  },
+  "davis_random_hyperattentiondti_seed4": {
+   "rows": 21039,
+   "epoch_seconds": 363.2,
+   "epochs_mean": 29.7,
+   "epochs_min": 25,
+   "epochs_max": 33,
+   "hours_mean": 2.99,
+   "hours_low": 2.52,
+   "hours_high": 3.33
+  },
+  "davis_cold_drug_hyperattentiondti_seed4": {
+   "rows": 21658,
+   "epoch_seconds": 373.7,
+   "epochs_mean": 25.3,
+   "epochs_min": 25,
+   "epochs_max": 26,
+   "hours_mean": 2.63,
+   "hours_low": 2.6,
+   "hours_high": 2.7
+  },
+  "davis_cold_target_hyperattentiondti_seed4": {
+   "rows": 21080,
+   "epoch_seconds": 363.8,
+   "epochs_mean": 27.7,
+   "epochs_min": 25,
+   "epochs_max": 31,
+   "hours_mean": 2.8,
+   "hours_low": 2.53,
+   "hours_high": 3.13
+  },
+  "davis_cold_pair_hyperattentiondti_seed4": {
+   "rows": 15190,
+   "epoch_seconds": 262.2,
+   "epochs_mean": 26.0,
+   "epochs_min": 26,
+   "epochs_max": 26,
+   "hours_mean": 1.89,
+   "hours_low": 1.89,
+   "hours_high": 1.89
+  },
+  "davis_random_moltrans_seed4": {
+   "rows": 21039,
+   "epoch_seconds": 300.0,
+   "epochs_mean": 26.7,
+   "epochs_min": 25,
+   "epochs_max": 29,
+   "hours_mean": 2.22,
+   "hours_low": 2.08,
+   "hours_high": 2.42
+  },
+  "davis_cold_drug_moltrans_seed4": {
+   "rows": 21658,
+   "epoch_seconds": 308.9,
+   "epochs_mean": 25.3,
+   "epochs_min": 25,
+   "epochs_max": 26,
+   "hours_mean": 2.17,
+   "hours_low": 2.15,
+   "hours_high": 2.23
+  },
+  "davis_cold_target_moltrans_seed4": {
+   "rows": 21080,
+   "epoch_seconds": 300.7,
+   "epochs_mean": 25.3,
+   "epochs_min": 25,
+   "epochs_max": 26,
+   "hours_mean": 2.12,
+   "hours_low": 2.09,
+   "hours_high": 2.17
+  },
+  "davis_cold_pair_moltrans_seed4": {
+   "rows": 15190,
+   "epoch_seconds": 216.7,
+   "epochs_mean": 26.0,
+   "epochs_min": 25,
+   "epochs_max": 28,
+   "hours_mean": 1.56,
+   "hours_low": 1.5,
+   "hours_high": 1.69
+  },
+  "davis_random_coldsite_dti_seed5": {
+   "rows": 21039,
+   "epoch_seconds": 135.0,
+   "epochs_mean": 52.3,
+   "epochs_min": 47,
+   "epochs_max": 55,
+   "hours_mean": 1.96,
+   "hours_low": 1.76,
+   "hours_high": 2.06
+  },
+  "davis_cold_drug_coldsite_dti_seed5": {
+   "rows": 21658,
+   "epoch_seconds": 139.1,
+   "epochs_mean": 28.7,
+   "epochs_min": 26,
+   "epochs_max": 31,
+   "hours_mean": 1.11,
+   "hours_low": 1.0,
+   "hours_high": 1.2
+  },
+  "davis_cold_target_coldsite_dti_seed5": {
+   "rows": 21080,
+   "epoch_seconds": 135.4,
+   "epochs_mean": 28.7,
+   "epochs_min": 26,
+   "epochs_max": 30,
+   "hours_mean": 1.08,
+   "hours_low": 0.98,
+   "hours_high": 1.13
+  },
+  "davis_cold_pair_coldsite_dti_seed5": {
+   "rows": 15190,
+   "epoch_seconds": 97.7,
+   "epochs_mean": 26.0,
+   "epochs_min": 26,
+   "epochs_max": 26,
+   "hours_mean": 0.71,
+   "hours_low": 0.71,
+   "hours_high": 0.71
+  },
+  "davis_random_hyperattentiondti_seed5": {
+   "rows": 21039,
+   "epoch_seconds": 363.2,
+   "epochs_mean": 29.7,
+   "epochs_min": 25,
+   "epochs_max": 33,
+   "hours_mean": 2.99,
+   "hours_low": 2.52,
+   "hours_high": 3.33
+  },
+  "davis_cold_drug_hyperattentiondti_seed5": {
+   "rows": 21658,
+   "epoch_seconds": 373.7,
+   "epochs_mean": 25.3,
+   "epochs_min": 25,
+   "epochs_max": 26,
+   "hours_mean": 2.63,
+   "hours_low": 2.6,
+   "hours_high": 2.7
+  },
+  "davis_cold_target_hyperattentiondti_seed5": {
+   "rows": 21080,
+   "epoch_seconds": 363.8,
+   "epochs_mean": 27.7,
+   "epochs_min": 25,
+   "epochs_max": 31,
+   "hours_mean": 2.8,
+   "hours_low": 2.53,
+   "hours_high": 3.13
+  },
+  "davis_cold_pair_hyperattentiondti_seed5": {
+   "rows": 15190,
+   "epoch_seconds": 262.2,
+   "epochs_mean": 26.0,
+   "epochs_min": 26,
+   "epochs_max": 26,
+   "hours_mean": 1.89,
+   "hours_low": 1.89,
+   "hours_high": 1.89
+  },
+  "davis_random_moltrans_seed5": {
+   "rows": 21039,
+   "epoch_seconds": 300.0,
+   "epochs_mean": 26.7,
+   "epochs_min": 25,
+   "epochs_max": 29,
+   "hours_mean": 2.22,
+   "hours_low": 2.08,
+   "hours_high": 2.42
+  },
+  "davis_cold_drug_moltrans_seed5": {
+   "rows": 21658,
+   "epoch_seconds": 308.9,
+   "epochs_mean": 25.3,
+   "epochs_min": 25,
+   "epochs_max": 26,
+   "hours_mean": 2.17,
+   "hours_low": 2.15,
+   "hours_high": 2.23
+  },
+  "davis_cold_target_moltrans_seed5": {
+   "rows": 21080,
+   "epoch_seconds": 300.7,
+   "epochs_mean": 25.3,
+   "epochs_min": 25,
+   "epochs_max": 26,
+   "hours_mean": 2.12,
+   "hours_low": 2.09,
+   "hours_high": 2.17
+  },
+  "davis_cold_pair_moltrans_seed5": {
+   "rows": 15190,
+   "epoch_seconds": 216.7,
+   "epochs_mean": 26.0,
+   "epochs_min": 25,
+   "epochs_max": 28,
+   "hours_mean": 1.56,
+   "hours_low": 1.5,
+   "hours_high": 1.69
+  },
+  "kiba_random_drugban_seed1": {
+   "hours_mean": null,
+   "hours_low": null,
+   "hours_high": null,
+   "note": "unmeasured: no DrugBAN training time exists in the repository"
+  },
+  "kiba_random_drugban_seed2": {
+   "hours_mean": null,
+   "hours_low": null,
+   "hours_high": null,
+   "note": "unmeasured: no DrugBAN training time exists in the repository"
+  },
+  "kiba_random_drugban_seed3": {
+   "hours_mean": null,
+   "hours_low": null,
+   "hours_high": null,
+   "note": "unmeasured: no DrugBAN training time exists in the repository"
+  },
+  "kiba_cold_drug_drugban_seed1": {
+   "hours_mean": null,
+   "hours_low": null,
+   "hours_high": null,
+   "note": "unmeasured: no DrugBAN training time exists in the repository"
+  },
+  "kiba_cold_drug_drugban_seed2": {
+   "hours_mean": null,
+   "hours_low": null,
+   "hours_high": null,
+   "note": "unmeasured: no DrugBAN training time exists in the repository"
+  },
+  "kiba_cold_drug_drugban_seed3": {
+   "hours_mean": null,
+   "hours_low": null,
+   "hours_high": null,
+   "note": "unmeasured: no DrugBAN training time exists in the repository"
+  }
+ }
+}

@@ -711,3 +711,53 @@ def test_the_canary_wave_is_one_committed_dav_cell_of_the_cheapest_attention_mod
     ref = canary.load_reference(os.path.join(ROOT, "config", "canary_reference.json"))
     assert (ref["dataset"], ref["level"], ref["model"]) == ("davis", "cold_target", "coldsite_dti")
     assert sorted(ref["by_seed"]) == [1, 2, 3]
+
+
+# ---- the canary gate (T11) -------------------------------------------------------
+
+def _gate_root(tmp_path, verdict=None, wave="A"):
+    root = tmp_path / "g"
+    (root / "config").mkdir(parents=True)
+    for relative in canary.HARNESS_FILES:
+        (root / relative).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(os.path.join(ROOT, relative), root / relative)
+    shutil.copy(os.path.join(ROOT, "config", "canary_reference.json"), root / "config")
+    if verdict is not None:
+        v = {"verdict": "pass", "dataset": "davis", "level": "cold_target", "model": "coldsite_dti",
+             "harness_sha256": canary.harness_hash(str(root)), **verdict}
+        (root / "config" / "canary_verdict.json").write_text(json.dumps(v))
+    return str(root)
+
+
+def test_a_wave_is_refused_until_the_canary_has_passed_on_this_harness(tmp_path):
+    assert preflight.check_canary(_gate_root(tmp_path / "a"), False, "A").status == "fail"
+    ok = preflight.check_canary(_gate_root(tmp_path / "b", {}), False, "A")
+    assert ok.status == "pass", ok.detail
+
+
+def test_a_failed_or_inconclusive_verdict_does_not_unlock_a_wave(tmp_path):
+    for verdict in ("fail", "inconclusive"):
+        check = preflight.check_canary(_gate_root(tmp_path / verdict, {"verdict": verdict}), False, "A")
+        assert check.status == "fail" and "not 'pass'" in check.detail
+
+
+def test_a_verdict_for_another_cell_or_a_changed_harness_does_not_unlock_a_wave(tmp_path):
+    other = preflight.check_canary(_gate_root(tmp_path / "x", {"level": "random"}), False, "A")
+    assert other.status == "fail" and "different cell" in other.detail
+    root = _gate_root(tmp_path / "y", {})
+    with open(os.path.join(root, "src/cloud/runner.py"), "a") as handle:
+        handle.write("\n# changed after the canary\n")
+    stale = preflight.check_canary(root, False, "A")
+    assert stale.status == "fail" and "harness files changed" in stale.detail
+
+
+def test_the_canary_wave_itself_is_exempt_and_a_dry_run_reports_the_gate_without_passing_it(tmp_path):
+    assert preflight.check_canary(_gate_root(tmp_path / "c"), False, "canary").status == "pass"
+    dry = preflight.check_canary(_gate_root(tmp_path / "d"), True, "A")
+    assert dry.status == "skipped" and "would be REFUSED" in dry.detail and dry.ok
+
+
+def test_editing_the_planning_code_does_not_invalidate_a_canary():
+    """budget.py and the test trainer are not harness code: changing them needs no new canary."""
+    assert "src/cloud/budget.py" not in canary.HARNESS_FILES
+    assert "src/cloud/tiny_trainer.py" not in canary.HARNESS_FILES

@@ -3,6 +3,7 @@
 Checks, in the order the plan lists them (docs/REMEDIATION_PLAN.md, cloud_rules (a)):
 
   gpus            the declared number of GPUs is visible and each is the declared card (T4)
+  canary          a non-canary wave needs a passing canary verdict for this exact harness (T11 gate)
   splits          data/splits/**, the ground truths and the panel match data/splits/MANIFEST.json
   raw_dataset     the raw DAVIS / KIBA files match config/cloud_manifest.json
   vendored        each vendored baseline's content hash matches config/cloud_manifest.json
@@ -243,6 +244,35 @@ def check_disk(cells: list, results_root: str, cfg: dict, free_bytes=None) -> Ch
     return Check("disk", "pass" if free >= need else "fail", detail)
 
 
+def check_canary(root: str, dry_run: bool, wave: str | None) -> Check:
+    """A non-canary wave trains only if the canary passed on THIS harness (plan T11: else BLOCKED)."""
+    from src.cloud import canary
+    if wave == "canary":
+        return Check("canary", "pass", "this is the canary wave")
+    path = os.path.join(root, canary.VERDICT_PATH)
+    try:
+        verdict = load_json(path)
+        ref = canary.load_reference(os.path.join(root, canary.REFERENCE_PATH))
+        problems = []
+        if verdict.get("verdict") != "pass":
+            problems.append(f"verdict is {verdict.get('verdict')!r}, not 'pass'")
+        if (verdict.get("dataset"), verdict.get("level"), verdict.get("model")) != (
+                ref["dataset"], ref["level"], ref["model"]):
+            problems.append("verdict is for a different cell from the canary reference")
+        if verdict.get("harness_sha256") != canary.harness_hash(root):
+            problems.append("the harness files changed since the canary ran (harness_sha256 differs)")
+        detail = "; ".join(problems) or "canary passed on this harness"
+    except FileNotFoundError:
+        problems, detail = ["missing"], (f"no {canary.VERDICT_PATH}: the canary has not passed. Run "
+                                         f"notebooks/kaggle_canary.ipynb, copy its canary_verdict.json here and commit it")
+    except (ValueError, KeyError) as exc:
+        problems, detail = ["unreadable"], f"canary verdict unreadable: {exc!r}"
+    if not problems:
+        return Check("canary", "pass", detail)
+    return Check("canary", "skipped" if dry_run else "fail",
+                 (f"dry run; a real run would be REFUSED: " if dry_run else "") + detail)
+
+
 def check_cells(cells: list, results_root: str) -> tuple:
     """(Check, plan) where plan maps cell id -> 'run' | 'resume' | 'skip'."""
     plan, problems = {}, []
@@ -281,6 +311,7 @@ def run_preflight(account: str, waves_path: str, results_root: str, dry_run: boo
     models = {c.model for c in cells}
     plan = {}
     checks.append(check_gpus(cfg, dry_run, gpu_probe))
+    checks.append(check_canary(root, dry_run, waves["wave"] if waves else None))
     checks.append(check_splits(root, cells if cells else None))
     checks.append(check_raw_dataset(root))
     checks.append(check_vendored(models, root))

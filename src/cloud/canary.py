@@ -8,6 +8,10 @@ user; no floor is invented.
 
     python -m src.cloud.canary --write-reference --committed ~/ColdSite-results --level cold_target
     python -m src.cloud.canary --new <harness results dir>            # exit 0 pass, 1 fail, 3 inconclusive
+
+A passing verdict, copied to `config/canary_verdict.json` and committed, is what unlocks every non-canary wave: the
+pre-flight refuses to train unless it says "pass" for the canaried cell and its `harness_sha256` equals the current
+harness files' (`HARNESS_FILES`).
 """
 from __future__ import annotations
 
@@ -54,6 +58,22 @@ def evaluate(new_metrics: dict, committed_by_seed: dict, seed: int) -> dict:
 
 
 REFERENCE_PATH = os.path.join("config", "canary_reference.json")
+VERDICT_PATH = os.path.join("config", "canary_verdict.json")
+# The files whose behaviour the canary vouches for. A verdict is only good for a checkout in which every
+# one of them is byte-identical to the one that was canaried; a change to any of them needs a new canary.
+HARNESS_FILES = ("src/cloud/__init__.py", "src/cloud/config.py", "src/cloud/markers.py",
+                 "src/cloud/preflight.py", "src/cloud/recipes.py", "src/cloud/restore.py",
+                 "src/cloud/runner.py", "src/cloud/canary.py", "src/model/resume.py")
+
+
+def harness_hash(root: str = ".") -> str:
+    from src.cloud.markers import sha256_file
+    import hashlib
+    digest = hashlib.sha256()
+    for relative in HARNESS_FILES:
+        digest.update(relative.encode())
+        digest.update(sha256_file(os.path.join(root, relative)).encode())
+    return digest.hexdigest()
 
 
 def write_reference(committed_dir: str, dataset: str, level: str, model: str,
@@ -110,7 +130,8 @@ def main(argv=None) -> int:
     ref = load_reference(args.reference)
     new = committed_value(args.new, ref["dataset"], ref["level"], ref["model"], args.seed)
     result = evaluate(new, ref["by_seed"], args.seed)
-    result.update(dataset=ref["dataset"], level=ref["level"], model=ref["model"])
+    result.update(dataset=ref["dataset"], level=ref["level"], model=ref["model"],
+                  harness_sha256=harness_hash())
     print(json.dumps(result, indent=1))
     if args.out:
         with open(args.out, "w") as handle:

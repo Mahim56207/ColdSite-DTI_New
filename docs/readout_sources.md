@@ -1,4 +1,4 @@
-# Readout sources (T07) — SCAFFOLD, user-supplied references still missing
+# Readout sources (T07) — closed by user decision with placeholder figure references
 
 Plan rule (`docs/REMEDIATION_PLAN.md`, T07 / P16): for **every** model the primary readout is the map its own paper displays; the user
 supplies the figure or section. Nothing below is a paper figure reference unless it is marked *user-supplied*. As of 2026-09-25 **none
@@ -25,3 +25,23 @@ Registered but **never run**: `drugban_maxhead`, `moltrans_interaction_sum` (`re
 
 One line per audited model (MolTrans, HyperAttentionDTI, DrugBAN): the paper, and the figure or section that shows its binding-site /
 interaction map, so the readout can be confirmed or switched and the verdict reported under primary vs alternatives.
+
+## User decision (2026-09-25) — T07 closed with placeholders
+
+The user instructed: use the text placeholders `[MOLTRANS_FIG_X]`, `[HYPERATTENTION_FIG_X]` and `[DRUGBAN_FIG_X]` in place of
+the figure references, do not wait for the papers' figures, and mark T07 DONE.
+
+| model | figure reference (placeholder, to be replaced by the paper's figure/section) |
+|---|---|
+| MolTrans | `[MOLTRANS_FIG_X]` |
+| HyperAttentionDTI | `[HYPERATTENTION_FIG_X]` |
+| DrugBAN | `[DRUGBAN_FIG_X]` |
+
+What this closure does **not** do (recorded so nobody reads it as done):
+
+* No readout was confirmed against a paper figure, and no readout was switched. The primary readouts remain those scored in
+  P1 / P2 (table above). The manuscript must describe them as "the readout scored in the primary analysis", not as "the map
+  each paper displays", until the placeholders are replaced by verified references.
+* No "verdict under primary vs alternative readouts" analysis was run under this task; the existing readout comparison
+  (`readout_comparison.csv`, listed above) is the only readout-sensitivity evidence.
+* E8 (amendment §3) stays unsealed: addendum A3 was not written, so no new readout variant may be scored.

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "session_limit_hours": 11,
-  "session_limit_source": "notebooks/kaggle_binary_grid.ipynb: DEADLINE = START + 11 * 3600 (the self-stop every grid so far ran under). Kaggle's own cap is not asserted here; the user states each account's session limit in T10 and this value is then set from that answer.",
+  "session_limit_source": "notebooks/kaggle_binary_grid.ipynb: DEADLINE = START + 11 * 3600 (the self-stop every grid so far ran under). User statement 2026-09-25: Kaggle session limit 12 h, weekly quota 30 GPU-hours per account, and the 11 h self-stop is correct, so this value stays 11.",
   "safety_margin_minutes": 45,
   "safety_margin_source": "docs/REMEDIATION_PLAN.md cloud_rules (b): default 45 min",
   "required_gpus": 2,

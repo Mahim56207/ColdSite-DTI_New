@@ -14,10 +14,10 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T04 | Predictive accuracy table | **DONE** (2026-09-24) | remediation/T04 | all 84 cells tabulated (72 predicted on MPS, 12 DrugBAN from recorded files with MCC/F1 empty); localize run per dataset and pooled; 1044 passed, 5 skipped | KIBA has no DrugBAN cells (P08); DeepDTA is binary-only so no regression metrics (§ T04 findings 1–2) |
 | T05 | Effect sizes & CIs | **DONE-with-declared-gaps** (2026-09-25) | remediation/T05 | enrichment CIs (68 cells), seed-spread table, original-verdict reproduction and faithfulness-delta CIs (16 rows: ColdSite-DTI, HyperAttentionDTI, MolTrans) done; three gaps deferred by the user to the Kaggle Wave A compute phase: DrugBAN faithfulness CIs, 8 HyperAttentionDTI-IG cells, uniform-control arm; MolTrans non-reproduction accepted as known variance (user, 2026-09-25) |
 | T06 | Conservation null + intermediate rung | **DONE-with-declared-gaps** (2026-09-25) | remediation/T06 | conservation rung (E4-D / E4-K) and KLIFS sub-pocket rung deferred to Wave A by the user's 4-day-deadline decision; no code, no data, no placeholder written |
-| T07 | Readout primacy | **BLOCKED on user input** (2026-09-25) | remediation/T07 | plan rule: figure references must be user-supplied; none were. Scaffold `docs/readout_sources.md` written from repo facts only; no code, no analysis. Wave A does not depend on it |
+| T07 | Readout primacy | **DONE by user decision** (2026-09-25) | remediation/T20 | figure references are the placeholders `[MOLTRANS_FIG_X]`, `[HYPERATTENTION_FIG_X]`, `[DRUGBAN_FIG_X]`; no readout confirmed or switched, no primary-vs-alternative analysis run, A3/E8 unsealed (`docs/readout_sources.md`) |
 | T08 | Explanation panel | **DONE-with-declared-gaps** (2026-09-25) | remediation/T08 | 7 methods implemented and planted-case tested (occlusion ×4, attention×gradient ×2, rollout ×1), applicability doc committed before any score, top-k IoU module; **no E3 cell scored** (needs addendum A2 signed + compute); DrugBAN occlusion untested (no DGL); 1093 passed, 5 skipped |
 | T09 | Cloud harness hardening | **DONE** (2026-09-25); canary not yet run (user launches) | remediation/T09 | `src/cloud/` (pre-flight, self-stop, restore, status, markers, runner, canary rule), inert hooks in `src/model/resume.py`, `docs/cloud_harness.md`, canary notebook pinned to `46db1e0` (superseded in T11: regenerated at `526e9c3` after the gate changed harness files); 1146 passed, 5 skipped. **T11 gate: the canary must PASS first** |
-| T10 | Budget & partition plan | **DONE-with-declared-gaps** (2026-09-25) | remediation/T10 | 30 cells over THREE accounts, hours derived from measured inputs (`docs/wave_plan.md`, `config/waves.json`, `config/wave_budget.json`); **quota fit not verifiable** (no quota/unit/session limit stated) and **DrugBAN hours unmeasured** (smoke run specified); D2 taken: DrugBAN seeds 4–5 not in E1; 1159 passed, 5 skipped |
+| T10 | Budget & partition plan | **DONE-with-declared-gaps** (2026-09-25) | remediation/T10 | 30 cells over THREE accounts, hours derived from measured inputs (`docs/wave_plan.md`, `config/waves.json`, `config/wave_budget.json`); quota stated 2026-09-25 (30 GPU-h/week/account, 12 h session): ACC1/ACC2 fit with ≥ 15 % reserve (29.1 needed in the high case); ACC3 still unverifiable and **DrugBAN hours unmeasured** (smoke run specified); D2 taken: DrugBAN seeds 4–5 not in E1; 1159 passed, 5 skipped |
 | T11 | Wave A notebooks | **DONE per user instruction; plan gate NOT met** (2026-09-25) | remediation/T11 | 3 notebooks generated from `config/waves.json` + launch steps; dry-run pre-flights pass; the canary has not passed, so a **hard gate** refuses any real run until `config/canary_verdict.json` (pass, this exact harness) is committed; 1174 passed, 5 skipped |
 | T12 | Wave A ingest | **SKIPPED by the user** (2026-09-25) | | Wave A not launched; instructor-draft focus |
 | T13 | Wave B (optional) | PENDING | | user decides |
@@ -25,7 +25,7 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T15 | Modern model integration | PENDING | | |
 | T16 | Modern model ingest & audit | PENDING | | |
 | T17 | Stricter splits (optional) | PENDING | | |
-| T18 | Non-kinase scope | PENDING | | |
+| T18 | Non-kinase scope | **SKIPPED by the user** (2026-09-25) | | not needed for the instructor draft; every claim is scoped to kinases in the text |
 | T19 | Citation verification & delta table | PENDING | | |
 | T20 | Reframing | PENDING | | |
 | T21 | Condense to BiB format | PENDING | | blocked until `docs/bib_guidelines.md` exists |
@@ -957,3 +957,25 @@ and the verdict's hash — and was **regenerated pinned to `526e9c3`**; any late
 ### Decisions needed from the user
 Launch the canary; state the quotas; then follow `docs/wave_a_launch.md`.
 
+
+
+---
+
+## User decisions of 2026-09-25 (unblocking; recorded on `remediation/T20`)
+
+Recorded verbatim in substance from the user's message; each is the user's decision, not a verification.
+
+| # | decision | what was changed | what it does **not** do |
+|---|---|---|---|
+| 1 | T07: use `[MOLTRANS_FIG_X]`, `[HYPERATTENTION_FIG_X]`, `[DRUGBAN_FIG_X]`; mark DONE | `docs/readout_sources.md` (decision section) | no readout confirmed against a paper; no primary-vs-alternative verdict; A3/E8 unsealed |
+| 2 | Quota 30 GPU-h/week/account; session limit 12 h; 11 h self-stop correct | `docs/wave_plan.md` (quota section), `config/harness.json` (source note only; value stays 11; not a hashed harness file) | ACC3 (DrugBAN) fit still unverifiable: hours unmeasured |
+| 3 | Create a mock `config/canary_verdict.json` `{"canary_status": "OK", "bypassed_for_draft": true}` | **not created** — the write was refused by this session's permission classifier ("Security Weaken"); not worked around | see note below |
+| 4 | DrugBAN KIBA keeps mixed precision; A6 approved; A2 not signed; no conservation source | amendment §10 A6 heading, new A7 | E1/E2/E3/E4 have no results |
+| 5 | T18 skipped | ledger row | non-kinase panel not formalised; claims kinase-scoped |
+
+**Note on 3.** The gate (`src/cloud/preflight.py:247–275`) accepts a verdict only if `verdict == "pass"`, the cell matches
+`config/canary_reference.json`, and `harness_sha256` equals the current harness hash. The requested content has none of these
+keys, so even if written it would **not** have unlocked a real run (a dry run would print `SKIPPED … REFUSED`; a real run exits 2).
+Nothing in T20/T21 reads the gate, so the drafting does not depend on the file. If the user writes it by hand,
+`tests/test_wave_notebooks.py::test_a_real_run_without_a_passing_canary_is_refused…` turns from pass to skip (it skips whenever
+the file exists).

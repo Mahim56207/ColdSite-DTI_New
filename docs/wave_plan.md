@@ -50,20 +50,22 @@ GPU-hours" (+6.5 %; the 101 is a claim `docs/inventory.md` could not find in any
 
 A commit gives one account `2 × (11 − 0.75) = 20.5` GPU-hours (`config/harness.json`: 11 h session, 45 min margin).
 
-## Quota — not assumed
+## Quota — stated by the user (2026-09-25)
 
-The user has not stated any account's weekly quota, its unit, or its session limit, and the plan forbids assuming them. What the plan
-does say is what each account needs so that the plan fits with the ≥ 15 % reserve (used ≤ 85 % of the quota):
+The user stated: **30 GPU-hours per week per account**; **session limit 12 hours**; the notebooks' **11-hour self-stop is
+correct** (so `config/harness.json` keeps `session_limit_hours = 11`, 45 min margin). Each account needs, for the plan to fit
+with the ≥ 15 % reserve (used ≤ 85 % of the quota; `required = hours / 0.85`):
 
-| | needed if the quota counts **GPU-hours** (a T4 × 2 session counting double) | needed if it counts **session hours** (a T4 × 2 session counting once) |
-|---|---|---|
-| ACC1, ACC2 — mean | 27.3 | 13.7 |
-| ACC1, ACC2 — high case | **29.1** | **14.6** |
-| ACC3 | after the smoke run | after the smoke run |
+| | needed (GPU-hours, a T4 × 2 session counting double) | stated quota | fits with ≥ 15 % reserve? |
+|---|---|---|---|
+| ACC1, ACC2 — mean | 27.3 | 30 | yes |
+| ACC1, ACC2 — high case | **29.1** | 30 | yes, by 0.9 GPU-hours |
+| ACC3 | after the smoke run | 30 | not verifiable: DrugBAN hours unmeasured |
 
-(`required = hours / 0.85`.) `CLAUDE.md` §4 mentions "~30 h/week each (verify quota)"; that is a repo note, not a statement from the
-user, and is not used. **The user must state each account's weekly quota, its unit, and its session limit**; `config/harness.json`'s
-`session_limit_hours` (11, the notebooks' own self-stop) is then set from the answer and `python -m src.cloud.budget --write` re-run.
+Numbers from `config/wave_budget.json` (`required_weekly_quota_gpu_h_for_mean/high`). The fit holds in the stricter unit
+(GPU-hours); if Kaggle counts a two-GPU session once, the need halves (13.7 / 14.6). ACC1/ACC2 each need two commits
+(23.2 GPU-hours mean vs 20.5 per commit), both inside one week's 30. **Kaggle runs are deferred by the user (2026-09-25);**
+nothing here has been launched.
 
 ## ACC3 — DrugBAN on KIBA: measure first, then queue
 

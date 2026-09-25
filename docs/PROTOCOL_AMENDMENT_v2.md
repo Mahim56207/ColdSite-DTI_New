@@ -257,12 +257,23 @@ source and bins (E4); A2 method-applicability list and E3 sizes (E3); A3 readout
 A4 the chosen modern model (E5); A5 new-split definitions (E6); A6 wave plan's DrugBAN decision
 (E1 size); A7 anything discovered. None exists yet.
 
-### A6 — DrugBAN seeds 4–5 in E1 (PROPOSED 2026-09-25 by T10; not in force until the user replies "approved")
+### A6 — DrugBAN seeds 4–5 in E1 (PROPOSED 2026-09-25 by T10; **APPROVED by the user 2026-09-25**, see A7)
 
 Fills decision D2 (§11) and the E1 row of §3. **DrugBAN seeds 4–5 are not part of E1**: the plan (`docs/wave_plan.md`) has no measured
 DrugBAN training time to budget them against. E1 therefore has design m = 16 (HyperAttentionDTI, MolTrans, ColdSite-DTI × 4 levels + the uniform
 control × 4 levels). Committed before any seed-4 or seed-5 result exists (none does). Reversible only by a further addendum, dated and signed,
 that adds the eight cells before their results are seen.
+
+### A7 — user decisions of 2026-09-25 (recorded, not new analysis)
+
+* **A6 approved.** DrugBAN seeds 4–5 are excluded from E1; E1's design m = 16. No seed-4/5 result exists (Wave A not launched).
+* **A2 not signed.** E3 (new explanation methods) stays unsealed; no E3 cell may be scored. The manuscript reports the
+  methods as implemented and tested, not as results.
+* **A1 (conservation source): none will be provided.** E4 cannot run; the pocket enrichment is reported as "conservation not
+  controlled" (problem P15 unresolved, a stated limitation).
+* **DrugBAN on KIBA keeps mixed precision** (`recipes.uses_amp`: KIBA and not MolTrans), unvalidated for DrugBAN; the ACC3
+  smoke run is the evidence if Wave A is ever launched.
+* **Kaggle runs deferred** for the instructor draft; E1 and E2 therefore have no results, and the manuscript must say so.
 
 ## 11. Decisions the user is asked to take by signing
 

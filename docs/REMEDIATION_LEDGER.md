@@ -26,11 +26,11 @@ only when its verification criteria pass, the ledger is updated, and the HALT RE
 | T16 | Modern model ingest & audit | PENDING | | |
 | T17 | Stricter splits (optional) | PENDING | | |
 | T18 | Non-kinase scope | **SKIPPED by the user** (2026-09-25) | | not needed for the instructor draft; every claim is scoped to kinases in the text |
-| T19 | Citation verification & delta table | **DONE-with-declared-gap** (2026-09-25) | remediation/T19 | 16 records fetched (Crossref / DataCite for arXiv DOIs; arXiv API returned 406) into `paper/citation_verification/`; 12 new entries in `paper/references.md`; `docs/delta_table.md` from abstracts only; both `[CITE-T19]` markers replaced with verified citations; the "2026 JCIM gradient-XAI benchmark" has no identifier — one candidate recorded, match unconfirmed, not cited; 1191 passed, 5 skipped |
+| T19 | Citation verification & delta table | **DONE-with-declared-gap** (2026-09-25) | remediation/T19 | 16 records fetched (Crossref / DataCite for arXiv DOIs; arXiv API returned 406) into `paper/citation_verification/`; 12 new entries in `paper/references.md`; `docs/delta_table.md` from abstracts only; both `[CITE-T19]` markers replaced with verified citations; the "2026 JCIM gradient-XAI benchmark" has no identifier — **dropped entirely by user decision** (drafting-phase closure): candidate record, references row and delta-table row removed; 1191 passed, 5 skipped |
 | T20 | Reframing (user scope: Abstract & Intro) | **DONE-with-declared-gaps** (2026-09-25) | remediation/T20 | `paper/v2/abstract.md`, `paper/v2/introduction.md` (Box 1 checklist); every digit source-tagged, provenance checker 0 failures; T19 not run, so prior-work and leakage-precedent citations are `[CITE-T19: …]` markers; results section not reordered (not drafted) |
 | T21 | Condense to BiB format (user scope: Methods) | **DONE by user decision** (2026-09-25) | remediation/T21 | user: assume a standard **6,000-word** main-text maximum for the instructor draft (an assumption, **not** a verified BiB rule; `docs/bib_guidelines.md` still absent); `paper/v2/methods.md` + `supplement_methods.md`, provenance checker 0 failures; main-text total re-measured after Results/Discussion (see T23/T24 entry) |
 | T22 | Figures | **DONE-with-declared-gaps** (2026-09-25) | remediation/T22 | 6 figures (PNG+PDF) in `paper/v2/figures/` from committed `results/` files by `scripts/plotting/`; byte-identical rebuild verified; captions name sources; method-panel agreement and readout sensitivity not drawn (no E3 scores; readout CSV outside the repo); 1194 passed, 5 skipped |
-| T23 | Reproducibility release — **user relabel: "Results" drafting** | **Results DONE** (2026-09-25); plan's release work PENDING | remediation/T23 | `paper/v2/results.md` (§3.1–3.7, Table 1), 190 numbers / 96 tags / 0 provenance failures, 1,149 words; plan T23 (licence audit, lockfile, Zenodo, availability statements) not started |
+| T23 | Reproducibility release — **user relabel: "Results" drafting** | **Results DONE** (2026-09-25); plan's release work PENDING | remediation/T23 | `paper/v2/results.md` (§3.1–3.7, Table 1), 190 numbers / 96 tags / 0 provenance failures, 1,149 words; plan T23 (licence audit, lockfile, Zenodo, availability statements) **not started — halted by the user at drafting-phase closure** |
 | T24 | Pre-submission audit — **user relabel: "Discussion" drafting** | **Discussion DONE** (2026-09-25); plan's audit PENDING | remediation/T24 | `paper/v2/discussion.md`, 0 provenance failures, 1,267 words; main text 5,528 words (5,939 with abstract + Key Points) vs the user-assumed 6,000; plan T24 (claim-to-evidence and P01–P32 objection matrices) not started |
 
 ---
@@ -1172,3 +1172,31 @@ words: abstract file 411 (abstract + Key Points), introduction 1,390, Methods 1,
 **Discovered (not started):** the Task-status row for T03 still reads "awaiting user approved", while `docs/PROTOCOL_AMENDMENT_v2.md:5`
 records it APPROVED and in force from 2026-09-24 — the row is stale. Branches `remediation/T19`, `T22`, `T23`, `T24` are local only
 (the user asked to push T20 and T21).
+
+
+---
+
+## Drafting phase — closure (COMPLETE, 2026-09-25)
+
+**Branch:** `remediation/T24` (closure commit on top of the Discussion commit `f46f31f`). **User decisions executed:**
+
+1. **Push** `remediation/T19`, `T22`, `T23`, `T24` to `origin` (they were local only; the chain is linear, T21 → T19 → T22 → T23 → T24).
+2. **JCIM citation dropped entirely.** The unconfirmed candidate (doi:10.1021/acs.jcim.6c00037) was never cited in the manuscript; its
+   row in `paper/references.md`, its row in `docs/delta_table.md` and `paper/citation_verification/JCIM2026_candidate.json` are removed.
+   `docs/delta_table.md` "Not verified" note now records the drop. The plan's P01/T19 item stays unaddressed by decision.
+3. **BiB guidelines still ignored** for the instructor draft (6,000-word assumption of T21 stands; `docs/bib_guidelines.md` absent).
+4. **Master file** `paper/v2/INSTRUCTOR_DRAFT.md`, generated by `scripts/build_instructor_draft.py` (`--check` confirms it matches the
+   sections): title → Abstract → Key Points → 1 Introduction → 2 Methods → 3 Results → 4 Discussion → Figures (each PNG + its caption)
+   → Supplementary Methods. Per-file drafting notes are dropped, headings demoted one level (single H1), source tags kept.
+   The captions had never been under the provenance checker; building the master exposed 7 untagged caption numbers (KLIFS 85,
+   95 % / 10,000 resamples ×3, and "chance (1)"). Six are now tagged in `figures/CAPTIONS.md`; "(1)" is reworded "an enrichment of one"
+   (a definition, not a data value). `tests/test_build_instructor_draft.py` (2 tests).
+5. **Halt.** Plan T23 (reproducibility release) and plan T24 (claim-to-evidence / P01–P32 audit) are **not started**.
+
+**Verification:** `python3 scripts/check_number_provenance.py --words` → `paper/v2/INSTRUCTOR_DRAFT.md: 399 numbers, 243 tags,
+0 failures, 12 external tags, 6818 words` (main text 5,939 incl. abstract + Key Points, unchanged; the rest is Supplementary
+Methods and captions); `TOTAL: 792 numbers, 482 tags, 0 failures`. `python3 -m pytest -p no:warnings` →
+`1196 passed, 5 skipped in 208.69s (0:03:28)` (+2).
+
+**Still open (unchanged by this closure):** the T03 status row is stale (the amendment is APPROVED, `docs/PROTOCOL_AMENDMENT_v2.md:5`);
+no reference list in the manuscript (citations are name + year, per CLAUDE.md §5); Wave A, E3 and the deferred analyses as stated in §4.4.

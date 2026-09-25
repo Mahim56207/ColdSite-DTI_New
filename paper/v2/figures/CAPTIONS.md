@@ -10,12 +10,14 @@ precision@10 of each training seed (points) on DAVIS, at four levels of shift, a
 level's exact chance level. Seeds of one recipe that fall on both sides of chance are the instability
 the paper reports. y-axes differ between panels. *Source:* `results/effects_v2/seed_spread.csv`
 (families P1 and S3-D, column `per_seed_precision`, `chance_exact`). *Script:* `scripts/plotting/fig1_seed_instability.py`.
+<!-- src: src/data/klifs_pocket.py:54 = 85 -->
 
 **Figure 2 — `fig2_enrichment_forest`. Enrichment over chance with 95% bootstrap intervals.**
 precision@10 ÷ chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues
 (left) and the KLIFS pocket (right). Intervals resample targets (10,000 resamples); log scale; dashed line
-= chance (1). Pocket-level enrichment is not controlled for residue conservation (T06 deferred).
+= chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation (T06 deferred).
 *Source:* `results/effects_v2/enrichment.csv` (families P1, S3-D, P2, S3-K). *Script:* `scripts/plotting/fig2_enrichment_forest.py`.
+<!-- src: results/effects_v2/enrichment.md:3 = 95, 10000 -->
 
 **Figure 3 — `fig3_accuracy`. Predictive accuracy per training seed.**
 Test AUROC of every cell (points, one per seed; bar = mean) on the uncorrected test sets. DeepDTA has no
@@ -28,6 +30,7 @@ precision@10 ÷ chance). For DAVIS cold-target and cold-pair, AUROC is scored on
 the same policy the explanation metrics use. Panel titles give Spearman ρ with a 95% bootstrap interval
 over cells. *Sources:* `results/accuracy_v2/localization_cells.csv`, `results/accuracy_v2/localization_spearman.csv`
 (group "all attention models", y = enrichment). *Script:* `scripts/plotting/fig4_accuracy_vs_localization.py`.
+<!-- src: docs/PROTOCOL_AMENDMENT_v2.md:190 = 95 -->
 
 **Figure 5 — `fig5_faithfulness`. Masking the attended residues matters more than masking random ones.**
 Faithfulness delta (attended masking minus a size-matched random-masking control), mean over targets
@@ -35,6 +38,7 @@ with 95% bootstrap intervals (targets resampled, 10,000 resamples). MolTrans is 
 token space, the others in residue space, so the three panels do not share a scale. No DrugBAN or KIBA
 XAttn-Ref rows exist (deferred; see Discussion). *Source:* `results/effects_v2/faithfulness_effects.csv`.
 *Script:* `scripts/plotting/fig5_faithfulness.py`.
+<!-- src: results/effects_v2/faithfulness_effects.md:3 = 95, 10000 -->
 
 **Figure 6 — `fig6_leakage`. What DAVIS's sequence leakage is worth to the accuracy anchor.**
 DeepDTA test AUROC (mean ± sd over three seeds) at cold-target and cold-pair, retrained on three training

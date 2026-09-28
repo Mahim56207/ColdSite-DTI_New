@@ -101,8 +101,10 @@ def _import_vendored():
         )
     if path not in sys.path:
         sys.path.insert(0, path)
+    from src.model.integrity import preserve_rng
     from config import BIN_config_DBPE  # noqa: E402
-    from models import BIN_Interaction_Flat  # noqa: E402
+    with preserve_rng():    # the vendored models.py seeds torch and numpy at import
+        from models import BIN_Interaction_Flat  # noqa: E402
 
     previous = os.getcwd()
     os.chdir(path)          # stream.py opens './ESPF/...' at import time

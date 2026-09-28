@@ -40,13 +40,43 @@ so nothing downstream mistakes it for a trained cell.
 """
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import random
+import signal
+import time
 
 import numpy as np
 import torch
 
 RESUME_SUFFIX = "_resume.pt"
+START_SUFFIX = "_start.json"
+
+# Cloud-harness hooks (src/cloud/runner.py). All of them are inert unless the launcher sets
+# these variables, so a trainer run by hand, or by the older notebooks, behaves exactly as it
+# did before they existed. None of them touches a weight, an optimiser state or a random
+# number; they read state, write side files, and decide when to stop *between* epochs.
+ENV_HARNESS = "COLDSITE_HARNESS"          # "1": record the start, honour SIGTERM/SIGINT, write status
+ENV_STOP_AT = "COLDSITE_STOP_AT"          # unix seconds: do not start an epoch that would end after this
+ENV_STATUS = "COLDSITE_STATUS_JSON"       # path of the per-cell status file, rewritten every epoch
+ENV_CONTEXT = "COLDSITE_CELL_CONTEXT"     # JSON: {"cell": ..., "account": ..., "gpu": ...}
+
+
+def _context() -> dict:
+    raw = os.environ.get(ENV_CONTEXT)
+    try:
+        return json.loads(raw) if raw else {}
+    except ValueError:
+        return {"context_unreadable": raw}
+
+
+def _sha256(path: str) -> str:
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def resume_path(checkpoint_path: str) -> str:
@@ -125,6 +155,14 @@ class Resumable:
         self.resumed_from = None
         self.extra: dict = {}
         self._parts: dict = {}
+        self.clock = time.time                 # injectable, for tests
+        self.harness = os.environ.get(ENV_HARNESS) == "1"
+        stop_at = os.environ.get(ENV_STOP_AT)
+        self.stop_at = float(stop_at) if stop_at else None
+        self.signalled: str | None = None      # set by the first SIGTERM / SIGINT
+        self.epoch_seconds: list = []          # durations measured in THIS process
+        self._epoch_started: float | None = None
+        self._session_started = self.clock()
 
     def begin(self, model, optimizer, selector, scheduler=None, scaler=None):
         self._parts = {"model": model, "optimizer": optimizer, "selector": selector,
@@ -132,8 +170,13 @@ class Resumable:
         # Loaded onto the CPU whatever the training device: load_state_dict copies the
         # weights onto the model's device and moves the optimiser state to its
         # parameters', while the RNG states must stay CPU tensors (restore_rng).
+        self._epoch_started = self.clock()
+        if self.harness:
+            self._install_signal_handlers()
         state = load(self.path, "cpu")
         if state is None:
+            if self.harness:
+                self._record_start(model)
             return 1
         check_compatible(state["args"], self.args, self.keys)
         self._repair_checkpoint(state)
@@ -165,6 +208,10 @@ class Resumable:
         """
         self.extra.update(extra)
         parts = self._parts
+        now = self.clock()
+        if self._epoch_started is not None:
+            self.epoch_seconds.append(now - self._epoch_started)
+        self._epoch_started = now
         meta = ({k: v for k, v in best_checkpoint.items() if k != "model_state"}
                 if best_checkpoint is not None else None)
         save(self.path, {
@@ -180,6 +227,8 @@ class Resumable:
             "rng": capture_rng(), "extra": self.extra})
         if best_checkpoint is not None:
             save(self.checkpoint, best_checkpoint)
+        if self.harness and os.environ.get(ENV_STATUS):
+            self._write_status(epoch, finished)
 
     def _repair_checkpoint(self, state: dict) -> None:
         """A kill between the two saves of `end_epoch`: rewrite the checkpoint."""
@@ -195,12 +244,93 @@ class Resumable:
         save(self.checkpoint, {**meta, "model_state": state["model_state"]})
 
     def interrupt_now(self, epoch: int) -> bool:
-        """--stop-after-epoch: behave as if the process were killed here."""
+        """Stop here? True after a SIGTERM/SIGINT, past --stop-after-epoch, or when the
+        next epoch is projected to end after the deadline.
+
+        Called after `end_epoch`, so the state on disk is this epoch's and nothing is lost.
+        The projection is `now + the longest epoch measured in this process`: pre-declared
+        and deliberately pessimistic, so a cell is never left mid-epoch when the session
+        ends. (Before the first epoch of a process there is nothing to project from; the
+        launcher's own margin covers that one.)
+        """
+        if self.signalled:
+            print(f"  stopping after epoch {epoch}: {self.signalled} received; "
+                  f"state saved -> {self.path}", flush=True)
+            return True
         if self.stop_after_epoch and epoch >= self.stop_after_epoch:
             print(f"  stopping after epoch {epoch} (--stop-after-epoch); "
                   f"state saved -> {self.path}", flush=True)
             return True
+        if self.stop_at is not None and self.epoch_seconds:
+            projected = self.clock() + max(self.epoch_seconds)
+            if projected > self.stop_at:
+                print(f"  stopping after epoch {epoch}: the next epoch (~"
+                      f"{max(self.epoch_seconds) / 60:.1f} min) would end "
+                      f"{(projected - self.stop_at) / 60:.1f} min past the session deadline; "
+                      f"state saved -> {self.path}", flush=True)
+                return True
         return False
+
+    # -- harness hooks ---------------------------------------------------------------
+
+    def _install_signal_handlers(self) -> None:
+        """First SIGTERM/SIGINT: finish the epoch in progress, save, exit cleanly. A second
+        one is not caught, so an operator can still force the process down. Mid-epoch state
+        is not resumable (the data order lives in the loader), so the epoch-end save is the
+        checkpoint; a harder kill still leaves the previous epoch's file, written atomically."""
+        def handler(signum, _frame):
+            self.signalled = signal.Signals(signum).name
+            print(f"\n  {self.signalled}: finishing this epoch, then saving and stopping",
+                  flush=True)
+            for sig in (signal.SIGTERM, signal.SIGINT):
+                signal.signal(sig, signal.SIG_DFL)
+        try:
+            signal.signal(signal.SIGTERM, handler)
+            signal.signal(signal.SIGINT, handler)
+        except ValueError:            # not the main thread: nothing to install
+            pass
+
+    def _record_start(self, model) -> None:
+        """What this run started from: seed, the RNG fingerprints and a hash of the initial
+        weights, written once, when a cell begins. Two seeds that share an initial-weight
+        hash are one seed under two names (src/model/integrity.py)."""
+        from src.model.integrity import initial_weight_hash, rng_state
+        context = _context()
+        record = {"seed": self.args.get("seed", context.get("seed")), "checkpoint": os.path.basename(self.checkpoint),
+                  "initial_weight_hash": initial_weight_hash(model),
+                  "rng_state_sha256": rng_state(), "torch": torch.__version__,
+                  "context": context}
+        path = self.checkpoint[: -len(".pt")] + START_SUFFIX
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+        tmp = f"{path}.tmp"
+        with open(tmp, "w") as handle:
+            json.dump(record, handle, indent=1)
+        os.replace(tmp, path)
+
+    def _write_status(self, epoch: int, finished: bool) -> None:
+        """One JSON per cell, rewritten each epoch: where the cell is and what is on disk."""
+        now = self.clock()
+        mean = sum(self.epoch_seconds) / len(self.epoch_seconds) if self.epoch_seconds else None
+        total = self.args.get("epochs") or self.args.get("n_epochs")
+        status = {
+            **_context(), "epoch": epoch, "finished_training": bool(finished),
+            "elapsed_s": round(now - self._session_started, 1),
+            "last_epoch_s": round(self.epoch_seconds[-1], 1) if self.epoch_seconds else None,
+            "mean_epoch_s": round(mean, 1) if mean else None,
+            "projected_finish_unix_upper_bound": (
+                round(now + mean * max(int(total) - epoch, 0), 1) if mean and total else None),
+            "note": "upper bound: assumes no early stopping",
+            "checkpoint": {"path": self.checkpoint,
+                           "sha256": _sha256(self.checkpoint)
+                           if os.path.exists(self.checkpoint) else None},
+            "resume_file": {"path": self.path, "sha256": _sha256(self.path)},
+        }
+        path = os.environ[ENV_STATUS]
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+        tmp = f"{path}.tmp"
+        with open(tmp, "w") as handle:
+            json.dump(status, handle, indent=1)
+        os.replace(tmp, path)
 
     def clear(self) -> None:
         clear(self.path)

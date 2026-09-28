@@ -1,0 +1,4081 @@
+{
+  "model": "coldsite_dti",
+  "dataset": "davis",
+  "task": "binary",
+  "seed": 2,
+  "k": 10,
+  "n_random_trials": 5,
+  "max_pairs": 200,
+  "accuracy_metric": "auroc",
+  "levels_evaluated": [
+    "random",
+    "cold_drug",
+    "cold_target",
+    "cold_pair"
+  ],
+  "accuracy_missing_levels": [],
+  "levels": {
+    "random": {
+      "comprehensiveness": 2.350170228257775,
+      "comprehensiveness_random": 0.35726871442794794,
+      "comprehensiveness_delta": 1.9929015138298274,
+      "sufficiency": 4.399054934307933,
+      "sufficiency_random": 4.498272960975767,
+      "sufficiency_delta": -0.09921802666783332,
+      "aopc": 2.133954111546278,
+      "n_pairs": 200,
+      "k": 10,
+      "per_pair": [
+        {
+          "id": "ARK5",
+          "comprehensiveness_delta": 0.442447829246521,
+          "sufficiency_delta": 1.8217723846435545
+        },
+        {
+          "id": "PIK3CA(E545A)",
+          "comprehensiveness_delta": 1.2836278915405273,
+          "sufficiency_delta": -2.6118282318115233
+        },
+        {
+          "id": "RIPK5",
+          "comprehensiveness_delta": 5.7413534164428714,
+          "sufficiency_delta": 0.7730993270874027
+        },
+        {
+          "id": "FLT3(D835H)",
+          "comprehensiveness_delta": 0.732184362411499,
+          "sufficiency_delta": 2.5097732543945312
+        },
+        {
+          "id": "PIP5K2C",
+          "comprehensiveness_delta": 1.9339128494262696,
+          "sufficiency_delta": 1.2711721420288087
+        },
+        {
+          "id": "IRAK1",
+          "comprehensiveness_delta": 2.1540842056274414,
+          "sufficiency_delta": -0.4373867034912111
+        },
+        {
+          "id": "JNK1",
+          "comprehensiveness_delta": -0.1382478713989257,
+          "sufficiency_delta": -2.0062665939331055
+        },
+        {
+          "id": "PLK4",
+          "comprehensiveness_delta": 0.08853089809417725,
+          "sufficiency_delta": 4.700003290176392
+        },
+        {
+          "id": "KIT(V559D-V654A)",
+          "comprehensiveness_delta": -0.004593753814697265,
+          "sufficiency_delta": 2.8843522548675535
+        },
+        {
+          "id": "RSK3(KinDom.2-C-terminal)",
+          "comprehensiveness_delta": 0.16580581665039062,
+          "sufficiency_delta": 3.177857780456543
+        },
+        {
+          "id": "GAK",
+          "comprehensiveness_delta": 0.2258540153503418,
+          "sufficiency_delta": 5.316601753234863
+        },
+        {
+          "id": "CTK",
+          "comprehensiveness_delta": 10.265244102478027,
+          "sufficiency_delta": -5.352511596679687
+        },
+        {
+          "id": "NEK5",
+          "comprehensiveness_delta": 2.6525785446166994,
+          "sufficiency_delta": 6.134230041503907
+        },
+        {
+          "id": "ERK3",
+          "comprehensiveness_delta": -0.19534339904785158,
+          "sufficiency_delta": -0.4053958892822265
+        },
+        {
+          "id": "RIPK4",
+          "comprehensiveness_delta": 7.803722953796386,
+          "sufficiency_delta": -1.5444032669067376
+        },
+        {
+          "id": "AXL",
+          "comprehensiveness_delta": 1.5474302291870117,
+          "sufficiency_delta": 1.9908525466918945
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 2.552298164367676,
+          "sufficiency_delta": -4.4611152648925785
+        },
+        {
+          "id": "MKNK1",
+          "comprehensiveness_delta": 0.5590263366699219,
+          "sufficiency_delta": -2.469488334655762
+        },
+        {
+          "id": "MAPKAPK5",
+          "comprehensiveness_delta": 5.843904066085815,
+          "sufficiency_delta": -2.6226186752319336
+        },
+        {
+          "id": "NEK9",
+          "comprehensiveness_delta": 1.22958984375,
+          "sufficiency_delta": -4.252439308166504
+        },
+        {
+          "id": "MEK4",
+          "comprehensiveness_delta": 1.8869834899902345,
+          "sufficiency_delta": -3.387226104736328
+        },
+        {
+          "id": "DCAMKL3",
+          "comprehensiveness_delta": 3.871653747558594,
+          "sufficiency_delta": -3.6248056411743157
+        },
+        {
+          "id": "LTK",
+          "comprehensiveness_delta": 0.1441020965576172,
+          "sufficiency_delta": -0.0026071548461912286
+        },
+        {
+          "id": "PRKX",
+          "comprehensiveness_delta": 10.22374668121338,
+          "sufficiency_delta": -3.6428250789642327
+        },
+        {
+          "id": "PIK3CA(H1047Y)",
+          "comprehensiveness_delta": 2.805560302734375,
+          "sufficiency_delta": -2.873566055297852
+        },
+        {
+          "id": "TEC",
+          "comprehensiveness_delta": 6.949586272239685,
+          "sufficiency_delta": -3.42280421257019
+        },
+        {
+          "id": "FLT3(D835H)",
+          "comprehensiveness_delta": 3.3897900521755218,
+          "sufficiency_delta": 5.153757286071777
+        },
+        {
+          "id": "MKNK1",
+          "comprehensiveness_delta": 0.5308092117309571,
+          "sufficiency_delta": 0.06169900894165048
+        },
+        {
+          "id": "FLT3(R834Q)",
+          "comprehensiveness_delta": 3.8645044326782227,
+          "sufficiency_delta": -1.686804389953613
+        },
+        {
+          "id": "WEE1",
+          "comprehensiveness_delta": 1.6453052520751954,
+          "sufficiency_delta": 0.8290407657623291
+        },
+        {
+          "id": "PRP4",
+          "comprehensiveness_delta": 1.1694779872894288,
+          "sufficiency_delta": 2.9160219192504884
+        },
+        {
+          "id": "MAST1",
+          "comprehensiveness_delta": 0.5951658248901368,
+          "sufficiency_delta": 3.3278442382812496
+        },
+        {
+          "id": "SNARK",
+          "comprehensiveness_delta": 3.282036781311035,
+          "sufficiency_delta": 0.5679199218750002
+        },
+        {
+          "id": "ABL1(Q252H)",
+          "comprehensiveness_delta": 4.092098638415337,
+          "sufficiency_delta": 0.27697787284851083
+        },
+        {
+          "id": "PCTK3",
+          "comprehensiveness_delta": 2.231987190246582,
+          "sufficiency_delta": -2.004756987094879
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": 1.461949920654297,
+          "sufficiency_delta": -0.13996498584747297
+        },
+        {
+          "id": "HIPK1",
+          "comprehensiveness_delta": 1.0259677410125732,
+          "sufficiency_delta": 0.4044485092163086
+        },
+        {
+          "id": "SYK",
+          "comprehensiveness_delta": 0.06929893493652345,
+          "sufficiency_delta": -1.092518615722656
+        },
+        {
+          "id": "PCTK1",
+          "comprehensiveness_delta": 6.493333625793457,
+          "sufficiency_delta": -0.23989925384521482
+        },
+        {
+          "id": "WEE2",
+          "comprehensiveness_delta": 4.974531555175782,
+          "sufficiency_delta": -4.5626016616821286
+        },
+        {
+          "id": "NLK",
+          "comprehensiveness_delta": 0.6369272351264954,
+          "sufficiency_delta": 1.1267810463905334
+        },
+        {
+          "id": "EPHA5",
+          "comprehensiveness_delta": 0.19943675994873047,
+          "sufficiency_delta": 6.044864654541016
+        },
+        {
+          "id": "CSNK2A1",
+          "comprehensiveness_delta": 1.8466350555419921,
+          "sufficiency_delta": -2.7934381008148192
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 0.21085657477378844,
+          "sufficiency_delta": 0.07503831386566162
+        },
+        {
+          "id": "RSK4(KinDom.1-N-terminal)",
+          "comprehensiveness_delta": 3.909004020690918,
+          "sufficiency_delta": -4.240975761413575
+        },
+        {
+          "id": "ROS1",
+          "comprehensiveness_delta": 0.17570362091064454,
+          "sufficiency_delta": -1.9959060668945314
+        },
+        {
+          "id": "GRK4",
+          "comprehensiveness_delta": -0.26546401977539064,
+          "sufficiency_delta": 4.642210006713867
+        },
+        {
+          "id": "EGFR(L858R)",
+          "comprehensiveness_delta": 1.7781133651733398,
+          "sufficiency_delta": 0.21501407623291025
+        },
+        {
+          "id": "CSNK1G1",
+          "comprehensiveness_delta": 3.745323371887207,
+          "sufficiency_delta": -8.449170303344726
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 2.503089261054993,
+          "sufficiency_delta": -7.604175567626953
+        },
+        {
+          "id": "RPS6KA5(KinDom.2-C-terminal)",
+          "comprehensiveness_delta": 0.008402633666992176,
+          "sufficiency_delta": -1.762894630432129
+        },
+        {
+          "id": "MYO3B",
+          "comprehensiveness_delta": 1.2706405639648437,
+          "sufficiency_delta": -2.0724353790283203
+        },
+        {
+          "id": "PDPK1",
+          "comprehensiveness_delta": 3.5174282073974608,
+          "sufficiency_delta": -0.3223562240600586
+        },
+        {
+          "id": "TEC",
+          "comprehensiveness_delta": 0.558837890625,
+          "sufficiency_delta": 1.7594430923461915
+        },
+        {
+          "id": "STK35",
+          "comprehensiveness_delta": 3.2684231102466583,
+          "sufficiency_delta": 0.3375961303710939
+        },
+        {
+          "id": "CDK9",
+          "comprehensiveness_delta": 0.21677360534667967,
+          "sufficiency_delta": -1.6903606414794918
+        },
+        {
+          "id": "MST4",
+          "comprehensiveness_delta": 0.28099803924560546,
+          "sufficiency_delta": -1.6531770706176765
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": 1.2894729614257812,
+          "sufficiency_delta": -0.2023071289062499
+        },
+        {
+          "id": "CDKL2",
+          "comprehensiveness_delta": 2.0023181438446045,
+          "sufficiency_delta": -2.0176320672035217
+        },
+        {
+          "id": "RSK3(KinDom.2-C-terminal)",
+          "comprehensiveness_delta": 0.12199108600616455,
+          "sufficiency_delta": 2.590801811218262
+        },
+        {
+          "id": "MYO3B",
+          "comprehensiveness_delta": 1.2204450607299804,
+          "sufficiency_delta": 0.6112817764282226
+        },
+        {
+          "id": "ABL1(M351T)",
+          "comprehensiveness_delta": 3.702013397216797,
+          "sufficiency_delta": 3.038421249389648
+        },
+        {
+          "id": "VEGFR2",
+          "comprehensiveness_delta": 2.0943124294281006,
+          "sufficiency_delta": -5.23235855102539
+        },
+        {
+          "id": "KIT(D816V)",
+          "comprehensiveness_delta": 2.047756385803223,
+          "sufficiency_delta": -0.8500288009643553
+        },
+        {
+          "id": "KIT(L576P)",
+          "comprehensiveness_delta": 2.5842851638793944,
+          "sufficiency_delta": -1.3872344970703123
+        },
+        {
+          "id": "MAP4K5",
+          "comprehensiveness_delta": 2.189351272583008,
+          "sufficiency_delta": -2.4970962524414064
+        },
+        {
+          "id": "HPK1",
+          "comprehensiveness_delta": 1.2756152391433715,
+          "sufficiency_delta": 1.409070062637329
+        },
+        {
+          "id": "EPHA2",
+          "comprehensiveness_delta": 0.9648115158081054,
+          "sufficiency_delta": 2.7337153434753416
+        },
+        {
+          "id": "ULK1",
+          "comprehensiveness_delta": 3.533621644973755,
+          "sufficiency_delta": -4.455145645141601
+        },
+        {
+          "id": "PFTAIRE2",
+          "comprehensiveness_delta": -0.4010306835174561,
+          "sufficiency_delta": -2.6535573959350587
+        },
+        {
+          "id": "PAK4",
+          "comprehensiveness_delta": 2.506268310546875,
+          "sufficiency_delta": -0.7751846313476562
+        },
+        {
+          "id": "ICK",
+          "comprehensiveness_delta": 2.058930253982544,
+          "sufficiency_delta": -2.6027155876159664
+        },
+        {
+          "id": "ABL1(T315I)p",
+          "comprehensiveness_delta": 2.4418344497680664,
+          "sufficiency_delta": 2.862788140773773
+        },
+        {
+          "id": "PIK3CA",
+          "comprehensiveness_delta": 0.3441610336303711,
+          "sufficiency_delta": -4.881611251831055
+        },
+        {
+          "id": "RPS6KA4(KinDom.1-N-terminal)",
+          "comprehensiveness_delta": 0.4508195877075195,
+          "sufficiency_delta": -0.7001780867576599
+        },
+        {
+          "id": "TESK1",
+          "comprehensiveness_delta": 0.8798687696456909,
+          "sufficiency_delta": 1.6176572322845457
+        },
+        {
+          "id": "PIK4CB",
+          "comprehensiveness_delta": 7.181693410873413,
+          "sufficiency_delta": -2.5874682784080507
+        },
+        {
+          "id": "ABL1(H396P)p",
+          "comprehensiveness_delta": 0.6369428634643555,
+          "sufficiency_delta": 0.7284563064575196
+        },
+        {
+          "id": "HIPK3",
+          "comprehensiveness_delta": 4.446042060852051,
+          "sufficiency_delta": -8.969303321838378
+        },
+        {
+          "id": "MARK4",
+          "comprehensiveness_delta": -1.2488401412963868,
+          "sufficiency_delta": -1.3380966186523438
+        },
+        {
+          "id": "CSNK1G2",
+          "comprehensiveness_delta": 0.935572624206543,
+          "sufficiency_delta": -3.803337287902832
+        },
+        {
+          "id": "p38-alpha",
+          "comprehensiveness_delta": 1.0111701965332032,
+          "sufficiency_delta": -1.219598579406738
+        },
+        {
+          "id": "KIT(V559D)",
+          "comprehensiveness_delta": 2.2908321380615235,
+          "sufficiency_delta": -0.3560134887695314
+        },
+        {
+          "id": "MEK2",
+          "comprehensiveness_delta": 0.19103456735610963,
+          "sufficiency_delta": 6.693994843959809
+        },
+        {
+          "id": "MST1R",
+          "comprehensiveness_delta": 0.25031185150146484,
+          "sufficiency_delta": 3.2326114654541014
+        },
+        {
+          "id": "TYRO3",
+          "comprehensiveness_delta": 0.0005915164947509766,
+          "sufficiency_delta": 3.325306224822998
+        },
+        {
+          "id": "ICK",
+          "comprehensiveness_delta": 0.9679094314575196,
+          "sufficiency_delta": -1.3257761001586914
+        },
+        {
+          "id": "NEK7",
+          "comprehensiveness_delta": 4.860302352905274,
+          "sufficiency_delta": -0.4637716293334959
+        },
+        {
+          "id": "PKMYT1",
+          "comprehensiveness_delta": 0.2456184387207031,
+          "sufficiency_delta": -1.4517803192138672
+        },
+        {
+          "id": "PIK3CA(E545K)",
+          "comprehensiveness_delta": 0.6434415817260742,
+          "sufficiency_delta": -2.3953741073608397
+        },
+        {
+          "id": "LZK",
+          "comprehensiveness_delta": 0.44915194511413575,
+          "sufficiency_delta": 4.269704437255859
+        },
+        {
+          "id": "MYO3B",
+          "comprehensiveness_delta": 1.6840667724609375,
+          "sufficiency_delta": -0.5100404262542724
+        },
+        {
+          "id": "VEGFR2",
+          "comprehensiveness_delta": 1.122031331062317,
+          "sufficiency_delta": 4.772624778747558
+        },
+        {
+          "id": "MET(Y1235D)",
+          "comprehensiveness_delta": 0.021113204956054687,
+          "sufficiency_delta": 3.3130349159240726
+        },
+        {
+          "id": "GSK3B",
+          "comprehensiveness_delta": 1.1553012609481812,
+          "sufficiency_delta": -1.9921040326356887
+        },
+        {
+          "id": "HCK",
+          "comprehensiveness_delta": 0.050454717874526975,
+          "sufficiency_delta": 2.4424038529396057
+        },
+        {
+          "id": "PRKCI",
+          "comprehensiveness_delta": 3.659231948852539,
+          "sufficiency_delta": -5.612730598449707
+        },
+        {
+          "id": "EPHB6",
+          "comprehensiveness_delta": 7.322533988952637,
+          "sufficiency_delta": -1.076666450500488
+        },
+        {
+          "id": "AKT2",
+          "comprehensiveness_delta": 6.883559799194336,
+          "sufficiency_delta": 1.9233261823654182
+        },
+        {
+          "id": "PRKD2",
+          "comprehensiveness_delta": 5.482416391372681,
+          "sufficiency_delta": -1.5639822006225585
+        },
+        {
+          "id": "SgK110",
+          "comprehensiveness_delta": 3.0396596908569338,
+          "sufficiency_delta": -4.565306091308594
+        },
+        {
+          "id": "CHEK2",
+          "comprehensiveness_delta": 0.6958730697631836,
+          "sufficiency_delta": 3.7839040756225586
+        },
+        {
+          "id": "ACVRL1",
+          "comprehensiveness_delta": 9.732184600830077,
+          "sufficiency_delta": -7.398782920837402
+        },
+        {
+          "id": "GCN2(KinDom2S808G)",
+          "comprehensiveness_delta": 1.5487937927246094,
+          "sufficiency_delta": -1.8979244232177734
+        },
+        {
+          "id": "YES",
+          "comprehensiveness_delta": -0.4288486480712891,
+          "sufficiency_delta": -0.7750425338745117
+        },
+        {
+          "id": "GRK4",
+          "comprehensiveness_delta": -1.2628477096557618,
+          "sufficiency_delta": 2.457400321960449
+        },
+        {
+          "id": "MAPKAPK5",
+          "comprehensiveness_delta": 1.653927993774414,
+          "sufficiency_delta": 0.20825295448303205
+        },
+        {
+          "id": "NEK7",
+          "comprehensiveness_delta": 1.8429704666137696,
+          "sufficiency_delta": 0.14071731567382795
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": 0.7510255813598633,
+          "sufficiency_delta": -0.8782735824584957
+        },
+        {
+          "id": "IRAK4",
+          "comprehensiveness_delta": 0.18442924022674562,
+          "sufficiency_delta": 3.524502372741699
+        },
+        {
+          "id": "PDPK1",
+          "comprehensiveness_delta": 2.624148631095886,
+          "sufficiency_delta": -0.9081943511962889
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 2.786528968811035,
+          "sufficiency_delta": -1.759004497528076
+        },
+        {
+          "id": "SNRK",
+          "comprehensiveness_delta": 1.2970909118652343,
+          "sufficiency_delta": 2.45369873046875
+        },
+        {
+          "id": "EGFR",
+          "comprehensiveness_delta": 2.985917806625366,
+          "sufficiency_delta": 4.230904626846313
+        },
+        {
+          "id": "TIE2",
+          "comprehensiveness_delta": 5.025410461425781,
+          "sufficiency_delta": -1.4198564529418944
+        },
+        {
+          "id": "ROCK1",
+          "comprehensiveness_delta": 0.6471053123474121,
+          "sufficiency_delta": 3.3822925269603727
+        },
+        {
+          "id": "LCK",
+          "comprehensiveness_delta": 1.2947725296020507,
+          "sufficiency_delta": -1.2701759338378906
+        },
+        {
+          "id": "EPHB4",
+          "comprehensiveness_delta": 0.3592794418334961,
+          "sufficiency_delta": -1.2130699157714844
+        },
+        {
+          "id": "PIM2",
+          "comprehensiveness_delta": 0.4276418685913086,
+          "sufficiency_delta": 4.1665449142456055
+        },
+        {
+          "id": "PFCDPK1(Pfalciparum)",
+          "comprehensiveness_delta": 3.01922721862793,
+          "sufficiency_delta": -1.7357109069824226
+        },
+        {
+          "id": "SNRK",
+          "comprehensiveness_delta": 2.7313966751098633,
+          "sufficiency_delta": 3.4612674713134766
+        },
+        {
+          "id": "KIT(V559D-V654A)",
+          "comprehensiveness_delta": -0.13263435363769532,
+          "sufficiency_delta": -0.6786184310913086
+        },
+        {
+          "id": "LKB1",
+          "comprehensiveness_delta": 0.1147636413574219,
+          "sufficiency_delta": 2.9002187728881834
+        },
+        {
+          "id": "PLK3",
+          "comprehensiveness_delta": 0.07838020324707029,
+          "sufficiency_delta": 3.088598299026489
+        },
+        {
+          "id": "PFPK5(Pfalciparum)",
+          "comprehensiveness_delta": 5.09556941986084,
+          "sufficiency_delta": -5.397881245613098
+        },
+        {
+          "id": "RIPK1",
+          "comprehensiveness_delta": 0.35853328704833987,
+          "sufficiency_delta": -0.5714586257934569
+        },
+        {
+          "id": "CDK9",
+          "comprehensiveness_delta": 6.926971483230591,
+          "sufficiency_delta": -3.112898826599121
+        },
+        {
+          "id": "FLT4",
+          "comprehensiveness_delta": 0.041586685180664065,
+          "sufficiency_delta": 4.384834289550781
+        },
+        {
+          "id": "MST1",
+          "comprehensiveness_delta": -0.026355475187301636,
+          "sufficiency_delta": -1.5450875043869017
+        },
+        {
+          "id": "RPS6KA5(KinDom.2-C-terminal)",
+          "comprehensiveness_delta": 0.8481860399246216,
+          "sufficiency_delta": 1.605667734146118
+        },
+        {
+          "id": "YANK1",
+          "comprehensiveness_delta": 2.5465744018554686,
+          "sufficiency_delta": -2.530844497680664
+        },
+        {
+          "id": "p38-delta",
+          "comprehensiveness_delta": 1.076802635192871,
+          "sufficiency_delta": 0.378261613845825
+        },
+        {
+          "id": "ABL1(Y253F)",
+          "comprehensiveness_delta": 4.554426264762879,
+          "sufficiency_delta": 1.7469066381454468
+        },
+        {
+          "id": "PKNB(Mtuberculosis)",
+          "comprehensiveness_delta": 4.5959772109985355,
+          "sufficiency_delta": -4.985872840881347
+        },
+        {
+          "id": "PDPK1",
+          "comprehensiveness_delta": 2.2611577987670897,
+          "sufficiency_delta": 4.9040485382080075
+        },
+        {
+          "id": "AXL",
+          "comprehensiveness_delta": 1.7804815292358398,
+          "sufficiency_delta": -1.4056430816650392
+        },
+        {
+          "id": "EGFR",
+          "comprehensiveness_delta": 0.9721187114715576,
+          "sufficiency_delta": 0.6273091077804565
+        },
+        {
+          "id": "FLT1",
+          "comprehensiveness_delta": 0.6469202041625977,
+          "sufficiency_delta": 0.7811382293701172
+        },
+        {
+          "id": "PRKCD",
+          "comprehensiveness_delta": 3.2931825637817385,
+          "sufficiency_delta": 3.2892040252685546
+        },
+        {
+          "id": "RPS6KA4(KinDom.2-C-terminal)",
+          "comprehensiveness_delta": -0.1813976287841797,
+          "sufficiency_delta": -2.0443681240081784
+        },
+        {
+          "id": "GSK3A",
+          "comprehensiveness_delta": 8.28857879638672,
+          "sufficiency_delta": 4.107663154602051
+        },
+        {
+          "id": "TGFBR2",
+          "comprehensiveness_delta": 2.187931442260742,
+          "sufficiency_delta": 1.0259273529052735
+        },
+        {
+          "id": "MEK2",
+          "comprehensiveness_delta": 0.5469429969787598,
+          "sufficiency_delta": -1.8158150196075438
+        },
+        {
+          "id": "PIK3CA(Q546K)",
+          "comprehensiveness_delta": 3.9208765029907227,
+          "sufficiency_delta": 1.6785295486450196
+        },
+        {
+          "id": "EPHA5",
+          "comprehensiveness_delta": -0.5205400943756103,
+          "sufficiency_delta": 0.6783771514892578
+        },
+        {
+          "id": "CSF1R",
+          "comprehensiveness_delta": 1.857676726579666,
+          "sufficiency_delta": 5.952329158782959
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 2.4881906509399414,
+          "sufficiency_delta": -3.9488508224487306
+        },
+        {
+          "id": "RPS6KA5(KinDom.1-N-terminal)",
+          "comprehensiveness_delta": 2.402840995788574,
+          "sufficiency_delta": -2.0739346623420714
+        },
+        {
+          "id": "LYN",
+          "comprehensiveness_delta": -0.5083579063415528,
+          "sufficiency_delta": 3.741367053985596
+        },
+        {
+          "id": "ABL2",
+          "comprehensiveness_delta": 0.280767822265625,
+          "sufficiency_delta": -2.7455047607421874
+        },
+        {
+          "id": "YANK3",
+          "comprehensiveness_delta": 0.5228794813156128,
+          "sufficiency_delta": 0.8384640216827393
+        },
+        {
+          "id": "ZAK",
+          "comprehensiveness_delta": 7.190985488891601,
+          "sufficiency_delta": -1.3897155761718754
+        },
+        {
+          "id": "KIT(V559D-T670I)",
+          "comprehensiveness_delta": -0.11658978462219238,
+          "sufficiency_delta": 0.6290425777435305
+        },
+        {
+          "id": "PKAC-beta",
+          "comprehensiveness_delta": 1.9066059112548828,
+          "sufficiency_delta": 2.4572978973388673
+        },
+        {
+          "id": "GRK4",
+          "comprehensiveness_delta": 4.404268980026245,
+          "sufficiency_delta": -2.086440467834473
+        },
+        {
+          "id": "DAPK1",
+          "comprehensiveness_delta": 2.5426953792572022,
+          "sufficiency_delta": 0.18686466217041087
+        },
+        {
+          "id": "SYK",
+          "comprehensiveness_delta": 1.5079267501831055,
+          "sufficiency_delta": 4.638662528991699
+        },
+        {
+          "id": "PRKCQ",
+          "comprehensiveness_delta": -0.4169200897216797,
+          "sufficiency_delta": -0.6551228046417235
+        },
+        {
+          "id": "GSK3A",
+          "comprehensiveness_delta": 4.359509706497192,
+          "sufficiency_delta": -1.3658380508422852
+        },
+        {
+          "id": "GRK4",
+          "comprehensiveness_delta": 5.505409049987793,
+          "sufficiency_delta": -2.193421173095703
+        },
+        {
+          "id": "PIK3CA(I800L)",
+          "comprehensiveness_delta": 3.725056457519531,
+          "sufficiency_delta": 0.5440353393554687
+        },
+        {
+          "id": "JAK1(JH1domain-catalytic)",
+          "comprehensiveness_delta": 1.1755091905593873,
+          "sufficiency_delta": 3.8601770877838133
+        },
+        {
+          "id": "PKN1",
+          "comprehensiveness_delta": 0.7490514755249024,
+          "sufficiency_delta": -5.383515787124634
+        },
+        {
+          "id": "LRRK2(G2019S)",
+          "comprehensiveness_delta": 2.606363582611084,
+          "sufficiency_delta": -2.8733192443847653
+        },
+        {
+          "id": "CTK",
+          "comprehensiveness_delta": 0.8327692031860352,
+          "sufficiency_delta": -1.358811378479004
+        },
+        {
+          "id": "SRPK3",
+          "comprehensiveness_delta": 0.5436824798583985,
+          "sufficiency_delta": 3.111514663696289
+        },
+        {
+          "id": "ICK",
+          "comprehensiveness_delta": 3.1904203414916994,
+          "sufficiency_delta": -0.5185829162597657
+        },
+        {
+          "id": "CDK2",
+          "comprehensiveness_delta": 2.3540531635284423,
+          "sufficiency_delta": -2.0546127319335934
+        },
+        {
+          "id": "PIP5K2B",
+          "comprehensiveness_delta": 0.3625741481781006,
+          "sufficiency_delta": 2.740203857421875
+        },
+        {
+          "id": "IRAK1",
+          "comprehensiveness_delta": 0.2966692090034485,
+          "sufficiency_delta": 3.168931722640991
+        },
+        {
+          "id": "CDKL2",
+          "comprehensiveness_delta": 0.30081996917724607,
+          "sufficiency_delta": 3.718166160583496
+        },
+        {
+          "id": "CLK3",
+          "comprehensiveness_delta": 6.821330261230469,
+          "sufficiency_delta": -1.678826880455017
+        },
+        {
+          "id": "PRKD2",
+          "comprehensiveness_delta": 7.3719991683959964,
+          "sufficiency_delta": -0.8929334640502926
+        },
+        {
+          "id": "PFTK1",
+          "comprehensiveness_delta": 1.6181564331054688,
+          "sufficiency_delta": -4.534450721740722
+        },
+        {
+          "id": "ABL1(F317L)",
+          "comprehensiveness_delta": 2.8035072326660155,
+          "sufficiency_delta": 5.535469055175781
+        },
+        {
+          "id": "ABL1(Y253F)",
+          "comprehensiveness_delta": 1.4019153594970704,
+          "sufficiency_delta": 3.6707731246948243
+        },
+        {
+          "id": "RIOK3",
+          "comprehensiveness_delta": 1.2749042510986328,
+          "sufficiency_delta": -1.8509788513183594
+        },
+        {
+          "id": "NEK6",
+          "comprehensiveness_delta": 0.9026312351226806,
+          "sufficiency_delta": 3.872522306442261
+        },
+        {
+          "id": "FGFR2",
+          "comprehensiveness_delta": 0.20768500566482545,
+          "sufficiency_delta": 3.654640343785286
+        },
+        {
+          "id": "EGFR",
+          "comprehensiveness_delta": 1.5907424449920655,
+          "sufficiency_delta": 0.15385723114013672
+        },
+        {
+          "id": "ANKK1",
+          "comprehensiveness_delta": 2.1067621231079103,
+          "sufficiency_delta": -0.5361005783081056
+        },
+        {
+          "id": "NEK9",
+          "comprehensiveness_delta": 1.5584970951080321,
+          "sufficiency_delta": -0.48295196294784537
+        },
+        {
+          "id": "SYK",
+          "comprehensiveness_delta": -0.013821411132812544,
+          "sufficiency_delta": 0.6973312377929688
+        },
+        {
+          "id": "TRKA",
+          "comprehensiveness_delta": 0.06020534038543701,
+          "sufficiency_delta": 3.0533055782318117
+        },
+        {
+          "id": "MST4",
+          "comprehensiveness_delta": 0.32940622568130495,
+          "sufficiency_delta": 1.3710816740989684
+        },
+        {
+          "id": "IRAK3",
+          "comprehensiveness_delta": 0.8765510559082031,
+          "sufficiency_delta": -0.4815616130828857
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 0.3403331756591797,
+          "sufficiency_delta": 0.7944467067718506
+        },
+        {
+          "id": "RSK1(KinDom.1-N-terminal)",
+          "comprehensiveness_delta": 0.060854721069335926,
+          "sufficiency_delta": -6.711743164062501
+        },
+        {
+          "id": "MARK2",
+          "comprehensiveness_delta": 1.4731048583984374,
+          "sufficiency_delta": -1.8873819351196288
+        },
+        {
+          "id": "PYK2",
+          "comprehensiveness_delta": 1.118397742509842,
+          "sufficiency_delta": 2.8529476284980775
+        },
+        {
+          "id": "FGFR3(G697C)",
+          "comprehensiveness_delta": 0.16508960723876953,
+          "sufficiency_delta": 2.8651407241821287
+        },
+        {
+          "id": "ACVR1",
+          "comprehensiveness_delta": 1.5331336975097656,
+          "sufficiency_delta": -0.9093814849853517
+        },
+        {
+          "id": "TAOK2",
+          "comprehensiveness_delta": 1.8973983764648437,
+          "sufficiency_delta": -4.124087476730347
+        },
+        {
+          "id": "NEK11",
+          "comprehensiveness_delta": 0.7919658660888672,
+          "sufficiency_delta": 5.3015396118164055
+        },
+        {
+          "id": "CDK11",
+          "comprehensiveness_delta": 2.222035121917725,
+          "sufficiency_delta": -2.9477270603179933
+        },
+        {
+          "id": "MST1",
+          "comprehensiveness_delta": 0.5900725841522216,
+          "sufficiency_delta": 3.5368173599243162
+        },
+        {
+          "id": "MST3",
+          "comprehensiveness_delta": -0.45530681610107426,
+          "sufficiency_delta": -0.9986934661865234
+        },
+        {
+          "id": "ADCK3",
+          "comprehensiveness_delta": 4.174014282226563,
+          "sufficiency_delta": -1.854680061340332
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": 0.4750865936279296,
+          "sufficiency_delta": -0.0678346633911131
+        },
+        {
+          "id": "DYRK1B",
+          "comprehensiveness_delta": 3.9863107681274412,
+          "sufficiency_delta": -0.8136240005493165
+        }
+      ],
+      "explanation_is_load_bearing": true
+    },
+    "cold_drug": {
+      "comprehensiveness": 1.0544959950447081,
+      "comprehensiveness_random": 0.08889087438583373,
+      "comprehensiveness_delta": 0.9656051206588745,
+      "sufficiency": 2.0443974781036376,
+      "sufficiency_random": 1.9399485634565354,
+      "sufficiency_delta": 0.10444891464710235,
+      "aopc": 1.0792703856229782,
+      "n_pairs": 200,
+      "k": 10,
+      "per_pair": [
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": -0.06031374931335448,
+          "sufficiency_delta": 0.4177576780319214
+        },
+        {
+          "id": "ABL1(E255K)",
+          "comprehensiveness_delta": 0.11064710617065429,
+          "sufficiency_delta": -0.4030097723007202
+        },
+        {
+          "id": "ABL1(F317I)",
+          "comprehensiveness_delta": 0.14121513366699218,
+          "sufficiency_delta": -0.18846266269683837
+        },
+        {
+          "id": "ABL1(F317I)p",
+          "comprehensiveness_delta": 0.13645169734954835,
+          "sufficiency_delta": -0.21982669830322266
+        },
+        {
+          "id": "ABL1(F317L)",
+          "comprehensiveness_delta": 0.14088289737701415,
+          "sufficiency_delta": -0.11720836162567139
+        },
+        {
+          "id": "ABL1(F317L)p",
+          "comprehensiveness_delta": 0.14213380813598633,
+          "sufficiency_delta": -0.20714104175567627
+        },
+        {
+          "id": "ABL1(H396P)",
+          "comprehensiveness_delta": 0.13674485683441162,
+          "sufficiency_delta": -0.23409898281097413
+        },
+        {
+          "id": "ABL1(H396P)p",
+          "comprehensiveness_delta": 0.12898094654083253,
+          "sufficiency_delta": -0.11197793483734131
+        },
+        {
+          "id": "ABL1(M351T)",
+          "comprehensiveness_delta": 0.10314605236053467,
+          "sufficiency_delta": -0.13050100803375242
+        },
+        {
+          "id": "ABL1(Q252H)",
+          "comprehensiveness_delta": 0.14460282325744628,
+          "sufficiency_delta": -0.21413333415985109
+        },
+        {
+          "id": "ABL1(Q252H)p",
+          "comprehensiveness_delta": 0.14488911628723145,
+          "sufficiency_delta": -0.12042946815490724
+        },
+        {
+          "id": "ABL1(T315I)",
+          "comprehensiveness_delta": 0.09873795509338379,
+          "sufficiency_delta": -0.24001216888427734
+        },
+        {
+          "id": "ABL1(T315I)p",
+          "comprehensiveness_delta": 0.1448460817337036,
+          "sufficiency_delta": -0.19029834270477297
+        },
+        {
+          "id": "ABL1(Y253F)",
+          "comprehensiveness_delta": 0.1259253740310669,
+          "sufficiency_delta": -0.19538857936859133
+        },
+        {
+          "id": "ABL1",
+          "comprehensiveness_delta": 0.14266257286071776,
+          "sufficiency_delta": -0.1385974407196045
+        },
+        {
+          "id": "ABL1p",
+          "comprehensiveness_delta": 0.1285947561264038,
+          "sufficiency_delta": -0.23942556381225588
+        },
+        {
+          "id": "ABL2",
+          "comprehensiveness_delta": 0.0832036018371582,
+          "sufficiency_delta": -0.07952950000762937
+        },
+        {
+          "id": "ACVR1",
+          "comprehensiveness_delta": 2.0720000743865965,
+          "sufficiency_delta": 0.5220821857452393
+        },
+        {
+          "id": "ACVR1B",
+          "comprehensiveness_delta": 0.9742996692657471,
+          "sufficiency_delta": 0.23963980674743635
+        },
+        {
+          "id": "ACVR2A",
+          "comprehensiveness_delta": 3.887648868560791,
+          "sufficiency_delta": -2.7325714111328123
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": 3.1776025533676147,
+          "sufficiency_delta": 0.17572414875030518
+        },
+        {
+          "id": "ACVRL1",
+          "comprehensiveness_delta": 2.4216445446014405,
+          "sufficiency_delta": 0.38777053356170654
+        },
+        {
+          "id": "ADCK3",
+          "comprehensiveness_delta": 3.7169656276702883,
+          "sufficiency_delta": -0.462296104431152
+        },
+        {
+          "id": "ADCK4",
+          "comprehensiveness_delta": 0.7885941982269287,
+          "sufficiency_delta": -1.0601658821105957
+        },
+        {
+          "id": "AKT1",
+          "comprehensiveness_delta": 3.330205273628235,
+          "sufficiency_delta": -0.05649478435516375
+        },
+        {
+          "id": "AKT2",
+          "comprehensiveness_delta": 2.9053895473480225,
+          "sufficiency_delta": 0.4559626817703246
+        },
+        {
+          "id": "AKT3",
+          "comprehensiveness_delta": 3.293044686317444,
+          "sufficiency_delta": 0.24967830181121808
+        },
+        {
+          "id": "ALK",
+          "comprehensiveness_delta": 0.8957067966461182,
+          "sufficiency_delta": 0.1107501268386839
+        },
+        {
+          "id": "AMPK-alpha1",
+          "comprehensiveness_delta": 0.656556510925293,
+          "sufficiency_delta": 0.3548126220703125
+        },
+        {
+          "id": "AMPK-alpha2",
+          "comprehensiveness_delta": 1.5459530353546143,
+          "sufficiency_delta": 0.752472996711731
+        },
+        {
+          "id": "ANKK1",
+          "comprehensiveness_delta": 0.9515791893005371,
+          "sufficiency_delta": 0.40299825668334965
+        },
+        {
+          "id": "ARK5",
+          "comprehensiveness_delta": 0.9445964813232421,
+          "sufficiency_delta": 0.005124187469482511
+        },
+        {
+          "id": "ASK1",
+          "comprehensiveness_delta": 0.8608904838562011,
+          "sufficiency_delta": 0.5053136110305787
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 0.2705317497253418,
+          "sufficiency_delta": 0.5453771114349366
+        },
+        {
+          "id": "AURKA",
+          "comprehensiveness_delta": 1.051921796798706,
+          "sufficiency_delta": 0.6850473165512085
+        },
+        {
+          "id": "AURKB",
+          "comprehensiveness_delta": 0.43074874877929686,
+          "sufficiency_delta": -0.22819011211395263
+        },
+        {
+          "id": "AURKC",
+          "comprehensiveness_delta": 0.08419854640960693,
+          "sufficiency_delta": 0.12723448276519778
+        },
+        {
+          "id": "AXL",
+          "comprehensiveness_delta": 0.46903395652770996,
+          "sufficiency_delta": 0.20362133979797364
+        },
+        {
+          "id": "BIKE",
+          "comprehensiveness_delta": 0.3050835609436035,
+          "sufficiency_delta": -0.18775970935821534
+        },
+        {
+          "id": "BLK",
+          "comprehensiveness_delta": 0.03143212795257568,
+          "sufficiency_delta": 0.3295760154724121
+        },
+        {
+          "id": "BMPR1A",
+          "comprehensiveness_delta": 1.9278460264205932,
+          "sufficiency_delta": 0.3821910858154296
+        },
+        {
+          "id": "BMPR1B",
+          "comprehensiveness_delta": -0.03187203407287598,
+          "sufficiency_delta": 0.2958873987197874
+        },
+        {
+          "id": "BMPR2",
+          "comprehensiveness_delta": 1.6923240661621093,
+          "sufficiency_delta": 0.2925525188446043
+        },
+        {
+          "id": "BMX",
+          "comprehensiveness_delta": 0.9219492912292481,
+          "sufficiency_delta": 0.07505166530609131
+        },
+        {
+          "id": "BRAF",
+          "comprehensiveness_delta": 0.4488044738769531,
+          "sufficiency_delta": 0.3355953931808471
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": 0.5456400394439698,
+          "sufficiency_delta": 0.33852827548980713
+        },
+        {
+          "id": "BRK",
+          "comprehensiveness_delta": 0.622439956665039,
+          "sufficiency_delta": 0.3166344165802002
+        },
+        {
+          "id": "BRSK1",
+          "comprehensiveness_delta": 1.4375654697418212,
+          "sufficiency_delta": 0.2596848964691163
+        },
+        {
+          "id": "BRSK2",
+          "comprehensiveness_delta": 0.9342489242553711,
+          "sufficiency_delta": 0.24313240051269513
+        },
+        {
+          "id": "CAMK1",
+          "comprehensiveness_delta": 1.283344841003418,
+          "sufficiency_delta": 0.35961499214172354
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 1.2808534145355224,
+          "sufficiency_delta": 0.09336867332458487
+        },
+        {
+          "id": "CAMK1G",
+          "comprehensiveness_delta": 1.2089386940002442,
+          "sufficiency_delta": 0.5876356124877931
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": 0.9884533405303955,
+          "sufficiency_delta": 0.20175302028656006
+        },
+        {
+          "id": "CAMK2B",
+          "comprehensiveness_delta": 2.302739906311035,
+          "sufficiency_delta": 0.28951492309570304
+        },
+        {
+          "id": "CAMK2D",
+          "comprehensiveness_delta": 1.8112422466278075,
+          "sufficiency_delta": -1.8322241783142088
+        },
+        {
+          "id": "CAMK2G",
+          "comprehensiveness_delta": 0.4500579357147217,
+          "sufficiency_delta": 0.45425140857696533
+        },
+        {
+          "id": "CAMK4",
+          "comprehensiveness_delta": 1.7619600772857666,
+          "sufficiency_delta": 0.4405112028121949
+        },
+        {
+          "id": "CAMKK1",
+          "comprehensiveness_delta": 0.6136036872863769,
+          "sufficiency_delta": -2.25051064491272
+        },
+        {
+          "id": "CAMKK2",
+          "comprehensiveness_delta": 0.6747886657714843,
+          "sufficiency_delta": 0.34189598560333234
+        },
+        {
+          "id": "CASK",
+          "comprehensiveness_delta": 1.1409210205078124,
+          "sufficiency_delta": 0.2099847316741945
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": 0.1714771270751953,
+          "sufficiency_delta": 0.5168906688690185
+        },
+        {
+          "id": "CDC2L2",
+          "comprehensiveness_delta": -0.044331741333007824,
+          "sufficiency_delta": 0.30696957111358625
+        },
+        {
+          "id": "CDC2L5",
+          "comprehensiveness_delta": 2.6417707443237304,
+          "sufficiency_delta": 0.3538414955139162
+        },
+        {
+          "id": "CDK11",
+          "comprehensiveness_delta": -0.22057700157165527,
+          "sufficiency_delta": 0.4641533136367797
+        },
+        {
+          "id": "CDK2",
+          "comprehensiveness_delta": 1.0750232696533204,
+          "sufficiency_delta": 0.4493526458740238
+        },
+        {
+          "id": "CDK3",
+          "comprehensiveness_delta": 1.0938570022583007,
+          "sufficiency_delta": 0.7198498964309694
+        },
+        {
+          "id": "CDK4-cyclinD1",
+          "comprehensiveness_delta": 1.254274320602417,
+          "sufficiency_delta": 0.023859047889709384
+        },
+        {
+          "id": "CDK4-cyclinD3",
+          "comprehensiveness_delta": 1.398610258102417,
+          "sufficiency_delta": 0.0861579179763794
+        },
+        {
+          "id": "CDK5",
+          "comprehensiveness_delta": 2.374165725708008,
+          "sufficiency_delta": -3.434391283988953
+        },
+        {
+          "id": "CDK7",
+          "comprehensiveness_delta": 2.8395438194274902,
+          "sufficiency_delta": -0.835414242744446
+        },
+        {
+          "id": "CDK8",
+          "comprehensiveness_delta": 2.7100314140319823,
+          "sufficiency_delta": 0.4772231340408326
+        },
+        {
+          "id": "CDK9",
+          "comprehensiveness_delta": 1.1256338119506837,
+          "sufficiency_delta": 0.5341440677642821
+        },
+        {
+          "id": "CDKL1",
+          "comprehensiveness_delta": 3.2856618881225588,
+          "sufficiency_delta": 0.2843771934509278
+        },
+        {
+          "id": "CDKL2",
+          "comprehensiveness_delta": 3.0388737678527833,
+          "sufficiency_delta": -2.5391138076782225
+        },
+        {
+          "id": "CDKL3",
+          "comprehensiveness_delta": 2.3399675369262694,
+          "sufficiency_delta": -2.4440734148025514
+        },
+        {
+          "id": "CDKL5",
+          "comprehensiveness_delta": 0.6904284477233886,
+          "sufficiency_delta": 0.3054759025573732
+        },
+        {
+          "id": "CHEK1",
+          "comprehensiveness_delta": 2.8825518131256103,
+          "sufficiency_delta": -1.2293927907943725
+        },
+        {
+          "id": "CHEK2",
+          "comprehensiveness_delta": 1.017131757736206,
+          "sufficiency_delta": -0.41672871112823495
+        },
+        {
+          "id": "CIT",
+          "comprehensiveness_delta": 2.260015344619751,
+          "sufficiency_delta": -2.849866795539856
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 1.276333713531494,
+          "sufficiency_delta": -0.0690586805343627
+        },
+        {
+          "id": "CLK2",
+          "comprehensiveness_delta": 0.19513468742370604,
+          "sufficiency_delta": 0.2722015142440797
+        },
+        {
+          "id": "CLK3",
+          "comprehensiveness_delta": 0.22271080017089845,
+          "sufficiency_delta": -0.05529055595397958
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": 1.0048739910125732,
+          "sufficiency_delta": 0.2837393283843994
+        },
+        {
+          "id": "CSF1R",
+          "comprehensiveness_delta": 0.03209400177001953,
+          "sufficiency_delta": 0.6660634994506835
+        },
+        {
+          "id": "CSK",
+          "comprehensiveness_delta": 0.6557296276092529,
+          "sufficiency_delta": 0.37322590351104745
+        },
+        {
+          "id": "CSNK1A1",
+          "comprehensiveness_delta": 2.002411651611328,
+          "sufficiency_delta": 0.5407208919525148
+        },
+        {
+          "id": "CSNK1A1L",
+          "comprehensiveness_delta": -0.06938762664794922,
+          "sufficiency_delta": -0.24483323097229004
+        },
+        {
+          "id": "CSNK1D",
+          "comprehensiveness_delta": 1.6897292137145996,
+          "sufficiency_delta": 0.5562926769256595
+        },
+        {
+          "id": "CSNK1E",
+          "comprehensiveness_delta": 2.0324347972869874,
+          "sufficiency_delta": 0.3364147663116457
+        },
+        {
+          "id": "CSNK1G1",
+          "comprehensiveness_delta": 1.9354362964630127,
+          "sufficiency_delta": 0.03933091163635272
+        },
+        {
+          "id": "CSNK1G2",
+          "comprehensiveness_delta": 1.4754587650299071,
+          "sufficiency_delta": 0.13588578701019305
+        },
+        {
+          "id": "CSNK1G3",
+          "comprehensiveness_delta": 1.888122034072876,
+          "sufficiency_delta": 0.16849708557128906
+        },
+        {
+          "id": "CSNK2A1",
+          "comprehensiveness_delta": 0.1640195369720459,
+          "sufficiency_delta": -1.9884110927581786
+        },
+        {
+          "id": "CSNK2A2",
+          "comprehensiveness_delta": -0.12268433570861817,
+          "sufficiency_delta": 0.5664841651916506
+        },
+        {
+          "id": "CTK",
+          "comprehensiveness_delta": 3.0276452541351317,
+          "sufficiency_delta": 0.4112318038940428
+        },
+        {
+          "id": "DAPK1",
+          "comprehensiveness_delta": 1.3033967018127441,
+          "sufficiency_delta": 0.5352723836898803
+        },
+        {
+          "id": "DAPK2",
+          "comprehensiveness_delta": 2.0536507606506347,
+          "sufficiency_delta": -0.0045917272567748135
+        },
+        {
+          "id": "DAPK3",
+          "comprehensiveness_delta": 1.4406217575073241,
+          "sufficiency_delta": 0.4474831819534302
+        },
+        {
+          "id": "DCAMKL1",
+          "comprehensiveness_delta": 0.71187424659729,
+          "sufficiency_delta": 0.6152627944946287
+        },
+        {
+          "id": "DCAMKL2",
+          "comprehensiveness_delta": 0.06371068954467773,
+          "sufficiency_delta": 0.29528448581695566
+        },
+        {
+          "id": "DCAMKL3",
+          "comprehensiveness_delta": 0.7801813125610352,
+          "sufficiency_delta": 0.14848623275756845
+        },
+        {
+          "id": "DDR1",
+          "comprehensiveness_delta": 0.29988110065460205,
+          "sufficiency_delta": 0.37712850570678713
+        },
+        {
+          "id": "DDR2",
+          "comprehensiveness_delta": 0.18294212818145753,
+          "sufficiency_delta": 0.10481531620025636
+        },
+        {
+          "id": "DLK",
+          "comprehensiveness_delta": 1.0136687278747558,
+          "sufficiency_delta": 0.28720254898071285
+        },
+        {
+          "id": "DMPK",
+          "comprehensiveness_delta": 1.8453620433807374,
+          "sufficiency_delta": 0.0808051109313963
+        },
+        {
+          "id": "DMPK2",
+          "comprehensiveness_delta": 1.3184606552124023,
+          "sufficiency_delta": 0.5642021894454956
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": 1.0940604209899902,
+          "sufficiency_delta": 0.5002161741256714
+        },
+        {
+          "id": "DRAK2",
+          "comprehensiveness_delta": 1.2783543109893798,
+          "sufficiency_delta": 0.3389166593551636
+        },
+        {
+          "id": "DYRK1A",
+          "comprehensiveness_delta": 3.280647039413452,
+          "sufficiency_delta": 0.11222257614135778
+        },
+        {
+          "id": "DYRK1B",
+          "comprehensiveness_delta": 3.2745150566101073,
+          "sufficiency_delta": 0.3860992193222046
+        },
+        {
+          "id": "DYRK2",
+          "comprehensiveness_delta": 0.531047248840332,
+          "sufficiency_delta": 0.43081233501434335
+        },
+        {
+          "id": "EGFR",
+          "comprehensiveness_delta": 0.21395628452301024,
+          "sufficiency_delta": -0.03891806602478026
+        },
+        {
+          "id": "EGFR(E746A750del)",
+          "comprehensiveness_delta": 0.049709892272949224,
+          "sufficiency_delta": -0.03800785541534424
+        },
+        {
+          "id": "EGFR(G719C)",
+          "comprehensiveness_delta": 0.21513774394989013,
+          "sufficiency_delta": 0.013108611106872559
+        },
+        {
+          "id": "EGFR(G719S)",
+          "comprehensiveness_delta": 0.20476064682006836,
+          "sufficiency_delta": 0.016790723800659185
+        },
+        {
+          "id": "EGFR(L747E749del)",
+          "comprehensiveness_delta": 0.2300400733947754,
+          "sufficiency_delta": -0.15890207290649416
+        },
+        {
+          "id": "EGFR(L747S752del)",
+          "comprehensiveness_delta": 0.1534583806991577,
+          "sufficiency_delta": -0.09382126331329343
+        },
+        {
+          "id": "EGFR(L747T751del)",
+          "comprehensiveness_delta": 0.23048746585845947,
+          "sufficiency_delta": -0.05024912357330322
+        },
+        {
+          "id": "EGFR(L858R)",
+          "comprehensiveness_delta": 0.2226409912109375,
+          "sufficiency_delta": -0.040514922142028814
+        },
+        {
+          "id": "EGFR(L858RT790M)",
+          "comprehensiveness_delta": 0.2266160726547241,
+          "sufficiency_delta": -0.035829210281372065
+        },
+        {
+          "id": "EGFR(L861Q)",
+          "comprehensiveness_delta": 0.21863434314727784,
+          "sufficiency_delta": -0.06816203594207765
+        },
+        {
+          "id": "EGFR(S752I759del)",
+          "comprehensiveness_delta": 0.20185940265655516,
+          "sufficiency_delta": -0.03967680931091308
+        },
+        {
+          "id": "EGFR(T790M)",
+          "comprehensiveness_delta": 0.20361015796661378,
+          "sufficiency_delta": -0.220404314994812
+        },
+        {
+          "id": "EIF2AK1",
+          "comprehensiveness_delta": 1.278599452972412,
+          "sufficiency_delta": 0.01994004249572745
+        },
+        {
+          "id": "EPHA1",
+          "comprehensiveness_delta": 0.5133397102355957,
+          "sufficiency_delta": 0.4997310161590576
+        },
+        {
+          "id": "EPHA2",
+          "comprehensiveness_delta": -0.00541529655456543,
+          "sufficiency_delta": 0.433125376701355
+        },
+        {
+          "id": "EPHA3",
+          "comprehensiveness_delta": 0.4824743986129761,
+          "sufficiency_delta": 0.40985190868377686
+        },
+        {
+          "id": "EPHA4",
+          "comprehensiveness_delta": 0.6604535579681396,
+          "sufficiency_delta": 0.3920806169509887
+        },
+        {
+          "id": "EPHA5",
+          "comprehensiveness_delta": 0.5294107437133789,
+          "sufficiency_delta": 0.14436929225921635
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": 1.0255993843078612,
+          "sufficiency_delta": 0.5577475547790529
+        },
+        {
+          "id": "EPHA8",
+          "comprehensiveness_delta": 0.2580310344696045,
+          "sufficiency_delta": -0.07237534523010253
+        },
+        {
+          "id": "EPHB1",
+          "comprehensiveness_delta": 1.2222424030303956,
+          "sufficiency_delta": 0.6123564958572387
+        },
+        {
+          "id": "EPHB3",
+          "comprehensiveness_delta": 1.917029857635498,
+          "sufficiency_delta": 0.17031207084655797
+        },
+        {
+          "id": "EPHB4",
+          "comprehensiveness_delta": 1.3351613521575927,
+          "sufficiency_delta": 0.3457943677902222
+        },
+        {
+          "id": "EPHB6",
+          "comprehensiveness_delta": 0.10981872081756591,
+          "sufficiency_delta": -0.3356456995010376
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": 0.5690332889556885,
+          "sufficiency_delta": 0.2655564546585083
+        },
+        {
+          "id": "ERBB3",
+          "comprehensiveness_delta": 0.5890687465667724,
+          "sufficiency_delta": 0.14956748485565186
+        },
+        {
+          "id": "ERBB4",
+          "comprehensiveness_delta": 0.21167588233947754,
+          "sufficiency_delta": -0.2361408948898316
+        },
+        {
+          "id": "ERK1",
+          "comprehensiveness_delta": 3.8220712661743166,
+          "sufficiency_delta": 0.3484094619750975
+        },
+        {
+          "id": "ERK2",
+          "comprehensiveness_delta": 3.752219533920288,
+          "sufficiency_delta": 0.25363185405731237
+        },
+        {
+          "id": "ERK3",
+          "comprehensiveness_delta": 2.0607234477996825,
+          "sufficiency_delta": 0.48989105224609375
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": 2.372667837142944,
+          "sufficiency_delta": 0.26608567237853986
+        },
+        {
+          "id": "ERK5",
+          "comprehensiveness_delta": 4.092762231826782,
+          "sufficiency_delta": 0.45828588008880633
+        },
+        {
+          "id": "ERK8",
+          "comprehensiveness_delta": 0.3682068347930908,
+          "sufficiency_delta": -0.19346947669982906
+        },
+        {
+          "id": "ERN1",
+          "comprehensiveness_delta": 0.5590502262115479,
+          "sufficiency_delta": -0.3114157676696778
+        },
+        {
+          "id": "FAK",
+          "comprehensiveness_delta": 0.8052986621856689,
+          "sufficiency_delta": 0.11497795581817627
+        },
+        {
+          "id": "FER",
+          "comprehensiveness_delta": 0.030422687530517578,
+          "sufficiency_delta": 0.4431709527969361
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 1.9225457191467286,
+          "sufficiency_delta": 0.31233978271484375
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": 0.21683282852172853,
+          "sufficiency_delta": 0.31182773113250734
+        },
+        {
+          "id": "FGFR2",
+          "comprehensiveness_delta": 0.49022226333618163,
+          "sufficiency_delta": -0.146994161605835
+        },
+        {
+          "id": "FGFR3",
+          "comprehensiveness_delta": -0.09880471229553223,
+          "sufficiency_delta": -0.004979610443115234
+        },
+        {
+          "id": "FGFR3(G697C)",
+          "comprehensiveness_delta": -0.09574882984161377,
+          "sufficiency_delta": 0.16145014762878418
+        },
+        {
+          "id": "FGFR4",
+          "comprehensiveness_delta": -0.31423258781433105,
+          "sufficiency_delta": -0.13819863796234166
+        },
+        {
+          "id": "FGR",
+          "comprehensiveness_delta": 0.9301615238189698,
+          "sufficiency_delta": 0.13156852722167967
+        },
+        {
+          "id": "FLT1",
+          "comprehensiveness_delta": 0.03332173824310303,
+          "sufficiency_delta": 0.0017285346984863281
+        },
+        {
+          "id": "FLT3",
+          "comprehensiveness_delta": 0.5680068254470825,
+          "sufficiency_delta": 0.23490588665008544
+        },
+        {
+          "id": "FLT3(D835H)",
+          "comprehensiveness_delta": 0.5654396295547486,
+          "sufficiency_delta": 0.2926181793212891
+        },
+        {
+          "id": "FLT3(D835Y)",
+          "comprehensiveness_delta": 0.4368875026702881,
+          "sufficiency_delta": 0.4903144359588623
+        },
+        {
+          "id": "FLT3(ITD)",
+          "comprehensiveness_delta": 0.5702956914901733,
+          "sufficiency_delta": 0.5849479913711548
+        },
+        {
+          "id": "FLT3(K663Q)",
+          "comprehensiveness_delta": 0.5665372371673584,
+          "sufficiency_delta": 0.49677338600158694
+        },
+        {
+          "id": "FLT3(N841I)",
+          "comprehensiveness_delta": 0.5684279680252076,
+          "sufficiency_delta": 0.44934155941009524
+        },
+        {
+          "id": "FLT3(R834Q)",
+          "comprehensiveness_delta": 0.5681942462921142,
+          "sufficiency_delta": 0.4620337009429932
+        },
+        {
+          "id": "FLT4",
+          "comprehensiveness_delta": 0.04242618083953857,
+          "sufficiency_delta": 0.08096663951873778
+        },
+        {
+          "id": "FRK",
+          "comprehensiveness_delta": 0.060467100143432616,
+          "sufficiency_delta": -0.14264230728149413
+        },
+        {
+          "id": "FYN",
+          "comprehensiveness_delta": 0.27282593250274656,
+          "sufficiency_delta": 0.06240711212158201
+        },
+        {
+          "id": "GAK",
+          "comprehensiveness_delta": 0.016988515853881836,
+          "sufficiency_delta": -0.2971363067626953
+        },
+        {
+          "id": "GCN2(KinDom2S808G)",
+          "comprehensiveness_delta": 0.10733747482299805,
+          "sufficiency_delta": 0.34637913703918466
+        },
+        {
+          "id": "GRK1",
+          "comprehensiveness_delta": 1.4607260704040528,
+          "sufficiency_delta": -0.18473086357116708
+        },
+        {
+          "id": "GRK4",
+          "comprehensiveness_delta": 2.035833740234375,
+          "sufficiency_delta": 0.3768478870391845
+        },
+        {
+          "id": "GRK7",
+          "comprehensiveness_delta": 0.6697643280029297,
+          "sufficiency_delta": 0.4287936210632326
+        },
+        {
+          "id": "GSK3A",
+          "comprehensiveness_delta": 1.1708588600158691,
+          "sufficiency_delta": 0.48371667861938494
+        },
+        {
+          "id": "GSK3B",
+          "comprehensiveness_delta": 0.5072070121765136,
+          "sufficiency_delta": 0.3847623586654665
+        },
+        {
+          "id": "HCK",
+          "comprehensiveness_delta": 1.3069672346115113,
+          "sufficiency_delta": 0.3829035997390746
+        },
+        {
+          "id": "HIPK1",
+          "comprehensiveness_delta": 0.38325822353363037,
+          "sufficiency_delta": 0.6520535230636597
+        },
+        {
+          "id": "HIPK2",
+          "comprehensiveness_delta": 0.6862237691879273,
+          "sufficiency_delta": 0.4108365058898926
+        },
+        {
+          "id": "HIPK3",
+          "comprehensiveness_delta": 0.8719981670379638,
+          "sufficiency_delta": 0.6318784713745117
+        },
+        {
+          "id": "HIPK4",
+          "comprehensiveness_delta": 0.0077992439270019535,
+          "sufficiency_delta": 1.5465519666671752
+        },
+        {
+          "id": "HPK1",
+          "comprehensiveness_delta": 0.011554408073425282,
+          "sufficiency_delta": 1.8229435443878175
+        },
+        {
+          "id": "HUNK",
+          "comprehensiveness_delta": 1.173846960067749,
+          "sufficiency_delta": 0.518035387992859
+        },
+        {
+          "id": "ICK",
+          "comprehensiveness_delta": 0.26856412887573244,
+          "sufficiency_delta": 0.4997089862823487
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 4.095055294036865,
+          "sufficiency_delta": 0.4461583137512206
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 0.9801796913146973,
+          "sufficiency_delta": 0.25693368911743164
+        },
+        {
+          "id": "IKK-beta",
+          "comprehensiveness_delta": 0.42469015121459963,
+          "sufficiency_delta": 0.5257905960083007
+        },
+        {
+          "id": "IKK-epsilon",
+          "comprehensiveness_delta": 1.2822843551635743,
+          "sufficiency_delta": 0.4819444417953491
+        },
+        {
+          "id": "INSR",
+          "comprehensiveness_delta": 2.6446160554885862,
+          "sufficiency_delta": 0.33082475662231436
+        },
+        {
+          "id": "INSRR",
+          "comprehensiveness_delta": 1.4665839195251464,
+          "sufficiency_delta": 0.011864566802978427
+        },
+        {
+          "id": "IRAK1",
+          "comprehensiveness_delta": 0.1808952808380127,
+          "sufficiency_delta": 0.05373790264129641
+        },
+        {
+          "id": "IRAK3",
+          "comprehensiveness_delta": 0.20644330978393555,
+          "sufficiency_delta": 0.600194549560547
+        },
+        {
+          "id": "IRAK4",
+          "comprehensiveness_delta": 0.42154202461242674,
+          "sufficiency_delta": 0.59509117603302
+        },
+        {
+          "id": "ITK",
+          "comprehensiveness_delta": 0.4701389789581299,
+          "sufficiency_delta": 0.6071856021881104
+        },
+        {
+          "id": "JAK1(JH1domain-catalytic)",
+          "comprehensiveness_delta": -0.0714292049407959,
+          "sufficiency_delta": -0.13158779144287114
+        },
+        {
+          "id": "JAK1(JH2domain-pseudokinase)",
+          "comprehensiveness_delta": 0.0077590465545654295,
+          "sufficiency_delta": -0.03170874118804923
+        },
+        {
+          "id": "JAK2(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.04304916858673097,
+          "sufficiency_delta": 0.5205824613571167
+        },
+        {
+          "id": "JAK3(JH1domain-catalytic)",
+          "comprehensiveness_delta": 1.419100546836853,
+          "sufficiency_delta": 0.3935936450958253
+        },
+        {
+          "id": "JNK1",
+          "comprehensiveness_delta": 0.30768518447875975,
+          "sufficiency_delta": 0.14735748767852774
+        },
+        {
+          "id": "JNK2",
+          "comprehensiveness_delta": 0.5872068881988526,
+          "sufficiency_delta": 0.2088794469833375
+        },
+        {
+          "id": "JNK3",
+          "comprehensiveness_delta": 0.6238292217254638,
+          "sufficiency_delta": 0.3785174131393432
+        },
+        {
+          "id": "KIT",
+          "comprehensiveness_delta": 0.08495900630950928,
+          "sufficiency_delta": 0.45092623233795165
+        },
+        {
+          "id": "KIT(A829P)",
+          "comprehensiveness_delta": 0.06517364978790283,
+          "sufficiency_delta": 0.30876083374023433
+        },
+        {
+          "id": "KIT(D816H)",
+          "comprehensiveness_delta": 0.07629473209381103,
+          "sufficiency_delta": 0.4856260776519775
+        }
+      ],
+      "explanation_is_load_bearing": true
+    },
+    "cold_target": {
+      "comprehensiveness": 1.05275332339108,
+      "comprehensiveness_random": 0.16195339968800546,
+      "comprehensiveness_delta": 0.8907999237030745,
+      "sufficiency": 3.6744212520867587,
+      "sufficiency_random": 4.220317200690507,
+      "sufficiency_delta": -0.5458959486037492,
+      "aopc": 1.0049476333260536,
+      "n_pairs": 200,
+      "k": 10,
+      "per_pair": [
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": 0.45274240970611573,
+          "sufficiency_delta": 1.2664464712142944
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": 1.2828052759170532,
+          "sufficiency_delta": 0.7229723453521728
+        },
+        {
+          "id": "AKT3",
+          "comprehensiveness_delta": 0.1638413667678833,
+          "sufficiency_delta": 0.2017686367034912
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 0.08480503559112548,
+          "sufficiency_delta": 2.3535991668701173
+        },
+        {
+          "id": "BRAF",
+          "comprehensiveness_delta": -0.04264447689056396,
+          "sufficiency_delta": -0.47758731842041025
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": -0.016171693801879883,
+          "sufficiency_delta": 0.02217855453491202
+        },
+        {
+          "id": "CAMK1",
+          "comprehensiveness_delta": 0.06386408805847169,
+          "sufficiency_delta": -0.10786061286926268
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 0.0016213417053222712,
+          "sufficiency_delta": -0.1501331329345703
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": 0.24963645935058593,
+          "sufficiency_delta": -0.24626545906066893
+        },
+        {
+          "id": "CAMKK1",
+          "comprehensiveness_delta": 0.08933820724487304,
+          "sufficiency_delta": 0.8543045520782471
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": -0.15100655555725095,
+          "sufficiency_delta": 0.08090314865112302
+        },
+        {
+          "id": "CDK9",
+          "comprehensiveness_delta": 0.5849649906158447,
+          "sufficiency_delta": 0.4389437198638916
+        },
+        {
+          "id": "CHEK1",
+          "comprehensiveness_delta": 0.20867524147033692,
+          "sufficiency_delta": -0.47248203754425044
+        },
+        {
+          "id": "CIT",
+          "comprehensiveness_delta": 0.28155272006988524,
+          "sufficiency_delta": 0.14941732883453374
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 0.0965280532836914,
+          "sufficiency_delta": 0.008996677398681652
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": 0.11073217391967774,
+          "sufficiency_delta": 0.12907681465148935
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": 0.02263917922973633,
+          "sufficiency_delta": -0.005416488647460915
+        },
+        {
+          "id": "EIF2AK1",
+          "comprehensiveness_delta": -0.014187860488891601,
+          "sufficiency_delta": 1.2099104881286622
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": -0.11075983047485352,
+          "sufficiency_delta": -0.08510129451751713
+        },
+        {
+          "id": "EPHA8",
+          "comprehensiveness_delta": 0.09083690643310546,
+          "sufficiency_delta": -0.15490498542785647
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": -0.06636481285095215,
+          "sufficiency_delta": -0.056310081481933616
+        },
+        {
+          "id": "ERBB4",
+          "comprehensiveness_delta": -0.048074650764465335,
+          "sufficiency_delta": 0.3729512929916382
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": -0.06335415840148925,
+          "sufficiency_delta": 0.6638050079345703
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 0.004304933547973636,
+          "sufficiency_delta": 0.1913750648498535
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": -0.06394391059875487,
+          "sufficiency_delta": -0.3068853855133057
+        },
+        {
+          "id": "HIPK1",
+          "comprehensiveness_delta": -0.33670907020568847,
+          "sufficiency_delta": -0.28923535346984863
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 0.08560385704040527,
+          "sufficiency_delta": 0.21598620414733882
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": -0.020248031616210936,
+          "sufficiency_delta": 0.7301966667175293
+        },
+        {
+          "id": "IRAK4",
+          "comprehensiveness_delta": 0.2633460521697998,
+          "sufficiency_delta": -0.5502814054489136
+        },
+        {
+          "id": "JAK3(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.7153005123138427,
+          "sufficiency_delta": -0.16920018196105957
+        },
+        {
+          "id": "JNK1",
+          "comprehensiveness_delta": 0.321456241607666,
+          "sufficiency_delta": -0.01247594356536863
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": -0.03782396316528319,
+          "sufficiency_delta": 0.15753865242004395
+        },
+        {
+          "id": "LZK",
+          "comprehensiveness_delta": 0.42597289085388185,
+          "sufficiency_delta": 0.5862071990966797
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 0.6193506717681885,
+          "sufficiency_delta": -0.3353898048400879
+        },
+        {
+          "id": "MAP4K5",
+          "comprehensiveness_delta": 1.9001600742340088,
+          "sufficiency_delta": -0.11662542819976807
+        },
+        {
+          "id": "MAPKAPK5",
+          "comprehensiveness_delta": 0.1334606170654297,
+          "sufficiency_delta": 0.06626348495483403
+        },
+        {
+          "id": "MARK1",
+          "comprehensiveness_delta": 0.2572714567184448,
+          "sufficiency_delta": 0.32355909347534184
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 0.04939608573913573,
+          "sufficiency_delta": 0.5584944248199463
+        },
+        {
+          "id": "MEK6",
+          "comprehensiveness_delta": 0.04895458221435545,
+          "sufficiency_delta": -0.31356053352355956
+        },
+        {
+          "id": "MELK",
+          "comprehensiveness_delta": 0.886280107498169,
+          "sufficiency_delta": 0.26282758712768556
+        },
+        {
+          "id": "MERTK",
+          "comprehensiveness_delta": -0.02490420341491699,
+          "sufficiency_delta": -0.48010959625244143
+        },
+        {
+          "id": "MKNK1",
+          "comprehensiveness_delta": 0.0376748561859131,
+          "sufficiency_delta": 0.23489131927490237
+        },
+        {
+          "id": "MLK3",
+          "comprehensiveness_delta": -0.04519407749176026,
+          "sufficiency_delta": 0.4599157333374023
+        },
+        {
+          "id": "MRCKA",
+          "comprehensiveness_delta": 0.8843788146972656,
+          "sufficiency_delta": 0.5577059507369995
+        },
+        {
+          "id": "MST1R",
+          "comprehensiveness_delta": 0.39768424034118655,
+          "sufficiency_delta": 0.665619945526123
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": 0.629866361618042,
+          "sufficiency_delta": 0.4512953758239746
+        },
+        {
+          "id": "MTOR",
+          "comprehensiveness_delta": 0.19559307098388673,
+          "sufficiency_delta": 0.0945291519165039
+        },
+        {
+          "id": "NDR2",
+          "comprehensiveness_delta": 0.006590986251831054,
+          "sufficiency_delta": 0.24685530662536626
+        },
+        {
+          "id": "NEK9",
+          "comprehensiveness_delta": 0.09872231483459473,
+          "sufficiency_delta": -0.2179429531097412
+        },
+        {
+          "id": "NIM1",
+          "comprehensiveness_delta": 0.25274484157562255,
+          "sufficiency_delta": 0.29844977855682364
+        },
+        {
+          "id": "NLK",
+          "comprehensiveness_delta": 0.08794164657592773,
+          "sufficiency_delta": 0.1328934669494629
+        },
+        {
+          "id": "PAK2",
+          "comprehensiveness_delta": 0.14865827560424805,
+          "sufficiency_delta": 0.14092564582824707
+        },
+        {
+          "id": "PAK7",
+          "comprehensiveness_delta": 0.06251816749572754,
+          "sufficiency_delta": 0.48531382083892827
+        },
+        {
+          "id": "PCTK2",
+          "comprehensiveness_delta": -0.011800527572631836,
+          "sufficiency_delta": -0.13713726997375486
+        },
+        {
+          "id": "PHKG1",
+          "comprehensiveness_delta": 0.25364491939544676,
+          "sufficiency_delta": 0.33055505752563474
+        },
+        {
+          "id": "PIK3C2B",
+          "comprehensiveness_delta": -0.15338263511657713,
+          "sufficiency_delta": -1.009995460510254
+        },
+        {
+          "id": "PIK4CB",
+          "comprehensiveness_delta": 0.47189984321594236,
+          "sufficiency_delta": -0.08472042083740233
+        },
+        {
+          "id": "PIM2",
+          "comprehensiveness_delta": 0.11693668365478516,
+          "sufficiency_delta": 0.03840296268463134
+        },
+        {
+          "id": "PIP5K2B",
+          "comprehensiveness_delta": 0.09015622138977053,
+          "sufficiency_delta": -0.012776756286621116
+        },
+        {
+          "id": "PKMYT1",
+          "comprehensiveness_delta": 0.06657478809356687,
+          "sufficiency_delta": 0.2734107971191406
+        },
+        {
+          "id": "PKNB(Mtuberculosis)",
+          "comprehensiveness_delta": 0.1574544906616211,
+          "sufficiency_delta": 1.002654528617859
+        },
+        {
+          "id": "PLK3",
+          "comprehensiveness_delta": -0.026059746742248535,
+          "sufficiency_delta": -0.8690848112106324
+        },
+        {
+          "id": "PRKD1",
+          "comprehensiveness_delta": 0.8088703155517578,
+          "sufficiency_delta": 0.22087793350219725
+        },
+        {
+          "id": "PYK2",
+          "comprehensiveness_delta": -0.09928007125854492,
+          "sufficiency_delta": 0.339266586303711
+        },
+        {
+          "id": "RAF1",
+          "comprehensiveness_delta": -0.07258260250091553,
+          "sufficiency_delta": -0.355973768234253
+        },
+        {
+          "id": "ROS1",
+          "comprehensiveness_delta": 1.172644805908203,
+          "sufficiency_delta": 0.14276723861694335
+        },
+        {
+          "id": "SLK",
+          "comprehensiveness_delta": 0.04925546646118164,
+          "sufficiency_delta": -0.4752428770065308
+        },
+        {
+          "id": "SYK",
+          "comprehensiveness_delta": 1.6328896522521972,
+          "sufficiency_delta": -0.5668256998062133
+        },
+        {
+          "id": "TAOK3",
+          "comprehensiveness_delta": -0.08386216163635254,
+          "sufficiency_delta": -0.5931798934936523
+        },
+        {
+          "id": "TGFBR2",
+          "comprehensiveness_delta": 0.06168823242187499,
+          "sufficiency_delta": 0.7432160377502441
+        },
+        {
+          "id": "TLK2",
+          "comprehensiveness_delta": -0.05124974250793457,
+          "sufficiency_delta": 0.024617791175842285
+        },
+        {
+          "id": "TRKC",
+          "comprehensiveness_delta": 0.6186195373535156,
+          "sufficiency_delta": -0.541355037689209
+        },
+        {
+          "id": "VEGFR2",
+          "comprehensiveness_delta": 0.9208657741546631,
+          "sufficiency_delta": -0.2024824619293213
+        },
+        {
+          "id": "VRK2",
+          "comprehensiveness_delta": -0.009741830825805653,
+          "sufficiency_delta": 1.0500397443771363
+        },
+        {
+          "id": "YES",
+          "comprehensiveness_delta": 0.8275826930999756,
+          "sufficiency_delta": -0.46107826232910165
+        },
+        {
+          "id": "YSK1",
+          "comprehensiveness_delta": 0.018684339523315427,
+          "sufficiency_delta": -0.09829077720642088
+        },
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": -0.040590715408325206,
+          "sufficiency_delta": -0.11600484848022496
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": -0.37879734039306645,
+          "sufficiency_delta": 0.03699078559875524
+        },
+        {
+          "id": "AKT3",
+          "comprehensiveness_delta": 1.025345516204834,
+          "sufficiency_delta": -0.6818181514739994
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 0.08461484909057618,
+          "sufficiency_delta": -3.1388553142547604
+        },
+        {
+          "id": "BRAF",
+          "comprehensiveness_delta": 0.2615378379821777,
+          "sufficiency_delta": -1.1936801910400394
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": 0.198317813873291,
+          "sufficiency_delta": -1.0268137454986572
+        },
+        {
+          "id": "CAMK1",
+          "comprehensiveness_delta": 0.028484153747558583,
+          "sufficiency_delta": -0.31676225662231516
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 2.5718183517456055,
+          "sufficiency_delta": -2.00420697927475
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": 1.9646920204162597,
+          "sufficiency_delta": -0.7235970497131348
+        },
+        {
+          "id": "CAMKK1",
+          "comprehensiveness_delta": 1.6826455116271972,
+          "sufficiency_delta": -1.4187093496322625
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": 1.4852890014648437,
+          "sufficiency_delta": -0.43959736824035645
+        },
+        {
+          "id": "CDK9",
+          "comprehensiveness_delta": 5.974525690078735,
+          "sufficiency_delta": -0.8342489957809445
+        },
+        {
+          "id": "CHEK1",
+          "comprehensiveness_delta": 2.11694278717041,
+          "sufficiency_delta": 0.051172780990601296
+        },
+        {
+          "id": "CIT",
+          "comprehensiveness_delta": 0.40612039566040037,
+          "sufficiency_delta": -3.9483149528503416
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 0.2512519836425781,
+          "sufficiency_delta": 0.18594967126846296
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": 1.320548152923584,
+          "sufficiency_delta": -5.881357443332672
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": 1.2978215217590332,
+          "sufficiency_delta": -0.20915155410766584
+        },
+        {
+          "id": "EIF2AK1",
+          "comprehensiveness_delta": 0.3661167144775391,
+          "sufficiency_delta": -0.9961679697036736
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": 2.463415026664734,
+          "sufficiency_delta": -1.3214181184768679
+        },
+        {
+          "id": "EPHA8",
+          "comprehensiveness_delta": 3.999400329589844,
+          "sufficiency_delta": -0.92662136554718
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": 1.243799364566803,
+          "sufficiency_delta": -0.23834896087646484
+        },
+        {
+          "id": "ERBB4",
+          "comprehensiveness_delta": 6.867080131173134,
+          "sufficiency_delta": -0.12503572702407872
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": 2.86235933303833,
+          "sufficiency_delta": -0.6475917339324955
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 0.6891664981842041,
+          "sufficiency_delta": -5.459596061706543
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": 3.0064257621765136,
+          "sufficiency_delta": -4.1112964153289795
+        },
+        {
+          "id": "HIPK1",
+          "comprehensiveness_delta": 1.498932409286499,
+          "sufficiency_delta": -2.814491391181946
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 6.218794131278992,
+          "sufficiency_delta": -0.08308196067810059
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 0.5260883331298828,
+          "sufficiency_delta": -1.1718705654144284
+        },
+        {
+          "id": "IRAK4",
+          "comprehensiveness_delta": 2.9767677783966064,
+          "sufficiency_delta": -3.1314573884010315
+        },
+        {
+          "id": "JAK3(JH1domain-catalytic)",
+          "comprehensiveness_delta": 1.844834354519844,
+          "sufficiency_delta": -0.4793376922607422
+        },
+        {
+          "id": "JNK1",
+          "comprehensiveness_delta": 1.2026950359344482,
+          "sufficiency_delta": -1.623613107204437
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": 1.763597345352173,
+          "sufficiency_delta": 0.029970645904541016
+        },
+        {
+          "id": "LZK",
+          "comprehensiveness_delta": 1.6933454513549804,
+          "sufficiency_delta": -0.608900785446167
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 3.7442172169685364,
+          "sufficiency_delta": -0.43343977928161603
+        },
+        {
+          "id": "MAP4K5",
+          "comprehensiveness_delta": 2.590704154968262,
+          "sufficiency_delta": -0.5655491113662716
+        },
+        {
+          "id": "MAPKAPK5",
+          "comprehensiveness_delta": 1.2157282829284668,
+          "sufficiency_delta": -0.5159716606140137
+        },
+        {
+          "id": "MARK1",
+          "comprehensiveness_delta": 1.3660869598388672,
+          "sufficiency_delta": -0.9179680347442627
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 1.0021531105041503,
+          "sufficiency_delta": -0.36450343132019114
+        },
+        {
+          "id": "MEK6",
+          "comprehensiveness_delta": 9.252838897705079,
+          "sufficiency_delta": -1.0759666204452518
+        },
+        {
+          "id": "MELK",
+          "comprehensiveness_delta": 1.5384384632110595,
+          "sufficiency_delta": -3.2184855341911316
+        },
+        {
+          "id": "MERTK",
+          "comprehensiveness_delta": 0.4300072193145752,
+          "sufficiency_delta": -0.6899864196777346
+        },
+        {
+          "id": "MKNK1",
+          "comprehensiveness_delta": 4.380112481117249,
+          "sufficiency_delta": -1.6657323241233826
+        },
+        {
+          "id": "MLK3",
+          "comprehensiveness_delta": 0.8038617610931397,
+          "sufficiency_delta": -0.1599881649017334
+        },
+        {
+          "id": "MRCKA",
+          "comprehensiveness_delta": 4.448782014846802,
+          "sufficiency_delta": -1.4556059837341309
+        },
+        {
+          "id": "MST1R",
+          "comprehensiveness_delta": 0.07298625707626338,
+          "sufficiency_delta": -0.08583011627197301
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": 0.29329776763916016,
+          "sufficiency_delta": -0.6536397218704222
+        },
+        {
+          "id": "MTOR",
+          "comprehensiveness_delta": -0.3089198112487793,
+          "sufficiency_delta": -0.5313961505889893
+        },
+        {
+          "id": "NDR2",
+          "comprehensiveness_delta": 1.303195858001709,
+          "sufficiency_delta": -0.5004429817199707
+        },
+        {
+          "id": "NEK9",
+          "comprehensiveness_delta": 1.4227657318115234,
+          "sufficiency_delta": -0.15270338058471644
+        },
+        {
+          "id": "NIM1",
+          "comprehensiveness_delta": 0.6902853488922119,
+          "sufficiency_delta": -0.3423120379447937
+        },
+        {
+          "id": "NLK",
+          "comprehensiveness_delta": 1.6152359008789063,
+          "sufficiency_delta": -5.484001874923706
+        },
+        {
+          "id": "PAK2",
+          "comprehensiveness_delta": 1.6548667430877686,
+          "sufficiency_delta": 0.2632174491882324
+        },
+        {
+          "id": "PAK7",
+          "comprehensiveness_delta": 1.687125301361084,
+          "sufficiency_delta": 0.20244927406310964
+        },
+        {
+          "id": "PCTK2",
+          "comprehensiveness_delta": 0.9210072517395019,
+          "sufficiency_delta": -1.2073205232620232
+        },
+        {
+          "id": "PHKG1",
+          "comprehensiveness_delta": -0.004017639160156294,
+          "sufficiency_delta": 0.24144388437271047
+        },
+        {
+          "id": "PIK3C2B",
+          "comprehensiveness_delta": 0.45380516052246095,
+          "sufficiency_delta": -0.250128221511841
+        },
+        {
+          "id": "PIK4CB",
+          "comprehensiveness_delta": 3.6510358810424806,
+          "sufficiency_delta": -2.622918283939361
+        },
+        {
+          "id": "PIM2",
+          "comprehensiveness_delta": -0.06352548599243163,
+          "sufficiency_delta": 0.4374718904495243
+        },
+        {
+          "id": "PIP5K2B",
+          "comprehensiveness_delta": 2.5756407499313356,
+          "sufficiency_delta": -0.9106903076171875
+        },
+        {
+          "id": "PKMYT1",
+          "comprehensiveness_delta": 5.263819766044617,
+          "sufficiency_delta": -0.7951786279678341
+        },
+        {
+          "id": "PKNB(Mtuberculosis)",
+          "comprehensiveness_delta": 0.903162956237793,
+          "sufficiency_delta": -2.1803790807724006
+        },
+        {
+          "id": "PLK3",
+          "comprehensiveness_delta": 0.6515107154846191,
+          "sufficiency_delta": -5.875569009780884
+        },
+        {
+          "id": "PRKD1",
+          "comprehensiveness_delta": 4.124168348312378,
+          "sufficiency_delta": -0.5592643499374397
+        },
+        {
+          "id": "PYK2",
+          "comprehensiveness_delta": -0.342306911945343,
+          "sufficiency_delta": 0.22155733108520526
+        },
+        {
+          "id": "RAF1",
+          "comprehensiveness_delta": 0.8003412246704101,
+          "sufficiency_delta": -1.383188164234161
+        },
+        {
+          "id": "ROS1",
+          "comprehensiveness_delta": 4.010586631298065,
+          "sufficiency_delta": -0.3277948856353756
+        },
+        {
+          "id": "SLK",
+          "comprehensiveness_delta": 0.20396966934204103,
+          "sufficiency_delta": 0.16498908996581996
+        },
+        {
+          "id": "SYK",
+          "comprehensiveness_delta": 3.8670961380004885,
+          "sufficiency_delta": -0.36748857498168963
+        },
+        {
+          "id": "TAOK3",
+          "comprehensiveness_delta": 0.8826876640319824,
+          "sufficiency_delta": -0.4842413663864136
+        },
+        {
+          "id": "TGFBR2",
+          "comprehensiveness_delta": -0.3573644638061524,
+          "sufficiency_delta": 0.7980427742004395
+        },
+        {
+          "id": "TLK2",
+          "comprehensiveness_delta": 3.0292734146118163,
+          "sufficiency_delta": -0.29012360572814977
+        },
+        {
+          "id": "TRKC",
+          "comprehensiveness_delta": 0.37935218811035154,
+          "sufficiency_delta": -6.019532060623169
+        },
+        {
+          "id": "VEGFR2",
+          "comprehensiveness_delta": 0.773193645477295,
+          "sufficiency_delta": -0.3040151596069336
+        },
+        {
+          "id": "VRK2",
+          "comprehensiveness_delta": 0.3648237228393555,
+          "sufficiency_delta": -1.665933215618134
+        },
+        {
+          "id": "YES",
+          "comprehensiveness_delta": 1.7164247512817383,
+          "sufficiency_delta": 0.10362169742584193
+        },
+        {
+          "id": "YSK1",
+          "comprehensiveness_delta": 0.6813536643981934,
+          "sufficiency_delta": -0.6014761209487913
+        },
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": 0.023549985885620114,
+          "sufficiency_delta": -1.2280957698822021
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": 0.13876147270202638,
+          "sufficiency_delta": -0.449188852310181
+        },
+        {
+          "id": "AKT3",
+          "comprehensiveness_delta": 1.029376173019409,
+          "sufficiency_delta": 0.42529692649841344
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 0.025115013122558594,
+          "sufficiency_delta": -1.998005521297455
+        },
+        {
+          "id": "BRAF",
+          "comprehensiveness_delta": -0.16165533065795898,
+          "sufficiency_delta": -0.6110389709472654
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": -0.02361617088317871,
+          "sufficiency_delta": -0.58835711479187
+        },
+        {
+          "id": "CAMK1",
+          "comprehensiveness_delta": 0.1375260829925537,
+          "sufficiency_delta": -0.18320875167846662
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 1.0922052383422851,
+          "sufficiency_delta": -0.21823296546936
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": 1.240100336074829,
+          "sufficiency_delta": -4.051318502426147
+        },
+        {
+          "id": "CAMKK1",
+          "comprehensiveness_delta": 0.2952958822250366,
+          "sufficiency_delta": -0.6295233249664305
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": -0.05096244812011719,
+          "sufficiency_delta": -0.2598400115966797
+        },
+        {
+          "id": "CDK9",
+          "comprehensiveness_delta": 1.3965659856796264,
+          "sufficiency_delta": -0.7873713016510013
+        },
+        {
+          "id": "CHEK1",
+          "comprehensiveness_delta": 0.8557732820510864,
+          "sufficiency_delta": -0.3245288848876955
+        },
+        {
+          "id": "CIT",
+          "comprehensiveness_delta": 0.14876976013183593,
+          "sufficiency_delta": -0.6343729972839354
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": -0.02231752872467041,
+          "sufficiency_delta": -2.778815507888794
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": -0.05799164772033691,
+          "sufficiency_delta": 0.14673020839691153
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": -0.02535104751586914,
+          "sufficiency_delta": -0.3587403774261473
+        },
+        {
+          "id": "EIF2AK1",
+          "comprehensiveness_delta": 0.8862743377685547,
+          "sufficiency_delta": -0.3555674076080324
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": 0.07871193885803222,
+          "sufficiency_delta": -0.38089752197265625
+        },
+        {
+          "id": "EPHA8",
+          "comprehensiveness_delta": 0.12766726016998292,
+          "sufficiency_delta": -0.48904328346252424
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": 0.31315651535987854,
+          "sufficiency_delta": 0.13157196044921893
+        },
+        {
+          "id": "ERBB4",
+          "comprehensiveness_delta": 3.34986389875412,
+          "sufficiency_delta": -0.5172677040100098
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": 1.5995672225952149,
+          "sufficiency_delta": -0.4065000534057619
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 0.25649391412734984,
+          "sufficiency_delta": -0.5799339771270753
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": 0.5876073360443115,
+          "sufficiency_delta": -0.2824575543403629
+        },
+        {
+          "id": "HIPK1",
+          "comprehensiveness_delta": -0.03648176193237304,
+          "sufficiency_delta": -0.801387643814087
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 0.27953908443450926,
+          "sufficiency_delta": -0.3230993270874025
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 0.15408637523651122,
+          "sufficiency_delta": -0.8457052946090697
+        },
+        {
+          "id": "IRAK4",
+          "comprehensiveness_delta": 0.690573263168335,
+          "sufficiency_delta": -3.279616105556488
+        },
+        {
+          "id": "JAK3(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.8893018186092376,
+          "sufficiency_delta": -0.49308786392211923
+        },
+        {
+          "id": "JNK1",
+          "comprehensiveness_delta": 0.08905308246612548,
+          "sufficiency_delta": -0.11921789944171923
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": 0.1185767412185669,
+          "sufficiency_delta": -0.6193878173828127
+        },
+        {
+          "id": "LZK",
+          "comprehensiveness_delta": 0.0004050254821777316,
+          "sufficiency_delta": -0.04034748077392569
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 1.726677069067955,
+          "sufficiency_delta": 0.2870390892028807
+        },
+        {
+          "id": "MAP4K5",
+          "comprehensiveness_delta": 0.5547610402107239,
+          "sufficiency_delta": -0.06013617515563974
+        },
+        {
+          "id": "MAPKAPK5",
+          "comprehensiveness_delta": 0.9813916206359863,
+          "sufficiency_delta": 0.059543180465698065
+        },
+        {
+          "id": "MARK1",
+          "comprehensiveness_delta": 0.06549582481384278,
+          "sufficiency_delta": -0.7376688957214355
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 0.24935414791107177,
+          "sufficiency_delta": -0.9039912700653074
+        },
+        {
+          "id": "MEK6",
+          "comprehensiveness_delta": 4.138382005691528,
+          "sufficiency_delta": -0.4858893871307375
+        },
+        {
+          "id": "MELK",
+          "comprehensiveness_delta": 0.025930237770080564,
+          "sufficiency_delta": 0.0923840522766115
+        },
+        {
+          "id": "MERTK",
+          "comprehensiveness_delta": 0.14120651483535768,
+          "sufficiency_delta": -0.4715616226196291
+        },
+        {
+          "id": "MKNK1",
+          "comprehensiveness_delta": 0.6798347592353821,
+          "sufficiency_delta": -0.3380848407745365
+        },
+        {
+          "id": "MLK3",
+          "comprehensiveness_delta": 0.05228314399719238,
+          "sufficiency_delta": -0.513971710205078
+        },
+        {
+          "id": "MRCKA",
+          "comprehensiveness_delta": 1.6474740028381347,
+          "sufficiency_delta": -2.760128915309906
+        },
+        {
+          "id": "MST1R",
+          "comprehensiveness_delta": 0.42894633412361144,
+          "sufficiency_delta": -0.5415069103240966
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": -0.0700329065322876,
+          "sufficiency_delta": -0.2939555168151857
+        },
+        {
+          "id": "MTOR",
+          "comprehensiveness_delta": 0.017064619064331057,
+          "sufficiency_delta": -0.3037711620330814
+        },
+        {
+          "id": "NDR2",
+          "comprehensiveness_delta": 0.9162447452545166,
+          "sufficiency_delta": -0.22911314964294416
+        }
+      ],
+      "explanation_is_load_bearing": true
+    },
+    "cold_pair": {
+      "comprehensiveness": 1.1021653804183007,
+      "comprehensiveness_random": 0.15774471294879913,
+      "comprehensiveness_delta": 0.9444206674695015,
+      "sufficiency": 3.007684430964291,
+      "sufficiency_random": 3.5687146900296214,
+      "sufficiency_delta": -0.56103025906533,
+      "aopc": 1.053046910047531,
+      "n_pairs": 200,
+      "k": 10,
+      "per_pair": [
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": 0.854792308807373,
+          "sufficiency_delta": 0.44499891996383667
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": 0.920076322555542,
+          "sufficiency_delta": -0.5655842542648315
+        },
+        {
+          "id": "AMPK-alpha2",
+          "comprehensiveness_delta": 1.456247901916504,
+          "sufficiency_delta": -0.25923994183540344
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 1.8086742877960205,
+          "sufficiency_delta": -1.445983648300171
+        },
+        {
+          "id": "AURKA",
+          "comprehensiveness_delta": 1.1477643609046937,
+          "sufficiency_delta": -0.7085600972175599
+        },
+        {
+          "id": "BMPR1A",
+          "comprehensiveness_delta": 2.2655593395233153,
+          "sufficiency_delta": 0.11458835005760193
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": 0.12272953987121582,
+          "sufficiency_delta": 0.44892916083335876
+        },
+        {
+          "id": "BRK",
+          "comprehensiveness_delta": 0.09062824249267579,
+          "sufficiency_delta": -0.16928198635578173
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 1.13586745262146,
+          "sufficiency_delta": -0.3359218776226043
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": -0.05255441665649413,
+          "sufficiency_delta": -2.1453657269477846
+        },
+        {
+          "id": "CAMK2D",
+          "comprehensiveness_delta": 0.2895082950592041,
+          "sufficiency_delta": -0.9774438440799713
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": 1.2662863731384277,
+          "sufficiency_delta": -0.3146172553300861
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 2.1065226078033445,
+          "sufficiency_delta": -0.031431186199188055
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": 0.9445038795471191,
+          "sufficiency_delta": -1.0330558270215988
+        },
+        {
+          "id": "CSNK1G2",
+          "comprehensiveness_delta": 3.112638521194458,
+          "sufficiency_delta": -1.3380854606628416
+        },
+        {
+          "id": "DAPK1",
+          "comprehensiveness_delta": 0.44769701957702634,
+          "sufficiency_delta": 0.3848009258508682
+        },
+        {
+          "id": "DAPK3",
+          "comprehensiveness_delta": 1.893556499481201,
+          "sufficiency_delta": 0.06650591492652902
+        },
+        {
+          "id": "DCAMKL2",
+          "comprehensiveness_delta": 1.0497166156768798,
+          "sufficiency_delta": -1.347947084903717
+        },
+        {
+          "id": "DDR1",
+          "comprehensiveness_delta": 1.4385159969329835,
+          "sufficiency_delta": 0.3895804643630978
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": 0.5359491348266602,
+          "sufficiency_delta": 0.49908572733402234
+        },
+        {
+          "id": "DRAK2",
+          "comprehensiveness_delta": 1.9428125858306884,
+          "sufficiency_delta": -1.4314465284347535
+        },
+        {
+          "id": "DYRK1B",
+          "comprehensiveness_delta": -0.13382310867309571,
+          "sufficiency_delta": -1.6568010210990907
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": 0.6959282398223877,
+          "sufficiency_delta": -1.4729554176330568
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": 0.4248232364654541,
+          "sufficiency_delta": 0.24841493368148804
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": 0.019772434234619142,
+          "sufficiency_delta": -0.10436533689498884
+        },
+        {
+          "id": "ERK5",
+          "comprehensiveness_delta": 0.09882755279541015,
+          "sufficiency_delta": -1.706376242637634
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 0.1139103889465332,
+          "sufficiency_delta": -1.609860861301422
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": 0.6096924304962158,
+          "sufficiency_delta": -2.2416958808898926
+        },
+        {
+          "id": "FGFR2",
+          "comprehensiveness_delta": 0.1952613353729248,
+          "sufficiency_delta": -1.6055224061012268
+        },
+        {
+          "id": "FGR",
+          "comprehensiveness_delta": 0.11355129480361939,
+          "sufficiency_delta": 0.06589411497116088
+        },
+        {
+          "id": "FYN",
+          "comprehensiveness_delta": 0.06324851512908936,
+          "sufficiency_delta": 0.17440707683563234
+        },
+        {
+          "id": "HIPK4",
+          "comprehensiveness_delta": 0.06028175354003906,
+          "sufficiency_delta": -2.461590838432312
+        },
+        {
+          "id": "HPK1",
+          "comprehensiveness_delta": 0.061225509643554665,
+          "sufficiency_delta": 0.43355609476566315
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 1.768329954147339,
+          "sufficiency_delta": -1.111695492267609
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 0.8945722103118896,
+          "sufficiency_delta": 0.020946598052978604
+        },
+        {
+          "id": "JAK1(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.4669804573059082,
+          "sufficiency_delta": -0.8641452819108961
+        },
+        {
+          "id": "JAK2(JH1domain-catalytic)",
+          "comprehensiveness_delta": 1.7738529205322267,
+          "sufficiency_delta": -0.6945076107978823
+        },
+        {
+          "id": "LATS1",
+          "comprehensiveness_delta": 0.14196786880493165,
+          "sufficiency_delta": 0.015475222468376515
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": 0.1110119342803955,
+          "sufficiency_delta": -0.9545393824577331
+        },
+        {
+          "id": "LKB1",
+          "comprehensiveness_delta": -0.18056659698486327,
+          "sufficiency_delta": -0.6886160194873812
+        },
+        {
+          "id": "LTK",
+          "comprehensiveness_delta": 0.09720110893249512,
+          "sufficiency_delta": 0.043429088592529475
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 1.452691125869751,
+          "sufficiency_delta": 0.18652816712856302
+        },
+        {
+          "id": "MAP4K2",
+          "comprehensiveness_delta": 3.1669526219367983,
+          "sufficiency_delta": -0.09473344087600699
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 1.6283920764923097,
+          "sufficiency_delta": 0.5464848697185516
+        },
+        {
+          "id": "MKK7",
+          "comprehensiveness_delta": 0.0008564472198486217,
+          "sufficiency_delta": -1.5648291647434234
+        },
+        {
+          "id": "MRCKA",
+          "comprehensiveness_delta": 1.524310541152954,
+          "sufficiency_delta": -0.3157859742641449
+        },
+        {
+          "id": "MST1",
+          "comprehensiveness_delta": 0.9929855823516845,
+          "sufficiency_delta": -1.2348501056432726
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": 0.4785640716552735,
+          "sufficiency_delta": -0.6614558756351467
+        },
+        {
+          "id": "MUSK",
+          "comprehensiveness_delta": 1.5826449871063233,
+          "sufficiency_delta": -1.5342040538787842
+        },
+        {
+          "id": "NEK9",
+          "comprehensiveness_delta": 0.3866069793701172,
+          "sufficiency_delta": 0.35622606575489035
+        },
+        {
+          "id": "OSR1",
+          "comprehensiveness_delta": -0.0015403747558593722,
+          "sufficiency_delta": -3.440703973174095
+        },
+        {
+          "id": "PAK6",
+          "comprehensiveness_delta": 1.8408919811248778,
+          "sufficiency_delta": -0.40160434246063215
+        },
+        {
+          "id": "PCTK2",
+          "comprehensiveness_delta": -0.7584506034851075,
+          "sufficiency_delta": -1.6440337777137755
+        },
+        {
+          "id": "PIK3C2B",
+          "comprehensiveness_delta": 2.084355354309082,
+          "sufficiency_delta": 0.6911768823862076
+        },
+        {
+          "id": "PIK3CG",
+          "comprehensiveness_delta": 0.9130092620849609,
+          "sufficiency_delta": -1.7788698822259903
+        },
+        {
+          "id": "PIM1",
+          "comprehensiveness_delta": -0.032762432098388694,
+          "sufficiency_delta": -0.7454418540000916
+        },
+        {
+          "id": "PIP5K2B",
+          "comprehensiveness_delta": 0.2803436279296875,
+          "sufficiency_delta": -0.38910510540008536
+        },
+        {
+          "id": "PKAC-beta",
+          "comprehensiveness_delta": 0.8282899379730224,
+          "sufficiency_delta": -1.2962091267108917
+        },
+        {
+          "id": "PKMYT1",
+          "comprehensiveness_delta": 0.6739106178283691,
+          "sufficiency_delta": -0.18345678448677072
+        },
+        {
+          "id": "PKN2",
+          "comprehensiveness_delta": 2.145385503768921,
+          "sufficiency_delta": 0.48250148892402667
+        },
+        {
+          "id": "PRKCQ",
+          "comprehensiveness_delta": 1.824505376815796,
+          "sufficiency_delta": 0.25512129664421046
+        },
+        {
+          "id": "PRKG2",
+          "comprehensiveness_delta": 0.7450075149536133,
+          "sufficiency_delta": -0.2759064614772795
+        },
+        {
+          "id": "PYK2",
+          "comprehensiveness_delta": 0.4780026197433472,
+          "sufficiency_delta": -0.23629330396652204
+        },
+        {
+          "id": "RIPK5",
+          "comprehensiveness_delta": -0.1225271224975586,
+          "sufficiency_delta": -0.36930832862854013
+        },
+        {
+          "id": "S6K1",
+          "comprehensiveness_delta": 0.2818406105041504,
+          "sufficiency_delta": -1.8016414850950242
+        },
+        {
+          "id": "SIK",
+          "comprehensiveness_delta": 0.9795479774475098,
+          "sufficiency_delta": -0.37967587709426875
+        },
+        {
+          "id": "SLK",
+          "comprehensiveness_delta": 3.0374906063079834,
+          "sufficiency_delta": -0.09794537425041216
+        },
+        {
+          "id": "SRPK3",
+          "comprehensiveness_delta": 0.5320406436920166,
+          "sufficiency_delta": 0.12181752920150757
+        },
+        {
+          "id": "TLK1",
+          "comprehensiveness_delta": 0.4266063690185547,
+          "sufficiency_delta": -0.6191147178411485
+        },
+        {
+          "id": "TNNI3K",
+          "comprehensiveness_delta": 0.4492273092269897,
+          "sufficiency_delta": 1.9436991155147552
+        },
+        {
+          "id": "TRKA",
+          "comprehensiveness_delta": 0.3923011779785156,
+          "sufficiency_delta": -1.9345979630947112
+        },
+        {
+          "id": "TSSK1B",
+          "comprehensiveness_delta": 1.4426914215087892,
+          "sufficiency_delta": -2.4936006397008894
+        },
+        {
+          "id": "TYRO3",
+          "comprehensiveness_delta": 0.3023518562316895,
+          "sufficiency_delta": -0.3466566383838654
+        },
+        {
+          "id": "VRK2",
+          "comprehensiveness_delta": 1.3223865509033204,
+          "sufficiency_delta": 0.5735647141933438
+        },
+        {
+          "id": "YES",
+          "comprehensiveness_delta": 0.11753559112548828,
+          "sufficiency_delta": 0.8072387367486954
+        },
+        {
+          "id": "YSK4",
+          "comprehensiveness_delta": 0.752779483795166,
+          "sufficiency_delta": -0.33110966086387617
+        },
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": 1.3794914722442626,
+          "sufficiency_delta": 0.6460823357105254
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": 1.3901294231414796,
+          "sufficiency_delta": -1.5053003661334516
+        },
+        {
+          "id": "AMPK-alpha2",
+          "comprehensiveness_delta": 0.08976602554321289,
+          "sufficiency_delta": 0.29672313928604144
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 1.563932514190674,
+          "sufficiency_delta": -2.152391543984413
+        },
+        {
+          "id": "AURKA",
+          "comprehensiveness_delta": 1.4128689289093017,
+          "sufficiency_delta": -0.38808712065219897
+        },
+        {
+          "id": "BMPR1A",
+          "comprehensiveness_delta": 2.7946550369262697,
+          "sufficiency_delta": 1.2113558113574983
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": 0.40648326873779295,
+          "sufficiency_delta": 0.01635966598987615
+        },
+        {
+          "id": "BRK",
+          "comprehensiveness_delta": 0.29979982376098635,
+          "sufficiency_delta": 0.15256574749946594
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 1.9333379745483399,
+          "sufficiency_delta": -1.8824016898870468
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": 0.9760706901550293,
+          "sufficiency_delta": -2.1192434340715405
+        },
+        {
+          "id": "CAMK2D",
+          "comprehensiveness_delta": 0.9356396675109864,
+          "sufficiency_delta": -0.15731795132160187
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": 2.7455883979797364,
+          "sufficiency_delta": 0.24548554271459544
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 1.8818408966064453,
+          "sufficiency_delta": -1.8059230029582976
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": 0.8362208366394043,
+          "sufficiency_delta": -2.151070687174797
+        },
+        {
+          "id": "CSNK1G2",
+          "comprehensiveness_delta": 3.09670672416687,
+          "sufficiency_delta": -1.2810382604598995
+        },
+        {
+          "id": "DAPK1",
+          "comprehensiveness_delta": 0.6814680099487305,
+          "sufficiency_delta": -1.323519006371498
+        },
+        {
+          "id": "DAPK3",
+          "comprehensiveness_delta": 1.4679899215698242,
+          "sufficiency_delta": -1.5063376583158972
+        },
+        {
+          "id": "DCAMKL2",
+          "comprehensiveness_delta": 0.43647022247314454,
+          "sufficiency_delta": -1.521965432167053
+        },
+        {
+          "id": "DDR1",
+          "comprehensiveness_delta": 0.3282489776611328,
+          "sufficiency_delta": 0.5654249638319016
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": 0.6702619552612304,
+          "sufficiency_delta": 0.8074576169252392
+        },
+        {
+          "id": "DRAK2",
+          "comprehensiveness_delta": 1.809123420715332,
+          "sufficiency_delta": 0.3878118813037874
+        },
+        {
+          "id": "DYRK1B",
+          "comprehensiveness_delta": 0.10096874237060549,
+          "sufficiency_delta": 0.0718116849660877
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": 0.630106258392334,
+          "sufficiency_delta": -2.0884906947612762
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": 0.356004524230957,
+          "sufficiency_delta": 0.7830830782651903
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": 1.2686237335205077,
+          "sufficiency_delta": -1.441278260946274
+        },
+        {
+          "id": "ERK5",
+          "comprehensiveness_delta": 1.1639678955078125,
+          "sufficiency_delta": -0.24223038852214795
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 0.3593632698059082,
+          "sufficiency_delta": -1.5862920850515367
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": 0.4407341003417969,
+          "sufficiency_delta": -2.3304599225521088
+        },
+        {
+          "id": "FGFR2",
+          "comprehensiveness_delta": 1.0261336326599122,
+          "sufficiency_delta": -1.859769731760025
+        },
+        {
+          "id": "FGR",
+          "comprehensiveness_delta": 0.8148088812828064,
+          "sufficiency_delta": 0.5761529564857484
+        },
+        {
+          "id": "FYN",
+          "comprehensiveness_delta": 0.48100067377090455,
+          "sufficiency_delta": -0.49725632220506677
+        },
+        {
+          "id": "HIPK4",
+          "comprehensiveness_delta": 1.0172910690307617,
+          "sufficiency_delta": -2.0625587791204456
+        },
+        {
+          "id": "HPK1",
+          "comprehensiveness_delta": 0.45346975326538086,
+          "sufficiency_delta": -0.2760738730430603
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 3.084696340560913,
+          "sufficiency_delta": -1.4838617086410526
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 1.9824461460113525,
+          "sufficiency_delta": 0.628631556034088
+        },
+        {
+          "id": "JAK1(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.03670291900634766,
+          "sufficiency_delta": -0.5443629115819935
+        },
+        {
+          "id": "JAK2(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.35582675933837893,
+          "sufficiency_delta": -0.5030998468399046
+        },
+        {
+          "id": "LATS1",
+          "comprehensiveness_delta": 2.2342490196228026,
+          "sufficiency_delta": -1.4087389498949054
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": 0.42331609725952146,
+          "sufficiency_delta": -0.1010098084807396
+        },
+        {
+          "id": "LKB1",
+          "comprehensiveness_delta": 1.1022720336914062,
+          "sufficiency_delta": 0.26550666987895966
+        },
+        {
+          "id": "LTK",
+          "comprehensiveness_delta": 0.19182844161987306,
+          "sufficiency_delta": -0.18221609592437726
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 0.8930188179016113,
+          "sufficiency_delta": 0.6593321651220325
+        },
+        {
+          "id": "MAP4K2",
+          "comprehensiveness_delta": 2.93181471824646,
+          "sufficiency_delta": -2.3125141799449924
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 1.1939916610717773,
+          "sufficiency_delta": 0.018065220117568614
+        },
+        {
+          "id": "MKK7",
+          "comprehensiveness_delta": -0.027428388595581055,
+          "sufficiency_delta": 0.7237747967243195
+        },
+        {
+          "id": "MRCKA",
+          "comprehensiveness_delta": 0.8561691284179688,
+          "sufficiency_delta": 0.7407010912895204
+        },
+        {
+          "id": "MST1",
+          "comprehensiveness_delta": -0.6900941848754882,
+          "sufficiency_delta": -1.653915911912918
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": -0.43685503005981446,
+          "sufficiency_delta": -1.619479390978813
+        },
+        {
+          "id": "MUSK",
+          "comprehensiveness_delta": 2.909799003601074,
+          "sufficiency_delta": 0.3599568545818328
+        },
+        {
+          "id": "NEK9",
+          "comprehensiveness_delta": 0.4583563804626465,
+          "sufficiency_delta": -0.6599213540554043
+        },
+        {
+          "id": "OSR1",
+          "comprehensiveness_delta": 0.06181955337524414,
+          "sufficiency_delta": -1.4738434165716168
+        },
+        {
+          "id": "PAK6",
+          "comprehensiveness_delta": 1.0390408515930176,
+          "sufficiency_delta": -0.6945011615753174
+        },
+        {
+          "id": "PCTK2",
+          "comprehensiveness_delta": 0.5781400680541993,
+          "sufficiency_delta": -0.30997026860713994
+        },
+        {
+          "id": "PIK3C2B",
+          "comprehensiveness_delta": 1.8411640167236327,
+          "sufficiency_delta": -0.9239294692873954
+        },
+        {
+          "id": "PIK3CG",
+          "comprehensiveness_delta": 1.741143035888672,
+          "sufficiency_delta": -1.7657254487276077
+        },
+        {
+          "id": "PIM1",
+          "comprehensiveness_delta": 0.019099044799804676,
+          "sufficiency_delta": -0.8245267987251284
+        },
+        {
+          "id": "PIP5K2B",
+          "comprehensiveness_delta": 0.18481845855712892,
+          "sufficiency_delta": 0.22438991665840113
+        },
+        {
+          "id": "PKAC-beta",
+          "comprehensiveness_delta": 1.155473518371582,
+          "sufficiency_delta": 1.0334333300590517
+        },
+        {
+          "id": "PKMYT1",
+          "comprehensiveness_delta": 2.0469058036804197,
+          "sufficiency_delta": 0.37496201992034894
+        },
+        {
+          "id": "PKN2",
+          "comprehensiveness_delta": 1.7357709884643555,
+          "sufficiency_delta": -0.10470603257417643
+        },
+        {
+          "id": "PRKCQ",
+          "comprehensiveness_delta": 1.0236677169799804,
+          "sufficiency_delta": 0.6091383755207058
+        },
+        {
+          "id": "PRKG2",
+          "comprehensiveness_delta": 1.1477206230163575,
+          "sufficiency_delta": -2.1260694831609728
+        },
+        {
+          "id": "PYK2",
+          "comprehensiveness_delta": 0.19332752227783204,
+          "sufficiency_delta": 1.5204882264137267
+        },
+        {
+          "id": "RIPK5",
+          "comprehensiveness_delta": 0.35702266693115237,
+          "sufficiency_delta": 0.3309716433286667
+        },
+        {
+          "id": "S6K1",
+          "comprehensiveness_delta": 1.8836016178131103,
+          "sufficiency_delta": -0.2878895103931427
+        },
+        {
+          "id": "SIK",
+          "comprehensiveness_delta": -0.10652141571044921,
+          "sufficiency_delta": 0.6457554310560227
+        },
+        {
+          "id": "SLK",
+          "comprehensiveness_delta": 4.450880718231201,
+          "sufficiency_delta": -3.578654792904854
+        },
+        {
+          "id": "SRPK3",
+          "comprehensiveness_delta": 0.3295759201049805,
+          "sufficiency_delta": -0.5905645415186882
+        },
+        {
+          "id": "TLK1",
+          "comprehensiveness_delta": 0.11172752380371094,
+          "sufficiency_delta": -0.5503034666180611
+        },
+        {
+          "id": "TNNI3K",
+          "comprehensiveness_delta": 1.2430806159973145,
+          "sufficiency_delta": -0.09030139297246942
+        },
+        {
+          "id": "TRKA",
+          "comprehensiveness_delta": 0.7334096908569336,
+          "sufficiency_delta": -1.492291587591171
+        },
+        {
+          "id": "TSSK1B",
+          "comprehensiveness_delta": 0.5852560043334961,
+          "sufficiency_delta": -2.9394435644149777
+        },
+        {
+          "id": "TYRO3",
+          "comprehensiveness_delta": 0.489899730682373,
+          "sufficiency_delta": -0.5384749621152878
+        },
+        {
+          "id": "VRK2",
+          "comprehensiveness_delta": 2.5426166534423826,
+          "sufficiency_delta": 0.4273581892251972
+        },
+        {
+          "id": "YES",
+          "comprehensiveness_delta": -0.03189840316772461,
+          "sufficiency_delta": 0.12227400094270702
+        },
+        {
+          "id": "YSK4",
+          "comprehensiveness_delta": 1.0213013648986817,
+          "sufficiency_delta": -1.6888119876384735
+        },
+        {
+          "id": "AAK1",
+          "comprehensiveness_delta": 1.6397153377532958,
+          "sufficiency_delta": 0.3053868770599365
+        },
+        {
+          "id": "ACVR2B",
+          "comprehensiveness_delta": 0.8006415367126465,
+          "sufficiency_delta": -0.6198344230651855
+        },
+        {
+          "id": "AMPK-alpha2",
+          "comprehensiveness_delta": -0.04159622192382813,
+          "sufficiency_delta": -1.1328386425971986
+        },
+        {
+          "id": "ASK2",
+          "comprehensiveness_delta": 4.319427013397217,
+          "sufficiency_delta": -1.4318943500518797
+        },
+        {
+          "id": "AURKA",
+          "comprehensiveness_delta": 0.7858084201812744,
+          "sufficiency_delta": -0.4903970122337342
+        },
+        {
+          "id": "BMPR1A",
+          "comprehensiveness_delta": 2.2258413314819334,
+          "sufficiency_delta": 0.5502725362777712
+        },
+        {
+          "id": "BRAF(V600E)",
+          "comprehensiveness_delta": 0.22085947990417482,
+          "sufficiency_delta": 0.3091267704963685
+        },
+        {
+          "id": "BRK",
+          "comprehensiveness_delta": 3.6593870639801027,
+          "sufficiency_delta": 0.13269126415252686
+        },
+        {
+          "id": "CAMK1D",
+          "comprehensiveness_delta": 1.0246171474456787,
+          "sufficiency_delta": 0.43233981132507315
+        },
+        {
+          "id": "CAMK2A",
+          "comprehensiveness_delta": -0.01758289337158203,
+          "sufficiency_delta": -2.114498662948608
+        },
+        {
+          "id": "CAMK2D",
+          "comprehensiveness_delta": -0.27002558708190916,
+          "sufficiency_delta": 0.13801432847976702
+        },
+        {
+          "id": "CDC2L1",
+          "comprehensiveness_delta": 1.7499629020690919,
+          "sufficiency_delta": 0.24289712905883754
+        },
+        {
+          "id": "CLK1",
+          "comprehensiveness_delta": 2.006671667098999,
+          "sufficiency_delta": 0.7801829934120179
+        },
+        {
+          "id": "CLK4",
+          "comprehensiveness_delta": 1.1818910121917725,
+          "sufficiency_delta": -0.5305663526058195
+        },
+        {
+          "id": "CSNK1G2",
+          "comprehensiveness_delta": 2.7905588150024414,
+          "sufficiency_delta": -0.1480007767677307
+        },
+        {
+          "id": "DAPK1",
+          "comprehensiveness_delta": 0.32110843658447263,
+          "sufficiency_delta": 0.9045719623565676
+        },
+        {
+          "id": "DAPK3",
+          "comprehensiveness_delta": 1.6849301338195801,
+          "sufficiency_delta": 0.13368132114410392
+        },
+        {
+          "id": "DCAMKL2",
+          "comprehensiveness_delta": 0.9756349563598633,
+          "sufficiency_delta": -1.3514796257019044
+        },
+        {
+          "id": "DDR1",
+          "comprehensiveness_delta": 1.6522751808166505,
+          "sufficiency_delta": 0.4778529047966007
+        },
+        {
+          "id": "DRAK1",
+          "comprehensiveness_delta": -0.19218778610229492,
+          "sufficiency_delta": 1.3128916919231415
+        },
+        {
+          "id": "DRAK2",
+          "comprehensiveness_delta": 1.7797350406646728,
+          "sufficiency_delta": -1.570029008388519
+        },
+        {
+          "id": "DYRK1B",
+          "comprehensiveness_delta": 0.02306337356567384,
+          "sufficiency_delta": -2.0400971829891206
+        },
+        {
+          "id": "EPHA7",
+          "comprehensiveness_delta": 0.7105504989624023,
+          "sufficiency_delta": -1.335515093803406
+        },
+        {
+          "id": "ERBB2",
+          "comprehensiveness_delta": 0.08248734474182129,
+          "sufficiency_delta": 0.7390159130096436
+        },
+        {
+          "id": "ERK4",
+          "comprehensiveness_delta": 0.02222414016723633,
+          "sufficiency_delta": -0.2867576837539674
+        },
+        {
+          "id": "ERK5",
+          "comprehensiveness_delta": 0.15110321044921876,
+          "sufficiency_delta": -2.120888912677765
+        },
+        {
+          "id": "FES",
+          "comprehensiveness_delta": 0.28269071578979493,
+          "sufficiency_delta": -1.5483558654785154
+        },
+        {
+          "id": "FGFR1",
+          "comprehensiveness_delta": 0.5770395278930665,
+          "sufficiency_delta": -1.4209731221199036
+        },
+        {
+          "id": "FGFR2",
+          "comprehensiveness_delta": 1.6785290718078614,
+          "sufficiency_delta": -1.6097288370132445
+        },
+        {
+          "id": "FGR",
+          "comprehensiveness_delta": 0.4853602409362793,
+          "sufficiency_delta": 1.2284392714500427
+        },
+        {
+          "id": "FYN",
+          "comprehensiveness_delta": -0.03332681655883789,
+          "sufficiency_delta": 0.4279061138629913
+        },
+        {
+          "id": "HIPK4",
+          "comprehensiveness_delta": -0.45952329635620115,
+          "sufficiency_delta": -2.0094992876052857
+        },
+        {
+          "id": "HPK1",
+          "comprehensiveness_delta": 0.015362405776977561,
+          "sufficiency_delta": 1.1464673936367036
+        },
+        {
+          "id": "IGF1R",
+          "comprehensiveness_delta": 1.7435100078582764,
+          "sufficiency_delta": -1.3243769049644474
+        },
+        {
+          "id": "IKK-alpha",
+          "comprehensiveness_delta": 0.780436658859253,
+          "sufficiency_delta": 0.12304178476333627
+        },
+        {
+          "id": "JAK1(JH1domain-catalytic)",
+          "comprehensiveness_delta": 0.11264958381652831,
+          "sufficiency_delta": -0.8309264302253725
+        },
+        {
+          "id": "JAK2(JH1domain-catalytic)",
+          "comprehensiveness_delta": 1.5987786293029784,
+          "sufficiency_delta": -0.6530421793460848
+        },
+        {
+          "id": "LATS1",
+          "comprehensiveness_delta": 0.1663909912109375,
+          "sufficiency_delta": 0.014087069034576238
+        },
+        {
+          "id": "LIMK1",
+          "comprehensiveness_delta": 0.7167985439300537,
+          "sufficiency_delta": -0.8050579071044921
+        },
+        {
+          "id": "LKB1",
+          "comprehensiveness_delta": 0.608603572845459,
+          "sufficiency_delta": -2.812418806552887
+        },
+        {
+          "id": "LTK",
+          "comprehensiveness_delta": 0.12081766128540039,
+          "sufficiency_delta": -0.016431331634521484
+        },
+        {
+          "id": "MAP3K4",
+          "comprehensiveness_delta": 1.1363472938537598,
+          "sufficiency_delta": -0.12351520061492938
+        },
+        {
+          "id": "MAP4K2",
+          "comprehensiveness_delta": 3.001423215866089,
+          "sufficiency_delta": 0.23406004905700684
+        },
+        {
+          "id": "MARK3",
+          "comprehensiveness_delta": 0.18401508331298827,
+          "sufficiency_delta": -0.5845513224601744
+        },
+        {
+          "id": "MKK7",
+          "comprehensiveness_delta": 0.14238977432250977,
+          "sufficiency_delta": -1.481269085407257
+        },
+        {
+          "id": "MRCKA",
+          "comprehensiveness_delta": 0.9201019287109375,
+          "sufficiency_delta": -0.5850560128688809
+        },
+        {
+          "id": "MST1",
+          "comprehensiveness_delta": 1.3220304012298585,
+          "sufficiency_delta": -1.0583433747291564
+        },
+        {
+          "id": "MST2",
+          "comprehensiveness_delta": 1.0471186637878418,
+          "sufficiency_delta": 0.513243705034256
+        }
+      ],
+      "explanation_is_load_bearing": true
+    }
+  },
+  "accuracy": {
+    "random": 0.9231882709227613,
+    "cold_drug": 0.7120989857331049,
+    "cold_target": 0.8495799096138045,
+    "cold_pair": 0.5101699451358224
+  }
+}

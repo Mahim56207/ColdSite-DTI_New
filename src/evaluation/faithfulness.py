@@ -221,14 +221,24 @@ def evaluate_faithfulness(model, drug, protein, attention, k: int = 10,
     }
 
 
+def _finite_or_none(value):
+    value = float(value)
+    return value if np.isfinite(value) else None
+
+
 def batch_faithfulness(model, drug_batch, protein_batch, attentions,
                        k: int = 10, n_random_trials: int = 5,
-                       seed: int = 0, max_pairs: int = None) -> dict:
+                       seed: int = 0, max_pairs: int = None, ids=None) -> dict:
     """Faithfulness averaged over a split.
 
     Expensive: every pair costs (2 + 2*n_random_trials + len(k_values)) forward
     passes. Use max_pairs to subsample -- the number that matters is the mean
     over a few hundred pairs, not over all of them.
+
+    `ids` (one target id per pair, aligned) switches on `per_pair` in the summary: each scored
+    pair's target and its two deltas, so a confidence interval can resample TARGETS
+    (`src/evaluation/effects_v2.py`). The means and the verdict are computed as before, from
+    the same records, so nothing else in the summary moves.
     """
     results = []
     n = len(attentions) if max_pairs is None else min(max_pairs, len(attentions))
@@ -247,6 +257,12 @@ def batch_faithfulness(model, drug_batch, protein_batch, attentions,
         "sufficiency", "sufficiency_random", "sufficiency_delta", "aopc")}
     summary["n_pairs"] = len(results)
     summary["k"] = k
+    if ids is not None:
+        summary["per_pair"] = [
+            {"id": str(ids[i]),
+             "comprehensiveness_delta": _finite_or_none(r["comprehensiveness_delta"]),
+             "sufficiency_delta": _finite_or_none(r["sufficiency_delta"])}
+            for i, r in enumerate(results)]
     # the one-line verdict the paper needs per split
     summary["explanation_is_load_bearing"] = bool(
         np.isfinite(summary["comprehensiveness_delta"])

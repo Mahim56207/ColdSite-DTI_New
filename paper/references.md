@@ -87,3 +87,27 @@ lists from the same records when formatting for the venue.
 **Removed:** the claim that sparse-autoencoder faithfulness "has been formalized as a
 geometric faithfulness gap" (`docs/00_MASTER_PLAN_V2.md` §1). No source makes it; the
 nearest, Bal (2026, arXiv:2607.12166), is about in-distribution faithfulness.
+
+## Prior attention-vs-binding-site work, leakage precedent, explanation-evaluation methodology (T19, added 2026-09-25)
+
+Each row was fetched on 2026-09-25 from the registry named; the raw record (title, authors, venue, abstract where the
+registry has one) is in `paper/citation_verification/<file>.json`. The arXiv API refused this machine (HTTP 406), so
+preprints were verified through their arXiv-registered DOIs (prefix 10.48550) at DataCite, which carries the arXiv
+title, authors and abstract. What each prior work did is summarised only from those abstracts: `docs/delta_table.md`.
+
+| key | reference | identifier | verified | file |
+|---|---|---|---|---|
+| MONN 2020 | Li S, Wan F, et al. MONN: A Multi-objective Neural Network for Predicting Compound-Protein Interactions and Affinities. *Cell Systems* 10:308–322.e11 (2020) | doi:10.1016/j.cels.2020.03.002 | Crossref (abstract from the bioRxiv preprint doi:10.1101/2019.12.30.891515) | `Li2020_MONN.json` |
+| ICAN 2022 | Kurata H, Tsukiyama S. ICAN: Interpretable cross-attention network for identifying drug and target protein interactions. *PLOS ONE* 17:e0276609 (2022) | doi:10.1371/journal.pone.0276609 | Crossref | `Kurata2022_ICAN.json` |
+| InteractBind 2026 | Meng Z, Bai Z, Yuan K, Ounis I, Meng Z, Xu H, Loscalzo J. A Large-Scale Dataset and Benchmark: Do Protein-Ligand Models Learn Binding Sites or Just Binding Likelihood? arXiv preprint (2026) | arXiv:2605.24045 | DataCite — **preprint** | `InteractBind_2605.24045.json` |
+| ISAAC 2026 | Tarantino B, Kim S, Lu Y, Giudici P. ISAAC: Auditing Causal Reasoning in Deep Models for Drug-Target Interaction. arXiv preprint (2026) | arXiv:2605.02962 | DataCite — **preprint** | `ISAAC_2605.02962.json` |
+| Vefghi 2026 | Vefghi A, Rahmati Z, Akbari M. Where Black-box Drug-Target Interaction Prediction Models Look: Cross-Method Explainability. arXiv preprint (2026) | arXiv:2606.14245 | DataCite — **preprint** | `Vefghi2026_2606.14245.json` |
+| DAVIS-complete 2025 | Wu M-H, Xie Z, Ji S, Zhi D. Towards Precision Protein-Ligand Affinity Prediction Benchmark: A Complete and Modification-Aware DAVIS Dataset. arXiv preprint (2025) | arXiv:2512.00708 | DataCite — **preprint** | `DAVIScomplete_2512.00708.json` |
+| Ong 2023 | Ong WJG, Kirubakaran P, Karanicolas J. Poor Generalization by Current Deep Learning Models for Predicting Binding Affinities of Kinase Inhibitors. bioRxiv preprint (2023) | doi:10.1101/2023.09.04.556234 | Crossref — **preprint** | `bioRxiv2023_556234.json` |
+| Adebayo 2018 | Adebayo J, Gilmer J, Muelly M, Goodfellow I, Hardt M, Kim B. Sanity Checks for Saliency Maps. *NeurIPS 2018* | arXiv:1810.03292 | DataCite | `Adebayo2018.json` |
+| Jacovi & Goldberg 2020 | Jacovi A, Goldberg Y. Towards Faithfully Interpretable NLP Systems: How Should We Define and Evaluate Faithfulness? *Proc. ACL 2020*, 4198–4205 | doi:10.18653/v1/2020.acl-main.386 | Crossref | `JacoviGoldberg2020.json` |
+| PSICHIC 2024 | Koh HY, Nguyen ATN, et al. Physicochemical graph neural network for learning protein–ligand interaction fingerprints from sequence data. *Nature Machine Intelligence* 6:673–687 (2024) | doi:10.1038/s42256-024-00847-1 | Crossref | `Koh2024_PSICHIC.json` |
+| KLIFS 2016 | Kooistra AJ, Kanev GK, et al. KLIFS: a structural kinase-ligand interaction database. *Nucleic Acids Res.* 44:D365–D371 (2016; online 2015) | doi:10.1093/nar/gkv1082 | Crossref | `Kooistra2016_KLIFS.json` |
+
+Re-verified on 2026-09-25 (already listed above; records saved): Jain & Wallace 2019, Wiegreffe & Pinter 2019,
+ERASER 2020, DrugBAN 2023.

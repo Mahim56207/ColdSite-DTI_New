@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "wave": "canary",
+  "note": "One existing DAVIS cell of the cheapest attention model (ColdSite-DTI), retrained under the harness with its committed seed. Level cold_target: one committed-seed SD of 0.0109 AUROC is a tolerance a broken harness would not meet by luck, unlike cold_pair (SD 0.0991), and the cell ran 26 epochs at seed 1, about an hour on one T4 at the ~2 min 15 s/epoch measured on Kaggle (CLAUDE.md section 4). The level was chosen AFTER looking at the committed SDs, for that reason; the canary is a harness check and adds nothing to any family.",
+  "accounts": {
+    "CANARY": {
+      "gpu0": [{"dataset": "davis", "model": "coldsite_dti", "level": "cold_target", "seed": 1}],
+      "gpu1": []
+    }
+  }
+}

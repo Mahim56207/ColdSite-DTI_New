@@ -1,0 +1,30 @@
+{
+ "key": "Li2020_MONN",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.1016/j.cels.2020.03.002",
+ "DOI": "10.1016/j.cels.2020.03.002",
+ "title": "MONN: A Multi-objective Neural Network for Predicting Compound-Protein Interactions and Affinities",
+ "authors": [
+  "Li, Shuya",
+  "Wan, Fangping",
+  "Shu, Hantao",
+  "Jiang, Tao",
+  "Zhao, Dan",
+  "Zeng, Jianyang"
+ ],
+ "container": "Cell Systems",
+ "volume": "10",
+ "issue": "4",
+ "page": "308-322.e11",
+ "article_number": null,
+ "issued": [
+  [
+   2020,
+   4
+  ]
+ ],
+ "type": "journal-article",
+ "abstract": "Abstract Computational approaches for inferring the mechanisms of compound-protein interactions (CPIs) can greatly facilitate drug development. Recently, although a number of deep learning based methods have been proposed to predict binding affinities and attempt to capture local interaction sites in compounds and proteins through neural attentions, they still lack a systematic evaluation on the interpretability of the identified local features. In addition, in these previous approaches, the exact matchings between interaction sites from compounds and proteins, which are generally important for understanding drug mechanisms of action, still remain unknown. Here, we compiled the first benchmark dataset containing the inter-molecular non-covalent interactions for more than 10,000 compound-protein pairs, and used it to systematically evaluate the interpretability of neural attentions in existing prediction models. We developed a multi-objective neural network, called MONN, to predict both non-covalent interactions and binding affinity for a given compound-protein pair. MONN uses convolution neural networks on molecular graphs of compounds and primary sequences of proteins to effectively capture the intrinsic features from both inputs, and also takes advantage of the predicted non-covalent interactions to further boost the accuracy of binding affinity prediction. Comprehensive evaluation demonstrated that while the previous neural attention based approaches fail to exhibit satisfactory interpretability results without extra supervision, MONN can successfully predict non-covalent interactions on our benchmark dataset as well as another independent dataset derived from the Protein Data Bank (PDB). Moreover, MONN can outperform other state-of-the-art methods in predicting compound-protein binding affinities. In addition, the pairwise interactions predicted by MONN displayed compatible and accordant patterns in chemical properties, which provided another evidence to support the strong predictive power of MONN. These results suggested that MONN can offer a powerful tool in predicting binding affinities of compound-protein pairs and also provide useful insights into understanding the molecular mechanisms of compound-protein interactions, which thus can greatly advance the drug discovery process. The source code of the MONN model and the dataset creation process can be downloaded from https://github.com/lishuya17/MONN .",
+ "abstract_source": "bioRxiv preprint doi:10.1101/2019.12.30.891515 (Crossref); the Cell Systems record carries no abstract and Europe PMC has no entry"
+}

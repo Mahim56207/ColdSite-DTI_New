@@ -279,7 +279,9 @@ class MolTransAdapter(ExplainableDTIModel):
 
         _vendored("MolTrans", self.clone_hint)
         from config import BIN_config_DBPE       # noqa: E402
-        from models import BIN_Interaction_Flat  # noqa: E402
+        from src.model.integrity import preserve_rng
+        with preserve_rng():    # the vendored models.py seeds torch and numpy at import
+            from models import BIN_Interaction_Flat  # noqa: E402
 
         self.device = device
         self.checkpoint_path = checkpoint_path

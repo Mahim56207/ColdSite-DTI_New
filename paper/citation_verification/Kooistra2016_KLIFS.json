@@ -1,0 +1,30 @@
+{
+ "key": "Kooistra2016_KLIFS",
+ "registry": "Crossref",
+ "fetched": "2026-09-25",
+ "url": "https://api.crossref.org/works/10.1093/nar/gkv1082",
+ "DOI": "10.1093/nar/gkv1082",
+ "title": "KLIFS: a structural kinase-ligand interaction database",
+ "authors": [
+  "Kooistra, Albert J.",
+  "Kanev, Georgi K.",
+  "van Linden, Oscar P.J.",
+  "Leurs, Rob",
+  "de Esch, Iwan J.P.",
+  "de Graaf, Chris"
+ ],
+ "container": "Nucleic Acids Research",
+ "volume": "44",
+ "issue": "D1",
+ "page": "D365-D371",
+ "article_number": null,
+ "issued": [
+  [
+   2015,
+   10,
+   22
+  ]
+ ],
+ "type": "journal-article",
+ "abstract": ""
+}

@@ -35,6 +35,7 @@ import numpy as np
 import torch
 
 from src.data.ground_truth import load_site_sets, site_lookup
+from src.evaluation.integrity import MIN_PERMUTATIONS, check_permutations
 from src.model.checkpoint_naming import checkpoint_path as build_checkpoint_path
 from src.model.checkpoint_naming import DEFAULT_MODEL, discover_checkpoints
 from src.evaluation.precision_at_k import batch_precision_at_k
@@ -329,7 +330,11 @@ def main():
     parser.add_argument("--out-dir", default="results")
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--max-protein-len", type=int, default=1000)
-    parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--n-trials", type=int, default=MIN_PERMUTATIONS)
+    parser.add_argument("--allow-low-permutations", action="store_true",
+                        help="reproduce an output computed before the "
+                             "10000-permutation floor existed; never for "
+                             "a new result")
     parser.add_argument("--pairs-per-target", type=int, default=1,
                         help="test pairs scored per protein, first in file order "
                              "(default 1, as run_audit). 0 scores every pair, "
@@ -341,6 +346,8 @@ def main():
                         help="for --model hyperattentiondti / moltrans; "
                              "ColdSite-DTI runs on CPU as before")
     args = parser.parse_args()
+    check_permutations(args.n_trials, allow_low=args.allow_low_permutations,
+                       context="plausibility ladder")
 
     if args.dummy:
         run_dummy(out_dir=args.out_dir)

@@ -49,6 +49,8 @@ import subprocess
 import sys
 import time
 
+from src.evaluation.integrity import (check_extension_dir, check_grid_unchanged,
+                                      write_grid_state)
 from src.model.checkpoint_naming import checkpoint_path, results_path, run_tag
 
 LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
@@ -453,6 +455,13 @@ def main():
                              "(unfinished cells); refused by default")
     parser.add_argument("--dry-run", action="store_true",
                         help="print the inventory and the commands, run nothing")
+    parser.add_argument("--allow-partial", action="store_true",
+                        help="analyse although the grid has changed since these outputs "
+                             "were written; the skipped files will not be revisited")
+    parser.add_argument("--extension", action="store_true",
+                        help="this is a declared extension family (new seeds, models or "
+                             "methods): --out-dir must be a directory with no outputs in "
+                             "it, so the primary analysis stays byte-for-byte")
     args = parser.parse_args()
 
     if args.device is None:
@@ -479,6 +488,8 @@ def main():
     unknown = set(steps) - set(STEPS)
     if unknown:
         parser.error(f"unknown step(s) {sorted(unknown)}; known: {STEPS}")
+    if args.extension:
+        check_extension_dir(cfg["out_dir"])
     os.makedirs(cfg["out_dir"], exist_ok=True)
     log_path = os.path.join(cfg["out_dir"], "run_all.log")
 
@@ -494,12 +505,26 @@ def main():
     # off mid-training). The analysis tools look only for the checkpoint, so they would
     # score a half-trained model -- which happened on 2026-09-14 with HyperAttentionDTI
     # cold-drug seed 1. Refuse, unless told otherwise.
+    # A step whose output exists is skipped, and one ladder or faithfulness file covers
+    # every level of a (model, seed). Run this while half the grid is trained and those
+    # files are written with half the levels; when the rest lands, they are skipped and
+    # the new levels are never scored -- silently. The fingerprint written below is what
+    # lets the second run notice. KIBA had 8 of 18 cells when the analysis was first
+    # tried (2026-09-15), which is how this was found.
+    if not args.dry_run:
+        check_grid_unchanged(cfg["out_dir"], state,
+                             skip_existing=not args.no_skip_existing,
+                             allow_partial=args.allow_partial)
+
     interrupted = sorted(k for k, v in state.items() if v == "interrupted")
     if interrupted and not args.allow_interrupted and not args.dry_run:
         raise SystemExit(
             f"{len(interrupted)} checkpoint(s) have no results file -- unfinished cells the "
             f"analysis would silently score: {interrupted}. Move them out of "
             f"{cfg['checkpoint_dir']} (or pass --allow-interrupted).")
+
+    if not args.dry_run:
+        write_grid_state(cfg["out_dir"], state, cfg["dataset"])
 
     outcomes = {}
     for step in steps:

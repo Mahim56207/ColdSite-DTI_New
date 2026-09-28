@@ -82,7 +82,7 @@ from src.model.train import DEFAULT_ACCURACY_METRIC, accuracy_metric_for  # noqa
 # --------------------------------------------------------------------------
 
 def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu",
-                  keep=None):
+                  keep=None, target_ids=None, ids_out=None):
     """(drugs, proteins, attentions) as one-row tensors plus real-length weights.
 
     `batch_faithfulness` masks positions of the protein tensor using indices
@@ -94,6 +94,9 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu",
 
     `keep` (one bool per dataloader row, in file order) skips rows the sequence policy
     excludes -- `src/evaluation/exclusions.py`. None keeps every row.
+
+    `target_ids` (one per dataloader row, file order) and `ids_out` (a list) together record
+    which protein each kept pair belongs to; both default to off.
     """
     model.eval().to(device)
     drugs, proteins, attentions = [], [], []
@@ -106,11 +109,14 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu",
             explanations = model.explain(drug_batch, protein_batch)
             batch_keep = (keep[cursor:cursor + len(drug_batch)] if keep is not None
                           else [True] * len(drug_batch))
+            first = cursor
             cursor += len(drug_batch)
 
             for i, explanation in enumerate(explanations):
                 if not batch_keep[i]:
                     continue
+                if ids_out is not None and target_ids is not None:
+                    ids_out.append(str(target_ids[first + i]))
                 drugs.append(drug_batch[i:i + 1].cpu())
                 proteins.append(protein_batch[i:i + 1].cpu())
                 attentions.append(np.asarray(explanation, dtype=float))
@@ -122,25 +128,29 @@ def collect_pairs(model, dataloader, max_pairs: int = 200, device: str = "cpu",
 
 def faithfulness_for_level(model, dataloader, k: int = 10,
                            n_random_trials: int = 5, max_pairs: int = 200,
-                           seed: int = 0, device: str = "cpu", keep=None) -> dict:
+                           seed: int = 0, device: str = "cpu", keep=None,
+                           target_ids=None) -> dict:
     """One difficulty level: collect pairs, then measure with the control.
 
     Cost is `(2 + 2*n_random_trials + len(k_values))` forward passes per pair,
     so `max_pairs` is the budget knob. The mean over a few hundred pairs is the
     number; the mean over all of them is the same number and a much longer wait.
     """
-    drugs, proteins, attentions = collect_pairs(model, dataloader, max_pairs, device, keep)
+    ids_out = [] if target_ids is not None else None
+    drugs, proteins, attentions = collect_pairs(model, dataloader, max_pairs, device, keep,
+                                                target_ids=target_ids, ids_out=ids_out)
     if not attentions:
         return {"n_pairs": 0, "comprehensiveness_delta": float("nan"),
                 "explanation_is_load_bearing": False}
     return batch_faithfulness(model, drugs, proteins, attentions, k=k,
                               n_random_trials=n_random_trials, seed=seed,
-                              max_pairs=max_pairs)
+                              max_pairs=max_pairs, ids=ids_out)
 
 
 def collect_adapter_pairs(model_name: str, split_dir: str, checkpoint: str,
                           max_pairs: int = 200, device: str = "cpu",
-                          max_protein_len: int = 1000, policy: bool = True):
+                          max_protein_len: int = 1000, policy: bool = True,
+                          ids_out=None):
     """The audited baselines' equivalent of `collect_pairs`.
 
     Returns (wrapped_model, drugs, proteins, attentions), ready for
@@ -157,10 +167,12 @@ def collect_adapter_pairs(model_name: str, split_dir: str, checkpoint: str,
                                       max_protein_len)
     wrapped = ResidueSpaceModel(adapter, model_name, device=device)
     drugs, proteins, attentions = [], [], []
-    for _target_id, smiles, sequence in _read_test_rows(split_dir, pairs_per_target=0,
-                                                        policy=policy):
+    for target_id, smiles, sequence in _read_test_rows(split_dir, pairs_per_target=0,
+                                                       policy=policy):
         drug, protein, attention = wrapped.add_pair(smiles, sequence,
                                                     max_len=max_protein_len)
+        if ids_out is not None:
+            ids_out.append(str(target_id))
         drugs.append(drug)
         proteins.append(protein)
         attentions.append(attention)
@@ -423,6 +435,10 @@ def main():
     parser.add_argument("--device", default="cpu",
                         help="for --model hyperattentiondti / moltrans; "
                              "ColdSite-DTI runs on CPU as before")
+    parser.add_argument("--record-pairs", action="store_true",
+                        help="keep each scored pair's target id and deltas in the JSON "
+                             "(`per_pair`), for a confidence interval over targets. Off by "
+                             "default: the means are the same either way")
     args = parser.parse_args()
 
     if args.dummy:
@@ -476,16 +492,18 @@ def main():
             summaries[level] = faithfulness_for_level(
                 model, test_loader, k=args.k, n_random_trials=args.n_random_trials,
                 max_pairs=args.max_pairs, seed=args.seed,
-                keep=[t not in excluded for t in test_ids])
+                keep=[t not in excluded for t in test_ids],
+                target_ids=list(test_ids) if args.record_pairs else None)
         else:
+            pair_ids = [] if args.record_pairs else None
             wrapped, drugs, proteins, attentions = collect_adapter_pairs(
                 args.model, split_dir, checkpoint, max_pairs=args.max_pairs,
                 device=args.device, max_protein_len=args.max_protein_len,
-                policy=not args.no_sequence_policy)
+                policy=not args.no_sequence_policy, ids_out=pair_ids)
             summaries[level] = batch_faithfulness(
                 wrapped, drugs, proteins, attentions, k=args.k,
                 n_random_trials=args.n_random_trials, seed=args.seed,
-                max_pairs=args.max_pairs)
+                max_pairs=args.max_pairs, ids=pair_ids)
         evaluated.append(level)
 
     if not summaries:

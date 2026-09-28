@@ -43,6 +43,7 @@ import os
 import numpy as np
 
 from src.data.ground_truth import COTRANSPORT_IONS, load_site_sets
+from src.evaluation.integrity import MIN_PERMUTATIONS, check_permutations
 from src.evaluation.collect import MissingCell, collect_cell
 from src.evaluation.precision_at_k import precision_at_k
 from src.evaluation.run_control import LEVELS, PANEL_ROWS, PANEL_SITES
@@ -302,13 +303,19 @@ def main():
     parser.add_argument("--seeds", default="1,2,3")
     parser.add_argument("--checkpoint-dir", required=True)
     parser.add_argument("--k", type=int, default=10)
-    parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--n-trials", type=int, default=MIN_PERMUTATIONS)
+    parser.add_argument("--allow-low-permutations", action="store_true",
+                        help="reproduce an output computed before the "
+                             "10000-permutation floor existed; never for "
+                             "a new result")
     parser.add_argument("--out-dir", default="results")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--ground-truth", help="default: data/<dataset>_ground_truth_sites.json")
     parser.add_argument("--arms", default="kinase,non_kinase")
     parser.add_argument("--tag", default="", help="appended to the output file names")
     args = parser.parse_args()
+    check_permutations(args.n_trials, allow_low=args.allow_low_permutations,
+                       context="positional / residue-identity nulls")
     results = run(args.model, args.dataset, [int(s) for s in args.seeds.split(",")],
                   args.checkpoint_dir, args.k, args.n_trials, device=args.device,
                   ground_truth=args.ground_truth, arms=tuple(args.arms.split(",")))

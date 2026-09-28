@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "session_limit_hours": 11,
+  "session_limit_source": "notebooks/kaggle_binary_grid.ipynb: DEADLINE = START + 11 * 3600 (the self-stop every grid so far ran under). User statement 2026-09-25: Kaggle session limit 12 h, weekly quota 30 GPU-hours per account, and the 11 h self-stop is correct, so this value stays 11.",
+  "safety_margin_minutes": 45,
+  "safety_margin_source": "docs/REMEDIATION_PLAN.md cloud_rules (b): default 45 min",
+  "required_gpus": 2,
+  "gpu_name_contains": "T4",
+  "disk_reserve_gb": 5,
+  "disk_reserve_note": "declared headroom beyond the planned checkpoints, not measured",
+  "checkpoint_bytes": {
+    "coldsite_dti": 2465209,
+    "deepdta": 7738021,
+    "hyperattentiondti": 9249041,
+    "moltrans": 251425247,
+    "drugban": 4337535
+  },
+  "checkpoint_bytes_source": "stat of ~/ColdSite-results/davis_binary/coldsite_dti_davis_random_binary_seed1{,_deepdta,_hyperattentiondti,_moltrans,_drugban}.pt, 2026-09-25",
+  "planned_bytes_per_cell_factor": 4,
+  "planned_bytes_note": "best checkpoint (1x) + resume file (model + two Adam moments, ~3x); history and status files are negligible"
+}

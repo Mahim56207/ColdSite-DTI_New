@@ -13,6 +13,9 @@ data/raw/*
 data/splits/*
 !data/raw/.gitkeep
 !data/splits/.gitkeep
+# The hash record for the split and ground-truth files (src/data/manifest.py): the splits
+# themselves are regenerated, the record of what they must hash to is not.
+!data/splits/MANIFEST.json
 
 # Cloned baseline repos (each has its own git history/license - don't nest them)
 src/data/baselines/*
@@ -37,6 +40,16 @@ results/*
 # Checkpoints, per-run JSON and figures stay ignored -- these are tables only.
 !results/*.md
 !results/*.csv
+# T04: the accuracy tables and the predictions manifest (SHA-256 of every predictions file);
+# the predictions themselves stay untracked.
+!results/accuracy_v2/
+results/accuracy_v2/predictions/
+# T05: the effect-size tables and the per-pair faithfulness JSONs they are computed from
+# (small; figures stay untracked)
+!results/effects_v2/
+results/effects_v2/**/*.png
+# two-way (seeds x targets) bootstrap of the same inputs; the manuscript's intervals
+!results/effects_v2_2d/
 # ...but never a synthetic run. This rule comes last so it wins: a
 # DUMMY_PLACEHOLDER file committed by accident is a placeholder number sitting
 # in the repo looking like a finding.

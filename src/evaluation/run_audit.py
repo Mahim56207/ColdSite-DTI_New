@@ -25,6 +25,8 @@ import os
 import numpy as np
 
 from src.evaluation.aggregate import aggregate_seeds, audit_table, degradation, holm_bonferroni
+from src.evaluation.integrity import (MIN_PERMUTATIONS, check_permutations,
+                                     min_achievable_p)
 
 # Imported for its registration side-effect. @register runs at import time, so
 # without this line `--models deepdta` fails with "unknown model" and an error
@@ -160,6 +162,11 @@ def build_grid(collect_fn, models, datasets, seeds, k=10, n_trials=1000,
         "missing_cells": missing,
         "k": k,
         "seeds": list(seeds),
+        # Recorded, not inferred. Reading the permutation count back out of a p-value's
+        # denominator worked (T01 did it), but only because every p happened to be a
+        # multiple of 1/(n+1); a file should say what it ran at.
+        "n_trials": int(n_trials),
+        "min_achievable_p": min_achievable_p(n_trials),
     }
 
 
@@ -251,7 +258,11 @@ def main():
     parser.add_argument("--seeds", default="1,2,3")
     parser.add_argument("--ground-truth")
     parser.add_argument("--k", type=int, default=10)
-    parser.add_argument("--n-trials", type=int, default=500)
+    parser.add_argument("--n-trials", type=int, default=MIN_PERMUTATIONS)
+    parser.add_argument("--allow-low-permutations", action="store_true",
+                        help="reproduce an output computed before the "
+                             "10000-permutation floor existed; never for "
+                             "a new result")
     parser.add_argument("--out-dir", default="results")
     parser.add_argument("--task", default="binary",
                         choices=["regression", "binary"],
@@ -266,6 +277,8 @@ def main():
     parser.add_argument("--max-protein-len", type=int, default=1000)
     parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
+    check_permutations(args.n_trials, allow_low=args.allow_low_permutations,
+                       context="audit grid")
 
     models = [m.strip() for m in args.models.split(",") if m.strip()]
     for name in models:
@@ -323,6 +336,10 @@ def main():
 
     results = build_grid(collect, models, datasets, seeds,
                          k=args.k, n_trials=args.n_trials)
+    # Holm's strictest step over this family is alpha / m. A permutation test whose
+    # floor is not well below it cannot support the rejection it would print.
+    check_permutations(args.n_trials, family_size=len(results["p_values_raw"]),
+                       allow_low=args.allow_low_permutations, context="audit grid")
     if skipped:
         results["skipped_reasons"] = skipped
 

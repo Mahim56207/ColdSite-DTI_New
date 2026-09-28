@@ -73,6 +73,7 @@ def load_variant_plugins(name: str = "") -> None:
         return
     import src.evaluation.integrated_gradients      # noqa: F401  (registers on import)
     import src.evaluation.readout_variants          # noqa: F401  (same)
+    import src.evaluation.explanation_methods       # noqa: F401  (same)
 
 
 def available_models() -> list:

@@ -1,0 +1,11 @@
+dataset,group,y,n_cells,rho,low,high,n_resamples,n_degenerate_resamples
+davis,all attention models,precision_at_10,48,0.033118,-0.276412,0.321995,10000,0
+davis,all attention models,enrichment,48,0.003149,-0.308752,0.293885,10000,0
+davis,coldsite_dti,precision_at_10,12,0.118881,-0.607280,0.701094,10000,0
+davis,coldsite_dti,enrichment,12,0.048951,-0.627758,0.667897,10000,0
+davis,drugban,precision_at_10,12,-0.690019,-0.862816,-0.177022,10000,0
+davis,drugban,enrichment,12,-0.690019,-0.862816,-0.177022,10000,0
+davis,hyperattentiondti,precision_at_10,12,0.461538,-0.218638,0.884068,10000,0
+davis,hyperattentiondti,enrichment,12,0.461538,-0.218638,0.884068,10000,0
+davis,moltrans,precision_at_10,12,-0.080561,-0.663097,0.568428,10000,0
+davis,moltrans,enrichment,12,-0.153846,-0.717391,0.521747,10000,0

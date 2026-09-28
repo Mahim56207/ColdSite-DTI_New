@@ -110,6 +110,14 @@ MODEL_SUFFIX = {
     "drugban_maxatom": "_drugban",
     "drugban_receptive": "_drugban",
     "moltrans_firstlayer": "_moltrans",
+    # Further explanation methods on the same weights (src/evaluation/explanation_methods.py).
+    "coldsite_dti_occlusion": "",
+    "hyperattentiondti_occlusion": "_hyperattentiondti",
+    "moltrans_occlusion": "_moltrans",
+    "drugban_occlusion": "_drugban",
+    "hyperattentiondti_attngrad": "_hyperattentiondti",
+    "moltrans_attngrad": "_moltrans",
+    "moltrans_rollout": "_moltrans",
 }
 
 # Every explanation variant and the trained model it reads. Explicit rather than a suffix
@@ -129,6 +137,13 @@ VARIANT_BASE = {
     "drugban_maxhead": "drugban",
     "drugban_maxatom": "drugban",
     "drugban_receptive": "drugban",
+    "coldsite_dti_occlusion": "coldsite_dti",
+    "hyperattentiondti_occlusion": "hyperattentiondti",
+    "moltrans_occlusion": "moltrans",
+    "drugban_occlusion": "drugban",
+    "hyperattentiondti_attngrad": "hyperattentiondti",
+    "moltrans_attngrad": "moltrans",
+    "moltrans_rollout": "moltrans",
 }
 IG_SUFFIX = "_ig"
 

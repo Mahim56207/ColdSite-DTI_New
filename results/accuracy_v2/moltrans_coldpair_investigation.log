@@ -1,0 +1,44 @@
+    test batch 20/72 loss 0.2429    test batch 40/72 loss 0.2077    test batch 60/72 loss 0.2462    test batch 72/72 loss 0.3088
+cold_pair s1 current     auroc 0.596250 auprc 0.123774 acc 0.937063  |dlogit vs saved| 5.000000413701855e-09  (24s)
+    test batch 20/72 loss 0.2429    test batch 40/72 loss 0.2077    test batch 60/72 loss 0.2462    test batch 72/72 loss 0.3088
+cold_pair s1 current     auroc 0.596250 auprc 0.123774 acc 0.937063  |dlogit vs saved| 5.000000413701855e-09  (46s)
+    test batch 20/72 loss 0.2451    test batch 40/72 loss 0.2085    test batch 60/72 loss 0.2467    test batch 72/72 loss 0.3089
+cold_pair s1 no_dropout  auroc 0.592472 auprc 0.125958 acc 0.937937  |dlogit vs saved| 0.6455399940667723  (68s)
+    test batch 20/72 loss 0.2451    test batch 40/72 loss 0.2085    test batch 60/72 loss 0.2467    test batch 72/72 loss 0.3089
+cold_pair s1 no_dropout  auroc 0.592472 auprc 0.125958 acc 0.937937  |dlogit vs saved| 0.6455399940667723  (90s)
+    test batch 20/72 loss 0.2451    test batch 40/72 loss 0.2085    test batch 60/72 loss 0.2467    test batch 72/72 loss 0.3089
+cold_pair s1 no_dropout_cpu auroc 0.592472 auprc 0.125958 acc 0.937937  |dlogit vs saved| 0.6455388019738768  (128s)
+    test batch 20/72 loss 0.2445    test batch 40/72 loss 0.2088    test batch 60/72 loss 0.2463    test batch 72/72 loss 0.3087
+cold_pair s1 seeded      auroc 0.595395 auprc 0.126155 acc 0.936189  |dlogit vs saved| 0.8141357914001466  (151s)
+    test batch 20/72 loss 0.2461    test batch 40/72 loss 0.2078    test batch 60/72 loss 0.2465    test batch 72/72 loss 0.3087
+cold_pair s1 seeded      auroc 0.586212 auprc 0.124346 acc 0.937937  |dlogit vs saved| 1.1221412424412842  (173s)
+    test batch 20/72 loss 0.2461    test batch 40/72 loss 0.2071    test batch 60/72 loss 0.2464    test batch 72/72 loss 0.3075
+cold_pair s1 seeded      auroc 0.593213 auprc 0.126417 acc 0.937937  |dlogit vs saved| 1.0142950965093993  (196s)
+    test batch 20/72 loss 0.2448    test batch 40/72 loss 0.2067    test batch 60/72 loss 0.2461    test batch 72/72 loss 0.3085
+cold_pair s1 seeded      auroc 0.590247 auprc 0.124627 acc 0.937937  |dlogit vs saved| 1.179119105705566  (213s)
+    test batch 20/72 loss 0.2426    test batch 40/72 loss 0.2070    test batch 60/72 loss 0.2456    test batch 72/72 loss 0.3077
+cold_pair s1 seeded      auroc 0.595366 auprc 0.125176 acc 0.937937  |dlogit vs saved| 1.0519711935308838  (228s)
+    test batch 20/72 loss 0.2464    test batch 40/72 loss 0.2092    test batch 60/72 loss 0.2474    test batch 72/72 loss 0.3094
+cold_pair s1 seeded      auroc 0.586569 auprc 0.125231 acc 0.937063  |dlogit vs saved| 0.9889275978265379  (243s)
+    test batch 20/72 loss 0.2442    test batch 40/72 loss 0.2180    test batch 60/72 loss 0.2595    test batch 72/72 loss 0.3188
+cold_pair s2 current     auroc 0.559749 auprc 0.092585 acc 0.934441  |dlogit vs saved| 4.996337565899012e-09  (16s)
+    test batch 20/72 loss 0.2442    test batch 40/72 loss 0.2180    test batch 60/72 loss 0.2595    test batch 72/72 loss 0.3188
+cold_pair s2 current     auroc 0.559749 auprc 0.092585 acc 0.934441  |dlogit vs saved| 4.996337565899012e-09  (31s)
+    test batch 20/72 loss 0.2451    test batch 40/72 loss 0.2185    test batch 60/72 loss 0.2594    test batch 72/72 loss 0.3180
+cold_pair s2 no_dropout  auroc 0.563200 auprc 0.093630 acc 0.934441  |dlogit vs saved| 0.6451282496838378  (46s)
+    test batch 20/72 loss 0.2451    test batch 40/72 loss 0.2185    test batch 60/72 loss 0.2594    test batch 72/72 loss 0.3180
+cold_pair s2 no_dropout  auroc 0.563200 auprc 0.093630 acc 0.934441  |dlogit vs saved| 0.6451282496838378  (61s)
+    test batch 20/72 loss 0.2451    test batch 40/72 loss 0.2185    test batch 60/72 loss 0.2594    test batch 72/72 loss 0.3180
+cold_pair s2 no_dropout_cpu auroc 0.563200 auprc 0.093630 acc 0.934441  |dlogit vs saved| 0.6451339717297362  (87s)
+    test batch 20/72 loss 0.2438    test batch 40/72 loss 0.2168    test batch 60/72 loss 0.2599    test batch 72/72 loss 0.3172
+cold_pair s2 seeded      auroc 0.571170 auprc 0.095338 acc 0.935315  |dlogit vs saved| 0.853979591553955  (102s)
+    test batch 20/72 loss 0.2463    test batch 40/72 loss 0.2182    test batch 60/72 loss 0.2587    test batch 72/72 loss 0.3176
+cold_pair s2 seeded      auroc 0.561203 auprc 0.093890 acc 0.934441  |dlogit vs saved| 1.0105495453649906  (118s)
+    test batch 20/72 loss 0.2436    test batch 40/72 loss 0.2182    test batch 60/72 loss 0.2600    test batch 72/72 loss 0.3197
+cold_pair s2 seeded      auroc 0.551294 auprc 0.093166 acc 0.934441  |dlogit vs saved| 0.7679667444494629  (133s)
+    test batch 20/72 loss 0.2479    test batch 40/72 loss 0.2203    test batch 60/72 loss 0.2604    test batch 72/72 loss 0.3182
+cold_pair s2 seeded      auroc 0.564326 auprc 0.093279 acc 0.934441  |dlogit vs saved| 0.9832754168347169  (148s)
+    test batch 20/72 loss 0.2432    test batch 40/72 loss 0.2176    test batch 60/72 loss 0.2596    test batch 72/72 loss 0.3180
+cold_pair s2 seeded      auroc 0.564283 auprc 0.094324 acc 0.933566  |dlogit vs saved| 0.7725901637109374  (164s)
+    test batch 20/72 loss 0.2456    test batch 40/72 loss 0.2194    test batch 60/72 loss 0.2612    test batch 72/72 loss 0.3192
+cold_pair s2 seeded      auroc 0.557439 auprc 0.094523 acc 0.934441  |dlogit vs saved| 0.9270424838452147  (179s)

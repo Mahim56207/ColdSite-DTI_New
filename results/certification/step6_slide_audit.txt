@@ -69,7 +69,7 @@ extracted 10 slides -> PPT_EXTRACT.md (21063 bytes)
 [PASS       ] slide 10 | seeds disagree | slide 11 of 22 vs 11 of 22
 [PASS       ] slide 10 | load-bearing 3 of 4; pocket enrichment 2 | slide ('3', '4', '2') vs 3 models with all intervals above zero (of 4) and 2 models with pocket survivors
 [PASS       ] slide 10 | Spearman rho, accuracy vs localisation | slide 0.003 [-0.309, 0.294] n=48 vs independent +0.004 [-0.300, +0.305] n=48 (enrichment)
-[PASS       ] slide 10 | passing tests | slide 1,202 vs junit passed 1202 (failures 0, errors 0)
+[PASS       ] slide 10 | passing tests | slide 1,240 vs junit passed 1240 (failures 0, errors 0)
 [PASS       ] slide 10 | numbers machine-checked, 0 failures | slide 986 numbers / 0 failures vs checker ('986', '658', '0')
 [PASS       ] slide 10 | 84 trained models (conclusion slide) | 84 vs 84
 [PASS       ] slide 10 | conclusion: the DAVIS leak (12 of 88) | slide 12 of 88 vs 12 of 88 recomputed from the split CSVs

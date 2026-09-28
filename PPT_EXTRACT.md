@@ -226,7 +226,7 @@ What holds is coarser
 Load-bearing in 3 of 4 models; pocket enrichment for 2
 [image: Image 3]
 Figure 4 · Better accuracy does not mean better localisation: Spearman ρ = 0.003 [−0.309, 0.294] over 48 DAVIS cells.
-84 trained models · 1,202 passing tests · 986 numbers in the draft machine-checked against their source files, 0 failures
+84 trained models · 1,240 passing tests · 986 numbers in the draft machine-checked against their source files, 0 failures
 10 / 10
 [image: Leak icon]
 The benchmark leaks

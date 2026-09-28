@@ -148,7 +148,7 @@ Full reasoning and every number: `results/certification/step8_red_team.txt`. Eac
 
 ## Final verdict
 
-**CERTIFIED FOR SUBMISSION — numbers and wording, within the scope above.** Blocking errors remaining: **0** (traceability 0 failing, slide audit 0 FAIL, 986 numbers with 0 provenance failures, 1,202 tests passing).
+**CERTIFIED FOR SUBMISSION — numbers and wording, within the scope above.** Blocking errors remaining: **0** (traceability 0 failing, slide audit 0 FAIL, 986 numbers with 0 provenance failures, 1,240 tests passing: the 1,202 that passed at the time of the audit plus 38 added later for the quota manager and epoch gate).
 Two items were corrected rather than confirmed (the headline count 12 → 11 and the leak headline 0.019 → 0.116 on leaked rows); both are now reflected in the draft and slides. Before submission I recommend (non-blocking): render the deck once in PowerPoint and inspect slides 2, 5, 7 and 10; and decide whether to run the full-model recompute for the remaining models.
 """)
 open("CERTIFICATION_REPORT.md", "w", encoding="utf-8").write("\n".join(out))

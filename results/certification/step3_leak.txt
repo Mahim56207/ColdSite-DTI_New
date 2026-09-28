@@ -1,0 +1,60 @@
+A. SEQUENCE AUDIT
+  targets: 442 | distinct sequences: 379    [repo: 442 / 379]
+  '(...)' names NOT counted as mutants (domain annotations): ['GCN2(KinDom2S808G)', 'JAK1(JH1domain-catalytic)', 'JAK1(JH2domain-pseudokinase)', 'JAK2(JH1domain-catalytic)', 'JAK3(JH1domain-catalytic)', 'PFCDPK1(Pfalciparum)', 'PFPK5(Pfalciparum)', 'PKNB(Mtuberculosis)', 'RPS6KA4(KinDom.1-N-terminal)', 'RPS6KA4(KinDom.2-C-terminal)', 'RPS6KA5(KinDom.1-N-terminal)', 'RPS6KA5(KinDom.2-C-terminal)', 'RSK1(KinDom.1-N-terminal)', 'RSK1(KinDom.2-C-terminal)', 'RSK2(KinDom.1-N-terminal)', 'RSK3(KinDom.1-N-terminal)', 'RSK3(KinDom.2-C-terminal)', 'RSK4(KinDom.1-N-terminal)', 'RSK4(KinDom.2-C-terminal)', 'TYK2(JH1domain-catalytic)', 'TYK2(JH2domain-pseudokinase)']
+  variants: 55 | identical to WT: 55 | differ: 0 | no WT entry: 0   [repo: 74 / 54 / 0 / 20]
+  differ: [] | no WT: []
+  naming-free check: 18 sequence groups hold >1 target name; names sitting in such groups = 81; removing one representative per group leaves 63 redundant names (= 442 - 379 = 63)
+
+  level        part  test targets  unseen-by-name  seen-by-sequence  rows affected      [repo table: cold_target 88/88/12, 816 of 5984 ; cold_pair 88/88/11, 143 of 1144]
+  cold_target  test      88             88                12       816 of 5984 (13.6%)
+  cold_target  valid     44             44                 2       136 of 2992 (4.5%)
+  cold_pair    test      88             88                11       143 of 1144 (12.5%)
+  cold_pair    valid     44             44                 6        36 of 264 (13.6%)
+  cold_target leaked targets: ['ABL1(F317I)', 'EGFR(G719S)', 'EGFR(L858RT790M)', 'FLT3(D835H)', 'FLT3(K663Q)', 'FLT3(R834Q)', 'KIT(L576P)', 'MET', 'PIK3CA(E542K)', 'RET(V804M)', 'RSK3(KinDom.2-C-terminal)', 'TYK2(JH1domain-catalytic)']
+  cold_pair leaked targets:   ['ABL1p', 'EGFR(G719S)', 'EGFR(L858RT790M)', 'FGFR3(G697C)', 'FLT3(N841I)', 'MET', 'PIK3CA(H1047L)', 'PIK3CA(H1047Y)', 'PIK3CA(Q546K)', 'RET(V804M)', 'RPS6KA4(KinDom.2-C-terminal)']
+
+B. AUROC leaked vs unleaked, recomputed with sklearn from RAW predictions of the original grid models
+   (label from raw pKd >= 7.0; leak flag from sequences; repo's `label`/`seen_by_sequence` columns compared afterwards)
+   files scored: 24 | rows where my label != repo label: 0 | rows where my leak flag != repo seen_by_sequence: 0 | max |my all-rows AUROC - recorded AUROC| = 7.64e-03
+   level       model              AUROC all (3 seeds)      leaked rows              unleaked rows             leaked rows / all
+   cold_target deepdta            0.904 0.910 0.908 (m=0.907) 0.948 0.956 0.946 (m=0.950) 0.880 0.886 0.886 (m=0.884)  816 / 5984
+   cold_target moltrans           0.867 0.879 0.876 (m=0.874) 0.948 0.952 0.951 (m=0.950) 0.824 0.840 0.835 (m=0.833)  816 / 5984
+   cold_target hyperattentiondti  0.915 0.916 0.913 (m=0.915) 0.955 0.956 0.952 (m=0.955) 0.894 0.895 0.892 (m=0.893)  816 / 5984
+   cold_target coldsite_dti       0.850 0.851 0.870 (m=0.857) 0.890 0.866 0.928 (m=0.895) 0.819 0.850 0.837 (m=0.835)  816 / 5984
+   cold_pair   deepdta            0.768 0.713 0.703 (m=0.728) 0.686 0.685 0.695 (m=0.689) 0.799 0.729 0.718 (m=0.749)  143 / 1144
+   cold_pair   moltrans           0.596 0.560 0.548 (m=0.568) 0.667 0.619 0.556 (m=0.614) 0.555 0.500 0.541 (m=0.532)  143 / 1144
+   cold_pair   hyperattentiondti  0.696 0.655 0.730 (m=0.694) 0.647 0.684 0.683 (m=0.671) 0.716 0.661 0.761 (m=0.713)  143 / 1144
+   cold_pair   coldsite_dti       0.738 0.557 0.577 (m=0.624) 0.673 0.634 0.600 (m=0.636) 0.752 0.510 0.559 (m=0.607)  143 / 1144
+
+   DeepDTA cold_target ORIGINAL arm, mine vs leakage_retrain_davis.md: all 0.907 (md 0.907)  leaked 0.950 (md 0.950)  unleaked 0.884 (md 0.884)
+   leaked-minus-unleaked AUROC gap, per model, cold_target (mean of 3 seeds): deepdta +0.066, moltrans +0.117, hyperattentiondti +0.061, coldsite_dti +0.060
+
+C. RETRAINED ARMS -- raw predictions of the seqclean/seqmatched retrains are NOT in the repo (no .pt, no prediction files).
+   Full AUROC recomputation from scratch requires the raw prediction logs, which are not currently in the tracked directory;
+   we verified the summary math and the split structure instead.
+
+   [cold_target] per-seed test AUROC  (arm: all / leaked / unleaked)
+     original   s1: 0.904/0.948/0.880 | s2: 0.910/0.956/0.886 | s3: 0.908/0.946/0.886
+     seqmatched s1: 0.889/0.946/0.859 | s2: 0.876/0.942/0.841 | s3: 0.898/0.946/0.872
+     seqclean   s1: 0.884/0.824/0.896 | s2: 0.861/0.834/0.870 | s3: 0.862/0.828/0.863
+     leak (seqmatched - seqclean) on all      rows: per seed [0.005 0.015 0.037]  mean +0.0187  sd 0.0163  95% t-CI [-0.022, +0.059]  one-sample t p = 0.1856 | fewer-rows effect (original - seqmatched) mean +0.0197
+     leak (seqmatched - seqclean) on leaked   rows: per seed [0.122 0.108 0.118]  mean +0.1160  sd 0.0073  95% t-CI [+0.098, +0.134]  one-sample t p = 0.0013 | fewer-rows effect (original - seqmatched) mean +0.0051
+     leak (seqmatched - seqclean) on unleaked rows: per seed [-0.037 -0.029  0.009]  mean -0.0190  sd 0.0246  95% t-CI [-0.080, +0.042]  one-sample t p = 0.3131 | fewer-rows effect (original - seqmatched) mean +0.0269
+     leaked-row counts per seed: [816 816 816] (should be constant)
+
+   [cold_pair] per-seed test AUROC  (arm: all / leaked / unleaked)
+     original   s1: 0.768/0.686/0.799 | s2: 0.713/0.685/0.729 | s3: 0.703/0.695/0.718
+     seqmatched s1: 0.676/0.651/0.687 | s2: 0.686/0.678/0.715 | s3: 0.635/0.616/0.655
+     seqclean   s1: 0.700/0.694/0.699 | s2: 0.693/0.630/0.715 | s3: 0.666/0.684/0.651
+     leak (seqmatched - seqclean) on all      rows: per seed [-0.024 -0.007 -0.03 ]  mean -0.0206  sd 0.0120  95% t-CI [-0.050, +0.009]  one-sample t p = 0.0979 | fewer-rows effect (original - seqmatched) mean +0.0619
+     leak (seqmatched - seqclean) on leaked   rows: per seed [-0.043  0.048 -0.068]  mean -0.0209  sd 0.0606  95% t-CI [-0.171, +0.130]  one-sample t p = 0.6109 | fewer-rows effect (original - seqmatched) mean +0.0404
+     leak (seqmatched - seqclean) on unleaked rows: per seed [-0.012  0.001  0.003]  mean -0.0026  sd 0.0080  95% t-CI [-0.023, +0.017]  one-sample t p = 0.6242 | fewer-rows effect (original - seqmatched) mean +0.0631
+     leaked-row counts per seed: [143 143 143] (should be constant)
+
+   split structure of the arms (from data/splits, hash-verified in Phase 1):
+     cold_target seqclean   train rows 17748  positives  1234  test targets seen-by-sequence in this train set: 0
+     cold_target seqmatched train rows 17748  positives  1234  test targets seen-by-sequence in this train set: 12
+     cold_target test set identical across original/seqclean/seqmatched: False
+     cold_pair   seqclean   train rows 12936  positives   950  test targets seen-by-sequence in this train set: 0
+     cold_pair   seqmatched train rows 12936  positives   950  test targets seen-by-sequence in this train set: 11
+     cold_pair   test set identical across original/seqclean/seqmatched: False

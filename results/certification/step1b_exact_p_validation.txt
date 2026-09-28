@@ -1,0 +1,24 @@
+(1) recorded MC p vs exact p, z = |recorded - E[recorded]| / MC s.e.   (66 seed-cells)
+    max |z| = 5.50 ; #|z|>3 = 3 ; mean z^2 = 1.67 (expect ~1)
+    top: z=5.50 davis HyperAttentionDTI cold_target exact=0.1730 recorded=0.1079
+    top: z=5.17 davis XAttn-Ref cold_pair exact=0.6108 recorded=0.5315
+    top: z=3.46 davis DrugBAN cold_target exact=0.3409 recorded=0.2897
+    top: z=2.24 davis MolTrans cold_pair exact=0.2120 recorded=0.1838
+
+(2) brute-force check, DAVIS MolTrans random seed 1: observed hits=85 of 349 proteins
+    exact convolution p = 0.05629 | Monte-Carlo (400,000 draws) p = 0.05630 +/- 0.00036 | repo's 1,000-perm p = 0.04895
+    repo p is 1.01 MC-standard-errors below the exact value: consistent with sampling noise, but it flips the verdict at alpha=0.05
+
+(3) headline counts vs alpha (exact p, uncorrected), 22 cells
+    alpha   disagree  all-3-pass  none-pass
+    0.010       8         1          13
+    0.025      10         1          11
+    0.050      11         1          10
+    0.100      13         1           8
+    0.150      13         1           8
+    recorded (1,000-perm) p at 0.05: disagree = 12
+
+(4) seed-verdicts within 2 MC s.e. (~0.0146) of alpha=0.05 in the repo's 1,000-permutation p:
+    davis MolTrans random seed1 exact=0.0563 recorded=0.0490
+    davis MolTrans cold_drug seed3 exact=0.0563 recorded=0.0649
+    davis MolTrans cold_target seed3 exact=0.0443 recorded=0.0500

@@ -1,0 +1,27 @@
+model              ds    level        n_tgt    delta  95% two-way CI     lower>0
+hyperattentiondti  DAVIS random         162   0.1892  [ 0.1221,  0.2767]   YES
+hyperattentiondti  DAVIS cold_drug      200   0.1135  [ 0.0571,  0.1704]   YES
+hyperattentiondti  DAVIS cold_target     76   0.0647  [ 0.0183,  0.1226]   YES
+hyperattentiondti  DAVIS cold_pair       76   0.0542  [ 0.0301,  0.0812]   YES
+hyperattentiondti  KIBA  random         114   0.1348  [ 0.0688,  0.2200]   YES
+hyperattentiondti  KIBA  cold_drug      112   0.0874  [ 0.0310,  0.1433]   YES
+moltrans           DAVIS random         200   0.4612  [ 0.1531,  0.7502]   YES
+moltrans           DAVIS cold_drug      200   0.3556  [ 0.1742,  0.6284]   YES
+moltrans           DAVIS cold_target     75   0.3360  [ 0.1548,  0.5516]   YES
+moltrans           DAVIS cold_pair       76   0.2584  [ 0.0913,  0.4858]   YES
+moltrans           KIBA  random         200   0.3921  [ 0.1304,  0.6204]   YES
+moltrans           KIBA  cold_drug      200   0.3025  [ 0.2279,  0.4045]   YES
+xattn_ref          DAVIS random         162   1.2100  [ 0.6803,  1.9442]   YES
+xattn_ref          DAVIS cold_drug      200   1.1791  [ 0.7612,  1.7578]   YES
+xattn_ref          DAVIS cold_target     76   0.5159  [ 0.1796,  0.8822]   YES
+xattn_ref          DAVIS cold_pair       76   0.6614  [ 0.4307,  0.9406]   YES
+
+CELLS: 16 ; intervals with lower bound above zero: 16 of 16
+smallest HyperAttentionDTI cell: hyperattentiondti davis cold_pair  delta 0.054  [0.030, 0.081]
+models covered: ['hyperattentiondti', 'moltrans', 'xattn_ref']
+
+DrugBAN DAVIS seed-level deltas (comprehensiveness minus random control), from faithfulness_drugban_davis_seed{1,2,3}.md:
+  seed 1: Warm=+0.0011  Cold-Drug=-0.0073  Cold-Target=+0.0005  Cold-Pair=-0.0037
+  seed 2: Warm=-0.0018  Cold-Drug=-0.0036  Cold-Target=+0.0002  Cold-Pair=-0.0038
+  seed 3: Warm=+0.0064  Cold-Drug=+0.0128  Cold-Target=-0.0034  Cold-Pair=+0.0027
+  negative seed-level values: 6 of 12

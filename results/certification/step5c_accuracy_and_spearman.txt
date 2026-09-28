@@ -1,0 +1,13 @@
+(1) DAVIS random split, test AUROC per model (mean of 3 seeds), from raw predictions
+  deepdta            seeds [0.9317 0.928  0.9275]  mean 0.9290
+  moltrans           seeds [0.9221 0.9248 0.9209]  mean 0.9226
+  hyperattentiondti  seeds [0.9401 0.9395 0.9314]  mean 0.9370
+  coldsite_dti       seeds [0.9254 0.9232 0.9234]  mean 0.9240
+  drugban accuracy JSON keys: ['random', 'cold_drug', 'cold_target', 'cold_pair']
+  drugban            seeds [0.894  0.8845 0.8959]  mean 0.8915
+  range of the five model means: 0.891 to 0.937
+
+(2) Spearman rho, AUROC vs localisation, 48 DAVIS attention-model cells (rows of localization_cells_davis.csv)
+  cells: 48
+  enrichment (precision@10 / chance)   rho = +0.004   95% percentile bootstrap over cells [-0.300, +0.305]
+  precision@10                         rho = +0.036   95% percentile bootstrap over cells [-0.270, +0.333]

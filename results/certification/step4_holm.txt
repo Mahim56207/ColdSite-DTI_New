@@ -1,0 +1,58 @@
+============================== DAVIS family size: recorded 20 | recomputed 20  (model cells 16 + uniform-control cells 4)
+  cell                                       recorded p exact-median p         Δ
+  hyperattentiondti|davis|random               0.000100     0.000000   -0.0001
+  coldsite_dti|davis|cold_drug                 0.006599     0.006395   -0.0002
+  moltrans|davis|cold_target                   0.014099     0.044255   +0.0302
+  moltrans|davis|cold_drug                     0.031797     0.056287   +0.0245
+  hyperattentiondti|davis|cold_drug            0.037296     0.034767   -0.0025
+  hyperattentiondti|davis|cold_target          0.121888     0.173006   +0.0511
+  moltrans|davis|cold_pair                     0.203580     0.212015   +0.0084
+  drugban|davis|cold_pair                      0.203580     0.212015   +0.0084
+  drugban|davis|cold_target                    0.292771     0.340898   +0.0481
+  hyperattentiondti|davis|cold_pair            0.293471     0.295291   +0.0018
+  uniform_control|davis|cold_drug              0.446155     0.446155   +0.0000
+  drugban|davis|cold_drug                      0.447655     0.476783   +0.0291
+  moltrans|davis|random                        0.478152     0.476783   -0.0014
+  uniform_control|davis|random                 0.632637     0.632637   +0.0000
+  coldsite_dti|davis|cold_target               0.658134     0.668330   +0.0102
+  uniform_control|davis|cold_pair              0.696030     0.696030   +0.0000
+  drugban|davis|random                         0.710929     0.709843   -0.0011
+  uniform_control|davis|cold_target            0.765623     0.765623   +0.0000
+  coldsite_dti|davis|cold_pair                 0.929607     0.930572   +0.0010
+  coldsite_dti|davis|random                    0.999700     0.999710   +0.0000
+
+  HOLM on the audit's recorded raw p (my implementation):      survivors 1 of 20: ['hyperattentiondti|davis|random']
+  HOLM on my exact median-of-seeds p (+ recorded uniform p):     survivors 1 of 20: ['hyperattentiondti|davis|random']
+  audit's own corrected verdict: ['hyperattentiondti|davis|random']   | thresholds agree with mine: True
+     rank 1 hyperattentiondti|davis|random       p=2.270e-08  Holm threshold=0.00250  adj p=0.0000  REJECT
+     rank 2 coldsite_dti|davis|cold_drug         p=6.395e-03  Holm threshold=0.00263  adj p=0.1215  keep H0
+     rank 3 hyperattentiondti|davis|cold_drug    p=3.477e-02  Holm threshold=0.00278  adj p=0.6258  keep H0
+  statsmodels.multipletests(holm) cross-check: survivors ['hyperattentiondti|davis|random'] | equals mine: True
+  ROBUSTNESS  Holm over the 16 model cells only: survivors ['hyperattentiondti|davis|random']
+              Bonferroni over 20: survivors ['hyperattentiondti|davis|random']
+              Benjamini-Hochberg (FDR 5%) over 20: ['hyperattentiondti|davis|random']
+              per-seed tests (Holm over 48 seed-level exact p): 5 seed-runs survive, in cells ['hyperattentiondti|davis|cold_drug', 'hyperattentiondti|davis|random', 'moltrans|davis|cold_drug', 'moltrans|davis|cold_target']
+============================== KIBA family size: recorded 8 | recomputed 8  (model cells 6 + uniform-control cells 2)
+  cell                                       recorded p exact-median p         Δ
+  moltrans|kiba|cold_drug                      0.072793     0.070587   -0.0022
+  uniform_control|kiba|cold_drug               0.225077     0.225077   +0.0000
+  hyperattentiondti|kiba|cold_drug             0.262374     0.803548   +0.5412
+  uniform_control|kiba|random                  0.295370     0.295370   +0.0000
+  hyperattentiondti|kiba|random                0.517548     0.643226   +0.1257
+  moltrans|kiba|random                         0.573643     0.643226   +0.0696
+  coldsite_dti|kiba|cold_drug                  0.796320     0.803548   +0.0072
+  coldsite_dti|kiba|random                     0.926207     0.925828   -0.0004
+
+  HOLM on the audit's recorded raw p (my implementation):      survivors 0 of 8: []
+  HOLM on my exact median-of-seeds p (+ recorded uniform p):     survivors 0 of 8: []
+  audit's own corrected verdict: []   | thresholds agree with mine: True
+     rank 1 moltrans|kiba|cold_drug              p=7.059e-02  Holm threshold=0.00625  adj p=0.5647  keep H0
+     rank 2 uniform_control|kiba|cold_drug       p=2.251e-01  Holm threshold=0.00714  adj p=1.0000  keep H0
+     rank 3 uniform_control|kiba|random          p=2.954e-01  Holm threshold=0.00833  adj p=1.0000  keep H0
+  statsmodels.multipletests(holm) cross-check: survivors [] | equals mine: True
+  ROBUSTNESS  Holm over the 6 model cells only: survivors []
+              Bonferroni over 8: survivors []
+              Benjamini-Hochberg (FDR 5%) over 8: []
+              per-seed tests (Holm over 18 seed-level exact p): 3 seed-runs survive, in cells ['hyperattentiondti|kiba|random', 'moltrans|kiba|cold_drug', 'moltrans|kiba|random']
+
+SUMMARY  DAVIS survivors (recorded, recomputed): (1, 1) of 20    [draft: 1 of 20]   |   KIBA: (0, 0) of 8    [draft: 0 of 8]

@@ -1,0 +1,11 @@
+line	token	hits	first_hits	context
+101	2026,	136	results/clean_accuracy_davis.md:3 | results/clean_accuracy_davis.md:40 | results/ladder_dryrun_regression_davis_seed1.md:5	N, 2020; ICAN, 2022; InteractBind, 2026, preprint), so our
+113	2025,	11	results/evidti_code_audit.md:4 | results/evidti_code_audit.md:6 | docs/00_MASTER_PLAN_V2.md:25	kinases (DAVIS-complete, 2025, preprint), and kinase-af
+114	2023,	8	results/certification/step6_slide_audit.txt:19 | docs/REMEDIATION_PLAN.md:10 | docs/REMEDIATION_PLAN.md:168	der permissive splits (Ong et al., 2023, preprint).
+466	256	189	results/effects_v2/faithfulness/token_faithfulness_moltrans_davis_seed2.md:7 | results/effects_v2/faithfulness/token_faithfulness_moltrans_davis_seed3.md:7 | results/effects_v2/faithfulness/token_faithfulness_moltrans_davis_seed1.json:12	round-truth files are fixed by SHA-256 in
+745	2026,	136	results/clean_accuracy_davis.md:3 | results/clean_accuracy_davis.md:40 | results/ladder_dryrun_regression_davis_seed1.md:5	(2026, preprint) found limited
+751	2026,	136	results/clean_accuracy_davis.md:3 | results/clean_accuracy_davis.md:40 | results/ladder_dryrun_regression_davis_seed1.md:5	ions from other directions. ISAAC (2026, preprint) probes models
+753	2026,	136	results/clean_accuracy_davis.md:3 | results/clean_accuracy_davis.md:40 | results/ladder_dryrun_regression_davis_seed1.md:5	oss training seeds; Vefghi et al. (2026, preprint) combine gradie
+767	2025,	11	results/evidti_code_audit.md:4 | results/evidti_code_audit.md:6 | docs/00_MASTER_PLAN_V2.md:25	mutant kinases (DAVIS-complete, 2025, preprint), and kinase-af
+768	2023,	8	results/certification/step6_slide_audit.txt:19 | docs/REMEDIATION_PLAN.md:10 | docs/REMEDIATION_PLAN.md:168	permissive splits (Ong et al., 2023, preprint). Our contribut
+902	256	189	results/effects_v2/faithfulness/token_faithfulness_moltrans_davis_seed2.md:7 | results/effects_v2/faithfulness/token_faithfulness_moltrans_davis_seed3.md:7 | results/effects_v2/faithfulness/token_faithfulness_moltrans_davis_seed1.json:12	rows of the split files, whose SHA-256 hashes

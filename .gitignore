@@ -50,6 +50,8 @@ results/accuracy_v2/predictions/
 results/effects_v2/**/*.png
 # two-way (seeds x targets) bootstrap of the same inputs; the manuscript's intervals
 !results/effects_v2_2d/
+# independent recomputation of the headline claims (scripts/certification/): the outputs the manuscript cites
+!results/certification/
 # ...but never a synthetic run. This rule comes last so it wins: a
 # DUMMY_PLACEHOLDER file committed by accident is a placeholder number sitting
 # in the repo looking like a finding.

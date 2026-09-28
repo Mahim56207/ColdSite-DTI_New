@@ -1,0 +1,89 @@
+torch 2.13.0 | requested device: mps | mps available: True | cuda available: False
+
+======================================================================================================================
+LEVEL: random   (PRIMARY, printed in full)
+checkpoint coldsite_dti_davis_random_binary_seed1_hyperattentiondti.pt
+  sha256 live   f26d51310f8e042d10ca82decb05d85d31be4e80ad06c3dfb911f8988a0bd852
+  sha256 saved  f26d51310f8e042d10ca82decb05d85d31be4e80ad06c3dfb911f8988a0bd852   -> IDENTICAL
+
+  attention tensor captured from the real forward pass: shape (1, 85, 979, 160) (batch, drug positions, protein positions, channels)
+
+    row target              drug   saved logit  live GPU logit |GPU-saved|  live CPU logit |CPU-saved|
+      0 ARK5            16722836   -1.17908192     -1.17908192    3.19e-09     -1.17908192    3.19e-09
+     37 SYK             10427712   -9.21612930     -9.21612930    2.98e-09     -9.21612930    2.98e-09
+    100 EPHB6            9926054   -5.73859787     -5.73859787    1.27e-10     -5.73859835    4.77e-07
+    180 RIOK3            3025986  -12.42393780    -12.42393494    2.86e-06    -12.42393494    2.86e-06
+    315 CAMK1G          10427712  -12.55800530    -12.55800533    3.29e-08    -12.55800533    3.29e-08
+    327 MAP3K3           9884685  -11.77463530    -11.77463531    1.49e-08    -11.77463341    1.89e-06
+    576 LIMK2           11617559   -7.91662407     -7.91662407    7.86e-10     -7.91662121    2.86e-06
+    599 SIK2              156422   -5.63221645     -5.63221550    9.50e-07     -5.63221598    4.73e-07
+    771 JAK3(JH1domain-catalytic)   5287969   -2.51971149     -2.51971149    4.45e-09     -2.51970959    1.90e-06
+   1725 ERK5            11656518   -6.44208145     -6.44208145    1.42e-09     -6.44208336    1.91e-06
+
+  target            L   nz #UniProt top-10 residues (0-indexed, live GPU)            P@10 live P@10 saved  tie?  P@10 pocket live   saved
+  ARK5            661  661       11 [181, 404, 117, 135, 511, 165, 170, 46, 603, 108]       0.0        0.0    no               0.5     0.5
+  SYK             635  635       11 [495, 154, 610, 173, 432, 161, 543, 490, 430, 565]       0.0        0.0    no               0.4     0.4
+  EPHB6          1000 1000        9 [214, 549, 685, 788, 237, 569, 614, 796, 751, 513]       0.0        0.0    no               0.4     0.4
+  RIOK3           519  519       11 [483, 198, 233, 407, 324, 450, 161, 494, 430, 332]       0.0        0.0    no               0.2     0.2
+  CAMK1G          476  476       11 [146, 95, 181, 80, 324, 49, 31, 452, 21, 436]          0.1        0.1    no               0.5     0.5
+  MAP3K3          626  626       11 [492, 411, 363, 31, 505, 376, 234, 530, 326, 39]       0.0        0.0    no               0.4     0.4
+  LIMK2           638  638       11 [331, 474, 175, 396, 351, 215, 261, 443, 524, 569]       0.0        0.0    no               0.1     0.1
+  SIK2            926  926       11 [145, 26, 192, 117, 397, 73, 247, 584, 888, 321]       0.1        0.1    no               0.3     0.3
+  JAK3(JH1domain-catalytic) 1000 1000       11 [950, 870, 942, 920, 480, 718, 319, 586, 136, 937]       0.0        0.0    no               0.3     0.3
+  ERK5            816  816       11 [185, 560, 221, 392, 263, 582, 323, 181, 268, 568]       0.1        0.1    no               0.2     0.2
+
+  SUMMARY random: pairs 10 | logit: max |GPU-saved| 2.86e-06, max |CPU-saved| 2.86e-06, max |GPU-CPU| 2.86e-06  (tolerance 1e-05) -> PASS
+           UniProt P@10: saved value inside the live GPU range for 10/10 pairs (10 exact with no tie); ties at the top-10 boundary: 0
+           KLIFS   P@10: saved value inside the live GPU range for 10/10 pairs scored in the KLIFS ladder
+           same top-10 residue set on GPU and CPU: 10/10
+           informativeness: pairs with saved UniProt P@10 > 0: 3/10; pocket P@10 > 0: 10/10; distinct pocket values: [0.1, 0.2, 0.3, 0.4, 0.5]
+           UniProt enrichment over exact chance for these 10 pairs: live 1.893 | from saved per-protein values 1.893 | mean chance 0.0158
+           pocket enrichment over exact chance for the 10 scored pairs: live 2.664 | from saved 2.664 | mean chance 0.1239
+
+======================================================================================================================
+LEVEL: cold_drug
+checkpoint coldsite_dti_davis_cold_drug_binary_seed1_hyperattentiondti.pt
+  sha256 live   b08d122253eccd36a286c2c46571ee5f60912b2d6930a836e55ce493a4088a3f
+  sha256 saved  b08d122253eccd36a286c2c46571ee5f60912b2d6930a836e55ce493a4088a3f   -> IDENTICAL
+
+  SUMMARY cold_drug: pairs 10 | logit: max |GPU-saved| 9.50e-07, max |CPU-saved| 2.86e-06, max |GPU-CPU| 1.91e-06  (tolerance 1e-05) -> PASS
+           UniProt P@10: saved value inside the live GPU range for 10/10 pairs (10 exact with no tie); ties at the top-10 boundary: 0
+           KLIFS   P@10: saved value inside the live GPU range for 10/10 pairs scored in the KLIFS ladder
+           same top-10 residue set on GPU and CPU: 9/10
+           informativeness: pairs with saved UniProt P@10 > 0: 1/10; pocket P@10 > 0: 9/10; distinct pocket values: [0.0, 0.1, 0.2, 0.3]
+           GPU/CPU top-10 differ for CDK9: positions [np.int64(326), np.int64(333)] | GPU weights at those positions [0.4927262, 0.4927263] vs CPU [0.4927262, 0.4927262] | GPU rank-10 minus rank-11 gap 8.94e-08 | max |GPU-CPU weight| 5.96e-08 | precision changes: False
+           UniProt enrichment over exact chance for these 10 pairs: live 0.580 | from saved per-protein values 0.580 | mean chance 0.0172
+           pocket enrichment over exact chance for the 10 scored pairs: live 1.738 | from saved 1.738 | mean chance 0.1093
+
+======================================================================================================================
+LEVEL: cold_target
+checkpoint coldsite_dti_davis_cold_target_binary_seed1_hyperattentiondti.pt
+  sha256 live   f6be0844f346264923e07ed2c01a113504d77ea9630c745dba8773c620f01b41
+  sha256 saved  f6be0844f346264923e07ed2c01a113504d77ea9630c745dba8773c620f01b41   -> IDENTICAL
+
+  SUMMARY cold_target: pairs 10 | logit: max |GPU-saved| 9.53e-07, max |CPU-saved| 9.57e-07, max |GPU-CPU| 9.54e-07  (tolerance 1e-05) -> PASS
+           UniProt P@10: saved value inside the live GPU range for 10/10 pairs (9 exact with no tie); ties at the top-10 boundary: 1
+           KLIFS   P@10: saved value inside the live GPU range for 8/8 pairs scored in the KLIFS ladder
+           same top-10 residue set on GPU and CPU: 10/10
+           informativeness: pairs with saved UniProt P@10 > 0: 1/10; pocket P@10 > 0: 5/8; distinct pocket values: [0.0, 0.1, 0.2]
+           UniProt enrichment over exact chance for these 10 pairs: live 0.566-1.699 | from saved per-protein values 0.566 | mean chance 0.0177
+           pocket enrichment over exact chance for the 8 scored pairs: live 0.870-1.063 | from saved 0.870 | mean chance 0.1293
+
+======================================================================================================================
+LEVEL: cold_pair
+checkpoint coldsite_dti_davis_cold_pair_binary_seed1_hyperattentiondti.pt
+  sha256 live   f84c17f68f147e25c1ab1049a2cdaacef328b5b7839b5fe7edd489b99c55d045
+  sha256 saved  f84c17f68f147e25c1ab1049a2cdaacef328b5b7839b5fe7edd489b99c55d045   -> IDENTICAL
+
+  SUMMARY cold_pair: pairs 10 | logit: max |GPU-saved| 9.55e-07, max |CPU-saved| 1.43e-06, max |GPU-CPU| 1.91e-06  (tolerance 1e-05) -> PASS
+           UniProt P@10: saved value inside the live GPU range for 10/10 pairs (10 exact with no tie); ties at the top-10 boundary: 0
+           KLIFS   P@10: saved value inside the live GPU range for 10/10 pairs scored in the KLIFS ladder
+           same top-10 residue set on GPU and CPU: 10/10
+           informativeness: pairs with saved UniProt P@10 > 0: 2/10; pocket P@10 > 0: 10/10; distinct pocket values: [0.1, 0.2, 0.3, 0.4]
+           UniProt enrichment over exact chance for these 10 pairs: live 0.965 | from saved per-protein values 0.965 | mean chance 0.0207
+           pocket enrichment over exact chance for the 10 scored pairs: live 1.854 | from saved 1.854 | mean chance 0.1456
+
+======================================================================================================================
+OVERALL (10 random scored pairs at each of 4 levels, HyperAttentionDTI seed 1, device mps): pairs 40
+  logit within 1e-05 of the saved CSV: 40/40   (max |live GPU - saved| = 2.86e-06; max |live CPU - saved| = 2.86e-06)
+  UniProt precision@10 consistent with the saved per-protein value: 40/40;  KLIFS: 38/38;  boundary ties: 1

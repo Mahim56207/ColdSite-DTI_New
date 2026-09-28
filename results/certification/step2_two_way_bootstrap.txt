@@ -1,0 +1,45 @@
+HAT DAVIS cold-drug: n_proteins=349, seed means of P@10 = [0.0249 0.0768 0.0195], chance = 0.020393, point enrichment = 1.9811
+draft/enrichment.csv: point 1.98, proteins-only [1.81, 2.15], proteins+seeds [0.94, 3.65]
+
+variant                            B        95% percentile CI  crosses 1.0?
+proteins only (ratio of means)     200000   [1.813, 2.154]        no   P(resample<1)=0.0000
+proteins only (fixed denominator)  200000   [1.813, 2.150]        no   P(resample<1)=0.0000
+proteins + seeds (ratio of means)  200000   [0.928, 3.676]        YES   P(resample<1)=0.0663
+proteins + seeds (fixed denominator) 200000   [0.927, 3.681]        YES   P(resample<1)=0.0694
+
+Monte-Carlo spread at the draft's B = 10,000 (10 independent RNG seeds), proteins + seeds, ratio of means:
+  lower bound: min 0.926  max 0.942  mean 0.932   | upper bound: min 3.629  max 3.710  mean 3.682
+  draft [0.94, 3.65] lies within the observed range of my bounds: lower True, upper True
+
+Why the interval widens: seed-level P@10 for this cell = [0.0249 0.0768 0.0195] (mean 0.0404); between-seed sd = 0.0316 vs SE from proteins alone = 0.0018
+
+============================== survivor counts, all 22 cells (B = 50,000 each, RNG seed fixed)
+ds    model              level         point   chance | proteins-only    | proteins+seeds  
+DAVIS XAttn-Ref          random        0.740   0.0204 | [ 0.62,  0.86]       | [ 0.43,  1.12]      
+DAVIS XAttn-Ref          cold_drug     1.063   0.0204 | [ 0.93,  1.20]       | [ 0.60,  1.46]      
+DAVIS XAttn-Ref          cold_target   0.886   0.0194 | [ 0.63,  1.15]       | [ 0.54,  1.26]      
+DAVIS XAttn-Ref          cold_pair     0.683   0.0190 | [ 0.40,  1.04]       | [ 0.26,  1.16]      
+DAVIS HyperAttentionDTI  random        1.663   0.0204 | [ 1.49,  1.84] ABOVE | [ 1.32,  2.00] ABOVE
+DAVIS HyperAttentionDTI  cold_drug     1.981   0.0204 | [ 1.81,  2.16] ABOVE | [ 0.93,  3.67]      
+DAVIS HyperAttentionDTI  cold_target   1.265   0.0194 | [ 0.94,  1.62]       | [ 0.73,  1.87]      
+DAVIS HyperAttentionDTI  cold_pair     1.171   0.0190 | [ 0.86,  1.50]       | [ 0.59,  1.82]      
+DAVIS MolTrans           random        1.049   0.0204 | [ 0.86,  1.25]       | [ 0.78,  1.33]      
+DAVIS MolTrans           cold_drug     1.274   0.0204 | [ 1.05,  1.51] ABOVE | [ 0.92,  1.66]      
+DAVIS MolTrans           cold_target   1.366   0.0194 | [ 0.94,  1.86]       | [ 0.53,  2.32]      
+DAVIS MolTrans           cold_pair     1.049   0.0190 | [ 0.70,  1.42]       | [ 0.24,  1.96]      
+DAVIS DrugBAN            random        0.866   0.0204 | [ 0.75,  0.99]       | [ 0.67,  1.08]      
+DAVIS DrugBAN            cold_drug     1.030   0.0204 | [ 0.90,  1.17]       | [ 0.86,  1.21]      
+DAVIS DrugBAN            cold_target   1.164   0.0194 | [ 0.84,  1.51]       | [ 0.68,  1.71]      
+DAVIS DrugBAN            cold_pair     1.439   0.0190 | [ 1.13,  1.76] ABOVE | [ 0.90,  2.07]      
+KIBA  XAttn-Ref          random        0.817   0.0228 | [ 0.69,  0.96]       | [ 0.49,  1.18]      
+KIBA  XAttn-Ref          cold_drug     0.876   0.0228 | [ 0.71,  1.05]       | [ 0.58,  1.17]      
+KIBA  HyperAttentionDTI  random        1.337   0.0228 | [ 1.13,  1.56] ABOVE | [ 0.69,  2.25]      
+KIBA  HyperAttentionDTI  cold_drug     0.938   0.0228 | [ 0.79,  1.10]       | [ 0.71,  1.19]      
+KIBA  MolTrans           random        1.385   0.0228 | [ 1.14,  1.64] ABOVE | [ 0.72,  2.27]      
+KIBA  MolTrans           cold_drug     1.565   0.0228 | [ 1.32,  1.82] ABOVE | [ 0.70,  2.67]      
+
+RESIDUE-LEVEL (UniProt) cells with CI lower bound > 1:   proteins-only 7 of 22   |   proteins+seeds 1 of 22      [draft: 7/22 -> 1/22]
+cells whose lower bound is within 0.03 of 1 (verdict could flip with more resamples / a different RNG):
+which cells survive proteins+seeds: [('davis', 'HyperAttentionDTI', 'random', np.float64(1.324))]
+
+vs repo CSVs: point estimates identical to 1e-6 in all 22 cells; largest CI-bound difference = 0.027 at ('kiba', 'MolTrans', 'cold_drug'); verdict (lower>1) disagreements = 0

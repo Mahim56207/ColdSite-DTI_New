@@ -1,0 +1,27 @@
+(1) repo identical-list size 54 ; mine 55
+    in mine, not in repo list: ['ABL1p']
+    in repo list, not in mine: []
+     ABL1p | base ABL1p in names: True | same seq as base: True | same seq as ANY other name: ['ABL1(E255K)', 'ABL1(F317I)', 'ABL1(F317I)p', 'ABL1(F317L)', 'ABL1(F317L)p']
+    repo 'no wild-type' 20 = names the repo treats as variants but that have no WT entry; my 21 domain-like names (incl. GCN2(KinDom2S808G)):
+    domain-like names sharing a sequence with another name: {'JAK1(JH1domain-catalytic)': ['JAK1(JH2domain-pseudokinase)'], 'JAK1(JH2domain-pseudokinase)': ['JAK1(JH1domain-catalytic)'], 'RPS6KA4(KinDom.1-N-terminal)': ['RPS6KA4(KinDom.2-C-terminal)'], 'RPS6KA4(KinDom.2-C-terminal)': ['RPS6KA4(KinDom.1-N-terminal)'], 'RPS6KA5(KinDom.1-N-terminal)': ['RPS6KA5(KinDom.2-C-terminal)'], 'RPS6KA5(KinDom.2-C-terminal)': ['RPS6KA5(KinDom.1-N-terminal)'], 'RSK1(KinDom.1-N-terminal)': ['RSK1(KinDom.2-C-terminal)'], 'RSK1(KinDom.2-C-terminal)': ['RSK1(KinDom.1-N-terminal)'], 'RSK3(KinDom.1-N-terminal)': ['RSK3(KinDom.2-C-terminal)'], 'RSK3(KinDom.2-C-terminal)': ['RSK3(KinDom.1-N-terminal)'], 'RSK4(KinDom.1-N-terminal)': ['RSK4(KinDom.2-C-terminal)'], 'RSK4(KinDom.2-C-terminal)': ['RSK4(KinDom.1-N-terminal)'], 'TYK2(JH1domain-catalytic)': ['TYK2(JH2domain-pseudokinase)'], 'TYK2(JH2domain-pseudokinase)': ['TYK2(JH1domain-catalytic)']}
+
+(2) test-set identity across arms
+   cold_target seqclean   rows 5984 vs 5984 | same multiset: False | same order: True | differing rows: 39
+   cold_target seqmatched rows 5984 vs 5984 | same multiset: False | same order: True | differing rows: 39
+   cold_target seqclean vs seqmatched test: identical order+content: True
+   cold_pair   seqclean   rows 1144 vs 1144 | same multiset: False | same order: True | differing rows: 7
+   cold_pair   seqmatched rows 1144 vs 1144 | same multiset: False | same order: True | differing rows: 7
+   cold_pair   seqclean vs seqmatched test: identical order+content: True
+
+(3) |my AUROC from saved predictions - recorded test AUROC| by cell (only > 1e-4 shown)
+   davis prediction files: 48 | files with gap > 1e-4: 10 | > 1e-3: 2 | max: 0.00764
+   davis_cold_pair_moltrans_seed2                   -0.00764
+   davis_cold_pair_moltrans_seed1                   +0.00637
+   davis_cold_target_moltrans_seed1                 -0.00070
+   davis_cold_drug_moltrans_seed1                   +0.00070
+   davis_cold_pair_moltrans_seed3                   -0.00066
+   davis_random_moltrans_seed2                      -0.00062
+   davis_cold_drug_moltrans_seed3                   -0.00048
+   davis_cold_target_moltrans_seed2                 +0.00036
+   by model, max gap: {}
+    {'moltrans': np.float64(0.00764), 'coldsite_dti': np.float64(0.0), 'hyperattentiondti': np.float64(0.0), 'deepdta': np.float64(0.0)}

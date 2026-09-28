@@ -1,0 +1,624 @@
+draft_line	token	category	tag_status	context
+12	84	VALUE	MATCH	giving 84 trained cells on DAVIS a
+17	11	VALUE	MATCH	ominant finding is instability: in 11 of 22 model–dataset–leve
+17	22	VALUE	MATCH	t finding is instability: in 11 of 22 model–dataset–level cell
+18	0.05	VALUE	MATCH	erent sides of the uncorrected α = 0.05 threshold
+21	21	VALUE	MATCH	In 21 of 22 cells the range of
+21	22	VALUE	MATCH	In 21 of 22 cells the range of the t
+21	10	VALUE	UNTAGGED	ange of the three seeds' precision@10 exceeds the cell's dista
+24	7	VALUE	MATCH	seeds in 7 to 8 of 22 cells after H
+24	8	VALUE	MATCH	seeds in 7 to 8 of 22 cells after Holm c
+24	22	VALUE	MATCH	seeds in 7 to 8 of 22 cells after Holm correct
+27	1	VALUE	MATCH	(Holm on the median p over seeds), 1 of 20 DAVIS cells suppor
+27	20	VALUE	MATCH	on the median p over seeds), 1 of 20 DAVIS cells supports res
+28	1.66	VALUE	MATCH	random split, 1.66× chance) and 0 of 8 KIBA
+28	0	VALUE	MATCH	random split, 1.66× chance) and 0 of 8 KIBA cells do; a bo
+28	8	VALUE	MATCH	ndom split, 1.66× chance) and 0 of 8 KIBA cells do; a bootstr
+36	−0.0073	VALUE	MATCH	between seeds (−0.0073 at cold-drug and −0.0037
+36	−0.0037	VALUE	MATCH	en seeds (−0.0073 at cold-drug and −0.0037 at cold-pair for the fir
+37	1.33	VALUE	MATCH	ur (cold-pair only marginally), at 1.33–2.10×
+37	2.10	VALUE	MATCH	old-pair only marginally), at 1.33–2.10×
+48	0.116	VALUE	MATCH	0.116 (p = 0.0013, three seeds
+48	0.0013	VALUE	MATCH	0.116 (p = 0.0013, three seeds); on the st
+48	−0.019	VALUE	MATCH	d rows no inflation is detectable (−0.019, p = 0.31).
+48	0.31	VALUE	MATCH	flation is detectable (−0.019, p = 0.31).
+56	0.05	VALUE	MATCH	erent sides of the uncorrected α = 0.05 threshold)
+57	11	VALUE	MATCH	in 11 of 22 cells; the seeds'
+57	22	VALUE	MATCH	in 11 of 22 cells; the seeds' range
+57	21	VALUE	MATCH	xceeds the distance from chance in 21 of 22; and a direct test
+57	22	VALUE	MATCH	the distance from chance in 21 of 22; and a direct test of
+58	7	VALUE	MATCH	seed variance is significant in 7 to 8 of 22 cells after H
+58	8	VALUE	MATCH	ed variance is significant in 7 to 8 of 22 cells after Holm c
+58	22	VALUE	MATCH	riance is significant in 7 to 8 of 22 cells after Holm correct
+65	0.02	VALUE	MATCH	0.02 of the true sites at eve
+67	1	VALUE	MATCH	residue-level recovery survives in 1 of 20 DAVIS cells and 0
+67	20	VALUE	MATCH	ue-level recovery survives in 1 of 20 DAVIS cells and 0 of 8 K
+67	0	VALUE	MATCH	urvives in 1 of 20 DAVIS cells and 0 of 8 KIBA cells;
+67	8	VALUE	MATCH	es in 1 of 20 DAVIS cells and 0 of 8 KIBA cells;
+73	0.367	VALUE	MATCH	place 0.367 and 0.081 of their top-t
+73	0.081	VALUE	MATCH	place 0.367 and 0.081 of their top-ten residue
+74	0.140	VALUE	MATCH	chance of 0.140.
+77	54	VALUE	MATCH	ntified rather than only reported: 54 DAVIS mutants carry exac
+79	0.116	VALUE	MATCH	on the leaked rows by 0.116 (p = 0.0013), with no de
+79	0.0013	VALUE	MATCH	on the leaked rows by 0.116 (p = 0.0013), with no detectable inf
+83	1	HEADING-NUM		## 1 Introduction
+88	2021	YEAR		MolTrans (2021) [MOLTRANS_FIG_X], Hyper
+88	2022	YEAR		OLTRANS_FIG_X], HyperAttentionDTI (2022) [HYPERATTENTION_FIG_X]
+88	2023	YEAR		HYPERATTENTION_FIG_X] and DrugBAN (2023)
+90	2025	YEAR		accuracy (for example GPS-DTI, 2025; CS-DTA, 2026). A medici
+90	2026	YEAR		for example GPS-DTI, 2025; CS-DTA, 2026). A medicinal chemist ch
+96	2019	YEAR		portance measures (Jain & Wallace, 2019; Serrano & Smith, 2019)
+96	2019	YEAR		& Wallace, 2019; Serrano & Smith, 2019)
+97	2019	YEAR		were debated (Wiegreffe & Pinter, 2019).
+99	2020	YEAR		rediction depends on them (ERASER, 2020).
+101	2020	YEAR		(MONN, 2020; ICAN, 2022; InteractBin
+101	2022	YEAR		(MONN, 2020; ICAN, 2022; InteractBind, 2026, pre
+101	2026,	VALUE	UNTAGGED	N, 2020; ICAN, 2022; InteractBind, 2026, preprint), so our
+113	2025,	VALUE	UNTAGGED	kinases (DAVIS-complete, 2025, preprint), and kinase-af
+114	2023,	VALUE	UNTAGGED	der permissive splits (Ong et al., 2023, preprint).
+121	60	VALUE	MATCH	accuracy. The DAVIS arm has 60 cells and the KIBA arm 2
+121	24	VALUE	MATCH	arm has 60 cells and the KIBA arm 24.
+123	10	VALUE	UNTAGGED	Plausibility is precision@10 against UniProt's annota
+124	85	VALUE	MATCH	85-residue ATP pocket, each
+128	22	VALUE	MATCH	lity is the headline.** Across the 22 model–dataset–level cell
+129	11	VALUE	MATCH	isagree about their own verdict in 11: they fall on
+130	0.05	VALUE	MATCH	erent sides of the uncorrected α = 0.05 threshold, so some seeds
+131	21	VALUE	MATCH	utation test and others do not. In 21 of the 22 cells the rang
+131	22	VALUE	MATCH	st and others do not. In 21 of the 22 cells the range of the t
+131	10	VALUE	UNTAGGED	ange of the three seeds' precision@10
+133	7	VALUE	MATCH	tests) is significant in 7 to 8 of the 22 cells aft
+133	8	VALUE	MATCH	tests) is significant in 7 to 8 of the 22 cells after Ho
+133	22	VALUE	MATCH	s) is significant in 7 to 8 of the 22 cells after Holm correct
+139	0.025	VALUE	MATCH	the problem: its three seeds place 0.025,
+140	0.077	VALUE	MATCH	0.077 and 0.019 of their top-t
+140	0.019	VALUE	MATCH	0.077 and 0.019 of their top-ten residue
+140	0.020	VALUE	MATCH	nnotated sites against a chance of 0.020; two of the
+147	1.98	VALUE	MATCH	chance of 1.98 [1.81, 2.15], entirely a
+147	1.81	VALUE	MATCH	chance of 1.98 [1.81, 2.15], entirely above p
+147	2.15	VALUE	MATCH	chance of 1.98 [1.81, 2.15], entirely above parity.
+148	0.94	VALUE	MATCH	to [0.94, 3.65], which includes p
+148	3.65	VALUE	MATCH	to [0.94, 3.65], which includes parity,
+152	0.001	VALUE	MATCH	AUROC is 0.001–0.006 at the random leve
+152	0.006	VALUE	MATCH	AUROC is 0.001–0.006 at the random level, dep
+152	0.025	VALUE	MATCH	level, depending on the model, but 0.025–0.099 at the cold-pair
+152	0.099	VALUE	MATCH	depending on the model, but 0.025–0.099 at the cold-pair
+161	0.02	VALUE	MATCH	xplanation that ranks as little as 0.02 of the true sites first,
+164	1	VALUE	MATCH	Against that resolution, 1 of 20 DAVIS cells suppor
+164	20	VALUE	MATCH	Against that resolution, 1 of 20 DAVIS cells supports res
+165	10	VALUE	UNTAGGED	entionDTI, random split: precision@10 0.034 against a chance o
+165	0.034	VALUE	MATCH	ionDTI, random split: precision@10 0.034 against a chance of 0.02
+165	0.020	VALUE	MATCH	ision@10 0.034 against a chance of 0.020, enrichment 1.66
+165	1.66	VALUE	MATCH	inst a chance of 0.020, enrichment 1.66
+166	1.33	VALUE	MATCH	[1.33, 2.00]) and 0 of 8 KIBA
+166	2.00	VALUE	MATCH	[1.33, 2.00]) and 0 of 8 KIBA cells
+166	0	VALUE	MATCH	[1.33, 2.00]) and 0 of 8 KIBA cells do.
+166	8	VALUE	MATCH	[1.33, 2.00]) and 0 of 8 KIBA cells do.
+170	48	VALUE	MATCH	explained by accuracy: across the 48 DAVIS attention-model ce
+171	10	VALUE	UNTAGGED	between AUROC and precision@10 is 0.033 [−0.276, 0.322]
+171	0.033	VALUE	MATCH	between AUROC and precision@10 is 0.033 [−0.276, 0.322], an inte
+171	−0.276	VALUE	MATCH	n AUROC and precision@10 is 0.033 [−0.276, 0.322], an interval tha
+171	0.322	VALUE	MATCH	and precision@10 is 0.033 [−0.276, 0.322], an interval that inclu
+175	0.054	VALUE	MATCH	cold-pair split, the smallest, 0.054 [0.030, 0.080]). DrugBAN
+175	0.030	VALUE	MATCH	d-pair split, the smallest, 0.054 [0.030, 0.080]). DrugBAN's is n
+175	0.080	VALUE	MATCH	split, the smallest, 0.054 [0.030, 0.080]). DrugBAN's is not: its
+176	−0.0073	VALUE	MATCH	o and changes sign between seeds — −0.0073 at the unseen-drug level
+176	−0.0037	VALUE	MATCH	.0073 at the unseen-drug level and −0.0037 at the unseen-pair
+177	0.0128	VALUE	MATCH	level for the first seed, 0.0128 and 0.0027 for the third
+177	0.0027	VALUE	MATCH	vel for the first seed, 0.0128 and 0.0027 for the third.
+183	1.54	VALUE	MATCH	e ATP pocket at every DAVIS level (1.54–2.10× chance) and
+183	2.10	VALUE	MATCH	pocket at every DAVIS level (1.54–2.10× chance) and
+184	1.33	VALUE	MATCH	tentionDTI's at three of the four (1.33–1.70×, cold-pair only ma
+184	1.70	VALUE	MATCH	onDTI's at three of the four (1.33–1.70×, cold-pair only margina
+185	0.98	VALUE	MATCH	esampled), while DrugBAN's is not (0.98–1.04×).
+185	1.04	VALUE	MATCH	led), while DrugBAN's is not (0.98–1.04×).
+197	0.367	VALUE	MATCH	me HyperAttentionDTI weights place 0.367 and 0.081 of their top-t
+197	0.081	VALUE	MATCH	tentionDTI weights place 0.367 and 0.081 of their top-ten residue
+198	0.140	VALUE	MATCH	-target level, against a chance of 0.140 — one reduction reports
+198	2.6	VALUE	MATCH	e of 0.140 — one reduction reports 2.6× chance, the
+204	100	VALUE	MATCH	same protein (the same top ten in 100% of 150 drug
+204	150	VALUE	MATCH	otein (the same top ten in 100% of 150 drug
+205	0	VALUE	MATCH	reas DrugBAN's is never identical (0% of 150).
+205	150	VALUE	MATCH	rugBAN's is never identical (0% of 150).
+209	54	VALUE	MATCH	, not only reported.** DAVIS gives 54 of its mutant targets ex
+210	12	VALUE	MATCH	"the wild-type sequence, so 12 of the 88 ""unseen"" cold-"
+210	88	VALUE	MATCH	"e wild-type sequence, so 12 of the 88 ""unseen"" cold-target tes"
+211	816	VALUE	MATCH	training — 816 of 5984 test rows (13.6%
+211	5984	VALUE	MATCH	training — 816 of 5984 test rows (13.6%).
+211	13.6	VALUE	MATCH	training — 816 of 5984 test rows (13.6%).
+215	0.116	VALUE	MATCH	e sequence match inflates AUROC by 0.116 (p = 0.0013);
+215	0.0013	VALUE	MATCH	match inflates AUROC by 0.116 (p = 0.0013);
+216	−0.019	VALUE	MATCH	d rows no inflation is detectable (−0.019, p = 0.31).
+216	0.31	VALUE	MATCH	flation is detectable (−0.019, p = 0.31).
+221	3.16	VALUE	MATCH	-Ref on DAVIS's unseen-drug split, 3.16 [2.40, 4.40]× chance in
+221	2.40	VALUE	MATCH	n DAVIS's unseen-drug split, 3.16 [2.40, 4.40]× chance in the
+221	4.40	VALUE	MATCH	S's unseen-drug split, 3.16 [2.40, 4.40]× chance in the
+222	2.10	VALUE	MATCH	ATP pocket against the attention's 2.10 [1.83, 2.36]× — consiste
+222	1.83	VALUE	MATCH	cket against the attention's 2.10 [1.83, 2.36]× — consistent wit
+222	2.36	VALUE	MATCH	gainst the attention's 2.10 [1.83, 2.36]× — consistent with the
+243	1	LABEL/REF		> **Box 1. Reporting checklist for
+245	1	LIST-NUM		> 1. Report the explanation
+247	2	LIST-NUM		> 2. Read every hit rate aga
+248	3	LIST-NUM		> 3. Include a uniform-map f
+249	4	LIST-NUM		> 4. Correct for multiple co
+250	5	LIST-NUM		> 5. State the readout: whic
+251	6	LIST-NUM		> 6. State which inputs the
+253	7	LIST-NUM		> 7. Test faithfulness with
+254	8	LIST-NUM		> 8. Check cold-start splits
+256	2	HEADING-NUM		## 2 Methods
+259	2.1	HEADING-NUM		### 2.1 Data, task and splits
+261	2011	YEAR		DAVIS (2011) and KIBA (2014) are use
+261	2014	YEAR		DAVIS (2011) and KIBA (2014) are used as distributed
+261	2018	YEAR		used as distributed with DeepDTA (2018). Every model solves the
+262	7.0	VALUE	MATCH	task: a pair is positive if pKd ≥ 7.0 on DAVIS or its KIBA sco
+262	12.1	VALUE	MATCH	.0 on DAVIS or its KIBA score is ≥ 12.1, one constant shared
+268	30,056	VALUE	MATCH	plit-selection variance. DAVIS has 30,056 labelled pairs over 442
+268	442	VALUE	MATCH	VIS has 30,056 labelled pairs over 442 targets.
+275	442	VALUE	MATCH	d targets out by name, but DAVIS's 442
+276	379	VALUE	MATCH	targets are 379 distinct sequences: 54 m
+276	54	VALUE	MATCH	argets are 379 distinct sequences: 54 mutant targets carry exa
+277	12	VALUE	MATCH	result, 12 of the 88 cold-target te
+277	88	VALUE	MATCH	result, 12 of the 88 cold-target test targets
+277	11	VALUE	MATCH	he 88 cold-target test targets and 11 of the 88 cold-pair test
+277	88	VALUE	MATCH	-target test targets and 11 of the 88 cold-pair test targets a
+278	10	VALUE	MATCH	sequence to a training target, and 10 targets hold too little
+288	229	VALUE	MATCH	distinct sequence. KIBA's 229 targets are 229 distinct
+288	229	VALUE	MATCH	t sequence. KIBA's 229 targets are 229 distinct sequences, and
+291	2.2	HEADING-NUM		### 2.2 Models and training
+293	2021	YEAR		ased models are audited: MolTrans (2021), HyperAttentionDTI (202
+293	2022	YEAR		olTrans (2021), HyperAttentionDTI (2022), DrugBAN (2023)
+293	2023	YEAR		HyperAttentionDTI (2022), DrugBAN (2023)
+297	2018	YEAR		hether favourable or not. DeepDTA (2018), which
+302	100	VALUE	MATCH	s share one checkpoint rule: up to 100 epochs, the checkpoint w
+303	10,	VALUE	MATCH	among epochs ≥ 10, and early stopping after
+303	15	VALUE	MATCH	chs ≥ 10, and early stopping after 15 epochs without improveme
+303	10	VALUE	MATCH	ter 15 epochs without improvement (10 for DeepDTA, as in its
+322	2.3	HEADING-NUM		### 2.3 Ground truths and plausi
+326	2025	YEAR		e the model actually read (UniProt 2025). **KLIFS pocket**: the
+327	85	VALUE	MATCH	85 residues lining the ATP
+327	2014	YEAR		e ATP cleft of every kinase (KLIFS 2014; KLIFS 2021), placed on
+327	2021	YEAR		of every kinase (KLIFS 2014; KLIFS 2021), placed on each sequenc
+329	1,000	VALUE	MATCH	eins are scored within their first 1,000 residues, and sites beyo
+333	10	VALUE	MATCH	k = 10 fixed before any result
+337	349,	VALUE	MATCH	policy, DAVIS contributes 349, 349, 68 and 72 proteins
+337	349,	VALUE	MATCH	policy, DAVIS contributes 349, 349, 68 and 72 proteins at th
+337	68	VALUE	MATCH	olicy, DAVIS contributes 349, 349, 68 and 72 proteins at the r
+337	72	VALUE	MATCH	DAVIS contributes 349, 349, 68 and 72 proteins at the random,
+338	211	VALUE	MATCH	r levels against UniProt, and KIBA 211 and 212 at its two level
+338	212	VALUE	MATCH	against UniProt, and KIBA 211 and 212 at its two levels.
+347	2.4	HEADING-NUM		### 2.4 The calibrated battery
+359	10,000	VALUE	MATCH	ue uses the add-one estimator over 10,000 permutations, and the me
+361	1	VALUE	MATCH	olm survival counts reported here (1 of 20 DAVIS cells, 0 of
+361	20	VALUE	MATCH	urvival counts reported here (1 of 20 DAVIS cells, 0 of 8 KIBA
+361	0	VALUE	MATCH	eported here (1 of 20 DAVIS cells, 0 of 8 KIBA cells) therefo
+361	8	VALUE	MATCH	ed here (1 of 20 DAVIS cells, 0 of 8 KIBA cells) therefore de
+362	48	VALUE	MATCH	A Holm correction over the 48 per-seed exact
+363	5	VALUE	MATCH	tests instead retains 5 seed-runs, in four DAVIS
+363	18	VALUE	MATCH	in four DAVIS cells, and over the 18 KIBA per-seed tests 3 se
+363	3	VALUE	MATCH	nd over the 18 KIBA per-seed tests 3 seed-runs, in
+369	20	VALUE	MATCH	d once over each dataset's family: 20 DAVIS cells (four models
+370	8	VALUE	MATCH	map at four levels) and 8 KIBA cells (three models
+371	0.0025	VALUE	MATCH	the smallest Holm threshold used, 0.0025.
+375	16	VALUE	MATCH	han pre-registered: they grew from 16 to 20 (DAVIS) and 6 to 8
+375	20	VALUE	MATCH	e-registered: they grew from 16 to 20 (DAVIS) and 6 to 8
+375	6	VALUE	MATCH	hey grew from 16 to 20 (DAVIS) and 6 to 8
+375	8	VALUE	MATCH	rew from 16 to 20 (DAVIS) and 6 to 8
+377	500	VALUE	MATCH	any further analysis. The original 500-permutation audit reache
+383	1	VALUE	MATCH	(d = 1) reaches its ceiling, an
+383	0.02	VALUE	MATCH	reaches its ceiling, and a dose of 0.02 is detected at every DAV
+392	200	VALUE	MATCH	**Faithfulness.** For the first 200 test pairs of each level
+399	10	VALUE	MATCH	e number of tokens changed, within 10%
+405	2017	YEAR		method.** Integrated gradients (IG 2017) with 32 steps on the sa
+405	32	VALUE	MATCH	ntegrated gradients (IG 2017) with 32 steps on the same checkp
+408	2.5	HEADING-NUM		### 2.5 Seed instability and eff
+410	10	VALUE	UNTAGGED	t and level, each seed's precision@10 is tested alone at α = 0
+410	0.05	VALUE	MATCH	recision@10 is tested alone at α = 0.05, uncorrected,
+412	10	VALUE	UNTAGGED	the range of the seeds' precision@10 is larger than the dista
+417	10	VALUE	UNTAGGED	per-target precision@10 of the three seeds: a Fr
+418	20,000	VALUE	MATCH	he seed labels within each target (20,000 permutations), each Holm
+418	22	VALUE	MATCH	ons), each Holm-corrected over the 22 cells.
+422	95	VALUE	MATCH	Effect sizes carry 95% percentile intervals fr
+422	10,000	VALUE	MATCH	vals from a two-way bootstrap with 10,000 resamples: each
+425	10	VALUE	UNTAGGED	nce is the ratio of mean precision@10 to mean chance over the
+434	0.5	VALUE	MATCH	(the last two at the trainers' own 0.5
+438	10	VALUE	UNTAGGED	an's ρ between AUROC and precision@10 across cells, with a
+442	2.6	HEADING-NUM		### 2.6 Quantifying the DAVIS le
+445	17,748	VALUE	MATCH	(17,748 rows): one with every se
+451	2.7	HEADING-NUM		### 2.7 Threats to validity and
+454	2.5	LABEL/REF		agreement, §2.5); readout choice (primar
+455	2.1	LABEL/REF		nchmark leakage (sequence policy, §2.1, and the
+456	2.6	LABEL/REF		retraining in §2.6); insufficient test reso
+463	2.8	HEADING-NUM		### 2.8 Reproducibility
+466	256	VALUE	UNTAGGED	round-truth files are fixed by SHA-256 in
+470	3	HEADING-NUM		## 3 Results
+473	3.1	HEADING-NUM		### 3.1 The retrained models rea
+475	1,	LABEL/REF		cored on the same test sets (Table 1, Figure 3).
+475	3	LABEL/REF		he same test sets (Table 1, Figure 3).
+476	0.891	VALUE	MATCH	ll five reach a test AUROC between 0.891 (DrugBAN) and 0.937
+476	0.937	VALUE	MATCH	AUROC between 0.891 (DrugBAN) and 0.937
+480	0.568	VALUE	MATCH	d-pair level, where it ranges from 0.568
+481	0.728	VALUE	MATCH	(MolTrans) to 0.728 (DeepDTA, which has no a
+482	0.001	VALUE	MATCH	it: 0.001–0.006 at the random leve
+482	0.006	VALUE	MATCH	it: 0.001–0.006 at the random level, dep
+482	0.025	VALUE	MATCH	l, depending on the model, against 0.025–0.099 at cold-pair.
+482	0.099	VALUE	MATCH	ending on the model, against 0.025–0.099 at cold-pair.
+489	1	LABEL/REF		y model's cold-target AUROC (Table 1); at
+490	0.128	VALUE	MATCH	s, within seed spreads as large as 0.128.
+493	1	LABEL/REF		**Table 1.** Test AUROC, mean ± st
+494	3.6	LABEL/REF		oes not occur in training (Section 3.6). DrugBAN has no KIBA ce
+499	0.923	VALUE	MATCH	| MolTrans | 0.923 ± 0.002 | 0.685 ± 0.019
+499	0.002	VALUE	MATCH	| MolTrans | 0.923 ± 0.002 | 0.685 ± 0.019 | 0.874
+499	0.685	VALUE	MATCH	| MolTrans | 0.923 ± 0.002 | 0.685 ± 0.019 | 0.874 ± 0.006
+499	0.019	VALUE	MATCH	MolTrans | 0.923 ± 0.002 | 0.685 ± 0.019 | 0.874 ± 0.006 | 0.833
+499	0.874	VALUE	MATCH	| 0.923 ± 0.002 | 0.685 ± 0.019 | 0.874 ± 0.006 | 0.833 ± 0.008
+499	0.006	VALUE	MATCH	± 0.002 | 0.685 ± 0.019 | 0.874 ± 0.006 | 0.833 ± 0.008 | 0.568
+499	0.833	VALUE	MATCH	| 0.685 ± 0.019 | 0.874 ± 0.006 | 0.833 ± 0.008 | 0.568 ± 0.025
+499	0.008	VALUE	MATCH	± 0.019 | 0.874 ± 0.006 | 0.833 ± 0.008 | 0.568 ± 0.025 | 0.532
+499	0.568	VALUE	MATCH	| 0.874 ± 0.006 | 0.833 ± 0.008 | 0.568 ± 0.025 | 0.532 ± 0.029
+499	0.025	VALUE	MATCH	± 0.006 | 0.833 ± 0.008 | 0.568 ± 0.025 | 0.532 ± 0.029 | 0.919
+499	0.532	VALUE	MATCH	| 0.833 ± 0.008 | 0.568 ± 0.025 | 0.532 ± 0.029 | 0.919 ± 0.004
+499	0.029	VALUE	MATCH	± 0.008 | 0.568 ± 0.025 | 0.532 ± 0.029 | 0.919 ± 0.004 | 0.812
+499	0.919	VALUE	MATCH	| 0.568 ± 0.025 | 0.532 ± 0.029 | 0.919 ± 0.004 | 0.812 ± 0.009
+499	0.004	VALUE	MATCH	± 0.025 | 0.532 ± 0.029 | 0.919 ± 0.004 | 0.812 ± 0.009
+499	0.812	VALUE	MATCH	| 0.532 ± 0.029 | 0.919 ± 0.004 | 0.812 ± 0.009
+499	0.009	VALUE	MATCH	± 0.029 | 0.919 ± 0.004 | 0.812 ± 0.009
+500	0.937	VALUE	MATCH	| HyperAttentionDTI | 0.937 ± 0.005 | 0.760 ± 0.042
+500	0.005	VALUE	MATCH	| HyperAttentionDTI | 0.937 ± 0.005 | 0.760 ± 0.042 | 0.915
+500	0.760	VALUE	MATCH	yperAttentionDTI | 0.937 ± 0.005 | 0.760 ± 0.042 | 0.915 ± 0.001
+500	0.042	VALUE	MATCH	ntionDTI | 0.937 ± 0.005 | 0.760 ± 0.042 | 0.915 ± 0.001 | 0.893
+500	0.915	VALUE	MATCH	| 0.937 ± 0.005 | 0.760 ± 0.042 | 0.915 ± 0.001 | 0.893 ± 0.001
+500	0.001	VALUE	MATCH	± 0.005 | 0.760 ± 0.042 | 0.915 ± 0.001 | 0.893 ± 0.001 | 0.694
+500	0.893	VALUE	MATCH	| 0.760 ± 0.042 | 0.915 ± 0.001 | 0.893 ± 0.001 | 0.694 ± 0.038
+500	0.001	VALUE	MATCH	± 0.042 | 0.915 ± 0.001 | 0.893 ± 0.001 | 0.694 ± 0.038 | 0.713
+500	0.694	VALUE	MATCH	| 0.915 ± 0.001 | 0.893 ± 0.001 | 0.694 ± 0.038 | 0.713 ± 0.050
+500	0.038	VALUE	MATCH	± 0.001 | 0.893 ± 0.001 | 0.694 ± 0.038 | 0.713 ± 0.050 | 0.933
+500	0.713	VALUE	MATCH	| 0.893 ± 0.001 | 0.694 ± 0.038 | 0.713 ± 0.050 | 0.933 ± 0.001
+500	0.050	VALUE	MATCH	± 0.001 | 0.694 ± 0.038 | 0.713 ± 0.050 | 0.933 ± 0.001 | 0.844
+500	0.933	VALUE	MATCH	| 0.694 ± 0.038 | 0.713 ± 0.050 | 0.933 ± 0.001 | 0.844 ± 0.004
+500	0.001	VALUE	MATCH	± 0.038 | 0.713 ± 0.050 | 0.933 ± 0.001 | 0.844 ± 0.004
+500	0.844	VALUE	MATCH	| 0.713 ± 0.050 | 0.933 ± 0.001 | 0.844 ± 0.004
+500	0.004	VALUE	MATCH	± 0.050 | 0.933 ± 0.001 | 0.844 ± 0.004
+501	0.891	VALUE	MATCH	| DrugBAN | 0.891 ± 0.006 | 0.695 ± 0.033
+501	0.006	VALUE	MATCH	| DrugBAN | 0.891 ± 0.006 | 0.695 ± 0.033 | 0.846
+501	0.695	VALUE	MATCH	| DrugBAN | 0.891 ± 0.006 | 0.695 ± 0.033 | 0.846 ± 0.010
+501	0.033	VALUE	MATCH	DrugBAN | 0.891 ± 0.006 | 0.695 ± 0.033 | 0.846 ± 0.010 | 0.801
+501	0.846	VALUE	MATCH	| 0.891 ± 0.006 | 0.695 ± 0.033 | 0.846 ± 0.010 | 0.801 ± 0.012
+501	0.010	VALUE	MATCH	± 0.006 | 0.695 ± 0.033 | 0.846 ± 0.010 | 0.801 ± 0.012 | 0.620
+501	0.801	VALUE	MATCH	| 0.695 ± 0.033 | 0.846 ± 0.010 | 0.801 ± 0.012 | 0.620 ± 0.031
+501	0.012	VALUE	MATCH	± 0.033 | 0.846 ± 0.010 | 0.801 ± 0.012 | 0.620 ± 0.031 | 0.559
+501	0.620	VALUE	MATCH	| 0.846 ± 0.010 | 0.801 ± 0.012 | 0.620 ± 0.031 | 0.559 ± 0.040
+501	0.031	VALUE	MATCH	± 0.010 | 0.801 ± 0.012 | 0.620 ± 0.031 | 0.559 ± 0.040 | — | —
+501	0.559	VALUE	MATCH	| 0.801 ± 0.012 | 0.620 ± 0.031 | 0.559 ± 0.040 | — | —
+501	0.040	VALUE	MATCH	± 0.012 | 0.620 ± 0.031 | 0.559 ± 0.040 | — | —
+502	0.924	VALUE	MATCH	| XAttn-Ref | 0.924 ± 0.001 | 0.721 ± 0.008
+502	0.001	VALUE	MATCH	| XAttn-Ref | 0.924 ± 0.001 | 0.721 ± 0.008 | 0.857
+502	0.721	VALUE	MATCH	| XAttn-Ref | 0.924 ± 0.001 | 0.721 ± 0.008 | 0.857 ± 0.011
+502	0.008	VALUE	MATCH	Attn-Ref | 0.924 ± 0.001 | 0.721 ± 0.008 | 0.857 ± 0.011 | 0.835
+502	0.857	VALUE	MATCH	| 0.924 ± 0.001 | 0.721 ± 0.008 | 0.857 ± 0.011 | 0.835 ± 0.015
+502	0.011	VALUE	MATCH	± 0.001 | 0.721 ± 0.008 | 0.857 ± 0.011 | 0.835 ± 0.015 | 0.624
+502	0.835	VALUE	MATCH	| 0.721 ± 0.008 | 0.857 ± 0.011 | 0.835 ± 0.015 | 0.624 ± 0.099
+502	0.015	VALUE	MATCH	± 0.008 | 0.857 ± 0.011 | 0.835 ± 0.015 | 0.624 ± 0.099 | 0.607
+502	0.624	VALUE	MATCH	| 0.857 ± 0.011 | 0.835 ± 0.015 | 0.624 ± 0.099 | 0.607 ± 0.128
+502	0.099	VALUE	MATCH	± 0.011 | 0.835 ± 0.015 | 0.624 ± 0.099 | 0.607 ± 0.128 | 0.894
+502	0.607	VALUE	MATCH	| 0.835 ± 0.015 | 0.624 ± 0.099 | 0.607 ± 0.128 | 0.894 ± 0.011
+502	0.128	VALUE	MATCH	± 0.015 | 0.624 ± 0.099 | 0.607 ± 0.128 | 0.894 ± 0.011 | 0.807
+502	0.894	VALUE	MATCH	| 0.624 ± 0.099 | 0.607 ± 0.128 | 0.894 ± 0.011 | 0.807 ± 0.009
+502	0.011	VALUE	MATCH	± 0.099 | 0.607 ± 0.128 | 0.894 ± 0.011 | 0.807 ± 0.009
+502	0.807	VALUE	MATCH	| 0.607 ± 0.128 | 0.894 ± 0.011 | 0.807 ± 0.009
+502	0.009	VALUE	MATCH	± 0.128 | 0.894 ± 0.011 | 0.807 ± 0.009
+503	0.929	VALUE	MATCH	| DeepDTA | 0.929 ± 0.002 | 0.692 ± 0.044
+503	0.002	VALUE	MATCH	| DeepDTA | 0.929 ± 0.002 | 0.692 ± 0.044 | 0.907
+503	0.692	VALUE	MATCH	| DeepDTA | 0.929 ± 0.002 | 0.692 ± 0.044 | 0.907 ± 0.003
+503	0.044	VALUE	MATCH	DeepDTA | 0.929 ± 0.002 | 0.692 ± 0.044 | 0.907 ± 0.003 | 0.884
+503	0.907	VALUE	MATCH	| 0.929 ± 0.002 | 0.692 ± 0.044 | 0.907 ± 0.003 | 0.884 ± 0.003
+503	0.003	VALUE	MATCH	± 0.002 | 0.692 ± 0.044 | 0.907 ± 0.003 | 0.884 ± 0.003 | 0.728
+503	0.884	VALUE	MATCH	| 0.692 ± 0.044 | 0.907 ± 0.003 | 0.884 ± 0.003 | 0.728 ± 0.035
+503	0.003	VALUE	MATCH	± 0.044 | 0.907 ± 0.003 | 0.884 ± 0.003 | 0.728 ± 0.035 | 0.749
+503	0.728	VALUE	MATCH	| 0.907 ± 0.003 | 0.884 ± 0.003 | 0.728 ± 0.035 | 0.749 ± 0.044
+503	0.035	VALUE	MATCH	± 0.003 | 0.884 ± 0.003 | 0.728 ± 0.035 | 0.749 ± 0.044 | 0.918
+503	0.749	VALUE	MATCH	| 0.884 ± 0.003 | 0.728 ± 0.035 | 0.749 ± 0.044 | 0.918 ± 0.001
+503	0.044	VALUE	MATCH	± 0.003 | 0.728 ± 0.035 | 0.749 ± 0.044 | 0.918 ± 0.001 | 0.832
+503	0.918	VALUE	MATCH	| 0.728 ± 0.035 | 0.749 ± 0.044 | 0.918 ± 0.001 | 0.832 ± 0.001
+503	0.001	VALUE	MATCH	± 0.035 | 0.749 ± 0.044 | 0.918 ± 0.001 | 0.832 ± 0.001
+503	0.832	VALUE	MATCH	| 0.749 ± 0.044 | 0.918 ± 0.001 | 0.832 ± 0.001
+503	0.001	VALUE	MATCH	± 0.044 | 0.918 ± 0.001 | 0.832 ± 0.001
+505	3.2	HEADING-NUM		### 3.2 Binding-site verdicts ar
+508	0.05	VALUE	MATCH	erent sides of the uncorrected α = 0.05 threshold of a per-seed
+509	11	VALUE	MATCH	gle-run report would quote it — in 11 of 22 model–dataset–leve
+509	22	VALUE	MATCH	n report would quote it — in 11 of 22 model–dataset–level cell
+509	8	VALUE	MATCH	1 of 22 model–dataset–level cells (8 of 16 on DAVIS, 3 of 6 o
+509	16	VALUE	MATCH	22 model–dataset–level cells (8 of 16 on DAVIS, 3 of 6 on
+509	3	VALUE	MATCH	set–level cells (8 of 16 on DAVIS, 3 of 6 on
+509	6	VALUE	MATCH	evel cells (8 of 16 on DAVIS, 3 of 6 on
+510	1	VALUE	MATCH	KIBA). Only 1 cell has all three seeds
+510	10	VALUE	MATCH	l three seeds above the threshold; 10 have none (Figure 1).
+510	1	LABEL/REF		he threshold; 10 have none (Figure 1).
+517	1,000	VALUE	MATCH	sampling error enters). The first, 1,000-permutation run of the s
+517	12	VALUE	MATCH	tion run of the same test reported 12
+518	0.049	VALUE	MATCH	e random level, whose sampled p of 0.049
+519	0.056	VALUE	MATCH	on the threshold against an exact 0.056. A count on a threshold
+519	8	VALUE	MATCH	is threshold-dependent, and it is 8 at
+520	0.01	VALUE	MATCH	α = 0.01 and 13 at α = 0.10; we r
+520	13	VALUE	MATCH	α = 0.01 and 13 at α = 0.10; we report 1
+520	0.10	VALUE	MATCH	α = 0.01 and 13 at α = 0.10; we report 11 as the exa
+520	11	VALUE	MATCH	0.01 and 13 at α = 0.10; we report 11 as the exact-test value
+527	0.025	VALUE	MATCH	ntionDTI at DAVIS cold-drug places 0.025, 0.077 and 0.019 of
+527	0.077	VALUE	MATCH	I at DAVIS cold-drug places 0.025, 0.077 and 0.019 of
+527	0.019	VALUE	MATCH	cold-drug places 0.025, 0.077 and 0.019 of
+528	0.020	VALUE	MATCH	nnotated sites against a chance of 0.020; MolTrans at DAVIS cold-
+529	0.004	VALUE	MATCH	0.004, 0.032 and 0.024 against
+529	0.032	VALUE	MATCH	0.004, 0.032 and 0.024 against 0.019,
+529	0.024	VALUE	MATCH	0.004, 0.032 and 0.024 against 0.019, so one se
+529	0.019	VALUE	MATCH	0.004, 0.032 and 0.024 against 0.019, so one seed sits well b
+532	21	VALUE	MATCH	In 21 of 22 UniProt cells, and
+532	22	VALUE	MATCH	In 21 of 22 UniProt cells, and in fi
+533	10	VALUE	MATCH	seeds' precision@10 exceeds the cell's dista
+538	13	VALUE	MATCH	erences between the three seeds in 13 and 10 of the 22
+538	10	VALUE	MATCH	between the three seeds in 13 and 10 of the 22
+538	22	VALUE	MATCH	he three seeds in 13 and 10 of the 22
+539	8	VALUE	MATCH	cells before correction, and in 8 and 7 of 22 after Holm c
+539	7	VALUE	MATCH	ls before correction, and in 8 and 7 of 22 after Holm correct
+539	22	VALUE	MATCH	fore correction, and in 8 and 7 of 22 after Holm correction ov
+539	22	VALUE	MATCH	22 after Holm correction over the 22 cells.
+543	10	VALUE	MATCH	precision@10 by a standard deviation
+543	0.0008	VALUE	MATCH	sion@10 by a standard deviation of 0.0008 per seed, against a betw
+543	0.0121	VALUE	MATCH	between-seed standard deviation of 0.0121,
+544	15.5	VALUE	MATCH	a ratio of 15.5.
+548	1.98	VALUE	MATCH	old-drug it gives an enrichment of 1.98 [1.81, 2.15] over
+548	1.81	VALUE	MATCH	ug it gives an enrichment of 1.98 [1.81, 2.15] over
+548	2.15	VALUE	MATCH	gives an enrichment of 1.98 [1.81, 2.15] over
+551	0.94	VALUE	MATCH	gives the same cell [0.94, 3.65].
+551	3.65	VALUE	MATCH	gives the same cell [0.94, 3.65].
+555	3.3	HEADING-NUM		### 3.3 Under the calibrated bat
+557	0.02	VALUE	MATCH	xplanation that ranks as little as 0.02 of
+560	1	VALUE	MATCH	er each dataset's declared family, 1 of 20 DAVIS cells suppor
+560	20	VALUE	MATCH	ch dataset's declared family, 1 of 20 DAVIS cells supports res
+561	0	VALUE	MATCH	recovery and 0 of 8 KIBA cells do. Thes
+561	8	VALUE	MATCH	recovery and 0 of 8 KIBA cells do. These cou
+562	2.4	LABEL/REF		Section 2.4, not individual seeds.
+565	10	VALUE	UNTAGGED	DTI at the random level (precision@10 0.034 against a chance o
+565	0.034	VALUE	MATCH	at the random level (precision@10 0.034 against a chance of
+566	0.020	VALUE	MATCH	0.020; enrichment 1.66 [1.33,
+566	1.66	VALUE	MATCH	0.020; enrichment 1.66 [1.33, 2.00]), at p = 0.
+566	1.33	VALUE	MATCH	0.020; enrichment 1.66 [1.33, 2.00]), at p = 0.0001,
+566	2.00	VALUE	MATCH	0.020; enrichment 1.66 [1.33, 2.00]), at p = 0.0001, the sm
+566	0.0001	VALUE	MATCH	ichment 1.66 [1.33, 2.00]), at p = 0.0001, the smallest value 10,0
+566	10,000	VALUE	MATCH	at p = 0.0001, the smallest value 10,000 permutations can give.
+570	0.4462	VALUE	MATCH	ever approaches significance (p of 0.4462 or more on
+571	0.2251	VALUE	MATCH	DAVIS, 0.2251 or more on KIBA), which
+574	22	VALUE	MATCH	agree with the correction: of the 22 UniProt cells, only
+575	2	LABEL/REF		s an interval above parity (Figure 2). With targets alone res
+576	1.57	VALUE	MATCH	MolTrans at KIBA cold-drug, 1.57 [1.32, 1.82] — but resam
+576	1.32	VALUE	MATCH	MolTrans at KIBA cold-drug, 1.57 [1.32, 1.82] — but resampling
+576	1.82	VALUE	MATCH	ans at KIBA cold-drug, 1.57 [1.32, 1.82] — but resampling seeds
+577	0.70	VALUE	MATCH	[0.70, 2.70], and its split-le
+577	2.70	VALUE	MATCH	[0.70, 2.70], and its split-level te
+577	0.07279	VALUE	MATCH	over seeds, does not survive (p = 0.07279 against
+578	0.00625	VALUE	MATCH	a threshold of 0.00625).
+585	3.4	HEADING-NUM		### 3.4 What replicates is coars
+587	85	VALUE	MATCH	Against the 85-residue KLIFS pocket, wh
+587	0.137	VALUE	MATCH	idue KLIFS pocket, where chance is 0.137–0.143 on DAVIS, XAttn-Re
+587	0.143	VALUE	MATCH	LIFS pocket, where chance is 0.137–0.143 on DAVIS, XAttn-Ref's ma
+588	1.54	VALUE	MATCH	enriched at every DAVIS level (1.54–2.10× chance) and HyperA
+588	2.10	VALUE	MATCH	nriched at every DAVIS level (1.54–2.10× chance) and HyperAttent
+589	1.33	VALUE	MATCH	(1.33–1.70×, cold-pair only ma
+589	1.70	VALUE	MATCH	(1.33–1.70×, cold-pair only margina
+589	1.35	VALUE	MATCH	drug HyperAttentionDTI's interval, 1.35 [0.94, 1.73], includes p
+589	0.94	VALUE	MATCH	yperAttentionDTI's interval, 1.35 [0.94, 1.73], includes parity
+589	1.73	VALUE	MATCH	tentionDTI's interval, 1.35 [0.94, 1.73], includes parity once s
+590	0.99	VALUE	MATCH	arity at every level (at cold-pair 0.99 [0.67, 1.32]), and
+590	0.67	VALUE	MATCH	at every level (at cold-pair 0.99 [0.67, 1.32]), and
+590	1.32	VALUE	MATCH	ry level (at cold-pair 0.99 [0.67, 1.32]), and
+591	0.98	VALUE	MATCH	N's map sits on chance throughout (0.98–1.04×) (Figure 2).
+591	1.04	VALUE	MATCH	ap sits on chance throughout (0.98–1.04×) (Figure 2).
+591	2	LABEL/REF		ce throughout (0.98–1.04×) (Figure 2).
+604	1.37	VALUE	MATCH	ionDTI is enriched at both levels (1.37 [1.26, 1.49] random; 1.2
+604	1.26	VALUE	MATCH	is enriched at both levels (1.37 [1.26, 1.49] random; 1.25 [1.0
+604	1.49	VALUE	MATCH	riched at both levels (1.37 [1.26, 1.49] random; 1.25 [1.07, 1.4
+604	1.25	VALUE	MATCH	levels (1.37 [1.26, 1.49] random; 1.25 [1.07, 1.41]
+604	1.07	VALUE	MATCH	s (1.37 [1.26, 1.49] random; 1.25 [1.07, 1.41]
+604	1.41	VALUE	MATCH	7 [1.26, 1.49] random; 1.25 [1.07, 1.41]
+605	1.00	VALUE	MATCH	-Ref's cold-drug map is at chance (1.00 [0.79, 1.27]).
+605	0.79	VALUE	MATCH	cold-drug map is at chance (1.00 [0.79, 1.27]).
+605	1.27	VALUE	MATCH	drug map is at chance (1.00 [0.79, 1.27]).
+616	16	VALUE	MATCH	r three of the four models. In all 16 cells of
+618	95	VALUE	MATCH	number of random ones, with every 95% interval above zero eve
+619	5	LABEL/REF		resampled (Figure 5). The effect ranges from
+619	0.054	VALUE	MATCH	(Figure 5). The effect ranges from 0.054 [0.030, 0.080] (HyperAtt
+619	0.030	VALUE	MATCH	5). The effect ranges from 0.054 [0.030, 0.080] (HyperAttentionD
+619	0.080	VALUE	MATCH	e effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAV
+620	1.21	VALUE	MATCH	to 1.21 [0.68, 1.92] (XAttn-Ref,
+620	0.68	VALUE	MATCH	to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS
+620	1.92	VALUE	MATCH	to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS rando
+632	−0.0073	VALUE	MATCH	cold-drug −0.0073, −0.0036 and 0.0128 for
+632	−0.0036	VALUE	MATCH	cold-drug −0.0073, −0.0036 and 0.0128 for seeds one
+632	0.0128	VALUE	MATCH	cold-drug −0.0073, −0.0036 and 0.0128 for seeds one to three,
+632	−0.0037	VALUE	MATCH	eds one to three, and at cold-pair −0.0037, −0.0038 and
+632	−0.0038	VALUE	MATCH	o three, and at cold-pair −0.0037, −0.0038 and
+633	0.0027	VALUE	MATCH	0.0027. Six of its twelve seed-
+645	48	VALUE	MATCH	t predict localisation. Across the 48 DAVIS attention-model ce
+646	0.003	VALUE	MATCH	UROC and enrichment over chance is 0.003 [−0.309, 0.294]; across
+646	−0.309	VALUE	MATCH	d enrichment over chance is 0.003 [−0.309, 0.294]; across the 18 K
+646	0.294	VALUE	MATCH	ment over chance is 0.003 [−0.309, 0.294]; across the 18 KIBA cel
+646	18	VALUE	MATCH	0.003 [−0.309, 0.294]; across the 18 KIBA cells it is 0.064
+646	0.064	VALUE	MATCH	4]; across the 18 KIBA cells it is 0.064
+647	−0.466	VALUE	MATCH	[−0.466, 0.557] (Figure 4).
+647	0.557	VALUE	MATCH	[−0.466, 0.557] (Figure 4).
+647	4	LABEL/REF		[−0.466, 0.557] (Figure 4).
+651	3.5	HEADING-NUM		### 3.5 The verdict depends on t
+654	0.367	VALUE	MATCH	me HyperAttentionDTI weights place 0.367 and 0.081 of their
+654	0.081	VALUE	MATCH	tentionDTI weights place 0.367 and 0.081 of their
+655	0.140	VALUE	MATCH	-target level, against a chance of 0.140
+659	25	VALUE	MATCH	erty of the computation graph. For 25 proteins each
+660	100	VALUE	MATCH	s the same top ten for every drug (100% of
+661	150	VALUE	MATCH	150 drug pairs), HyperAttent
+661	72	VALUE	MATCH	rug pairs), HyperAttentionDTI's in 72%, and DrugBAN's in 0%; M
+661	0	VALUE	MATCH	tionDTI's in 72%, and DrugBAN's in 0%; MolTrans's interaction
+662	0	VALUE	MATCH	readout variant, is identical in 0%.
+669	3.6	HEADING-NUM		### 3.6 DAVIS's sequence leakage
+671	54	VALUE	MATCH	DAVIS gives 54 of its mutant targets ex
+671	12	VALUE	MATCH	exactly the wild-type sequence, so 12 of the 88 cold-target te
+671	88	VALUE	MATCH	e wild-type sequence, so 12 of the 88 cold-target test
+672	816	VALUE	MATCH	are seen by sequence in training: 816 of 5984 test rows (13.6%
+672	5984	VALUE	MATCH	en by sequence in training: 816 of 5984 test rows (13.6%).
+672	13.6	VALUE	MATCH	n training: 816 of 5984 test rows (13.6%).
+675	6	LABEL/REF		the loss of training rows (Figure 6).
+677	0.116	VALUE	MATCH	e sequence match inflates AUROC by 0.116 (95% t-interval [0.098,
+677	95	VALUE	MATCH	nce match inflates AUROC by 0.116 (95% t-interval [0.098, 0.13
+677	0.098	VALUE	MATCH	es AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On
+677	0.134	VALUE	MATCH	C by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the
+677	0.0013	VALUE	MATCH	95% t-interval [0.098, 0.134], p = 0.0013). On the
+678	−0.019	VALUE	MATCH	d rows no inflation is detectable (−0.019, p = 0.31). Over all row
+678	0.31	VALUE	MATCH	flation is detectable (−0.019, p = 0.31). Over all rows the net
+679	0.019	VALUE	MATCH	0.019 with an interval, [−0.02
+679	−0.022	VALUE	MATCH	0.019 with an interval, [−0.022, 0.059], that includes z
+679	0.059	VALUE	MATCH	0.019 with an interval, [−0.022, 0.059], that includes zero (p
+679	0.19	VALUE	MATCH	2, 0.059], that includes zero (p = 0.19), because the leaked row
+679	13.6	VALUE	MATCH	0.19), because the leaked rows are 13.6%
+681	0.020	VALUE	MATCH	costs 0.020. At cold-pair the leak's
+681	−0.021	VALUE	MATCH	the leak's effect is not positive (−0.021) and the smaller trainin
+682	0.062	VALUE	MATCH	0.062: removing leaked targets
+691	3.7	HEADING-NUM		### 3.7 Confirmatory: integrated
+694	3.16	VALUE	MATCH	Ref at DAVIS cold-drug, IG reaches 3.16 [2.40, 4.40]× chance in
+694	2.40	VALUE	MATCH	DAVIS cold-drug, IG reaches 3.16 [2.40, 4.40]× chance in the po
+694	4.40	VALUE	MATCH	cold-drug, IG reaches 3.16 [2.40, 4.40]× chance in the pocket a
+695	2.10	VALUE	MATCH	attention's 2.10 [1.83, 2.36]×. For Hyper
+695	1.83	VALUE	MATCH	attention's 2.10 [1.83, 2.36]×. For HyperAttent
+695	2.36	VALUE	MATCH	attention's 2.10 [1.83, 2.36]×. For HyperAttentionDTI
+696	1.90	VALUE	MATCH	UniProt residues, 1.90×, is above the attention
+696	0.94	VALUE	MATCH	s, 1.90×, is above the attention's 0.94 [0.71, 1.19]×, but with
+696	0.71	VALUE	MATCH	0×, is above the attention's 0.94 [0.71, 1.19]×, but with seeds
+696	1.19	VALUE	MATCH	above the attention's 0.94 [0.71, 1.19]×, but with seeds resamp
+697	0.63	VALUE	MATCH	interval, [0.63, 3.39], includes parity.
+697	3.39	VALUE	MATCH	interval, [0.63, 3.39], includes parity. IG co
+707	4	HEADING-NUM		## 4 Discussion
+710	4.1	HEADING-NUM		### 4.1 What the audit shows
+714	11	VALUE	MATCH	the map finds annotated residues (11 of 22 cells), the disagr
+714	22	VALUE	MATCH	ap finds annotated residues (11 of 22 cells), the disagreement
+715	21	VALUE	MATCH	effect being claimed (21 of 22), and in 7 to 8 of
+715	22	VALUE	MATCH	effect being claimed (21 of 22), and in 7 to 8 of 22 ce
+715	7	VALUE	MATCH	t being claimed (21 of 22), and in 7 to 8 of 22 cells the dif
+715	8	VALUE	MATCH	ng claimed (21 of 22), and in 7 to 8 of 22 cells the differen
+715	22	VALUE	MATCH	aimed (21 of 22), and in 7 to 8 of 22 cells the differences be
+716	3.2	LABEL/REF		after correction (Section 3.2).
+723	3.3	LABEL/REF		cell and in no KIBA cell (Section 3.3).
+728	3.4	LABEL/REF		anging sign between seeds (Section 3.4).
+729	2020	YEAR		e vocabulary of Jacovi & Goldberg (2020), the other three models
+736	3.5	LABEL/REF		ble to depend on the drug (Section 3.5). Accuracy, finally, is
+737	3.4	LABEL/REF		is not a better localiser (Section 3.4).
+739	4.2	HEADING-NUM		### 4.2 Relation to prior work
+741	2020	YEAR		e annotations in DTI before. MONN (2020) built a benchmark
+743	2022	YEAR		y without extra supervision; ICAN (2022) reported that some cros
+745	2026,	VALUE	UNTAGGED	(2026, preprint) found limited
+751	2026,	VALUE	UNTAGGED	ions from other directions. ISAAC (2026, preprint) probes models
+753	2026,	VALUE	UNTAGGED	oss training seeds; Vefghi et al. (2026, preprint) combine gradie
+759	2019	YEAR		on as explanation (Jain & Wallace, 2019; Wiegreffe & Pinter, 201
+759	2019	YEAR		Wallace, 2019; Wiegreffe & Pinter, 2019)
+763	2018	YEAR		for saliency maps (Adebayo et al., 2018): an explanation that do
+767	2025,	VALUE	UNTAGGED	mutant kinases (DAVIS-complete, 2025, preprint), and kinase-af
+768	2023,	VALUE	UNTAGGED	permissive splits (Ong et al., 2023, preprint). Our contribut
+772	4.3	HEADING-NUM		### 4.3 Recommendations
+774	1	LABEL/REF		The checklist in Box 1 follows directly from th
+780	4.4	HEADING-NUM		### 4.4 Limitations and pending
+785	30	VALUE	MATCH	30 cells, each assigned to
+785	4	VALUE	MATCH	ne of three Kaggle accounts: seeds 4 and 5 of HyperAttentionD
+785	5	VALUE	MATCH	three Kaggle accounts: seeds 4 and 5 of HyperAttentionDTI,
+786	12	VALUE	MATCH	Attn-Ref at all four DAVIS levels (12 cells per account), and
+787	1	VALUE	MATCH	om and cold-drug levels with seeds 1–3 (6 cells).
+787	3	VALUE	MATCH	and cold-drug levels with seeds 1–3 (6 cells).
+787	6	VALUE	MATCH	d cold-drug levels with seeds 1–3 (6 cells).
+792	23.2	VALUE	MATCH	mated from measured epoch times at 23.2 GPU-hours per account; D
+798	4	VALUE	MATCH	ny number in this paper. The seeds 4–5 results will be analys
+798	5	VALUE	MATCH	number in this paper. The seeds 4–5 results will be analysed
+799	1	VALUE	MATCH	not merged into, the primary seeds 1–3 analysis.
+799	3	VALUE	MATCH	t merged into, the primary seeds 1–3 analysis.
+815	3.5	LABEL/REF		ensitivity analysis. Given Section 3.5, this matters: a differe
+827	4.5	HEADING-NUM		### 4.5 Conclusion
+839	1	LABEL/REF		![Figure 1](figures/fig1_seed_insta
+841	1	LABEL/REF		**Figure 1. The same recipe, three
+842	10	VALUE	UNTAGGED	precision@10 of each training seed (p
+843	85	VALUE	MATCH	(top) and the KLIFS 85-residue pocket (bottom).
+849	2	LABEL/REF		![Figure 2](figures/fig2_enrichment
+851	2	LABEL/REF		**Figure 2. Enrichment over chance
+851	95	VALUE	MATCH	ure 2. Enrichment over chance with 95% bootstrap intervals.**
+852	10	VALUE	UNTAGGED	precision@10 ÷ chance for every model
+854	10,000	VALUE	MATCH	seeds (10,000 resamples); log scale; d
+859	3	LABEL/REF		![Figure 3](figures/fig3_accuracy.p
+861	3	LABEL/REF		**Figure 3. Predictive accuracy per
+866	4	LABEL/REF		![Figure 4](figures/fig4_accuracy_v
+868	4	LABEL/REF		**Figure 4. Accuracy does not predi
+870	10	VALUE	UNTAGGED	precision@10 ÷ chance). For DAVIS col
+871	95	VALUE	MATCH	anel titles give Spearman ρ with a 95% bootstrap interval
+876	5	LABEL/REF		![Figure 5](figures/fig5_faithfulne
+878	5	LABEL/REF		**Figure 5. Masking the attended re
+880	95	VALUE	MATCH	with 95% two-way bootstrap inter
+880	10,000	VALUE	MATCH	vals (targets and seeds resampled, 10,000 resamples). MolTrans is
+882	3.4	LABEL/REF		ted per-seed deltas exist (Section 3.4) but carry no interval,
+887	6	LABEL/REF		![Figure 6](figures/fig6_leakage.pn
+889	6	LABEL/REF		**Figure 6. What DAVIS's sequence l
+902	256	VALUE	UNTAGGED	rows of the split files, whose SHA-256 hashes
+909	21,039	VALUE	MATCH	| DAVIS | random | 21,039 | 3,006 | 6,011 |
+909	3,006	VALUE	MATCH	| DAVIS | random | 21,039 | 3,006 | 6,011 |
+909	6,011	VALUE	MATCH	DAVIS | random | 21,039 | 3,006 | 6,011 |
+910	21,658	VALUE	MATCH	| DAVIS | cold-drug | 21,658 | 2,652 | 5,746 |
+910	2,652	VALUE	MATCH	| DAVIS | cold-drug | 21,658 | 2,652 | 5,746 |
+910	5,746	VALUE	MATCH	VIS | cold-drug | 21,658 | 2,652 | 5,746 |
+911	21,080	VALUE	MATCH	| DAVIS | cold-target | 21,080 | 2,992 | 5,984 |
+911	2,992	VALUE	MATCH	| DAVIS | cold-target | 21,080 | 2,992 | 5,984 |
+911	5,984	VALUE	MATCH	S | cold-target | 21,080 | 2,992 | 5,984 |
+912	15,190	VALUE	MATCH	| DAVIS | cold-pair | 15,190 | 264 | 1,144 |
+912	264	VALUE	MATCH	| DAVIS | cold-pair | 15,190 | 264 | 1,144 |
+912	1,144	VALUE	MATCH	DAVIS | cold-pair | 15,190 | 264 | 1,144 |
+913	82,778	VALUE	MATCH	| KIBA | random | 82,778 | 11,825 | 23,651 |
+913	11,825	VALUE	MATCH	| KIBA | random | 82,778 | 11,825 | 23,651 |
+913	23,651	VALUE	MATCH	KIBA | random | 82,778 | 11,825 | 23,651 |
+914	83,807	VALUE	MATCH	| KIBA | cold-drug | 83,807 | 12,073 | 22,374 |
+914	12,073	VALUE	MATCH	| KIBA | cold-drug | 83,807 | 12,073 | 22,374 |
+914	22,374	VALUE	MATCH	BA | cold-drug | 83,807 | 12,073 | 22,374 |
+917	15,190	VALUE	MATCH	random level (15,190 against 21,039 on DAVIS)
+917	21,039	VALUE	MATCH	random level (15,190 against 21,039 on DAVIS). A volume-matc
+932	0.001	VALUE	MATCH	| DeepDTA | Adam | 0.001 | 256 | PyTorch port; pa
+932	256	VALUE	MATCH	| DeepDTA | Adam | 0.001 | 256 | PyTorch port; patience
+932	10	VALUE	MATCH	001 | 256 | PyTorch port; patience 10
+933	0.00005	VALUE	MATCH	TI | AdamW, cyclic learning rate | 0.00005 | 32 | weight decay 0.00
+933	32	VALUE	MATCH	, cyclic learning rate | 0.00005 | 32 | weight decay 0.0001 on
+933	0.0001	VALUE	MATCH	rate | 0.00005 | 32 | weight decay 0.0001 on weights, none on bias
+934	0.0001	VALUE	MATCH	| MolTrans | Adam | 0.0001 | 16 | configuration `BI
+934	16	VALUE	MATCH	| MolTrans | Adam | 0.0001 | 16 | configuration `BIN_con
+935	0.00005	VALUE	MATCH	| DrugBAN | Adam | 0.00005 | 64 | domain adaptation
+935	64	VALUE	MATCH	| DrugBAN | Adam | 0.00005 | 64 | domain adaptation off;
+936	0.001	VALUE	MATCH	tn-Ref | Adam, reduce-on-plateau | 0.001 | 64 | learning rate hal
+936	64	VALUE	MATCH	Adam, reduce-on-plateau | 0.001 | 64 | learning rate halved a
+936	5	VALUE	MATCH	| 64 | learning rate halved after 5 epochs without improveme
+941	103	CODE/LINK		(`baselines/MolTrans/models.py:103`), so dropout stays acti
+943	0.5862	VALUE	MATCH	spread its test AUROC over 0.5862–0.5954, and the recorded
+943	0.5954	VALUE	MATCH	spread its test AUROC over 0.5862–0.5954, and the recorded value
+950	2.2	LABEL/REF		primary readout (main text §2.2), the following reductio
+956	10	VALUE	UNTAGGED	| readout | precision@10 (mean ± SD over seeds) |
+958	0.186	VALUE	MATCH	| primary (channel mean) | 0.186 ± 0.032 | 0.140 |
+958	0.032	VALUE	MATCH	| primary (channel mean) | 0.186 ± 0.032 | 0.140 |
+958	0.140	VALUE	MATCH	y (channel mean) | 0.186 ± 0.032 | 0.140 |
+959	0.367	VALUE	MATCH	| maximum over channels | 0.367 ± 0.104 | 0.140 |
+959	0.104	VALUE	MATCH	| maximum over channels | 0.367 ± 0.104 | 0.140 |
+959	0.140	VALUE	MATCH	um over channels | 0.367 ± 0.104 | 0.140 |
+960	0.081	VALUE	MATCH	| receptive-field spread | 0.081 ± 0.046 | 0.140 |
+960	0.046	VALUE	MATCH	| receptive-field spread | 0.081 ± 0.046 | 0.140 |
+960	0.140	VALUE	MATCH	ive-field spread | 0.081 ± 0.046 | 0.140 |
+963	25	VALUE	MATCH	ce of each readout was measured on 25 proteins with four
+964	100	VALUE	MATCH	dues are identical across drugs in 100% of drug pairs for MolTr
+965	72	VALUE	MATCH	primary readout, in 72% for HyperAttentionDTI's
+965	0	VALUE	MATCH	72% for HyperAttentionDTI's and in 0% for DrugBAN's.
+998	500	VALUE	MATCH	| f | permutation resolution was 500 in the original audit |
+998	10,000	VALUE	MATCH	e to the smallest Holm threshold | 10,000-permutation audit is the
+998	2.1	LABEL/REF		— `docs/PROTOCOL_AMENDMENT_v2.md` §2.1 |
+1001	10	VALUE	MATCH	t could reflect the chosen k | k = 10 fixed in advance; k = 50
+1001	50	VALUE	MATCH	n k | k = 10 fixed in advance; k = 50 as sensitivity for two m
+1002	1	VALUE	MATCH	limit is a floor of three rows or 1%, whichever is larger |
+1009	6	LABEL/REF		ults file | handled — `CLAUDE.md` §6 |
+1013	1,000	VALUE	MATCH	| u | the sampled 1,000-permutation per-seed p p
+1013	12	VALUE	MATCH	line | headline disagreement count 12 vs 11 | exact p recomput
+1013	11	VALUE	MATCH	headline disagreement count 12 vs 11 | exact p recomputed ind
+1013	11	VALUE	MATCH	exact p recomputed independently; 11 reported, 12 disclosed |
+1013	12	VALUE	MATCH	mputed independently; 11 reported, 12 disclosed | handled — `s
+1016	47.9	VALUE	MATCH	For (c), 47.9% of tokens change under
+1016	95.0	VALUE	MATCH	change under the attended arm and 95.0% under an unmatched rand
+1017	20	VALUE	MATCH	20 DAVIS proteins.

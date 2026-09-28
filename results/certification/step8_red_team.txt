@@ -1,0 +1,93 @@
+==============================================================================================================
+A. INDEPENDENT RECOMPUTATION OF THE INTEGRATED-GRADIENTS ENRICHMENT (raw IG ladders outside the repo, ground truth from data/)
+==============================================================================================================
+   estimator as in step2/step5a: ratio of means, targets and seeds resampled together (two-way), 50,000 resamples, percentile 95% interval
+
+   XAttn-Ref IG vs KLIFS pocket
+   level           n mine: point [2-way 95% CI]     repo (effects_v2_2d)         lower>1
+   random        350  1.963 [ 1.79,  2.13]            1.963 [ 1.80,  2.13]   YES
+   cold_drug     350  3.165 [ 2.40,  4.38]            3.165 [ 2.40,  4.40]   YES
+   cold_target    67  2.324 [ 1.91,  2.73]            2.324 [ 1.91,  2.72]   YES
+   cold_pair      71  2.296 [ 1.81,  2.77]            2.296 [ 1.81,  2.77]   YES
+
+   XAttn-Ref IG vs UniProt residues
+   level           n mine: point [2-way 95% CI]     repo (effects_v2_2d)         lower>1
+   random        349  1.030 [ 0.61,  1.52]            1.030 [ 0.61,  1.51]   no
+   cold_drug     349  2.698 [ 1.59,  3.58]            2.698 [ 1.59,  3.56]   YES
+   cold_target    68  2.252 [ 0.99,  3.78]            2.252 [ 1.01,  3.80]   no
+   cold_pair      72  0.756 [ 0.19,  1.50]            0.756 [ 0.18,  1.50]   no
+
+   HyperAttentionDTI IG vs UniProt (KIBA)
+   level           n mine: point [2-way 95% CI]     repo (effects_v2_2d)         lower>1
+   random        211  1.822 [ 1.05,  2.83]            1.822 [ 1.04,  2.86]   YES
+   cold_drug     212  1.896 [ 0.64,  3.45]            1.896 [ 0.63,  3.39]   no
+
+   XAttn-Ref DAVIS cold-drug pocket enrichment: IG 3.165 [2.40, 4.38] vs attention 2.100 (step5a) | draft: 3.16 [2.40, 4.40] vs 2.10
+   XAttn-Ref IG vs KLIFS pocket: 4 of 4 levels have a two-way lower bound above chance (lower bounds [1.79, 2.4, 1.91, 1.81])
+   XAttn-Ref IG vs UniProt residues: 1 of 4 levels above chance (lower bounds [0.61, 1.59, 0.99, 0.19]), point estimates [1.03, 2.7, 2.25, 0.76]
+   HyperAttentionDTI KIBA cold-drug IG vs UniProt: 1.90 [0.64, 3.45] -> interval includes parity | draft: 1.90, [0.63, 3.39], includes parity
+
+==============================================================================================================
+ATTACK 1: 'The 11-of-22 disagreement is an artefact of borderline effects crossing an alpha threshold.'
+==============================================================================================================
+Refutation, from raw data:
+  1. The claim does not rest on the threshold. Testing the seeds against EACH OTHER (no alpha on the effect at all): Friedman test significant in 13 of 22 cells,
+     permutation test in 10; after Holm over 22 cells: Friedman 8, permutation 7  (results/certification/step1_disagreement.txt:58-59)
+     cells that survive Holm on the permutation p (7): ['DAVIS XAttn-Ref random', 'KIBA HyperAttentionDTI random', 'KIBA MolTrans random', 'DAVIS HyperAttentionDTI cold_drug', 'KIBA MolTrans cold_drug', 'DAVIS XAttn-Ref cold_drug', 'KIBA XAttn-Ref random']
+  2. The variation is training, not scoring: re-collecting the explanation from the same checkpoint moves P@10 by sd 0.0008; between-seed sd is 0.0121 (15.5x larger) (step1c)
+  3. Seed ORDER is stable across two independent collection passes in 21 of 22 cells (step1c): the seeds really do differ from one another.
+  4. Effect size, not just significance: HyperAttentionDTI DAVIS cold-drug seeds 0.0249 / 0.0768 / 0.0195 vs chance 0.0204: best/worst = 3.94x; between-seed sd 0.032 vs protein-sampling SE 0.0018 (step2).
+  5. The spread exceeds the distance from chance in 21 of 22 cells (step1) -- reported, but the draft itself calls it weak near chance.
+What the data do NOT let us say (concede these):
+  - 'Exactly 12'. The sampled 1,000-permutation run gave 12; the exact test gives 11; the count is 8 at alpha 0.01 and 13 at 0.10. It is a threshold-dependent count.
+  - The direct test finds significant seed variance in 7-8 of 22 cells, i.e. in about a third, not in most cells. 'Verdicts are unstable' is supported; 'every cell is unstable' is not.
+  VERDICT: attack answered; the paper must lead with the direct test and the effect sizes, not with the threshold count.
+
+==============================================================================================================
+ATTACK 2: 'The models learned nothing; the attention is noise, so the audit audits noise.'
+==============================================================================================================
+Refutation, from raw data:
+  1. The models predict binding: DAVIS random-split test AUROC of the five models 0.891-0.937 (sklearn on raw predictions, step5c); a noise model scores 0.5.
+  2. The attention is used by the model: masking the attended residues beats size-matched random masking with a lower bound above zero in 16 of 16 cells (three models, seeds and targets resampled, step5b).
+  3. The weights carry site information even where the attention does not show it: integrated gradients on XAttn-Ref, pocket enrichment above chance at 4 of 4 DAVIS levels;
+     cold-drug 3.16 [2.40, 4.38] against attention 2.10 (independent recomputation; draft 3.16 [2.40, 4.40]).
+  4. The pipeline can see a real signal: attention pocket enrichment survives in XAttn-Ref at 4 of 4 and HyperAttentionDTI at 3 of 4 DAVIS levels (step5a), and the positive control detects a 0.02 dose at every level (results/positive_control_davis.md).
+  5. The saved numbers are the network's numbers: live forward passes on the GPU reproduce the saved logits within 1e-5 for 40 of 40 pairs, with identical checkpoint hashes (step7).
+What the data do NOT let us say (concede these):
+  - IG is a confirmatory, partial result: against UniProt residues only 1 of 4 XAttn-Ref levels are above chance ([0.61, 1.59, 0.99, 0.19]); HyperAttentionDTI's KIBA cold-drug IG interval [0.64, 3.45] includes parity.
+  - Above-chance pocket enrichment is coarse (no conservation control): it does not show the models learned binding chemistry, only that they do not ignore the pocket.
+  - The strongest claim the data support is 'the models are not noise and their weights hold pocket information that attention under-reports', not 'they learned binding sites'.
+  VERDICT: attack answered by accuracy + faithfulness + IG; the 3.16x figure alone would not be enough and must not be presented as the shield.
+
+==============================================================================================================
+ATTACK 3: 'The DAVIS leak invalidates the whole benchmark.'
+==============================================================================================================
+Refutation, from raw data:
+  1. cold_target: 12 test targets are seen by sequence; 0 of them are scored by any of the four attention models' explanation analyses (68 distinct proteins scored, 3 seeds x 4 models). The explanation results never touch the leak.
+  1. cold_pair: 11 test targets are seen by sequence; 0 of them are scored by any of the four attention models' explanation analyses (72 distinct proteins scored, 3 seeds x 4 models). The explanation results never touch the leak.
+  2. The leak is measured and bounded: it affects 12 of 88 cold-target test targets (816 of 5,984 rows, 13.6%) and 11 of 88 cold-pair targets (143 of 1,144 rows) (step3, sequence audit recomputed from the split CSVs).
+  3. On the leaked rows the sequence match inflates DeepDTA AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013); on the unleaked rows -0.019 (p = 0.31): accuracy on sequence-unseen targets is not inflated.
+  4. The signature is present in all four models (leaked minus unleaked AUROC, cold-target): DeepDTA +0.066, MolTrans +0.117, HyperAttentionDTI +0.061, XAttn-Ref +0.060; the paper reports cold-level accuracy on sequence-unseen targets and states the correction.
+  5. The headline (seed instability, calibrated battery, readout dependence) is built on per-protein explanation scores at all four levels, including DAVIS random and cold-drug, where every test target is also in the training set by construction, so the cold-start leak cannot arise.
+What the data do NOT let us say (concede these):
+  - The retrain is DeepDTA at cold-target only, three seeds. All-rows effect +0.019, CI [-0.022, 0.059], p = 0.19: not distinguishable from zero. At cold-pair the effect is -0.021 (p = 0.10) and the smaller training set costs more (0.062).
+  - DAVIS cold-pair validation still contains seen-by-sequence targets (checkpoint selection may have been influenced; problem-log row s): open, cannot be fixed without retraining.
+  VERDICT: attack answered for the explanation results; the accuracy claims at cold levels carry a disclosed, partly unquantified leak.
+
+==============================================================================================================
+ATTACK 4 (added): 'Three seeds cannot support any of this; your intervals are an artefact of resampling three numbers.'
+==============================================================================================================
+Refutation, from raw data:
+  1. The intervals are conservative, and the paper says so: with 3 seeds, 1 in 9 resamples draws one seed three times. The headline cell's two-way interval is stable across 10 RNG seeds (lower 0.926-0.942, upper 3.629-3.710) and crosses parity in every run.
+  2. The residue-level verdict is robust to the aggregation and to the family: the single survivor (HyperAttentionDTI, DAVIS random) is also the single Holm survivor under Holm on 16 cells, Bonferroni and Benjamini-Hochberg (step4), and its two-way lower bound is 1.32 (step2).
+  3. The claims that need many seeds are the ones we do NOT make: no cell's verdict depends on a lower bound within 0.03 of 1 at the residue level (step2), and the borderline pocket cell (HyperAttentionDTI cold-pair, lower bound 1.02) is labelled marginal on slide and in the draft.
+What the data do NOT let us say (concede these):
+  - Per-seed Holm keeps 5 of 48 DAVIS seed-runs and 3 of 18 KIBA seed-runs: the 'only 1 of 20' statement is about the median-over-seeds rule, and is stated as such.
+  - Seeds 4 and 5 (Wave A) are planned, not run: no number in the paper depends on them; they may sharpen the instability counts but cannot remove the disagreements already observed.
+  VERDICT: attack partly stands (3 seeds is small); the paper's wording already scopes claims to what 3 seeds can support.
+
+==============================================================================================================
+RESIDUAL RISKS NOT COVERED BY ANY ATTACK ABOVE
+  - Kinase-only scope (both datasets are kinase panels; the non-kinase panel is not analysed). - No conservation control for pocket enrichment.
+  - Only HyperAttentionDTI seed 1 was re-run live (step7); MolTrans, XAttn-Ref, DrugBAN and seeds 2-3 are verified against saved files only.
+  - Literature claims and citations are EXTERNAL to this certification (not checked).

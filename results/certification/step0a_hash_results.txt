@@ -1,0 +1,35 @@
+DRAFT paper/v2/INSTRUCTOR_DRAFT.md
+  sha256=20546fa24afc2bb7afc781d3624a11f999a5d8be2a755f0796fe4ae6e5ee1869
+  mtime=2026-09-29T03:32:16+05:30
+  git log: d27b7d9 2026-09-25T13:56:55+05:30 Rigor fixes: DrugBAN faithfulness restored, readout CSV in repo, 12/22 headline, two-way seed x target bootstrap
+           ba91ba1 2026-09-25T13:09:53+05:30 Drafting phase closed: INSTRUCTOR_DRAFT.md assembled from paper/v2 sections, unconfirmed JCIM citation dropped, caption numbers source-tagged; plan T23/T24 not started
+  git status of draft: ' M paper/v2/INSTRUCTOR_DRAFT.md\n'
+
+FILES HASHED: 869   manifest -> /Users/mahimagarwal/Documents/ColdSite-DTI/results/certification/results_manifest.tsv
+GIT STATE: {'tracked-clean': 317, 'ignored': 537, 'untracked': 15}
+UNREADABLE: []
+
+FILES WITH mtime AFTER DRAFT (2026-09-29T03:32:16+05:30): 3
+   2026-09-29T03:32:46+05:30 untracked results/certification/step0a_hash_results.txt
+   2026-09-29T03:32:28+05:30 untracked results/certification/step6_slide_audit.txt
+   2026-09-29T03:32:23+05:30 untracked results/certification/step8_red_team.txt
+
+TRACKED FILES WITH UNCOMMITTED EDITS: 0
+
+TRACKED FILES COMMITTED AFTER d27b7d9 (draft's last commit): 0
+
+PRIOR HASH RECORDS IN REPO (anything to compare against):
+./config/cloud_manifest.json
+./tests/__pycache__/test_data_manifest.cpython-313-pytest-8.4.2.pyc
+./tests/test_data_manifest.py
+./results/certification/results_manifest.tsv
+./results/accuracy_v2/predictions_manifest_davis.csv
+./results/accuracy_v2/predictions_manifest_kiba.csv
+./results/accuracy_v2/predictions_manifest.csv
+./data/splits/MANIFEST.json
+./src/data/manifest.py
+./src/data/__pycache__/manifest.cpython-313.pyc
+
+CITED-BY-DRAFT ANCHOR CHECK is done in p1_trace.py
+
+sha256 of every file whose name the draft cites is printed by p1_trace.py; full list in the TSV.

@@ -1,0 +1,350 @@
+draft_line	kind	raw_file(:line|#selector)	draft_value	raw_value	status	sha256[:16]	git_state	modified_after_draft
+3	comment				MANUAL (prose claim; Phase 2)			
+12	line	docs/REMEDIATION_LEDGER.md:140	84	* **84 cells confirmed** (DAVIS 60 = 5 models × 4 levels × 3 seeds; KIBA 24 = 4 models ×	MATCH	7229cba7c228c807	tracked-clean	no
+19	line	src/evaluation/seed_agreement.py:21	0.05	ALPHA = 0.05	MATCH	cf9da27934255c28	tracked-clean	no
+20	csv	results/certification/key_numbers.csv#name=seeds_disagree_exact->value	11	11	MATCH	a10fd79712739996	untracked	no
+20	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+22	csv	results/certification/key_numbers.csv#name=spread_exceeds_distance->value	21	21	MATCH	a10fd79712739996	untracked	no
+22	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+25	csv	results/certification/key_numbers.csv#name=friedman_holm->value	8	8	MATCH	a10fd79712739996	untracked	no
+25	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+26	csv	results/certification/key_numbers.csv#name=permutation_holm->value	7	7	MATCH	a10fd79712739996	untracked	no
+26	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+30	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15	1,,20	1 of 20 cells survive correction at alpha = 0.05.	MATCH	12059ffe28bb2e4b	tracked-clean	no
+31	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14	0,,8	0 of 8 cells survive correction at alpha = 0.05.	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+32	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->enrichment	1.66	1.66263806	MATCH	270ae0d9f1182942	tracked-clean	no
+33	claim				MANUAL (prose claim; Phase 2)			
+39	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:6	-0.0073	| Cold-Drug | 0.1081 | 0.1154 | **-0.0073** | 1.1302 | 1.1247 | 0.1526 | 200 | **no** |	MATCH	dc3ba449258f7273	tracked-clean	no
+40	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:8	-0.0037	| Cold-Pair | 0.0839 | 0.0876 | **-0.0037** | 2.2679 | 2.2507 | 0.0916 | 200 | **no** |	MATCH	dc3ba449258f7273	tracked-clean	no
+41	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment	1.33	1.33128533	MATCH	270ae0d9f1182942	tracked-clean	no
+42	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment	2.10	2.10027527	MATCH	270ae0d9f1182942	tracked-clean	no
+43	claim				MANUAL (prose claim; Phase 2)			
+44	claim				MANUAL (prose claim; Phase 2)			
+45	claim				MANUAL (prose claim; Phase 2)			
+49	csv	results/certification/key_numbers.csv#name=leak_ct_leaked_rows->value,p	0.116,0.0013	0.1160,0.0013	MATCH	a10fd79712739996	untracked	no
+50	csv	results/certification/key_numbers.csv#name=leak_ct_unleaked_rows->value,p	-0.019,0.31	-0.0190,0.3131	MATCH	a10fd79712739996	untracked	no
+59	line	src/evaluation/seed_agreement.py:21	0.05	ALPHA = 0.05	MATCH	cf9da27934255c28	tracked-clean	no
+60	csv	results/certification/key_numbers.csv#name=seeds_disagree_exact->value	11	11	MATCH	a10fd79712739996	untracked	no
+60	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+61	csv	results/certification/key_numbers.csv#name=spread_exceeds_distance->value	21	21	MATCH	a10fd79712739996	untracked	no
+61	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+62	csv	results/certification/key_numbers.csv#name=friedman_holm->value	8	8	MATCH	a10fd79712739996	untracked	no
+62	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+63	csv	results/certification/key_numbers.csv#name=permutation_holm->value	7	7	MATCH	a10fd79712739996	untracked	no
+63	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+66	line	results/positive_control_davis.md:11	0.02	| cold_target | 68 | 0.019 | 0.043* | 0.082* | 0.144* | 0.231* | 0.547* | 0.991* | 0.991 | 0.019 | 0.02 |	MATCH	64fb58b118b10356	tracked-clean	no
+70	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15	1,,20	1 of 20 cells survive correction at alpha = 0.05.	MATCH	12059ffe28bb2e4b	tracked-clean	no
+71	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14	0,,8	0 of 8 cells survive correction at alpha = 0.05.	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+75	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10	0.367	0.367 ± 0.	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+76	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance	0.081,0.140	0.081 ± 0.,0.140	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+80	line	results/sequence_audit_davis.md:9	54	74 variant targets: **54 carry exactly the wild-type sequence**, 0 differ from it, 20 have no wild-type entry to compare.	MATCH	5a98d4402594c160	tracked-clean	no
+81	csv	results/certification/key_numbers.csv#name=leak_ct_leaked_rows->value,p	0.116,0.0013	0.1160,0.0013	MATCH	a10fd79712739996	untracked	no
+122	line	docs/REMEDIATION_LEDGER.md:140	60,,24	* **84 cells confirmed** (DAVIS 60 = 5 models × 4 levels × 3 seeds; KIBA 24 = 4 models ×	MATCH	7229cba7c228c807	tracked-clean	no
+126	line	src/data/klifs_pocket.py:54	85	POCKET_LENGTH = 85	MATCH	d32b84e5ec28b1d6	tracked-clean	no
+134	line	src/evaluation/seed_agreement.py:21	0.05	ALPHA = 0.05	MATCH	cf9da27934255c28	tracked-clean	no
+135	csv	results/certification/key_numbers.csv#name=seeds_disagree_exact->value	11	11	MATCH	a10fd79712739996	untracked	no
+135	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+136	csv	results/certification/key_numbers.csv#name=spread_exceeds_distance->value	21	21	MATCH	a10fd79712739996	untracked	no
+136	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+137	csv	results/certification/key_numbers.csv#name=friedman_holm->value	8	8	MATCH	a10fd79712739996	untracked	no
+137	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+138	csv	results/certification/key_numbers.csv#name=permutation_holm->value	7	7	MATCH	a10fd79712739996	untracked	no
+138	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+143	line	results/seed_agreement.md:19	0.025,0.077,0.019,0.020	| HyperAttentionDTI | DAVIS | cold-drug | 0.025 | 0.077 | 0.019 | 0.020 | 0.057 | `**.` |	MATCH	256426ddf2259f92	tracked-clean	no
+144	claim				MANUAL (prose claim; Phase 2)			
+145	comment				MANUAL (prose claim; Phase 2)			
+149	csv	results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.98,1.81,2.15	1.98111521,1.81212000,2.15150378	MATCH	505a52000e2164ac	tracked-clean	no
+150	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment_low,enrichment_high	0.94,3.65	0.93614070,3.64874888	MATCH	270ae0d9f1182942	tracked-clean	no
+154	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=random&view=uncorrected->auroc_sd	0.001	0.001245	MATCH	bf50662af3afcf08	tracked-clean	no
+155	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=random&view=uncorrected->auroc_sd	0.006	0.006087	MATCH	bf50662af3afcf08	tracked-clean	no
+156	comment				MANUAL (prose claim; Phase 2)			
+157	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_pair&view=uncorrected->auroc_sd	0.025	0.025314	MATCH	bf50662af3afcf08	tracked-clean	no
+158	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_pair&view=uncorrected->auroc_sd	0.099	0.099139	MATCH	bf50662af3afcf08	tracked-clean	no
+163	line	results/positive_control_davis.md:11	0.02	| cold_target | 68 | 0.019 | 0.043* | 0.082* | 0.144* | 0.231* | 0.547* | 0.991* | 0.991 | 0.019 | 0.02 |	MATCH	64fb58b118b10356	tracked-clean	no
+167	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15	1,,20	1 of 20 cells survive correction at alpha = 0.05.	MATCH	12059ffe28bb2e4b	tracked-clean	no
+168	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14	0,,8	0 of 8 cells survive correction at alpha = 0.05.	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+169	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->precision,chance,enrichment,enrichment_low,enrichment_high	0.034,0.020,1.66,1.33,2.00	0.03390639,0.02039313,1.66263806,1.33427707,2.00197520	MATCH	270ae0d9f1182942	tracked-clean	no
+172	csv	results/accuracy_v2/localization_spearman.csv#dataset=davis&group=all attention models&y=precision_at_10->n_cells,rho,low,high	48,,0.033,-0.276,0.322	48,0.033118,-0.276412,0.321995	MATCH	89294d372f8fb23f	tracked-clean	no
+178	csv	results/effects_v2_2d/faithfulness_effects.csv#model=hyperattentiondti&dataset=davis&level=cold_pair->delta,delta_low,delta_high	0.054,0.030,0.080	0.05423915,0.02970759,0.08042114	MATCH	267574b98605511d	tracked-clean	no
+179	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:6	-0.0073	| Cold-Drug | 0.1081 | 0.1154 | **-0.0073** | 1.1302 | 1.1247 | 0.1526 | 200 | **no** |	MATCH	dc3ba449258f7273	tracked-clean	no
+180	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:8	-0.0037	| Cold-Pair | 0.0839 | 0.0876 | **-0.0037** | 2.2679 | 2.2507 | 0.0916 | 200 | **no** |	MATCH	dc3ba449258f7273	tracked-clean	no
+181	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:6	0.0128	| Cold-Drug | 0.1210 | 0.1081 | **0.0128** | 1.0044 | 0.9910 | 0.1294 | 200 | yes |	MATCH	40a9fb80fb299061	tracked-clean	no
+182	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:8	0.0027	| Cold-Pair | 0.1225 | 0.1197 | **0.0027** | 0.7299 | 0.7468 | 0.1312 | 200 | yes |	MATCH	40a9fb80fb299061	tracked-clean	no
+186	claim				MANUAL (prose claim; Phase 2)			
+189	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment	1.33	1.33128533	MATCH	270ae0d9f1182942	tracked-clean	no
+190	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=random->enrichment	1.70	1.70019579	MATCH	270ae0d9f1182942	tracked-clean	no
+191	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->enrichment	1.54	1.53512175	MATCH	270ae0d9f1182942	tracked-clean	no
+192	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment	2.10	2.10027527	MATCH	270ae0d9f1182942	tracked-clean	no
+193	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=random->enrichment	0.98	0.97507298	MATCH	270ae0d9f1182942	tracked-clean	no
+194	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=cold_target->enrichment	1.04	1.03583965	MATCH	270ae0d9f1182942	tracked-clean	no
+200	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10	0.367	0.367 ± 0.	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+201	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance	0.081,0.140	0.081 ± 0.,0.140	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+202	derived		2.6	0.367 / 0.140 = 2.62143	MATCH			
+206	line	results/drug_dependence/moltrans.txt:1	100,,150	moltrans: top-10 overlap between different drugs on the same protein: mean 10.00/10, identical top-10 in 100% of 150 drug pairs (25 proteins	MATCH	0a9f576e1321d394	tracked-clean	no
+207	line	results/drug_dependence/drugban.txt:1	0,,150	drugban: top-10 overlap between different drugs on the same protein: mean 4.53/10, identical top-10 in 0% of 150 drug pairs (25 proteins x 4	MATCH	f9ce5903af430ef8	tracked-clean	no
+212	line	results/sequence_audit_davis.md:9	54	74 variant targets: **54 carry exactly the wild-type sequence**, 0 differ from it, 20 have no wild-type entry to compare.	MATCH	5a98d4402594c160	tracked-clean	no
+213	line	results/sequence_audit_davis.md:21	12,,88,,816,,5984,,13.6	| cold_target | test | 88 | 88 | 12 | 816 of 5984 (13.6%) |	MATCH	5a98d4402594c160	tracked-clean	no
+217	csv	results/certification/key_numbers.csv#name=leak_ct_leaked_rows->value,p	0.116,0.0013	0.1160,0.0013	MATCH	a10fd79712739996	untracked	no
+218	csv	results/certification/key_numbers.csv#name=leak_ct_unleaked_rows->value,p	-0.019,0.31	-0.0190,0.3131	MATCH	a10fd79712739996	untracked	no
+224	csv	results/effects_v2_2d/enrichment.csv#family=S1-klifs&model=coldsite_dti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high	3.16,2.40,4.40	3.16478919,2.39826523,4.40058418	MATCH	270ae0d9f1182942	tracked-clean	no
+225	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high	2.10,1.83,2.36	2.10027527,1.83142886,2.35797171	MATCH	270ae0d9f1182942	tracked-clean	no
+263	line	src/model/dataset.py:30	7.0,12.1	"BINARY_THRESHOLD = {""davis"": 7.0, ""kiba"": 12.1}"	MATCH	57f920f5291fb0e7	tracked-clean	no
+269	csvrows	data/splits/davis/random/train.csv	21039	21039 data rows (+1 header)	MATCH	c23ff50761065e3c	untracked/ignored	no
+270	csvrows	data/splits/davis/random/valid.csv	3006	3006 data rows (+1 header)	MATCH	cc64ac8a36381647	untracked/ignored	no
+271	csvrows	data/splits/davis/random/test.csv	6011	6011 data rows (+1 header)	MATCH	ad04c8b46e3719a8	untracked/ignored	no
+272	derived		30056	21039 + 3006 + 6011 = 30056	MATCH			
+273	line	results/sequence_audit_davis.md:5	442	**379 distinct sequences for 442 targets.**	MATCH	5a98d4402594c160	tracked-clean	no
+279	line	results/sequence_audit_davis.md:5	379,,442	**379 distinct sequences for 442 targets.**	MATCH	5a98d4402594c160	tracked-clean	no
+280	line	results/sequence_audit_davis.md:9	54	74 variant targets: **54 carry exactly the wild-type sequence**, 0 differ from it, 20 have no wild-type entry to compare.	MATCH	5a98d4402594c160	tracked-clean	no
+281	line	results/sequence_audit_davis.md:21	88,,12	| cold_target | test | 88 | 88 | 12 | 816 of 5984 (13.6%) |	MATCH	5a98d4402594c160	tracked-clean	no
+282	line	results/sequence_audit_davis.md:23	88,,11	| cold_pair | test | 88 | 88 | 11 | 143 of 1144 (12.5%) |	MATCH	5a98d4402594c160	tracked-clean	no
+283	line	results/sequence_audit_davis.md:32	10	Targets whose sequence holds fewer than 40 of the 85 KLIFS pocket residues (`data/davis_klifs_pocket_report.json`): **10**	MATCH	5a98d4402594c160	tracked-clean	no
+289	line	results/sequence_audit_kiba.md:5	229,,229	**229 distinct sequences for 229 targets.**	MATCH	98b6c0f9d17e7eeb	tracked-clean	no
+304	line	src/cloud/recipes.py:65	15,,10,,100	"""--patience"", ""15"", ""--min-epochs"", ""10"", ""--epochs"", ""100"","	MATCH	be44e654619459f7	tracked-clean	no
+305	line	src/cloud/recipes.py:53	10,,100,,10	"""--min-epochs"", ""10"", ""--epochs"", ""100"", ""--patience"", ""10"","	MATCH	be44e654619459f7	tracked-clean	no
+328	line	src/data/klifs_pocket.py:54	85	POCKET_LENGTH = 85	MATCH	d32b84e5ec28b1d6	tracked-clean	no
+330	line	src/evaluation/collect.py:265	1000	max_protein_len: int = 1000,	MATCH	3b06146f79c1795f	tracked-clean	no
+339	line	docs/PROTOCOL_AMENDMENT_v2.md:163	10	* **k = 10** for precision@k, and for the number of residues masked in faithfulness. It is the	MATCH	9839c617b8fb9c16	tracked-clean	no
+340	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->n	349	349	MATCH	270ae0d9f1182942	tracked-clean	no
+341	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->n	349	349	MATCH	270ae0d9f1182942	tracked-clean	no
+342	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_target->n	68	68	MATCH	270ae0d9f1182942	tracked-clean	no
+343	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_pair->n	72	72	MATCH	270ae0d9f1182942	tracked-clean	no
+344	csv	results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=random->n	211	211	MATCH	270ae0d9f1182942	tracked-clean	no
+345	csv	results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->n	212	212	MATCH	270ae0d9f1182942	tracked-clean	no
+360	line	docs/PROTOCOL_AMENDMENT_v2.md:54	10000	| 1.6 | **Permutations:** `n_trials ≥ 10,000` in every runner, refused below that; `run_audit` also refuses a count whose floor `1/(n+1)` is	MATCH	9839c617b8fb9c16	tracked-clean	no
+362	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15	1,,20	1 of 20 cells survive correction at alpha = 0.05.	MATCH	12059ffe28bb2e4b	tracked-clean	no
+362	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14	0,,8	0 of 8 cells survive correction at alpha = 0.05.	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+365	line	results/certification/step4_holm.txt:34	48,,5	per-seed tests (Holm over 48 seed-level exact p): 5 seed-runs survive, in cells ['hyperattentiondti|davis|cold_drug', 'hyperattentiondti|dav	MATCH	5b887fd8c86dec64	untracked	no
+366	claim				MANUAL (prose claim; Phase 2)			
+367	line	results/certification/step4_holm.txt:56	18,,3	per-seed tests (Holm over 18 seed-level exact p): 3 seed-runs survive, in cells ['hyperattentiondti|kiba|random', 'moltrans|kiba|cold_drug',	MATCH	5b887fd8c86dec64	untracked	no
+368	claim				MANUAL (prose claim; Phase 2)			
+372	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15	20	1 of 20 cells survive correction at alpha = 0.05.	MATCH	12059ffe28bb2e4b	tracked-clean	no
+373	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14	8	0 of 8 cells survive correction at alpha = 0.05.	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+374	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:17	0.0025	- `hyperattentiondti|davis|random` p=9.999e-05 (threshold 0.0025) -> yes	MATCH	12059ffe28bb2e4b	tracked-clean	no
+378	line	docs/PROTOCOL_AMENDMENT_v2.md:83	16,,20,,6,,8	DAVIS: 16 cells → 20 when DrugBAN was added on 2026-09-19; KIBA: 6 → 8 when ColdSite-DTI's	MATCH	9839c617b8fb9c16	tracked-clean	no
+379	line	docs/REMEDIATION_LEDGER.md:592	500	| original verdicts reproduce exactly | `results/effects_v2/reproduction.json`: **(1)** `seed_agreement.py` regenerated from the ladders is 	MATCH	7229cba7c228c807	tracked-clean	no
+385	line	results/positive_control_davis.md:11	0.02	| cold_target | 68 | 0.019 | 0.043* | 0.082* | 0.144* | 0.231* | 0.547* | 0.991* | 0.991 | 0.019 | 0.02 |	MATCH	64fb58b118b10356	tracked-clean	no
+386	line	results/positive_control_davis.md:7	1	| level | n | dose 0 | dose 0.02 | dose 0.05 | dose 0.1 | dose 0.2 | dose 0.5 | dose 1 | ceiling | chance | smallest detectable dose |	MATCH	64fb58b118b10356	tracked-clean	no
+395	line	src/evaluation/run_faithfulness.py:426	200	"parser.add_argument(""--max-pairs"", type=int, default=200,"	MATCH	f1b1d48549de74f3	tracked-clean	no
+396	line	src/evaluation/run_faithfulness.py:425	5	"parser.add_argument(""--n-random-trials"", type=int, default=5)"	MATCH	f1b1d48549de74f3	tracked-clean	no
+401	line	docs/PROTOCOL_AMENDMENT_v2.md:59	10	| 1.11 | **Masking size-matching:** residue-level models change exactly k tokens in both arms; for MolTrans the control is matched in token 	MATCH	9839c617b8fb9c16	tracked-clean	no
+406	line	src/evaluation/integrated_gradients.py:56	32	DEFAULT_STEPS = 32	MATCH	cdae92bf178b61ab	tracked-clean	no
+418	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+419	line	src/evaluation/seed_agreement.py:21	0.05	ALPHA = 0.05	MATCH	cf9da27934255c28	tracked-clean	no
+420	line	results/certification/step1_disagreement.txt:34	20000	H0: the three seeds have the same expected P@10 on the same proteins. Friedman (scipy) + within-protein seed-label permutation (20,000)	MATCH	7429fc243660a5b9	untracked	no
+431	line	results/effects_v2_2d/enrichment.md:3	95,,10000	Mean precision@10 divided by mean chance over the same resampled targets. TWO-WAY bootstrap (`--resample seeds_and_targets`), 10,000 resampl	MATCH	aa3ef8d877f482a2	tracked-clean	no
+432	line	docs/PROTOCOL_AMENDMENT_v2.md:183	10000	| resamples | **10,000** (`bootstrap_ci.N_RESAMPLES`) |	MATCH	9839c617b8fb9c16	tracked-clean	no
+440	line	src/model/train.py:107	0.5	"""accuracy"": float(((probs >= 0.5) == (y_true >= 0.5)).mean())}"	MATCH	d404fcbe5808e9c1	tracked-clean	no
+448	line	results/leakage_retrain_davis.md:12	17748	| seqmatched | 17748 | 0.888 ± 0.011 | 0.945 ± 0.003 | 0.857 ± 0.015 |	MATCH	e580d519c2a43a64	tracked-clean	no
+449	line	results/leakage_retrain_davis.md:13	17748	| seqclean | 17748 | 0.869 ± 0.013 | 0.829 ± 0.005 | 0.876 ± 0.017 |	MATCH	e580d519c2a43a64	tracked-clean	no
+478	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=random&view=uncorrected->auroc_mean	0.891	0.891477	MATCH	bf50662af3afcf08	tracked-clean	no
+479	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=random&view=uncorrected->auroc_mean	0.937	0.936997	MATCH	bf50662af3afcf08	tracked-clean	no
+483	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_pair&view=uncorrected->auroc_mean	0.568	0.567871	MATCH	bf50662af3afcf08	tracked-clean	no
+484	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=cold_pair&view=uncorrected->auroc_mean	0.728	0.727749	MATCH	bf50662af3afcf08	tracked-clean	no
+485	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=random&view=uncorrected->auroc_sd	0.001	0.001245	MATCH	bf50662af3afcf08	tracked-clean	no
+486	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=random&view=uncorrected->auroc_sd	0.006	0.006087	MATCH	bf50662af3afcf08	tracked-clean	no
+487	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_pair&view=uncorrected->auroc_sd	0.025	0.025314	MATCH	bf50662af3afcf08	tracked-clean	no
+488	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_pair&view=uncorrected->auroc_sd	0.099	0.099139	MATCH	bf50662af3afcf08	tracked-clean	no
+491	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_pair&view=unseen_by_sequence->auroc_sd	0.128	0.127645	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=random&view=uncorrected->auroc_mean,auroc_sd	0.923,0.002	0.922609,0.001959	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.685,0.019	0.684784,0.019119	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_target&view=uncorrected->auroc_mean,auroc_sd	0.874,0.006	0.873947,0.005981	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_target&view=unseen_by_sequence->auroc_mean,auroc_sd	0.833,0.008	0.832945,0.007891	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_pair&view=uncorrected->auroc_mean,auroc_sd	0.568,0.025	0.567871,0.025314	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=moltrans&level=cold_pair&view=unseen_by_sequence->auroc_mean,auroc_sd	0.532,0.029	0.531937,0.028882	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=moltrans&level=random&view=uncorrected->auroc_mean,auroc_sd	0.919,0.004	0.918709,0.004044	MATCH	bf50662af3afcf08	tracked-clean	no
+499	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=moltrans&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.812,0.009	0.811984,0.009035	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=random&view=uncorrected->auroc_mean,auroc_sd	0.937,0.005	0.936997,0.004861	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.760,0.042	0.760170,0.041637	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=cold_target&view=uncorrected->auroc_mean,auroc_sd	0.915,0.001	0.914827,0.001470	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=cold_target&view=unseen_by_sequence->auroc_mean,auroc_sd	0.893,0.001	0.893464,0.001393	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=cold_pair&view=uncorrected->auroc_mean,auroc_sd	0.694,0.038	0.693924,0.037534	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=hyperattentiondti&level=cold_pair&view=unseen_by_sequence->auroc_mean,auroc_sd	0.713,0.050	0.712766,0.050243	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=hyperattentiondti&level=random&view=uncorrected->auroc_mean,auroc_sd	0.933,0.001	0.933109,0.000602	MATCH	bf50662af3afcf08	tracked-clean	no
+500	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=hyperattentiondti&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.844,0.004	0.844356,0.003903	MATCH	bf50662af3afcf08	tracked-clean	no
+501	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=random&view=uncorrected->auroc_mean,auroc_sd	0.891,0.006	0.891477,0.006087	MATCH	bf50662af3afcf08	tracked-clean	no
+501	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.695,0.033	0.694936,0.032893	MATCH	bf50662af3afcf08	tracked-clean	no
+501	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=cold_target&view=uncorrected->auroc_mean,auroc_sd	0.846,0.010	0.846392,0.009516	MATCH	bf50662af3afcf08	tracked-clean	no
+501	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=cold_target&view=unseen_by_sequence->auroc_mean,auroc_sd	0.801,0.012	0.800752,0.012079	MATCH	bf50662af3afcf08	tracked-clean	no
+501	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=cold_pair&view=uncorrected->auroc_mean,auroc_sd	0.620,0.031	0.619760,0.030726	MATCH	bf50662af3afcf08	tracked-clean	no
+501	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=drugban&level=cold_pair&view=unseen_by_sequence->auroc_mean,auroc_sd	0.559,0.040	0.558975,0.039577	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=random&view=uncorrected->auroc_mean,auroc_sd	0.924,0.001	0.924001,0.001245	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.721,0.008	0.720609,0.007542	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_target&view=uncorrected->auroc_mean,auroc_sd	0.857,0.011	0.856992,0.010946	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_target&view=unseen_by_sequence->auroc_mean,auroc_sd	0.835,0.015	0.835211,0.015111	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_pair&view=uncorrected->auroc_mean,auroc_sd	0.624,0.099	0.623612,0.099139	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=coldsite_dti&level=cold_pair&view=unseen_by_sequence->auroc_mean,auroc_sd	0.607,0.128	0.606926,0.127645	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=coldsite_dti&level=random&view=uncorrected->auroc_mean,auroc_sd	0.894,0.011	0.894466,0.011289	MATCH	bf50662af3afcf08	tracked-clean	no
+502	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=coldsite_dti&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.807,0.009	0.806940,0.008700	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=random&view=uncorrected->auroc_mean,auroc_sd	0.929,0.002	0.929025,0.002290	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.692,0.044	0.691531,0.043745	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=cold_target&view=uncorrected->auroc_mean,auroc_sd	0.907,0.003	0.907450,0.003247	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=cold_target&view=unseen_by_sequence->auroc_mean,auroc_sd	0.884,0.003	0.884087,0.003458	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=cold_pair&view=uncorrected->auroc_mean,auroc_sd	0.728,0.035	0.727749,0.035219	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=davis&model=deepdta&level=cold_pair&view=unseen_by_sequence->auroc_mean,auroc_sd	0.749,0.044	0.748829,0.043729	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=deepdta&level=random&view=uncorrected->auroc_mean,auroc_sd	0.918,0.001	0.917793,0.000609	MATCH	bf50662af3afcf08	tracked-clean	no
+503	csv	results/accuracy_v2/by_model.csv#dataset=kiba&model=deepdta&level=cold_drug&view=uncorrected->auroc_mean,auroc_sd	0.832,0.001	0.832379,0.001467	MATCH	bf50662af3afcf08	tracked-clean	no
+511	line	src/evaluation/seed_agreement.py:21	0.05	ALPHA = 0.05	MATCH	cf9da27934255c28	tracked-clean	no
+512	csv	results/certification/key_numbers.csv#name=seeds_disagree_exact->value	11	11	MATCH	a10fd79712739996	untracked	no
+512	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+513	csv	results/certification/key_numbers.csv#name=cells_davis->value	16	16	MATCH	a10fd79712739996	untracked	no
+513	csv	results/certification/key_numbers.csv#name=cells_kiba->value	6	6	MATCH	a10fd79712739996	untracked	no
+514	csv	results/certification/key_numbers.csv#name=disagree_davis->value	8	8	MATCH	a10fd79712739996	untracked	no
+514	csv	results/certification/key_numbers.csv#name=disagree_kiba->value	3	3	MATCH	a10fd79712739996	untracked	no
+515	csv	results/certification/key_numbers.csv#name=all_three_pass->value	1	1	MATCH	a10fd79712739996	untracked	no
+515	csv	results/certification/key_numbers.csv#name=none_pass->value	10	10	MATCH	a10fd79712739996	untracked	no
+522	line	results/seed_agreement.md:34	12	**12 of 22 cells have seeds that disagree** about their own verdict. In **21 of 22** the spread across seeds is larger than the cell's dista	MATCH	256426ddf2259f92	tracked-clean	no
+523	line	results/certification/step1b_exact_p_validation.txt:19	1000	recorded (1,000-perm) p at 0.05: disagree = 12	MATCH	2b4f9250f5a1293f	untracked	no
+524	csv	results/certification/key_numbers.csv#name=p_sampled_moltrans_random_seed1->value	0.049	0.04895	MATCH	a10fd79712739996	untracked	no
+524	csv	results/certification/key_numbers.csv#name=p_exact_moltrans_random_seed1->value	0.056	0.05629	MATCH	a10fd79712739996	untracked	no
+525	csv	results/certification/key_numbers.csv#name=disagree_at_alpha_0.010->value,low	8,,0.01	8,0.010	MATCH	a10fd79712739996	untracked	no
+526	csv	results/certification/key_numbers.csv#name=disagree_at_alpha_0.100->value,low	13,,0.10	13,0.100	MATCH	a10fd79712739996	untracked	no
+530	line	results/seed_agreement.md:19	0.025,0.077,0.019,0.020	| HyperAttentionDTI | DAVIS | cold-drug | 0.025 | 0.077 | 0.019 | 0.020 | 0.057 | `**.` |	MATCH	256426ddf2259f92	tracked-clean	no
+531	line	results/seed_agreement.md:26	0.004,0.032,0.024,0.019	| MolTrans | DAVIS | cold-pair | 0.004 | 0.032 | 0.024 | 0.019 | 0.028 | `.*.` |	MATCH	256426ddf2259f92	tracked-clean	no
+535	csv	results/certification/key_numbers.csv#name=spread_exceeds_distance->value	21	21	MATCH	a10fd79712739996	untracked	no
+535	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+540	csv	results/certification/key_numbers.csv#name=friedman_uncorrected->value	13	13	MATCH	a10fd79712739996	untracked	no
+540	csv	results/certification/key_numbers.csv#name=friedman_holm->value	8	8	MATCH	a10fd79712739996	untracked	no
+540	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+541	csv	results/certification/key_numbers.csv#name=permutation_uncorrected->value	10	10	MATCH	a10fd79712739996	untracked	no
+541	csv	results/certification/key_numbers.csv#name=permutation_holm->value	7	7	MATCH	a10fd79712739996	untracked	no
+541	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+545	csv	results/certification/key_numbers.csv#name=rerun_noise_sd->value	0.0008	0.0008	MATCH	a10fd79712739996	untracked	no
+545	csv	results/certification/key_numbers.csv#name=between_seed_sd->value	0.0121	0.0121	MATCH	a10fd79712739996	untracked	no
+545	csv	results/certification/key_numbers.csv#name=noise_ratio->value	15.5	15.50	MATCH	a10fd79712739996	untracked	no
+546	claim				MANUAL (prose claim; Phase 2)			
+552	csv	results/effects_v2/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.98,1.81,2.15	1.98111521,1.81212000,2.15150378	MATCH	505a52000e2164ac	tracked-clean	no
+553	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=cold_drug->enrichment_low,enrichment_high	0.94,3.65	0.93614070,3.64874888	MATCH	270ae0d9f1182942	tracked-clean	no
+559	line	results/positive_control_davis.md:11	0.02	| cold_target | 68 | 0.019 | 0.043* | 0.082* | 0.144* | 0.231* | 0.547* | 0.991* | 0.991 | 0.019 | 0.02 |	MATCH	64fb58b118b10356	tracked-clean	no
+563	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15	1,,20	1 of 20 cells survive correction at alpha = 0.05.	MATCH	12059ffe28bb2e4b	tracked-clean	no
+564	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14	0,,8	0 of 8 cells survive correction at alpha = 0.05.	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+567	csv	results/effects_v2_2d/enrichment.csv#family=P1&model=hyperattentiondti&level=random->precision,chance,enrichment,enrichment_low,enrichment_high	0.034,0.020,1.66,1.33,2.00	0.03390639,0.02039313,1.66263806,1.33427707,2.00197520	MATCH	270ae0d9f1182942	tracked-clean	no
+568	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:17	0.0001	- `hyperattentiondti|davis|random` p=9.999e-05 (threshold 0.0025) -> yes	MATCH	12059ffe28bb2e4b	tracked-clean	no
+569	line	docs/PROTOCOL_AMENDMENT_v2.md:54	10000	| 1.6 | **Permutations:** `n_trials ≥ 10,000` in every runner, refused below that; `run_audit` also refuses a count whose floor `1/(n+1)` is	MATCH	9839c617b8fb9c16	tracked-clean	no
+572	line	results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:27	0.4462	- `uniform_control|davis|cold_drug` p=0.4462 (threshold 0.005) -> no	MATCH	12059ffe28bb2e4b	tracked-clean	no
+573	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:17	0.2251	- `uniform_control|kiba|cold_drug` p=0.2251 (threshold 0.007143) -> no	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+579	line	results/seed_agreement.md:34	22	**12 of 22 cells have seeds that disagree** about their own verdict. In **21 of 22** the spread across seeds is larger than the cell's dista	MATCH	256426ddf2259f92	tracked-clean	no
+580	claim				MANUAL (prose claim; Phase 2)			
+581	csv	results/effects_v2/enrichment.csv#family=P2&model=moltrans&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.57,1.32,1.82	1.56529451,1.32049326,1.82139004	MATCH	505a52000e2164ac	tracked-clean	no
+582	csv	results/effects_v2_2d/enrichment.csv#family=P2&model=moltrans&level=cold_drug->enrichment_low,enrichment_high	0.70,2.70	0.70428149,2.69500728	MATCH	270ae0d9f1182942	tracked-clean	no
+583	line	results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:16	0.07279,0.00625	- `moltrans|kiba|cold_drug` p=0.07279 (threshold 0.00625) -> no	MATCH	e3e6ab6d99d071e1	tracked-clean	no
+592	claim				MANUAL (prose claim; Phase 2)			
+593	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.35,0.94,1.73	1.35337699,0.94271449,1.72972013	MATCH	270ae0d9f1182942	tracked-clean	no
+594	line	src/data/klifs_pocket.py:54	85	POCKET_LENGTH = 85	MATCH	d32b84e5ec28b1d6	tracked-clean	no
+595	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_pair->chance	0.137	0.13657553	MATCH	270ae0d9f1182942	tracked-clean	no
+596	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->chance	0.143	0.14250459	MATCH	270ae0d9f1182942	tracked-clean	no
+597	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->enrichment	1.33	1.33128533	MATCH	270ae0d9f1182942	tracked-clean	no
+598	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=random->enrichment	1.70	1.70019579	MATCH	270ae0d9f1182942	tracked-clean	no
+599	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=random->enrichment	1.54	1.53512175	MATCH	270ae0d9f1182942	tracked-clean	no
+600	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment	2.10	2.10027527	MATCH	270ae0d9f1182942	tracked-clean	no
+601	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=moltrans&level=cold_pair->enrichment,enrichment_low,enrichment_high	0.99,0.67,1.32	0.99344842,0.67030870,1.32336260	MATCH	270ae0d9f1182942	tracked-clean	no
+602	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=random->enrichment	0.98	0.97507298	MATCH	270ae0d9f1182942	tracked-clean	no
+603	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=drugban&level=cold_target->enrichment	1.04	1.03583965	MATCH	270ae0d9f1182942	tracked-clean	no
+606	csv	results/effects_v2_2d/enrichment.csv#family=S3-K&model=hyperattentiondti&level=random->enrichment,enrichment_low,enrichment_high	1.37,1.26,1.49	1.36888910,1.26258791,1.48835830	MATCH	270ae0d9f1182942	tracked-clean	no
+607	csv	results/effects_v2_2d/enrichment.csv#family=S3-K&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.25,1.07,1.41	1.24560986,1.07253587,1.41103929	MATCH	270ae0d9f1182942	tracked-clean	no
+608	csv	results/effects_v2_2d/enrichment.csv#family=S3-K&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.00,0.79,1.27	1.00358181,0.78959379,1.26945296	MATCH	270ae0d9f1182942	tracked-clean	no
+614	claim				MANUAL (prose claim; Phase 2)			
+622	csvrows	results/effects_v2_2d/faithfulness_effects.csv	16	16 data rows (+1 header)	MATCH	267574b98605511d	tracked-clean	no
+623	csv	results/effects_v2_2d/faithfulness_effects.csv#model=hyperattentiondti&dataset=davis&level=cold_pair->delta,delta_low,delta_high	0.054,0.030,0.080	0.05423915,0.02970759,0.08042114	MATCH	267574b98605511d	tracked-clean	no
+624	csv	results/effects_v2_2d/faithfulness_effects.csv#model=coldsite_dti&dataset=davis&level=random->delta,delta_low,delta_high	1.21,0.68,1.92	1.20995270,0.68344316,1.91893242	MATCH	267574b98605511d	tracked-clean	no
+625	line	results/effects_v2_2d/faithfulness_effects.md:3	95	Mean `comprehensiveness_delta` (attended masking minus the size-matched random control), pairs grouped by target within each seed. TWO-WAY b	MATCH	daf76984c21913c8	tracked-clean	no
+628	claim				MANUAL (prose claim; Phase 2)			
+637	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:6	-0.0073	| Cold-Drug | 0.1081 | 0.1154 | **-0.0073** | 1.1302 | 1.1247 | 0.1526 | 200 | **no** |	MATCH	dc3ba449258f7273	tracked-clean	no
+638	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed2.md:6	-0.0036	| Cold-Drug | 0.0619 | 0.0655 | **-0.0036** | 0.7760 | 0.7544 | 0.0884 | 200 | **no** |	MATCH	7370ab738d9cf260	tracked-clean	no
+639	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:6	0.0128	| Cold-Drug | 0.1210 | 0.1081 | **0.0128** | 1.0044 | 0.9910 | 0.1294 | 200 | yes |	MATCH	40a9fb80fb299061	tracked-clean	no
+640	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md:8	-0.0037	| Cold-Pair | 0.0839 | 0.0876 | **-0.0037** | 2.2679 | 2.2507 | 0.0916 | 200 | **no** |	MATCH	dc3ba449258f7273	tracked-clean	no
+641	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed2.md:8	-0.0038	| Cold-Pair | 0.1242 | 0.1280 | **-0.0038** | 0.6659 | 0.6814 | 0.1362 | 200 | **no** |	MATCH	7370ab738d9cf260	tracked-clean	no
+642	line	results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:8	0.0027	| Cold-Pair | 0.1225 | 0.1197 | **0.0027** | 0.7299 | 0.7468 | 0.1312 | 200 | yes |	MATCH	40a9fb80fb299061	tracked-clean	no
+643	claim				MANUAL (prose claim; Phase 2)			
+648	csv	results/accuracy_v2/localization_spearman.csv#dataset=davis&group=all attention models&y=enrichment->n_cells,rho,low,high	48,,0.003,-0.309,0.294	48,0.003149,-0.308752,0.293885	MATCH	89294d372f8fb23f	tracked-clean	no
+649	csv	results/accuracy_v2/localization_spearman.csv#dataset=kiba&group=all attention models&y=enrichment->n_cells,rho,low,high	18,,0.064,-0.466,0.557	18,0.064050,-0.465683,0.557414	MATCH	89294d372f8fb23f	tracked-clean	no
+657	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10	0.367	0.367 ± 0.	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+658	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance	0.081,0.140	0.081 ± 0.,0.140	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+663	line	results/drug_dependence/moltrans.txt:1	25,,4,,100,,150	moltrans: top-10 overlap between different drugs on the same protein: mean 10.00/10, identical top-10 in 100% of 150 drug pairs (25 proteins	MATCH	0a9f576e1321d394	tracked-clean	no
+664	line	results/drug_dependence/hyperattentiondti.txt:1	72,,150	hyperattentiondti: top-10 overlap between different drugs on the same protein: mean 9.72/10, identical top-10 in 72% of 150 drug pairs (25 p	MATCH	75826c178a93ca1a	tracked-clean	no
+665	line	results/drug_dependence/drugban.txt:1	0,,150	drugban: top-10 overlap between different drugs on the same protein: mean 4.53/10, identical top-10 in 0% of 150 drug pairs (25 proteins x 4	MATCH	f9ce5903af430ef8	tracked-clean	no
+666	line	results/drug_dependence/moltrans_interaction.txt:1	0	moltrans_interaction: top-10 overlap between different drugs on the same protein: mean 1.09/10, identical top-10 in 0% of 150 drug pairs (25	MATCH	1111ca5b5ccb91fa	tracked-clean	no
+673	line	results/sequence_audit_davis.md:9	54	74 variant targets: **54 carry exactly the wild-type sequence**, 0 differ from it, 20 have no wild-type entry to compare.	MATCH	5a98d4402594c160	tracked-clean	no
+674	line	results/sequence_audit_davis.md:21	12,,88,,816,,5984,,13.6	| cold_target | test | 88 | 88 | 12 | 816 of 5984 (13.6%) |	MATCH	5a98d4402594c160	tracked-clean	no
+683	csv	results/certification/key_numbers.csv#name=leak_ct_leaked_rows->value,low,high,p	0.116,0.098,0.134,0.0013	0.1160,0.098,0.134,0.0013	MATCH	a10fd79712739996	untracked	no
+683	line	results/certification/step3_leak.txt:41	95	leak (seqmatched - seqclean) on leaked   rows: per seed [0.122 0.108 0.118]  mean +0.1160  sd 0.0073  95% t-CI [+0.098, +0.134]  one-sample 	MATCH	a3387e462748837f	untracked	no
+684	csv	results/certification/key_numbers.csv#name=leak_ct_unleaked_rows->value,p	-0.019,0.31	-0.0190,0.3131	MATCH	a10fd79712739996	untracked	no
+685	csv	results/certification/key_numbers.csv#name=leak_ct_all_rows->value,low,high,p	0.019,-0.022,0.059,0.19	0.0187,-0.022,0.059,0.1856	MATCH	a10fd79712739996	untracked	no
+686	line	results/leakage_retrain_davis.md:31	0.020	| **mean** | **+0.020** | **+0.005** | **+0.027** |	MATCH	e580d519c2a43a64	tracked-clean	no
+687	line	results/leakage_retrain_davis.md:50	-0.021	| **mean** | **-0.021** | **-0.021** | **-0.003** |	MATCH	e580d519c2a43a64	tracked-clean	no
+688	line	results/leakage_retrain_davis.md:59	0.062	| **mean** | **+0.062** | **+0.040** | **+0.063** |	MATCH	e580d519c2a43a64	tracked-clean	no
+700	csv	results/effects_v2_2d/enrichment.csv#family=S2&model=hyperattentiondti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high	1.90,0.63,3.39	1.89628189,0.63130597,3.39032342	MATCH	270ae0d9f1182942	tracked-clean	no
+701	csv	results/effects_v2_2d/enrichment.csv#family=P2&model=hyperattentiondti&level=cold_drug->enrichment,enrichment_low,enrichment_high	0.94,0.71,1.19	0.93779759,0.70537031,1.18829934	MATCH	270ae0d9f1182942	tracked-clean	no
+702	csv	results/effects_v2_2d/enrichment.csv#family=S1-klifs&model=coldsite_dti_ig&level=cold_drug->enrichment,enrichment_low,enrichment_high	3.16,2.40,4.40	3.16478919,2.39826523,4.40058418	MATCH	270ae0d9f1182942	tracked-clean	no
+703	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=coldsite_dti&level=cold_drug->enrichment,enrichment_low,enrichment_high	2.10,1.83,2.36	2.10027527,1.83142886,2.35797171	MATCH	270ae0d9f1182942	tracked-clean	no
+717	csv	results/certification/key_numbers.csv#name=seeds_disagree_exact->value	11	11	MATCH	a10fd79712739996	untracked	no
+717	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+718	csv	results/certification/key_numbers.csv#name=spread_exceeds_distance->value	21	21	MATCH	a10fd79712739996	untracked	no
+718	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+719	csv	results/certification/key_numbers.csv#name=friedman_holm->value	8	8	MATCH	a10fd79712739996	untracked	no
+719	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+720	csv	results/certification/key_numbers.csv#name=permutation_holm->value	7	7	MATCH	a10fd79712739996	untracked	no
+720	csv	results/certification/key_numbers.csv#name=cells_total->value	22	22	MATCH	a10fd79712739996	untracked	no
+788	line	docs/wave_plan.md:7	30	## What Wave A trains: 30 cells, each exactly once	MATCH	3e485723d2e4a4f7	tracked-clean	no
+789	line	docs/wave_plan.md:11	4,,12	| **ACC1** | DAVIS × seed **4** × {HyperAttentionDTI, MolTrans, ColdSite-DTI} × 4 levels = 12 | extension family E1 (seed instability, headl	MATCH	3e485723d2e4a4f7	tracked-clean	no
+790	line	docs/wave_plan.md:12	5	| **ACC2** | DAVIS × seed **5** × the same 12 | E1 |	MATCH	3e485723d2e4a4f7	tracked-clean	no
+791	line	docs/wave_plan.md:13	1,,3,,6	| **ACC3** | **DrugBAN** × KIBA × {random, cold_drug} × seeds 1–3 = 6 | family E2 (problem P08: DrugBAN has no KIBA cell) |	MATCH	3e485723d2e4a4f7	tracked-clean	no
+794	line	docs/wave_plan.md:47	23.2	| ACC1 (seed 4) | 12 | **23.2** (ColdSite-DTI 4.9, HyperAttentionDTI 10.3, MolTrans 8.1) | 21.8–24.7 | 11.6 / 11.6 | 2 (the second is short)	MATCH	3e485723d2e4a4f7	tracked-clean	no
+847	line	src/data/klifs_pocket.py:54	85	POCKET_LENGTH = 85	MATCH	d32b84e5ec28b1d6	tracked-clean	no
+857	line	results/effects_v2_2d/enrichment.md:3	95,,10000	Mean precision@10 divided by mean chance over the same resampled targets. TWO-WAY bootstrap (`--resample seeds_and_targets`), 10,000 resampl	MATCH	aa3ef8d877f482a2	tracked-clean	no
+874	line	docs/PROTOCOL_AMENDMENT_v2.md:190	95	| accuracy-vs-localization | Spearman ρ across cells, unit the cell (model × level × seed), 95 % percentile CI over 10,000 resamples of cell	MATCH	9839c617b8fb9c16	tracked-clean	no
+885	line	results/effects_v2_2d/faithfulness_effects.md:3	95,,10000	Mean `comprehensiveness_delta` (attended masking minus the size-matched random control), pairs grouped by target within each seed. TWO-WAY b	MATCH	daf76984c21913c8	tracked-clean	no
+909	csvrows	data/splits/davis/random/train.csv	21039	21039 data rows (+1 header)	MATCH	c23ff50761065e3c	untracked/ignored	no
+909	csvrows	data/splits/davis/random/valid.csv	3006	3006 data rows (+1 header)	MATCH	cc64ac8a36381647	untracked/ignored	no
+909	csvrows	data/splits/davis/random/test.csv	6011	6011 data rows (+1 header)	MATCH	ad04c8b46e3719a8	untracked/ignored	no
+910	csvrows	data/splits/davis/cold_drug/train.csv	21658	21658 data rows (+1 header)	MATCH	54f4b4e0da846ecf	untracked/ignored	no
+910	csvrows	data/splits/davis/cold_drug/valid.csv	2652	2652 data rows (+1 header)	MATCH	6e6ff45b30ffeaec	untracked/ignored	no
+910	csvrows	data/splits/davis/cold_drug/test.csv	5746	5746 data rows (+1 header)	MATCH	fe9c24f59f540506	untracked/ignored	no
+911	csvrows	data/splits/davis/cold_target/train.csv	21080	21080 data rows (+1 header)	MATCH	b82bfd9c4632c056	untracked/ignored	no
+911	csvrows	data/splits/davis/cold_target/valid.csv	2992	2992 data rows (+1 header)	MATCH	86e407a411a86cf3	untracked/ignored	no
+911	csvrows	data/splits/davis/cold_target/test.csv	5984	5984 data rows (+1 header)	MATCH	ab7ba68cb38bde7b	untracked/ignored	no
+912	csvrows	data/splits/davis/cold_pair/train.csv	15190	15190 data rows (+1 header)	MATCH	ffb6c57f3992edd6	untracked/ignored	no
+912	csvrows	data/splits/davis/cold_pair/valid.csv	264	264 data rows (+1 header)	MATCH	a8b4f3ff74dc9f5a	untracked/ignored	no
+912	csvrows	data/splits/davis/cold_pair/test.csv	1144	1144 data rows (+1 header)	MATCH	4a1c859764ecc9fc	untracked/ignored	no
+913	csvrows	data/splits/kiba/random/train.csv	82778	82778 data rows (+1 header)	MATCH	d3910d581fd380cb	untracked/ignored	no
+913	csvrows	data/splits/kiba/random/valid.csv	11825	11825 data rows (+1 header)	MATCH	0dea8f58614275c0	untracked/ignored	no
+913	csvrows	data/splits/kiba/random/test.csv	23651	23651 data rows (+1 header)	MATCH	3232e6fc95d7e1c6	untracked/ignored	no
+914	csvrows	data/splits/kiba/cold_drug/train.csv	83807	83807 data rows (+1 header)	MATCH	fe0152e512ed7cb7	untracked/ignored	no
+914	csvrows	data/splits/kiba/cold_drug/valid.csv	12073	12073 data rows (+1 header)	MATCH	b5982677de081044	untracked/ignored	no
+914	csvrows	data/splits/kiba/cold_drug/test.csv	22374	22374 data rows (+1 header)	MATCH	ed87d4cbcc0f6978	untracked/ignored	no
+919	csvrows	data/splits/davis/cold_pair/train.csv	15190	15190 data rows (+1 header)	MATCH	ffb6c57f3992edd6	untracked/ignored	no
+920	csvrows	data/splits/davis/random/train.csv	21039	21039 data rows (+1 header)	MATCH	c23ff50761065e3c	untracked/ignored	no
+932	line	src/model/train_deepdta.py:144	0.001	"parser.add_argument(""--lr"", type=float, default=1e-3)"	MATCH	56505521cce3b1b5	tracked-clean	no
+932	line	src/cloud/recipes.py:22	256	DEEPDTA_BATCH = 256	MATCH	be44e654619459f7	tracked-clean	no
+932	line	src/cloud/recipes.py:53	10	"""--min-epochs"", ""10"", ""--epochs"", ""100"", ""--patience"", ""10"","	MATCH	be44e654619459f7	tracked-clean	no
+933	line	src/model/train_hyperattentiondti.py:15	0.00005,0.0001	AdamW, lr 5e-5, weight decay 1e-4 on weights and 0 on biases	MATCH	d78bb6e8cedd37e8	tracked-clean	no
+933	line	src/cloud/recipes.py:21	32	HAT_BATCH, HAT_ACCUM = 32, 1	MATCH	be44e654619459f7	tracked-clean	no
+934	line	src/model/train_moltrans.py:236	0.0001	"parser.add_argument(""--lr"", type=float, default=1e-4,"	MATCH	f7d707b3411bff3b	tracked-clean	no
+934	line	src/cloud/recipes.py:23	16	MOLTRANS_BATCH = 16	MATCH	be44e654619459f7	tracked-clean	no
+935	line	src/cloud/recipes.py:24	64,,0.00005	"DRUGBAN_BATCH, DRUGBAN_LR, DRUGBAN_LOG_EVERY = 64, ""5e-05"", 100"	MATCH	be44e654619459f7	tracked-clean	no
+936	line	src/model/train.py:311	0.001	"parser.add_argument(""--lr"", type=float, default=1e-3)"	MATCH	d404fcbe5808e9c1	tracked-clean	no
+936	line	src/cloud/recipes.py:20	64	COLDSITE_BATCH = 64	MATCH	be44e654619459f7	tracked-clean	no
+936	line	src/model/train.py:227	5	"optimizer, mode=""min"", factor=0.5, patience=5)"	MATCH	d404fcbe5808e9c1	tracked-clean	no
+944	json	results/accuracy_v2/moltrans_coldpair_investigation.json	0.5862	0.5862123048406644	MATCH	ced4b345ca5a5890	tracked-clean	no
+945	json	results/accuracy_v2/moltrans_coldpair_investigation.json	0.5954	0.5953945961360235	MATCH	ced4b345ca5a5890	tracked-clean	no
+958	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=published&level=cold_target->precision@10,chance	0.186,0.140	0.186 ± 0.,0.140	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+958	csv	results/effects_v2_2d/enrichment.csv#family=S3-D&model=hyperattentiondti&level=cold_target->precision	0.186	0.18606965	MATCH	270ae0d9f1182942	tracked-clean	no
+958	comment				MANUAL (prose claim; Phase 2)			
+958	line	results/readout_comparison.csv:40	0.032	klifs,hyperattentiondti,published,cold_target,0.140,0.186 ± 0.032	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+959	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=maxchannel&level=cold_target->precision@10,chance	0.367,0.140	0.367 ± 0.,0.140	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+959	line	results/readout_comparison.csv:52	0.104	klifs,hyperattentiondti,maxchannel,cold_target,0.140,0.367 ± 0.104	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+960	csv	results/readout_comparison.csv#ground truth=klifs&model=hyperattentiondti&readout=receptive&level=cold_target->precision@10,chance	0.081,0.140	0.081 ± 0.,0.140	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+960	line	results/readout_comparison.csv:56	0.046	klifs,hyperattentiondti,receptive,cold_target,0.140,0.081 ± 0.046	MATCH	bd12fa6ddbe069dd	tracked-clean	no
+966	line	results/drug_dependence/moltrans.txt:1	25,,100	moltrans: top-10 overlap between different drugs on the same protein: mean 10.00/10, identical top-10 in 100% of 150 drug pairs (25 proteins	MATCH	0a9f576e1321d394	tracked-clean	no
+967	line	results/drug_dependence/hyperattentiondti.txt:1	72	hyperattentiondti: top-10 overlap between different drugs on the same protein: mean 9.72/10, identical top-10 in 72% of 150 drug pairs (25 p	MATCH	75826c178a93ca1a	tracked-clean	no
+968	line	results/drug_dependence/drugban.txt:1	0	drugban: top-10 overlap between different drugs on the same protein: mean 4.53/10, identical top-10 in 0% of 150 drug pairs (25 proteins x 4	MATCH	f9ce5903af430ef8	tracked-clean	no
+998	line	docs/REMEDIATION_LEDGER.md:592	500,,10000	| original verdicts reproduce exactly | `results/effects_v2/reproduction.json`: **(1)** `seed_agreement.py` regenerated from the ladders is 	MATCH	7229cba7c228c807	tracked-clean	no
+1001	line	docs/PROTOCOL_AMENDMENT_v2.md:163	10	* **k = 10** for precision@k, and for the number of residues masked in faithfulness. It is the	MATCH	9839c617b8fb9c16	tracked-clean	no
+1001	line	docs/PROTOCOL_AMENDMENT_v2.md:169	50	`k_values`, `run_ladder.py:144`) and the k = 50 faithfulness check. Existing k = 50	MATCH	9839c617b8fb9c16	tracked-clean	no
+1002	line	docs/REMEDIATION_LEDGER.md:242	1	"| D6 | (f) ""the DrugBAN atom-cap row-loss threshold (<=1%)"" and project fact (10) ""fails if more than 1% are lost"" | `UNENCODABLE_LIMIT_FRAC"	MATCH	7229cba7c228c807	tracked-clean	no
+1013	line	results/seed_agreement.md:34	12	**12 of 22 cells have seeds that disagree** about their own verdict. In **21 of 22** the spread across seeds is larger than the cell's dista	MATCH	256426ddf2259f92	tracked-clean	no
+1013	csv	results/certification/key_numbers.csv#name=seeds_disagree_exact->value	11	11	MATCH	a10fd79712739996	untracked	no
+1013	line	results/certification/step1b_exact_p_validation.txt:19	1000	recorded (1,000-perm) p at 0.05: disagree = 12	MATCH	2b4f9250f5a1293f	untracked	no
+1017	line	results/mask_comparability_davis.md:5	47.9	- explanation's residues: **47.9%** of tokens change	MATCH	3fa82df04391d929	tracked-clean	no
+1018	line	results/mask_comparability_davis.md:6	95.0	- random residues: **95.0%**	MATCH	3fa82df04391d929	tracked-clean	no
+1019	line	results/mask_comparability_davis.md:3	20	Masking the top-10 attended residues versus 10 random ones, measured as the fraction of the model's protein tokens that change (`src/evaluat	MATCH	3fa82df04391d929	tracked-clean	no

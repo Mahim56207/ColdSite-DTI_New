@@ -1,0 +1,160 @@
+extracted 10 slides -> PPT_EXTRACT.md (21063 bytes)
+
+[PASS       ] slide  1 | number of trained models | slide 84 vs 72 prediction files + 12 DrugBAN level-runs = 84
+[PASS       ] slide  1 | 84 models = 28 setups x 3 seeds (wording fixed) | slide 28 setups x 3 seeds = 84 vs 84 trained models (28 distinct model-dataset-level setups)
+[PASS       ] slide  1 | 5 models, 2 datasets | five model families found in the recomputed outputs; DAVIS and KIBA
+[PASS       ] slide  2 | 54 mutants carry the wild-type sequence | slide 54 vs baseline 54 (named mutants whose sequence equals the wild type, from proteins.txt)
+[PASS       ] slide  2 | 12 of 88 unseen targets seen by sequence | slide 12 of 88 vs 12 of 88 recomputed from the split CSVs
+[PASS       ] slide  2 | leaked-row inflation +0.116, p = 0.0013 | slide 0.116 (p 0.0013) vs 0.1160 (p 0.0013)
+[PASS       ] slide  2 | unleaked rows -0.019, p = 0.31 | slide -0.019 (p 0.31) vs -0.0190 (p 0.3131)
+[PASS       ] slide  2 | scope of the retrain stated | scope (DeepDTA, cold-target) is stated on the slide
+[PASS       ] slide  2 | all-rows interval includes zero | notes -0.022..+0.059 vs [-0.022, 0.059] (all-rows CI)
+[PASS       ] slide  2 | all-rows figure 0.019 is not headlined | slide 0.019 vs baseline 0.0187 (all-rows mean)
+[PASS       ] slide  2 | notes: 54 mutants | slide 54 vs baseline 54 (named mutants identical to wild type)
+[PASS       ] slide  2 | notes: 12 of 88 | 12 of 88 vs 12 of 88
+[PASS       ] slide  3 | DAVIS random AUROC range of the five models | slide 0.891–0.937 vs recomputed model means 0.891–0.937 (sklearn on raw predictions; DrugBAN from its accuracy JSON)
+[EXTERNAL   ] slide  3 | DeepDTA year 2018 | publication year: fact about the literature
+[EXTERNAL   ] slide  3 | MolTrans year 2021 | publication year: fact about the literature
+[EXTERNAL   ] slide  3 | HyperAttentionDTI year 2022 | publication year: fact about the literature
+[EXTERNAL   ] slide  3 | DrugBAN year 2023 | publication year: fact about the literature
+[PASS       ] slide  4 | notes: 'we have 11' real cases | slide 11 vs baseline 11 (exact-p disagreeing cells)
+[PASS       ] slide  5 | headline: cells whose seeds disagree | slide 11 of 22 vs 11 of 22 (exact per-seed permutation p, alpha 0.05)
+[PASS       ] slide  5 | HyperAttentionDTI cold-drug per-seed P@10 | slide 0.025, 0.077, 0.019 vs recorded 0.0249, 0.0768, 0.0195
+[PASS       ] slide  5 | chance for that cell | slide 0.020 vs baseline 0.0204 (exact chance)
+[PASS       ] slide  5 | best run approximately 4x the worst (wording fixed) | exact best/worst = 3.94x; slide says approximately 4x
+[PASS       ] slide  5 | all three pass / none pass | slide all-three 1, none 10 of 22 vs 1 and 10 of 22
+[PASS       ] slide  5 | DAVIS/KIBA split of the disagreeing cells | slide DAVIS 8 of 11, KIBA 3 vs 8 of 11, KIBA 3
+[PASS       ] slide  5 | spread exceeds distance from chance (the 'shield' claim) | slide 21 of 22 vs 21 of 22
+[PASS       ] slide  5 | direct seed-variance test after Holm | slide 7 to 8 of 22 vs permutation 7, Friedman 8 of 22
+[PASS       ] slide  5 | notes: headline count | notes 11 of 22
+[PASS       ] slide  5 | notes: none pass | slide 10 vs baseline 10 (none pass)
+[PASS       ] slide  5 | notes: direct test | matches the slide claim
+[PASS       ] slide  5 | notes: Holm 1 of 20 is the median-over-seeds rule | 1 of 20 (median rule) vs recomputed Holm
+[PASS       ] slide  5 | notes: 5 seed-runs survive seed by seed | slide 5 vs baseline 5 (per-seed Holm survivors (48 tests))
+[PASS       ] slide  5 | notes: why 11 and not 12 | notes 0.049/0.056 vs 0.0490/0.0563
+[PASS       ] slide  6 | HyperAttentionDTI cold-drug, proteins-only interval | slide 1.98 [1.81, 2.15] vs independent [1.813, 2.154] at 200,000 resamples, point 1.981
+[PASS       ] slide  6 | two-way interval [0.94, 3.65] within Monte-Carlo range | slide [0.94, 3.65] vs independent [0.928, 3.676] (200,000) and MC range at 10,000 resamples lower 0.926-0.942, upper 3.629-3.71
+[PASS       ] slide  6 | two-way interval crosses chance | independent interval [0.928, 3.676] contains 1.0
+[PASS       ] slide  6 | residue-level survivors 7/22 -> 1/22 | slide ('7', '22', '1', '22') vs independent ('7', '22', '1', '22')
+[PASS       ] slide  6 | pocket-level survivors 15/22 -> 9/22 | slide ('15', '22', '9', '22') vs independent ('15', '22', '9', '22')
+[PASS       ] slide  6 | the one survivor: HyperAttentionDTI DAVIS random | slide 1.66 [1.33, 2.00] vs independent 1.663 [1.32, 2.00]
+[PASS       ] slide  6 | the survivor is the same cell that passes Holm | Holm survivor is hyperattentiondti|davis|random, the same cell
+[PASS       ] slide  6 | notes: 7->1 and 15->9 | notes ('7', '1', '15', '9') vs ('7', '1', '15', '9')
+[PASS       ] slide  6 | notes: pocket survivors by model | independent: XAttn-Ref 4 of 4, HyperAttentionDTI 3 of 4
+[PASS       ] slide  6 | HAT third pocket level disclosed as marginal (wording fixed) | cold-pair pocket lower bound is 1.02 (proteins+seeds), within 0.05 of chance; the notes now say so
+[PASS       ] slide  7 | 16 of 16 faithfulness intervals above zero | slide 16 of 16 vs independent 16 of 16
+[PASS       ] slide  7 | smallest faithfulness interval | slide 0.054 [0.030, 0.080] vs independent 0.054 [0.030, 0.081]
+[PASS       ] slide  7 | DrugBAN raw deltas, seed 1 | slide −0.0073, −0.0037 vs md tables -0.0073, -0.0037
+[PASS       ] slide  7 | DrugBAN raw deltas, seed 2 | slide −0.0036, −0.0038 vs md tables -0.0036, -0.0038
+[PASS       ] slide  7 | DrugBAN raw deltas, seed 3 | slide +0.0128, +0.0027 vs md tables +0.0128, +0.0027
+[PASS       ] slide  7 | DrugBAN: 6 of 12 negative | slide 6 of 12 vs 6 of 12 in the md tables
+[PASS       ] slide  7 | DrugBAN table scope stated (wording fixed) | header states the table shows two of the four levels (cold-drug, cold-pair); 12 values exist, 6 shown, and the slide says 6 of 12 are negative
+[PASS       ] slide  8 | checklist 1: seeds disagree | slide 11 of 22 vs 11 of 22
+[PASS       ] slide  8 | checklist 4: Holm 1 of 20 (median rule stated) | 1 of 20 with the aggregation rule stated
+[PASS       ] slide  8 | checklist 8: 12 of 88 | 12 of 88 vs 12 of 88
+[PASS       ] slide  8 | checklist 2: residue chance 0.019-0.020 | slide 0.019–0.020 vs exact chance 0.0190–0.0204 over DAVIS cells
+[SOURCE-ONLY] slide  8 | checklist 5: 0.367 vs 0.081 | slide 0.367 vs 0.081; readout_comparison.csv 0.367 ± 0.104 vs 0.081 ± 0.046
+[SOURCE-ONLY] slide  8 | notes: 2.6 times chance | notes chance 0.140, ratio 2.6 vs 2.62
+[PASS       ] slide  8 | checklist 6: MolTrans same top ten (qualified) | readout scored: 100% identical; the interaction-map readout is 0% identical (results/drug_dependence/moltrans_interaction.txt); slide says readout, notes give the qualifier
+[SOURCE-ONLY] slide  8 | checklist 3: 0.02 dose | results/positive_control_davis.md states 0.02 (repo's own positive control; not recomputed here)
+[SOURCE-ONLY] slide  9 | account 1 cells and hours | slide 12 cells, 23.2 (21.8-24.7) vs config/wave_budget.json 12, 23.2 (21.8-24.7)
+[SOURCE-ONLY] slide  9 | account 2 cells and hours | slide 12 cells, 23.2 vs 12, 23.2
+[SOURCE-ONLY] slide  9 | account 3 cells; hours unmeasured | slide 6 cells vs 6; unmeasured 6
+[SOURCE-ONLY] slide  9 | 30 training jobs | slide 30 vs 30 cells in wave_budget.json
+[PASS       ] slide  9 | quota needed with a 15% reserve (arithmetic) | slide 27.3, 29.1 vs 23.2/0.85 = 27.29, 24.7/0.85 = 29.06
+[EXTERNAL   ] slide  9 | quota 30 GPU-h per week | quota was stated by the user on 2026-09-25 (docs/wave_plan.md); not verifiable from data
+[PASS       ] slide  9 | notes: about 23 GPU-hours per account | notes 23 vs 23.2 per account
+[PASS       ] slide  9 | notes: about 46 GPU-hours | notes 46 vs 2 x 23.2 = 46.4
+[PASS       ] slide 10 | Holm survivors DAVIS 1 of 20, KIBA 0 of 8 | slide ('1', '20', '0', '8') vs recomputed Holm ('1', '20', '0', '8')
+[PASS       ] slide 10 | seeds disagree | slide 11 of 22 vs 11 of 22
+[PASS       ] slide 10 | load-bearing 3 of 4; pocket enrichment 2 | slide ('3', '4', '2') vs 3 models with all intervals above zero (of 4) and 2 models with pocket survivors
+[PASS       ] slide 10 | Spearman rho, accuracy vs localisation | slide 0.003 [-0.309, 0.294] n=48 vs independent +0.004 [-0.300, +0.305] n=48 (enrichment)
+[PASS       ] slide 10 | passing tests | slide 1,202 vs junit passed 1202 (failures 0, errors 0)
+[PASS       ] slide 10 | numbers machine-checked, 0 failures | slide 986 numbers / 0 failures vs checker ('986', '658', '0')
+[PASS       ] slide 10 | 84 trained models (conclusion slide) | 84 vs 84
+[PASS       ] slide 10 | conclusion: the DAVIS leak (12 of 88) | slide 12 of 88 vs 12 of 88 recomputed from the split CSVs
+[PASS       ] slide 10 | conclusion: the eight-point checklist exists on slide 8 | slide 8 carries checklist items numbered 1 to 8 and no 9th
+[PASS       ] slide 10 | notes: leaked-row inflation | notes 0.116 (p 0.0013) vs 0.1160 (p 0.0013)
+[PASS       ] slide 10 | notes: 12 of the 88 | 12 of 88
+
+=== NAMING TRAP: code-name 'ColdSite' ===
+  slide 1 vis   ALLOWED (naming note) ...g–target interaction models NAMING NOTE Our in-house model, ColdSite-DTI in the code repository, is called X...
+  slide 1 notes ALLOWED (naming note) ...im. One naming note first: our own model, which you knew as ColdSite-DTI, is now called XAttn-Ref. We rename...
+  slide XML parts other than slide 1 containing the code-name: none
+  draft prose (comments stripped): 1 occurrence(s), 1 in running prose, 0 inside a `code span` (a file path)
+    PROSE     ...tn-Ref is the authors' own model (repository name ColdSite-DTI): a conventional two-branch encoder...
+  results/: 248 of 713 text files contain the name (raw logs, tables and JSON keys); files the slides or draft cite as sources:
+    WARN cited file exposes the code-name: results/accuracy_v2/by_model.csv (8x)
+    WARN cited file exposes the code-name: results/accuracy_v2/cells.csv (48x)
+    WARN cited file exposes the code-name: results/accuracy_v2/localization_cells.csv (18x)
+    WARN cited file exposes the code-name: results/accuracy_v2/localization_spearman.csv (4x)
+    WARN cited file exposes the code-name: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md (5x)
+    WARN cited file exposes the code-name: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md (45x)
+    WARN cited file exposes the code-name: results/certification/step3_leak.txt (3x)
+    WARN cited file exposes the code-name: results/certification/step4_holm.txt (7x)
+    WARN cited file exposes the code-name: results/effects_v2/enrichment.csv (20x)
+    WARN cited file exposes the code-name: results/effects_v2/seed_spread.csv (20x)
+    WARN cited file exposes the code-name: results/effects_v2_2d/enrichment.csv (20x)
+    WARN cited file exposes the code-name: results/effects_v2_2d/enrichment.md (20x)
+    WARN cited file exposes the code-name: results/effects_v2_2d/faithfulness_effects.csv (4x)
+    WARN cited file exposes the code-name: results/effects_v2_2d/faithfulness_effects.md (4x)
+    WARN cited file exposes the code-name: results/positive_control_davis.md (12x)
+    WARN cited file exposes the code-name: results/readout_comparison.csv (16x)
+    WARN cited file exposes the code-name: results/seed_agreement.md (6x)
+
+=== OVERCLAIM TRAP ===
+  slide 4 vis    NEGATED (ok) ...OVELTY The novelty is the method, not a new model Same recipe, same data, diffe...
+  draft prose    NEGATED (ok) ...nt a methodological audit rather than a new model. Three published attention-ba...
+  un-negated overclaim hits: 0
+
+=== STALE NUMBERS (pre-correction wording) ===
+  stale strings found: 0
+
+=== COMPUTE TRAP: Wave A framed as planned, and no Wave A results exist ===
+  files with seed 4 or 5 in results/: none; DrugBAN-on-KIBA files: none
+  slide 9 'Done:' items: ['notebooks built', 'dry-run checks pass']; results claimed as done: none
+  slide 9 says 'planned': True
+  slide 9 says 'gated': True
+  slide 9 says 'No Wave A result appears in any number in the paper': True
+  slide 9 says 'canary must match an old result': True
+  slide 9 says 'Hours not yet measured': True
+  Wave A mentioned outside slide 9 (visible text): no
+
+=== NUMERIC TOKEN ACCOUNTING (visible slide text) ===
+  numeric tokens not claimed by any check: 16
+    slide  6 '1.0' ...[0.94, 3.65], crosses chance (1.0) Cells above chance | Pr...
+    slide  8 '1' ...ght-point reporting checklist 1 Report several seeds and...
+    slide  8 '5' ...1 of 22 cells: seeds disagree 5 State the readout: heads...
+    slide  8 '2' ... 0.367 vs 0.081 in the pocket 2 Read hit rates against c...
+    slide  8 '6' ... is only 0.019–0.020 on DAVIS 6 State what inputs the ma...
+    slide  8 '3' ...: same top ten for every drug 3 Add a flat-map floor and...
+    slide  8 '7' ....02 dose at every DAVIS level 7 Test faithfulness with s...
+    slide  8 '4' ... the sign flips between seeds 4 Correct for multiple com...
+    slide  8 '8' ...es Holm (median p over seeds) 8 Check “unseen” splits by...
+    slide  9 '21.8' ... DAVIS levels 23.2 GPU-hours (21.8–24.7) ACCOUNT 3 · 6 CELL...
+    slide  9 '24.7' ...S levels 23.2 GPU-hours (21.8–24.7) ACCOUNT 3 · 6 CELLS Dru...
+    slide  9 '2' ... 3 · 6 CELLS DrugBAN × KIBA × 2 levels × seeds 1–3 Hours...
+    slide  9 '3' ...N × KIBA × 2 levels × seeds 1–3 Hours not yet measured: ...
+    slide  9 '1' ...er week per account. Accounts 1 and 2 need 27.3 (mean) t...
+    slide  9 '2' ...k per account. Accounts 1 and 2 need 27.3 (mean) to 29.1...
+    slide  9 '15' ...29.1 (high case), including a 15% reserve. No Wave A resu...
+
+=== SUMMARY ===
+  EXTERNAL: 5   PASS: 64   SOURCE-ONLY: 7   WARN: 17
+  WARN slide 0: cited file exposes the code-name -- results/accuracy_v2/by_model.csv
+  WARN slide 0: cited file exposes the code-name -- results/accuracy_v2/cells.csv
+  WARN slide 0: cited file exposes the code-name -- results/accuracy_v2/localization_cells.csv
+  WARN slide 0: cited file exposes the code-name -- results/accuracy_v2/localization_spearman.csv
+  WARN slide 0: cited file exposes the code-name -- results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md
+  WARN slide 0: cited file exposes the code-name -- results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md
+  WARN slide 0: cited file exposes the code-name -- results/certification/step3_leak.txt
+  WARN slide 0: cited file exposes the code-name -- results/certification/step4_holm.txt
+  WARN slide 0: cited file exposes the code-name -- results/effects_v2/enrichment.csv
+  WARN slide 0: cited file exposes the code-name -- results/effects_v2/seed_spread.csv
+  WARN slide 0: cited file exposes the code-name -- results/effects_v2_2d/enrichment.csv
+  WARN slide 0: cited file exposes the code-name -- results/effects_v2_2d/enrichment.md
+  WARN slide 0: cited file exposes the code-name -- results/effects_v2_2d/faithfulness_effects.csv
+  WARN slide 0: cited file exposes the code-name -- results/effects_v2_2d/faithfulness_effects.md
+  WARN slide 0: cited file exposes the code-name -- results/positive_control_davis.md
+  WARN slide 0: cited file exposes the code-name -- results/readout_comparison.csv
+  WARN slide 0: cited file exposes the code-name -- results/seed_agreement.md

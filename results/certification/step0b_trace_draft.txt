@@ -1,0 +1,118 @@
+TAGS FOUND: 349   by kind: {'comment': 4, 'line': 129, 'csv': 174, 'claim': 14, 'derived': 2, 'csvrows': 24, 'json': 2}
+TAG CHECK RESULTS: {'MANUAL': 18, 'MATCH': 331}
+NUMERIC TOKENS IN PROSE (comments stripped): 623   by class: {'VALUE': 523, 'HEADING-NUM': 24, 'YEAR': 28, 'LABEL/REF': 39, 'LIST-NUM': 8, 'CODE/LINK': 1}
+COVERAGE OF VALUE TOKENS: {'VALUE tagged & MATCH': 498, 'VALUE untagged (small integer)': 15, 'VALUE untagged (decimal/3+digit)': 10}
+
+=== FATAL INTEGRITY CANDIDATES: tags that FAIL against the raw file ===
+(0 failing)
+
+=== pct-form matches (draft shows 72, raw shows 0.72) ===
+
+=== CITED FILES: git anchor and modification-after-draft ===
+distinct cited files: 61   git state: {'tracked-clean': 38, 'untracked': 5, 'untracked/ignored': 18}   modified after draft: 0   missing: 0
+  7229cba7c228c807 tracked-clean      newer=no  docs/REMEDIATION_LEDGER.md
+  cf9da27934255c28 tracked-clean      newer=no  src/evaluation/seed_agreement.py
+  a10fd79712739996 untracked          newer=no  results/certification/key_numbers.csv
+  12059ffe28bb2e4b tracked-clean      newer=no  results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md
+  e3e6ab6d99d071e1 tracked-clean      newer=no  results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md
+  270ae0d9f1182942 tracked-clean      newer=no  results/effects_v2_2d/enrichment.csv
+  dc3ba449258f7273 tracked-clean      newer=no  results/analysis_davis_policyA/faithfulness_drugban_davis_seed1.md
+  64fb58b118b10356 tracked-clean      newer=no  results/positive_control_davis.md
+  bd12fa6ddbe069dd tracked-clean      newer=no  results/readout_comparison.csv
+  5a98d4402594c160 tracked-clean      newer=no  results/sequence_audit_davis.md
+  d32b84e5ec28b1d6 tracked-clean      newer=no  src/data/klifs_pocket.py
+  256426ddf2259f92 tracked-clean      newer=no  results/seed_agreement.md
+  505a52000e2164ac tracked-clean      newer=no  results/effects_v2/enrichment.csv
+  bf50662af3afcf08 tracked-clean      newer=no  results/accuracy_v2/by_model.csv
+  89294d372f8fb23f tracked-clean      newer=no  results/accuracy_v2/localization_spearman.csv
+  267574b98605511d tracked-clean      newer=no  results/effects_v2_2d/faithfulness_effects.csv
+  40a9fb80fb299061 tracked-clean      newer=no  results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md
+  0a9f576e1321d394 tracked-clean      newer=no  results/drug_dependence/moltrans.txt
+  f9ce5903af430ef8 tracked-clean      newer=no  results/drug_dependence/drugban.txt
+  57f920f5291fb0e7 tracked-clean      newer=no  src/model/dataset.py
+  c23ff50761065e3c untracked/ignored  newer=no  data/splits/davis/random/train.csv
+  cc64ac8a36381647 untracked/ignored  newer=no  data/splits/davis/random/valid.csv
+  ad04c8b46e3719a8 untracked/ignored  newer=no  data/splits/davis/random/test.csv
+  98b6c0f9d17e7eeb tracked-clean      newer=no  results/sequence_audit_kiba.md
+  be44e654619459f7 tracked-clean      newer=no  src/cloud/recipes.py
+  3b06146f79c1795f tracked-clean      newer=no  src/evaluation/collect.py
+  9839c617b8fb9c16 tracked-clean      newer=no  docs/PROTOCOL_AMENDMENT_v2.md
+  5b887fd8c86dec64 untracked          newer=no  results/certification/step4_holm.txt
+  f1b1d48549de74f3 tracked-clean      newer=no  src/evaluation/run_faithfulness.py
+  cdae92bf178b61ab tracked-clean      newer=no  src/evaluation/integrated_gradients.py
+  7429fc243660a5b9 untracked          newer=no  results/certification/step1_disagreement.txt
+  aa3ef8d877f482a2 tracked-clean      newer=no  results/effects_v2_2d/enrichment.md
+  d404fcbe5808e9c1 tracked-clean      newer=no  src/model/train.py
+  e580d519c2a43a64 tracked-clean      newer=no  results/leakage_retrain_davis.md
+  2b4f9250f5a1293f untracked          newer=no  results/certification/step1b_exact_p_validation.txt
+  daf76984c21913c8 tracked-clean      newer=no  results/effects_v2_2d/faithfulness_effects.md
+  7370ab738d9cf260 tracked-clean      newer=no  results/analysis_davis_policyA/faithfulness_drugban_davis_seed2.md
+  75826c178a93ca1a tracked-clean      newer=no  results/drug_dependence/hyperattentiondti.txt
+  1111ca5b5ccb91fa tracked-clean      newer=no  results/drug_dependence/moltrans_interaction.txt
+  a3387e462748837f untracked          newer=no  results/certification/step3_leak.txt
+  3e485723d2e4a4f7 tracked-clean      newer=no  docs/wave_plan.md
+  54f4b4e0da846ecf untracked/ignored  newer=no  data/splits/davis/cold_drug/train.csv
+  6e6ff45b30ffeaec untracked/ignored  newer=no  data/splits/davis/cold_drug/valid.csv
+  fe9c24f59f540506 untracked/ignored  newer=no  data/splits/davis/cold_drug/test.csv
+  b82bfd9c4632c056 untracked/ignored  newer=no  data/splits/davis/cold_target/train.csv
+  86e407a411a86cf3 untracked/ignored  newer=no  data/splits/davis/cold_target/valid.csv
+  ab7ba68cb38bde7b untracked/ignored  newer=no  data/splits/davis/cold_target/test.csv
+  ffb6c57f3992edd6 untracked/ignored  newer=no  data/splits/davis/cold_pair/train.csv
+  a8b4f3ff74dc9f5a untracked/ignored  newer=no  data/splits/davis/cold_pair/valid.csv
+  4a1c859764ecc9fc untracked/ignored  newer=no  data/splits/davis/cold_pair/test.csv
+  d3910d581fd380cb untracked/ignored  newer=no  data/splits/kiba/random/train.csv
+  0dea8f58614275c0 untracked/ignored  newer=no  data/splits/kiba/random/valid.csv
+  3232e6fc95d7e1c6 untracked/ignored  newer=no  data/splits/kiba/random/test.csv
+  fe0152e512ed7cb7 untracked/ignored  newer=no  data/splits/kiba/cold_drug/train.csv
+  b5982677de081044 untracked/ignored  newer=no  data/splits/kiba/cold_drug/valid.csv
+  ed87d4cbcc0f6978 untracked/ignored  newer=no  data/splits/kiba/cold_drug/test.csv
+  56505521cce3b1b5 tracked-clean      newer=no  src/model/train_deepdta.py
+  d78bb6e8cedd37e8 tracked-clean      newer=no  src/model/train_hyperattentiondti.py
+  f7d707b3411bff3b tracked-clean      newer=no  src/model/train_moltrans.py
+  ced4b345ca5a5890 tracked-clean      newer=no  results/accuracy_v2/moltrans_coldpair_investigation.json
+  3fa82df04391d929 tracked-clean      newer=no  results/mask_comparability_davis.md
+
+=== SOURCES OUTSIDE results/ (weak provenance: author's own narrative docs, code constants) ===
+   docs/REMEDIATION_LEDGER.md
+   src/evaluation/seed_agreement.py
+   src/data/klifs_pocket.py
+   src/model/dataset.py
+   data/splits/davis/random/train.csv
+   data/splits/davis/random/valid.csv
+   data/splits/davis/random/test.csv
+   src/cloud/recipes.py
+   src/evaluation/collect.py
+   docs/PROTOCOL_AMENDMENT_v2.md
+   src/evaluation/run_faithfulness.py
+   src/evaluation/integrated_gradients.py
+   src/model/train.py
+   docs/wave_plan.md
+   data/splits/davis/cold_drug/train.csv
+   data/splits/davis/cold_drug/valid.csv
+   data/splits/davis/cold_drug/test.csv
+   data/splits/davis/cold_target/train.csv
+   data/splits/davis/cold_target/valid.csv
+   data/splits/davis/cold_target/test.csv
+   data/splits/davis/cold_pair/train.csv
+   data/splits/davis/cold_pair/valid.csv
+   data/splits/davis/cold_pair/test.csv
+   data/splits/kiba/random/train.csv
+   data/splits/kiba/random/valid.csv
+   data/splits/kiba/random/test.csv
+   data/splits/kiba/cold_drug/train.csv
+   data/splits/kiba/cold_drug/valid.csv
+   data/splits/kiba/cold_drug/test.csv
+   src/model/train_deepdta.py
+   src/model/train_hyperattentiondti.py
+   src/model/train_moltrans.py
+
+=== UNTAGGED VALUE TOKENS (decimal or 3+ digits): candidate provenance by string search (results/ + docs/) ===
+10 untagged decimal/3+digit tokens; 0 have NO string match anywhere in results/ or docs/
+
+15 untagged small integers (cannot be string-traced; need semantic check in Phase 2/3)
+
+Files written:
+  /Users/mahimagarwal/Documents/ColdSite-DTI/results/certification/traceability_matrix.tsv
+  /Users/mahimagarwal/Documents/ColdSite-DTI/results/certification/draft_numbers.tsv
+  /Users/mahimagarwal/Documents/ColdSite-DTI/results/certification/untagged_numbers.tsv
+  /Users/mahimagarwal/Documents/ColdSite-DTI/results/certification/results_manifest.tsv

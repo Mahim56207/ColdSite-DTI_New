@@ -1,7 +1,7 @@
 """Harness configuration and the wave manifest: who trains which cell, and the numbers the
 pre-flight and self-stop read. Nothing here is a guess about Kaggle's quotas; the two time
-figures are declared in `config/harness.json` with their source, and the weekly GPU quota
-is not represented at all (it is the user's to state, T10)."""
+figures are declared in `config/harness.json` with their source, and so is the weekly GPU quota the
+user stated on 2026-09-25 (30 GPU-hours per account), which `src/cloud/quota.py` enforces."""
 from __future__ import annotations
 
 import json
@@ -57,6 +57,8 @@ def load_harness(path: str = HARNESS_PATH) -> dict:
     missing = [m for m in MODELS if m not in cfg["checkpoint_bytes"]]
     if missing:
         raise ValueError(f"checkpoint_bytes has no entry for {missing}")
+    from src.cloud.quota import QuotaCfg
+    QuotaCfg.from_harness(cfg)            # validates the quota keys when they are present
     return cfg
 
 

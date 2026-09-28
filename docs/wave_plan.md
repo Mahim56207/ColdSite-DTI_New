@@ -65,7 +65,8 @@ with the ≥ 15 % reserve (used ≤ 85 % of the quota; `required = hours / 0.85`
 Numbers from `config/wave_budget.json` (`required_weekly_quota_gpu_h_for_mean/high`). The fit holds in the stricter unit
 (GPU-hours); if Kaggle counts a two-GPU session once, the need halves (13.7 / 14.6). ACC1/ACC2 each need two commits
 (23.2 GPU-hours mean vs 20.5 per commit), both inside one week's 30. **Kaggle runs are deferred by the user (2026-09-25);**
-nothing here has been launched.
+nothing here has been launched. The runner now enforces the quota (`src/cloud/quota.py`): usable = 30 × (1 − 0.15) = 25.5 GPU-hours
+per account per rolling week, fresh cells stop starting at 95 % of that, and trainers pause between epochs at 100 %.
 
 ## ACC3 — DrugBAN on KIBA: measure first, then queue
 

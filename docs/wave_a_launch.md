@@ -2,7 +2,9 @@
 
 The three notebooks (`notebooks/kaggle_wave_a_acc1.ipynb`, `_acc2`, `_acc3`) are generated from `config/waves.json` by
 `notebooks/build_harness_notebook.py` and pinned to a commit. They ship with `DRY_RUN = True`, and **a real run is refused by the
-pre-flight until a passing canary verdict for this exact harness is committed** (`config/canary_verdict.json`). Launching spends quota.
+pre-flight until a passing canary verdict AND a passing epoch-1 gate verdict for this exact harness are committed**
+(`config/canary_verdict.json`, `config/epoch_gate_verdict.json`), and it stops itself at the weekly GPU-hour quota
+(`docs/cloud_harness.md`, "The weekly quota"). Launching spends quota.
 
 ## 0. Before anything
 
@@ -15,12 +17,18 @@ pre-flight until a passing canary verdict for this exact harness is committed** 
 1. Kaggle → Create → New Notebook → File → Import Notebook → **Upload** `notebooks/kaggle_canary.ipynb`.
 2. Accelerator **GPU T4 x2**, Internet **On**, Environment **Pin to original**.
 3. Run with `DRY_RUN = True` first: it must print `RESULT: OK (skipped in dry run: gpus)`.
-4. `DRY_RUN = False` → **Save Version → Save & Run All (Commit)**. About an hour on one T4 (estimated: 26 epochs × the 2 min 15 s the
-   Kaggle logs gave).
-5. The last cell prints the verdict (`pass` / `fail` / `inconclusive`). On **pass**: download `results/canary_verdict.json` from the
-   Output panel, copy it to `config/canary_verdict.json`, commit it, push. On anything else: stop and send it back.
-6. **If `src/cloud/*.py` (the files in `canary.HARNESS_FILES`) or `src/model/resume.py` changes afterwards, the verdict goes stale** and
-   the pre-flight says so; the canary must be run again on the new harness. (Editing `budget.py`, tests, docs or notebooks does not.)
+4. `DRY_RUN = False` → **Save Version → Save & Run All (Commit)**. About an hour on one T4 for the canary (estimated: 26 epochs × the
+   2 min 15 s the Kaggle logs gave), then about five minutes for the epoch-1 gate (section 5c: seeds 1, 4 and 5, one epoch each).
+5. The notebook prints two verdicts (`pass` / `fail` / `inconclusive`). On **both pass**: download `results/canary_verdict.json` **and**
+   `results/epoch_gate_verdict.json` from the Output panel, copy them to `config/`, commit, push. On anything else: stop and send it
+   back. Rules: `docs/cloud_harness.md` ("The canary", "The epoch-1 gate").
+6. Section 5c prints a `python -m src.cloud.quota … --add-external …` command with this session's GPU time. Run it (it is idempotent) in
+   the account's next notebook or locally against its results folder, so the quota ledger counts the canary against the account that
+   ran it. `quota_unit` defaults to the conservative reading (a two-GPU hour counts twice); change it in `config/harness.json` if
+   Kaggle is found to count a two-GPU session once.
+7. **If `src/cloud/*.py` (the files in `canary.HARNESS_FILES`, now including `quota.py` and `epoch_gate.py`) or `src/model/resume.py`
+   changes afterwards, both verdicts go stale** and the pre-flight says so; the canary and the epoch gate must be run again on the new
+   harness. (Editing `budget.py`, tests, docs or notebooks does not.)
 
 ## 2. Regenerate the wave notebooks at the commit that holds the verdict
 

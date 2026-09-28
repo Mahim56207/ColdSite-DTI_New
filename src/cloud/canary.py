@@ -63,7 +63,8 @@ VERDICT_PATH = os.path.join("config", "canary_verdict.json")
 # one of them is byte-identical to the one that was canaried; a change to any of them needs a new canary.
 HARNESS_FILES = ("src/cloud/__init__.py", "src/cloud/config.py", "src/cloud/markers.py",
                  "src/cloud/preflight.py", "src/cloud/recipes.py", "src/cloud/restore.py",
-                 "src/cloud/runner.py", "src/cloud/canary.py", "src/model/resume.py")
+                 "src/cloud/runner.py", "src/cloud/canary.py", "src/cloud/quota.py",
+                 "src/cloud/epoch_gate.py", "src/model/resume.py")
 
 
 def harness_hash(root: str = ".") -> str:

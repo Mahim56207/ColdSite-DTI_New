@@ -178,6 +178,23 @@ if not DRY_RUN:
     print('canary exit code', verdict.returncode, '(0 pass, 1 fail, 3 inconclusive: go back to the user)')
 else:
     print('DRY_RUN: no canary was trained.')
+"""),
+                md("""## 5c. The epoch-1 gate
+
+One epoch each of the canary cell at the committed seed (1, the replay) and at the new wave seeds (4 and 5), then the
+two rules in `src/cloud/epoch_gate.py` (Gate A: the replay is within one committed-seed SD; Gate B: each new seed is
+inside the committed envelope, finite, and distinct). About five minutes on the two T4s."""),
+                code("""
+if not DRY_RUN:
+    gate = subprocess.run([sys.executable, '-m', 'src.cloud.epoch_gate', '--run', '--seeds', '1', '4', '5',
+                           '--root', f'{RESULTS}/epoch_gate', '--out', f'{RESULTS}/epoch_gate_verdict.json'])
+    print('epoch gate exit code', gate.returncode, '(0 pass, 1 fail, 3 inconclusive: go back to the user)')
+    used_h = (time.time() - START) / 3600
+    print(f'This account has now spent up to {2 * used_h:.2f} GPU-hours (2 GPUs x {used_h:.2f} h) outside the wave. Record it:')
+    print(f"  python -m src.cloud.quota --root results --account <ACCOUNT> --add-external {2 * used_h:.2f} "
+          f"--external-id canary-{time.strftime('%Y-%m-%d')} --note 'canary + epoch gate'")
+else:
+    print('DRY_RUN: the epoch gate was not run.')
 """)]
     out += [
         md("## 6. What landed, and the file to take with you"),

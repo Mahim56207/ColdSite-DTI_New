@@ -17,5 +17,14 @@
   },
   "checkpoint_bytes_source": "stat of ~/ColdSite-results/davis_binary/coldsite_dti_davis_random_binary_seed1{,_deepdta,_hyperattentiondti,_moltrans,_drugban}.pt, 2026-09-25",
   "planned_bytes_per_cell_factor": 4,
-  "planned_bytes_note": "best checkpoint (1x) + resume file (model + two Adam moments, ~3x); history and status files are negligible"
+  "planned_bytes_note": "best checkpoint (1x) + resume file (model + two Adam moments, ~3x); history and status files are negligible",
+  "weekly_quota_gpu_hours": 30,
+  "weekly_quota_source": "User statement 2026-09-25 (docs/wave_plan.md): 30 GPU-hours per week per account. The unit of a two-GPU session was not stated, so quota_unit keeps the conservative reading: each GPU worker's wall-clock counts, i.e. a two-GPU hour is two GPU-hours (the unit docs/wave_plan.md plans in). Set 'session_hours' if Kaggle counts a two-GPU session once.",
+  "quota_unit": "gpu_hours",
+  "quota_reserve_fraction": 0.15,
+  "quota_soft_fraction": 0.95,
+  "quota_soft_note": "past 95% of the usable hours no FRESH cell starts (a partial one may resume). 0.95 and not lower because the plan's own high case (24.7 of 25.5 usable) must be able to finish: a lower value would stall the last cells of a plan that fits.",
+  "quota_window_days": 7,
+  "quota_min_start_hours": 0.5,
+  "quota_min_start_note": "a cell with no measured epoch time needs at least this many usable hours left to start; a measured one needs its longest epoch."
 }

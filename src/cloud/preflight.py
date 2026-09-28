@@ -273,6 +273,60 @@ def check_canary(root: str, dry_run: bool, wave: str | None) -> Check:
                  (f"dry run; a real run would be REFUSED: " if dry_run else "") + detail)
 
 
+def check_epoch_gate(root: str, dry_run: bool, wave: str | None, cells: list) -> Check:
+    """A non-canary wave also needs the epoch-1 gate to have passed on THIS harness, for this cell, and to
+    cover every new seed (seed > 3) the account trains (src/cloud/epoch_gate.py)."""
+    from src.cloud import canary, epoch_gate
+    if wave == "canary":
+        return Check("epoch_gate", "pass", "this is the canary wave")
+    path = os.path.join(root, epoch_gate.VERDICT_PATH)
+    try:
+        verdict = load_json(path)
+        ref = epoch_gate.load_reference(os.path.join(root, epoch_gate.REFERENCE_PATH))
+        problems = []
+        if verdict.get("verdict") != "pass":
+            problems.append(f"verdict is {verdict.get('verdict')!r}, not 'pass'")
+        if (verdict.get("dataset"), verdict.get("level"), verdict.get("model")) != (
+                ref["dataset"], ref["level"], ref["model"]):
+            problems.append("verdict is for a different cell from the epoch-1 reference")
+        if verdict.get("harness_sha256") != canary.harness_hash(root):
+            problems.append("the harness files changed since the epoch gate ran (harness_sha256 differs)")
+        need = sorted({c.seed for c in cells if c.seed not in epoch_gate.COMMITTED_SEEDS})
+        uncovered = [s for s in need if s not in verdict.get("seeds_checked", [])]
+        if uncovered:
+            problems.append(f"the verdict does not cover seed(s) {uncovered} that this account trains")
+        detail = "; ".join(problems) or f"epoch gate passed on this harness (new seeds covered: {need})"
+    except FileNotFoundError:
+        problems, detail = ["missing"], (f"no {epoch_gate.VERDICT_PATH}: the epoch-1 gate has not passed. Run "
+                                         f"notebooks/kaggle_canary.ipynb section 5c, copy its epoch_gate_verdict.json here and commit it")
+    except (ValueError, KeyError) as exc:
+        problems, detail = ["unreadable"], f"epoch-gate verdict unreadable: {exc!r}"
+    if not problems:
+        return Check("epoch_gate", "pass", detail)
+    return Check("epoch_gate", "skipped" if dry_run else "fail",
+                 (f"dry run; a real run would be REFUSED: " if dry_run else "") + detail)
+
+
+def check_quota(cfg: dict, results_root: str, account: str, dry_run: bool) -> Check:
+    """The weekly GPU-hour quota (src/cloud/quota.py): refuse a real run once the usable hours are spent."""
+    from src.cloud import quota
+    if quota.QuotaCfg.from_harness(cfg) is None:
+        return Check("quota", "skipped", "no weekly quota configured in config/harness.json")
+    try:
+        q = quota.Quota.from_harness(cfg, results_root, account)
+    except ValueError as exc:
+        return Check("quota", "fail", f"quota ledger unusable: {exc}")
+    used, c = q.used(), q.cfg
+    line = (f"{used:.2f} of {c.usable_hours:.2f} usable {c.unit.replace('_', '-')} used in the last "
+            f"{c.window_days:g} days (quota {c.weekly_hours:g}, reserve {c.reserve_fraction:.0%})")
+    if q.exhausted():
+        return Check("quota", "skipped" if dry_run else "fail",
+                     ("dry run; a real run would be REFUSED: " if dry_run else "") + "weekly quota spent: " + line)
+    if used >= c.soft_hours:
+        return Check("quota", "pass", "near the quota, only partial cells will resume: " + line)
+    return Check("quota", "pass", line)
+
+
 def check_cells(cells: list, results_root: str) -> tuple:
     """(Check, plan) where plan maps cell id -> 'run' | 'resume' | 'skip'."""
     plan, problems = {}, []
@@ -312,6 +366,7 @@ def run_preflight(account: str, waves_path: str, results_root: str, dry_run: boo
     plan = {}
     checks.append(check_gpus(cfg, dry_run, gpu_probe))
     checks.append(check_canary(root, dry_run, waves["wave"] if waves else None))
+    checks.append(check_epoch_gate(root, dry_run, waves["wave"] if waves else None, cells))
     checks.append(check_splits(root, cells if cells else None))
     checks.append(check_raw_dataset(root))
     checks.append(check_vendored(models, root))
@@ -321,6 +376,7 @@ def run_preflight(account: str, waves_path: str, results_root: str, dry_run: boo
     checks.append(cell_check)
     to_train = [c for c in cells if plan.get(c.id) in ("run", "resume")]
     checks.append(check_disk(to_train, results_root, cfg, free_bytes))
+    checks.append(check_quota(cfg, results_root, account, dry_run))
     return {"account": account, "dry_run": dry_run, "checks": checks, "plan": plan,
             "cells": cells, "ok": all(c.ok for c in checks)}
 

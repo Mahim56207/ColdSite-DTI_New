@@ -64,5 +64,49 @@ The canary re-scores no explanation and adds nothing to any family.
 2. Kaggle → Create → New Notebook → File → Import Notebook → **Upload** `notebooks/kaggle_canary.ipynb`.
 3. Accelerator **GPU T4 x2**, Internet **On**, Environment **Pin to original**.
 4. Run once with `DRY_RUN = True` (the shipped default): it prints `PRE-FLIGHT … RESULT: OK` and stops.
-5. Set `DRY_RUN = False`, **Save Version → Save & Run All (Commit)**. Expect ~1 h on one T4.
-6. The last cell prints the verdict; send it back. T11 stays blocked until it passes.
+5. Set `DRY_RUN = False`, **Save Version → Save & Run All (Commit)**. Expect about 1 h on one T4 for the canary, then about
+   5 minutes for the epoch-1 gate (section 5c of the notebook).
+6. The notebook prints two verdicts: `canary_verdict.json` (section 5b) and `epoch_gate_verdict.json` (section 5c). Send both back;
+   T11 stays blocked until both pass. Section 5c also prints the exact command that records this session's GPU time in the quota
+   ledger (`--add-external`), for the account that ran it.
+
+## The epoch-1 gate (`src/cloud/epoch_gate.py`; requested 2026-09-29)
+
+The canary retrains one committed cell to the end. The gate is the cheap companion that runs beside it: ONE epoch each of the canary
+cell (ColdSite-DTI, DAVIS cold_target) at the committed seed 1 and at the new wave seeds 4 and 5, all under the harness, then two rules
+fixed in the module before any number exists.
+
+| Gate | Rule |
+|---|---|
+| A, replay (seed 1) | epoch-1 train loss, validation loss and validation AUROC each within **one sample SD** (over the three committed seeds' epoch-1 values) of the committed seed-1 value; SD = 0 is inconclusive |
+| B, each new seed | every metric finite; every metric inside the committed seeds' **envelope widened by one SD**; **distinct**: initial-weight hash differs from every other run in the gate and the three metrics are not identical to another run's |
+
+The original request was that Seed 4's loss should match Seed 1's trajectory. That cannot be asked of a different seed (the paper's
+premise is that seeds differ), so the "matches seed 1" check is the replay of seed 1 itself (A), and the new seeds are checked for
+being plausible draws (B, inside the envelope) and for really being different (distinct: the MolTrans defect, three seeds that were
+one run, is exactly what fails it). The reference is `config/epoch1_reference.json` (epoch-1 values and SHA-256 of the committed
+history files). A pass, copied to `config/epoch_gate_verdict.json` and committed, is required by the pre-flight for every wave: for
+this cell, this harness (`harness_sha256`, `canary.HARNESS_FILES`) and every new seed (seed > 3) the account trains. The one-epoch
+command is `run_grid.train_command` plus `--stop-after-epoch 1`: no training code is touched.
+
+## The weekly quota (`src/cloud/quota.py`; requested 2026-09-29)
+
+Kaggle allows 30 GPU-hours per account per week (stated 2026-09-25). The harness keeps a ledger, `<results>/quota_ledger.json`
+(one interval per cell per GPU, a heartbeat every 30 s), that travels with the results zip and is merged back on `--restore-from`.
+
+| Setting (`config/harness.json`) | Value | Meaning |
+|---|---|---|
+| `weekly_quota_gpu_hours` | 30 | the stated quota |
+| `quota_unit` | `gpu_hours` | each GPU worker's wall-clock counts (a two-GPU hour is two GPU-hours). **The unit of a two-GPU session was not stated; this is the conservative reading.** `session_hours` counts a two-GPU session once |
+| `quota_reserve_fraction` | 0.15 | usable = 30 × 0.85 = **25.5** (the figure `docs/wave_plan.md` fits the plan against: 23.2 mean, 24.7 high case) |
+| `quota_soft_fraction` | 0.95 | past 95 % of usable no FRESH cell starts (a partial cell may resume). Not lower: the plan's high case must be able to finish |
+| `quota_window_days` | 7 | rolling window, which can only over-count against Kaggle's fixed week |
+| `quota_min_start_hours` | 0.5 | a cell with no measured epoch needs this many usable hours left |
+
+Behaviour: the pre-flight reports usage and refuses a real run once the usable hours are spent; the runner refuses a cell that cannot
+pay for one epoch; the trainers' stop time is `min(session deadline, the moment the usable hours run out with both GPUs busy)`, so they
+**pause between epochs** with the state saved and outcome `paused (quota)`; a trainer that overshoots gets SIGTERM (finish the epoch,
+save) and is killed only past the nominal 30 hours. A session that died leaves its interval closed at its last heartbeat, never later.
+Limits: it cannot see Kaggle's own counter, so usage outside the harness (the canary, anything run by hand) must be declared:
+`python -m src.cloud.quota --root results --account ACC1 --add-external 2.2 --external-id canary-2026-09-29 --note "canary + epoch gate"`
+(idempotent per id; `--status` prints the ledger; usage of one account is never merged into another's).

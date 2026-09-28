@@ -1240,3 +1240,35 @@ no reference list in the manuscript (citations are name + year, per CLAUDE.md §
 
 **Open:** main text is now 5,925 words, **6,364 with abstract + Key Points**, above the user-assumed 6,000 (was 5,939). The pre-existing
 untagged numbers in CAPTIONS.md's "not produced" notes (not part of the draft) were reworded to words.
+
+## T13 — Weekly quota manager and epoch-1 gate (user-requested, 2026-09-29; before the canary, nothing launched)
+
+**Why now.** The harness (T09) hash-gates the canary verdict on `canary.HARNESS_FILES`, so any harness change made after the canary
+would stale it. Both features touch the harness, so they go in before the canary runs. Wave A is still built-and-gated: no canary
+verdict, no seed 4/5 result anywhere.
+
+**Quota manager** (`src/cloud/quota.py`, wired into `runner.py`, `preflight.py`; keys in `config/harness.json`). Ledger of GPU intervals in
+`<results>/quota_ledger.json`, heartbeat 30 s, restored and merged between sessions, never across accounts; a dead session's interval is
+closed at its last heartbeat. Usable = 30 × (1 − 0.15) = **25.5 GPU-hours** per rolling 7 days (the figure the plan fits against: 23.2
+mean, 24.7 high case). No cell starts once usable is spent; no FRESH cell past 95 %; a cell needs the hours for one epoch; the trainers'
+stop time is `min(session deadline, usable exhausted with both GPUs busy)`, so cells pause between epochs (`paused (quota)`) and resume
+next week. **Declared assumption:** the unit of a two-GPU session was not stated, so `quota_unit = gpu_hours` (each GPU counts; the
+conservative reading). It cannot see Kaggle's own counter: outside usage is declared with `--add-external`.
+
+**Epoch-1 gate** (`src/cloud/epoch_gate.py`, `config/epoch1_reference.json`, pre-flight `check_epoch_gate`). Requested as "Seed 4's loss
+matches Seed 1's trajectory"; **changed on purpose**: a different seed must not match. Gate A replays seed 1 for one epoch (within one
+committed-seed SD on train loss, val loss, val AUROC); Gate B checks each new seed (finite, inside the committed envelope ± one SD,
+distinct initial-weight hash and metrics: the MolTrans-defect signature). One-epoch command = `run_grid.train_command` +
+`--stop-after-epoch 1`; **no training code changed**. Reference frozen from `~/ColdSite-results` with source hashes.
+
+**Files.** New `src/cloud/quota.py`, `src/cloud/epoch_gate.py`, `config/epoch1_reference.json`, `tests/test_cloud_quota_gate.py` (38 tests).
+Changed `runner.py`, `preflight.py`, `canary.py` (two files added to `HARNESS_FILES`), `config.py` (validates quota keys),
+`config/harness.json`, `notebooks/build_harness_notebook.py` (canary notebook gets section 5c), docs (`cloud_harness.md`,
+`wave_a_launch.md`, `wave_plan.md`).
+
+**Verification.** 38 new tests; 11 mutations of the guards (quota stop time ignored, soft limit off, spent quota allowed, window ignored,
+dead session left open, single-GPU burn rate, same-seed defect not detected, envelope not enforced, replay tolerance widened, stale
+verdict accepted, new-seed coverage not required) all caught. Full suite `1240 passed, 5 skipped` (was 1202). Dry-run pre-flight for
+ACC1–ACC3 now also reports `quota` and `epoch_gate` (the latter would REFUSE a real run: no verdict yet).
+
+**Open.** Run the canary and the epoch gate (`docs/wave_a_launch.md` steps 1-7); confirm the quota unit; ACC3 hours are still unmeasured.

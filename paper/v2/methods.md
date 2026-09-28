@@ -55,7 +55,7 @@ original DAVIS cells). <!-- src: src/cloud/recipes.py:65 = 15, 10, 100 -->
 DAVIS cells are trained in full precision. On KIBA, DeepDTA and HyperAttentionDTI use mixed precision;
 MolTrans stays in full precision because its hand-written layer normalisation underflows in half
 precision, and XAttn-Ref stays in full precision to remain comparable with its DAVIS cells
-(`notebooks/kaggle_coldsite_kiba.ipynb`, `AMP = False`).
+(the in-house model's KIBA notebook in the released code, `AMP = False`).
 DrugBAN is trained on DAVIS only. Training ran on Kaggle sessions with two NVIDIA T4 GPUs, one
 independent job per GPU.
 
@@ -107,6 +107,14 @@ additional subject; a model indistinguishable from it carries no explanatory con
 protein and averages over the split, preserving the split's own mix of lengths and site counts; the
 p-value uses the add-one estimator over 10,000 permutations, and the median over seeds is the cell's
 p-value. <!-- src: docs/PROTOCOL_AMENDMENT_v2.md:54 = 10000 -->
+The Holm survival counts reported here (1 of 20 DAVIS cells, 0 of 8 KIBA cells) therefore describe this
+median-over-seeds aggregation rule, not individual seeds. <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15 = 1, 20 --><!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14 = 0, 8 --> A Holm correction over the 48 per-seed exact
+tests instead retains 5 seed-runs, in four DAVIS cells, and over the 18 KIBA per-seed tests 3 seed-runs, in
+three cells, because single seeds can clear a corrected threshold that their median does not.
+<!-- src: results/certification/step4_holm.txt:34 = 48, 5 -->
+<!-- claim "four DAVIS cells": results/certification/step4_holm.txt:34 lists the cells (HyperAttentionDTI random and cold-drug, MolTrans cold-drug and cold-target) -->
+<!-- src: results/certification/step4_holm.txt:56 = 18, 3 -->
+<!-- claim "three cells": results/certification/step4_holm.txt:56 lists the cells (HyperAttentionDTI random, MolTrans random and cold-drug) -->
 Holm correction is applied once over each dataset's family: 20 DAVIS cells (four models and the uniform
 map at four levels) and 8 KIBA cells (three models and the uniform map at two levels). The smallest
 attainable p-value lies below the smallest Holm threshold used, 0.0025.
@@ -151,8 +159,14 @@ serves as a confirmatory comparison with the attention. <!-- src: src/evaluation
 For each model, dataset and level, each seed's precision@10 is tested alone at α = 0.05, uncorrected,
 as a single-seed report would be. A cell's seeds *disagree* if some but not all of them clear α, and
 its spread *exceeds its signal* if the range of the seeds' precision@10 is larger than the distance of
-their mean from chance (`src/evaluation/seed_agreement.py`).
+their mean from chance (`src/evaluation/seed_agreement.py`). The per-seed p-value used for the reported
+counts is exact: the null draws k random residues per target, so each target's hits are hypergeometric and
+independent, and the p-value is the upper tail of their convolution
+(`scripts/certification/step1_disagreement.py`). Seed variance is also tested directly, on the same
+per-target precision@10 of the three seeds: a Friedman test over targets and a permutation test that
+shuffles the seed labels within each target (20,000 permutations), each Holm-corrected over the 22 cells. <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
 <!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
+<!-- src: results/certification/step1_disagreement.txt:34 = 20000 -->
 
 Effect sizes carry 95% percentile intervals from a two-way bootstrap with 10,000 resamples: each
 resample draws the targets with replacement and, independently, the three seeds with replacement, and

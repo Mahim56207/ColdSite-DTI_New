@@ -117,6 +117,8 @@ primary readout, in 72% for HyperAttentionDTI's and in 0% for DrugBAN's.
 | r | no random-generator state or initial-weight hash recorded for the trained cells | seed distinctness not provable after the fact | recorded for all future cells by the cloud harness | open for existing cells — ledger T01 |
 | s | DAVIS cold-pair validation contains seen-by-sequence targets | checkpoint selection influenced by the leak | cannot be undone without retraining | open — `results/sequence_audit_davis.md` |
 | t | no conservation control for the pocket enrichment | enrichment may reflect conserved residues | none | open — amendment A1/A7 |
+| u | the sampled 1,000-permutation per-seed p put one seed on the α line | headline disagreement count 12 vs 11 | exact p recomputed independently; 11 reported, 12 disclosed | handled — `scripts/certification/step1b_exact_p_validation.py` | <!-- src: results/seed_agreement.md:34 = 12 --> <!-- src: results/certification/key_numbers.csv#name=seeds_disagree_exact->value = 11 --> <!-- src: results/certification/step1b_exact_p_validation.txt:19 = 1000 -->
+| v | the leak's all-rows AUROC effect is not distinguishable from zero with three seeds | a small, insignificant number quoted as a finding | not quoted; leaked-row effect reported with its test | handled — `results/certification/step3_leak.txt` |
 
 For (c), 47.9% of tokens change under the attended arm and 95.0% under an unmatched random arm, on
 20 DAVIS proteins. <!-- src: results/mask_comparability_davis.md:5 = 47.9 -->

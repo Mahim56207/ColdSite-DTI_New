@@ -42,19 +42,44 @@ only test targets whose sequence does not occur in training (Section 3.6). DrugB
 ## 3.2 Binding-site verdicts are not self-consistent across training seeds
 
 Scored against UniProt's annotated residues, the three seeds of a cell disagree about their own verdict
-(an uncorrected per-seed permutation test, as a single-run report would quote it) in 12 of 22
-model–dataset–level cells. Only 1 cell has all three seeds above the threshold; 9 have none (Figure 1).
-<!-- src: results/seed_agreement.md:34 = 12, 22, 1, 9 -->
+— they fall on different sides of the uncorrected α = 0.05 threshold of a per-seed permutation test, as a
+single-run report would quote it — in 11 of 22 model–dataset–level cells (8 of 16 on DAVIS, 3 of 6 on
+KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1).
+<!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
+<!-- src: results/certification/key_numbers.csv#name=seeds_disagree_exact->value = 11 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=cells_davis->value = 16 --> <!-- src: results/certification/key_numbers.csv#name=cells_kiba->value = 6 -->
+<!-- src: results/certification/key_numbers.csv#name=disagree_davis->value = 8 --> <!-- src: results/certification/key_numbers.csv#name=disagree_kiba->value = 3 -->
+<!-- src: results/certification/key_numbers.csv#name=all_three_pass->value = 1 --> <!-- src: results/certification/key_numbers.csv#name=none_pass->value = 10 -->
+The per-seed p-values are exact (the null is a sum of independent per-target hypergeometric draws and is
+convolved, so no sampling error enters). The first, 1,000-permutation run of the same test reported 12
+disagreeing cells: the difference is one seed, DAVIS MolTrans at the random level, whose sampled p of 0.049
+lies on the threshold against an exact 0.056. A count on a threshold is threshold-dependent, and it is 8 at
+α = 0.01 and 13 at α = 0.10; we report 11 as the exact-test value at the conventional α, not as a constant
+of the recipes.
+<!-- src: results/seed_agreement.md:34 = 12 -->
+<!-- src: results/certification/step1b_exact_p_validation.txt:19 = 1000 -->
+<!-- src: results/certification/key_numbers.csv#name=p_sampled_moltrans_random_seed1->value = 0.049 --> <!-- src: results/certification/key_numbers.csv#name=p_exact_moltrans_random_seed1->value = 0.056 -->
+<!-- src: results/certification/key_numbers.csv#name=disagree_at_alpha_0.010->value,low = 8, 0.01 -->
+<!-- src: results/certification/key_numbers.csv#name=disagree_at_alpha_0.100->value,low = 13, 0.10 -->
 The disagreement is not marginal. HyperAttentionDTI at DAVIS cold-drug places 0.025, 0.077 and 0.019 of
 its top-ten residues on annotated sites against a chance of 0.020; MolTrans at DAVIS cold-pair places
 0.004, 0.032 and 0.024 against 0.019, so one seed sits well below chance and another well above.
 <!-- src: results/seed_agreement.md:19 = 0.025, 0.077, 0.019, 0.020 -->
 <!-- src: results/seed_agreement.md:26 = 0.004, 0.032, 0.024, 0.019 -->
-A weaker, descriptive criterion — the range of the three seeds' precision@10 exceeding the cell's
-distance from chance — holds in 21 of 22 UniProt cells, and in fifteen of the twenty-two KLIFS-pocket
-cells. We do not use it as a headline: any cell whose mean sits near chance meets it almost by
-construction, so it overstates instability where there is little signal to be unstable about.
-<!-- src: results/seed_agreement.md:34 = 21, 22 -->
+In 21 of 22 UniProt cells, and in fifteen of the twenty-two KLIFS-pocket cells, the range of the three
+seeds' precision@10 exceeds the cell's distance from chance: seed-to-seed variation is larger than the
+signal being claimed, whichever way the threshold falls.
+<!-- src: results/certification/key_numbers.csv#name=spread_exceeds_distance->value = 21 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+Taken alone this descriptive criterion is weak, because a cell whose mean sits near chance meets it almost
+by construction; we therefore test seed variance directly. Friedman tests over targets and within-target
+seed-label permutation tests find significant differences between the three seeds in 13 and 10 of the 22
+cells before correction, and in 8 and 7 of 22 after Holm correction over the 22 cells.
+<!-- src: results/certification/key_numbers.csv#name=friedman_uncorrected->value = 13 --> <!-- src: results/certification/key_numbers.csv#name=friedman_holm->value = 8 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=permutation_uncorrected->value = 10 --> <!-- src: results/certification/key_numbers.csv#name=permutation_holm->value = 7 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+The variation is training, not scoring: collecting the explanations again from the same checkpoints moves
+precision@10 by a standard deviation of 0.0008 per seed, against a between-seed standard deviation of 0.0121,
+a ratio of 15.5.
+<!-- src: results/certification/key_numbers.csv#name=rerun_noise_sd->value = 0.0008 --> <!-- src: results/certification/key_numbers.csv#name=between_seed_sd->value = 0.0121 --> <!-- src: results/certification/key_numbers.csv#name=noise_ratio->value = 15.5 -->
 <!-- claim "fifteen of the twenty-two": results/effects_v2/seed_spread.csv, column spread_exceeds_signal_exact_chance True in 10 of 16 S3-D rows and 5 of 6 S3-K rows -->
 A bootstrap over targets, the usual way to attach an interval to such a score, does not see this
 variance: for HyperAttentionDTI at DAVIS cold-drug it gives an enrichment of 1.98 [1.81, 2.15] over
@@ -70,7 +95,8 @@ The positive control establishes the test's resolution: an explanation that rank
 the true sites first is detected at every DAVIS level, so a null below is a property of the maps and not
 of the test. <!-- src: results/positive_control_davis.md:11 = 0.02 -->
 With Holm correction over each dataset's declared family, 1 of 20 DAVIS cells supports residue-level
-recovery and 0 of 8 KIBA cells do.
+recovery and 0 of 8 KIBA cells do. These counts describe the median-over-seeds aggregation rule of
+Section 2.4, not individual seeds.
 <!-- src: results/analysis_davis_policyA/audit_davis_binary_10k_permutations.md:15 = 1, 20 -->
 <!-- src: results/analysis_kiba_policyA/audit_kiba_binary_10k_permutations.md:14 = 0, 8 -->
 The surviving cell is HyperAttentionDTI at the random level (precision@10 0.034 against a chance of
@@ -97,7 +123,7 @@ a threshold of 0.00625).
 
 Against the 85-residue KLIFS pocket, where chance is 0.137–0.143 on DAVIS, XAttn-Ref's map is
 enriched at every DAVIS level (1.54–2.10× chance) and HyperAttentionDTI's at three of the four
-(1.33–1.70×); at cold-drug HyperAttentionDTI's interval, 1.35 [0.94, 1.73], includes parity once seeds
+(1.33–1.70×, cold-pair only marginally); at cold-drug HyperAttentionDTI's interval, 1.35 [0.94, 1.73], includes parity once seeds
 are resampled. MolTrans's intervals include parity at every level (at cold-pair 0.99 [0.67, 1.32]), and
 DrugBAN's map sits on chance throughout (0.98–1.04×) (Figure 2).
 <!-- claim "every level / three of the four / MolTrans every level": S3-D rows of results/effects_v2_2d/enrichment.csv; enrichment_low > 1 at all four levels for coldsite_dti, at random, cold_target, cold_pair for hyperattentiondti; enrichment_low < 1 at all four levels for moltrans and drugban -->
@@ -184,10 +210,16 @@ targets are seen by sequence in training: 816 of 5984 test rows (13.6%).
 <!-- src: results/sequence_audit_davis.md:9 = 54 -->
 <!-- src: results/sequence_audit_davis.md:21 = 12, 88, 816, 5984, 13.6 -->
 Retraining the accuracy anchor three ways separates the leak from the loss of training rows (Figure 6).
-At cold-target the leak is worth 0.019 AUROC on all test rows and 0.116 on the leaked rows, while
-the smaller training set costs 0.020. At cold-pair the leak's effect is not positive (−0.021) and the
-smaller training set costs 0.062: removing leaked targets from a small split mostly removes data.
-<!-- src: results/leakage_retrain_davis.md:22 = 0.019, 0.116 -->
+The retrain was made on DeepDTA, the accuracy anchor, at the cold-target split, with three seeds. On the
+leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the
+strictly unleaked rows no inflation is detectable (−0.019, p = 0.31). Over all rows the net effect is
+0.019 with an interval, [−0.022, 0.059], that includes zero (p = 0.19), because the leaked rows are 13.6%
+of the test set; we therefore do not quote the all-rows figure as a finding. The smaller training set
+costs 0.020. At cold-pair the leak's effect is not positive (−0.021) and the smaller training set costs
+0.062: removing leaked targets from a small split mostly removes data.
+<!-- src: results/certification/key_numbers.csv#name=leak_ct_leaked_rows->value,low,high,p = 0.116, 0.098, 0.134, 0.0013 --> <!-- src: results/certification/step3_leak.txt:41 = 95 -->
+<!-- src: results/certification/key_numbers.csv#name=leak_ct_unleaked_rows->value,p = -0.019, 0.31 -->
+<!-- src: results/certification/key_numbers.csv#name=leak_ct_all_rows->value,low,high,p = 0.019, -0.022, 0.059, 0.19 -->
 <!-- src: results/leakage_retrain_davis.md:31 = 0.020 -->
 <!-- src: results/leakage_retrain_davis.md:50 = -0.021 -->
 <!-- src: results/leakage_retrain_davis.md:59 = 0.062 -->

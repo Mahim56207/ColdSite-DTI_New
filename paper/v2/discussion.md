@@ -9,15 +9,20 @@ no launch date. Every digit is source-tagged (`python scripts/check_number_prove
 
 The central result is that an attention-based binding-site verdict, as usually reported, is not a
 stable property of a model recipe. Three runs of the same recipe on the same split frequently disagree
-about whether the map finds annotated residues, and the disagreement is usually larger than the effect
-being claimed (Section 3.2). A single-run figure therefore samples one draw from a wide distribution,
+about whether the map finds annotated residues (11 of 22 cells), the disagreement is usually larger than the
+effect being claimed (21 of 22), and in 7 to 8 of 22 cells the differences between seeds are significant
+after correction (Section 3.2).
+<!-- src: results/certification/key_numbers.csv#name=seeds_disagree_exact->value = 11 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=spread_exceeds_distance->value = 21 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=friedman_holm->value = 8 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=permutation_holm->value = 7 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 --> A single-run figure therefore samples one draw from a wide distribution,
 and an interval computed over targets alone does not reflect it; resampling seeds as well does. Once chance, ceiling, a
 uniform floor, a positive control and family-wise correction are applied, residue-level recovery
 survives in one DAVIS cell and in no KIBA cell (Section 3.3).
 
 What does replicate is coarser: the attention of three of the four models is load-bearing in every
 seed, and XAttn-Ref's map concentrates in the kinase ATP pocket at every DAVIS level, HyperAttentionDTI's
-at three of four. DrugBAN is the exception on both counts — its map is neither enriched in the pocket nor
+at three of four (cold-pair only marginally). DrugBAN is the exception on both counts — its map is neither enriched in the pocket nor
 consistently load-bearing, its masking effect changing sign between seeds (Section 3.4).
 In the vocabulary of Jacovi & Goldberg (2020), the other three models are faithful without being
 plausible at the residue level: their predictions depend on the residues they attend to, but those residues are rarely

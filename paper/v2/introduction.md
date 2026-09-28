@@ -51,16 +51,23 @@ in prediction when the attended residues are masked, against a random-masking co
 in the space each model reads. <!-- src: src/data/klifs_pocket.py:54 = 85 -->
 
 **Seed instability is the headline.** Across the 22 model–dataset–level cells for which three seeds
-were scored against UniProt residues, the seeds disagree about their own verdict in 12: some seeds of
-the same recipe pass an uncorrected permutation test and others do not.
-<!-- src: results/seed_agreement.md:34 = 12, 22 -->
+were scored against UniProt residues, the seeds disagree about their own verdict in 11: they fall on
+different sides of the uncorrected α = 0.05 threshold, so some seeds of the same recipe pass an exact
+permutation test and others do not. In 21 of the 22 cells the range of the three seeds' precision@10
+exceeds the cell's distance from chance, and a direct test of seed variance (Friedman and permutation
+tests) is significant in 7 to 8 of the 22 cells after Holm correction.
+<!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
+<!-- src: results/certification/key_numbers.csv#name=seeds_disagree_exact->value = 11 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=spread_exceeds_distance->value = 21 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=friedman_holm->value = 8 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
+<!-- src: results/certification/key_numbers.csv#name=permutation_holm->value = 7 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
 HyperAttentionDTI on DAVIS's unseen-drug split illustrates the problem: its three seeds place 0.025,
 0.077 and 0.019 of their top-ten residues on annotated sites against a chance of 0.020; two of the
-runs clear an uncorrected permutation test and the third does not, and the best run is four times the
+runs clear an uncorrected permutation test and the third does not, and the best run is about four times the
 worst.
 <!-- src: results/seed_agreement.md:19 = 0.025, 0.077, 0.019, 0.020 -->
 <!-- claim "two of the runs clear an uncorrected test": results/seed_agreement.md:19 column "seeds above alpha" = `**.` -->
-<!-- "four times": 0.077 / 0.019 = 4.05 (spelled as a word, not checked by the tool) -->
+<!-- "about four times": 0.077 / 0.019 = 4.05 from the rounded values; exact 0.0768 / 0.0195 = 3.94 (spelled as a word, not checked by the tool) -->
 A bootstrap over targets alone does not see this variance: it gives the same cell an enrichment over
 chance of 1.98 [1.81, 2.15], entirely above parity. Resampling the seeds as well widens the interval
 to [0.94, 3.65], which includes parity, in agreement with the family-wise test, which the cell fails.
@@ -99,7 +106,7 @@ level for the first seed, 0.0128 and 0.0027 for the third.
 <!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:6 = 0.0128 -->
 <!-- src: results/analysis_davis_policyA/faithfulness_drugban_davis_seed3.md:8 = 0.0027 -->
 XAttn-Ref's map is enriched in the ATP pocket at every DAVIS level (1.54–2.10× chance) and
-HyperAttentionDTI's at three of the four (1.33–1.70×; at the unseen-drug level its interval includes
+HyperAttentionDTI's at three of the four (1.33–1.70×, cold-pair only marginally; at the unseen-drug level its interval includes
 parity once seeds are resampled), while DrugBAN's is not (0.98–1.04×).
 <!-- claim "every level / three of the four": S3-D rows of results/effects_v2_2d/enrichment.csv, enrichment_low > 1 at all four levels for coldsite_dti; for hyperattentiondti at random, cold_target, cold_pair, not cold_drug --> Kinase ATP pockets are conserved,
 and no conservation control was run, so this enrichment is a coarse statement about the domain, not
@@ -129,9 +136,11 @@ the wild-type sequence, so 12 of the 88 "unseen" cold-target test targets are se
 training — 816 of 5984 test rows (13.6%).
 <!-- src: results/sequence_audit_davis.md:9 = 54 -->
 <!-- src: results/sequence_audit_davis.md:21 = 12, 88, 816, 5984, 13.6 -->
-Retraining the accuracy anchor without the leak, at matched training size, attributes 0.019 of its
-cold-target AUROC to the leak on all rows and 0.116 on the leaked rows.
-<!-- src: results/leakage_retrain_davis.md:22 = 0.019, 0.116 -->
+Retraining the accuracy anchor (DeepDTA, at the cold-target split) without the leak, at matched
+training size, shows that on the leaked rows the sequence match inflates AUROC by 0.116 (p = 0.0013);
+on the strictly unleaked rows no inflation is detectable (−0.019, p = 0.31).
+<!-- src: results/certification/key_numbers.csv#name=leak_ct_leaked_rows->value,p = 0.116, 0.0013 -->
+<!-- src: results/certification/key_numbers.csv#name=leak_ct_unleaked_rows->value,p = -0.019, 0.31 -->
 
 As a confirmatory check, integrated gradients on the same checkpoints localise better than the
 attention in some cells — for XAttn-Ref on DAVIS's unseen-drug split, 3.16 [2.40, 4.40]× chance in the

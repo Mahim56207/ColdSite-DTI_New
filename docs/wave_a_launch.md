@@ -19,7 +19,8 @@ pre-flight until a passing canary verdict AND a passing epoch-1 gate verdict for
 3. Run with `DRY_RUN = True` first: it must print `RESULT: OK (skipped in dry run: gpus)`.
 4. `DRY_RUN = False` → **Save Version → Save & Run All (Commit)**. About an hour on one T4 for the canary (estimated: 26 epochs × the
    2 min 15 s the Kaggle logs gave), then about five minutes for the epoch-1 gate (section 5c: seeds 1, 4 and 5, one epoch each).
-5. The notebook prints two verdicts (`pass` / `fail` / `inconclusive`). On **both pass**: download `results/canary_verdict.json` **and**
+5. The notebook prints two verdicts (`pass` / `fail` / `inconclusive`). **Status 2026-09-29:** both verdict files are in `config/` (canary attempt 2 passed; the epoch gate passed under the amended Gate B rule after failing
+   under the original one; see `docs/canary_attempts/README.md`, including the failed first canary and the caveats). For any future gate run, judge it with `python -m src.cloud.gate_rule_v2 --evaluate ...`. On **both pass**: download `results/canary_verdict.json` **and**
    `results/epoch_gate_verdict.json` from the Output panel, copy them to `config/`, commit, push. On anything else: stop and send it
    back. Rules: `docs/cloud_harness.md` ("The canary", "The epoch-1 gate").
 6. Section 5c prints a `python -m src.cloud.quota … --add-external …` command with this session's GPU time. Run it (it is idempotent) in

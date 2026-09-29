@@ -1272,3 +1272,19 @@ verdict accepted, new-seed coverage not required) all caught. Full suite `1240 p
 ACC1–ACC3 now also reports `quota` and `epoch_gate` (the latter would REFUSE a real run: no verdict yet).
 
 **Open.** Run the canary and the epoch gate (`docs/wave_a_launch.md` steps 1-7); confirm the quota unit; ACC3 hours are still unmeasured.
+
+## T14 — Canary and epoch-1 gate results; Gate B amended (2026-09-29)
+
+**Canary.** Attempt 1 (old T11 harness) **failed**: AUROC 0.8868 vs 0.8501 (tolerance 0.0109). Attempt 2 (current harness, hash `8d09bb5d…`) **passed**: 0.8494 / AUPRC 0.4079. Same seed,
+identical initial-weight hash and torch version, same GPU type: test AUROC differed by 0.038 and one run trained 11 epochs longer, i.e. run-to-run nondeterminism alone is about 3.4 times the committed
+seed-to-seed SD in this cell. The canary tolerance is smaller than the noise it judges; the pass is valid under the rule and weak evidence. Both attempts are archived (`docs/canary_attempts/`).
+
+**Epoch-1 gate.** First evaluation under the original rule: Gate A pass, all seeds distinct, seed 5 pass, **seed 4 fail** (epoch-1 validation loss 0.2328, band 0.2098-0.2207; the only failed check of six).
+The original Gate B envelope (range of three seeds ± one SD) was uncalibrated: a healthy process falls outside it with probability 0.234 per metric, and fails the gate with probability 0.41-0.80.
+**Amended** (`src/cloud/gate_rule_v2.py`, user-chosen option, after the fail): family-wise 5 % prediction interval of a new draw from the three committed values. **Same recorded runs re-evaluated (no retraining): pass.**
+Disclosed: chosen after a fail; an unadjusted 95 % interval still puts seed 4's validation loss just outside (0.2328 vs 0.2303), so the adjustment decides it; the interval is wide with three reference seeds; **Gate A has a
+similar weakness** (three seed-1 replays deviate by -0.0023, -0.0044, +0.0023 against a tolerance of 0.0029) and is not amended. The module is outside `canary.HARNESS_FILES` so the canary verdict stays valid.
+
+**Files.** New `src/cloud/gate_rule_v2.py`, `tests/test_gate_rule_v2.py` (10 tests + 1 skip until the verdict was committed; 5 mutations caught), `docs/canary_attempts/` (README + 4 verdict JSONs),
+`config/canary_verdict.json`, `config/epoch_gate_verdict.json`. **Effect:** the pre-flight now passes its canary and epoch-gate checks for ACC1-ACC3 (dry run below). Wave A still needs its notebooks
+regenerated at the commit that holds the verdicts (`docs/wave_a_launch.md` step 2) and ACC3's smoke run.

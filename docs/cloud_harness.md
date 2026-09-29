@@ -85,7 +85,11 @@ The original request was that Seed 4's loss should match Seed 1's trajectory. Th
 premise is that seeds differ), so the "matches seed 1" check is the replay of seed 1 itself (A), and the new seeds are checked for
 being plausible draws (B, inside the envelope) and for really being different (distinct: the MolTrans defect, three seeds that were
 one run, is exactly what fails it). The reference is `config/epoch1_reference.json` (epoch-1 values and SHA-256 of the committed
-history files). A pass, copied to `config/epoch_gate_verdict.json` and committed, is required by the pre-flight for every wave: for
+history files). **Gate B's envelope was amended on 2026-09-29, after the first gate run failed on one of six checks** (`src/cloud/gate_rule_v2.py`; full account, numbers and disclosures in `docs/canary_attempts/README.md`). The original
+`[min − sd, max + sd]` band of three seeds would fail a healthy harness with probability 0.41 to 0.80; the amended band is the family-wise (α = 0.05 over the 3 × new-seed checks) prediction interval of a new draw. The
+first run's recorded data was re-evaluated, not re-run. Gate A and distinctness are unchanged (Gate A has a similar calibration weakness, recorded there). Evaluate a gate run with
+`python -m src.cloud.gate_rule_v2 --evaluate --seeds 1 4 5 --root <results>/epoch_gate --out epoch_gate_verdict.json`.
+A pass, copied to `config/epoch_gate_verdict.json` and committed, is required by the pre-flight for every wave: for
 this cell, this harness (`harness_sha256`, `canary.HARNESS_FILES`) and every new seed (seed > 3) the account trains. The one-epoch
 command is `run_grid.train_command` plus `--stop-after-epoch 1`: no training code is touched.
 

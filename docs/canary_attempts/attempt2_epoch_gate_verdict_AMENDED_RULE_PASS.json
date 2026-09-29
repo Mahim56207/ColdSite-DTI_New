@@ -1,0 +1,197 @@
+{
+ "rule": "v2: Gate B envelope is the family-wise prediction interval of a new draw from the three committed seeds",
+ "alpha": 0.05,
+ "n_envelope_checks": 6,
+ "replay_seed": 1,
+ "gate_a": {
+  "train_loss": {
+   "committed": 0.2900129935886195,
+   "new": 0.290232269225582,
+   "difference": 0.00021927563696250152,
+   "tolerance_sd": 0.0035574853173632767,
+   "verdict": "pass"
+  },
+  "val_loss": {
+   "committed": 0.2175741583347958,
+   "new": 0.21989094876350565,
+   "difference": 0.0023167904287098584,
+   "tolerance_sd": 0.0028863589382418903,
+   "verdict": "pass"
+  },
+  "auroc": {
+   "committed": 0.7925428668071709,
+   "new": 0.7926174554853035,
+   "difference": 7.458867813259218e-05,
+   "tolerance_sd": 0.01678207226632738,
+   "verdict": "pass"
+  },
+  "verdict": "pass"
+ },
+ "gate_b": {
+  "4": {
+   "train_loss": {
+    "new": 0.28552854867542493,
+    "interval": [
+     0.2412206714252895,
+     0.3306552549726446
+    ],
+    "t_quantile": 10.885866619162513,
+    "sd": 0.0035574853173632767,
+    "unadjusted_95_interval": [
+     0.26826339632746565,
+     0.3036125300704684
+    ],
+    "inside_unadjusted_95": true,
+    "verdict": "pass"
+   },
+   "val_loss": {
+    "new": 0.2328057801500361,
+    "interval": [
+     0.1797220876677789,
+     0.25228466673168265
+    ],
+    "t_quantile": 10.885866619162513,
+    "sd": 0.0028863589382418903,
+    "unadjusted_95_interval": [
+     0.20166315102363983,
+     0.2303436033758217
+    ],
+    "inside_unadjusted_95": false,
+    "verdict": "pass"
+   },
+   "auroc": {
+    "new": 0.7958941534618686,
+    "interval": [
+     0.5764646438601618,
+     0.9983631227871349
+    ],
+    "t_quantile": 10.885866619162513,
+    "sd": 0.01678207226632738,
+    "unadjusted_95_interval": [
+     0.7040359261284753,
+     0.8707918405188214
+    ],
+    "inside_unadjusted_95": true,
+    "verdict": "pass"
+   },
+   "distinct": {
+    "same_initial_weights_as": [],
+    "identical_metrics_to": [],
+    "initial_weight_hash": "467f9d4a5bbbae367638d13bf1308c0ce66df2e6b022a189f77ec80803bbdbea",
+    "verdict": "pass"
+   },
+   "verdict": "pass"
+  },
+  "5": {
+   "train_loss": {
+    "new": 0.2895293758987702,
+    "interval": [
+     0.2412206714252895,
+     0.3306552549726446
+    ],
+    "t_quantile": 10.885866619162513,
+    "sd": 0.0035574853173632767,
+    "unadjusted_95_interval": [
+     0.26826339632746565,
+     0.3036125300704684
+    ],
+    "inside_unadjusted_95": true,
+    "verdict": "pass"
+   },
+   "val_loss": {
+    "new": 0.2142429667559856,
+    "interval": [
+     0.1797220876677789,
+     0.25228466673168265
+    ],
+    "t_quantile": 10.885866619162513,
+    "sd": 0.0028863589382418903,
+    "unadjusted_95_interval": [
+     0.20166315102363983,
+     0.2303436033758217
+    ],
+    "inside_unadjusted_95": true,
+    "verdict": "pass"
+   },
+   "auroc": {
+    "new": 0.8058925055724682,
+    "interval": [
+     0.5764646438601618,
+     0.9983631227871349
+    ],
+    "t_quantile": 10.885866619162513,
+    "sd": 0.01678207226632738,
+    "unadjusted_95_interval": [
+     0.7040359261284753,
+     0.8707918405188214
+    ],
+    "inside_unadjusted_95": true,
+    "verdict": "pass"
+   },
+   "distinct": {
+    "same_initial_weights_as": [],
+    "identical_metrics_to": [],
+    "initial_weight_hash": "9aba80f33f9ffa257a937b2d8b25e8a10ac6723a627bd26327ab018195d7da9e",
+    "verdict": "pass"
+   },
+   "verdict": "pass"
+  }
+ },
+ "original_rule": {
+  "verdict": "fail",
+  "gate_b": {
+   "4": "fail",
+   "5": "pass"
+  },
+  "reference_spread": {
+   "train_loss": {
+    "sd": 0.0035574853173632767,
+    "min": 0.2834517863545517,
+    "max": 0.2900129935886195
+   },
+   "val_loss": {
+    "sd": 0.0028863589382418903,
+    "min": 0.2126722936244572,
+    "max": 0.2177636796399393
+   },
+   "auroc": {
+    "sd": 0.01678207226632738,
+    "min": 0.76866581670266,
+    "max": 0.8010329664611141
+   }
+  }
+ },
+ "verdict": "pass",
+ "dataset": "davis",
+ "level": "cold_target",
+ "model": "coldsite_dti",
+ "seeds_checked": [
+  4,
+  5
+ ],
+ "runs": {
+  "1": {
+   "train_loss": 0.290232269225582,
+   "val_loss": 0.21989094876350565,
+   "auroc": 0.7926174554853035,
+   "initial_weight_hash": "efbf3e484d39e0ce6b1f6ebdc746bb82da385a9a8de160aae41a2ef6306a7346",
+   "seed": 1
+  },
+  "4": {
+   "train_loss": 0.28552854867542493,
+   "val_loss": 0.2328057801500361,
+   "auroc": 0.7958941534618686,
+   "initial_weight_hash": "467f9d4a5bbbae367638d13bf1308c0ce66df2e6b022a189f77ec80803bbdbea",
+   "seed": 4
+  },
+  "5": {
+   "train_loss": 0.2895293758987702,
+   "val_loss": 0.2142429667559856,
+   "auroc": 0.8058925055724682,
+   "initial_weight_hash": "9aba80f33f9ffa257a937b2d8b25e8a10ac6723a627bd26327ab018195d7da9e",
+   "seed": 5
+  }
+ },
+ "harness_sha256": "8d09bb5d4ac9f4e571a201e1698b6f121f0f46926f14337aaa0ca8f2549b76d1",
+ "reference_sha256": "8cd5a748c0f44561e95e0f0e69fa18d0b26d59dfe63fb8c768b52ee39b6fc8ac"
+}

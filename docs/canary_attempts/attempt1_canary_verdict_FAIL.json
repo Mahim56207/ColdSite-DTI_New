@@ -1,0 +1,24 @@
+{
+ "seed": 1,
+ "metrics": {
+  "auroc": {
+   "committed": 0.8501119700273534,
+   "new": 0.886843945151218,
+   "difference": 0.03673197512386461,
+   "tolerance_sd": 0.010945833406223593,
+   "verdict": "fail"
+  },
+  "auprc": {
+   "committed": 0.41513364853609214,
+   "new": 0.5258927781629491,
+   "difference": 0.11075912962685697,
+   "tolerance_sd": 0.04657183264464677,
+   "verdict": "fail"
+  }
+ },
+ "verdict": "fail",
+ "dataset": "davis",
+ "level": "cold_target",
+ "model": "coldsite_dti",
+ "harness_sha256": "599bee6a839acd952437fbed49cff0cc24da7574931b7dc3f43acf169dd0d922"
+}

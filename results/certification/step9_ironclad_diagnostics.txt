@@ -1,0 +1,154 @@
+torch 2.13.0 | device mps | mps True | quick False
+
+================================================================================================================
+D1a. WEIGHT SPACE: seed-to-seed similarity of the trained weights (and of two untrained networks)
+================================================================================================================
+pair                                 global cos  rel. distance  median tensor cos  max |tensor cos|
+trained seeds 1 vs 2, random                 0.0037          1.384             0.0090            0.0981
+trained seeds 1 vs 3, random                 0.0180          1.354             0.0129            0.0982
+trained seeds 2 vs 3, random                 0.0031          1.391             0.0104            0.0957
+trained seeds 1 vs 2, cold_drug              0.0011          1.400             0.0046            0.0951
+trained seeds 1 vs 3, cold_drug              0.0190          1.400             0.0077            0.0939
+trained seeds 2 vs 3, cold_drug              0.0026          1.425             0.0080            0.0974
+trained seeds 1 vs 2, cold_target            0.0036          1.421             0.0043            0.1033
+trained seeds 1 vs 3, cold_target            0.0197          1.387             0.0162            0.0951
+trained seeds 2 vs 3, cold_target            0.0024          1.390            -0.0007            0.1034
+trained seeds 1 vs 2, cold_pair              0.0004          1.401             0.0042            0.0895
+trained seeds 1 vs 3, cold_pair              0.0184          1.395             0.0086            0.0956
+trained seeds 2 vs 3, cold_pair              0.0011          1.421             0.0093            0.0904
+UNTRAINED inits 101 vs 102                    -0.0040          1.418            -0.0010            0.0492
+UNTRAINED inits 101 vs 103                     0.0032          1.422            -0.0005            0.0178
+UNTRAINED inits 102 vs 103                     0.0034          1.421            -0.0008            0.0114
+-> trained pairs: global cosine 0.0004 to 0.0197; relative distance 1.35 to 1.43. Two untrained inits: cosine -0.0040 to 0.0034.
+   Independently initialised networks are FAR apart in weight space (as far as two untrained ones): the premise 'the seeds learned nearly identical weights' is false here.
+
+Permutation-tolerant comparisons (a hidden unit's index means nothing, so raw cosine can hide a shared solution):
+pair                                  conv1 filters: best-match cos   residue-embedding geometry (RSA rho)
+trained seeds 1 vs 2, random                                      0.124                                 -0.030
+trained seeds 1 vs 3, random                                      0.121                                  0.068
+trained seeds 2 vs 3, random                                      0.121                                  0.050
+trained seeds 1 vs 2, cold_drug                                   0.123                                 -0.036
+trained seeds 1 vs 3, cold_drug                                   0.121                                  0.070
+trained seeds 2 vs 3, cold_drug                                   0.120                                  0.055
+trained seeds 1 vs 2, cold_target                                 0.112                                 -0.030
+trained seeds 1 vs 3, cold_target                                 0.121                                  0.074
+trained seeds 2 vs 3, cold_target                                 0.125                                  0.045
+trained seeds 1 vs 2, cold_pair                                   0.119                                 -0.035
+trained seeds 1 vs 3, cold_pair                                   0.122                                  0.075
+trained seeds 2 vs 3, cold_pair                                   0.127                                  0.053
+UNTRAINED inits 101 vs 102                                          0.121                                  0.025
+UNTRAINED inits 101 vs 103                                          0.130                                  0.066
+UNTRAINED inits 102 vs 103                                          0.122                                 -0.056
+
+================================================================================================================
+D1b. FUNCTION SPACE: do the seeds make the same predictions? (saved logits, every test row; the three seed pairs)
+================================================================================================================
+model                level                           Pearson r                 Spearman rho
+hyperattentiondti    random                  0.910 0.897 0.923            0.916 0.901 0.922
+hyperattentiondti    cold_drug               0.864 0.810 0.751            0.853 0.823 0.772
+hyperattentiondti    cold_target             0.922 0.921 0.918            0.926 0.924 0.919
+hyperattentiondti    cold_pair               0.734 0.636 0.814            0.719 0.626 0.714
+moltrans             random                  0.812 0.758 0.787            0.737 0.637 0.678
+moltrans             cold_drug               0.707 0.687 0.651            0.632 0.634 0.538
+moltrans             cold_target             0.750 0.762 0.761            0.622 0.646 0.662
+moltrans             cold_pair               0.590 0.553 0.515            0.397 0.490 0.362
+coldsite_dti         random                  0.812 0.818 0.837            0.840 0.825 0.851
+coldsite_dti         cold_drug               0.610 0.680 0.793            0.605 0.673 0.770
+coldsite_dti         cold_target             0.746 0.797 0.840            0.741 0.789 0.837
+coldsite_dti         cold_pair               0.380 0.399 0.608            0.337 0.391 0.602
+deepdta              random                  0.841 0.822 0.836            0.842 0.818 0.837
+deepdta              cold_drug               0.590 0.678 0.707            0.570 0.664 0.700
+deepdta              cold_target             0.831 0.915 0.851            0.840 0.907 0.853
+deepdta              cold_pair               0.711 0.595 0.697            0.680 0.552 0.647
+
+================================================================================================================
+D1c. ATTENTION SPACE: do the seeds attend to the same residues? (live GPU forward passes, every scored protein)
+================================================================================================================
+  random: 349 proteins x 3 seeds done (40 s elapsed)
+  cold_drug: 349 proteins x 3 seeds done (77 s elapsed)
+  cold_target: 68 proteins x 3 seeds done (84 s elapsed)
+  cold_pair: 72 proteins x 3 seeds done (91 s elapsed)
+
+level           n  pair Spearman rho over residues                   top-10 overlap   JS divergence (bits)
+random        349 1 v 2 0.005 (median 0.001, IQR -0.026 to 0.035)             0.020               2.03e-06
+random        349 1 v 3 0.028 (median 0.023, IQR -0.003 to 0.056)             0.043               1.63e-06
+random        349 2 v 3 0.010 (median 0.008, IQR -0.021 to 0.039)             0.021               6.94e-07
+cold_drug     349 1 v 2 0.024 (median 0.024, IQR -0.007 to 0.051)             0.015               2.65e-07
+cold_drug     349 1 v 3 0.020 (median 0.022, IQR -0.010 to 0.048)             0.019               3.32e-07
+cold_drug     349 2 v 3 0.037 (median 0.033, IQR 0.003 to 0.063)              0.021               2.35e-07
+cold_target    68 1 v 2 0.015 (median 0.011, IQR -0.016 to 0.039)             0.012               2.28e-07
+cold_target    68 1 v 3 0.055 (median 0.047, IQR 0.014 to 0.077)              0.007               1.70e-07
+cold_target    68 2 v 3 0.010 (median 0.007, IQR -0.026 to 0.032)             0.009               1.40e-07
+cold_pair      72 1 v 2 0.028 (median 0.024, IQR -0.006 to 0.057)             0.019               1.06e-07
+cold_pair      72 1 v 3 -0.003 (median -0.005, IQR -0.033 to 0.025)           0.022               1.42e-07
+cold_pair      72 2 v 3 -0.003 (median -0.002, IQR -0.030 to 0.019)           0.015               9.87e-08
+
+REFERENCES (level 'random'):
+  same seed, same protein, DIFFERENT DRUG  (1047 comparisons): rho 0.980 (median 1.000, IQR 0.967 to 1.000) | top-10 0.969 | JS 7.01e-10
+  two UNTRAINED networks (3 pairs x 349 proteins): rho 0.008 (median 0.005, IQR -0.047 to 0.061) | top-10 0.018 | JS 4.92e-08
+  chance top-10 overlap of two random maps: 0.018 | JS between a trained map and the UNIFORM map: 1.51e-06 bits (maps are nearly flat: read JS relative to that, and prefer the rank statistics)
+  dynamic range of the trained attention map (max - min of the channel-mean gate, mean over proteins) per seed: 0.0241, 0.0134, 0.0095 (the gate sits near 0.5)
+  per-protein mean cross-seed rho, level random: percentiles 5/25/50/75/95 = [-0.033 -0.007  0.011  0.032  0.076]; share of proteins with rho < 0.5: 1.00
+
+SIDE BY SIDE (HyperAttentionDTI, random level): weight cosine 0.008 | prediction Spearman 0.913 | attention Spearman 0.014 (same seed, other drug: 0.980)
+
+================================================================================================================
+D1d. MECHANISM: how sparse are the trained protein features, and do the seeds use the same positions?
+================================================================================================================
+level        seed    share of valid positions with any nonzero feature  channels dead everywhere (of 160)  top-10 attended that are active  rho(attention, feature norm)
+random          1                                                0.117                              115.9                            0.999                        -0.196
+random          2                                                0.062                              136.4                            0.972                        -0.122
+random          3                                                0.128                              120.2                            0.966                        -0.561
+cold_drug       1                                                0.184                              117.3                            1.000                        -0.252
+cold_drug       2                                                0.072                              132.0                            0.802                        -0.567
+cold_drug       3                                                0.997                              116.9                            1.000                        -0.835
+cold_target     1                                                0.121                              117.8                            0.984                        -0.454
+cold_target     2                                                0.094                              126.6                            1.000                        -0.064
+cold_target     3                                                0.082                              130.6                            0.988                        -0.229
+cold_pair       1                                                0.222                              119.6                            1.000                        -0.372
+cold_pair       2                                                0.159                              120.2                            0.999                        -0.464
+cold_pair       3                                                0.152                              132.8                            0.953                        -0.689
+UNTRAINED networks: share of positions with any nonzero feature 1.000; channels dead everywhere 0.3
+
+Do different seeds activate the same positions? (level random; Jaccard of the active-position sets, vs what two independent random sets of the same densities would give)
+  seeds 1 vs 2: observed Jaccard 0.066  | expected for independent random sets 0.042  | attention rho over ALL positions 0.005, over positions active in BOTH seeds -0.023 (median 0.033, IQR -0.230 to 0.202)
+  seeds 1 vs 3: observed Jaccard 0.084  | expected for independent random sets 0.065  | attention rho over ALL positions 0.028, over positions active in BOTH seeds 0.243 (median 0.245, IQR 0.066 to 0.450)
+  seeds 2 vs 3: observed Jaccard 0.065  | expected for independent random sets 0.043  | attention rho over ALL positions 0.010, over positions active in BOTH seeds 0.042 (median 0.091, IQR -0.187 to 0.253)
+
+================================================================================================================
+D2. LOCAL CONDITIONING OF THE ATTENTION GATE (exact 160 x 160 Jacobian per protein position, float64)
+================================================================================================================
+Gate re-derivation matches the real forward pass at every sampled position (|diff| < 1e-4, float32 features). 50 proteins x up to 8 positions per category.
+  trained   1: rank<160 in 100% of Jacobians (median rank 139); cond over range, ACTIVE positions: median 1.94e+04 (IQR 1.44e+04 to 2.93e+04, max 5.44e+04); INACTIVE: median 2.01e+04 (IQR 1.56e+04 to 3.1e+04, max 5.96e+04)
+                readout elasticity at ACTIVE positions median 0.0177 (IQR 0.0149 to 0.0243, max 0.0873); at INACTIVE positions (features are zero): median 0 (IQR 0 to 0, max 0)
+  trained   2: rank<160 in 100% of Jacobians (median rank 137); cond over range, ACTIVE positions: median 8.03e+03 (IQR 6.52e+03 to 1.21e+04, max 1.76e+04); INACTIVE: median 8.08e+03 (IQR 6.97e+03 to 1.39e+04, max 2.04e+04)
+                readout elasticity at ACTIVE positions median 0.0105 (IQR 0.00669 to 0.0142, max 0.03); at INACTIVE positions (features are zero): median 0 (IQR 0 to 0, max 0)
+  trained   3: rank<160 in 100% of Jacobians (median rank 141); cond over range, ACTIVE positions: median 1.65e+04 (IQR 1.16e+04 to 1.93e+04, max 4.65e+04); INACTIVE: median 1.66e+04 (IQR 1.25e+04 to 1.87e+04, max 4.86e+04)
+                readout elasticity at ACTIVE positions median 0.01 (IQR 0.00692 to 0.0127, max 0.0344); at INACTIVE positions (features are zero): median 0 (IQR 0 to 0, max 0)
+  untrained 101: rank<160 in 100% of Jacobians (median rank 120); cond over range, ACTIVE positions: median 968 (IQR 906 to 1.03e+03, max 1.31e+03); INACTIVE: n/a
+  untrained 102: rank<160 in 100% of Jacobians (median rank 119); cond over range, ACTIVE positions: median 1.04e+03 (IQR 961 to 1.1e+03, max 1.32e+03); INACTIVE: n/a
+  untrained 103: rank<160 in 100% of Jacobians (median rank 108); cond over range, ACTIVE positions: median 660 (IQR 627 to 709, max 848); INACTIVE: n/a
+  weight matrix attention_layer: cond trained 23079, 933, 8089 | untrained 406, 620, 2712   (orthogonal = 1)
+  weight matrix protein_attention_layer: cond trained 1627, 1011, 1682 | untrained 1056, 165, 379   (orthogonal = 1)
+
+Does local conditioning explain WHICH proteins the seeds disagree on? Spearman across 50 proteins, seed-1 median log10 condition number at active positions vs cross-seed attention rho: -0.046 (p = 0.75)
+Reading: every Jacobian is rank-deficient (dead hidden channels), so the unrestricted condition number is infinite by construction. Over its range the trained gate is 16x more anisotropic than an untrained one (median 1.47e+04 vs 938), but the readout is not amplifying: its elasticity is 0.013, i.e. a 100% relative change in a position's features moves the channel-mean gate by about 1.3%.
+
+================================================================================================================
+D3. HOW FAR MUST THE WEIGHTS MOVE? Gaussian perturbations of trained seed 1 (random level), relative to each tensor's RMS
+================================================================================================================
+eps (relative)  attention rho vs original  top-10 overlap  logit rank rho  |dlogit| / sd(logit)  share active positions kept
+         0.001                      0.998           0.998           1.000                 0.000                        0.999
+         0.003                      0.995           0.993           1.000                 0.002                        0.996
+         0.010                      0.982           0.980           1.000                 0.005                        0.988
+         0.030                      0.947           0.945           1.000                 0.012                        0.961
+         0.100                      0.834           0.843           0.998                 0.051                        0.871
+         0.300                      0.563           0.584           0.980                 0.183                        0.670
+         1.000                      0.036           0.056           0.231                 0.803                        0.217
+
+For scale: two trained seeds differ by relative weight distance 1.40; their attention rho is 0.014 and their prediction Spearman 0.913.
+Smallest tested perturbation at which the attention correlation reaches the seed-to-seed level (within 0.05): eps = 1.0, where the logit rank correlation has fallen to 0.231 (independently trained seeds keep 0.913)
+
+D4 (not run): the trainer hard-codes AdamW + cyclic LR (the published recipe); no checkpoint used another optimizer.
+
+elapsed 344 s

@@ -13,7 +13,7 @@ one running the canary**, so the two runs do not use the same weekly quota.
 1. **Open the notebook.** Kaggle → Create → New Notebook → File → Import Notebook → **Upload** `notebooks/kaggle_wave_a_acc3.ipynb`
    (https://github.com/Mahim56207/ColdSite-DTI_New/blob/remediation/rigor-fixes/notebooks/kaggle_wave_a_acc3.ipynb ; raw:
    https://raw.githubusercontent.com/Mahim56207/ColdSite-DTI_New/remediation/rigor-fixes/notebooks/kaggle_wave_a_acc3.ipynb).
-2. **Check the version.** In the settings cell, `COMMIT` must end in `490fa6f` and `DRY_RUN` must say `True`. Leave `DRY_RUN = True`: this notebook's runner is never used here.
+2. **Check the version.** In the settings cell, `COMMIT` must **start with** `490fa6f` (the full value is `490fa6fced52ec6382dc7e4270c534bc2f99b27f`) and `DRY_RUN` must say `True`. Leave `DRY_RUN = True`: this notebook's runner is never used here.
 3. **Settings (right-hand panel).** Accelerator **GPU T4 x2**, Internet **On**, Environment **Pin to original**.
 4. **Run cells 1 to 4 only**, one after another: Settings, Session start and GPUs, Clone the repo, **3b DGL**, Raw data and splits. Do **not** run section 5 (the runner) or 6.
    3b installs the torch/DGL versions the real ACC3 run will use, which is the point: time it in the environment it will run in. Wait for `dgl imports cleanly`.

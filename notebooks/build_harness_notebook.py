@@ -282,7 +282,7 @@ if os.path.exists(prog):
     pr = json.load(open(prog))
     print(f"progress.json: {pr['cells_complete']} of {pr['cells_total']} cells complete; session {pr['elapsed_s'] / 3600:.2f} h long")
     if pr['cells_complete'] < pr['cells_total'] and not DRY_RUN:
-        print('NOT FINISHED: download the zip below, add it as a private dataset, set RESTORE_FROM = \'/kaggle/input\' and run this notebook again (the next session continues each cell from its last epoch).')
+        print("NOT FINISHED: download the zip below, add it as a private dataset, set RESTORE_FROM = '/kaggle/input' and run this notebook again (the next session continues each cell from its last epoch).")
     elif pr['cells_total'] and not DRY_RUN:
         print('ALL CELLS COMPLETE for this account: keep the zip; analysis needs it.')
 print(since_start())

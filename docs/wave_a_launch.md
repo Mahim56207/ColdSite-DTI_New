@@ -17,12 +17,14 @@ pre-flight until a passing canary verdict AND a passing epoch-1 gate verdict for
 1. Kaggle → Create → New Notebook → File → Import Notebook → **Upload** `notebooks/kaggle_canary.ipynb`.
 2. Accelerator **GPU T4 x2**, Internet **On**, Environment **Pin to original**.
 3. Run with `DRY_RUN = True` first: it must print `RESULT: OK (skipped in dry run: gpus)`.
-4. `DRY_RUN = False` → **Save Version → Save & Run All (Commit)**. About an hour on one T4 for the canary (estimated: 26 epochs × the
-   2 min 15 s the Kaggle logs gave), then about five minutes for the epoch-1 gate (section 5c: seeds 1, 4 and 5, one epoch each).
-5. The notebook prints two verdicts (`pass` / `fail` / `inconclusive`). **Status 2026-09-29:** both verdict files are in `config/` (canary attempt 2 passed; the epoch gate passed under the amended Gate B rule after failing
-   under the original one; see `docs/canary_attempts/README.md`, including the failed first canary and the caveats). For any future gate run, judge it with `python -m src.cloud.gate_rule_v2 --evaluate ...`. On **both pass**: download `results/canary_verdict.json` **and**
-   `results/epoch_gate_verdict.json` from the Output panel, copy them to `config/`, commit, push. On anything else: stop and send it
-   back. Rules: `docs/cloud_harness.md` ("The canary", "The epoch-1 gate").
+4. `DRY_RUN = False` → **Save Version → Save & Run All (Commit)**. About 1.0 to 1.3 h for the canary on one T4 (the two recorded attempts took 3,529 s and
+   4,727 s), then 5 to 10 minutes for the epoch-1 gate (section 5c: seeds 1, 4 and 5, one epoch each). Every 5 minutes the notebook prints a `[monitor]` block with the
+   elapsed time, the time left before the self-stop and the current epoch, and `results/progress.json` is rewritten.
+5. **Status 2026-10-17:** the earlier verdicts are stale and were removed from `config/` (archived in `docs/canary_attempts/`) because `recipes.py`, `runner.py` and
+   `canary.py` changed (`docs/PROTOCOL_AMENDMENT_v2.md`, Addendum A7: canary tolerance 4 committed-seed SDs, DrugBAN in full precision). Run the canary notebook again. It
+   writes `canary_verdict.json`, `epoch_gate_verdict_original_rule.json` and **`epoch_gate_verdict.json`, the official gate verdict (`gate_rule_v2`)**. On **both official verdicts passing**:
+   download `results/canary_verdict.json` and `results/epoch_gate_verdict.json` from the Output panel, copy them to `config/`, commit, push. On anything else: stop and send it back.
+   Rules: `docs/cloud_harness.md` ("The canary", "The epoch-1 gate"); history and caveats: `docs/canary_attempts/README.md`.
 6. Section 5c prints a `python -m src.cloud.quota … --add-external …` command with this session's GPU time. Run it (it is idempotent) in
    the account's next notebook or locally against its results folder, so the quota ledger counts the canary against the account that
    ran it. `quota_unit` defaults to the conservative reading (a two-GPU hour counts twice); change it in `config/harness.json` if
@@ -63,3 +65,16 @@ Two accounts must never run the same account name: each notebook trains only the
 ## 5. After all three are complete
 
 T12 (ingest into `_v2` directories, verify markers, seed-disagreement counts) — skipped for now by the user's decision.
+
+## 5. How long each notebook takes (Kaggle 2 x T4, estimates; the notebook's own header shows the same table)
+
+| notebook | what it trains | wall-clock | sessions | weekly quota used |
+|---|---|---|---|---|
+| `kaggle_canary.ipynb` | one cell (XAttn-Ref, DAVIS cold-target, seed 1) + the epoch-1 gate | about 1.3 to 1.7 h | 1 | about 1 to 1.5 GPU-h |
+| `kaggle_wave_a_acc1.ipynb` | DAVIS seed 4: 12 cells (HyperAttentionDTI, MolTrans, XAttn-Ref x 4 levels) | about 11.6 h per GPU (10.9 to 12.3) | 2 (the second is short) | 23.2 GPU-h (21.8 to 24.7) |
+| `kaggle_wave_a_acc2.ipynb` | DAVIS seed 5: the same 12 cells | about 11.6 h per GPU (10.9 to 12.3) | 2 | 23.2 GPU-h |
+| `kaggle_wave_a_acc3.ipynb` | DrugBAN on KIBA: random and cold-drug x seeds 1 to 3 = 6 cells (full precision) | about 8.8 h per GPU (8.1 to 9.2; an estimate) | 1 | 17.4 GPU-h (16.1 to 18.3) |
+
+Each session also needs 10 to 15 minutes of setup (ACC3 more for the DGL install). The three accounts run in parallel; the whole wave is about 12 to 13 h of wall-clock
+if the second ACC1/ACC2 sessions follow straight after the first.
+

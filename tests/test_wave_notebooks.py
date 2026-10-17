@@ -88,3 +88,22 @@ def test_a_real_run_without_a_passing_canary_is_refused_before_any_trainer_start
         assert code == 2
     else:                                   # once a verdict is committed this test has nothing to refuse
         pytest.skip("a canary verdict is committed")
+
+
+@pytest.mark.parametrize("name", sorted(list(NOTEBOOKS.values()) + ["kaggle_canary.ipynb"]))
+def test_every_code_cell_of_every_generated_notebook_is_valid_python(name):
+    """A syntax error in a cell would only show up on Kaggle, after the GPU session has been started."""
+    import ast
+    for i, cell in enumerate(_load(name)["cells"]):
+        if cell["cell_type"] == "code":
+            try:
+                ast.parse("".join(cell["source"]))
+            except SyntaxError as err:                      # pragma: no cover - the message is the point
+                raise AssertionError(f"{name} cell {i}: {err}")
+
+
+def test_the_generated_canary_notebook_is_what_the_builder_makes():
+    nb = _load("kaggle_canary.ipynb")
+    commit = re.search(r"COMMIT = '([0-9a-f]{40})'", _code(nb)[0]).group(1)
+    assert _builder().build("CANARY", "config/canary_wave.json", commit, canary=True) == nb
+

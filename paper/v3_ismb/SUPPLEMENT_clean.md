@@ -142,7 +142,85 @@ what a model represents.
 For (c), 47.9% of tokens change under the attended arm and 95.0% under an unmatched random arm, on
 20 DAVIS proteins.
 
-## S8 Supplementary figures
+## S8 Per-cell tables
+
+**Supplementary Table S6.** Seed agreement for each of the 22 model–dataset–level cells scored against UniProt residues. Precision@10 of the three seeds in order, the cell's exact chance level, and each seed's exact permutation p-value; the marks give, for each seed in order, whether its exact p-value is below 0.05 (\* yes, . no); "disagree" means some but not all seeds are below it. The last two columns are the audit's median-over-seeds p-value and whether the cell survives Holm correction over its dataset's family (uniform-map cells are in the family but not listed).
+
+| dataset | model | level | precision@10, per seed | chance | exact p, per seed | marks | disagree | audit p (median) | Holm |
+|-------|--------------|----------|--------------------|--------|----------------------|-------|--------|----------|------|
+| DAVIS | MolTrans | random | 0.024 / 0.021 / 0.019 | 0.0204 | 0.0563 / 0.4768 / 0.7098 | ... | no | 0.4782 | no |
+| DAVIS | MolTrans | cold-drug | 0.022 / 0.032 / 0.024 | 0.0204 | 0.2955 / 0.0000 / 0.0563 | .*. | yes | 0.0318 | no |
+| DAVIS | MolTrans | cold-target | 0.012 / 0.038 / 0.029 | 0.0194 | 0.9537 / 0.0009 / 0.0443 | .** | yes | 0.0141 | no |
+| DAVIS | MolTrans | cold-pair | 0.004 / 0.032 / 0.024 | 0.0190 | 0.9999 / 0.0115 / 0.2120 | .*. | yes | 0.2036 | no |
+| DAVIS | HyperAttentionDTI | random | 0.035 / 0.039 / 0.028 | 0.0204 | 0.0000 / 0.0000 / 0.0017 | *** | no | 9.999e-05 | yes |
+| DAVIS | HyperAttentionDTI | cold-drug | 0.025 / 0.077 / 0.019 | 0.0204 | 0.0348 / 0.0000 / 0.6662 | **. | yes | 0.0373 | no |
+| DAVIS | HyperAttentionDTI | cold-target | 0.018 / 0.031 / 0.025 | 0.0194 | 0.6683 / 0.0257 / 0.1730 | .*. | yes | 0.1219 | no |
+| DAVIS | HyperAttentionDTI | cold-pair | 0.013 / 0.022 / 0.032 | 0.0190 | 0.9306 / 0.2953 / 0.0115 | ..* | yes | 0.2935 | no |
+| DAVIS | DrugBAN | random | 0.019 / 0.015 / 0.019 | 0.0204 | 0.7098 / 0.9956 / 0.7098 | ... | no | 0.7109 | no |
+| DAVIS | DrugBAN | cold-drug | 0.022 / 0.021 / 0.021 | 0.0204 | 0.2955 / 0.4768 / 0.4768 | ... | no | 0.4477 | no |
+| DAVIS | DrugBAN | cold-target | 0.018 / 0.028 / 0.022 | 0.0194 | 0.6683 / 0.0729 / 0.3409 | ... | no | 0.2928 | no |
+| DAVIS | DrugBAN | cold-pair | 0.036 / 0.022 / 0.024 | 0.0190 | 0.0015 / 0.2953 / 0.2120 | *.. | yes | 0.2036 | no |
+| DAVIS | XAttn-Ref | random | 0.023 / 0.009 / 0.013 | 0.0204 | 0.1566 / 1.0000 / 0.9997 | ... | no | 0.9997 | no |
+| DAVIS | XAttn-Ref | cold-drug | 0.027 / 0.027 / 0.011 | 0.0204 | 0.0047 / 0.0064 / 1.0000 | **. | yes | 0.006599 | no |
+| DAVIS | XAttn-Ref | cold-target | 0.015 / 0.019 / 0.018 | 0.0194 | 0.8504 / 0.5582 / 0.6683 | ... | no | 0.6581 | no |
+| DAVIS | XAttn-Ref | cold-pair | 0.018 / 0.013 / 0.008 | 0.0190 | 0.6108 / 0.9306 / 0.9938 | ... | no | 0.9296 | no |
+| KIBA | MolTrans | random | 0.020 / 0.053 / 0.022 | 0.0228 | 0.7946 / 0.0000 / 0.6432 | .*. | yes | 0.5736 | no |
+| KIBA | MolTrans | cold-drug | 0.028 / 0.063 / 0.017 | 0.0228 | 0.0706 / 0.0000 / 0.9830 | .*. | yes | 0.07279 | no |
+| KIBA | HyperAttentionDTI | random | 0.017 / 0.022 / 0.053 | 0.0228 | 0.9730 / 0.6432 / 0.0000 | ..* | yes | 0.5175 | no |
+| KIBA | HyperAttentionDTI | cold-drug | 0.019 / 0.020 / 0.025 | 0.0228 | 0.9065 / 0.8035 / 0.2655 | ... | no | 0.2624 | no |
+| KIBA | XAttn-Ref | random | 0.018 / 0.011 / 0.026 | 0.0228 | 0.9258 / 1.0000 / 0.1723 | ... | no | 0.9262 | no |
+| KIBA | XAttn-Ref | cold-drug | 0.025 / 0.020 / 0.015 | 0.0228 | 0.3147 / 0.8035 / 0.9956 | ... | no | 0.7963 | no |
+
+**Supplementary Table S7.** Enrichment over chance (mean precision@10 divided by mean chance, over the same proteins) for every model, level and ground truth, with 95% percentile intervals from a bootstrap that resamples both proteins and seeds (10,000 resamples); n is the number of proteins scored after the sequence policy; an interval that excludes one lies entirely on one side of chance. This is the table behind Figure 2.
+
+| ground truth | dataset | model | level | n | precision@10 | chance | enrichment | interval |
+|-----------|-------|--------------|-----------|-----|---------|--------|---------|--------------|
+| UniProt | DAVIS | MolTrans | random | 349 | 0.021 | 0.020 | 1.05 | 0.79 to 1.33 |
+| UniProt | DAVIS | MolTrans | cold-drug | 349 | 0.026 | 0.020 | 1.27 | 0.93 to 1.66 |
+| UniProt | DAVIS | MolTrans | cold-target | 68 | 0.026 | 0.019 | 1.37 | 0.53 to 2.32 |
+| UniProt | DAVIS | MolTrans | cold-pair | 72 | 0.020 | 0.019 | 1.05 | 0.22 to 1.95 |
+| UniProt | DAVIS | HyperAttentionDTI | random | 349 | 0.034 | 0.020 | 1.66 | 1.33 to 2.00 |
+| UniProt | DAVIS | HyperAttentionDTI | cold-drug | 349 | 0.040 | 0.020 | 1.98 | 0.94 to 3.65 |
+| UniProt | DAVIS | HyperAttentionDTI | cold-target | 68 | 0.025 | 0.019 | 1.27 | 0.73 to 1.88 |
+| UniProt | DAVIS | HyperAttentionDTI | cold-pair | 72 | 0.022 | 0.019 | 1.17 | 0.58 to 1.82 |
+| UniProt | DAVIS | DrugBAN | random | 349 | 0.018 | 0.020 | 0.87 | 0.67 to 1.07 |
+| UniProt | DAVIS | DrugBAN | cold-drug | 349 | 0.021 | 0.020 | 1.03 | 0.86 to 1.20 |
+| UniProt | DAVIS | DrugBAN | cold-target | 68 | 0.023 | 0.019 | 1.16 | 0.68 to 1.69 |
+| UniProt | DAVIS | DrugBAN | cold-pair | 72 | 0.027 | 0.019 | 1.44 | 0.90 to 2.08 |
+| UniProt | DAVIS | XAttn-Ref | random | 349 | 0.015 | 0.020 | 0.74 | 0.43 to 1.11 |
+| UniProt | DAVIS | XAttn-Ref | cold-drug | 349 | 0.022 | 0.020 | 1.06 | 0.62 to 1.45 |
+| UniProt | DAVIS | XAttn-Ref | cold-target | 68 | 0.017 | 0.019 | 0.89 | 0.54 to 1.25 |
+| UniProt | DAVIS | XAttn-Ref | cold-pair | 72 | 0.013 | 0.019 | 0.68 | 0.27 to 1.15 |
+| UniProt | KIBA | MolTrans | random | 211 | 0.032 | 0.023 | 1.39 | 0.72 to 2.28 |
+| UniProt | KIBA | MolTrans | cold-drug | 212 | 0.036 | 0.023 | 1.57 | 0.70 to 2.70 |
+| UniProt | KIBA | HyperAttentionDTI | random | 211 | 0.030 | 0.023 | 1.34 | 0.68 to 2.25 |
+| UniProt | KIBA | HyperAttentionDTI | cold-drug | 212 | 0.021 | 0.023 | 0.94 | 0.71 to 1.19 |
+| UniProt | KIBA | XAttn-Ref | random | 211 | 0.019 | 0.023 | 0.82 | 0.50 to 1.18 |
+| UniProt | KIBA | XAttn-Ref | cold-drug | 212 | 0.020 | 0.023 | 0.88 | 0.58 to 1.17 |
+| KLIFS pocket | DAVIS | MolTrans | random | 350 | 0.157 | 0.143 | 1.10 | 0.86 to 1.32 |
+| KLIFS pocket | DAVIS | MolTrans | cold-drug | 350 | 0.154 | 0.142 | 1.08 | 0.89 to 1.27 |
+| KLIFS pocket | DAVIS | MolTrans | cold-target | 67 | 0.176 | 0.140 | 1.26 | 0.77 to 1.70 |
+| KLIFS pocket | DAVIS | MolTrans | cold-pair | 71 | 0.136 | 0.137 | 0.99 | 0.67 to 1.32 |
+| KLIFS pocket | DAVIS | HyperAttentionDTI | random | 350 | 0.242 | 0.143 | 1.70 | 1.48 to 1.98 |
+| KLIFS pocket | DAVIS | HyperAttentionDTI | cold-drug | 350 | 0.193 | 0.142 | 1.35 | 0.94 to 1.73 |
+| KLIFS pocket | DAVIS | HyperAttentionDTI | cold-target | 67 | 0.186 | 0.140 | 1.33 | 1.08 to 1.60 |
+| KLIFS pocket | DAVIS | HyperAttentionDTI | cold-pair | 71 | 0.185 | 0.137 | 1.36 | 1.03 to 1.73 |
+| KLIFS pocket | DAVIS | DrugBAN | random | 350 | 0.139 | 0.143 | 0.98 | 0.91 to 1.04 |
+| KLIFS pocket | DAVIS | DrugBAN | cold-drug | 350 | 0.146 | 0.142 | 1.02 | 0.93 to 1.11 |
+| KLIFS pocket | DAVIS | DrugBAN | cold-target | 67 | 0.145 | 0.140 | 1.04 | 0.90 to 1.17 |
+| KLIFS pocket | DAVIS | DrugBAN | cold-pair | 71 | 0.138 | 0.137 | 1.01 | 0.87 to 1.17 |
+| KLIFS pocket | DAVIS | XAttn-Ref | random | 350 | 0.219 | 0.143 | 1.54 | 1.36 to 1.69 |
+| KLIFS pocket | DAVIS | XAttn-Ref | cold-drug | 350 | 0.299 | 0.142 | 2.10 | 1.83 to 2.36 |
+| KLIFS pocket | DAVIS | XAttn-Ref | cold-target | 67 | 0.243 | 0.140 | 1.74 | 1.40 to 2.13 |
+| KLIFS pocket | DAVIS | XAttn-Ref | cold-pair | 71 | 0.271 | 0.137 | 1.99 | 1.69 to 2.35 |
+| KLIFS pocket | KIBA | MolTrans | random | 210 | 0.161 | 0.152 | 1.07 | 0.78 to 1.40 |
+| KLIFS pocket | KIBA | MolTrans | cold-drug | 211 | 0.188 | 0.151 | 1.24 | 1.00 to 1.53 |
+| KLIFS pocket | KIBA | HyperAttentionDTI | random | 210 | 0.207 | 0.152 | 1.37 | 1.26 to 1.49 |
+| KLIFS pocket | KIBA | HyperAttentionDTI | cold-drug | 211 | 0.189 | 0.151 | 1.25 | 1.07 to 1.41 |
+| KLIFS pocket | KIBA | XAttn-Ref | random | 210 | 0.166 | 0.152 | 1.09 | 0.97 to 1.21 |
+| KLIFS pocket | KIBA | XAttn-Ref | cold-drug | 211 | 0.152 | 0.151 | 1.00 | 0.79 to 1.27 |
+
+## S9 Supplementary figures
 
 ![Supplementary Figure S1](../v2/figures/fig3_accuracy.png)
 

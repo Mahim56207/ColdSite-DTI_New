@@ -27,7 +27,7 @@ attention), and the seed-to-seed standard deviation grows with it: 0.001–0.006
 
 Scored against UniProt's annotated residues, the three seeds of a cell disagree about their own verdict (they fall on different sides of the
 uncorrected α = 0.05 threshold of a per-seed permutation test, as a single-run report would quote it) in 11 of 22 model–dataset–level cells (8 of 16
-on DAVIS, 3 of 6 on KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1).
+on DAVIS, 3 of 6 on KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1; per-cell values in Supplementary Table S6).
 <!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
 <!-- src: results/certification/key_numbers.csv#name=seeds_disagree_exact->value = 11 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
 <!-- src: results/certification/key_numbers.csv#name=cells_davis->value = 16 --> <!-- src: results/certification/key_numbers.csv#name=cells_kiba->value = 6 -->

@@ -294,7 +294,7 @@ attention), and the seed-to-seed standard deviation grows with it: 0.001–0.006
 
 Scored against UniProt's annotated residues, the three seeds of a cell disagree about their own verdict (they fall on different sides of the
 uncorrected α = 0.05 threshold of a per-seed permutation test, as a single-run report would quote it) in 11 of 22 model–dataset–level cells (8 of 16
-on DAVIS, 3 of 6 on KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1).
+on DAVIS, 3 of 6 on KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1; per-cell values in Supplementary Table S6).
 <!-- src: src/evaluation/seed_agreement.py:21 = 0.05 -->
 <!-- src: results/certification/key_numbers.csv#name=seeds_disagree_exact->value = 11 --> <!-- src: results/certification/key_numbers.csv#name=cells_total->value = 22 -->
 <!-- src: results/certification/key_numbers.csv#name=cells_davis->value = 16 --> <!-- src: results/certification/key_numbers.csv#name=cells_kiba->value = 6 -->
@@ -398,7 +398,7 @@ Finally, accuracy does not predict localisation: across the 48 DAVIS attention-m
 
 ![Figure 2](../v2/figures/fig2_enrichment_forest.png)
 
-**Figure 2. Enrichment over chance with 95% bootstrap intervals.** Precision@10 divided by chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues (left) and the KLIFS pocket (right). Intervals are 95% percentile intervals from a two-way bootstrap that resamples both proteins and seeds (10,000 resamples); log scale; the dashed line is chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation.
+**Figure 2. Enrichment over chance with 95% bootstrap intervals.** Precision@10 divided by chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues (left) and the KLIFS pocket (right). Intervals are 95% percentile intervals from a two-way bootstrap that resamples both proteins and seeds (10,000 resamples); log scale; the dashed line is chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation. Exact values are in Supplementary Table S7.
 <!-- src: results/effects_v2_2d/enrichment.md:3 = 95, 10000 -->
 
 ![Figure 3](../v2/figures/fig5_faithfulness.png)

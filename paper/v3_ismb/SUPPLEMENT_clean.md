@@ -78,19 +78,12 @@ The readout-comparison table is written by the readout runs to the checkpoint-si
 and is versioned in the repository as `results/readout_comparison.csv` (a byte-identical copy). Drug dependence of each readout was measured on 25 proteins with four
 drugs each: the top ten residues are identical across drugs in 100% of drug pairs for MolTrans's
 primary readout, in 72% for HyperAttentionDTI's and in 0% for DrugBAN's.
-
 MolTrans's drug × protein interaction map, scored as a readout variant, gives identical top-ten residues across drugs in 0% of the same 150 drug pairs.
 
 ## S5 Integrated gradients on the same weights (confirmatory)
 
 Integrated gradients (Sundararajan et al., 2017; 32 steps) on the same checkpoints localise better than the attention in some cells, not
 all.
- For XAttn-Ref at DAVIS cold-drug, IG reaches 3.16 [2.40, 4.40]× chance in the pocket against the
-attention's 2.10 [1.83, 2.36]×. For HyperAttentionDTI at KIBA cold-drug, IG's point estimate against
-UniProt residues, 1.90×, is above the attention's 0.94 [0.71, 1.19]×, but with seeds resampled its
-interval, [0.63, 3.39], includes parity. IG coverage is partial
-(this Supplement, S6), and we read it only as evidence that a weak attention map can under-report
-what a model represents.
 
 ## S6 Where each instrument was run
 
@@ -152,4 +145,3 @@ For (c), 47.9% of tokens change under the attended arm and 95.0% under an unmatc
 ![Supplementary Figure S2](../v2/figures/fig4_accuracy_vs_localization.png)
 
 **Supplementary Figure S2. Accuracy does not predict localisation.** One point per attention-model cell and seed: test AUROC against enrichment over chance (UniProt, precision@10 divided by chance). For DAVIS cold-target and cold-pair, AUROC is scored on sequence-unseen targets, the same policy the explanation metrics use. Panel titles give Spearman's ρ with a 95% bootstrap interval over cells.
-

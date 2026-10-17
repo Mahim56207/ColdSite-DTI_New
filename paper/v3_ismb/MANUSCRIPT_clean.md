@@ -9,15 +9,11 @@ random split is the simplest such report. We ask whether such binding-site verdi
 an in-house reference model) and a no-attention accuracy anchor, three seeds each, on identical kinase splits at up to four levels of
 distribution shift (84 trained cells on DAVIS and KIBA), and scored explanations against chance, a positive control, nulls and size-matched
 masking controls, with Holm correction over declared families.
-
 In 11 of 22 model–dataset–level cells the three seeds fall on different sides of the uncorrected α = 0.05 threshold of their own
 verdict, and in 21 of 22 the seeds' range exceeds the cell's distance from chance.
-
 After Holm correction (on the median p over seeds), 1 of 20 DAVIS cells supports residue-level recovery (HyperAttentionDTI, random split, 1.66× chance) and 0 of 8 KIBA cells do.
-
 What replicates is coarser: masking the attended residues is load-bearing for three of the four models (not consistently for DrugBAN), and the ATP pocket is
 enriched in XAttn-Ref's maps at every DAVIS level and HyperAttentionDTI's at three of four (point estimates 1.33–2.10× chance; conservation not controlled).
-
 DAVIS's duplicated wild-type sequences inflate a DeepDTA baseline's cold-target AUROC by 0.116 (p = 0.0013) on the leaked rows, but not
 detectably (−0.019, p = 0.31) on the unleaked rows.
 
@@ -65,7 +61,6 @@ We therefore present a methodological audit, not a new model. Three published at
 DrugBAN) and XAttn-Ref, an in-house cross-attention model trained and scored identically, are retrained with their authors' recipes on
 identical kinase splits, three seeds per cell, at four levels of distribution shift on DAVIS (random, unseen drug, unseen target, both)
 and two on KIBA (random, unseen drug; DrugBAN is on DAVIS only); DeepDTA, which has no attention, anchors accuracy. The DAVIS arm has 60 cells and the KIBA arm 24.
-
 Plausibility is precision@10 against UniProt's annotated binding residues and against the KLIFS 85-residue ATP pocket, each read against its
 own chance level and ceiling; faithfulness is the change in prediction when the attended residues are masked, against a random-masking
 control of the same size.
@@ -74,11 +69,9 @@ A "seed" here is a full retraining with a different seed; we do not separate see
 Our main findings are four. **(a) The verdicts are not self-consistent across seeds.** In 11 of the 22 model–dataset–level cells scored
 against UniProt residues, the three seeds fall on different sides of the uncorrected α = 0.05 threshold of an exact permutation test, and in
 21 of the 22 the seeds' range of precision@10 exceeds the cell's distance from chance.
-
 **(b) Under a calibrated battery, residue-level claims rarely survive.** After Holm correction, 1 of 20 DAVIS cells supports residue-level
 recovery (HyperAttentionDTI, random split, 1.66× chance) and 0 of 8 KIBA cells do; what replicates is coarser, namely load-bearing
 attention for three of the four models and enrichment of the ATP pocket.
-
 **(c) The verdict depends on the readout**, that is, on how a multi-channel map is reduced to one weight per residue (shown for HyperAttentionDTI), and on what
 the map is a function of. **(d) The benchmark leaks:** on DAVIS's leaked cold-target rows, the sequence match inflates a DeepDTA baseline's AUROC by 0.116
 (p = 0.0013), with no detectable inflation on the unleaked rows.
@@ -93,7 +86,6 @@ results.
 
 DAVIS (Davis et al., 2011) and KIBA (Tang et al., 2014) are used as distributed with DeepDTA (Öztürk et al., 2018). Every model solves the same
 binary task: a pair is positive if pKd ≥ 7.0 on DAVIS or its KIBA score is ≥ 12.1, one constant shared by all trainers.
-
 Each dataset is split at four levels of distribution shift: random; cold-drug, where test drugs are absent from training; cold-target, where test
 targets are absent; and cold-pair, where both are. There is one fixed split per level; the three seeds of a cell change weight initialisation and
 batch order only, so the spread across seeds is training variance, not split-selection variance. DAVIS has 30,056 labelled pairs over 442 targets.
@@ -101,7 +93,6 @@ batch order only, so the spread across seeds is training variance, not split-sel
 **Targets are sequences, not identifiers.** The splits hold targets out by name, but DAVIS's 442 targets are 379 distinct sequences: 54 mutant
 targets carry exactly the wild-type sequence. Consequently 12 of the 88 cold-target test targets and 11 of the 88 cold-pair test targets are
 identical in sequence to a training target, and 10 targets hold too little of the kinase domain to contain its ATP pocket.
-
 No model is retrained to correct this; the evaluation stops counting what it should not. Explanation metrics drop seen-by-sequence and
 pocketless targets and count one protein per distinct sequence, and cold-level accuracy is reported on the sequence-unseen test targets as well as on
 all of them. KIBA's 229 targets are 229 distinct sequences, and none is excluded.
@@ -116,25 +107,8 @@ whether favourable or not. DeepDTA, which has no attention, anchors accuracy and
 The published models are trained from their vendored repositories with their authors' optimiser, learning rate, batch size and tokeniser; only data
 loading is replaced, apart from the mixed precision on KIBA described below. All models share one checkpoint rule: up to 100 epochs, the checkpoint with the lowest validation loss among epochs ≥ 10, and
 early stopping after 15 epochs without improvement (10 for DeepDTA).
-
 DAVIS cells are trained in full precision. On KIBA, DeepDTA and HyperAttentionDTI use mixed precision, whereas MolTrans (whose hand-written layer
 normalisation underflows in half precision) and XAttn-Ref use full precision; the precision of every cell is recorded in its results file. Mixed precision was checked beforehand on one DAVIS cell (HyperAttentionDTI, cold-pair, three seeds per arm), where test AUROC and precision@10 stayed within the full-precision seed spread; three seeds detect only a gross effect and cannot show equivalence (Supplement).
- DrugBAN is
-trained on DAVIS only. Training ran on Kaggle sessions with two NVIDIA T4 GPUs, one independent job per GPU.
-
-The explanation scored for each model is the readout of the primary analysis: MolTrans's protein-encoder self-attention
-(last layer, mean over heads), HyperAttentionDTI's channel-mean attention placed at the centre of each convolution window, DrugBAN's bilinear
-attention summed over drug atoms and averaged over heads, and XAttn-Ref's cross-attention weights; each is projected to one non-negative weight per
-residue. Whether each primary readout matches the map its authors display has not been confirmed against their figures; alternative readouts are
-a sensitivity analysis (Supplement).
-
-## 2.3 Ground truths and plausibility
-
-Two ground truths at different resolutions are used. **UniProt residues**: sequence features of type Binding site, Active site and Nucleotide
-binding (The UniProt Consortium, 2025), re-numbered onto each dataset sequence by alignment so that a site points at the residue the model read.
-**KLIFS pocket**: the 85 residues lining the ATP cleft of every kinase (van Linden et al., 2014; Kanev et al., 2021), placed on each sequence by the
-same alignment. Proteins are scored within their first 1,000 residues.
-
 Plausibility is precision@k, the fraction of a protein's k most-attended residues that are sites, with k = 10 fixed before any result existed. It is
 computed on one test pair per protein, so that proteins measured against many drugs are not weighted by that count. Each protein's chance level is
 (sites in the window) ÷ (window length), the exact expectation for k uniformly random residues, and its ceiling is min(sites, k) ÷ k.
@@ -150,11 +124,9 @@ residue) is passed through the same grid as an additional subject.
 the split's mix of lengths and site counts; the p-value uses the add-one estimator over 10,000 permutations, and the **median over the three seeds** is
 the cell's p-value. Holm correction (Holm, 1979) is applied once over each dataset's family: 20 DAVIS cells (four models and the uniform map at four
 levels) and 8 KIBA cells (three models and the uniform map at two levels).
-
 The survival counts reported here (1 of 20 DAVIS cells, 0 of 8 KIBA cells) therefore describe this median-over-seeds rule, not individual seeds: a
 Holm correction over the 48 per-seed exact tests instead retains 5 seed-runs, and over the 18 KIBA per-seed tests 3, because single seeds can clear a
 corrected threshold that their median does not. Recomputing the Holm correction from the exact per-seed p-values instead of the 10,000-permutation estimates leaves the same survivors (1 of 20 and 0 of 8).
-
 The families are declared, not pre-registered: they grew from 16 to 20 (DAVIS) and from 6 to 8 (KIBA) when DrugBAN and XAttn-Ref's KIBA cells were
 added after the first results, and were frozen by a dated protocol amendment before any further analysis.
 
@@ -183,7 +155,6 @@ the three seeds with replacement, so an interval carries seed-to-seed variance a
 and the intervals are conservative. Enrichment over chance is the ratio of mean precision@10 to mean chance over the same resampled proteins.
 The protocol amendment had specified a bootstrap over proteins only; those intervals, which omit seed variance, are kept in the Supplement and quoted only where
 the contrast is the point.
-
 Accuracy is reported as AUROC and AUPRC, mean ± sample SD over three seeds. The association between accuracy and localisation is described by
 Spearman's ρ across cells with a bootstrap interval; it is a description, not a test.
 
@@ -212,20 +183,15 @@ attention), and the seed-to-seed standard deviation grows with it: 0.001–0.006
 Scored against UniProt's annotated residues, the three seeds of a cell disagree about their own verdict (they fall on different sides of the
 uncorrected α = 0.05 threshold of a per-seed permutation test, as a single-run report would quote it) in 11 of 22 model–dataset–level cells (8 of 16
 on DAVIS, 3 of 6 on KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1).
-
 The per-seed p-values are exact, so no sampling error enters. A count on a threshold is threshold-dependent (8 at α = 0.01, 13 at α = 0.10), and we
 report 11 as the exact-test value at the conventional α, not as a constant of the recipes.
-
 The disagreement is not marginal: HyperAttentionDTI at DAVIS cold-drug places 0.025, 0.077 and 0.019 of its top-ten residues on annotated sites
 against a chance of 0.020. In 21 of 22 UniProt cells the range of the three seeds' precision@10 exceeds the cell's distance from chance.
-
 Taken alone this descriptive criterion is weak, because a cell whose mean sits near chance meets it almost by construction, so we test seed variance
 directly: Friedman tests over proteins and within-protein seed-label permutation tests find significant differences between the three seeds in 13 and
 10 of the 22 cells before correction, and in 8 and 7 of 22 after Holm correction over the 22 cells.
-
 The variation is not scoring noise: collecting the explanations again from the same checkpoints moves precision@10 by a standard deviation of 0.0008
 per seed, against a between-seed standard deviation of 0.0121.
-
 A bootstrap over proteins, the usual way to attach an interval to such a score, does not see this variance: for HyperAttentionDTI at DAVIS cold-drug it
 gives an enrichment over chance of 1.98 [1.81, 2.15], an interval far from parity, for a cell whose seeds disagree and whose family-wise test fails. The
 two-way bootstrap that resamples seeds as well, used for every interval below, gives the same cell [0.94, 3.65].
@@ -239,11 +205,9 @@ two-way bootstrap that resamples seeds as well, used for every interval below, g
 The positive control sets the test's resolution: an explanation that ranks as little as 0.02 of the true sites first is detected at every DAVIS level, so
 a null below is a property of the maps and not of the test. With Holm correction over each dataset's declared family, 1 of 20 DAVIS cells supports
 residue-level recovery and 0 of 8 KIBA cells do. These counts describe the median-over-seeds rule of Section 2.4, not individual seeds.
-
 The surviving cell is HyperAttentionDTI at the random level (precision@10 0.034 against a chance of 0.020; enrichment 1.66 [1.33, 2.00]), at p = 0.0001,
 the smallest value 10,000 permutations can give. The uniform map, passed through the same grid, never approaches significance (p of 0.4462 or more on
 DAVIS, 0.2251 or more on KIBA), so the test does not reward a map for being flat.
-
 Once seeds are resampled the intervals agree with the correction: of the 22 UniProt cells, only this one has an interval above parity (Figure 2).
 With proteins alone resampled, several more would, for example MolTrans at KIBA cold-drug, 1.57 [1.32, 1.82]; resampling seeds widens that interval to
 [0.70, 2.70], and its split-level test does not survive (p = 0.07279 against a threshold of 0.00625).
@@ -254,21 +218,18 @@ Against the 85-residue KLIFS pocket, where chance is 0.137–0.143 on DAVIS, XAt
 HyperAttentionDTI's at three of the four (1.33–1.70×, cold-pair only marginally); at cold-drug HyperAttentionDTI's interval, 1.35 [0.94, 1.73], includes
 parity once seeds are resampled. MolTrans's intervals include parity at every level, and DrugBAN's map sits on chance throughout (0.98–1.04×)
 (Figure 2). On KIBA, XAttn-Ref's cold-drug map is at chance (1.00 [0.79, 1.27]).
-
 Kinase ATP pockets are conserved and no conservation control was run, so this is a statement about a conserved region, not evidence that a ligand's
 contacts were learned. The positional nulls do rule out the simplest artefact for HyperAttentionDTI: its pocket hits beat a shuffle of the same attention
 within the kinase domain in eight of its twelve seed-level cells (uncorrected), so the map prefers the pocket within the domain, not only the domain.
 
 Faithfulness is the most stable property measured for three of the four models. In all 16 cells of HyperAttentionDTI, MolTrans and XAttn-Ref, masking
 the attended residues changes the prediction more than masking the same number of random ones, with every 95% interval above zero even when seeds are
-resampled (Figure 5); the effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random),
+resampled (Figure 3); the effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random),
 and MolTrans, measured in its own token space, is not on the same scale. The sign holds in every seed, but its size does not: within a cell the per-seed
 deltas differ several-fold.
-
 DrugBAN's attention is not consistently load-bearing: its deltas sit near zero and change sign between seeds (at cold-drug −0.0073, −0.0036 and 0.0128 for seeds one
 to three), six of its twelve seed-level deltas are negative, and no level is load-bearing in all three seeds. They are point estimates only, because its
 run did not record per-pair values and no interval can be attached.
-
 Finally, accuracy does not predict localisation: across the 48 DAVIS attention-model cells, Spearman's ρ between AUROC and enrichment over chance is
 0.003 [−0.309, 0.294].
 
@@ -276,15 +237,14 @@ Finally, accuracy does not predict localisation: across the 48 DAVIS attention-m
 
 **Figure 2. Enrichment over chance with 95% bootstrap intervals.** Precision@10 divided by chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues (left) and the KLIFS pocket (right). Intervals are 95% percentile intervals from a two-way bootstrap that resamples both proteins and seeds (10,000 resamples); log scale; the dashed line is chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation.
 
-![Figure 5](../v2/figures/fig5_faithfulness.png)
+![Figure 3](../v2/figures/fig5_faithfulness.png)
 
-**Figure 5. Masking the attended residues matters more than masking random ones.** Faithfulness delta (attended masking minus a size-matched random-masking control), mean over proteins, with 95% two-way bootstrap intervals (proteins and seeds resampled, 10,000 resamples). MolTrans is measured in its own token space and the others in residue space, so the three panels do not share a scale. DrugBAN is not drawn: its per-seed deltas are reported in the text but carry no interval, because its per-pair values were not recorded. No KIBA cell exists for XAttn-Ref.
+**Figure 3. Masking the attended residues matters more than masking random ones.** Faithfulness delta (attended masking minus a size-matched random-masking control), mean over proteins, with 95% two-way bootstrap intervals (proteins and seeds resampled, 10,000 resamples). MolTrans is measured in its own token space and the others in residue space, so the three panels do not share a scale. DrugBAN is not drawn: its per-seed deltas are reported in the text but carry no interval, because its per-pair values were not recorded. No KIBA cell exists for XAttn-Ref.
 
 ## 3.5 The verdict depends on the readout and on what the map is a function of
 
 A multi-channel attention tensor must be reduced to one weight per residue, and the choice decides the verdict. Two defensible reductions of the same
 HyperAttentionDTI weights place 0.367 and 0.081 of their top-ten residues in the ATP pocket at the cold-target level, against a chance of 0.140, a single model and level.
-
 Whether a map can depend on the drug is a property of the computation graph. For 25 proteins each paired with four drugs, the MolTrans readout scored
 here gives the same top ten for every drug (100% of 150 drug pairs), HyperAttentionDTI's in 72%, and DrugBAN's in 0%. A map that cannot change with
 the drug cannot mark that drug's binding site, whatever its hit rate. MolTrans's interaction map, a different readout of the same model, does change with the drug (identical top ten in 0% of the same 150 pairs).
@@ -293,16 +253,15 @@ the drug cannot mark that drug's binding site, whatever its hit rate. MolTrans's
 
 DAVIS gives 54 of its mutant targets exactly the wild-type sequence, so 12 of the 88 cold-target test targets are seen by sequence in training: 816 of
 5984 test rows (13.6%).
-
 The retrain was made on DeepDTA, the accuracy anchor, at the cold-target split, with three seeds, and separates the leak from the loss of training rows
-(Figure 6). On the leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the strictly unleaked rows no
+(Figure 4). On the leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the strictly unleaked rows no
 inflation is detectable (−0.019, p = 0.31). Over all rows the net effect is 0.019 with an interval, [−0.022, 0.059], that includes zero (p = 0.19), because
 the leaked rows are 13.6% of the test set; we therefore do not quote the all-rows figure as a finding. Explanation metrics exclude seen-by-sequence
 targets throughout.
 
-![Figure 6](../v2/figures/fig6_leakage.png)
+![Figure 4](../v2/figures/fig6_leakage.png)
 
-**Figure 6. What DAVIS's sequence leakage is worth to the accuracy anchor.** DeepDTA test AUROC (mean ± SD over three seeds) at cold-target and cold-pair, retrained on three training sets: the original split, "seqclean" (every seen-by-sequence target removed) and "seqmatched" (the leaked targets kept, at the size of "seqclean"). "seqmatched" minus "seqclean" isolates the leak; "original" minus "seqmatched" is the cost of fewer rows. Scored on all test rows and separately on leaked and unleaked targets.
+**Figure 4. What DAVIS's sequence leakage is worth to the accuracy anchor.** DeepDTA test AUROC (mean ± SD over three seeds) at cold-target and cold-pair, retrained on three training sets: the original split, "seqclean" (every seen-by-sequence target removed) and "seqmatched" (the leaked targets kept, at the size of "seqclean"). "seqmatched" minus "seqclean" isolates the leak; "original" minus "seqmatched" is the cost of fewer rows. Scored on all test rows and separately on leaked and unleaked targets.
 
 Every result in this section concerns kinase targets; the non-kinase transfer panel is not analysed here.
 
@@ -313,7 +272,6 @@ Every result in this section concerns kinase targets; the non-kinase transfer pa
 The central result is that an attention-based binding-site verdict, as a single-run report presents it, is not a stable property of a model recipe. Three retrainings of
 the same recipe on the same split frequently disagree about whether the map finds annotated residues (11 of 22 cells), the disagreement is usually larger
 than the effect being claimed (21 of 22), and in 7 to 8 of 22 cells the differences between seeds are significant after correction.
-
 A single-run figure therefore samples one draw from a wide distribution, and an interval computed over proteins alone does not reflect it. Once chance, ceiling, a
 uniform floor, a positive control and family-wise correction are applied, residue-level recovery survives in one DAVIS cell and in no KIBA cell.
 

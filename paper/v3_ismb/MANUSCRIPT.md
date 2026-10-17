@@ -271,7 +271,7 @@ and every number in this manuscript carries a machine-checked source tag. Code a
 on purpose (do not delete from the project): v2 Table 1 (full accuracy table) and Figures 3-4; the integrated-gradients comparison (v2 §3.7, confirmatory);
 the KLIFS numbers on KIBA other than the XAttn-Ref contrast; the 1,000-permutation count of 12; the MolTrans cold-pair example; the cold-pair leak sentence;
 DrugBAN's remaining per-seed deltas and the note that its faithfulness has no interval would be stated in the Supplement and the Discussion (limitations).
-Main-text figures proposed: Figure 1 (seed instability), Figure 2 (enrichment forest), Figure 5 (faithfulness), Figure 6 (leakage) -- files in paper/v2/figures/.
+Main-text figures proposed: Figure 1 (seed instability), Figure 2 (enrichment forest), Figure 3 (faithfulness), Figure 4 (leakage) -- files in paper/v2/figures/.
 Every digit has a source tag (`python scripts/check_number_provenance.py paper/v3_ismb/results.md`). Only committed local results are used; nothing from
 Wave A (not run) appears. -->
 
@@ -377,7 +377,7 @@ within the kinase domain in eight of its twelve seed-level cells (uncorrected), 
 
 Faithfulness is the most stable property measured for three of the four models. In all 16 cells of HyperAttentionDTI, MolTrans and XAttn-Ref, masking
 the attended residues changes the prediction more than masking the same number of random ones, with every 95% interval above zero even when seeds are
-resampled (Figure 5); the effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random),
+resampled (Figure 3); the effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random),
 and MolTrans, measured in its own token space, is not on the same scale. The sign holds in every seed, but its size does not: within a cell the per-seed
 deltas differ several-fold.
 <!-- src: results/effects_v2_2d/faithfulness_effects.csv#rows = 16 -->
@@ -401,9 +401,9 @@ Finally, accuracy does not predict localisation: across the 48 DAVIS attention-m
 **Figure 2. Enrichment over chance with 95% bootstrap intervals.** Precision@10 divided by chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues (left) and the KLIFS pocket (right). Intervals are 95% percentile intervals from a two-way bootstrap that resamples both proteins and seeds (10,000 resamples); log scale; the dashed line is chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation.
 <!-- src: results/effects_v2_2d/enrichment.md:3 = 95, 10000 -->
 
-![Figure 5](../v2/figures/fig5_faithfulness.png)
+![Figure 3](../v2/figures/fig5_faithfulness.png)
 
-**Figure 5. Masking the attended residues matters more than masking random ones.** Faithfulness delta (attended masking minus a size-matched random-masking control), mean over proteins, with 95% two-way bootstrap intervals (proteins and seeds resampled, 10,000 resamples). MolTrans is measured in its own token space and the others in residue space, so the three panels do not share a scale. DrugBAN is not drawn: its per-seed deltas are reported in the text but carry no interval, because its per-pair values were not recorded. No KIBA cell exists for XAttn-Ref.
+**Figure 3. Masking the attended residues matters more than masking random ones.** Faithfulness delta (attended masking minus a size-matched random-masking control), mean over proteins, with 95% two-way bootstrap intervals (proteins and seeds resampled, 10,000 resamples). MolTrans is measured in its own token space and the others in residue space, so the three panels do not share a scale. DrugBAN is not drawn: its per-seed deltas are reported in the text but carry no interval, because its per-pair values were not recorded. No KIBA cell exists for XAttn-Ref.
 <!-- src: results/effects_v2_2d/faithfulness_effects.md:3 = 95, 10000 -->
 
 ## 3.5 The verdict depends on the readout and on what the map is a function of
@@ -427,7 +427,7 @@ DAVIS gives 54 of its mutant targets exactly the wild-type sequence, so 12 of th
 <!-- src: results/sequence_audit_davis.md:9 = 54 -->
 <!-- src: results/sequence_audit_davis.md:21 = 12, 88, 816, 5984, 13.6 -->
 The retrain was made on DeepDTA, the accuracy anchor, at the cold-target split, with three seeds, and separates the leak from the loss of training rows
-(Figure 6). On the leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the strictly unleaked rows no
+(Figure 4). On the leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the strictly unleaked rows no
 inflation is detectable (−0.019, p = 0.31). Over all rows the net effect is 0.019 with an interval, [−0.022, 0.059], that includes zero (p = 0.19), because
 the leaked rows are 13.6% of the test set; we therefore do not quote the all-rows figure as a finding. Explanation metrics exclude seen-by-sequence
 targets throughout.
@@ -435,9 +435,9 @@ targets throughout.
 <!-- src: results/certification/key_numbers.csv#name=leak_ct_unleaked_rows->value,p = -0.019, 0.31 -->
 <!-- src: results/certification/key_numbers.csv#name=leak_ct_all_rows->value,low,high,p = 0.019, -0.022, 0.059, 0.19 -->
 
-![Figure 6](../v2/figures/fig6_leakage.png)
+![Figure 4](../v2/figures/fig6_leakage.png)
 
-**Figure 6. What DAVIS's sequence leakage is worth to the accuracy anchor.** DeepDTA test AUROC (mean ± SD over three seeds) at cold-target and cold-pair, retrained on three training sets: the original split, "seqclean" (every seen-by-sequence target removed) and "seqmatched" (the leaked targets kept, at the size of "seqclean"). "seqmatched" minus "seqclean" isolates the leak; "original" minus "seqmatched" is the cost of fewer rows. Scored on all test rows and separately on leaked and unleaked targets.
+**Figure 4. What DAVIS's sequence leakage is worth to the accuracy anchor.** DeepDTA test AUROC (mean ± SD over three seeds) at cold-target and cold-pair, retrained on three training sets: the original split, "seqclean" (every seen-by-sequence target removed) and "seqmatched" (the leaked targets kept, at the size of "seqclean"). "seqmatched" minus "seqclean" isolates the leak; "original" minus "seqmatched" is the cost of fewer rows. Scored on all test rows and separately on leaked and unleaked targets.
 
 Every result in this section concerns kinase targets; the non-kinase transfer panel is not analysed here.
 

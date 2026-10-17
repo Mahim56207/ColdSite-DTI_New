@@ -4,7 +4,7 @@
 on purpose (do not delete from the project): v2 Table 1 (full accuracy table) and Figures 3-4; the integrated-gradients comparison (v2 §3.7, confirmatory);
 the KLIFS numbers on KIBA other than the XAttn-Ref contrast; the 1,000-permutation count of 12; the MolTrans cold-pair example; the cold-pair leak sentence;
 DrugBAN's remaining per-seed deltas and the note that its faithfulness has no interval would be stated in the Supplement and the Discussion (limitations).
-Main-text figures proposed: Figure 1 (seed instability), Figure 2 (enrichment forest), Figure 5 (faithfulness), Figure 6 (leakage) -- files in paper/v2/figures/.
+Main-text figures proposed: Figure 1 (seed instability), Figure 2 (enrichment forest), Figure 3 (faithfulness), Figure 4 (leakage) -- files in paper/v2/figures/.
 Every digit has a source tag (`python scripts/check_number_provenance.py paper/v3_ismb/results.md`). Only committed local results are used; nothing from
 Wave A (not run) appears. -->
 
@@ -105,7 +105,7 @@ within the kinase domain in eight of its twelve seed-level cells (uncorrected), 
 
 Faithfulness is the most stable property measured for three of the four models. In all 16 cells of HyperAttentionDTI, MolTrans and XAttn-Ref, masking
 the attended residues changes the prediction more than masking the same number of random ones, with every 95% interval above zero even when seeds are
-resampled (Figure 5); the effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random),
+resampled (Figure 3); the effect ranges from 0.054 [0.030, 0.080] (HyperAttentionDTI, DAVIS cold-pair) to 1.21 [0.68, 1.92] (XAttn-Ref, DAVIS random),
 and MolTrans, measured in its own token space, is not on the same scale. The sign holds in every seed, but its size does not: within a cell the per-seed
 deltas differ several-fold.
 <!-- src: results/effects_v2_2d/faithfulness_effects.csv#rows = 16 -->
@@ -145,7 +145,7 @@ DAVIS gives 54 of its mutant targets exactly the wild-type sequence, so 12 of th
 <!-- src: results/sequence_audit_davis.md:9 = 54 -->
 <!-- src: results/sequence_audit_davis.md:21 = 12, 88, 816, 5984, 13.6 -->
 The retrain was made on DeepDTA, the accuracy anchor, at the cold-target split, with three seeds, and separates the leak from the loss of training rows
-(Figure 6). On the leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the strictly unleaked rows no
+(Figure 4). On the leaked rows the sequence match inflates AUROC by 0.116 (95% t-interval [0.098, 0.134], p = 0.0013). On the strictly unleaked rows no
 inflation is detectable (−0.019, p = 0.31). Over all rows the net effect is 0.019 with an interval, [−0.022, 0.059], that includes zero (p = 0.19), because
 the leaked rows are 13.6% of the test set; we therefore do not quote the all-rows figure as a finding. Explanation metrics exclude seen-by-sequence
 targets throughout.

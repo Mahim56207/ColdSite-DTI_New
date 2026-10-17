@@ -114,3 +114,18 @@ save) and is killed only past the nominal 30 hours. A session that died leaves i
 Limits: it cannot see Kaggle's own counter, so usage outside the harness (the canary, anything run by hand) must be declared:
 `python -m src.cloud.quota --root results --account ACC1 --add-external 2.2 --external-id canary-2026-09-29 --note "canary + epoch gate"`
 (idempotent per id; `--status` prints the ledger; usage of one account is never merged into another's).
+
+## The live monitor and progress.json (`src/cloud/runner.py`; added 2026-10-17)
+
+While the trainers run, their output goes to `results/runner_gpu*.log`, so a notebook cell would otherwise show nothing for hours. The runner therefore prints a
+status block every `MONITOR_S` = 300 s and rewrites `results/progress.json` (atomically) at the same moment and once more when it ends:
+
+```
+[monitor] elapsed 2h14m | self-stop in 8h01m (session limit 11 h) | cells complete 2/12 | quota used 4.6 of 25.5 gpu-hours
+  gpu0: <cell> epoch 7, 361.2 s/epoch | this cell finishes within 3h20m (upper bound; early stopping can end it sooner) | 5 cell(s) left in its queue
+```
+
+It is read-only: it reads each cell's per-epoch status file and counts complete-markers by whether the marker file exists (it does not re-hash the checkpoints,
+which would cost seconds per 250 MB MolTrans file; the real verification still runs in `run_cell` before anything is skipped). A failure inside the monitor is logged and
+never stops training; `monitor_s=0` switches it off. Tests: `tests/test_runner_monitor.py` (including a run of the tiny trainer with a fast monitor, a monitor that raises, and
+the same cell trained with and without the monitor). `progress.json` travels in the results zip with the quota ledger.

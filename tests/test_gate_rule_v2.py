@@ -94,7 +94,7 @@ def test_seeds_that_are_one_run_still_fail_distinctness_under_the_amended_rule()
     assert gate_rule_v2.evaluate_v2(same_init, REF, 1, [4, 5])["verdict"] == "fail"
 
 
-def test_gate_a_is_not_relaxed():
+def test_gate_a_still_rejects_a_gross_deviation():
     off = {**REPLAY, "train_loss": REPLAY["train_loss"] + 0.02}
     out = gate_rule_v2.evaluate_v2(_new(s1=off, s4=SEED4, s5=SEED5), REF, 1, [4, 5])
     assert out["gate_a"]["train_loss"]["verdict"] == "fail" and out["verdict"] == "fail"
@@ -131,3 +131,50 @@ def test_the_amended_module_is_not_part_of_the_hash_the_canary_is_bound_to():
     if not os.path.exists(path):
         pytest.skip("no committed canary verdict yet")
     assert json.load(open(path))["harness_sha256"] == canary.harness_hash(), "a hashed harness file changed after the canary passed"
+
+
+# ---- Gate A, widened to 4 committed-seed SDs before the re-run (2026-10-17) ---------------------------------------------------------
+
+def _sd(metric):
+    return statistics.stdev([REF[s][metric] for s in (1, 2, 3)])
+
+
+def _replay(**shift):
+    base = {m: REF[1][m] for m in ("train_loss", "val_loss", "auroc")}
+    return {m: base[m] + shift.get(m, 0.0) for m in base}
+
+
+def test_gate_a_tolerance_is_four_committed_seed_sds_to_the_edge():
+    assert gate_rule_v2.GATE_A_SDS == 4
+    for metric in ("train_loss", "val_loss", "auroc"):
+        inside = gate_rule_v2.evaluate_v2(_new(s1=_replay(**{metric: 3.9 * _sd(metric)}), s4=SEED4, s5=SEED5), REF, 1, [4, 5])
+        outside = gate_rule_v2.evaluate_v2(_new(s1=_replay(**{metric: 4.1 * _sd(metric)}), s4=SEED4, s5=SEED5), REF, 1, [4, 5])
+        assert inside["gate_a"][metric]["verdict"] == "pass", metric
+        assert outside["gate_a"][metric]["verdict"] == "fail" and outside["verdict"] == "fail", metric
+        row = inside["gate_a"][metric]
+        assert row["tolerance_multiplier"] == 4 and row["tolerance"] == pytest.approx(4 * _sd(metric))
+
+
+def test_gate_a_passes_the_three_recorded_replays_that_a_one_sd_gate_could_fail():
+    """Validation-loss deviations of the three recorded replays of seed 1: -0.0023, -0.0044, +0.0023; the tolerance was one SD (0.0029)."""
+    for dev in (-0.0023, -0.0044, 0.0023):
+        out = gate_rule_v2.evaluate_v2(_new(s1=_replay(val_loss=dev), s4=SEED4, s5=SEED5), REF, 1, [4, 5])
+        assert out["gate_a"]["val_loss"]["verdict"] == "pass", dev
+        assert out["original_rule"]["gate_a"] == ("pass" if abs(dev) <= _sd("val_loss") else "fail")       # the old rule is kept beside it
+    assert gate_rule_v2.evaluate_v2(_new(s1=_replay(val_loss=-0.0044), s4=SEED4, s5=SEED5), REF, 1, [4, 5])["original_rule"]["gate_a"] == "fail"
+
+
+def test_gate_a_still_fails_nan_and_a_collapsed_replay():
+    nan = _replay(); nan["val_loss"] = float("nan")
+    assert gate_rule_v2.evaluate_v2(_new(s1=nan, s4=SEED4, s5=SEED5), REF, 1, [4, 5])["gate_a"]["val_loss"]["verdict"] == "fail"
+    collapsed = _replay(auroc=-0.30)                                   # validation AUROC near chance
+    assert gate_rule_v2.evaluate_v2(_new(s1=collapsed, s4=SEED4, s5=SEED5), REF, 1, [4, 5])["gate_a"]["auroc"]["verdict"] == "fail"
+
+
+def test_a_healthy_replay_almost_never_fails_gate_a_but_often_failed_the_original():
+    """Replay noise as large as the recorded one (about 1.2 committed-seed SDs, from the three replays): the old one-SD rule fails a healthy harness most of the time."""
+    rng = np.random.default_rng(2)
+    noise = rng.standard_normal((20_000, 3)) * 1.2
+    assert (np.abs(noise) > 4).any(axis=1).mean() <= 0.01
+    assert (np.abs(noise) > 1).any(axis=1).mean() >= 0.5
+

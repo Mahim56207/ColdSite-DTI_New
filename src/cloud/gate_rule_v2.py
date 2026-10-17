@@ -13,8 +13,9 @@ interval for a new draw from the three committed values:
                                                                        m = the number of envelope checks = 3 metrics x the new seeds
 
 a family-wise 5 % false-fail rate under normality however many seeds are checked (a Bonferroni split of alpha over the m checks, the same
-family-wise idea the audit uses). Unchanged: Gate A (replay of seed 1 within one committed-seed SD), finite values, and DISTINCT (a new
-seed's initial-weight hash and metrics must differ from every other run's).
+family-wise idea the audit uses). Also amended, declared 2026-10-17 BEFORE the gate was re-run (the user chose it): Gate A's tolerance is GATE_A_SDS = 4
+committed-seed SDs (it was 1), the same multiplier as the canary (`canary.TOLERANCE_SDS`); see "Gate A" below. Unchanged: finite values, and DISTINCT (a
+new seed's initial-weight hash and metrics must differ from every other run's).
 
 Honest limits, all recorded in the verdict:
   * It was chosen after a fail, so the ORIGINAL rule's verdict is kept in the output beside it. It is not a re-run: the same recorded runs
@@ -23,9 +24,11 @@ Honest limits, all recorded in the verdict:
     outside (it is reported per check as `inside_unadjusted_95`); only the adjustment over the six checks brings it inside.
   * With n = 3 the interval is wide by construction (t with 2 degrees of freedom). It still stops gross failures and non-finite values; the
     bug this gate exists to catch, several seeds that are one run, is caught by DISTINCT and by Gate A, not by the envelope.
-  * Gate A is NOT amended, and it has a similar weakness: three replays of seed 1's epoch 1 differ from the committed run by -0.0023, -0.0044 and
-    +0.0023 in validation loss against a tolerance of 0.0029, so replay noise is as large as the tolerance and Gate A can fail a healthy
-    harness. The recorded gate run passed it; that is recorded in docs/canary_attempts/README.md so it is not a surprise later.
+  * Gate A had the same weakness and is now amended too, but BEFORE a new run, not after a fail: three replays of seed 1's epoch 1 differ from the committed
+    run by -0.0023, -0.0044 and +0.0023 in validation loss against a tolerance of 0.0029 (one committed-seed SD), so replay noise was as large as the
+    tolerance and Gate A could fail a healthy harness. With 4 SDs the same three replays sit at 0.20 to 0.38 of the tolerance. The multiplier was chosen with
+    those three replays in view; that is disclosed here, in docs/PROTOCOL_AMENDMENT_v2.md (Addendum A7) and in docs/canary_attempts/README.md. The original rule's
+    Gate A result is kept in the output (`original_rule`).
 
 This module is deliberately NOT in `canary.HARNESS_FILES`: it decides a verdict offline and trains nothing, and editing a hashed file would
 have made the canary's passing verdict stale.
@@ -49,7 +52,9 @@ from src.cloud.config import Cell
 from src.cloud.epoch_gate import COMMITTED_SEEDS, METRICS, REFERENCE_PATH, REPLAY_SEED, _overall
 
 ALPHA = 0.05
-RULE = "v2: Gate B envelope is the family-wise prediction interval of a new draw from the three committed seeds"
+GATE_A_SDS = 4        # declared 2026-10-17 before the re-run; the original Gate A used 1 (epoch_gate.evaluate)
+RULE = ("v2: Gate B envelope is the family-wise prediction interval of a new draw from the three committed seeds; "
+        "Gate A tolerance is 4 committed-seed SDs (declared before the re-run)")
 
 
 def prediction_interval(values, m_checks: int, alpha: float = ALPHA) -> tuple:
@@ -65,9 +70,17 @@ def evaluate_v2(new: dict, ref_by_seed: dict, replay_seed: int = REPLAY_SEED, wa
     """Same inputs as `epoch_gate.evaluate`. The original rule's result is kept under `original_rule`."""
     original = epoch_gate.evaluate(new, ref_by_seed, replay_seed, wave_seeds)       # also validates the inputs
     m = len(METRICS) * max(len(wave_seeds), 1)
+    gate_a = {}
+    for metric in METRICS:
+        row = dict(original["gate_a"][metric])
+        sd, got, diff = row["tolerance_sd"], row["new"], row["difference"]
+        verdict = "fail" if not math.isfinite(got) else "inconclusive" if sd == 0 else "pass" if abs(diff) <= GATE_A_SDS * sd else "fail"
+        row.update(tolerance_multiplier=GATE_A_SDS, tolerance=GATE_A_SDS * sd, verdict=verdict)
+        gate_a[metric] = row
+    gate_a["verdict"] = _overall(v["verdict"] for v in gate_a.values())
     result = {"rule": RULE, "alpha": alpha, "n_envelope_checks": m, "replay_seed": replay_seed,
-              "gate_a": original["gate_a"], "gate_b": {},
-              "original_rule": {"verdict": original["verdict"],
+              "gate_a": gate_a, "gate_b": {},
+              "original_rule": {"verdict": original["verdict"], "gate_a": original["gate_a"]["verdict"],
                                 "gate_b": {s: v["verdict"] for s, v in original["gate_b"].items()},
                                 "reference_spread": original["reference_spread"]}}
     for seed in wave_seeds:

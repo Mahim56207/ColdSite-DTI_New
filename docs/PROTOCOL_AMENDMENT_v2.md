@@ -311,7 +311,10 @@ Recorded by the user's instruction, BEFORE the canary and the epoch-1 gate are r
    cell with the same seed and initial weights differed by 3.4 SDs (`docs/canary_attempts/README.md`). The value was chosen with those two runs in view, which is
    disclosed here and in the manuscript's limitations. A broken harness (NaN, collapsed model, wrong split) still fails (`tests/test_cloud_harness.py`).
 3. **Epoch-1 gate.** The official verdict is the amended rule of `src/cloud/gate_rule_v2.py`; the original rule's verdict from the same runs is written beside it.
-   Gate A (replay within one committed-seed SD) is unchanged and is known to be noisy (`docs/canary_attempts/README.md`).
+   **Gate A's tolerance is also widened, to 4 committed-seed SDs (it was 1), the same multiplier as the canary, declared before the re-run (the user chose it).** Reason: three
+   replays of seed 1 differed from the committed run by up to 1.5 SDs in validation loss (`docs/canary_attempts/README.md`), so a one-SD Gate A could fail a healthy harness; the
+   multiplier was chosen with those replays in view (disclosed). The original rule's Gate A result stays in the output (`original_rule.gate_a`). Implemented only in
+   `src/cloud/gate_rule_v2.py` (not a hashed harness file).
 4. **DrugBAN hours** are an estimate from one measured seconds-per-epoch value and DAVIS epoch counts (`src/cloud/budget.py`); the plan files were regenerated.
 5. **Harness files changed** (`recipes.py`, `runner.py` [read-only monitor and progress.json], `canary.py`), so the earlier canary and epoch-gate verdicts no longer apply
    (their archived copies are in `docs/canary_attempts/`); both must be re-run.

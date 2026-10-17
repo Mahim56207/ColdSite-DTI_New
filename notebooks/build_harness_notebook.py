@@ -250,8 +250,8 @@ else:
 
 One epoch each of the canary cell at the committed seed (1, the replay) and at the new wave seeds (4 and 5). Two verdicts are written from
 the SAME three runs: `epoch_gate_verdict_original_rule.json` (the rule as first written; it can fail a healthy harness) and
-**`epoch_gate_verdict.json`, the official one**, from `src/cloud/gate_rule_v2.py` (Gate B is the family-wise prediction interval of a new draw; Gate A,
-finiteness and distinctness unchanged; `docs/canary_attempts/README.md` says why). About 5 to 10 minutes on the two T4s."""),
+**`epoch_gate_verdict.json`, the official one**, from `src/cloud/gate_rule_v2.py` (Gate B is the family-wise prediction interval of a new draw; Gate A's tolerance is 4
+committed-seed SDs, declared before this run; finiteness and distinctness unchanged; `docs/canary_attempts/README.md` says why). About 5 to 10 minutes on the two T4s."""),
                 code("""
 if not DRY_RUN:
     gate = subprocess.run([sys.executable, '-m', 'src.cloud.epoch_gate', '--run', '--seeds', '1', '4', '5',

@@ -52,3 +52,14 @@ Attempt 1: 4,727 s on one GPU (1.31 GPU-hours). Attempt 2: the ledger holds 0.99
 ## Next experiment this points to
 
 Repeat one seed several times under the same harness (same initial weights, same software) to separate run noise from seed variance: the clean version of the question this pair of runs raises.
+
+## Rules used for the re-run (declared 2026-10-17, before it was run)
+
+The harness changed afterwards (`recipes.py`: DrugBAN fp32 on KIBA and the exact precision rule; `runner.py`: a read-only monitor; `canary.py`: the tolerance), so both verdicts above are
+stale and the canary and the epoch-1 gate are run again. Both tolerances are widened **before** the run, the user's decision (`docs/PROTOCOL_AMENDMENT_v2.md`, Addendum A7):
+* **Canary:** test AUROC and AUPRC within 4 committed-seed SDs of the committed value (was 1): `canary.TOLERANCE_SDS`.
+* **Gate A:** the replay's epoch-1 train loss, validation loss and AUROC within 4 committed-seed SDs (was 1): `gate_rule_v2.GATE_A_SDS`. Gate B is the amended rule above.
+
+Both multipliers were chosen with the recorded same-seed runs in view (3.4 SDs apart for the canary, up to 1.5 SDs for the replays), which is why they are disclosed here and in the paper's limitations.
+They still reject a NaN, a collapsed model and a clearly worse model (tests in `tests/test_cloud_harness.py` and `tests/test_gate_rule_v2.py`). The notebook writes the original-rule gate verdict beside the official one.
+

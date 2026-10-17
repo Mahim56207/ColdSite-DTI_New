@@ -84,6 +84,12 @@ MolTrans's drug × protein interaction map, scored as a readout variant, gives i
 
 Integrated gradients (Sundararajan et al., 2017; 32 steps) on the same checkpoints localise better than the attention in some cells, not
 all.
+ For XAttn-Ref at DAVIS cold-drug, IG reaches 3.16 [2.40, 4.40]× chance in the pocket against the
+attention's 2.10 [1.83, 2.36]×. For HyperAttentionDTI at KIBA cold-drug, IG's point estimate against
+UniProt residues, 1.90×, is above the attention's 0.94 [0.71, 1.19]×, but with seeds resampled its
+interval, [0.63, 3.39], includes parity. IG coverage is partial
+(this Supplement, S6), and we read it only as evidence that a weak attention map can under-report
+what a model represents.
 
 ## S6 Where each instrument was run
 

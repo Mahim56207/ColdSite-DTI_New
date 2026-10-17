@@ -37,7 +37,7 @@ doc = "\n".join([abstract, front, rd("introduction.md"), rd("methods.md"), resul
 doc = re.sub(r"\n{3,}", "\n\n", doc)
 open(os.path.join(D, "MANUSCRIPT.md"), "w", encoding="utf-8").write(doc)
 def strip_comments(t):
-    t = re.sub(r"^[ \t]*<!--.*?-->[ \t]*\n", "", t, flags=re.S | re.M)     # a comment alone on its line vanishes WITH its newline (no paragraph split)
+    t = re.sub(r"^[ \t]*(?:<!--(?:(?!-->).)*-->[ \t]*)+\n", "", t, flags=re.S | re.M)     # a comment alone on its line vanishes WITH its newline (no paragraph split)
     t = re.sub(r"<!--.*?-->", "", t, flags=re.S)                             # trailing / inline comments
     t = re.sub(r"[ \t]+\n", "\n", t); return re.sub(r"\n{3,}", "\n\n", t)
 open(os.path.join(D, "MANUSCRIPT_clean.md"), "w", encoding="utf-8").write(strip_comments(doc))
@@ -51,6 +51,18 @@ for n in ("abstract", "introduction", "methods", "results", "discussion"):
 body = sum(words(rd(n + '.md')) for n in ("introduction", "methods", "results", "discussion"))
 capw = sum(words(c) for k, c in caps.items() if k in img)
 print(f"  main text (Introduction..Discussion): {body}; main-figure captions: {capw}; supplement: {words(rd('supplement.md'))}")
+
+# --- guard: no source paragraph may be lost when comments are stripped (a lazy pattern once swallowed section 2.3) ------------------
+_norm = lambda t: re.sub(r"\s+", " ", t).strip()
+_strip = lambda t: re.sub(r"<!--.*?-->", "", t, flags=re.S)
+for _src, _dst in (([rd(n + ".md") for n in ("introduction", "methods", "results", "discussion")], "MANUSCRIPT_clean.md"), ([rd("supplement.md")], "SUPPLEMENT_clean.md")):
+    _out = _norm(open(os.path.join(D, _dst), encoding="utf-8").read())
+    for _t in _src:
+        for _para in re.split(r"\n\s*\n", _strip(_t)):
+            _q = _norm(_para)
+            if len(_q) >= 40 and _q not in _out:
+                raise SystemExit(f"LOST PARAGRAPH in {_dst}: {_q[:100]}")
+print("guard ok: every source paragraph is present in the clean copies")
 
 import subprocess
 for src, dst in (("MANUSCRIPT_clean.md", "MANUSCRIPT.docx"), ("SUPPLEMENT_clean.md", "SUPPLEMENT.docx")):

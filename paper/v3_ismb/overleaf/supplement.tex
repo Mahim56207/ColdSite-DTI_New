@@ -53,6 +53,7 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \usepackage[authoryear]{natbib}
 \bibliographystyle{plainnat}
+\usepackage{graphicx}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -197,7 +198,7 @@ The readout-comparison table is written by the readout runs to the checkpoint-si
 
 \subsection{S5 Integrated gradients on the same weights (confirmatory)}\label{s5-integrated-gradients-on-the-same-weights-confirmatory}
 
-Integrated gradients \citep{Sundararajan2017} (32 steps) on the same checkpoints localise better than the attention in some cells, not all.
+Integrated gradients \citep{Sundararajan2017} (32 steps) on the same checkpoints localise better than the attention in some cells, not all. For XAttn-Ref at DAVIS cold-drug, IG reaches 3.16 {[}2.40, 4.40{]}$\times$ chance in the pocket against the attention's 2.10 {[}1.83, 2.36{]}$\times$. For HyperAttentionDTI at KIBA cold-drug, IG's point estimate against UniProt residues, 1.90$\times$, is above the attention's 0.94 {[}0.71, 1.19{]}$\times$, but with seeds resampled its interval, {[}0.63, 3.39{]}, includes parity. IG coverage is partial (this Supplement, S6), and we read it only as evidence that a weak attention map can under-report what a model represents.
 
 \subsection{S6 Where each instrument was run}\label{s6-where-each-instrument-was-run}
 

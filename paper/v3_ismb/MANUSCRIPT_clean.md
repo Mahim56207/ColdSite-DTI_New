@@ -109,6 +109,21 @@ loading is replaced, apart from the mixed precision on KIBA described below. All
 early stopping after 15 epochs without improvement (10 for DeepDTA).
 DAVIS cells are trained in full precision. On KIBA, DeepDTA and HyperAttentionDTI use mixed precision, whereas MolTrans (whose hand-written layer
 normalisation underflows in half precision) and XAttn-Ref use full precision; the precision of every cell is recorded in its results file. Mixed precision was checked beforehand on one DAVIS cell (HyperAttentionDTI, cold-pair, three seeds per arm), where test AUROC and precision@10 stayed within the full-precision seed spread; three seeds detect only a gross effect and cannot show equivalence (Supplement).
+ DrugBAN is
+trained on DAVIS only. Training ran on Kaggle sessions with two NVIDIA T4 GPUs, one independent job per GPU.
+
+The explanation scored for each model is the readout of the primary analysis: MolTrans's protein-encoder self-attention
+(last layer, mean over heads), HyperAttentionDTI's channel-mean attention placed at the centre of each convolution window, DrugBAN's bilinear
+attention summed over drug atoms and averaged over heads, and XAttn-Ref's cross-attention weights; each is projected to one non-negative weight per
+residue. Whether each primary readout matches the map its authors display has not been confirmed against their figures; alternative readouts are
+a sensitivity analysis (Supplement).
+
+## 2.3 Ground truths and plausibility
+
+Two ground truths at different resolutions are used. **UniProt residues**: sequence features of type Binding site, Active site and Nucleotide
+binding (The UniProt Consortium, 2025), re-numbered onto each dataset sequence by alignment so that a site points at the residue the model read.
+**KLIFS pocket**: the 85 residues lining the ATP cleft of every kinase (van Linden et al., 2014; Kanev et al., 2021), placed on each sequence by the
+same alignment. Proteins are scored within their first 1,000 residues.
 Plausibility is precision@k, the fraction of a protein's k most-attended residues that are sites, with k = 10 fixed before any result existed. It is
 computed on one test pair per protein, so that proteins measured against many drugs are not weighted by that count. Each protein's chance level is
 (sites in the window) ÷ (window length), the exact expectation for k uniformly random residues, and its ceiling is min(sites, k) ÷ k.

@@ -131,7 +131,7 @@ body = "# 1 Introduction" + m.split("# 1 Introduction", 1)[1].split("# Reference
 body, nc, nf = prep(body, "main")
 abs_md, nca, _ = prep(abs_md, "abstract")
 meta = ("---\ntitle: " + repr(title) + "\nauthor:\n  - Mahim Agarwal\ndate: ''\nbibliography: references\nnatbiboptions: authoryear\nbiblio-style: plainnat\n"
-        "geometry: margin=2.5cm\nfontsize: 11pt\nlinkcolor: blue\nurlcolor: blue\nabstract: |\n" + "\n".join("  " + l for l in abs_md.splitlines()) + "\n---\n\n")
+        "geometry: margin=2.5cm\nfontsize: 11pt\nlinkcolor: blue\nurlcolor: blue\nheader-includes: |\n  \\usepackage{graphicx}\nabstract: |\n" + "\n".join("  " + l for l in abs_md.splitlines()) + "\n---\n\n")
 subprocess.run(["pandoc", "-f", "markdown+raw_attribute", "-t", "latex", "--wrap=none", "--natbib", "-s", "-o", os.path.join(OUT, "main.tex")], input=meta + body, text=True, check=True)
 open(os.path.join(OUT, "manuscript_body.tex"), "w", encoding="utf-8").write(pandoc(body, "-t", "latex", "--wrap=none"))
 print(f"main: {nc} citations + {nca} in abstract converted, {nf} figures")
@@ -140,7 +140,7 @@ print(f"main: {nc} citations + {nca} in abstract converted, {nf} figures")
 s = open(os.path.join(V3, "SUPPLEMENT_clean.md"), encoding="utf-8").read()
 stitle, sbody = s.split("\n", 1)
 sbody, nc2, nf2 = prep(sbody, "supplement")
-smeta = "---\ntitle: 'Supplementary Information to: " + title.replace("'", "''") + "'\nauthor:\n  - Mahim Agarwal\ndate: ''\nbibliography: references\nnatbiboptions: authoryear\nbiblio-style: plainnat\ngeometry: margin=2cm\nfontsize: 10pt\nheader-includes: |\n  \\renewcommand{\\thefigure}{S\\arabic{figure}}\n---\n\n"
+smeta = "---\ntitle: 'Supplementary Information to: " + title.replace("'", "''") + "'\nauthor:\n  - Mahim Agarwal\ndate: ''\nbibliography: references\nnatbiboptions: authoryear\nbiblio-style: plainnat\ngeometry: margin=2cm\nfontsize: 10pt\nheader-includes: |\n  \\usepackage{graphicx}\n  \\renewcommand{\\thefigure}{S\\arabic{figure}}\n---\n\n"
 subprocess.run(["pandoc", "-f", "markdown+raw_attribute", "-t", "latex", "--wrap=none", "--natbib", "-s", "-o", os.path.join(OUT, "supplement.tex")], input=smeta + sbody, text=True, check=True)
 print(f"supplement: {nc2} citations, {nf2} figures")
 

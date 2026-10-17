@@ -1,4 +1,10 @@
-# Wave A — launch steps (T11). Nothing below has been done; each step is the user's.
+# Wave A — launch steps (T11)
+
+**Status 2026-10-17:** the canary and the official epoch-1 gate PASSED on harness `52bd3335…` (`docs/canary_attempts/README.md`, attempt 3) and both verdicts are in `config/`. The three Wave A notebooks were
+regenerated and are pinned to commit `5d55c63` (which contains the verdicts); the pre-flight reports `PASS canary` and `PASS epoch_gate` for all three. Decided: ACC1 and ACC2 use Kaggle's current image (torch 2.11.0;
+`docs/PROTOCOL_AMENDMENT_v2.md`, Addendum A7 item 6). The account `mahim5` has already used about 1.2 GPU-hours of its weekly quota on the canary and the gate.
+**ACC3: always run it once with `DRY_RUN = True` first.** On Kaggle, with DGL installed by its cell 3b, that dry run performs for the first time the `rng_import` check of the vendored DrugBAN (it cannot run on a machine without
+DGL); a failure there costs minutes, not GPU hours. Everything below describes how the steps were and are done.
 
 The three notebooks (`notebooks/kaggle_wave_a_acc1.ipynb`, `_acc2`, `_acc3`) are generated from `config/waves.json` by
 `notebooks/build_harness_notebook.py` and pinned to a commit. They ship with `DRY_RUN = True`, and **a real run is refused by the

@@ -318,4 +318,7 @@ Recorded by the user's instruction, BEFORE the canary and the epoch-1 gate are r
 4. **DrugBAN hours** are an estimate from one measured seconds-per-epoch value and DAVIS epoch counts (`src/cloud/budget.py`); the plan files were regenerated.
 5. **Harness files changed** (`recipes.py`, `runner.py` [read-only monitor and progress.json], `canary.py`), so the earlier canary and epoch-gate verdicts no longer apply
    (their archived copies are in `docs/canary_attempts/`); both must be re-run.
+6. **Software environment of Wave A (decided 2026-10-17, after the canary passed).** The canary ran on Kaggle's current image (torch 2.11.0+cu128, Python 3.13.15), where attempts 1 and 2
+   had torch 2.10.0+cu128, and the user chose to **accept the current image for ACC1 and ACC2** (no torch pin) and disclose it, rather than add an untested pin. Every trained cell records its torch
+   version in its complete-marker; seeds 4 and 5 are therefore trained under a newer torch than seeds 1 to 3, and any seed-4/5 result is reported with that statement. ACC3 pins its own torch (2.6.0, for DGL).
 

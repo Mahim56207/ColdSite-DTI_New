@@ -334,7 +334,7 @@ three reruns of one cell and not a variance estimate; it does show that fixing t
 what a single-run report depends on, and not that initialisation is the cause. We also do not test why the maps disagree.
 
 **Few seeds, and compute not yet run.** Three seeds are few for estimating seed instability. Seeds four and five of HyperAttentionDTI, MolTrans and XAttn-Ref, and DrugBAN on KIBA,
-are planned and declared in a dated protocol amendment but have not been run, and none contributes to any number here; if they are run, the counts above will be recomputed and reported
+are planned and declared in a dated protocol amendment but have not been run, and none contributes to any number here; if they are run, they will be trained under a newer library version than seeds one to three (recorded for every cell), and the counts above will be recomputed and reported
 beside, not merged into, the three-seed analysis. KIBA was trained at the random and cold-drug levels only, so every cold-target and cold-pair claim rests on DAVIS alone.
 
 **Ground truth and scope.** All claims concern kinases; the non-kinase transfer panel is not analysed. UniProt annotations and the KLIFS pocket are structural ground truths that may be

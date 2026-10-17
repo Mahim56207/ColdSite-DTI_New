@@ -111,7 +111,7 @@ def fig_block(m):
     shutil.copy(os.path.join(ROOT, "paper", "v2", "figures", stem + ".pdf"), os.path.join(FIG, stem + ".pdf"))
     num = re.sub(r"^(Supplementary )?Figure ", "", title.split(".")[0])
     t = title.split(". ", 1)[1] if ". " in title else title
-    return ("```{=latex}\n\\begin{figure}[t]\n\\centering\n\\includegraphics[width=\\linewidth]{figures/" + stem + ".pdf}\n\\caption{\\textbf{" + t.rstrip(".") + ".} " + cap_tex + "}\n\\label{fig:" + lab + "}\n\\end{figure}\n```")
+    return ("```{=latex}\n\\begin{figure}[t]\n\\centering\n\\includegraphics[width=\\linewidth]{figures/" + stem + ".pdf}\n\\caption{\\textbf{" + pandoc(t.rstrip("."), "-t", "latex", "--wrap=none").strip() + ".} " + cap_tex + "}\n\\label{fig:" + lab + "}\n\\end{figure}\n```")
 
 FIGRE = re.compile(r"!\[(?P<lab>[^\]]+)\]\(\.\./v2/figures/(?P<f>[^)]+)\.png\)\n\n(?P<cap>.+?)(?=\n\n|\Z)", re.S)
 

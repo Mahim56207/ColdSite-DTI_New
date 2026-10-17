@@ -328,9 +328,9 @@ and both are cheap relative to training.
 ## 4.4 Limitations
 
 **A "seed" is a retraining, not a controlled source of variance.** We did not separate initialisation from other run-to-run variation. The cloud-harness canary retrained one
-committed cell (XAttn-Ref, DAVIS cold-target, seed 1) twice with identical initial weights, the same library version and GPU type: test AUROC came out at 0.8868 in one attempt and
-0.8494 in the other, against the committed 0.8501. The two attempts ran different versions of the harness code but the same training code (docs/canary_attempts/README.md), so this is
-one pair of runs and not a variance estimate; it does show that fixing the seed does not fix the outcome. Our claim is therefore that verdicts differ between retrainings, which is
+committed cell (XAttn-Ref, DAVIS cold-target, seed 1) three times with identical initial weights and the same GPU type: test AUROC came out at 0.8868, 0.8494 and 0.8705, against the committed 0.8501.
+The first two attempts used the same library version and different versions of the harness code but the same training code; the third used a newer library version (docs/canary_attempts/README.md). This is
+three reruns of one cell and not a variance estimate; it does show that fixing the seed does not fix the outcome. Our claim is therefore that verdicts differ between retrainings, which is
 what a single-run report depends on, and not that initialisation is the cause. We also do not test why the maps disagree.
 
 **Few seeds, and compute not yet run.** Three seeds are few for estimating seed instability. Seeds four and five of HyperAttentionDTI, MolTrans and XAttn-Ref, and DrugBAN on KIBA,

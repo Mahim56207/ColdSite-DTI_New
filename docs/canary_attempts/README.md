@@ -63,3 +63,25 @@ stale and the canary and the epoch-1 gate are run again. Both tolerances are wid
 Both multipliers were chosen with the recorded same-seed runs in view (3.4 SDs apart for the canary, up to 1.5 SDs for the replays), which is why they are disclosed here and in the paper's limitations.
 They still reject a NaN, a collapsed model and a clearly worse model (tests in `tests/test_cloud_harness.py` and `tests/test_gate_rule_v2.py`). The notebook writes the original-rule gate verdict beside the official one.
 
+## Attempt 3 (2026-10-17): the re-run under the declared rules — PASS
+
+Notebook `kaggle_canary.ipynb` pinned to `e0c3da1`, Kaggle account `mahim5`, harness hash `52bd3335…`. Files: `attempt3_canary_verdict_PASS_rule_v2.json`,
+`attempt3_epoch_gate_verdict_OFFICIAL_PASS.json`, `attempt3_epoch_gate_verdict_ORIGINAL_RULE_FAIL.json`, `attempt3_environment_and_run.json`. The first two are the files committed as
+`config/canary_verdict.json` and `config/epoch_gate_verdict.json`.
+
+| What | Result |
+|---|---|
+| Canary (rule v2: 4 committed-seed SDs) | **PASS**: test AUROC 0.8705 (+0.0203; tolerance 0.0438), AUPRC 0.5005 (+0.0853; tolerance 0.1863). 28 epochs, early stopping at epoch 28 (best epoch 13 by the log), 132.5 s per epoch, 3,710 s of training, 1.04 GPU-hours in the ledger |
+| Same initial weights | yes: hash `efbf3e48…`, as in attempts 1 and 2 |
+| Epoch-1 gate, OFFICIAL (`gate_rule_v2`: Gate A 4 SDs, Gate B prediction interval) | **PASS**: Gate A differences -1e-5 / +0.0037 / -0.0053 (train loss / validation loss / AUROC) against tolerances 0.0142 / 0.0116 / 0.0671; seeds 4 and 5 inside their intervals and distinct |
+| Epoch-1 gate, ORIGINAL rule, same runs | **FAIL**: Gate A (validation loss +0.0037 against 0.0029) and seed 4 (validation loss 0.2332, as in attempt 2: 0.2328) |
+| Epoch-1 gate GPU time | 134.7 s, 126.2 s and 133.7 s for seeds 1, 4 and 5: about 0.11 GPU-hours, not in the ledger |
+
+**What must be said about it.**
+* The canary passes only because of the widened tolerance: under the original one-SD rule it would have failed (+0.0203 AUROC is 1.9 SDs, +0.0853 AUPRC 1.8 SDs). Three reruns of this cell
+  with the same seed and the same initial weights now give test AUROC 0.8868, 0.8494 and 0.8705 (committed: 0.8501): a spread of 0.038.
+* **The software environment is not the same as in attempts 1 and 2.** Recorded in the cell's complete-marker: torch **2.11.0+cu128**, CUDA 12.8, Python 3.13.15 (attempts 1 and 2: torch 2.10.0+cu128).
+  Kaggle's "latest" image moved between September and October. The canary passed in the new environment, but seeds 4 and 5 of Wave A would be trained in a different torch version than seeds 1 to 3
+  unless torch is pinned; this must be stated in the paper if it is not (see the Wave A decision in `docs/wave_a_launch.md`).
+* Initial weights, seeds and the harness hash match what was committed; the checkpoint and results hashes are in `attempt3_environment_and_run.json`.
+

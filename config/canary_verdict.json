@@ -1,0 +1,28 @@
+{
+ "seed": 1,
+ "metrics": {
+  "auroc": {
+   "committed": 0.8501119700273534,
+   "new": 0.8704589037340008,
+   "difference": 0.02034693370664742,
+   "tolerance_sd": 0.010945833406223593,
+   "tolerance_multiplier": 4,
+   "tolerance": 0.04378333362489437,
+   "verdict": "pass"
+  },
+  "auprc": {
+   "committed": 0.41513364853609214,
+   "new": 0.5004746240340856,
+   "difference": 0.08534097549799347,
+   "tolerance_sd": 0.04657183264464677,
+   "tolerance_multiplier": 4,
+   "tolerance": 0.18628733057858707,
+   "verdict": "pass"
+  }
+ },
+ "verdict": "pass",
+ "dataset": "davis",
+ "level": "cold_target",
+ "model": "coldsite_dti",
+ "harness_sha256": "52bd33355925aab17e4039d9b3b0bae2751ba57e76015796eb1b20d6b35a005e"
+}

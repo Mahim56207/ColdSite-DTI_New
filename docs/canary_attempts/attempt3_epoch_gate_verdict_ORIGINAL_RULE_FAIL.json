@@ -1,0 +1,145 @@
+{
+ "replay_seed": 1,
+ "reference_spread": {
+  "train_loss": {
+   "sd": 0.0035574853173632767,
+   "min": 0.2834517863545517,
+   "max": 0.2900129935886195
+  },
+  "val_loss": {
+   "sd": 0.0028863589382418903,
+   "min": 0.2126722936244572,
+   "max": 0.2177636796399393
+  },
+  "auroc": {
+   "sd": 0.01678207226632738,
+   "min": 0.76866581670266,
+   "max": 0.8010329664611141
+  }
+ },
+ "gate_a": {
+  "train_loss": {
+   "committed": 0.2900129935886195,
+   "new": 0.2900016334862139,
+   "difference": -1.1360102405599815e-05,
+   "tolerance_sd": 0.0035574853173632767,
+   "verdict": "pass"
+  },
+  "val_loss": {
+   "committed": 0.2175741583347958,
+   "new": 0.22126274448346328,
+   "difference": 0.0036885861486674887,
+   "tolerance_sd": 0.0028863589382418903,
+   "verdict": "fail"
+  },
+  "auroc": {
+   "committed": 0.7925428668071709,
+   "new": 0.7872774265171423,
+   "difference": -0.005265440290028622,
+   "tolerance_sd": 0.01678207226632738,
+   "verdict": "pass"
+  },
+  "verdict": "fail"
+ },
+ "gate_b": {
+  "4": {
+   "train_loss": {
+    "new": 0.286203770873895,
+    "envelope": [
+     0.27989430103718843,
+     0.29357047890598276
+    ],
+    "verdict": "pass"
+   },
+   "val_loss": {
+    "new": 0.2331514685628886,
+    "envelope": [
+     0.20978593468621531,
+     0.2206500385781812
+    ],
+    "verdict": "fail"
+   },
+   "auroc": {
+    "new": 0.7883520238683769,
+    "envelope": [
+     0.7518837444363327,
+     0.8178150387274414
+    ],
+    "verdict": "pass"
+   },
+   "distinct": {
+    "same_initial_weights_as": [],
+    "identical_metrics_to": [],
+    "initial_weight_hash": "467f9d4a5bbbae367638d13bf1308c0ce66df2e6b022a189f77ec80803bbdbea",
+    "verdict": "pass"
+   },
+   "verdict": "fail"
+  },
+  "5": {
+   "train_loss": {
+    "new": 0.28913505712994136,
+    "envelope": [
+     0.27989430103718843,
+     0.29357047890598276
+    ],
+    "verdict": "pass"
+   },
+   "val_loss": {
+    "new": 0.21417388545080301,
+    "envelope": [
+     0.20978593468621531,
+     0.2206500385781812
+    ],
+    "verdict": "pass"
+   },
+   "auroc": {
+    "new": 0.8020277712729512,
+    "envelope": [
+     0.7518837444363327,
+     0.8178150387274414
+    ],
+    "verdict": "pass"
+   },
+   "distinct": {
+    "same_initial_weights_as": [],
+    "identical_metrics_to": [],
+    "initial_weight_hash": "9aba80f33f9ffa257a937b2d8b25e8a10ac6723a627bd26327ab018195d7da9e",
+    "verdict": "pass"
+   },
+   "verdict": "pass"
+  }
+ },
+ "verdict": "fail",
+ "dataset": "davis",
+ "level": "cold_target",
+ "model": "coldsite_dti",
+ "seeds_checked": [
+  4,
+  5
+ ],
+ "runs": {
+  "1": {
+   "train_loss": 0.2900016334862139,
+   "val_loss": 0.22126274448346328,
+   "auroc": 0.7872774265171423,
+   "initial_weight_hash": "efbf3e484d39e0ce6b1f6ebdc746bb82da385a9a8de160aae41a2ef6306a7346",
+   "seed": 1
+  },
+  "4": {
+   "train_loss": 0.286203770873895,
+   "val_loss": 0.2331514685628886,
+   "auroc": 0.7883520238683769,
+   "initial_weight_hash": "467f9d4a5bbbae367638d13bf1308c0ce66df2e6b022a189f77ec80803bbdbea",
+   "seed": 4
+  },
+  "5": {
+   "train_loss": 0.28913505712994136,
+   "val_loss": 0.21417388545080301,
+   "auroc": 0.8020277712729512,
+   "initial_weight_hash": "9aba80f33f9ffa257a937b2d8b25e8a10ac6723a627bd26327ab018195d7da9e",
+   "seed": 5
+  }
+ },
+ "harness_sha256": "52bd33355925aab17e4039d9b3b0bae2751ba57e76015796eb1b20d6b35a005e",
+ "reference_sha256": "8cd5a748c0f44561e95e0f0e69fa18d0b26d59dfe63fb8c768b52ee39b6fc8ac"
+}

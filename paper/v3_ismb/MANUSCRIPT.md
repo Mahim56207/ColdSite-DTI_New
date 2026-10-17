@@ -498,15 +498,16 @@ and both are cheap relative to training.
 ## 4.4 Limitations
 
 **A "seed" is a retraining, not a controlled source of variance.** We did not separate initialisation from other run-to-run variation. The cloud-harness canary retrained one
-committed cell (XAttn-Ref, DAVIS cold-target, seed 1) twice with identical initial weights, the same library version and GPU type: test AUROC came out at 0.8868 in one attempt and
-0.8494 in the other, against the committed 0.8501. The two attempts ran different versions of the harness code but the same training code (docs/canary_attempts/README.md), so this is
-one pair of runs and not a variance estimate; it does show that fixing the seed does not fix the outcome. Our claim is therefore that verdicts differ between retrainings, which is
+committed cell (XAttn-Ref, DAVIS cold-target, seed 1) three times with identical initial weights and the same GPU type: test AUROC came out at 0.8868, 0.8494 and 0.8705, against the committed 0.8501.
+The first two attempts used the same library version and different versions of the harness code but the same training code; the third used a newer library version (docs/canary_attempts/README.md). This is
+three reruns of one cell and not a variance estimate; it does show that fixing the seed does not fix the outcome. Our claim is therefore that verdicts differ between retrainings, which is
 what a single-run report depends on, and not that initialisation is the cause. We also do not test why the maps disagree.
 <!-- src: docs/canary_attempts/attempt1_canary_verdict_FAIL.json#$.seed = 1 -->
 <!-- src: docs/canary_attempts/attempt1_canary_verdict_FAIL.json#$.metrics.auroc.new = 0.8868 -->
 <!-- src: docs/canary_attempts/attempt2_canary_verdict_PASS.json#$.metrics.auroc.new = 0.8494 -->
+<!-- src: docs/canary_attempts/attempt3_canary_verdict_PASS_rule_v2.json#$.metrics.auroc.new = 0.8705 -->
 <!-- src: docs/canary_attempts/attempt2_canary_verdict_PASS.json#$.metrics.auroc.committed = 0.8501 -->
-<!-- claim "identical initial weights, same library version and GPU type; different harness code, same training code": docs/canary_attempts/README.md lines 9-15 -->
+<!-- claim "identical initial weights, same GPU type; attempts 1 and 2 same library version, different harness code, same training code; attempt 3 newer library version": docs/canary_attempts/README.md (table, first paragraph, and the Attempt 3 section) and attempt3_environment_and_run.json -->
 
 **Few seeds, and compute not yet run.** Three seeds are few for estimating seed instability. Seeds four and five of HyperAttentionDTI, MolTrans and XAttn-Ref, and DrugBAN on KIBA,
 are planned and declared in a dated protocol amendment but have not been run, and none contributes to any number here; if they are run, the counts above will be recomputed and reported

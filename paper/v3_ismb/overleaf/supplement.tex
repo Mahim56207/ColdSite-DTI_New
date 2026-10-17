@@ -280,7 +280,7 @@ s & DAVIS cold-pair validation contains seen-by-sequence targets & checkpoint se
 t & no conservation control for the pocket enrichment & enrichment may reflect conserved residues & none & open --- amendment A1/A7 \\
 u & the sampled 1,000-permutation per-seed p put one seed on the $\alpha$ line & headline disagreement count 12 vs 11 & exact p recomputed independently; 11 reported, 12 disclosed & handled --- \texttt{scripts/certification/step1b\_exact\_p\_validation.py} \\
 v & the leak's all-rows AUROC effect is not distinguishable from zero with three seeds & a small, insignificant number quoted as a finding & not quoted; leaked-row effect reported with its test & handled --- \texttt{results/certification/step3\_leak.txt} \\
-w & the same seed and the same initial weights give different results on re-running (one pair of runs) & part of the ``seed'' variation is run-to-run variation, and the cause of the map disagreement is not isolated & stated as a limitation; both canary runs are reported & open --- \texttt{docs/canary\_attempts/README.md} \\
+w & the same seed and the same initial weights give different results on re-running (three reruns of one cell) & part of the ``seed'' variation is run-to-run variation, and the cause of the map disagreement is not isolated & stated as a limitation; both canary runs are reported & open --- \texttt{docs/canary\_attempts/README.md} \\
 x & the 10,000-permutation audit's cell p-values differ from an exact recomputation by up to 0.0511 on DAVIS and by 0.54 in one KIBA cell; the cause is not established & the survivor counts could differ & Holm recomputed from the exact p-values leaves the same survivors & open --- \texttt{results/certification/step4\_holm.txt} \\
 \end{longtable}
 

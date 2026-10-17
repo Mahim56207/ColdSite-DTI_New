@@ -1,0 +1,26 @@
+{
+ "note": "Attempt 3 (2026-10-17), the canary notebook pinned to e0c3da1, Kaggle account mahim5. Environment as recorded in the cell's complete-marker; nothing here is edited.",
+ "environment": {
+  "python": "3.13.15",
+  "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": false,
+  "vendored_sha256": {
+   "MolTrans": "c931a617e6477f384714c5cd3376d1e1b64f02ec41ee01c6ed17b598ad802dc1",
+   "HyperAttentionDTI": "8983ed49d4fd9aeae2b83ed9c87d561c76041ae890e5368f3251ded4d11c3e3d",
+   "DrugBAN": "b442bfdd587d30b6979e6dd4e484ed8eb0bcc2fbbefae908214c27cc3bba1d37",
+   "DeepDTA": "a0a3f3a9b4229c15f4dccd317f760eba56a389751f8da6ff47cc60eac941784b"
+  }
+ },
+ "gpu": "Tesla T4",
+ "cell": "davis_cold_target_coldsite_dti_seed1",
+ "mean_epoch_s": 132.5,
+ "epochs_trained": 28,
+ "elapsed_s": 3710.4,
+ "checkpoint_sha256": "6165345e584732fa237c3dd71d7a31f78d570c5f6f5ed8d502e1e32c28f60006",
+ "results_sha256": "d01a6cd5ad994015b6accce618f9f19ccf80d62cc3cf6c35d35a07bfe24b4232",
+ "predictions_sha256": "78b1ddf5bef3539cdb69b7046678bcebf39059aa9b4887cb8b8c667231f4332e"
+}

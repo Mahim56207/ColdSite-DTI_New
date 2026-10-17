@@ -136,7 +136,7 @@ what a model represents.
 | t | no conservation control for the pocket enrichment | enrichment may reflect conserved residues | none | open — amendment A1/A7 |
 | u | the sampled 1,000-permutation per-seed p put one seed on the α line | headline disagreement count 12 vs 11 | exact p recomputed independently; 11 reported, 12 disclosed | handled — `scripts/certification/step1b_exact_p_validation.py` |
 | v | the leak's all-rows AUROC effect is not distinguishable from zero with three seeds | a small, insignificant number quoted as a finding | not quoted; leaked-row effect reported with its test | handled — `results/certification/step3_leak.txt` |
-| w | the same seed and the same initial weights give different results on re-running (one pair of runs) | part of the "seed" variation is run-to-run variation, and the cause of the map disagreement is not isolated | stated as a limitation; both canary runs are reported | open — `docs/canary_attempts/README.md` |
+| w | the same seed and the same initial weights give different results on re-running (three reruns of one cell) | part of the "seed" variation is run-to-run variation, and the cause of the map disagreement is not isolated | stated as a limitation; both canary runs are reported | open — `docs/canary_attempts/README.md` |
 | x | the 10,000-permutation audit's cell p-values differ from an exact recomputation by up to 0.0511 on DAVIS and by 0.54 in one KIBA cell; the cause is not established | the survivor counts could differ | Holm recomputed from the exact p-values leaves the same survivors | open — `results/certification/step4_holm.txt` |
 
 For (c), 47.9% of tokens change under the attended arm and 95.0% under an unmatched random arm, on

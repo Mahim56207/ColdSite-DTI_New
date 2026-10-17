@@ -50,8 +50,8 @@ The published models are trained from their vendored repositories with their aut
 learning rate, batch size and tokeniser; only data loading is replaced (Supplementary Table S2). All
 models share one checkpoint rule: up to 100 epochs, the checkpoint with the lowest validation loss
 among epochs ≥ 10, and early stopping after 15 epochs without improvement (10 for DeepDTA, as in its
-original DAVIS cells). <!-- src: src/cloud/recipes.py:65 = 15, 10, 100 -->
-<!-- src: src/cloud/recipes.py:53 = 10, 100, 10 -->
+original DAVIS cells). <!-- src: src/cloud/recipes.py:68 = 15, 10, 100 -->
+<!-- src: src/cloud/recipes.py:56 = 10, 100, 10 -->
 DAVIS cells are trained in full precision. On KIBA, DeepDTA and HyperAttentionDTI use mixed precision;
 MolTrans stays in full precision because its hand-written layer normalisation underflows in half
 precision, and XAttn-Ref stays in full precision to remain comparable with its DAVIS cells

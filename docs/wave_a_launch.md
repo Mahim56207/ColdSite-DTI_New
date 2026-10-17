@@ -43,8 +43,8 @@ git add notebooks config && git commit -m "Wave A notebooks pinned to the canari
 
 ## 3. ACC3 first: the DrugBAN smoke run
 
-The commands are in `docs/wave_plan.md` ("ACC3 — DrugBAN on KIBA: measure first"). Send back `mean_epoch_s` for fp32 and `--amp`; the
-plan then gets DrugBAN's hours and ACC3's required quota, and you decide mixed precision for DrugBAN on KIBA.
+**Done.** The smoke run was run and recorded in `results/drugban_smoke_run_kiba_t4.md` (fp32 320.4 s per epoch; `--amp` gives a NaN first batch); the plan has DrugBAN's
+hours (an estimate) and DrugBAN is full precision on KIBA (`docs/PROTOCOL_AMENDMENT_v2.md`, Addendum A7).
 
 ## 4. Each account (ACC1: seed 4, ACC2: seed 5, ACC3: DrugBAN on KIBA)
 

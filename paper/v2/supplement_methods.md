@@ -36,7 +36,7 @@ built by `src/cloud/recipes.py`, which reproduces the flags of the notebooks tha
 
 | model | optimiser | learning rate | batch | notes |
 |---|---|---|---|---|
-| DeepDTA | Adam | 0.001 | 256 | PyTorch port; patience 10 <!-- src: src/model/train_deepdta.py:144 = 0.001 --> <!-- src: src/cloud/recipes.py:22 = 256 --> <!-- src: src/cloud/recipes.py:53 = 10 -->
+| DeepDTA | Adam | 0.001 | 256 | PyTorch port; patience 10 <!-- src: src/model/train_deepdta.py:144 = 0.001 --> <!-- src: src/cloud/recipes.py:22 = 256 --> <!-- src: src/cloud/recipes.py:56 = 10 -->
 | HyperAttentionDTI | AdamW, cyclic learning rate | 0.00005 | 32 | weight decay 0.0001 on weights, none on biases <!-- src: src/model/train_hyperattentiondti.py:15 = 0.00005, 0.0001 --> <!-- src: src/cloud/recipes.py:21 = 32 -->
 | MolTrans | Adam | 0.0001 | 16 | configuration `BIN_config_DBPE` <!-- src: src/model/train_moltrans.py:236 = 0.0001 --> <!-- src: src/cloud/recipes.py:23 = 16 -->
 | DrugBAN | Adam | 0.00005 | 64 | domain adaptation off; DAVIS only <!-- src: src/cloud/recipes.py:24 = 64, 0.00005 -->

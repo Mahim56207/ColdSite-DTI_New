@@ -8,8 +8,8 @@ Batch sizes are those the notebooks pick for a 16 GB card (`big = memory >= 14 G
 what a T4 is; the pre-flight refuses any other card, so no other branch is needed.
 
 AMP is a property of the wave, not of a model: DAVIS was trained in full precision, KIBA with
-`--amp` (MolTrans excepted, see `src/model/train_moltrans.py`), and a cell must be trained
-under the protocol of its dataset.
+`--amp` (MolTrans and DrugBAN excepted, see `uses_amp`), and a cell must be trained under the
+protocol of its dataset.
 """
 from __future__ import annotations
 
@@ -34,10 +34,13 @@ def cell_dirs(results_root: str, cell: Cell) -> str:
 
 
 def uses_amp(cell: Cell) -> bool:
-    """KIBA is trained with mixed precision, DAVIS in full precision (CLAUDE.md §4).
-    MolTrans is full precision on both: its hand-written LayerNorm underflows in float16
-    (src/model/train_moltrans.py)."""
-    return cell.dataset == "kiba" and cell.model != "moltrans"
+    """Mixed precision is used on KIBA for exactly the two models whose committed KIBA cells were trained with it (the `amp` field of every
+    kiba_*_results.json: DeepDTA and HyperAttentionDTI true; MolTrans and XAttn-Ref false). DAVIS is full precision for every model (CLAUDE.md §4).
+    MolTrans is full precision because its hand-written LayerNorm underflows in float16 (src/model/train_moltrans.py). XAttn-Ref stays full precision to
+    match how its KIBA seeds 1-3 were trained. DrugBAN is full precision on KIBA because under float16 autocast its very first training batch gives a NaN
+    loss (smoke run, KIBA random seed 1, torch 2.6 + DGL: "loss is nan at epoch 1 train batch 1/1293"), while full precision trained normally
+    (320 s per epoch). Rule fixed 2026-10-01/17; docs/wave_plan.md."""
+    return cell.dataset == "kiba" and cell.model in ("deepdta", "hyperattentiondti")
 
 
 def train_command(cell: Cell, results_root: str, python: str | None = None) -> list:

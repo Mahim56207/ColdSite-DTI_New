@@ -37,8 +37,9 @@ Per cell: `epochs × batches-per-epoch × seconds-per-batch × overhead`.
 | epochs a cell runs = `best_epoch` of the model's three committed seeds at that level + patience | `best_epoch` in each `_results.json`; early stopping fires when `epoch − best_epoch ≥ patience` (`src/model/early_stopping.py`); ColdSite-DTI's own histories show +16 in 18 of 18 cells, the two baselines use patience 15 (**+15 is read from the rule; no per-epoch log of a baseline exists to confirm it**) |
 
 Range: mean, min and max of the three committed seeds' epoch counts. Cross-check of the method (never an input): the same formula on the
-24 KIBA cells that were trained (mixed precision except MolTrans, as they were) gives **107.5 GPU-hours** against the report's "~101
-GPU-hours" (+6.5 %; the 101 is a claim `docs/inventory.md` could not find in any log).
+24 KIBA cells that were trained (mixed precision for DeepDTA and HyperAttentionDTI, full precision for MolTrans and XAttn-Ref, as they were) gives
+**111.0 GPU-hours** against the report's "~101 GPU-hours" (+9.9 %; corrected 2026-10-17: it had assumed mixed precision for XAttn-Ref, giving 107.5; the 101 is a
+claim `docs/inventory.md` could not find in any log).
 
 ## Totals (GPU-hours: one cell on one T4 for one hour is one)
 
@@ -46,7 +47,7 @@ GPU-hours" (+6.5 %; the 101 is a claim `docs/inventory.md` could not find in any
 |---|---|---|---|---|---|
 | ACC1 (seed 4) | 12 | **23.2** (ColdSite-DTI 4.9, HyperAttentionDTI 10.3, MolTrans 8.1) | 21.8–24.7 | 11.6 / 11.6 | 2 (the second is short) |
 | ACC2 (seed 5) | 12 | **23.2** | 21.8–24.7 | 11.6 / 11.6 | 2 |
-| ACC3 (DrugBAN, KIBA) | 6 | **not measurable yet** | — | — | — |
+| ACC3 (DrugBAN, KIBA) | 6 | **17.4** (estimate, see below) | 16.1–18.3 | 8.8 / 8.5 | 1 |
 
 A commit gives one account `2 × (11 − 0.75) = 20.5` GPU-hours (`config/harness.json`: 11 h session, 45 min margin).
 
@@ -60,7 +61,8 @@ with the ≥ 15 % reserve (used ≤ 85 % of the quota; `required = hours / 0.85`
 |---|---|---|---|
 | ACC1, ACC2 — mean | 27.3 | 30 | yes |
 | ACC1, ACC2 — high case | **29.1** | 30 | yes, by 0.9 GPU-hours |
-| ACC3 | after the smoke run | 30 | not verifiable: DrugBAN hours unmeasured |
+| ACC3 — mean | 20.5 | 30 | yes (estimate) |
+| ACC3 — high case | 21.5 | 30 | yes (estimate) |
 
 Numbers from `config/wave_budget.json` (`required_weekly_quota_gpu_h_for_mean/high`). The fit holds in the stricter unit
 (GPU-hours); if Kaggle counts a two-GPU session once, the need halves (13.7 / 14.6). ACC1/ACC2 each need two commits
@@ -87,12 +89,15 @@ COLDSITE_HARNESS=1 COLDSITE_STATUS_JSON=results/smoke_amp/status.json python -u 
 ```
 
 Send back `mean_epoch_s` from each `status.json`, the non-finite-step counts if the log prints any, and whether the two runs' epoch-1
-validation numbers are close. That gives the KIBA seconds/epoch for DrugBAN (fp32 and mixed precision); epochs come from the twelve
-committed DrugBAN DAVIS `best_epoch` values + 15. Only then can ACC3's hours and required quota be written.
+validation numbers are close. That gives the KIBA seconds/epoch for DrugBAN (fp32 and mixed precision); epochs come from the committed DrugBAN
+DAVIS `best_epoch` values + 15.
 
-**Open decision: mixed precision for DrugBAN on KIBA.** Every other KIBA cell but MolTrans's was trained with `--amp` and
-`recipes.uses_amp` follows that, but DrugBAN under `--amp` has never been validated (the speed test and the AMP validation did not include
-it). The smoke run above gives the evidence; the default in `waves.json`/`recipes.py` stays "amp on for KIBA" until the user decides.
+**Smoke run done (recorded in `results/drugban_smoke_run_kiba_t4.md`):** full precision 320.4 s per epoch; `--amp` gives a NaN loss on the first batch. ACC3's
+hours (2.7 to 3.3 per cell, 17.4 GPU-hours for six, one session) are therefore an ESTIMATE: seconds per epoch measured once and scaled by batches,
+epochs extrapolated from DAVIS (`src/cloud/budget.py::drugban_estimate`).
+
+**Decided 2026-10-17: DrugBAN trains in full precision on KIBA** (`recipes.uses_amp` is now exactly the two models whose committed KIBA cells were
+trained with `--amp`: DeepDTA and HyperAttentionDTI). Evidence: the smoke run's NaN first batch under `--amp`.
 
 ## Analysis work deferred from T05 (to this phase) — costs unmeasured, not in `waves.json`
 
@@ -107,7 +112,7 @@ it). The smoke run above gives the evidence; the default in `waves.json`/`recipe
 ## Order of work
 
 1. The user launches the **canary** (`docs/cloud_harness.md`); T11's notebooks stay unlaunchable until it passes.
-2. ACC3: the smoke run above; its numbers close this plan.
+2. ACC3: smoke run done (see above); its numbers are in this plan.
 3. ACC1 and ACC2: `notebooks/kaggle_wave_a_acc1.ipynb` / `_acc2.ipynb` (T11), each about two commits, restoring the previous output between them.
 4. ACC3 after its numbers are in.
 Each account owns its cells; the manifest lists each cell once and the runner reads only its own account's queue.

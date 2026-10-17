@@ -1,4 +1,4 @@
-# DrugBAN smoke run (ACC3) — checklist
+# DrugBAN smoke run (ACC3) — checklist (DONE; result in `results/drugban_smoke_run_kiba_t4.md`)
 
 **Why.** DrugBAN has never been timed on KIBA. Its notebook carries a 0.6 min/epoch placeholder that its own comment calls "known to be wrong", and
 `config/wave_budget.json` has `hours: null` for all six ACC3 cells. This run measures seconds per epoch in full precision (fp32) and in mixed precision

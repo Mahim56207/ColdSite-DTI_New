@@ -570,14 +570,26 @@ def _committed(values_auroc, values_auprc):
     return {s: {"auroc": a, "auprc": b} for s, a, b in zip((1, 2, 3), values_auroc, values_auprc)}
 
 
-def test_the_canary_passes_within_one_committed_seed_sd_on_both_metrics():
-    committed = _committed([0.85, 0.86, 0.87], [0.40, 0.45, 0.50])           # SD 0.01, 0.05
-    ok = canary.evaluate({"auroc": 0.855, "auprc": 0.42}, committed, 1)
+def test_the_canary_passes_within_the_declared_number_of_committed_seed_sds_on_both_metrics():
+    assert canary.TOLERANCE_SDS == 4                                         # rule v2, declared before the re-run
+    committed = _committed([0.85, 0.86, 0.87], [0.40, 0.45, 0.50])           # SD 0.01, 0.05 -> tolerances 0.04, 0.20
+    ok = canary.evaluate({"auroc": 0.89, "auprc": 0.59}, committed, 1)       # 0.04 and 0.19 away: inside
     assert ok["verdict"] == "pass" and ok["metrics"]["auroc"]["tolerance_sd"] == pytest.approx(0.01)
-    late = canary.evaluate({"auroc": 0.85 + 0.0101, "auprc": 0.40}, committed, 1)
+    assert ok["metrics"]["auroc"]["tolerance"] == pytest.approx(0.04) and ok["metrics"]["auprc"]["tolerance_multiplier"] == 4
+    late = canary.evaluate({"auroc": 0.85 + 0.0401, "auprc": 0.40}, committed, 1)
     assert late["verdict"] == "fail"
-    second = canary.evaluate({"auroc": 0.85, "auprc": 0.40 + 0.0501}, committed, 1)
+    second = canary.evaluate({"auroc": 0.85, "auprc": 0.40 + 0.2001}, committed, 1)
     assert second["verdict"] == "fail", "both metrics must be within tolerance"
+
+
+def test_the_widened_canary_passes_the_recorded_same_seed_reruns_and_still_fails_a_broken_harness():
+    """On the real committed reference: both recorded runs of the canary cell (one of them failed the one-SD rule) pass, a collapsed or NaN run does not."""
+    ref = canary.load_reference(os.path.join(ROOT, "config", "canary_reference.json"))["by_seed"]
+    assert canary.evaluate({"auroc": 0.886843945151218, "auprc": 0.5258927781629491}, ref, 1)["verdict"] == "pass"       # attempt 1 (failed under v1)
+    assert canary.evaluate({"auroc": 0.8494045468620974, "auprc": 0.4079115970383275}, ref, 1)["verdict"] == "pass"      # attempt 2
+    assert canary.evaluate({"auroc": 0.80, "auprc": 0.40}, ref, 1)["verdict"] == "fail"                                   # clearly worse than any recorded run
+    assert canary.evaluate({"auroc": 0.50, "auprc": 0.20}, ref, 1)["verdict"] == "fail"                                   # collapsed model
+    assert canary.evaluate({"auroc": float("nan"), "auprc": float("nan")}, ref, 1)["verdict"] == "fail"                  # NaN training
 
 
 def test_a_zero_sd_makes_the_canary_inconclusive_with_no_invented_floor():
@@ -619,12 +631,14 @@ def test_a_harness_command_carries_the_flags_the_notebook_builds(model):
     assert "res/davis_binary" in joined
 
 
-def test_amp_is_on_for_kiba_except_moltrans_and_off_for_davis():
-    for model, expected in (("deepdta", True), ("coldsite_dti", True), ("hyperattentiondti", True),
-                            ("drugban", True), ("moltrans", False)):
+def test_amp_is_on_for_kiba_only_for_deepdta_and_hyperattentiondti_as_in_the_committed_cells():
+    """The rule must reproduce how the committed KIBA cells were trained (their `amp` field) and keep DrugBAN, whose first float16 batch is NaN, in fp32."""
+    for model, expected in (("deepdta", True), ("hyperattentiondti", True), ("coldsite_dti", False), ("drugban", False), ("moltrans", False)):
         cmd = recipes.train_command(Cell("kiba", model, "random", 1), "res", "python")
         assert ("--amp" in cmd) is expected, model
-    assert "--amp" not in recipes.train_command(Cell("davis", "drugban", "random", 4), "res", "python")
+    for model in ("deepdta", "coldsite_dti", "hyperattentiondti", "drugban", "moltrans"):
+        for level in ("random", "cold_drug", "cold_target", "cold_pair"):
+            assert "--amp" not in recipes.train_command(Cell("davis", model, level, 4), "res", "python"), (model, level)
 
 
 def test_the_batch_sizes_are_the_notebooks_for_a_16_gb_card():

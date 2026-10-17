@@ -1,10 +1,17 @@
 """The canary: does the new harness reproduce a committed cell? (amendment §6, D7)
 
 One existing DAVIS cell of the cheapest attention model is retrained with the harness, on the
-same seed. It passes iff BOTH test AUROC and test AUPRC lie within one sample standard deviation
-(ddof = 1) of the committed value, that SD being taken over the three committed seeds of the
-same model, dataset and level. If that SD is 0 the result is inconclusive and goes back to the
+same seed. It passes iff BOTH test AUROC and test AUPRC lie within TOLERANCE_SDS sample standard
+deviations (ddof = 1) of the committed value, that SD being taken over the three committed seeds of
+the same model, dataset and level. If that SD is 0 the result is inconclusive and goes back to the
 user; no floor is invented.
+
+Rule history (kept here because this file is hashed into every canary verdict):
+  v1, as first written (amendment section 6): TOLERANCE_SDS = 1.
+  v2, declared 2026-10-17 BEFORE the canary was re-run (the user chose it): TOLERANCE_SDS = 4. Reason: two runs of the identical cell (same seed,
+  same initial-weight hash, same torch version) gave test AUROC 0.8868 and 0.8494 against the committed 0.8501, a difference of 3.4 committed-seed
+  SDs (docs/canary_attempts/README.md), so a one-SD gate fails a healthy harness most of the time. The value 4 was chosen with those two runs in view;
+  that is disclosed there and in the paper's limitations. It still rejects a broken harness (a wrong split, a NaN, a collapsed model).
 
     python -m src.cloud.canary --write-reference --committed ~/ColdSite-results --level cold_target
     python -m src.cloud.canary --new <harness results dir>            # exit 0 pass, 1 fail, 3 inconclusive
@@ -25,6 +32,7 @@ from src.model.checkpoint_naming import results_path, run_tag
 
 METRICS = ("auroc", "auprc")
 COMMITTED_SEEDS = (1, 2, 3)
+TOLERANCE_SDS = 4          # rule v2, declared before the re-run; v1 was 1 (see the module docstring)
 
 
 def committed_value(committed_dir: str, dataset: str, level: str, model: str, seed: int) -> dict:
@@ -48,9 +56,10 @@ def evaluate(new_metrics: dict, committed_by_seed: dict, seed: int) -> dict:
         if sd == 0:
             verdict = "inconclusive"
         else:
-            verdict = "pass" if abs(new - reference) <= sd else "fail"
+            verdict = "pass" if abs(new - reference) <= TOLERANCE_SDS * sd else "fail"
         rows[metric] = {"committed": reference, "new": new, "difference": new - reference,
-                        "tolerance_sd": sd, "verdict": verdict}
+                        "tolerance_sd": sd, "tolerance_multiplier": TOLERANCE_SDS,
+                        "tolerance": TOLERANCE_SDS * sd, "verdict": verdict}
         verdicts.append(verdict)
     overall = ("inconclusive" if "inconclusive" in verdicts
                else "pass" if all(v == "pass" for v in verdicts) else "fail")

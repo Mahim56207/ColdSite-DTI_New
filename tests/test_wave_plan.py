@@ -110,13 +110,35 @@ def test_the_required_quota_keeps_the_fifteen_percent_reserve():
             p["gpu_hours_high"], abs=0.1)
 
 
-def test_drugban_cells_carry_no_invented_hours():
+@needs_committed
+def test_drugban_hours_come_from_the_recorded_smoke_run_and_the_davis_best_epochs_and_say_they_are_an_estimate():
+    """Recomputed here from the smoke-run record and the committed DAVIS DrugBAN results, not from budget.py's own helpers."""
+    import re
+    smoke = open(os.path.join(ROOT, "results", "drugban_smoke_run_kiba_t4.md")).read()
+    fp32 = float(re.search(r"\| fp32[^|]*\|[^|]*\|[^|]*\| ([0-9.]+) \|", smoke).group(1))
+    assert fp32 == 320.4
     b = json.load(open(BUDGET))
-    for cid, e in b["cells"].items():
-        if "drugban" in cid:
-            assert e["hours_mean"] is None and "unmeasured" in e["note"]
-    assert b["per_account"]["ACC3"]["measured_cells"] == 0
-    assert "required_weekly_quota_gpu_h_for_mean" not in b["per_account"]["ACC3"]
+    committed = os.path.expanduser("~/ColdSite-results")
+    for level, rows in (("random", 82778), ("cold_drug", 83807)):
+        best = [json.load(open(f"{committed}/drugban_davis/davis_{level}_binary_seed{s}_drugban_results.json"))["best_epoch"] for s in (1, 2, 3)]
+        epoch_s = fp32 * -(-rows // 64) / -(-82778 // 64)
+        want = epoch_s * (sum(best) / 3 + 15) / 3600
+        for seed in (1, 2, 3):
+            e = b["cells"][f"kiba_{level}_drugban_seed{seed}"]
+            assert e["hours_mean"] == pytest.approx(want, abs=0.01)
+            assert e["hours_low"] <= e["hours_mean"] <= e["hours_high"]
+            assert e["note"].startswith("estimate")                          # never presented as a measured training time
+    acc3 = b["per_account"]["ACC3"]
+    assert acc3["measured_cells"] == 6 and acc3["unmeasured_cells"] == 0
+    assert acc3["required_weekly_quota_gpu_h_for_high"] * (1 - budget.RESERVE) == pytest.approx(acc3["gpu_hours_high"], abs=0.1)
+    assert acc3["required_weekly_quota_gpu_h_for_high"] <= 30                  # fits the stated weekly quota with the 15 % reserve
+
+
+def test_drugban_runs_in_full_precision_on_kiba_because_its_first_float16_batch_is_nan():
+    from src.cloud import recipes
+    from src.cloud.config import Cell
+    assert not recipes.uses_amp(Cell("kiba", "drugban", "random", 1))
+    assert "NaN" in open(os.path.join(ROOT, "results", "drugban_smoke_run_kiba_t4.md")).read()
 
 
 @needs_committed

@@ -16,9 +16,10 @@ Every hour below is derived, in this order, from files in the repository and fro
                                ColdSite-DTI's own histories show +16 in 18 of 18 cells). Mean, min and max of the three.
   rows                         `n_train_rows` recorded in the committed `_results.json` of the same level
 
-No number for DrugBAN exists in the repository (nothing recorded its training wall clock; `docs/inventory.md` row
-"101 GPU-hours ... NOT FOUND"), so its cells carry `hours: null` and the plan schedules a timed smoke run before
-anything is queued against them. Nothing here assumes a weekly quota: the plan states the quota each account needs.
+DrugBAN's seconds per epoch is the one measured number in `results/drugban_smoke_run_kiba_t4.md` (full precision, KIBA random, a Kaggle T4); it is
+scaled to cold_drug by batches per epoch. Its epoch count is a declared extrapolation: the best epoch of its three committed DAVIS seeds at the same
+level plus its patience (15), because no DrugBAN KIBA run exists. Its hours are therefore an estimate and are labelled so in `config/wave_budget.json`.
+Nothing here assumes a weekly quota: the plan states the quota each account needs.
 """
 from __future__ import annotations
 
@@ -46,6 +47,9 @@ LEVELS = ("random", "cold_drug", "cold_target", "cold_pair")
 RESERVE = 0.15                    # docs/REMEDIATION_PLAN.md T10: >= 15 % reserve
 SEEDS_DAVIS = (4, 5)
 DRUGBAN_KIBA = [(level, seed) for level in ("random", "cold_drug") for seed in (1, 2, 3)]
+DRUGBAN_SMOKE_MD = os.path.join("results", "drugban_smoke_run_kiba_t4.md")
+DRUGBAN_BATCH = 64
+DRUGBAN_PATIENCE = 15              # src/cloud/recipes.py, the DrugBAN command
 
 
 def parse_speed(path: str = SPEED_MD) -> dict:
@@ -110,7 +114,7 @@ REPORT_KIBA_GPU_HOURS = 101.0     # paper/PROJECT_REPORT.md:88, a claim the repo
 def crosscheck_kiba(committed_dir: str = COMMITTED, speed_md: str = SPEED_MD) -> dict:
     """The same method applied to the 24 KIBA cells that were actually trained, to be read against the
     report's ~101 GPU-hour aggregate: a check of the method, never an input to the plan. Settings follow the
-    KIBA protocol (mixed precision except MolTrans, `recipes.uses_amp`)."""
+    KIBA protocol (mixed precision for DeepDTA and HyperAttentionDTI only, `recipes.uses_amp`)."""
     speeds, section = {}, None
     for line in open(speed_md):
         if line.startswith("#"):
@@ -121,7 +125,7 @@ def crosscheck_kiba(committed_dir: str = COMMITTED, speed_md: str = SPEED_MD) ->
                 speeds[(c[0], c[1])] = float(c[2])
     total, per_model = 0.0, {}
     for model in KIBA_BATCH:
-        setting = "fp32" if model == "moltrans" else "amp+benchmark"
+        setting = "amp+benchmark" if model in ("deepdta", "hyperattentiondti") else "fp32"      # as the committed KIBA cells were trained (their `amp` field)
         hours = 0.0
         for level in KIBA_LEVELS:
             for seed in (1, 2, 3):
@@ -140,6 +144,35 @@ def crosscheck_kiba(committed_dir: str = COMMITTED, speed_md: str = SPEED_MD) ->
                      "factor; the 101 figure is the report's, unverified in the repository")}
 
 
+def parse_drugban_smoke(path: str = DRUGBAN_SMOKE_MD) -> float:
+    """Seconds per epoch, full precision, from the fp32 row of the smoke-run record."""
+    for line in open(path):
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) >= 4 and cells[0].startswith("fp32"):
+            return float(cells[3])
+    raise ValueError(f"{path} has no fp32 row with mean_epoch_s")
+
+
+def drugban_estimate(level: str, committed_dir: str = COMMITTED, smoke_md: str = DRUGBAN_SMOKE_MD) -> dict:
+    """Hours for one DrugBAN KIBA cell: measured s/epoch (KIBA random) x batches ratio x (DAVIS best epoch + patience) over the three committed DAVIS seeds."""
+    rows = {lv: json.load(open(os.path.join(committed_dir, "kiba_binary", f"kiba_{lv}_binary_seed1_deepdta_results.json")))["n_train_rows"]
+            for lv in ("random", "cold_drug")}
+    epoch_random = parse_drugban_smoke(smoke_md)
+    epoch_s = epoch_random * math.ceil(rows[level] / DRUGBAN_BATCH) / math.ceil(rows["random"] / DRUGBAN_BATCH)
+    best = []
+    for seed in (1, 2, 3):
+        name = f"davis_{level}_binary_seed{seed}_drugban_results.json"
+        with open(os.path.join(committed_dir, "drugban_davis", name)) as handle:
+            best.append(json.load(handle)["best_epoch"])
+    epochs = [b + DRUGBAN_PATIENCE for b in best]
+    return {"rows": rows[level], "epoch_seconds": round(epoch_s, 1), "epochs_mean": round(sum(epochs) / 3, 1),
+            "epochs_min": min(epochs), "epochs_max": max(epochs),
+            "hours_mean": round(epoch_s * sum(epochs) / 3 / 3600, 2), "hours_low": round(epoch_s * min(epochs) / 3600, 2),
+            "hours_high": round(epoch_s * max(epochs) / 3600, 2),
+            "note": ("estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; "
+                     "epochs = DAVIS best epoch + patience, an extrapolation to KIBA")}
+
+
 def build(committed_dir: str = COMMITTED, speed_md: str = SPEED_MD) -> tuple:
     """(waves manifest, budget). Deterministic: the same files give the same output."""
     speeds = parse_speed(speed_md)
@@ -153,8 +186,7 @@ def build(committed_dir: str = COMMITTED, speed_md: str = SPEED_MD) -> tuple:
     for level, seed in DRUGBAN_KIBA:
         cell = Cell("kiba", "drugban", level, seed)
         cells.setdefault("ACC3", []).append(cell)
-        estimates[cell.id] = {"hours_mean": None, "hours_low": None, "hours_high": None,
-                              "note": "unmeasured: no DrugBAN training time exists in the repository"}
+        estimates[cell.id] = drugban_estimate(level, committed_dir)
 
     accounts, per_account = {}, {}
     for account, planned in sorted(cells.items()):

@@ -301,8 +301,8 @@ The published models are trained from their vendored repositories with their aut
 learning rate, batch size and tokeniser; only data loading is replaced (Supplementary Table S2). All
 models share one checkpoint rule: up to 100 epochs, the checkpoint with the lowest validation loss
 among epochs ≥ 10, and early stopping after 15 epochs without improvement (10 for DeepDTA, as in its
-original DAVIS cells). <!-- src: src/cloud/recipes.py:65 = 15, 10, 100 -->
-<!-- src: src/cloud/recipes.py:53 = 10, 100, 10 -->
+original DAVIS cells). <!-- src: src/cloud/recipes.py:68 = 15, 10, 100 -->
+<!-- src: src/cloud/recipes.py:56 = 10, 100, 10 -->
 DAVIS cells are trained in full precision. On KIBA, DeepDTA and HyperAttentionDTI use mixed precision;
 MolTrans stays in full precision because its hand-written layer normalisation underflows in half
 precision, and XAttn-Ref stays in full precision to remain comparable with its DAVIS cells
@@ -791,7 +791,7 @@ random and cold-drug levels with seeds 1–3 (6 cells).
 <!-- src: docs/wave_plan.md:13 = 1, 3, 6 -->
 The seed wave is estimated from measured epoch times at 23.2 GPU-hours per account; DrugBAN's hours
 have not been measured, so a timed smoke run precedes its cells.
-<!-- src: docs/wave_plan.md:47 = 23.2 -->
+<!-- src: docs/wave_plan.md:48 = 23.2 -->
 The notebooks are generated and pass their pre-flight checks in dry-run mode; by design they refuse to
 train until a canary, a retraining of one already committed cell with the new cloud harness, reproduces
 its recorded metrics within the amendment's declared tolerance. The wave has not yet been launched,
@@ -929,7 +929,7 @@ built by `src/cloud/recipes.py`, which reproduces the flags of the notebooks tha
 
 | model | optimiser | learning rate | batch | notes |
 |---|---|---|---|---|
-| DeepDTA | Adam | 0.001 | 256 | PyTorch port; patience 10 <!-- src: src/model/train_deepdta.py:144 = 0.001 --> <!-- src: src/cloud/recipes.py:22 = 256 --> <!-- src: src/cloud/recipes.py:53 = 10 -->
+| DeepDTA | Adam | 0.001 | 256 | PyTorch port; patience 10 <!-- src: src/model/train_deepdta.py:144 = 0.001 --> <!-- src: src/cloud/recipes.py:22 = 256 --> <!-- src: src/cloud/recipes.py:56 = 10 -->
 | HyperAttentionDTI | AdamW, cyclic learning rate | 0.00005 | 32 | weight decay 0.0001 on weights, none on biases <!-- src: src/model/train_hyperattentiondti.py:15 = 0.00005, 0.0001 --> <!-- src: src/cloud/recipes.py:21 = 32 -->
 | MolTrans | Adam | 0.0001 | 16 | configuration `BIN_config_DBPE` <!-- src: src/model/train_moltrans.py:236 = 0.0001 --> <!-- src: src/cloud/recipes.py:23 = 16 -->
 | DrugBAN | Adam | 0.00005 | 64 | domain adaptation off; DAVIS only <!-- src: src/cloud/recipes.py:24 = 64, 0.00005 -->

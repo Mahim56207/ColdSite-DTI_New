@@ -271,8 +271,7 @@ that adds the eight cells before their results are seen.
   methods as implemented and tested, not as results.
 * **A1 (conservation source): none will be provided.** E4 cannot run; the pocket enrichment is reported as "conservation not
   controlled" (problem P15 unresolved, a stated limitation).
-* **DrugBAN on KIBA keeps mixed precision** (`recipes.uses_amp`: KIBA and not MolTrans), unvalidated for DrugBAN; the ACC3
-  smoke run is the evidence if Wave A is ever launched.
+* ~~**DrugBAN on KIBA keeps mixed precision**~~ **superseded by Addendum A7 (below):** DrugBAN is full precision on KIBA.
 * **Kaggle runs deferred** for the instructor draft; E1 and E2 therefore have no results, and the manuscript must say so.
 
 ## 11. Decisions the user is asked to take by signing
@@ -299,3 +298,21 @@ Any change requested is made and the document is re-issued for a fresh "approved
 | Date | 2026-09-24 |
 | Scope of approval | the document as written, **including the defaults in §11 (D1–D8)** — the user's reply named no change to any of them |
 | Reply recorded in | `docs/REMEDIATION_LEDGER.md` § T03 and § T04 |
+
+## Addendum A7 (2026-10-17): decisions taken before the canary re-run
+
+Recorded by the user's instruction, BEFORE the canary and the epoch-1 gate are re-run, so that none of it can be tuned to their outcome.
+
+1. **Precision.** `recipes.uses_amp` is now: KIBA and the model is DeepDTA or HyperAttentionDTI (exactly the models whose committed KIBA cells were trained with
+   `--amp`, read from the `amp` field of every `kiba_*_results.json`); every DAVIS cell and every other model is full precision. Reason for DrugBAN: under
+   float16 autocast its first training batch gives a NaN loss (`results/drugban_smoke_run_kiba_t4.md`). This also corrects a latent mismatch: XAttn-Ref's KIBA cells
+   were trained in full precision, which the earlier rule would not have reproduced.
+2. **Canary tolerance.** Both test AUROC and test AUPRC must lie within **4** committed-seed SDs of the committed value (rule v1: 1). Reason: two runs of the same
+   cell with the same seed and initial weights differed by 3.4 SDs (`docs/canary_attempts/README.md`). The value was chosen with those two runs in view, which is
+   disclosed here and in the manuscript's limitations. A broken harness (NaN, collapsed model, wrong split) still fails (`tests/test_cloud_harness.py`).
+3. **Epoch-1 gate.** The official verdict is the amended rule of `src/cloud/gate_rule_v2.py`; the original rule's verdict from the same runs is written beside it.
+   Gate A (replay within one committed-seed SD) is unchanged and is known to be noisy (`docs/canary_attempts/README.md`).
+4. **DrugBAN hours** are an estimate from one measured seconds-per-epoch value and DAVIS epoch counts (`src/cloud/budget.py`); the plan files were regenerated.
+5. **Harness files changed** (`recipes.py`, `runner.py` [read-only monitor and progress.json], `canary.py`), so the earlier canary and epoch-gate verdicts no longer apply
+   (their archived copies are in `docs/canary_attempts/`); both must be re-run.
+

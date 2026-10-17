@@ -32,15 +32,15 @@
  },
  "gpu_hours_per_commit_per_account": 20.5,
  "crosscheck_kiba": {
-  "method_gpu_hours": 107.5,
+  "method_gpu_hours": 111.0,
   "per_model": {
    "deepdta": 0.4,
-   "coldsite_dti": 23.1,
+   "coldsite_dti": 26.6,
    "hyperattentiondti": 32.0,
    "moltrans": 52.1
   },
   "report_gpu_hours": 101.0,
-  "difference_percent": 6.5,
+  "difference_percent": 9.9,
   "note": "training batches x fp32/amp s-per-batch x (best_epoch + patience), no validation-overhead factor; the 101 figure is the report's, unverified in the repository"
  },
  "per_account": {
@@ -78,13 +78,19 @@
   },
   "ACC3": {
    "cells": 6,
-   "measured_cells": 0,
-   "unmeasured_cells": 6,
-   "gpu_hours_mean": 0,
-   "gpu_hours_low": 0,
-   "gpu_hours_high": 0,
+   "measured_cells": 6,
+   "unmeasured_cells": 0,
+   "gpu_hours_mean": 17.4,
+   "gpu_hours_low": 16.1,
+   "gpu_hours_high": 18.3,
    "gpu0_cells": 3,
-   "gpu1_cells": 3
+   "gpu1_cells": 3,
+   "gpu_hours_mean_by_gpu": {
+    "gpu0": 8.8,
+    "gpu1": 8.5
+   },
+   "required_weekly_quota_gpu_h_for_mean": 20.5,
+   "required_weekly_quota_gpu_h_for_high": 21.5
   }
  },
  "cells": {
@@ -329,40 +335,70 @@
    "hours_high": 1.69
   },
   "kiba_random_drugban_seed1": {
-   "hours_mean": null,
-   "hours_low": null,
-   "hours_high": null,
-   "note": "unmeasured: no DrugBAN training time exists in the repository"
+   "rows": 82778,
+   "epoch_seconds": 320.4,
+   "epochs_mean": 30.7,
+   "epochs_min": 30,
+   "epochs_max": 31,
+   "hours_mean": 2.73,
+   "hours_low": 2.67,
+   "hours_high": 2.76,
+   "note": "estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; epochs = DAVIS best epoch + patience, an extrapolation to KIBA"
   },
   "kiba_random_drugban_seed2": {
-   "hours_mean": null,
-   "hours_low": null,
-   "hours_high": null,
-   "note": "unmeasured: no DrugBAN training time exists in the repository"
+   "rows": 82778,
+   "epoch_seconds": 320.4,
+   "epochs_mean": 30.7,
+   "epochs_min": 30,
+   "epochs_max": 31,
+   "hours_mean": 2.73,
+   "hours_low": 2.67,
+   "hours_high": 2.76,
+   "note": "estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; epochs = DAVIS best epoch + patience, an extrapolation to KIBA"
   },
   "kiba_random_drugban_seed3": {
-   "hours_mean": null,
-   "hours_low": null,
-   "hours_high": null,
-   "note": "unmeasured: no DrugBAN training time exists in the repository"
+   "rows": 82778,
+   "epoch_seconds": 320.4,
+   "epochs_mean": 30.7,
+   "epochs_min": 30,
+   "epochs_max": 31,
+   "hours_mean": 2.73,
+   "hours_low": 2.67,
+   "hours_high": 2.76,
+   "note": "estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; epochs = DAVIS best epoch + patience, an extrapolation to KIBA"
   },
   "kiba_cold_drug_drugban_seed1": {
-   "hours_mean": null,
-   "hours_low": null,
-   "hours_high": null,
-   "note": "unmeasured: no DrugBAN training time exists in the repository"
+   "rows": 83807,
+   "epoch_seconds": 324.4,
+   "epochs_mean": 34.0,
+   "epochs_min": 30,
+   "epochs_max": 37,
+   "hours_mean": 3.06,
+   "hours_low": 2.7,
+   "hours_high": 3.33,
+   "note": "estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; epochs = DAVIS best epoch + patience, an extrapolation to KIBA"
   },
   "kiba_cold_drug_drugban_seed2": {
-   "hours_mean": null,
-   "hours_low": null,
-   "hours_high": null,
-   "note": "unmeasured: no DrugBAN training time exists in the repository"
+   "rows": 83807,
+   "epoch_seconds": 324.4,
+   "epochs_mean": 34.0,
+   "epochs_min": 30,
+   "epochs_max": 37,
+   "hours_mean": 3.06,
+   "hours_low": 2.7,
+   "hours_high": 3.33,
+   "note": "estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; epochs = DAVIS best epoch + patience, an extrapolation to KIBA"
   },
   "kiba_cold_drug_drugban_seed3": {
-   "hours_mean": null,
-   "hours_low": null,
-   "hours_high": null,
-   "note": "unmeasured: no DrugBAN training time exists in the repository"
+   "rows": 83807,
+   "epoch_seconds": 324.4,
+   "epochs_mean": 34.0,
+   "epochs_min": 30,
+   "epochs_max": 37,
+   "hours_mean": 3.06,
+   "hours_low": 2.7,
+   "hours_high": 3.33,
+   "note": "estimate: seconds per epoch measured once (full precision, KIBA random, results/drugban_smoke_run_kiba_t4.md) and scaled by batches; epochs = DAVIS best epoch + patience, an extrapolation to KIBA"
   }
  }
 }

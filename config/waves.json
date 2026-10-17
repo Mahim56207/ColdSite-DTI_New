@@ -164,40 +164,40 @@
     {
      "dataset": "kiba",
      "model": "drugban",
-     "level": "random",
+     "level": "cold_drug",
      "seed": 3
+    },
+    {
+     "dataset": "kiba",
+     "model": "drugban",
+     "level": "cold_drug",
+     "seed": 1
     },
     {
      "dataset": "kiba",
      "model": "drugban",
      "level": "random",
      "seed": 1
-    },
-    {
-     "dataset": "kiba",
-     "model": "drugban",
-     "level": "cold_drug",
-     "seed": 2
     }
    ],
    "gpu1": [
     {
      "dataset": "kiba",
      "model": "drugban",
-     "level": "random",
+     "level": "cold_drug",
      "seed": 2
     },
     {
      "dataset": "kiba",
      "model": "drugban",
-     "level": "cold_drug",
+     "level": "random",
      "seed": 3
     },
     {
      "dataset": "kiba",
      "model": "drugban",
-     "level": "cold_drug",
-     "seed": 1
+     "level": "random",
+     "seed": 2
     }
    ]
   }

@@ -89,7 +89,7 @@ random and cold-drug levels with seeds 1–3 (6 cells).
 <!-- src: docs/wave_plan.md:13 = 1, 3, 6 -->
 The seed wave is estimated from measured epoch times at 23.2 GPU-hours per account; DrugBAN's hours
 have not been measured, so a timed smoke run precedes its cells.
-<!-- src: docs/wave_plan.md:47 = 23.2 -->
+<!-- src: docs/wave_plan.md:48 = 23.2 -->
 The notebooks are generated and pass their pre-flight checks in dry-run mode; by design they refuse to
 train until a canary, a retraining of one already committed cell with the new cloud harness, reproduces
 its recorded metrics within the amendment's declared tolerance. The wave has not yet been launched,

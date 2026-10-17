@@ -43,6 +43,9 @@ from src.cloud.restore import restore
 from src.model import resume
 
 
+MONITOR_S = 300.0     # seconds between the status block the notebook shows (and progress.json is rewritten)
+
+
 def child_env(gpu_index: int, cell: Cell, account: str, gpu_name: str, deadline: float,
               status_path: str) -> dict:
     return {**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu_index), "PYTHONUNBUFFERED": "1",
@@ -96,7 +99,7 @@ class Runner:
                  session_start: float, gpu_names: list, python: str | None = None,
                  predictor=predictions_step, popen=subprocess.Popen, clock=time.time,
                  log=print, command_builder=train_command, quota="auto",
-                 heartbeat_s: float = quota_mod.HEARTBEAT_S):
+                 heartbeat_s: float = quota_mod.HEARTBEAT_S, monitor_s: float = MONITOR_S):
         self.account, self.queues, self.root, self.cfg = account, cells_by_gpu, results_root, cfg
         self.start, self.gpu_names, self.python = session_start, gpu_names, python
         self.predictor, self.popen, self.clock, self.log = predictor, popen, clock, log
@@ -108,6 +111,9 @@ class Runner:
         self.quota = (quota_mod.Quota.from_harness(cfg, results_root, account, clock)
                       if quota == "auto" else quota)
         self.heartbeat_s = heartbeat_s
+        self.monitor_s = monitor_s
+        self.current: dict = {}              # gpu index -> the Cell it is training now (read by the monitor only)
+        self._finished = threading.Event()
         self.children: dict = {}
         self.stop_requested = False
         self.summary: list = []
@@ -148,6 +154,7 @@ class Runner:
             deadline = min(self.deadline, self.quota.stop_at(self.clock()))
             env = child_env(gpu, cell, self.account, gpu_name, deadline, p["status"])
         os.makedirs(p["dir"], exist_ok=True)
+        self.current[gpu] = cell
         command = self.command_builder(cell, self.root, self.python)
         self._record(cell, "resuming" if st == "partial" else "starting", " ".join(command[3:7]))
         interval = self.quota.ledger.open(cell.id, gpu) if self.quota is not None else None
@@ -176,6 +183,7 @@ class Runner:
                     time.sleep(0.2)
             code = proc.wait()
         finally:
+            self.current.pop(gpu, None)
             if interval is not None:
                 self.quota.ledger.close(interval)
         st_after, _ = markers.state(self.root, cell)
@@ -191,6 +199,82 @@ class Runner:
             return self._record(cell, "partial", "stopped between epochs; resumes next session")
         self._record(cell, "unexpected state", f"{st_after}")
 
+    # ---- live monitor: read-only, never changes what is trained or when it stops -------------------------------------------------------
+    def _cell_status(self, cell) -> dict:
+        try:
+            with open(markers.paths(self.root, cell)["status"]) as handle:
+                return json.load(handle)
+        except (OSError, ValueError):
+            return {}
+
+    def _looks_complete(self, cell) -> bool:
+        """Cheap, for the monitor only: marker present and no resume file. (markers.state re-hashes the checkpoints, 250 MB for MolTrans;
+        the real verification still happens in run_cell before anything is skipped.)"""
+        p = markers.paths(self.root, cell)
+        return os.path.exists(p["marker"]) and not os.path.exists(p["resume"])
+
+    def progress(self, now: float | None = None) -> dict:
+        """Where the session is: time used, time left before the self-stop, cells done, what each GPU is training."""
+        now = self.clock() if now is None else now
+        cells = [c for g in sorted(self.queues) for c in self.queues[g]]
+        done = sum(self._looks_complete(c) for c in cells)
+        gpus = {}
+        for gpu in sorted(self.queues):
+            cell = self.current.get(gpu)
+            row = {"cell": None, "cells_left_in_queue": sum(not self._looks_complete(c) for c in self.queues[gpu])}
+            if cell is not None:
+                st = self._cell_status(cell)
+                row.update(cell=cell.id, epoch=st.get("epoch"), mean_epoch_s=st.get("mean_epoch_s"),
+                           upper_bound_finish_unix=st.get("projected_finish_unix_upper_bound"))
+            gpus[f"gpu{gpu}"] = row
+        out = {"account": self.account, "unix_time": round(now, 1), "elapsed_s": round(now - self.start, 1),
+               "to_self_stop_s": round(self.deadline - now, 1), "session_limit_hours": self.cfg["session_limit_hours"],
+               "cells_complete": done, "cells_total": len(cells), "gpus": gpus}
+        if self.quota is not None:
+            out["quota"] = {"used": round(self.quota.used(now), 2), "usable": round(self.quota.cfg.usable_hours, 2),
+                            "unit": self.quota.cfg.unit}
+        return out
+
+    def status_block(self, now: float | None = None) -> str:
+        pr = self.progress(now)
+        hm = lambda sec: f"{int(max(sec, 0) // 3600)}h{int(max(sec, 0) % 3600 // 60):02d}m"
+        head = (f"[monitor] elapsed {hm(pr['elapsed_s'])} | self-stop in {hm(pr['to_self_stop_s'])} "
+                f"(session limit {pr['session_limit_hours']} h) | cells complete {pr['cells_complete']}/{pr['cells_total']}")
+        if "quota" in pr:
+            head += f" | quota used {pr['quota']['used']:.1f} of {pr['quota']['usable']:.1f} {pr['quota']['unit'].replace('_', '-')}"
+        lines = [head]
+        for name, row in pr["gpus"].items():
+            if row["cell"] is None:
+                lines.append(f"  {name}: idle ({row['cells_left_in_queue']} cell(s) left in its queue)")
+                continue
+            if row.get("epoch") is None:
+                lines.append(f"  {name}: {row['cell']} starting, no epoch finished yet")
+                continue
+            eta = ""
+            if row.get("upper_bound_finish_unix"):
+                eta = f" | this cell finishes within {hm(row['upper_bound_finish_unix'] - pr['unix_time'])} (upper bound; early stopping can end it sooner)"
+            lines.append(f"  {name}: {row['cell']} epoch {row['epoch']}, {row['mean_epoch_s']} s/epoch{eta} | {row['cells_left_in_queue']} cell(s) left in its queue")
+        return "\n".join(lines)
+
+    def save_progress(self) -> None:
+        """progress.json beside the results (atomic); it travels in the results zip."""
+        path = os.path.join(self.root, "progress.json")
+        os.makedirs(self.root, exist_ok=True)
+        tmp = f"{path}.tmp"
+        with open(tmp, "w") as handle:
+            json.dump(self.progress(), handle, indent=1)
+        os.replace(tmp, path)
+
+    def monitor(self) -> None:
+        while True:
+            try:
+                self.log(self.status_block())
+                self.save_progress()
+            except Exception as err:             # the monitor must never take a training session down
+                self.log(f"[monitor] could not read progress: {err!r}")
+            if self._finished.wait(self.monitor_s):
+                break
+
     def work(self, gpu: int) -> None:
         for cell in self.queues.get(gpu, []):
             if self.stop_requested:
@@ -200,10 +284,20 @@ class Runner:
     def run(self) -> list:
         threads = [threading.Thread(target=self.work, args=(g,), daemon=True)
                    for g in sorted(self.queues) if self.queues[g]]
+        watcher = threading.Thread(target=self.monitor, daemon=True) if self.monitor_s and self.monitor_s > 0 else None
+        if watcher is not None:
+            watcher.start()
         for thread in threads:
             thread.start()
         for thread in threads:
             thread.join()
+        self._finished.set()
+        if watcher is not None:
+            watcher.join(timeout=5)
+        try:
+            self.save_progress()
+        except OSError:
+            pass
         return self.summary
 
 

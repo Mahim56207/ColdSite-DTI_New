@@ -70,9 +70,9 @@ Every model was retrained with its authors' recipe and scored on the same test s
 
 Scored against UniProt's annotated residues, the three seeds of a cell disagree about their own verdict (they fall on different sides of the uncorrected $\alpha$ = 0.05 threshold of a per-seed permutation test, as a single-run report would quote it) in 11 of 22 model--dataset--level cells (8 of 16 on DAVIS, 3 of 6 on KIBA). Only 1 cell has all three seeds above the threshold; 10 have none (Figure 1). The per-seed p-values are exact, so no sampling error enters. A count on a threshold is threshold-dependent (8 at $\alpha$ = 0.01, 13 at $\alpha$ = 0.10), and we report 11 as the exact-test value at the conventional $\alpha$, not as a constant of the recipes. The disagreement is not marginal: HyperAttentionDTI at DAVIS cold-drug places 0.025, 0.077 and 0.019 of its top-ten residues on annotated sites against a chance of 0.020. In 21 of 22 UniProt cells the range of the three seeds' precision@10 exceeds the cell's distance from chance. Taken alone this descriptive criterion is weak, because a cell whose mean sits near chance meets it almost by construction, so we test seed variance directly: Friedman tests over proteins and within-protein seed-label permutation tests find significant differences between the three seeds in 13 and 10 of the 22 cells before correction, and in 8 and 7 of 22 after Holm correction over the 22 cells. The variation is not scoring noise: collecting the explanations again from the same checkpoints moves precision@10 by a standard deviation of 0.0008 per seed, against a between-seed standard deviation of 0.0121. A bootstrap over proteins, the usual way to attach an interval to such a score, does not see this variance: for HyperAttentionDTI at DAVIS cold-drug it gives an enrichment over chance of 1.98 {[}1.81, 2.15{]}, an interval far from parity, for a cell whose seeds disagree and whose family-wise test fails. The two-way bootstrap that resamples seeds as well, used for every interval below, gives the same cell {[}0.94, 3.65{]}.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/fig1_seed_instability.pdf}
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]{figures/fig1_seed_instability.pdf}
 \caption{\textbf{The same recipe, three seeds, different verdicts.} Precision@10 of each training seed (points) on DAVIS at four levels of shift, against UniProt residues (top) and the KLIFS 85-residue pocket (bottom). Black bar: mean of the three seeds; dashed tick: that level's exact chance level. Seeds of one recipe that fall on both sides of chance are the instability reported here. The y-axes differ between panels.}
 \label{fig:figure1}
 \end{figure}
@@ -87,16 +87,16 @@ Against the 85-residue KLIFS pocket, where chance is 0.137--0.143 on DAVIS, XAtt
 
 Faithfulness is the most stable property measured for three of the four models. In all 16 cells of HyperAttentionDTI, MolTrans and XAttn-Ref, masking the attended residues changes the prediction more than masking the same number of random ones, with every 95\% interval above zero even when seeds are resampled (Figure 3); the effect ranges from 0.054 {[}0.030, 0.080{]} (HyperAttentionDTI, DAVIS cold-pair) to 1.21 {[}0.68, 1.92{]} (XAttn-Ref, DAVIS random), and MolTrans, measured in its own token space, is not on the same scale. The sign holds in every seed, but its size does not: within a cell the per-seed deltas differ several-fold. DrugBAN's attention is not consistently load-bearing: its deltas sit near zero and change sign between seeds (at cold-drug $-$0.0073, $-$0.0036 and 0.0128 for seeds one to three), six of its twelve seed-level deltas are negative, and no level is load-bearing in all three seeds. They are point estimates only, because its run did not record per-pair values and no interval can be attached. Finally, accuracy does not predict localisation: across the 48 DAVIS attention-model cells, Spearman's $\rho$ between AUROC and enrichment over chance is 0.003 {[}$-$0.309, 0.294{]}.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/fig2_enrichment_forest.pdf}
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]{figures/fig2_enrichment_forest.pdf}
 \caption{\textbf{Enrichment over chance with 95\% bootstrap intervals.} Precision@10 divided by chance for every model and level, DAVIS (top) and KIBA (bottom), against UniProt residues (left) and the KLIFS pocket (right). Intervals are 95\% percentile intervals from a two-way bootstrap that resamples both proteins and seeds (10,000 resamples); log scale; the dashed line is chance (an enrichment of one). Pocket-level enrichment is not controlled for residue conservation.}
 \label{fig:figure2}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/fig5_faithfulness.pdf}
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]{figures/fig5_faithfulness.pdf}
 \caption{\textbf{Masking the attended residues matters more than masking random ones.} Faithfulness delta (attended masking minus a size-matched random-masking control), mean over proteins, with 95\% two-way bootstrap intervals (proteins and seeds resampled, 10,000 resamples). MolTrans is measured in its own token space and the others in residue space, so the three panels do not share a scale. DrugBAN is not drawn: its per-seed deltas are reported in the text but carry no interval, because its per-pair values were not recorded. No KIBA cell exists for XAttn-Ref.}
 \label{fig:figure3}
 \end{figure}
@@ -109,9 +109,9 @@ A multi-channel attention tensor must be reduced to one weight per residue, and 
 
 DAVIS gives 54 of its mutant targets exactly the wild-type sequence, so 12 of the 88 cold-target test targets are seen by sequence in training: 816 of 5984 test rows (13.6\%). The retrain was made on DeepDTA, the accuracy anchor, at the cold-target split, with three seeds, and separates the leak from the loss of training rows (Figure 4). On the leaked rows the sequence match inflates AUROC by 0.116 (95\% t-interval {[}0.098, 0.134{]}, p = 0.0013). On the strictly unleaked rows no inflation is detectable ($-$0.019, p = 0.31). Over all rows the net effect is 0.019 with an interval, {[}$-$0.022, 0.059{]}, that includes zero (p = 0.19), because the leaked rows are 13.6\% of the test set; we therefore do not quote the all-rows figure as a finding. Explanation metrics exclude seen-by-sequence targets throughout.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/fig6_leakage.pdf}
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]{figures/fig6_leakage.pdf}
 \caption{\textbf{What DAVIS's sequence leakage is worth to the accuracy anchor.} DeepDTA test AUROC (mean $\pm$ SD over three seeds) at cold-target and cold-pair, retrained on three training sets: the original split, ``seqclean'' (every seen-by-sequence target removed) and ``seqmatched'' (the leaked targets kept, at the size of ``seqclean''). ``seqmatched'' minus ``seqclean'' isolates the leak; ``original'' minus ``seqmatched'' is the cost of fewer rows. Scored on all test rows and separately on leaked and unleaked targets.}
 \label{fig:figure4}
 \end{figure}

@@ -54,6 +54,7 @@
 \usepackage[authoryear]{natbib}
 \bibliographystyle{plainnat}
 \usepackage{graphicx}
+\usepackage[section]{placeins}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -287,16 +288,16 @@ For (c), 47.9\% of tokens change under the attended arm and 95.0\% under an unma
 
 \subsection{S8 Supplementary figures}\label{s8-supplementary-figures}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/fig3_accuracy.pdf}
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]{figures/fig3_accuracy.pdf}
 \caption{\textbf{Predictive accuracy per training seed.} Test AUROC of every cell (points, one per seed; bar = mean) on the uncorrected test sets. DeepDTA has no attention and anchors accuracy. KIBA has two levels (random, cold-drug) and no DrugBAN cells.}
 \label{fig:supplementaryfigures1}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/fig4_accuracy_vs_localization.pdf}
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]{figures/fig4_accuracy_vs_localization.pdf}
 \caption{\textbf{Accuracy does not predict localisation.} One point per attention-model cell and seed: test AUROC against enrichment over chance (UniProt, precision@10 divided by chance). For DAVIS cold-target and cold-pair, AUROC is scored on sequence-unseen targets, the same policy the explanation metrics use. Panel titles give Spearman's $\rho$ with a 95\% bootstrap interval over cells.}
 \label{fig:supplementaryfigures2}
 \end{figure}

@@ -3,6 +3,9 @@
 **Status 2026-10-17:** the canary and the official epoch-1 gate PASSED on harness `52bd3335…` (`docs/canary_attempts/README.md`, attempt 3) and both verdicts are in `config/`. The three Wave A notebooks were
 regenerated and are pinned to commit `5d55c63` (which contains the verdicts); the pre-flight reports `PASS canary` and `PASS epoch_gate` for all three. Decided: ACC1 and ACC2 use Kaggle's current image (torch 2.11.0;
 `docs/PROTOCOL_AMENDMENT_v2.md`, Addendum A7 item 6). The account `mahim5` has already used about 1.2 GPU-hours of its weekly quota on the canary and the gate.
+**Update 2026-10-18: ACC1 (seed 4) and ACC2 (seed 5) are COMPLETE, 12/12 each, in two sessions each; all 24 cells verified (`results/wave_a_davis_seeds45.md`; files in `~/ColdSite-results/wave_a_davis_seeds45/merged`, outside the repository).**
+A dry run with `RESTORE_FROM` set does not restore anything (it exits before the restore), so its `cells` line still reads `run: 12`; the skip/resume counts appear only in the real run. Known cosmetic: an XAttn-Ref cell paused at the
+self-stop is reported FAILED (the launcher treats it as a failed validation, exit 1) although its resume file is saved and it resumes normally.
 **ACC3: always run it once with `DRY_RUN = True` first.** On Kaggle, with DGL installed by its cell 3b, that dry run performs for the first time the `rng_import` check of the vendored DrugBAN (it cannot run on a machine without
 DGL); a failure there costs minutes, not GPU hours. Everything below describes how the steps were and are done.
 
